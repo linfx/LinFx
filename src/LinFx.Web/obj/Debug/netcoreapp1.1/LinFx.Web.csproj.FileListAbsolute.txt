@@ -1,0 +1,7 @@
+D:\github\LinFx\src\LinFx.Web\bin\Debug\netcoreapp1.1\LinFx.Web.deps.json
+D:\github\LinFx\src\LinFx.Web\obj\Debug\netcoreapp1.1\LinFx.Web.AssemblyInfo.cs
+D:\github\LinFx\src\LinFx.Web\bin\Debug\netcoreapp1.1\LinFx.Web.dll
+D:\github\LinFx\src\LinFx.Web\bin\Debug\netcoreapp1.1\LinFx.Web.pdb
+D:\github\LinFx\src\LinFx.Web\obj\Debug\netcoreapp1.1\LinFx.Web.dll
+D:\github\LinFx\src\LinFx.Web\obj\Debug\netcoreapp1.1\LinFx.Web.pdb
+D:\github\LinFx\src\LinFx.Web\obj\Debug\netcoreapp1.1\LinFx.Web.csprojResolveAssemblyReference.cache

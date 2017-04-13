@@ -1,0 +1,9 @@
+D:\github\LinFx\src\LinFx.Data\bin\Debug\netstandard1.6\LinFx.Data.deps.json
+D:\github\LinFx\src\LinFx.Data\bin\Debug\netstandard1.6\LinFx.Data.dll
+D:\github\LinFx\src\LinFx.Data\bin\Debug\netstandard1.6\LinFx.Data.pdb
+D:\github\LinFx\src\LinFx.Data\bin\Debug\netstandard1.6\LinFx.dll
+D:\github\LinFx\src\LinFx.Data\bin\Debug\netstandard1.6\LinFx.pdb
+D:\github\LinFx\src\LinFx.Data\obj\Debug\netstandard1.6\LinFx.Data.csprojResolveAssemblyReference.cache
+D:\github\LinFx\src\LinFx.Data\obj\Debug\netstandard1.6\LinFx.Data.AssemblyInfo.cs
+D:\github\LinFx\src\LinFx.Data\obj\Debug\netstandard1.6\LinFx.Data.dll
+D:\github\LinFx\src\LinFx.Data\obj\Debug\netstandard1.6\LinFx.Data.pdb
