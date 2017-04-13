@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\ICache.cs" />
@@ -67,9 +68,11 @@
     <Compile Include="Domain\Uow\IUnitOfWorkDefaultOptions.cs" />
     <Compile Include="Domain\Uow\IUnitOfWorkManager.cs" />
     <Compile Include="Domain\Uow\UnitOfWorkManager.cs" />
+    <Compile Include="KeyValue.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
