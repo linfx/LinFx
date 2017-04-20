@@ -6,4 +6,14 @@ namespace LinFx.Logging
     {
         void Log(LogLevel logLevel, Func<string> messageFunc, Exception exception = null);
     }
+
+    public enum LogLevel
+    {
+        Trace,
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Fatal
+    }
 }

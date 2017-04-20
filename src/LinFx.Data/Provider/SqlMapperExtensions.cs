@@ -16,7 +16,7 @@ using DataException = System.InvalidOperationException;
 using System.Threading;
 #endif
 
-namespace LinFx.Data
+namespace LinFx.Data.Provider
 {
     public static partial class SqlMapperExtensions
     {
@@ -69,23 +69,28 @@ namespace LinFx.Data
 
         private static List<PropertyInfo> ExplicitKeyPropertiesCache(Type type)
         {
-            IEnumerable<PropertyInfo> pi;
-            if (ExplicitKeyProperties.TryGetValue(type.TypeHandle, out pi))
+            if (ExplicitKeyProperties.TryGetValue(type.TypeHandle, out IEnumerable<PropertyInfo> pi))
             {
                 return pi.ToList();
             }
+            //var explicitKeyProperties = TypePropertiesCache(type).Where(p => p.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute)).ToList();
 
-            var explicitKeyProperties = TypePropertiesCache(type).Where(p => p.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute)).ToList();
+            var result = new List<PropertyInfo>();
 
-            ExplicitKeyProperties[type.TypeHandle] = explicitKeyProperties;
-            return explicitKeyProperties;
+            var properties = TypePropertiesCache(type);
+            var idKey = properties.FirstOrDefault(p => p.Name.ToLower() == "id");
+            if (idKey != null)
+                result.Add(idKey);
+
+            result.AddRange(properties.Where(p => p.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute)));
+
+            ExplicitKeyProperties[type.TypeHandle] = result;
+            return result;
         }
 
         private static List<PropertyInfo> KeyPropertiesCache(Type type)
         {
-
-            IEnumerable<PropertyInfo> pi;
-            if (KeyProperties.TryGetValue(type.TypeHandle, out pi))
+            if (KeyProperties.TryGetValue(type.TypeHandle, out IEnumerable<PropertyInfo> pi))
             {
                 return pi.ToList();
             }
@@ -96,14 +101,14 @@ namespace LinFx.Data
                 return p.GetCustomAttributes(true).Any(a => a is KeyAttribute);
             }).ToList();
 
-            if (keyProperties.Count == 0)
-            {
-                var idProp = allProperties.FirstOrDefault(p => p.Name.ToLower() == "id");
-                if (idProp != null && !idProp.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute))
-                {
-                    keyProperties.Add(idProp);
-                }
-            }
+            //if (keyProperties.Count == 0)
+            //{
+            //    var idProp = allProperties.FirstOrDefault(p => p.Name.ToLower() == "id");
+            //    if (idProp != null && !idProp.GetCustomAttributes(true).Any(a => a is ExplicitKeyAttribute))
+            //    {
+            //        keyProperties.Add(idProp);
+            //    }
+            //}
 
             KeyProperties[type.TypeHandle] = keyProperties;
             return keyProperties;
@@ -111,8 +116,7 @@ namespace LinFx.Data
 
         private static List<PropertyInfo> TypePropertiesCache(Type type)
         {
-            IEnumerable<PropertyInfo> pis;
-            if (TypeProperties.TryGetValue(type.TypeHandle, out pis))
+            if (TypeProperties.TryGetValue(type.TypeHandle, out IEnumerable<PropertyInfo> pis))
             {
                 return pis.ToList();
             }
@@ -161,8 +165,7 @@ namespace LinFx.Data
         {
             var type = typeof(T);
 
-            string sql;
-            if (!GetQueries.TryGetValue(type.TypeHandle, out sql))
+            if (!GetQueries.TryGetValue(type.TypeHandle, out string sql))
             {
                 var key = GetSingleKey<T>(nameof(Get));
                 var name = GetTableName(type);
@@ -360,8 +363,7 @@ namespace LinFx.Data
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         internal static bool Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            var proxy = entityToUpdate as IProxy;
-            if (proxy != null)
+            if (entityToUpdate is IProxy proxy)
             {
                 if (!proxy.IsDirty) return false;
             }

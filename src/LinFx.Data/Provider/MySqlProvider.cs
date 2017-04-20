@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace LinFx.Data.Provider.MySql
+namespace LinFx.Data.Provider
 {
     public class MySqlProvider : IDbProvider
     {

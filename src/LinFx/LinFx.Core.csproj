@@ -45,8 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Events\" />
+    <Folder Include="Exceptions\" />
     <Folder Include="Properties\" />
-    <Folder Include="Utils\" />
+    <Folder Include="Security\" />
+    <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\ICache.cs" />
@@ -68,11 +71,14 @@
     <Compile Include="Domain\Uow\IUnitOfWorkDefaultOptions.cs" />
     <Compile Include="Domain\Uow\IUnitOfWorkManager.cs" />
     <Compile Include="Domain\Uow\UnitOfWorkManager.cs" />
-    <Compile Include="KeyValue.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerExtensions.cs" />
-    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="NameValue.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Utils\EncryptUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

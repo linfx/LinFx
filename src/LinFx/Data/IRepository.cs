@@ -10,6 +10,30 @@ namespace LinFx.Data
     /// <typeparam name="TPrimaryKey">Primary key type of the entity</typeparam>
     public interface IRepository<TEntity, TPrimaryKey> where TEntity : IEntity<TPrimaryKey>
     {
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="item"></param>
+        Task InsertAsync(TEntity item);
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="item"></param>
+        Task UpdateAsync(TEntity item);
+
+        /// <summary>
+        /// Deletes an entity by primary key.
+        /// </summary>
+        /// <param name="id"></param>
+        Task DeleteAsync(TPrimaryKey id);
+
+        /// <summary>
+        /// Deletes an entity.
+        /// </summary>
+        /// <param name="item"></param>
+        Task DeleteAsync(TEntity item);
+
         #region 查询
 
         /// <summary>
@@ -27,30 +51,6 @@ namespace LinFx.Data
         Task<TEntity> FirstOrDefaultAsync(TPrimaryKey id);
 
         #endregion
-
-        /// <summary>
-        /// 新增
-        /// </summary>
-        /// <param name="item"></param>
-        void InsertAsync(TEntity item);
-
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="item"></param>
-        void UpdateAsync(TEntity item);
-
-        /// <summary>
-        /// Deletes an entity by primary key.
-        /// </summary>
-        /// <param name="id"></param>
-        void DeleteAsync(TPrimaryKey id);
-
-        /// <summary>
-        /// Deletes an entity.
-        /// </summary>
-        /// <param name="item"></param>
-        void DeleteAsync(TEntity item);
     }
 
     /// <summary>

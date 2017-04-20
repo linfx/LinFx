@@ -3,11 +3,11 @@ using System.Data;
 
 namespace LinFx.Data
 {
-    public class DbConnectionFactory : IDbConnectionFactory
+    public class DbConnectionFactory : IDbConnectionFactory, IDisposable
     {
-        private DbConnection connection;
+        private DbConnection _connection;
 
-        private DbConnection Connection => connection ?? (connection = new DbConnection(this));
+        private DbConnection Connection => _connection ?? (_connection = new DbConnection(this));
 
         public DbConnectionFactory(string connectionString, IDbProvider provider)
         {
@@ -33,6 +33,11 @@ namespace LinFx.Data
 
             var connection = new DbConnection(this);
             return connection;
+        }
+
+        public void Dispose()
+        {
+            Connection.Dispose();
         }
     }
 

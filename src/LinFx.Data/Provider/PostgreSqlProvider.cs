@@ -1,7 +1,7 @@
 ﻿using Npgsql;
 using System.Data;
 
-namespace LinFx.Data.Provider.PostgreSql
+namespace LinFx.Data.Provider
 {
     public class PostgreSqlProvider : IDbProvider
     {

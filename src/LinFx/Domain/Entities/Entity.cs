@@ -72,6 +72,7 @@ namespace LinFx.Domain.Entities
 
     public class Entity : Entity<string>, IEntity
     {
+        public override string Id { get; set; }
     }
 
     public static class EntityExtensions
