@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.Domain.Services
+namespace LinFx.SaaS.Authorization.Users
 {
-    interface ISerivceBase
+    public class UserManager
     {
+
     }
 }

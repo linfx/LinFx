@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using LinFx.Domain.Entities;
 
-namespace LinFx.SaaS.Domain.Entities
+namespace LinFx.SaaS.Authorization.Roles
 {
-    class Role
+    public class Role : Entity
     {
+        public string Name { get; set; }
     }
 }

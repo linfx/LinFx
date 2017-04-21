@@ -10,15 +10,14 @@
 
   <ItemGroup>
     <Folder Include="Domain\Policies\" />
+    <Folder Include="Events\Bus\Entities\" />
+    <Folder Include="Events\Bus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="Settings\" />
     <Folder Include="Security\" />
-    <Folder Include="Events\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Configuration\" />
-    <Folder Include="Authorization\" />
     <Folder Include="Dependency\" />
-    <Folder Include="Extensions\" />
     <Folder Include="Localization\" />
   </ItemGroup>
 

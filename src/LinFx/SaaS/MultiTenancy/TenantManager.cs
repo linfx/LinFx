@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using LinFx.Data;
+using LinFx.Domain.Repositories;
+using LinFx.Domain.Services;
 
-namespace LinFx.Zero.MultiTenancy
+namespace LinFx.SaaS.MultiTenancy
 {
-    class TenantManager
+    public class TenantManager : DomainService<Tenant>
     {
+        public TenantManager(IRepository<Tenant> repository) : base(repository) { }
     }
 }

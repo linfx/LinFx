@@ -1,4 +1,5 @@
 ﻿using LinFx.Data;
+using LinFx.Domain.Repositories;
 using System.Threading.Tasks;
 
 namespace LinFx.Zero.Configuration

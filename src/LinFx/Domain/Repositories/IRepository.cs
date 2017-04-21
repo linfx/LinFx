@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Entities;
 using System.Threading.Tasks;
 
-namespace LinFx.Data
+namespace LinFx.Domain.Repositories
 {
     /// <summary>
     /// This interface is implemented by all repositories to ensure implementation of fixed methods.

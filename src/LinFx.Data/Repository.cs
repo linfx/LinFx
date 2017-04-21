@@ -1,4 +1,5 @@
 ﻿using LinFx.Domain.Entities;
+using LinFx.Domain.Repositories;
 using System;
 using System.Threading.Tasks;
 

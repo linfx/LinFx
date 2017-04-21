@@ -25,21 +25,23 @@ namespace LinFx.SaaS.UnitTest.Editions
                 Name = DateTime.Now.ToString(),
             };
             _editionManager.CreateAsync(item);
-
-
-            //item.Name = DateTime.Now.ToString() + DateTime.Now.ToString();
-
-            //manager.UpdateAsync(item);
-
-            //manager.DeleteAsync(item);
         }
 
         [Fact]
-        public async Task GetByIdAsyncTestAsync()
+        public async Task UpdateAsyncTestAsync()
         {
-            var result = await _editionManager.GetByIdAsync("0a85e9c1fc944ea68b7860c6a7343ec2");
+            var item = await _editionManager.GetAsync("0a85e9c1fc944ea68b7860c6a7343ec2");
+            Assert.NotNull(item);
 
-            Assert.NotNull(result);
+            item.Name = "ok";
+            await _editionManager.UpdateAsync(item);
+        }
+
+        [Fact]
+        public async Task GetAsyncTestAsync()
+        {
+            var item = await _editionManager.GetAsync("0a85e9c1fc944ea68b7860c6a7343ec2");
+            Assert.NotNull(item);
         }
     }
 }

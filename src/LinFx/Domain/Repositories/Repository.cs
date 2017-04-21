@@ -1,7 +1,8 @@
-﻿using LinFx.Domain.Entities;
+﻿using LinFx.Data;
+using LinFx.Domain.Entities;
 using System.Threading.Tasks;
 
-namespace LinFx.Data
+namespace LinFx.Domain.Repositories
 {
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IEntity<string>
     {

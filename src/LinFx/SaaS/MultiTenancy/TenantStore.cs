@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LinFx.Zero.MultiTenancy
+﻿namespace LinFx.SaaS.MultiTenancy
 {
-    class TenantStore
+    public interface ITenantStore
+    {
+    }
+
+    public class TenantStore : ITenantStore
     {
     }
 }
