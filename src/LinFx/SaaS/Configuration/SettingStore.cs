@@ -1,5 +1,6 @@
 ﻿using LinFx.Data;
 using LinFx.Domain.Repositories;
+using LinFx.Domain.Uow;
 using System.Threading.Tasks;
 
 namespace LinFx.Zero.Configuration
@@ -7,6 +8,12 @@ namespace LinFx.Zero.Configuration
     public class SettingStore
     {
         private readonly IRepository<Setting> _repository;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+
+        public SettingStore(IRepository<Setting> repository)
+        {
+            _repository = repository;
+        }
 
         //[UnitOfWork]
         public virtual async Task CreateAsync(Setting item)

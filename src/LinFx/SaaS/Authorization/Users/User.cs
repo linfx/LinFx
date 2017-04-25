@@ -1,9 +1,9 @@
 ﻿using LinFx.Authorization.Accounts;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Entities.Auditing;
 
 namespace LinFx.SaaS.Authorization.Users
 {
-    public class User : Entity
+    public class User : FullAuditedEntity
     {
         public string TenantId { get; set; }
 

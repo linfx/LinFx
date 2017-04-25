@@ -9,6 +9,10 @@ namespace LinFx.Zero.Configuration
         /// </summary>
         public string TenantId { get; set; }
         /// <summary>
+        /// UserId for this setting.
+        /// </summary>
+        public string UserId { get; set; }
+        /// <summary>
         /// Unique name of the setting.
         /// </summary>
         public string Name { get; set; }

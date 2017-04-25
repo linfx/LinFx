@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.SaaS.Domain.Entities
+namespace LinFx.Caching.Memory
 {
-    class Feature
+    class MemoryCacheManager
     {
     }
 }

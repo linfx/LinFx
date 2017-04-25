@@ -1,6 +1,7 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
 using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace LinFx.Data

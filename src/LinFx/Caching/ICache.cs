@@ -6,27 +6,18 @@ namespace LinFx.Caching
     public interface ICache
     {
         /// <summary>
-        /// 获取
+        /// Gets an item from the cache.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
+        /// <param name="key">Key</param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(string key);
+        Task<object> GetAsync(string key);
 
         /// <summary>
-        /// 
+        /// Saves/Overrides an item in the cache by a key.
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="data"></param>
-        /// <param name="cacheTime"></param>
-        void SetAsync(string key, object data, int cacheTime);
+        /// <param name="key">Key</param>
+        /// <param name="value">Value</param>
+        /// <param name="expireTime">Expire time</param>
+        Task SetAsync(string key, object value, TimeSpan? expireTime = default(TimeSpan?));
     }
-
-    //public static class CacheExtensions
-    //{
-    //    public static void SetAsync(string key, object data, int cacheTime)
-    //    {
-    //        return Get(cacheManager, key, 60, acquire);
-    //    }
-    //}
 }

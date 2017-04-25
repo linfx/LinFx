@@ -23,5 +23,11 @@ namespace LinFx.Domain.Uow
         /// Is this UOW disposed?
         /// </summary>
         bool IsDisposed { get; }
+
+        ///// <summary>
+        ///// Sets/Changes Tenant's Id for this UOW.
+        ///// </summary>
+        ///// <param name="tenantId">The tenant id.</param>
+        //IDisposable SetTenantId(string tenantId);
     }
 }
