@@ -219,8 +219,7 @@ namespace LinFx.Data.Provider
             var type = typeof(T);
             var cacheType = typeof(List<T>);
 
-            string sql;
-            if (!GetQueries.TryGetValue(cacheType.TypeHandle, out sql))
+            if (!GetQueries.TryGetValue(cacheType.TypeHandle, out string sql))
             {
                 GetSingleKey<T>(nameof(GetAll));
                 var name = GetTableName(type);

@@ -8,9 +8,10 @@
     <OutputType>Library</OutputType>
     <RootNamespace>LinFx</RootNamespace>
     <AssemblyName>LinFx</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,21 +57,14 @@
     <Compile Include="Data\DbConnection.cs" />
     <Compile Include="Data\DbConnectionFactory.cs" />
     <Compile Include="Data\DbProvider.cs" />
-    <Compile Include="Data\DbUtils.cs" />
     <Compile Include="Data\IDbConnectionFactory.cs" />
     <Compile Include="Data\IDbProvider.cs" />
-    <Compile Include="Data\IRepository.cs" />
     <Compile Include="Domain\Entities\Entity.cs" />
     <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Domain\Repositories\IRepository.cs" />
+    <Compile Include="Domain\Repositories\Repository.cs" />
     <Compile Include="Domain\Services\DomainService.cs" />
-    <Compile Include="Domain\Services\ISerivceBase.cs" />
-    <Compile Include="Domain\Services\ServiceBase.cs" />
-    <Compile Include="Domain\Uow\IActiveUnitOfWork.cs" />
-    <Compile Include="Domain\Uow\ICurrentUnitOfWorkProvider.cs" />
-    <Compile Include="Domain\Uow\IUnitOfWork.cs" />
-    <Compile Include="Domain\Uow\IUnitOfWorkDefaultOptions.cs" />
-    <Compile Include="Domain\Uow\IUnitOfWorkManager.cs" />
-    <Compile Include="Domain\Uow\UnitOfWorkManager.cs" />
+    <Compile Include="Domain\Services\IDomainService.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="NameValue.cs" />

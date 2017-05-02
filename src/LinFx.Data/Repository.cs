@@ -1,7 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
 using System;
-using System.Data;
 using System.Threading.Tasks;
 
 namespace LinFx.Data
@@ -14,7 +13,7 @@ namespace LinFx.Data
         {
             using (var db = _factory.Open())
             {
-                return Task.FromResult(db.InsertAsync(item));
+                return db.InsertAsync(item);
             }
         }
 
@@ -22,7 +21,7 @@ namespace LinFx.Data
         {
             using (var db = _factory.Open())
             {
-                return Task.FromResult(db.UpdateAsync(item));
+                return db.UpdateAsync(item);
             }
         }
 
@@ -30,7 +29,7 @@ namespace LinFx.Data
         {
             using (var db = _factory.Open())
             {
-                return Task.FromResult(db.DeleteAsync(item));
+                return db.DeleteAsync(item);
             }
         }
 

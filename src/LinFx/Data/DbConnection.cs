@@ -23,6 +23,7 @@ namespace LinFx.Data
         public IDbTransaction BeginTransaction() => Connection.BeginTransaction();
 
         public IDbTransaction BeginTransaction(IsolationLevel il) => Connection.BeginTransaction(il);
+
         public void ChangeDatabase(string databaseName) => Connection.ChangeDatabase(databaseName);
 
         public IDbCommand CreateCommand() => Connection.CreateCommand();

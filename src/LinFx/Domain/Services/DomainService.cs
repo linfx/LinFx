@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Services
 {
-    public abstract class DomainService<TEntity, TPrimaryKey> : ServiceBase, IDomainService where TEntity : IEntity<TPrimaryKey>
+    public abstract class DomainService<TEntity, TPrimaryKey> : IDomainService where TEntity : IEntity<TPrimaryKey>
     {
         protected readonly IRepository<TEntity, TPrimaryKey> _repository;
 
