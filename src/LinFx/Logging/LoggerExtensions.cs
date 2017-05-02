@@ -20,7 +20,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void DebugFormat(this ILogger logger, string message, params object[] args)
+        public static void Debug(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Debug))
             {
@@ -28,7 +28,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void DebugException(this ILogger logger, string message, Exception exception)
+        public static void Debug(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Debug))
             {
@@ -52,7 +52,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void ErrorFormat(this ILogger logger, string message, params object[] args)
+        public static void Error(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Error))
             {
@@ -60,7 +60,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void ErrorException(this ILogger logger, string message, Exception exception)
+        public static void Error(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Error))
             {
@@ -181,7 +181,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void WarnFormat(this ILogger logger, string message, params object[] args)
+        public static void Warn(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Warn))
             {
@@ -189,7 +189,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void WarnException(this ILogger logger, string message, Exception exception)
+        public static void Warn(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Warn))
             {

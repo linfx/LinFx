@@ -88,7 +88,7 @@ namespace LinFx.Events.Bus
 
         public void Trigger(Type eventType, IEventData eventData)
         {
-            throw new NotImplementedException();
+            Trigger(eventType, null, eventData);
         }
 
         public void Trigger(Type eventType, object eventSource, IEventData eventData)
@@ -125,7 +125,17 @@ namespace LinFx.Events.Bus
 
         public Task TriggerAsync(Type eventType, object eventSource, IEventData eventData)
         {
-            throw new NotImplementedException();
+            return Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    Trigger(eventSource, eventData);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Warn(ex.ToString(), ex);
+                }
+            });
         }
 
         public void Unregister<TEventData>(Action<TEventData> action) where TEventData : IEventData
