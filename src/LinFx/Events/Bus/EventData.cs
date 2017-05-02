@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Timing;
+using System;
 
 namespace LinFx.Events.Bus
 {
@@ -38,7 +39,7 @@ namespace LinFx.Events.Bus
         /// </summary>
         protected EventData()
         {
-            EventTime = DateTime.Now;
+            EventTime = Clock.Now;
         }
     }
 }

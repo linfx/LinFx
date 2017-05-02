@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Caching\Configuration\" />
     <Folder Include="Domain\Policies\" />
-    <Folder Include="Events\Bus\Entities\" />
     <Folder Include="Events\Bus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="Settings\" />
