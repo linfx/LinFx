@@ -12,17 +12,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="SaaS\Authorization\Roles\" />
+    <Folder Include="SaaS\Authorization\Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\LinFx.Data\LinFx.Data.csproj" />
     <ProjectReference Include="..\..\src\LinFx\LinFx.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Authorization\Users\" />
-    <Folder Include="Authorization\Roles\" />
   </ItemGroup>
 
 </Project>

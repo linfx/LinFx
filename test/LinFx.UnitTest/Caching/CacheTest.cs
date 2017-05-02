@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace LinFx.SaaS.UnitTest.Caching
+namespace LinFx.UnitTest.Caching
 {
     public class CacheTest
     {

@@ -5,23 +5,23 @@ namespace LinFx.SaaS.UnitTest.Events.Bus
 {
     public class EventHandlerTest
     {
-        IEventBus EventBus = new EventBus();
+        IEventBus eventBus = EventBus.Default;
 
         [Fact]
         public void Should_Call_Action_On_Event_With_Correct_Source()
         {
             var totalData = 0;
 
-            EventBus.Register<MySimpleEventData>(eventData =>
+            eventBus.Register<MySimpleEventData>(eventData =>
             {
                 totalData += eventData.Value;
                 Assert.Equal(this, eventData.EventSource);
             });
 
-            EventBus.Trigger(this, new MySimpleEventData(1));
-            EventBus.Trigger(this, new MySimpleEventData(2));
-            EventBus.Trigger(this, new MySimpleEventData(3));
-            EventBus.Trigger(this, new MySimpleEventData(4));
+            eventBus.Trigger(this, new MySimpleEventData(1));
+            eventBus.Trigger(this, new MySimpleEventData(2));
+            eventBus.Trigger(this, new MySimpleEventData(3));
+            eventBus.Trigger(this, new MySimpleEventData(4));
 
             Assert.Equal(10, totalData);
         }
