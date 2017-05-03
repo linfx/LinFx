@@ -1,8 +1,8 @@
-﻿using Dapper;
-using LinFx.Data.Provider;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using LinFx.Data.Dapper.Extensions;
+using System;
 
 namespace LinFx.Data
 {
@@ -10,27 +10,27 @@ namespace LinFx.Data
     {
         public static Task InsertAsync<T>(this IDbConnection conn, T item, IDbTransaction transaction = null) where T : class
         {
-            return Task.FromResult(SqlMapperExtensions.Insert(conn, item));
+            return Task.FromResult(conn.Insert(item, transaction));
         }
 
-        public static Task UpdateAsync<T>(this IDbConnection conn, T item, IDbTransaction transaction = null) where T : class
+        public static Task<bool> UpdateAsync<T>(this IDbConnection conn, T item, IDbTransaction transaction = null) where T : class
         {
-            return Task.FromResult(SqlMapperExtensions.Update(conn, item));
+            return Task.FromResult(conn.Update(item, transaction));
         }
 
         public static Task DeleteAsync<T>(this IDbConnection conn, T item, IDbTransaction transaction = null) where T : class
         {
-            return Task.FromResult(SqlMapperExtensions.Delete(conn, item));
+            return Task.FromResult(conn.Delete(item, transaction));
         }
 
-        public static Task<IEnumerable<T>> SelectAsync<T>(this IDbConnection conn, string sql, object param = null, IDbTransaction transaction = null)
-        {
-            return conn.QueryAsync<T>(sql, param, transaction);
-        }
+        //public static Task<IEnumerable<T>> SelectAsync<T>(this IDbConnection conn, string sql, object param = null, IDbTransaction transaction = null)
+        //{
+        //    return conn.GetSet<>
+        //}
 
         public static Task<T> GetAsync<T>(this IDbConnection conn, dynamic id, IDbTransaction transaction = null) where T : class
         {
-            return Task.FromResult(SqlMapperExtensions.Get<T>(conn, id, transaction));
+            return Task.FromResult(DapperExtensions.Get<T>(conn, id, transaction));
         }
     }
 }

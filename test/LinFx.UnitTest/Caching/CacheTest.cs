@@ -1,9 +1,6 @@
 ﻿using LinFx.Caching;
 using LinFx.Caching.Memory;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
