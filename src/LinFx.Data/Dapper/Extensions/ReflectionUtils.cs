@@ -7,7 +7,7 @@ using System.Text;
 
 namespace LinFx.Data.Dapper.Extensions
 {
-    public static class ReflectionHelper
+    public static class ReflectionUtils
     {
         private static List<Type> _simpleTypes = new List<Type>
         {
@@ -62,7 +62,6 @@ namespace LinFx.Data.Dapper.Extensions
                 return result;
             }
 
-
             foreach (var propertyInfo in obj.GetType().GetProperties())
             {
                 string name = propertyInfo.Name;
@@ -88,7 +87,6 @@ namespace LinFx.Data.Dapper.Extensions
             {
                 actualType = type.GetGenericArguments()[0];
             }
-
             return _simpleTypes.Contains(actualType);
         }
 

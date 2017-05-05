@@ -33,19 +33,11 @@ namespace LinFx.Data.Dapper.Extensions
             SqlGenerator = sqlGenerator;
         }
 
-        public ISqlGenerator SqlGenerator { get; private set; }
-
-        public T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class
-        {
-            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
-            IPredicate predicate = GetIdPredicate(classMap, id);
-            T result = GetList<T>(connection, classMap, predicate, null, transaction, commandTimeout, true).SingleOrDefault();
-            return result;
-        }
+        public ISqlGenerator SqlGenerator { get; }
 
         public void Insert<T>(IDbConnection connection, IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
+            var classMap = SqlGenerator.Configuration.GetMap<T>();
             var properties = classMap.Properties.Where(p => p.KeyType != KeyType.NotAKey);
 
             foreach (var e in entities)
@@ -67,7 +59,7 @@ namespace LinFx.Data.Dapper.Extensions
 
         public dynamic Insert<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
+            var classMap = SqlGenerator.Configuration.GetMap<T>();
             List<IPropertyMap> nonIdentityKeyProperties = classMap.Properties.Where(p => p.KeyType == KeyType.Guid || p.KeyType == KeyType.Assigned).ToList();
             var identityColumn = classMap.Properties.SingleOrDefault(p => p.KeyType == KeyType.Identity);
             foreach (var column in nonIdentityKeyProperties)
@@ -128,7 +120,7 @@ namespace LinFx.Data.Dapper.Extensions
             DynamicParameters dynamicParameters = new DynamicParameters();
 
             var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
-            foreach (var property in ReflectionHelper.GetObjectValues(entity).Where(property => columns.Any(c => c.Name == property.Key)))
+            foreach (var property in ReflectionUtils.GetObjectValues(entity).Where(property => columns.Any(c => c.Name == property.Key)))
             {
                 dynamicParameters.Add(property.Key, property.Value);
             }
@@ -153,6 +145,14 @@ namespace LinFx.Data.Dapper.Extensions
             IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
             IPredicate wherePredicate = GetPredicate(classMap, predicate);
             return Delete<T>(connection, classMap, wherePredicate, transaction, commandTimeout);
+        }
+
+        public T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class
+        {
+            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
+            IPredicate predicate = GetIdPredicate(classMap, id);
+            T result = GetList<T>(connection, classMap, predicate, null, transaction, commandTimeout, true).SingleOrDefault();
+            return result;
         }
 
         public IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
@@ -266,13 +266,13 @@ namespace LinFx.Data.Dapper.Extensions
 
         protected IPredicate GetIdPredicate(IClassMapper classMap, object id)
         {
-            bool isSimpleType = ReflectionHelper.IsSimpleType(id.GetType());
+            bool isSimpleType = ReflectionUtils.IsSimpleType(id.GetType());
             var keys = classMap.Properties.Where(p => p.KeyType != KeyType.NotAKey);
             IDictionary<string, object> paramValues = null;
             IList<IPredicate> predicates = new List<IPredicate>();
             if (!isSimpleType)
             {
-                paramValues = ReflectionHelper.GetObjectValues(id);
+                paramValues = ReflectionUtils.GetObjectValues(id);
             }
 
             foreach (var key in keys)
@@ -332,7 +332,7 @@ namespace LinFx.Data.Dapper.Extensions
         {
             Type predicateType = typeof(FieldPredicate<>).MakeGenericType(classMap.EntityType);
             IList<IPredicate> predicates = new List<IPredicate>();
-            foreach (var kvp in ReflectionHelper.GetObjectValues(entity))
+            foreach (var kvp in ReflectionUtils.GetObjectValues(entity))
             {
                 IFieldPredicate fieldPredicate = Activator.CreateInstance(predicateType) as IFieldPredicate;
                 fieldPredicate.Not = false;

@@ -4,7 +4,15 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : class, IEntity<string>
+    public abstract class RepositoryBase<TEntity> : RepositoryBase<TEntity, string>, IRepository<TEntity> where TEntity : class, IEntity<string>
+    {
+        public RepositoryBase(IDbConnectionFactory factory)
+            : base(factory)
+        {
+        }
+    }
+
+    public abstract class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : class, IEntity<TPrimaryKey>
     {
         protected IDbConnectionFactory _factory;
 
@@ -19,10 +27,10 @@ namespace LinFx.Domain.Repositories
 
         public abstract Task DeleteAsync(TEntity item);
 
-        public abstract Task DeleteAsync(string id);
+        public abstract Task DeleteAsync(TPrimaryKey id);
 
-        public abstract Task<TEntity> FirstOrDefaultAsync(string id);
+        public abstract Task<TEntity> FirstOrDefaultAsync(TPrimaryKey id);
 
-        public abstract Task<TEntity> GetAsync(string id);
+        public abstract Task<TEntity> GetAsync(TPrimaryKey id);
     }
 }

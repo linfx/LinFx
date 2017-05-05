@@ -24,14 +24,14 @@ namespace LinFx.Data.Dapper.Extensions
         /// <returns>An instance of IFieldPredicate.</returns>
         public static IFieldPredicate Field<T>(Expression<Func<T, object>> expression, Operator op, object value, bool not = false) where T : class
         {
-            PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
+            var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
             return new FieldPredicate<T>
-                       {
-                           PropertyName = propertyInfo.Name,
-                           Operator = op,
-                           Value = value,
-                           Not = not
-                       };
+            {
+                PropertyName = propertyInfo.Name,
+                Operator = op,
+                Value = value,
+                Not = not
+            };
         }
 
         /// <summary>
@@ -49,15 +49,15 @@ namespace LinFx.Data.Dapper.Extensions
             where T : class
             where T2 : class
         {
-            PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
-            PropertyInfo propertyInfo2 = ReflectionHelper.GetProperty(expression2) as PropertyInfo;
+            PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+            PropertyInfo propertyInfo2 = ReflectionUtils.GetProperty(expression2) as PropertyInfo;
             return new PropertyPredicate<T, T2>
-                       {
-                           PropertyName = propertyInfo.Name,
-                           PropertyName2 = propertyInfo2.Name,
-                           Operator = op,
-                           Not = not
-                       };
+            {
+                PropertyName = propertyInfo.Name,
+                PropertyName2 = propertyInfo2.Name,
+                Operator = op,
+                Not = not
+            };
         }
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace LinFx.Data.Dapper.Extensions
         public static IPredicateGroup Group(GroupOperator op, params IPredicate[] predicate)
         {
             return new PredicateGroup
-                       {
-                           Operator = op,
-                           Predicates = predicate
-                       };
+            {
+                Operator = op,
+                Predicates = predicate
+            };
         }
 
         /// <summary>
@@ -83,10 +83,10 @@ namespace LinFx.Data.Dapper.Extensions
             where TSub : class
         {
             return new ExistsPredicate<TSub>
-                       {
-                           Not = not,
-                           Predicate = predicate
-                       };
+            {
+                Not = not,
+                Predicate = predicate
+            };
         }
 
         /// <summary>
@@ -95,13 +95,13 @@ namespace LinFx.Data.Dapper.Extensions
         public static IBetweenPredicate Between<T>(Expression<Func<T, object>> expression, BetweenValues values, bool not = false)
             where T : class
         {
-            PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
+            PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
             return new BetweenPredicate<T>
-                       {
-                           Not = not,
-                           PropertyName = propertyInfo.Name,
-                           Value = values
-                       };
+            {
+                Not = not,
+                PropertyName = propertyInfo.Name,
+                Value = values
+            };
         }
 
         /// <summary>
@@ -109,12 +109,12 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static ISort Sort<T>(Expression<Func<T, object>> expression, bool ascending = true)
         {
-            PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
+            PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
             return new Sort
-                       {
-                           PropertyName = propertyInfo.Name,
-                           Ascending = ascending
-                       };
+            {
+                PropertyName = propertyInfo.Name,
+                Ascending = ascending
+            };
         }
     }
 
@@ -135,17 +135,13 @@ namespace LinFx.Data.Dapper.Extensions
 
         protected virtual string GetColumnName(Type entityType, ISqlGenerator sqlGenerator, string propertyName)
         {
-            IClassMapper map = sqlGenerator.Configuration.GetMap(entityType);
+            var map = sqlGenerator.Configuration.GetMap(entityType);
             if (map == null)
-            {
                 throw new NullReferenceException(string.Format("Map was not found for {0}", entityType));
-            }
 
-            IPropertyMap propertyMap = map.Properties.SingleOrDefault(p => p.Name == propertyName);
+            var propertyMap = map.Properties.SingleOrDefault(p => p.Name == propertyName);
             if (propertyMap == null)
-            {
                 throw new NullReferenceException(string.Format("{0} was not found for {1}", propertyName, entityType));
-            }
 
             return sqlGenerator.GetColumnName(map, propertyMap, false);
         }
@@ -262,8 +258,8 @@ namespace LinFx.Data.Dapper.Extensions
         public override string GetSql(ISqlGenerator sqlGenerator, IDictionary<string, object> parameters)
         {
             string columnName = GetColumnName(typeof(T), sqlGenerator, PropertyName);
-            string propertyName1 = parameters.SetParameterName(this.PropertyName, this.Value.Value1, sqlGenerator.Configuration.Dialect.ParameterPrefix);
-            string propertyName2 = parameters.SetParameterName(this.PropertyName, this.Value.Value2, sqlGenerator.Configuration.Dialect.ParameterPrefix);
+            string propertyName1 = parameters.SetParameterName(PropertyName, Value.Value1, sqlGenerator.Configuration.Dialect.ParameterPrefix);
+            string propertyName2 = parameters.SetParameterName(PropertyName, Value.Value2, sqlGenerator.Configuration.Dialect.ParameterPrefix);
             return string.Format("({0} {1}BETWEEN {2} AND {3})", columnName, Not ? "NOT " : string.Empty, propertyName1, propertyName2);
         }
 
@@ -281,27 +277,22 @@ namespace LinFx.Data.Dapper.Extensions
         /// Equal to
         /// </summary>
         Eq,
-
         /// <summary>
         /// Greater than
         /// </summary>
         Gt,
-
         /// <summary>
         /// Greater than or equal to
         /// </summary>
         Ge,
-
         /// <summary>
         /// Less than
         /// </summary>
         Lt,
-
         /// <summary>
         /// Less than or equal to
         /// </summary>
         Le,
-
         /// <summary>
         /// Like (You can use % in the value to do wilcard searching)
         /// </summary>

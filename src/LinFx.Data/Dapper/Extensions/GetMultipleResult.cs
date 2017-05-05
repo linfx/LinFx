@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Dapper;
 
 namespace LinFx.Data.Dapper.Extensions
@@ -13,7 +10,7 @@ namespace LinFx.Data.Dapper.Extensions
 
     public class GridReaderResultReader : IMultipleResultReader
     {
-        private readonly SqlMapper.GridReader _reader;
+        readonly SqlMapper.GridReader _reader;
 
         public GridReaderResultReader(SqlMapper.GridReader reader)
         {

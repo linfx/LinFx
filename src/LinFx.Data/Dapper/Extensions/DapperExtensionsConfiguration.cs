@@ -23,12 +23,6 @@ namespace LinFx.Data.Dapper.Extensions
     {
         private readonly ConcurrentDictionary<Type, IClassMapper> _classMaps = new ConcurrentDictionary<Type, IClassMapper>();
 
-        public DapperExtensionsConfiguration()
-            : this(typeof(AutoClassMapper<>), new List<Assembly>(), new MySqlDialect())
-        {
-        }
-
-
         public DapperExtensionsConfiguration(Type defaultMapper, IList<Assembly> mappingAssemblies, ISqlDialect sqlDialect)
         {
             DefaultMapper = defaultMapper;

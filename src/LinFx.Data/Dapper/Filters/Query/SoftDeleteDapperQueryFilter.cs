@@ -8,17 +8,6 @@ using System.Reflection;
 
 namespace LinFx.Data.Dapper.Filters.Query
 {
-    public interface IDapperQueryFilter
-    {
-        string FilterName { get; }
-
-        bool IsEnabled { get; }
-
-        IFieldPredicate ExecuteFilter<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>;
-
-        Expression<Func<TEntity, bool>> ExecuteFilter<TEntity, TPrimaryKey>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity<TPrimaryKey>;
-    }
-
     public class SoftDeleteDapperQueryFilter : IDapperQueryFilter
     {
         public string FilterName => DataFilters.SoftDelete;
@@ -29,14 +18,19 @@ namespace LinFx.Data.Dapper.Filters.Query
 
         public IFieldPredicate ExecuteFilter<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>
         {
-            throw new NotImplementedException();
+            IFieldPredicate predicate = null;
+            if (IsFilterable<TEntity, TPrimaryKey>())
+            {
+                predicate = Predicates.Field<TEntity>(f => (f as ISoftDelete).IsDeleted, Operator.Eq, IsDeleted);
+            }
+            return predicate;
         }
 
         public Expression<Func<TEntity, bool>> ExecuteFilter<TEntity, TPrimaryKey>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity<TPrimaryKey>
         {
             if (IsFilterable<TEntity, TPrimaryKey>())
             {
-                PropertyInfo propType = typeof(TEntity).GetProperty(nameof(ISoftDelete.IsDeleted));
+                var propType = typeof(TEntity).GetProperty(nameof(ISoftDelete.IsDeleted));
                 if (predicate == null)
                 {
                     predicate = ExpressionUtils.MakePredicate<TEntity>(nameof(ISoftDelete.IsDeleted), IsDeleted, propType.PropertyType);

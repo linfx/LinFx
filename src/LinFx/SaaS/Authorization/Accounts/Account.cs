@@ -1,5 +1,4 @@
 ﻿using LinFx.Domain.Entities;
-using System;
 
 namespace LinFx.Authorization.Accounts
 {

@@ -28,21 +28,18 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
         /// Gets or sets the schema to use when referring to the corresponding table name in the database.
         /// </summary>
         public string SchemaName { get; protected set; }
-
         /// <summary>
         /// Gets or sets the table to use in the database.
         /// </summary>
         public string TableName { get; protected set; }
-
         /// <summary>
         /// A collection of properties that will map to columns in the database table.
         /// </summary>
         public IList<IPropertyMap> Properties { get; private set; }
-
-        public Type EntityType
-        {
-            get { return typeof(T); }
-        }
+        /// <summary>
+        /// EntityType
+        /// </summary>
+        public Type EntityType { get { return typeof(T); } }
 
         public ClassMapper()
         {
@@ -127,7 +124,7 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
         /// </summary>
         protected PropertyMap Map(Expression<Func<T, object>> expression)
         {
-            PropertyInfo propertyInfo = ReflectionHelper.GetProperty(expression) as PropertyInfo;
+            var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
             return Map(propertyInfo);
         }
 
@@ -136,8 +133,8 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
         /// </summary>
         protected PropertyMap Map(PropertyInfo propertyInfo)
         {
-            PropertyMap result = new PropertyMap(propertyInfo);
-            this.GuardForDuplicatePropertyMap(result);
+            var result = new PropertyMap(propertyInfo);
+            GuardForDuplicatePropertyMap(result);
             Properties.Add(result);
             return result;
         }

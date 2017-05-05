@@ -150,32 +150,32 @@ namespace LinFx.Data.Dapper.Extensions
 
         public void Insert<T>(IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            _dapper.Insert<T>(Connection, entities, transaction, commandTimeout);
+            _dapper.Insert(Connection, entities, transaction, commandTimeout);
         }
 
         public void Insert<T>(IEnumerable<T> entities, int? commandTimeout) where T : class
         {
-            _dapper.Insert<T>(Connection, entities, _transaction, commandTimeout);
+            _dapper.Insert(Connection, entities, _transaction, commandTimeout);
         }
 
         public dynamic Insert<T>(T entity, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            return _dapper.Insert<T>(Connection, entity, transaction, commandTimeout);
+            return _dapper.Insert(Connection, entity, transaction, commandTimeout);
         }
 
         public dynamic Insert<T>(T entity, int? commandTimeout) where T : class
         {
-            return _dapper.Insert<T>(Connection, entity, _transaction, commandTimeout);
+            return _dapper.Insert(Connection, entity, _transaction, commandTimeout);
         }
 
         public bool Update<T>(T entity, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            return _dapper.Update<T>(Connection, entity, transaction, commandTimeout);
+            return _dapper.Update(Connection, entity, transaction, commandTimeout);
         }
 
         public bool Update<T>(T entity, int? commandTimeout) where T : class
         {
-            return _dapper.Update<T>(Connection, entity, _transaction, commandTimeout);
+            return _dapper.Update(Connection, entity, _transaction, commandTimeout);
         }
 
         public bool Delete<T>(T entity, IDbTransaction transaction, int? commandTimeout) where T : class

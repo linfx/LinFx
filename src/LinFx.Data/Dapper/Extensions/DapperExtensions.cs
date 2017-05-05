@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Reflection;
 using LinFx.Data.Dapper.Extensions.Mapper;
 using LinFx.Data.Dapper.Extensions.Sql;
-using System.Data;
 
 namespace LinFx.Data.Dapper.Extensions
 {
@@ -25,10 +25,7 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static Type DefaultMapper
         {
-            get
-            {
-                return _configuration.DefaultMapper;
-            }
+            get { return _configuration.DefaultMapper; }
             set
             {
                 Configure(value, _configuration.MappingAssemblies, _configuration.Dialect);
@@ -41,10 +38,7 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static ISqlDialect SqlDialect
         {
-            get
-            {
-                return _configuration.Dialect;
-            }
+            get { return _configuration.Dialect; }
             set
             {
                 Configure(_configuration.DefaultMapper, _configuration.MappingAssemblies, value);
@@ -62,7 +56,6 @@ namespace LinFx.Data.Dapper.Extensions
                 {
                     _instanceFactory = config => new DapperImplementor(new SqlGeneratorImpl(config));
                 }
-
                 return _instanceFactory;
             }
             set
@@ -127,20 +120,11 @@ namespace LinFx.Data.Dapper.Extensions
         }
 
         /// <summary>
-        /// Executes a query for the specified id, returning the data typed as per T
-        /// </summary>
-        public static T Get<T>(this IDbConnection connection, dynamic id, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
-        {
-            var result = Instance.Get<T>(connection, id, transaction, commandTimeout);
-            return (T)result;
-        }
-
-        /// <summary>
         /// Executes an insert query for the specified entity.
         /// </summary>
         public static void Insert<T>(this IDbConnection connection, IEnumerable<T> entities, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            Instance.Insert<T>(connection, entities, transaction, commandTimeout);
+            Instance.Insert(connection, entities, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -151,7 +135,7 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static dynamic Insert<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            return Instance.Insert<T>(connection, entity, transaction, commandTimeout);
+            return Instance.Insert(connection, entity, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -159,7 +143,7 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static bool Update<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            return Instance.Update<T>(connection, entity, transaction, commandTimeout);
+            return Instance.Update(connection, entity, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -167,7 +151,7 @@ namespace LinFx.Data.Dapper.Extensions
         /// </summary>
         public static bool Delete<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            return Instance.Delete<T>(connection, entity, transaction, commandTimeout);
+            return Instance.Delete(connection, entity, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -176,6 +160,15 @@ namespace LinFx.Data.Dapper.Extensions
         public static bool Delete<T>(this IDbConnection connection, object predicate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             return Instance.Delete<T>(connection, predicate, transaction, commandTimeout);
+        }
+
+        /// <summary>
+        /// Executes a query for the specified id, returning the data typed as per T
+        /// </summary>
+        public static T Get<T>(this IDbConnection connection, dynamic id, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        {
+            var result = Instance.Get<T>(connection, id, transaction, commandTimeout);
+            return (T)result;
         }
 
         /// <summary>
@@ -205,14 +198,6 @@ namespace LinFx.Data.Dapper.Extensions
         }
 
         /// <summary>
-        /// Executes a query using the specified predicate, returning an integer that represents the number of rows that match the query.
-        /// </summary>
-        public static int Count<T>(this IDbConnection connection, object predicate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
-        {
-            return Instance.Count<T>(connection, predicate, transaction, commandTimeout);
-        }
-
-        /// <summary>
         /// Executes a select query for multiple objects, returning IMultipleResultReader for each predicate.
         /// </summary>
         public static IMultipleResultReader GetMultiple(this IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -227,6 +212,14 @@ namespace LinFx.Data.Dapper.Extensions
         public static IClassMapper GetMap<T>() where T : class
         {
             return Instance.SqlGenerator.Configuration.GetMap<T>();
+        }
+
+        /// <summary>
+        /// Executes a query using the specified predicate, returning an integer that represents the number of rows that match the query.
+        /// </summary>
+        public static int Count<T>(this IDbConnection connection, object predicate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        {
+            return Instance.Count<T>(connection, predicate, transaction, commandTimeout);
         }
 
         /// <summary>

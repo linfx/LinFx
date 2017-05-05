@@ -1,4 +1,5 @@
 using LinFx.SaaS.Editions;
+using Shouldly;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -18,20 +19,23 @@ namespace LinFx.SaaS.UnitTest.Editions
         }
 
         [Fact]
-        public void CreateAsyncTest()
+        public async Task CreateAsyncTestAsync()
         {
             var item = new Edition
             {
-                Name = DateTime.Now.ToString(),
+                Name = Guid.NewGuid().ToString("N"),
             };
-            _editionManager.CreateAsync(item);
+            await _editionManager.CreateAsync(item);
+
+            (await _editionManager.GetAsync(item.Id)).ShouldNotBeNull();
         }
 
         [Fact]
         public async Task UpdateAsyncTestAsync()
         {
-            var item = await _editionManager.GetAsync("0a85e9c1fc944ea68b7860c6a7343ec2");
-            Assert.NotNull(item);
+            var item = await _editionManager.GetAsync("50d5f7cf0828454c88969fe9f82eea77");
+
+            item.ShouldNotBeNull();
 
             item.Name = "ok";
             await _editionManager.UpdateAsync(item);
@@ -40,7 +44,7 @@ namespace LinFx.SaaS.UnitTest.Editions
         [Fact]
         public async Task GetAsyncTestAsync()
         {
-            var item = await _editionManager.GetAsync("0a85e9c1fc944ea68b7860c6a7343ec2");
+            var item = await _editionManager.GetAsync("50d5f7cf0828454c88969fe9f82eea77");
             Assert.NotNull(item);
         }
     }

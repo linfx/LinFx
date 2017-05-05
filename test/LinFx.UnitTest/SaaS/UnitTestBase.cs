@@ -1,4 +1,5 @@
 ﻿using LinFx.Data;
+using LinFx.Data.Dapper.Repositories;
 using LinFx.Data.Provider;
 using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
@@ -21,7 +22,7 @@ namespace LinFx.SaaS.UnitTest
         {
             UsingDbConnectionFactory(factory =>
             {
-                action(new Repository<TEntity>(factory));
+                action(new DapperRepository<TEntity>(factory));
             });
         }
     }
