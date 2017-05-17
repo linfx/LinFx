@@ -1,5 +1,4 @@
 ﻿using LinFx.Data;
-using LinFx.Domain.Repositories;
 using LinFx.Domain.Services;
 
 namespace LinFx.SaaS.MultiTenancy

@@ -2,7 +2,7 @@
 using LinFx.Logging;
 using System;
 
-namespace LinFx
+namespace LinFx.Domain.Services
 {
     public abstract class ServiceBase
     {

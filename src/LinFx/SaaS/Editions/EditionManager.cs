@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Repositories;
+﻿using LinFx.Data;
 using LinFx.Domain.Services;
 using LinFx.Extensions;
 using LinFx.SaaS.Features;

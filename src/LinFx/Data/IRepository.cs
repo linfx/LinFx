@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Entities;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace LinFx.Domain.Repositories
+namespace LinFx.Data
 {
     /// <summary>
     /// This interface is implemented by all repositories to ensure implementation of fixed methods.
@@ -11,46 +11,36 @@ namespace LinFx.Domain.Repositories
     public interface IRepository<TEntity, TPrimaryKey> where TEntity : IEntity<TPrimaryKey>
     {
         /// <summary>
-        /// 新增
+        /// Insert entity.
         /// </summary>
         /// <param name="item"></param>
-        Task InsertAsync(TEntity item);
-
+        void Insert(TEntity item);
         /// <summary>
-        /// 修改
+        /// Update entity.
         /// </summary>
         /// <param name="item"></param>
-        Task UpdateAsync(TEntity item);
-
+        void Update(TEntity item);
         /// <summary>
-        /// Deletes an entity by primary key.
+        /// Delete entity.
         /// </summary>
         /// <param name="id"></param>
-        Task DeleteAsync(TPrimaryKey id);
-
+        void Delete(TPrimaryKey id);
         /// <summary>
-        /// Deletes an entity.
+        /// Delete an entity.
         /// </summary>
         /// <param name="item"></param>
-        Task DeleteAsync(TEntity item);
-
-        #region 查询
-
+        void Delete(TEntity item);
         /// <summary>
         /// Gets an entity with given primary key.
         /// </summary>
         /// <param name="id">Primary key of the entity to get</param>
         /// <returns>Entity</returns>
-        Task<TEntity> GetAsync(TPrimaryKey id);
-
+        TEntity Get(TPrimaryKey id);
         /// <summary>
-        /// Gets an entity with given primary key or null if not found.
+        /// Gets all.
         /// </summary>
-        /// <param name="id">Primary key of the entity to get</param>
-        /// <returns>Entity or null</returns>
-        Task<TEntity> FirstOrDefaultAsync(TPrimaryKey id);
-
-        #endregion
+        /// <returns></returns>
+        IEnumerable<TEntity> GetAll();
     }
 
     /// <summary>

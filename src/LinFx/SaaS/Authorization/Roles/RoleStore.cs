@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Repositories;
+﻿using LinFx.Data;
 using LinFx.Logging;
 using System;
 using System.Collections.Generic;

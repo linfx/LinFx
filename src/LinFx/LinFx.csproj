@@ -15,11 +15,9 @@
     <Folder Include="Domain\Policies\" />
     <Folder Include="Events\Bus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
+    <Folder Include="Security\Permissions\" />
     <Folder Include="Settings\" />
-    <Folder Include="Exceptions\" />
     <Folder Include="Configuration\" />
-    <Folder Include="Dependency\" />
-    <Folder Include="Localization\" />
   </ItemGroup>
 
 </Project>

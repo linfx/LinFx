@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Timing;
+using System;
 
 namespace LinFx.Domain.Entities.Auditing
 {

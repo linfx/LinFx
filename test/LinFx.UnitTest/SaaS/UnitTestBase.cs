@@ -2,7 +2,6 @@
 using LinFx.Data.Dapper.Repositories;
 using LinFx.Data.Provider;
 using LinFx.Domain.Entities;
-using LinFx.Domain.Repositories;
 using System;
 
 namespace LinFx.SaaS.UnitTest
