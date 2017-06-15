@@ -21,7 +21,7 @@ namespace LinFx.Zero.Configuration
             //{
             //using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MayHaveTenant))
             //{
-                await _repository.InsertAsync(item);
+             //   await _repository.InsertAsync(item);
             //await _unitOfWorkManager.Current.SaveChangesAsync();
             //}
             //}

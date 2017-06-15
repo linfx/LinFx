@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LinFx.Events.Bus.Factories;
-using LinFx.Events.Bus.Handlers;
+using LinFx.EventBus.Factories;
+using LinFx.EventBus.Handlers;
 
-namespace LinFx.Events.Bus
+namespace LinFx.EventBus
 {
     public class NullEventBus : IEventBus
     {

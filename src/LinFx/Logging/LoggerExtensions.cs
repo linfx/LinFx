@@ -85,7 +85,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void FatalFormat(this ILogger logger, string message, params object[] args)
+        public static void Fatal(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Fatal))
             {
@@ -93,7 +93,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void FatalException(this ILogger logger, string message, Exception exception)
+        public static void Fatal(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Fatal))
             {
@@ -117,7 +117,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void InfoFormat(this ILogger logger, string message, params object[] args)
+        public static void Info(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Info))
             {
@@ -125,7 +125,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void InfoException(this ILogger logger, string message, Exception exception)
+        public static void Info(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Info))
             {
@@ -149,7 +149,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void TraceFormat(this ILogger logger, string message, params object[] args)
+        public static void Trace(this ILogger logger, string message, params object[] args)
         {
             if (logger.IsEnabled(LogLevel.Trace))
             {
@@ -157,7 +157,7 @@ namespace LinFx.Logging
             }
         }
 
-        public static void TraceException(this ILogger logger, string message, Exception exception)
+        public static void Trace(this ILogger logger, string message, Exception exception)
         {
             if (logger.IsEnabled(LogLevel.Trace))
             {

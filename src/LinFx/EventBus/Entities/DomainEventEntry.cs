@@ -1,4 +1,4 @@
-﻿namespace LinFx.Events.Bus.Entities
+﻿namespace LinFx.EventBus.Entities
 {
     public class DomainEventEntry
     {

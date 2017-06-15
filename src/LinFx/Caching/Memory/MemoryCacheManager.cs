@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LinFx.Caching.Memory
 {
-    class MemoryCacheManager
+    public class MemoryCacheManager
     {
     }
 }

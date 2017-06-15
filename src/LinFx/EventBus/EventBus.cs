@@ -4,14 +4,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using LinFx.Events.Bus.Factories;
-using LinFx.Events.Bus.Handlers;
-using LinFx.Events.Bus.Factories.Internals;
-using LinFx.Events.Bus.Handlers.Internals;
+using LinFx.EventBus.Factories;
+using LinFx.EventBus.Handlers;
+using LinFx.EventBus.Factories.Internals;
+using LinFx.EventBus.Handlers.Internals;
 using LinFx.Extensions;
 using LinFx.Logging;
 
-namespace LinFx.Events.Bus
+namespace LinFx.EventBus
 {
     public class EventBus : IEventBus
     {
@@ -218,7 +218,6 @@ namespace LinFx.Events.Bus
                     }
                 }
             }
-
 
             //Implements generic argument inheritance. See IEventDataWithInheritableGenericArgument
             //if (eventType.GetTypeInfo().IsGenericType &&

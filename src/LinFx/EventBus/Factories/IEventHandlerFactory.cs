@@ -1,6 +1,6 @@
-﻿using LinFx.Events.Bus.Handlers;
+﻿using LinFx.EventBus.Handlers;
 
-namespace LinFx.Events.Bus.Factories
+namespace LinFx.EventBus.Factories
 {
     /// <summary>
     /// Defines an interface for factories those are responsible to create/get and release of event handlers.

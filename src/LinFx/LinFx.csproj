@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
@@ -13,7 +14,7 @@
   <ItemGroup>
     <Folder Include="Caching\Configuration\" />
     <Folder Include="Domain\Policies\" />
-    <Folder Include="Events\Bus\Exceptions\" />
+    <Folder Include="EventBus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="Security\Permissions\" />
     <Folder Include="Settings\" />

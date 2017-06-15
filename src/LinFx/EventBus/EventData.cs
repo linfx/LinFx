@@ -1,7 +1,7 @@
 ﻿using LinFx.Timing;
 using System;
 
-namespace LinFx.Events.Bus
+namespace LinFx.EventBus
 {
     /// <summary>
     /// Defines interface for all Event data classes.

@@ -1,4 +1,4 @@
-﻿namespace LinFx.Events.Bus.Handlers
+﻿namespace LinFx.EventBus.Handlers
 {
     /// <summary>
     /// Undirect base interface for all event handlers.

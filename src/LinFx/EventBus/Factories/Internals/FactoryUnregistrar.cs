@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Events.Bus.Factories.Internals
+namespace LinFx.EventBus.Factories.Internals
 {
     /// <summary>
     /// Used to unregister a <see cref="IEventHandlerFactory"/> on <see cref="Dispose"/> method.

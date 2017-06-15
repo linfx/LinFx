@@ -1,6 +1,6 @@
-﻿using LinFx.Events.Bus.Handlers;
+﻿using LinFx.EventBus.Handlers;
 
-namespace LinFx.Events.Bus.Factories.Internals
+namespace LinFx.EventBus.Factories.Internals
 {
     /// <summary>
     /// This <see cref="IEventHandlerFactory"/> implementation is used to handle events

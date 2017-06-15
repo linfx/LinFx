@@ -1,9 +1,9 @@
-﻿using LinFx.Events.Bus.Factories;
-using LinFx.Events.Bus.Handlers;
+﻿using LinFx.EventBus.Factories;
+using LinFx.EventBus.Handlers;
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Events.Bus
+namespace LinFx.EventBus
 {
     /// <summary>
     /// Defines interface of the event bus.
