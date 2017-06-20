@@ -19,11 +19,13 @@ namespace LinFx.Data.Dapper.Extensions
         bool Update<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
         bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
         bool Delete<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout) where T : class;
-        IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;        
+        IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetPage<T>(IDbConnection connection, object predicate, IList<ISort> sort, int page, int resultsPerPage, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         int Count<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout) where T : class;
         IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
+
+        int Execute(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?));
     }
 
     public class DapperImplementor : IDapperImplementor
@@ -210,7 +212,6 @@ namespace LinFx.Data.Dapper.Extensions
             {
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
-
             return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
         }
 
@@ -223,7 +224,6 @@ namespace LinFx.Data.Dapper.Extensions
             {
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
-
             return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
         }
 
@@ -402,6 +402,11 @@ namespace LinFx.Data.Dapper.Extensions
             }
 
             return new SequenceReaderResultReader(items);
+        }
+
+        public int Execute(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?))
+        {
+            return connection.Execute(sql, param, transaction, commandTimeout);
         }
     }
 }

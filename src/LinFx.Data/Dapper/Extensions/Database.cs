@@ -32,7 +32,7 @@ namespace LinFx.Data.Dapper.Extensions
         IEnumerable<T> GetPage<T>(object predicate, IList<ISort> sort, int page, int resultsPerPage, IDbTransaction transaction, int? commandTimeout = null, bool buffered = true) where T : class;
         IEnumerable<T> GetPage<T>(object predicate, IList<ISort> sort, int page, int resultsPerPage, int? commandTimeout = null, bool buffered = true) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
-        IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;        
+        IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;
         int Count<T>(object predicate, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         int Count<T>(object predicate, int? commandTimeout = null) where T : class;
         IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout = null);
@@ -40,6 +40,7 @@ namespace LinFx.Data.Dapper.Extensions
         void ClearCache();
         Guid GetNextGuid();
         IClassMapper GetMap<T>() where T : class;
+        int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?));
     }
 
     public class Database : IDatabase
@@ -113,7 +114,6 @@ namespace LinFx.Data.Dapper.Extensions
                 {
                     Rollback();
                 }
-
                 throw ex;
             }
         }
@@ -133,7 +133,6 @@ namespace LinFx.Data.Dapper.Extensions
                 {
                     Rollback();
                 }
-
                 throw ex;
             }
         }
@@ -261,6 +260,11 @@ namespace LinFx.Data.Dapper.Extensions
         public IClassMapper GetMap<T>() where T : class
         {
             return _dapper.SqlGenerator.Configuration.GetMap<T>();
+        }
+
+        public int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?))
+        {
+            return _dapper.Execute(Connection, sql, param, transaction, commandTimeout);
         }
     }
 }

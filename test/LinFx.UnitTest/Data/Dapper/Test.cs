@@ -1,6 +1,5 @@
 ﻿using LinFx.Authorization.Accounts;
 using LinFx.Data;
-using LinFx.Data.Dapper.Repositories;
 using LinFx.Data.Provider;
 using LinFx.Domain.Entities;
 using Shouldly;
