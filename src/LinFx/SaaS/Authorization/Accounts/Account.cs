@@ -20,14 +20,6 @@ namespace LinFx.Authorization.Accounts
         /// 手机
         /// </summary>
         public string PhoneNumber { get; set; }
-        ///// <summary>
-        ///// 创建时间
-        ///// </summary>
-        //public DateTime CreateTime { get; set; }
-        ///// <summary>
-        ///// 更新时间
-        ///// </summary>
-        //public DateTime UpdateTime { get; set; }
         /// <summary>
         /// Is the <see cref="Email"/> confirmed.
         /// </summary>
