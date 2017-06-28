@@ -15,7 +15,7 @@ namespace LinFx.Data.Dapper.Expressions
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     /// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
     /// <seealso cref="System.Linq.Expressions.ExpressionVisitor" />
-    internal class DapperExpressionVisitor<TEntity, TPrimaryKey> : ExpressionVisitor where TEntity : class, IEntity<TPrimaryKey>
+    internal class DapperExpressionVisitor<TEntity> : ExpressionVisitor where TEntity : class
     {
         private PredicateGroup _pg;
         private Expression _processedProperty;

@@ -16,19 +16,24 @@ namespace LinFx.Data.Dapper.Filters.Query
 
         public bool IsDeleted => false;
 
-        public IFieldPredicate ExecuteFilter<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>
+        private bool IsFilterable<TEntity>() where TEntity : class
+        {
+            return typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)) && IsEnabled;
+        }
+
+        public IFieldPredicate ExecuteFilter<TEntity>() where TEntity : class
         {
             IFieldPredicate predicate = null;
-            if (IsFilterable<TEntity, TPrimaryKey>())
+            if (IsFilterable<TEntity>())
             {
                 predicate = Predicates.Field<TEntity>(f => (f as ISoftDelete).IsDeleted, Operator.Eq, IsDeleted);
             }
             return predicate;
         }
 
-        public Expression<Func<TEntity, bool>> ExecuteFilter<TEntity, TPrimaryKey>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity<TPrimaryKey>
+        public Expression<Func<TEntity, bool>> ExecuteFilter<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
-            if (IsFilterable<TEntity, TPrimaryKey>())
+            if (IsFilterable<TEntity>())
             {
                 var propType = typeof(TEntity).GetProperty(nameof(ISoftDelete.IsDeleted));
                 if (predicate == null)
@@ -44,11 +49,6 @@ namespace LinFx.Data.Dapper.Filters.Query
                 }
             }
             return predicate;
-        }
-
-        private bool IsFilterable<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>
-        {
-            return typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)) && IsEnabled;
         }
     }
 }

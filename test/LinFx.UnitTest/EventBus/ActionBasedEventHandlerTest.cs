@@ -1,12 +1,11 @@
-﻿using LinFx.Events.Bus;
-using System;
+﻿using LinFx.EventBus;
 using Xunit;
 
 namespace LinFx.UnitTest.SaaS.Events.Bus
 {
     public class ActionBasedEventHandlerTest
     {
-        IEventBus EventBus = LinFx.Events.Bus.EventBus.Default;
+        IEventBus EventBus = LinFx.EventBus.EventBus.Default;
 
         [Fact]
         public void Should_Call_Action_On_Event_With_Correct_Source()

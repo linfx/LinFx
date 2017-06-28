@@ -4,6 +4,8 @@ using System.Data;
 using System.Reflection;
 using LinFx.Data.Dapper.Extensions.Mapper;
 using LinFx.Data.Dapper.Extensions.Sql;
+using System.Linq.Expressions;
+using LinFx.Data.Dapper.Filters.Query;
 
 namespace LinFx.Data.Dapper.Extensions
 {
@@ -13,10 +15,11 @@ namespace LinFx.Data.Dapper.Extensions
         private static Func<IDapperExtensionsConfiguration, IDapperImplementor> _instanceFactory;
         private static IDapperImplementor _instance;
         private static IDapperExtensionsConfiguration _configuration;
+        private static DapperQueryFilterExecuter _dapperQueryFilterExecuter = new DapperQueryFilterExecuter();
 
         static DapperExtensions()
         {
-            Configure(typeof(AutoClassMapper<>), new List<Assembly>(), new MySqlDialect());
+            Configure(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
         }
 
         /// <summary>
@@ -26,10 +29,7 @@ namespace LinFx.Data.Dapper.Extensions
         public static Type DefaultMapper
         {
             get { return _configuration.DefaultMapper; }
-            set
-            {
-                Configure(value, _configuration.MappingAssemblies, _configuration.Dialect);
-            }
+            set { Configure(value, _configuration.MappingAssemblies, _configuration.Dialect); }
         }
 
         /// <summary>
@@ -39,10 +39,7 @@ namespace LinFx.Data.Dapper.Extensions
         public static ISqlDialect SqlDialect
         {
             get { return _configuration.Dialect; }
-            set
-            {
-                Configure(_configuration.DefaultMapper, _configuration.MappingAssemblies, value);
-            }
+            set { Configure(_configuration.DefaultMapper, _configuration.MappingAssemblies, value); }
         }
         
         /// <summary>
@@ -53,9 +50,7 @@ namespace LinFx.Data.Dapper.Extensions
             get
             {
                 if (_instanceFactory == null)
-                {
                     _instanceFactory = config => new DapperImplementor(new SqlGeneratorImpl(config));
-                }
                 return _instanceFactory;
             }
             set
@@ -77,9 +72,7 @@ namespace LinFx.Data.Dapper.Extensions
                     lock (_lock)
                     {
                         if (_instance == null)
-                        {
                             _instance = InstanceFactory(_configuration);
-                        }
                     }
                 }
                 return _instance;
@@ -116,6 +109,23 @@ namespace LinFx.Data.Dapper.Extensions
         public static void Configure(Type defaultMapper, IList<Assembly> mappingAssemblies, ISqlDialect sqlDialect)
         {
             Configure(new DapperExtensionsConfiguration(defaultMapper, mappingAssemblies, sqlDialect));
+        }
+
+        /// <summary>
+        /// Clears the ClassMappers for each type.
+        /// </summary>
+        public static void ClearCache()
+        {
+            Instance.SqlGenerator.Configuration.ClearCache();
+        }
+
+        /// <summary>
+        /// Generates a COMB Guid which solves the fragmented index issue.
+        /// See: http://davybrion.com/blog/2009/05/using-the-guidcomb-identifier-strategy
+        /// </summary>
+        public static Guid GetNextGuid()
+        {
+            return Instance.SqlGenerator.Configuration.GetNextGuid();
         }
 
         /// <summary>
@@ -156,9 +166,10 @@ namespace LinFx.Data.Dapper.Extensions
         /// <summary>
         /// Executes a delete query using the specified predicate.
         /// </summary>
-        public static bool Delete<T>(this IDbConnection connection, object predicate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static bool Delete<TEntity>(this IDbConnection connection, Expression<Func<TEntity, bool>> predicate = null, IDbTransaction transaction = null, int? commandTimeout = null) where TEntity : class
         {
-            return Instance.Delete<T>(connection, predicate, transaction, commandTimeout);
+            IPredicate filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+            return Instance.Delete<TEntity>(connection, predicate, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -172,28 +183,13 @@ namespace LinFx.Data.Dapper.Extensions
 
         /// <summary>
         /// Executes a select query using the specified predicate, returning an IEnumerable data typed as per T.
-        /// </summary>
-        public static IEnumerable<T> GetList<T>(this IDbConnection connection, object predicate = null, IList<ISort> sort = null, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = false) where T : class
-        {
-            return Instance.GetList<T>(connection, predicate, sort, transaction, commandTimeout, buffered);
-        }
-
-        /// <summary>
-        /// Executes a select query using the specified predicate, returning an IEnumerable data typed as per T.
         /// Data returned is dependent upon the specified page and resultsPerPage.
         /// </summary>
-        public static IEnumerable<T> GetPage<T>(this IDbConnection connection, object predicate, IList<ISort> sort, int page, int resultsPerPage, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = false) where T : class
+        public static IEnumerable<TEntity> GetList<TEntity>(this IDbConnection connection, Expression<Func<TEntity, bool>> predicate = null, IList<ISort> sort = null, int page = 0, int limit = 0, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = false)
+            where TEntity : class
         {
-            return Instance.GetPage<T>(connection, predicate, sort, page, resultsPerPage, transaction, commandTimeout, buffered);
-        }
-
-        /// <summary>
-        /// Executes a select query using the specified predicate, returning an IEnumerable data typed as per T.
-        /// Data returned is dependent upon the specified firstResult and maxResults.
-        /// </summary>
-        public static IEnumerable<T> GetSet<T>(this IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = false) where T : class
-        {
-            return Instance.GetSet<T>(connection, predicate, sort, firstResult, maxResults, transaction, commandTimeout, buffered);
+            IPredicate filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+            return Instance.GetList<TEntity>(connection, filteredPredicate, sort, page, limit,transaction, commandTimeout, buffered);
         }
 
         /// <summary>
@@ -219,23 +215,6 @@ namespace LinFx.Data.Dapper.Extensions
         public static int Count<T>(this IDbConnection connection, object predicate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             return Instance.Count<T>(connection, predicate, transaction, commandTimeout);
-        }
-
-        /// <summary>
-        /// Clears the ClassMappers for each type.
-        /// </summary>
-        public static void ClearCache()
-        {
-            Instance.SqlGenerator.Configuration.ClearCache();
-        }
-
-        /// <summary>
-        /// Generates a COMB Guid which solves the fragmented index issue.
-        /// See: http://davybrion.com/blog/2009/05/using-the-guidcomb-identifier-strategy
-        /// </summary>
-        public static Guid GetNextGuid()
-        {
-            return Instance.SqlGenerator.Configuration.GetNextGuid();
         }
     }
 }

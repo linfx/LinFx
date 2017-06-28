@@ -43,7 +43,6 @@ namespace LinFx.Data.Dapper.Extensions
                 {
                     mapType = DefaultMapper.MakeGenericType(entityType);
                 }
-
                 map = Activator.CreateInstance(mapType) as IClassMapper;
                 _classMaps[entityType] = map;
             }

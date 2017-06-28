@@ -1,5 +1,4 @@
 ﻿using LinFx.Data.Dapper.Extensions;
-using LinFx.Domain.Entities;
 using System;
 using System.Linq.Expressions;
 
@@ -7,11 +6,11 @@ namespace LinFx.Data.Dapper.Expressions
 {
     internal static class DapperExpressionExtensions
     {
-        public static IPredicate ToPredicateGroup<TEntity, TPrimaryKey>(this Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity<TPrimaryKey>
+        public static IPredicate ToPredicateGroup<TEntity>(this Expression<Func<TEntity, bool>> expression) where TEntity : class
         {
             Check.NotNull(expression, nameof(expression));
 
-            var dev = new DapperExpressionVisitor<TEntity, TPrimaryKey>();
+            var dev = new DapperExpressionVisitor<TEntity>();
             IPredicate pg = dev.Process(expression);
 
             return pg;

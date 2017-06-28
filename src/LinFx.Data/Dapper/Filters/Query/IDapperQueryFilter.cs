@@ -1,5 +1,4 @@
 ﻿using LinFx.Data.Dapper.Extensions;
-using LinFx.Domain.Entities;
 using System;
 using System.Linq.Expressions;
 
@@ -11,8 +10,8 @@ namespace LinFx.Data.Dapper.Filters.Query
 
         bool IsEnabled { get; }
 
-        IFieldPredicate ExecuteFilter<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>;
+        IFieldPredicate ExecuteFilter<TEntity>() where TEntity : class;
 
-        Expression<Func<TEntity, bool>> ExecuteFilter<TEntity, TPrimaryKey>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity<TPrimaryKey>;
+        Expression<Func<TEntity, bool>> ExecuteFilter<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
     }
 }

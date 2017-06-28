@@ -57,22 +57,18 @@ namespace LinFx.Data.Dapper.Extensions.Sql
         public virtual string GetTableName(string schemaName, string tableName, string alias)
         {
             if (string.IsNullOrWhiteSpace(tableName))
-            {
                 throw new ArgumentNullException("TableName", "tableName cannot be null or empty.");
-            }
 
             var result = new StringBuilder();
+
             if (!string.IsNullOrWhiteSpace(schemaName))
-            {
                 result.AppendFormat(QuoteString(schemaName) + ".");
-            }
 
             result.AppendFormat(QuoteString(tableName));
 
             if (!string.IsNullOrWhiteSpace(alias))
-            {
                 result.AppendFormat(" AS {0}", QuoteString(alias));
-            }
+
             return result.ToString();
         }
 

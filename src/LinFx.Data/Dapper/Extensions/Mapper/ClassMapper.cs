@@ -56,7 +56,6 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
                 { typeof(BigInteger), KeyType.Identity }, { typeof(BigInteger?), KeyType.Identity },
                 { typeof(Guid), KeyType.Guid }, { typeof(Guid?), KeyType.Guid },
             };
-
             Properties = new List<IPropertyMap>();
             Table(typeof(T).Name);
         }
@@ -86,28 +85,20 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
             foreach (var propertyInfo in type.GetProperties())
             {
                 if (Properties.Any(p => p.Name.Equals(propertyInfo.Name, StringComparison.CurrentCultureIgnoreCase)))
-                {
                     continue;
-                }
 
                 if ((canMap != null && !canMap(type, propertyInfo)))
-                {
                     continue;
-                }
 
-                PropertyMap map = Map(propertyInfo);
+                var map = Map(propertyInfo);
                 if (!hasDefinedKey)
                 {
                     if (string.Equals(map.PropertyInfo.Name, "id", StringComparison.CurrentCultureIgnoreCase))
-                    {
                         keyMap = map;
-                    }
 
                     // if (keyMap == null && map.PropertyInfo.Name.EndsWith("id", true, CultureInfo.InvariantCulture))
                     if (keyMap == null && map.PropertyInfo.Name.EndsWith("id", StringComparison.CurrentCultureIgnoreCase))
-                    {
                         keyMap = map;
-                    }
                 }
             }
 
@@ -142,9 +133,7 @@ namespace LinFx.Data.Dapper.Extensions.Mapper
         private void GuardForDuplicatePropertyMap(PropertyMap result)
         {
             if (Properties.Any(p => p.Name.Equals(result.Name)))
-            {
                 throw new ArgumentException(string.Format("Duplicate mapping for property {0} detected.",result.Name));
-            }
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LinFx.Utils
 {
-    class JsonUtils
+    public class JsonUtils
     {
     }
 

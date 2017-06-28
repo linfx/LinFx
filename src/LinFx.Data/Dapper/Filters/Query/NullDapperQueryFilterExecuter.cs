@@ -1,5 +1,4 @@
 ﻿using LinFx.Data.Dapper.Extensions;
-using LinFx.Domain.Entities;
 using System;
 using System.Linq.Expressions;
 
@@ -9,14 +8,14 @@ namespace LinFx.Data.Dapper.Filters.Query
     {
         public static readonly NullDapperQueryFilterExecuter Instance = new NullDapperQueryFilterExecuter();
 
-        public IPredicate ExecuteFilter<TEntity, TPrimaryKey>(Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity<TPrimaryKey>
+        public IPredicate ExecuteFilter<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
-            return null;
+            throw new NotImplementedException();
         }
 
-        public PredicateGroup ExecuteFilter<TEntity, TPrimaryKey>() where TEntity : class, IEntity<TPrimaryKey>
+        public PredicateGroup ExecuteFilter<TEntity>() where TEntity : class
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

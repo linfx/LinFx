@@ -2,7 +2,7 @@
 using LinFx.Domain.Uow;
 using System.Threading.Tasks;
 
-namespace LinFx.Zero.Configuration
+namespace LinFx.SaaS.Configuration
 {
     public class SettingStore
     {
