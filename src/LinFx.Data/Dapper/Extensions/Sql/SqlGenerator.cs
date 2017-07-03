@@ -129,9 +129,7 @@ namespace LinFx.Data.Dapper.Extensions.Sql
         {
             var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
             if (!columns.Any())
-            {
                 throw new ArgumentException("No columns were mapped.");
-            }
 
             var columnNames = columns.Select(p => GetColumnName(classMap, p, false));
             var parameters = columns.Select(p => Configuration.Dialect.ParameterPrefix + p.Name);
@@ -140,7 +138,6 @@ namespace LinFx.Data.Dapper.Extensions.Sql
                                        GetTableName(classMap),
                                        columnNames.AppendStrings(),
                                        parameters.AppendStrings());
-
             return sql;
         }
 

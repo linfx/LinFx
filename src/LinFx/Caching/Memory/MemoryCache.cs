@@ -23,18 +23,12 @@ namespace LinFx.Caching.Memory
         public override Task SetAsync(string key, object value, TimeSpan? expireTime = default(TimeSpan?))
         {
             if (value == null)
-            {
-                throw new Exception(nameof(value));
-            }
+                throw new LinFxException(nameof(value));
 
             if(expireTime != null)
-            {
                 return Task.FromResult(_cache.Set(key, value, DateTimeOffset.Now.Add(expireTime.Value)));
-            }
             else
-            {
                 return Task.FromResult(_cache.Set(key, value, TimeSpan.FromHours(1)));
-            }
         }
     }
 }

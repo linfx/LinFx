@@ -12,6 +12,7 @@ namespace LinFx.Data.Dapper.Extensions
             Check.NotNullOrEmpty(sortingExpression, nameof(sortingExpression));
 
             var sortList = new List<ISort>();
+
             sortingExpression.ToList().ForEach(sortExpression =>
             {
                 var sortProperty = ReflectionUtils.GetProperty(sortExpression);

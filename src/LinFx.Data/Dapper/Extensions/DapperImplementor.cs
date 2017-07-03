@@ -53,7 +53,6 @@ namespace LinFx.Data.Dapper.Extensions
             }
 
             string sql = SqlGenerator.Insert(classMap);
-
             connection.Execute(sql, entities, transaction, commandTimeout, CommandType.Text);
         }
 

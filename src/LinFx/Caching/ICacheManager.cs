@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LinFx.Caching
+﻿namespace LinFx.Caching
 {
-    interface ICacheManager
+    public interface ICacheManager
     {
     }
 }

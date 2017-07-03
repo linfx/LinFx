@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dapper;
 
 namespace LinFx.Data.Dapper.Extensions
@@ -7,7 +6,6 @@ namespace LinFx.Data.Dapper.Extensions
     public interface IMultipleResultReader
     {
         IEnumerable<T> Read<T>();
-        T ReadSingle<T>();
     }
 
     public class GridReaderResultReader : IMultipleResultReader
@@ -22,11 +20,6 @@ namespace LinFx.Data.Dapper.Extensions
         public IEnumerable<T> Read<T>()
         {
             return _reader.Read<T>();
-        }
-
-        public T ReadSingle<T>()
-        {
-            return _reader.ReadSingle();
         }
     }
 
@@ -43,12 +36,6 @@ namespace LinFx.Data.Dapper.Extensions
         {
             SqlMapper.GridReader reader = _items.Dequeue();
             return reader.Read<T>();
-        }
-
-        public T ReadSingle<T>()
-        {
-            SqlMapper.GridReader reader = _items.Dequeue();
-            return reader.ReadSingle<T>();
         }
     }
 }

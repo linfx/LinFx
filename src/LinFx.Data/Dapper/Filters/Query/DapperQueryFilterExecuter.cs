@@ -41,7 +41,6 @@ namespace LinFx.Data.Dapper.Filters.Query
                     groups.Predicates.Add(predicate);
                 }
             }
-
             return groups;
         }
     }

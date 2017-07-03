@@ -15,8 +15,6 @@ namespace LinFx.Data.Dapper.Extensions
         void Rollback();
         void RunInTransaction(Action action);
         T RunInTransaction<T>(Func<T> func);
-        T Get<T>(dynamic id, IDbTransaction transaction, int? commandTimeout = null) where T : class;
-        T Get<T>(dynamic id, int? commandTimeout = null) where T : class;
         void Insert<T>(IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         void Insert<T>(IEnumerable<T> entities, int? commandTimeout = null) where T : class;
         dynamic Insert<T>(T entity, IDbTransaction transaction, int? commandTimeout = null) where T : class;
@@ -27,6 +25,8 @@ namespace LinFx.Data.Dapper.Extensions
         bool Delete<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<T>(object predicate, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         bool Delete<T>(object predicate, int? commandTimeout = null) where T : class;
+        T Get<T>(dynamic id, IDbTransaction transaction, int? commandTimeout = null) where T : class;
+        T Get<T>(dynamic id, int? commandTimeout = null) where T : class;
         IEnumerable<T> GetList<T>(object predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction, int? commandTimeout = null, bool buffered = true) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;
@@ -46,6 +46,8 @@ namespace LinFx.Data.Dapper.Extensions
 
         private IDbTransaction _transaction;
 
+        public IDbConnection Connection { get; private set; }
+
         public Database(IDbConnection connection, ISqlGenerator sqlGenerator)
         {
             _dapper = new DapperImplementor(sqlGenerator);
@@ -59,23 +61,15 @@ namespace LinFx.Data.Dapper.Extensions
 
         public bool HasActiveTransaction
         {
-            get
-            {
-                return _transaction != null;
-            }
+            get { return _transaction != null; }
         }
-
-        public IDbConnection Connection { get; private set; }
 
         public void Dispose()
         {
             if (Connection.State != ConnectionState.Closed)
             {
                 if (_transaction != null)
-                {
                     _transaction.Rollback();
-                }
-
                 Connection.Close();
             }
         }
