@@ -117,5 +117,18 @@ namespace LinFx.Data.Dapper.Extensions.Sql
         {
             return IsQuoted(value) ? value.Substring(1, value.Length - 2) : value;
         }
+
+        //public static ISqlDialect GetDialect()
+        //{
+        //    string conn:
+        //    switch (conn)
+        //    {
+        //        case "mysqlconnection":
+        //            return new MySqlDialect();
+        //        case "npgsqlconnection":
+        //            return new PostgreSqlDialect();
+        //    }
+        //    throw new Exception();
+        //}
     }
 }

@@ -27,7 +27,7 @@ namespace LinFx.Data.Dapper.Extensions
         bool Delete<T>(object predicate, int? commandTimeout = null) where T : class;
         T Get<T>(dynamic id, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         T Get<T>(dynamic id, int? commandTimeout = null) where T : class;
-        IEnumerable<T> GetList<T>(object predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction, int? commandTimeout = null, bool buffered = true) where T : class;
+        IEnumerable<T> GetList<T>(object predicate = null, IList<ISort> sort = null, int page = 0, int limit = 0, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = true) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;
         int Count<T>(object predicate, IDbTransaction transaction, int? commandTimeout = null) where T : class;
@@ -52,11 +52,9 @@ namespace LinFx.Data.Dapper.Extensions
         {
             _dapper = new DapperImplementor(sqlGenerator);
             Connection = connection;
-            
+
             if (Connection.State != ConnectionState.Open)
-            {
                 Connection.Open();
-            }
         }
 
         public bool HasActiveTransaction

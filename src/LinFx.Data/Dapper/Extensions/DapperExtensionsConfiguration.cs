@@ -31,7 +31,9 @@ namespace LinFx.Data.Dapper.Extensions
         }
 
         public Type DefaultMapper { get; private set; }
+
         public IList<Assembly> MappingAssemblies { get; private set; }
+
         public ISqlDialect Dialect { get; private set; }
 
         public IClassMapper GetMap(Type entityType)

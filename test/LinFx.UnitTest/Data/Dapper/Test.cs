@@ -8,15 +8,17 @@ using System.Reflection;
 using System.Collections.Generic;
 using Shouldly;
 using System.Linq;
+using LinFx.Data.Dapper.Extensions.Sql;
+using LinFx.Data.Dapper.Extensions.Mapper;
 
 namespace LinFx.UnitTest.Data.Dapper
 {
     public class Test
     {
+        const string connectionString = "server=10.10.10.183;database=test;uid=postgres;pwd=123456;pooling=true;";
+
         public void UsingDbConnectionFactory(Action<IDbConnection> action)
         {
-            //const string connectionString = "server=db.wayto.com.cn;database=test;uid=root;pwd=Wayto2017!;Charset=utf8;";
-            const string connectionString = "server=10.10.10.183;database=test;uid=postgres;pwd=123456;pooling=true;";
             using (var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance))
             {
                 using (var conn = factory.Open())
@@ -29,15 +31,31 @@ namespace LinFx.UnitTest.Data.Dapper
         [Fact]
         public void Test1()
         {
-            DapperExtensions.SetMappingAssemblies(new List<Assembly> { Assembly.GetEntryAssembly() });
+            //DapperExtensions.SetMappingAssemblies(new List<Assembly> { Assembly.GetEntryAssembly() });
+            //UsingDbConnectionFactory(db =>
+            //{
+            //    var r = db.GetList<User>().ToList();
+            //    r.Count().ShouldNotBe(0);
+            //});
 
-            UsingDbConnectionFactory(db =>
+            var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
+            var config = new DapperExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
+            IDatabase db2 = new Database(factory.Create(), new SqlGeneratorImpl(config));
+
+            db2.RunInTransaction(() =>
             {
-                var r = db.GetList<Author>(p => p.Name == "Lin").ToList();
+                var id = db2.Insert(new User
+                {
+                    Name = "New1"
+                });
 
-
-                r.Count().ShouldNotBe(0);
+                //db2.Insert(new UserEx
+                //{
+                //    Id = id,
+                //    NameEx = "New1Ex"
+                //});
             });
+            //var users = db2.GetList<User>();
         }
     }
 

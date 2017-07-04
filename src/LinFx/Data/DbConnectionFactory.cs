@@ -50,5 +50,13 @@ namespace LinFx.Data
         {
             return factory.OpenDbConnection();
         }
+
+        /// <summary>
+        /// Alias for CreateDbConnection
+        /// </summary>
+        public static IDbConnection Create(this IDbConnectionFactory factory)
+        {
+            return factory.CreateDbConnection();
+        }
     }
 }

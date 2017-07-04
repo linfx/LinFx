@@ -4,6 +4,18 @@ using LinFx.Domain.Entities;
 
 namespace LinFx.UnitTest.Data.Dapper
 {
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class UserEx
+    {
+        public int Id { get; set; }
+        public string NameEx { get; set; }
+    }
+
     public class Person
     {
         public int Id { get; set; }
