@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace LinFx.Domain.Services
 {
+    public interface IDomainService
+    {
+    }
+
     public abstract class DomainService<TEntity, TPrimaryKey> : IDomainService where TEntity : IEntity<TPrimaryKey>
     {
         protected readonly IRepository<TEntity, TPrimaryKey> _repository;

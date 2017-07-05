@@ -10,9 +10,9 @@ namespace LinFx.Data.Dapper.Extensions.Sql
     {
         IDapperExtensionsConfiguration Configuration { get; }
         
-        string Select(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, IDictionary<string, object> parameters);
-        string SelectPaged(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int page, int resultsPerPage, IDictionary<string, object> parameters);
+        string Select(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, IDictionary<string, object> parameters, int page = 0, int limit = 0);
         string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters);
+
         string Count(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
 
         string Insert(IClassMapper classMap);
@@ -35,49 +35,31 @@ namespace LinFx.Data.Dapper.Extensions.Sql
 
         public IDapperExtensionsConfiguration Configuration { get; private set; }
 
-        public virtual string Select(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, IDictionary<string, object> parameters)
+        public virtual string Select(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, IDictionary<string, object> parameters, int page, int limit)
         {
-            if (sort == null || !sort.Any())
-                throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");
+			//if(sort == null || !sort.Any())
+			//	throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");
 
-            if (parameters == null)
-                throw new ArgumentNullException("Parameters");
+			if(parameters == null)
+				throw new ArgumentNullException("Parameters");
 
-            var sql = new StringBuilder(string.Format("SELECT {0} FROM {1}", BuildSelectColumns(classMap), GetTableName(classMap)));
-            if (predicate != null)
-                sql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
+			var innerSql = new StringBuilder(string.Format("SELECT {0} FROM {1}", BuildSelectColumns(classMap), GetTableName(classMap)));
+			if(predicate != null)
+				innerSql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
 
-            if (sort != null && sort.Any())
-                sql.Append(" ORDER BY ").Append(sort.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings());
+			if(sort != null && sort.Any())
+				innerSql.Append(" ORDER BY ").Append(sort.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings());
 
-            return sql.ToString();
-        }
+			if(page > 0 && limit > 0)
+			{
+				string sql = Configuration.Dialect.GetPagingSql(innerSql.ToString(), page, limit, parameters);
+				return sql;
+			}
 
-        public virtual string SelectPaged(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int page, int limit, IDictionary<string, object> parameters)
-        {
-            //if (sort == null || !sort.Any())
-            //    throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");
+			return innerSql.ToString();
+		}
 
-            if (parameters == null)
-                throw new ArgumentNullException("Parameters");
-
-            var innerSql = new StringBuilder(string.Format("SELECT {0} FROM {1}", BuildSelectColumns(classMap), GetTableName(classMap)));
-            if (predicate != null)
-                innerSql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
-
-            if (sort != null && sort.Any())
-                innerSql.Append(" ORDER BY ").Append(sort.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings());
-
-            if (limit > 0)
-            {
-                string sql = Configuration.Dialect.GetPagingSql(innerSql.ToString(), page, limit, parameters);
-                return sql;
-            }
-
-            return innerSql.ToString();
-        }
-
-        public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters)
+		public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters)
         {
             if (sort == null || !sort.Any())
             {

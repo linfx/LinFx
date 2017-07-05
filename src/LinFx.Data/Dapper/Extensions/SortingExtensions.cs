@@ -9,7 +9,7 @@ namespace LinFx.Data.Dapper.Extensions
     {
         public static List<ISort> ToSortable<T>(this Expression<Func<T, object>>[] sortingExpression, bool ascending = true)
         {
-            Check.NotNullOrEmpty(sortingExpression, nameof(sortingExpression));
+            //Check.NotNullOrEmpty(sortingExpression, nameof(sortingExpression));
 
             var sortList = new List<ISort>();
 

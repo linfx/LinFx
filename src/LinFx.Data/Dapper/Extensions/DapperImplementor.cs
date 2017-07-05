@@ -19,9 +19,9 @@ namespace LinFx.Data.Dapper.Extensions
         bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
         bool Delete<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout) where T : class;
         T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class;
-        IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
-        IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
-        int Count<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout) where T : class;
+		IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction = null, int? commandTimeout = null, bool buffered = true) where T : class;
+		IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
+        int Count<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
         int Execute(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?));
     }
@@ -148,16 +148,15 @@ namespace LinFx.Data.Dapper.Extensions
 
         public T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class
         {
-            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
-            IPredicate predicate = GetIdPredicate(classMap, id);
-            T result = GetList<T>(connection, classMap, predicate, null, 0, 0, transaction, commandTimeout, true).SingleOrDefault();
-            return result;
+			IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
+			IPredicate predicate = GetIdPredicate(classMap, id);
+			return GetList<T>(connection, classMap, predicate, null, 0, 0, transaction, commandTimeout, true).SingleOrDefault();
         }
 
         public IEnumerable<T> GetList<T>(IDbConnection connection, object predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
-            IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
-            IPredicate wherePredicate = GetPredicate(classMap, predicate);
+			IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
+			IPredicate wherePredicate = GetPredicate(classMap, predicate);
             return GetList<T>(connection, classMap, wherePredicate, sort, page, limit, transaction, commandTimeout, buffered);
         }
 
@@ -195,7 +194,7 @@ namespace LinFx.Data.Dapper.Extensions
         protected IEnumerable<T> GetList<T>(IDbConnection connection, IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int page, int limit, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
             var parameters = new Dictionary<string, object>();
-            string sql = SqlGenerator.SelectPaged(classMap, predicate, sort, page, limit, parameters);
+            string sql = SqlGenerator.Select(classMap, predicate, sort, parameters);
             var dynamicParameters = new DynamicParameters();
             foreach (var parameter in parameters)
             {
@@ -378,7 +377,7 @@ namespace LinFx.Data.Dapper.Extensions
             return new SequenceReaderResultReader(items);
         }
 
-        public int Execute(IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = default(int?))
+        public int Execute(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
         {
             return connection.Execute(sql, param, transaction, commandTimeout);
         }

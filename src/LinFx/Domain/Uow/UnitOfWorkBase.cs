@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions;
+using LinFx.Session;
 using System;
 using System.Threading.Tasks;
 
@@ -9,6 +10,10 @@ namespace LinFx.Domain.Uow
         public string Id { get; }
 
         public IUnitOfWork Outer { get; set; }
+        /// <summary>
+        /// Reference to current session.
+        /// </summary>
+        public ISession Session { protected get; set; }
 
         public UnitOfWorkOptions Options { get; }
 
@@ -19,6 +24,12 @@ namespace LinFx.Domain.Uow
 
         public void Begin(UnitOfWorkOptions options)
         {
+            Check.NotNull(options, nameof(options));
+
+            //SetFilters(options.FilterOverrides);
+
+            //SetTenantId(Session.TenantId, false);
+
             BeginUow();
         }
 
@@ -40,15 +51,12 @@ namespace LinFx.Domain.Uow
 
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
 
         private void PreventMultipleComplete()
         {
             if (_isCompleteCalledBefore)
-            {
-                throw new Exception("Complete is called before!");
-            }
+                throw new LinFxException("Complete is called before!");
 
             _isCompleteCalledBefore = true;
         }
@@ -98,5 +106,34 @@ namespace LinFx.Domain.Uow
         public abstract void SaveChanges();
 
         public abstract Task SaveChangesAsync();
+
+        //public virtual IDisposable SetTenantId(int? tenantId, bool switchMustHaveTenantEnableDisable)
+        //{
+        //    //var oldTenantId = _tenantId;
+        //    //_tenantId = tenantId;
+
+        //    IDisposable mustHaveTenantEnableChange;
+        //    if (switchMustHaveTenantEnableDisable)
+        //    {
+        //        mustHaveTenantEnableChange = tenantId == null
+        //            ? DisableFilter(AbpDataFilters.MustHaveTenant)
+        //            : EnableFilter(AbpDataFilters.MustHaveTenant);
+        //    }
+        //    else
+        //    {
+        //        mustHaveTenantEnableChange = NullDisposable.Instance;
+        //    }
+
+        //    var mayHaveTenantChange = SetFilterParameter(AbpDataFilters.MayHaveTenant, AbpDataFilters.Parameters.TenantId, tenantId);
+        //    var mustHaveTenantChange = SetFilterParameter(AbpDataFilters.MustHaveTenant, AbpDataFilters.Parameters.TenantId, tenantId ?? 0);
+
+        //    return new DisposeAction(() =>
+        //    {
+        //        mayHaveTenantChange.Dispose();
+        //        mustHaveTenantChange.Dispose();
+        //        mustHaveTenantEnableChange.Dispose();
+        //        _tenantId = oldTenantId;
+        //    });
+        //}
     }
 }

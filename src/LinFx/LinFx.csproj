@@ -9,8 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
+    <PackageReference Include="NLog" Version="5.0.0-beta09" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
@@ -20,9 +22,9 @@
     <Folder Include="Domain\Policies\" />
     <Folder Include="EventBus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
+    <Folder Include="SaaS\Notifications\" />
+    <Folder Include="SaaS\Localization\" />
     <Folder Include="Security\Permissions\" />
-    <Folder Include="Settings\" />
-    <Folder Include="Configuration\" />
   </ItemGroup>
 
 </Project>

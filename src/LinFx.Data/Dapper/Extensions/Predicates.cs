@@ -192,9 +192,7 @@ namespace LinFx.Data.Dapper.Extensions
         {
             string columnName = GetColumnName(typeof(T), sqlGenerator, PropertyName);
             if (Value == null)
-            {
                 return string.Format("({0} IS {1}NULL)", columnName, Not ? "NOT " : string.Empty);
-            }
 
             if (Value is IEnumerable && !(Value is string))
             {
@@ -214,7 +212,7 @@ namespace LinFx.Data.Dapper.Extensions
                 return string.Format("({0} {1}IN ({2}))", columnName, Not ? "NOT " : string.Empty, paramStrings);
             }
 
-            string parameterName = parameters.SetParameterName(this.PropertyName, this.Value, sqlGenerator.Configuration.Dialect.ParameterPrefix);
+            string parameterName = parameters.SetParameterName(PropertyName, Value, sqlGenerator.Configuration.Dialect.ParameterPrefix);
             return string.Format("({0} {1} {2})", columnName, GetOperatorString(), parameterName);
         }
     }
@@ -312,19 +310,19 @@ namespace LinFx.Data.Dapper.Extensions
     {
         public GroupOperator Operator { get; set; }
         public IList<IPredicate> Predicates { get; set; }
+
         public string GetSql(ISqlGenerator sqlGenerator, IDictionary<string, object> parameters)
         {
-            string seperator = Operator == GroupOperator.And ? " AND " : " OR ";
-            return "(" + Predicates.Aggregate(new StringBuilder(),
-                                        (sb, p) => (sb.Length == 0 ? sb : sb.Append(seperator)).Append(p.GetSql(sqlGenerator, parameters)),
-                sb =>
-                {
-                    var s = sb.ToString();
-                    if (s.Length == 0) return sqlGenerator.Configuration.Dialect.EmptyExpression; 
-                    return s;
-                }
-                                        ) + ")";
-        }
+			string seperator = Operator == GroupOperator.And ? " AND " : " OR ";
+			return "(" + Predicates.Aggregate(new StringBuilder(), (sb, p) => (sb.Length == 0 ? sb : sb.Append(seperator)).Append(p.GetSql(sqlGenerator, parameters)), sb =>
+						{
+							var s = sb.ToString();
+							if(s.Length == 0)
+								return sqlGenerator.Configuration.Dialect.EmptyExpression;
+							return s;
+						})
+				+ ")";
+		}
     }
 
     public interface IExistsPredicate : IPredicate
