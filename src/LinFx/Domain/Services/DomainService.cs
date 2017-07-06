@@ -8,54 +8,54 @@ namespace LinFx.Domain.Services
     {
     }
 
-    public abstract class DomainService<TEntity, TPrimaryKey> : IDomainService where TEntity : IEntity<TPrimaryKey>
-    {
-        protected readonly IRepository<TEntity, TPrimaryKey> _repository;
+	public abstract class DomainService : ServiceBase, IDomainService
+	{
+	}
 
-        public DomainService(IRepository<TEntity, TPrimaryKey> repository)
-        {
-            _repository = repository;
-        }
 
-        public virtual void Create(TEntity item)
-        {
-            _repository.Insert(item);
-        }
+	//public abstract class DomainService<TEntity, TPrimaryKey> : IDomainService where TEntity : IEntity<TPrimaryKey>
+ //   {
+ //       protected readonly IRepository<TEntity, TPrimaryKey> _repository;
 
-        public virtual void Update(TEntity item)
-        {
-            _repository.Update(item);
-        }
+ //       public DomainService(IRepository<TEntity, TPrimaryKey> repository)
+ //       {
+ //           _repository = repository;
+ //       }
 
-        public virtual void Delete(TEntity item)
-        {
-            _repository.Delete(item);
-        }
+ //       //public virtual void Create(TEntity item)
+ //       //{
+ //       //    _repository.Insert(item);
+ //       //}
 
-        public virtual TEntity Get(TPrimaryKey id)
-        {
-            return _repository.Get(id);
-        }
+ //       //public virtual void Update(TEntity item)
+ //       //{
+ //       //    _repository.Update(item);
+ //       //}
 
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            return _repository.GetAll();
-        }
-    }
+ //       //public virtual void Delete(TEntity item)
+ //       //{
+ //       //    _repository.Delete(item);
+ //       //}
 
-    public abstract class DomainService<TEntity> : DomainService<TEntity, string> where TEntity : IEntity
-    {
-        public DomainService(IRepository<TEntity> repository) : base(repository) { }
+ //       //public virtual TEntity Get(TPrimaryKey id)
+ //       //{
+ //       //    return _repository.Get(id);
+ //       //}
 
-        public override void Create(TEntity item)
-        {
-            item.NewId();
-            base.Create(item);
-        }
+ //       //public virtual IEnumerable<TEntity> GetAll()
+ //       //{
+ //       //    return _repository.GetAll();
+ //       //}
+ //   }
 
-        //public virtual TEntity FindById(string id)
-        //{
-        //    return _repository.FirstOrDefault(id);
-        //}
-    }
+    //public abstract class DomainService<TEntity> : DomainService<TEntity, string> where TEntity : IEntity
+    //{
+    //    //public DomainService(IRepository<TEntity> repository) : base(repository) { }
+
+    //    //public override void Create(TEntity item)
+    //    //{
+    //    //    item.NewId();
+    //    //    base.Create(item);
+    //    //}
+    //}
 }

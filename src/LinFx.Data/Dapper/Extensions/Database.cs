@@ -18,7 +18,7 @@ namespace LinFx.Data.Dapper.Extensions
         void RunInTransaction(Action action);
         T RunInTransaction<T>(Func<T> func);
 
-        void Insert<TEntity>(IEnumerable<TEntity> entities, int? commandTimeout = null) where TEntity : class;
+        void Insert<TEntity>(IList<TEntity> entities, int? commandTimeout = null) where TEntity : class;
         dynamic Insert<TEntity>(TEntity entity, int? commandTimeout = null) where TEntity : class;
 
         bool Update<T>(T entity, int? commandTimeout = null) where T : class;
@@ -129,7 +129,7 @@ namespace LinFx.Data.Dapper.Extensions
 			return _dapper.Get<TEntity>(Connection, id, _transaction, commandTimeout);
 		}
 
-        public void Insert<T>(IEnumerable<T> entities, int? commandTimeout) where T : class
+        public void Insert<T>(IList<T> entities, int? commandTimeout) where T : class
         {
             _dapper.Insert(Connection, entities, _transaction, commandTimeout);
         }

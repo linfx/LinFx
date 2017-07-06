@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.6.0" />
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="1.1.2" />
     <PackageReference Include="NLog" Version="5.0.0-beta09" />

@@ -6,7 +6,11 @@ namespace LinFx.Data.Provider.Uow
 {
     public class MySqlUnitOfWork : UnitOfWorkBase
     {
-        public override void SaveChanges()
+		public MySqlUnitOfWork(IUnitOfWorkDefaultOptions defaultOptions, IUnitOfWorkFilterExecuter filterExecuter) : base(defaultOptions, filterExecuter)
+		{
+		}
+
+		public override void SaveChanges()
         {
             throw new NotImplementedException();
         }

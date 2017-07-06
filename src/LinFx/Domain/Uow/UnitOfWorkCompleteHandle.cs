@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LinFx.Domain.Uow
 {
@@ -9,7 +10,12 @@ namespace LinFx.Domain.Uow
         /// It saves all changes and commit transaction if exists.
         /// </summary>
         void Complete();
-    }
+		/// <summary>
+		/// Completes this unit of work.
+		/// It saves all changes and commit transaction if exists.
+		/// </summary>
+		Task CompleteAsync();
+	}
 
     public class InnerUnitOfWorkCompleteHandle : IUnitOfWorkCompleteHandle
     {
@@ -23,7 +29,12 @@ namespace LinFx.Domain.Uow
             _isCompleteCalled = true;
         }
 
-        public void Dispose()
+		public Task CompleteAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void Dispose()
         {
             if (_isDisposed)
             {
