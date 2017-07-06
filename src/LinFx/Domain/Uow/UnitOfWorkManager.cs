@@ -1,4 +1,4 @@
-﻿using LinFx.Dependency;
+﻿using LinFx.Unity;
 using System.Transactions;
 
 namespace LinFx.Domain.Uow
@@ -32,12 +32,12 @@ namespace LinFx.Domain.Uow
 
     public class UnitOfWorkManager : IUnitOfWorkManager
     {
-		private readonly IIocResolver _iocResolver;
+		private readonly IUnity _iocResolver;
 		private readonly ICurrentUnitOfWorkProvider _currentUnitOfWorkProvider;
 		private readonly IUnitOfWorkDefaultOptions _defaultOptions;
 
 		public UnitOfWorkManager(
-			IIocResolver iocResolver,
+			IUnity iocResolver,
 			ICurrentUnitOfWorkProvider currentUnitOfWorkProvider,
 			IUnitOfWorkDefaultOptions defaultOptions)
 		{
