@@ -41,18 +41,18 @@
 		/// <summary>
 		/// Container
 		/// </summary>
-		IUnity container = new AutofacUnity();
+		IUnity kernel = new NInjectUnity();
 
 		public T Resolve<T>()
 		{
-			return container.Resolve<T>();
+			return kernel.Resolve<T>();
 		}
 
 	    public void Register<TType, TImpl>()
 			where TType : class
 			where TImpl : class, TType
 		{
-			container.Register<TType, TImpl>();
+			kernel.Register<TType, TImpl>();
 		}
 	}
 }
