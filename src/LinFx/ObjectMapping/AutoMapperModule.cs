@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using AutoMapper;
 
 namespace LinFx.ObjectMapping

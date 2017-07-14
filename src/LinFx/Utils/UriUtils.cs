@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Data.Extensions;
+using System.Collections.Generic;
 
 namespace LinFx.Utils
 {
@@ -12,7 +13,7 @@ namespace LinFx.Utils
         public static IDictionary<string, string> ToFilter(string filter)
         {
             var dic = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(filter))
+            if (!string.IsNullOrWhiteSpace(filter))
             {
                 if (filter.EndsWith(";"))
                     filter = filter.Remove(filter.Length - 1);
@@ -27,5 +28,26 @@ namespace LinFx.Utils
             }
             return dic;
         }
+
+		public static Sorting[] ToSorting(string sortby)
+		{
+			var sorts = new List<Sorting>();
+			if(!string.IsNullOrWhiteSpace(sortby))
+			{
+				var collection = sortby.Split(',');
+				foreach(string c in collection)
+				{
+					var order = c.Substring(0, 1);
+					var name = c.Remove(0, 1);
+					var sort = new Sorting()
+					{
+						Ascending = (order == "-"),
+						PropertyName = name
+					};
+					sorts.Add(sort);
+				}
+			}
+			return sorts.ToArray();
+		}
     }
 }

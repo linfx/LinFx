@@ -5,14 +5,84 @@ using System.Text;
 
 namespace LinFx.Utils
 {
-    public class JsonUtils
+    public static class JsonUtils
     {
-    }
+		private const char TypeSeperator = '|';
 
-    /// <summary>
-    /// 转化小写
-    /// </summary>
-    public class LowercaseContractResolver : DefaultContractResolver
+		/// <summary>
+		/// Serializes an object with a type information included.
+		/// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
+		/// </summary>
+		public static string SerializeWithType(object obj)
+		{
+			return SerializeWithType(obj, obj.GetType());
+		}
+
+		/// <summary>
+		/// Serializes an object with a type information included.
+		/// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
+		/// </summary>
+		public static string SerializeWithType(object obj, Type type)
+		{
+			var serialized = obj.ToJsonString();
+
+			return string.Format(
+				"{0}{1}{2}",
+				type.AssemblyQualifiedName,
+				TypeSeperator,
+				serialized);
+		}
+
+		/// <summary>
+		/// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
+		/// </summary>
+		public static T DeserializeWithType<T>(string serializedObj)
+		{
+			return (T)DeserializeWithType(serializedObj);
+		}
+
+		/// <summary>
+		/// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
+		/// </summary>
+		public static object DeserializeWithType(string serializedObj)
+		{
+			var typeSeperatorIndex = serializedObj.IndexOf(TypeSeperator);
+			var type = Type.GetType(serializedObj.Substring(0, typeSeperatorIndex));
+			var serialized = serializedObj.Substring(typeSeperatorIndex + 1);
+
+			var options = new JsonSerializerSettings();
+			//options.Converters.Insert(0, new AbpDateTimeConverter());
+
+			return JsonConvert.DeserializeObject(serialized, type, options);
+		}
+	}
+
+	public static class JsonExtensions
+	{
+		/// <summary>
+		/// Converts given object to JSON string.
+		/// </summary>
+		/// <returns></returns>
+		public static string ToJsonString(this object obj, bool camelCase = false, bool indented = false)
+		{
+			var options = new JsonSerializerSettings();
+
+			if(camelCase)
+				options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+			if(indented)
+				options.Formatting = Formatting.Indented;
+
+			//options.Converters.Insert(0, new DateTimeConverter());
+
+			return JsonConvert.SerializeObject(obj, options);
+		}
+	}
+
+	/// <summary>
+	/// 转化小写
+	/// </summary>
+	public class LowercaseContractResolver : DefaultContractResolver
     {
         protected override string ResolvePropertyName(string propertyName)
         {

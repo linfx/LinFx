@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0-preview2-final" />
     <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
     <PackageReference Include="NLog" Version="5.0.0-beta09" />
+    <PackageReference Include="StackExchange.Redis" Version="1.2.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>

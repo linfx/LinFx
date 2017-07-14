@@ -11,5 +11,7 @@ namespace LinFx.SaaS.Domain.Entities
 		public string No { get; set; }
 
 		public string Name { get; set; }
+
+		public string Note { get; set; }
     }
 }

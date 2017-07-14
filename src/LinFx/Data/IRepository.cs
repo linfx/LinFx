@@ -46,8 +46,7 @@ namespace LinFx.Data
     }
 
     /// <summary>
-    //     A shortcut of IRepository`2 for most used primary key
-    //     type (System.String).
+    //	A shortcut of IRepository`2 for most used primary key type (System.String).
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     public interface IRepository<TEntity> : IRepository<TEntity, string> where TEntity : IEntity<string>
