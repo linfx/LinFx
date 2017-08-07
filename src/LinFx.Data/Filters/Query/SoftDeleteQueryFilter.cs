@@ -25,9 +25,8 @@ namespace LinFx.Data.Filters.Query
         {
             IFieldPredicate predicate = null;
             if (IsFilterable<TEntity>())
-            {
                 predicate = Predicates.Field<TEntity>(f => (f as ISoftDelete).IsDeleted, Operator.Eq, IsDeleted);
-            }
+
             return predicate;
         }
 

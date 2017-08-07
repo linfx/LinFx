@@ -1,4 +1,4 @@
-﻿using LinFx.Data.Dapper.Extensions;
+﻿using LinFx.Data.Extensions;
 using Shouldly;
 using System;
 using System.Linq.Expressions;
@@ -6,7 +6,7 @@ using Xunit;
 
 namespace LinFx.UnitTest.Data.Dapper.Extensions
 {
-    public class ReflectionUtilsTest
+	public class ReflectionUtilsTest
     {
         [Fact]
         public void GetProperty_Returns_MemberInfo_For_Correct_Property()

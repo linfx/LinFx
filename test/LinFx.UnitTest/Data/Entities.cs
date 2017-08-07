@@ -1,20 +1,21 @@
-﻿using System;
-using LinFx.Data.Dapper.Extensions.Mapper;
+﻿using LinFx.Data.Extensions.Mapper;
 using LinFx.Domain.Entities;
 
 namespace LinFx.UnitTest.Data.Dapper
 {
-    public class User
+	public class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
     }
 
-    public class UserEx
+    public class Post
     {
-        public int Id { get; set; }
-        public string NameEx { get; set; }
-    }
+		public int Id { get; set; }
+		public string Title { get; set; }
+		public string Content { get; set; }
+		public User Owner { get; set; }
+	}
 
     public class Person
     {

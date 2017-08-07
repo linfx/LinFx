@@ -1,5 +1,5 @@
-﻿using LinFx.Data.Dapper.Extensions;
-using LinFx.Data.Dapper.Extensions.Mapper;
+﻿using LinFx.Data.Extensions;
+using LinFx.Data.Extensions.Mapper;
 using Shouldly;
 using System;
 using System.Linq.Expressions;
@@ -8,7 +8,7 @@ using Xunit;
 
 namespace LinFx.UnitTest.Data.Dapper.Extensions
 {
-    public class PropertyMapTest
+	public class PropertyMapTest
     {
         [Fact]
         public void PropertyMap_Constructor_Sets_Name_And_ColumnName_Property_From_PropertyInfo()

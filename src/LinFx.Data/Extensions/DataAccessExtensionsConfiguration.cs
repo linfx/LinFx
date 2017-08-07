@@ -42,9 +42,7 @@ namespace LinFx.Data.Extensions
             {
                 Type mapType = GetMapType(entityType);
                 if (mapType == null)
-                {
                     mapType = DefaultMapper.MakeGenericType(entityType);
-                }
                 map = Activator.CreateInstance(mapType) as IClassMapper;
                 _classMaps[entityType] = map;
             }

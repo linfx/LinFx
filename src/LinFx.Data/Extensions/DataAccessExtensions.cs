@@ -184,14 +184,16 @@ namespace LinFx.Data.Extensions
 
         /// <summary>
         /// Executes a select query using the specified predicate, returning an IEnumerable data typed as per T.
-        /// Data returned is dependent upon the specified page and resultsPerPage.
+        /// Data returned is dependent upon the specified page and resultsPerPage. 
         /// </summary>
         public static IEnumerable<TEntity> Select<TEntity>(this IDbConnection connection, Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Sorting[] sorting)
             where TEntity : class
         {
-            IPredicate filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
-            return Instance.Select<TEntity>(connection, filteredPredicate, paging, sorting);
-        }
+			IPredicate filteredPredicate = null;
+			if(predicate != null)
+				filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+			return Instance.Select<TEntity>(connection, filteredPredicate, paging, sorting);
+		}
 
         /// <summary>
         /// Executes a select query for multiple objects, returning IMultipleResultReader for each predicate.

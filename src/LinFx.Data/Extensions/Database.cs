@@ -45,7 +45,7 @@ namespace LinFx.Data.Extensions
     {
         private readonly IDapperImplementor _dapper;
 		private IDbTransaction _transaction;
-		private static QueryFilterExecuter _dapperQueryFilterExecuter = new QueryFilterExecuter();
+		private static QueryFilterExecuter _dapperFilterExecuter = new QueryFilterExecuter();
 
         public IDbConnection Connection { get; private set; }
 
@@ -157,13 +157,13 @@ namespace LinFx.Data.Extensions
 
 		public bool Delete<TEntity>(Expression<Func<TEntity, bool>> predicate, int? commandTimeout) where TEntity : class
 		{
-			var filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+			var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
 			return _dapper.Delete<TEntity>(Connection, filteredPredicate, _transaction, commandTimeout);
 		}
 
 		public IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate, Paging paging, params Expression<Func<TEntity, object>>[] sort) where TEntity : class
 		{
-			var filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+			var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
 			return _dapper.Select<TEntity>(Connection, filteredPredicate, paging, sort.ToSorting());
 		}
 
@@ -179,7 +179,7 @@ namespace LinFx.Data.Extensions
 
         public int Count<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
-			var filteredPredicate = _dapperQueryFilterExecuter.ExecuteFilter(predicate);
+			var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
 			return _dapper.Count<TEntity>(Connection, filteredPredicate, _transaction);
         }
 
