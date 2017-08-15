@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />
     <PackageReference Include="MySql.Data" Version="7.0.7-m61" />
-    <PackageReference Include="Npgsql" Version="3.2.4.1" />
+    <PackageReference Include="Npgsql" Version="3.2.5" />
   </ItemGroup>
 
   <ItemGroup>
