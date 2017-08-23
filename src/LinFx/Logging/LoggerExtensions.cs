@@ -68,11 +68,19 @@ namespace LinFx.Logging
             }
         }
 
-        #endregion
+		public static void Error(this ILogger logger, Exception exception, string message = "")
+		{
+			if(logger.IsEnabled(LogLevel.Error))
+			{
+				logger.Log(LogLevel.Error, exception, message.AsFunc());
+			}
+		}
 
-        #region Fatal
+		#endregion
 
-        public static void Fatal(this ILogger logger, Func<string> messageFunc)
+		#region Fatal
+
+		public static void Fatal(this ILogger logger, Func<string> messageFunc)
         {
             logger.Log(LogLevel.Fatal, messageFunc);
         }

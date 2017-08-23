@@ -14,24 +14,19 @@ namespace LinFx.Data.Extensions.Dapper
 	{
 		ISqlGenerator SqlGenerator { get; }
 		IDbTransaction Transaction { get; set; }
-		void Insert<T>(IDbConnection connection, IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class;
+		void Insert<T>(IDbConnection connection, List<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class;
 		dynamic Insert<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
 		bool Update<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
 		bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
 		bool Delete<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout) where T : class;
 		int Count<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout = default(int?)) where T : class;
 		T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class;
-		IEnumerable<T> Select<T>(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout);
 		IEnumerable<T> Select<T>(IDbConnection connection, object predicate, Paging paging, params Sorting[] sorting) where T : class;
 		IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
 		IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
-
-		int Execute(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout = default(int?));
-		T ExecuteScalar<T>(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout);
-		SqlMapper.GridReader SelectMultiple(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout);
 	}
 
-    public class DapperImplementor : IDapperImplementor
+	public class DapperImplementor : IDapperImplementor
     {
         public DapperImplementor(ISqlGenerator sqlGenerator)
         {
@@ -42,7 +37,7 @@ namespace LinFx.Data.Extensions.Dapper
 
 		public IDbTransaction Transaction { get; set; }
 
-		public void Insert<T>(IDbConnection connection, IEnumerable<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
+		public void Insert<T>(IDbConnection connection, List<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
         {
             var classMap = SqlGenerator.Configuration.GetMap<T>();
             var properties = classMap.Properties.Where(p => p.KeyType != KeyType.NotAKey);
@@ -382,23 +377,31 @@ namespace LinFx.Data.Extensions.Dapper
 
             return new SequenceReaderResultReader(items);
         }
+	}
 
-        public int Execute(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
-        {
-            return connection.Execute(sql, param, transaction, commandTimeout, CommandType.Text);
-        }
+	public static class DapperImplementorExtensions
+	{
+		public static int Execute(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
+		{
+			return connection.Execute(sql, param, transaction, commandTimeout, CommandType.Text);
+		}
 
-		public T ExecuteScalar<T>(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
+		public static T ExecuteScalar<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
 			return connection.ExecuteScalar<T>(sql, param, transaction, commandTimeout, CommandType.Text);
 		}
 
-		public IEnumerable<T> Select<T>(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
+		public static IEnumerable<T> Query<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
 			return connection.Query<T>(sql, param, transaction, true, commandTimeout, CommandType.Text);
 		}
 
-		public SqlMapper.GridReader SelectMultiple(IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
+		public static T QueryFirstOrDefault<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
+		{
+			return connection.QueryFirst<T>(sql, param, transaction, commandTimeout);
+		}
+
+		public static SqlMapper.GridReader QueryMultiple(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
 			return connection.QueryMultiple(sql, param, transaction, commandTimeout);
 		}

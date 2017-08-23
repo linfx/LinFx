@@ -17,6 +17,7 @@ namespace LinFx.Data.Extensions
         private static IDapperImplementor _instance;
         private static IDataAccessExtensionsConfiguration _configuration;
         private static QueryFilterExecuter _dapperQueryFilterExecuter = new QueryFilterExecuter();
+		//static IDatabase db;
 
         static DataAccessExtensions()
         {
@@ -230,14 +231,19 @@ namespace LinFx.Data.Extensions
 			return Instance.ExecuteScalar<T>(connection, sql, param, transaction, commandTimeout);
 		}
 
-		public static IEnumerable<T> Select<T>(this IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
+		public static IEnumerable<T> Query<T>(this IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
 		{
-			return Instance.Select<T>(connection, sql, param, transaction, commandTimeout);
+			return DapperImplementorExtensions.Query<T>(Instance, connection, sql, param, transaction, commandTimeout);
 		}
 
 		public static IMultipleResultReader SelectMultiple(this IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
 		{
-			return new GridReaderResultReader(Instance.SelectMultiple(connection, sql, param, transaction, commandTimeout));
+			return new GridReaderResultReader(Instance.QueryMultiple(connection, sql, param, transaction, commandTimeout));
+		}
+
+		public static T QueryFirstOrDefault<T>(this IDbConnection connection, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
+		{
+			return Instance.QueryFirstOrDefault<T>(connection, sql, param, transaction, commandTimeout);
 		}
 	}
 }

@@ -20,9 +20,9 @@ namespace LinFx.Data.Extensions
         void RunInTransaction(Action action);
         T RunInTransaction<T>(Func<T> func);
 
-        void Insert<TEntity>(IList<TEntity> entities, int? commandTimeout = null) where TEntity : class;
-        dynamic Insert<TEntity>(TEntity entity, int? commandTimeout = null) where TEntity : class;
-        bool Update<T>(T entity, int? commandTimeout = null) where T : class;
+		void Insert<TEntity>(List<TEntity> entities, int? commandTimeout = null) where TEntity : class;
+		dynamic Insert<TEntity>(TEntity entity, int? commandTimeout = null) where TEntity : class;
+		bool Update<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<TEntity>(Expression<Func<TEntity, bool>> predicate, int? commandTimeout = null) where TEntity : class;
 
@@ -38,7 +38,6 @@ namespace LinFx.Data.Extensions
         void ClearCache();
         Guid GetNextGuid();
         IClassMapper GetMap<T>() where T : class;
-        int Execute(string sql, object param = null);
     }
 
     public class Database : IDatabase
@@ -135,17 +134,17 @@ namespace LinFx.Data.Extensions
 			return Select(predicate, null).FirstOrDefault();
 		}
 
-		public void Insert<T>(IList<T> entities, int? commandTimeout) where T : class
-        {
-            _dapper.Insert(Connection, entities, _transaction, commandTimeout);
-        }
+		public void Insert<T>(List<T> entities, int? commandTimeout) where T : class
+		{
+			_dapper.Insert(Connection, entities, _transaction, commandTimeout);
+		}
 
-        public dynamic Insert<T>(T entity, int? commandTimeout) where T : class
+		public dynamic Insert<T>(T entity, int? commandTimeout) where T : class
         {
             return _dapper.Insert(Connection, entity, _transaction, commandTimeout);
         }
 
-        public bool Update<T>(T entity, int? commandTimeout) where T : class
+		public bool Update<T>(T entity, int? commandTimeout) where T : class
         {
             return _dapper.Update(Connection, entity, _transaction, commandTimeout);
         }
@@ -207,10 +206,29 @@ namespace LinFx.Data.Extensions
         {
             return _dapper.SqlGenerator.Configuration.GetMap<T>();
         }
+	}
 
-        public int Execute(string sql, object param)
-        {
-            return _dapper.Execute(Connection, sql, param, _transaction);
-        }
+	public static class DatabaseExtensions
+	{
+		public static int Execute(this IDatabase db, string sql, object param)
+		{
+			return db.Connection.Execute(sql, param);
+		}
+
+		public static T ExecuteScalar<T>(this IDatabase db, string sql, object param = null, IDbTransaction transaction = null)
+		{
+			return db.Connection.ExecuteScalar<T>(sql, param);
+		}
+
+
+		public static IEnumerable<T> Query<T>(this IDatabase db, string sql, object param = null)
+		{
+			return db.Connection.Query<T>(sql, param);
+		}
+
+		public static T QueryFirstOrDefault<T>(this IDatabase db, string sql, object param = null)
+		{
+			return db.Connection.QueryFirstOrDefault<T>(sql, param);
+		}
 	}
 }

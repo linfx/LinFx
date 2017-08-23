@@ -9,5 +9,10 @@ namespace LinFx.Logging
         public void Log(LogLevel logLevel, Func<string> messageFunc, Exception exception = null)
         {
         }
-    }
+
+		public void Log(LogLevel logLevel, Exception exception, Func<string> messageFunc = null)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

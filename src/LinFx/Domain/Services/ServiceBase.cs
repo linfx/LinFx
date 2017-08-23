@@ -24,10 +24,10 @@ namespace LinFx.Domain.Services
             }
             set { _unitOfWorkManager = value; }
         }
-        /// <summary>
-        /// Reference to the logger to write logs.
-        /// </summary>
-        public ILogger Logger { protected get; set; } = new NLogLogger();
+		/// <summary>
+		/// Reference to the logger to write logs.
+		/// </summary>
+		public ILogger Logger { protected get; set; } = new NullLogger();
         /// <summary>
         /// Reference to the setting manager.
         /// </summary>

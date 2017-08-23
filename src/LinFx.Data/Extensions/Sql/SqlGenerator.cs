@@ -120,17 +120,10 @@ namespace LinFx.Data.Extensions.Sql
 
         public virtual string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
         {
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("Predicate");
-            }
+			Check.NotNull(predicate, nameof(predicate));
+			Check.NotNull(parameters, nameof(parameters));
 
-            if (parameters == null)
-            {
-                throw new ArgumentNullException("Parameters");
-            }
-
-            var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
+			var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
             if (!columns.Any())
             {
                 throw new ArgumentException("No columns were mapped.");
@@ -150,17 +143,10 @@ namespace LinFx.Data.Extensions.Sql
         
         public virtual string Delete(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
         {
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("Predicate");
-            }
+			Check.NotNull(predicate, nameof(predicate));
+			Check.NotNull(parameters, nameof(parameters));
 
-            if (parameters == null)
-            {
-                throw new ArgumentNullException("Parameters");
-            }
-
-            StringBuilder sql = new StringBuilder(string.Format("DELETE FROM {0}", GetTableName(classMap)));
+			StringBuilder sql = new StringBuilder(string.Format("DELETE FROM {0}", GetTableName(classMap)));
             sql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
             return sql.ToString();
         }
@@ -179,9 +165,8 @@ namespace LinFx.Data.Extensions.Sql
         {
             string alias = null;
             if (property.ColumnName != property.Name && includeAlias)
-            {
                 alias = property.Name;
-            }
+
             return Configuration.Dialect.GetColumnName(GetTableName(map), property.ColumnName, alias);
         }
 
@@ -189,9 +174,7 @@ namespace LinFx.Data.Extensions.Sql
         {
             IPropertyMap propertyMap = map.Properties.SingleOrDefault(p => p.Name.Equals(propertyName, StringComparison.CurrentCultureIgnoreCase));
             if (propertyMap == null)
-            {
                 throw new ArgumentException(string.Format("Could not find '{0}' in Mapping.", propertyName));
-            }
 
             return GetColumnName(map, propertyMap, includeAlias);
         }

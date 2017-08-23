@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Caching\Configuration\**" />
+    <EmbeddedResource Remove="Caching\Configuration\**" />
+    <None Remove="Caching\Configuration\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\SqlMapperExtensions.cs" />
   </ItemGroup>
 
@@ -17,14 +23,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
-    <PackageReference Include="NLog" Version="5.0.0-beta09" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Caching\Configuration\" />
     <Folder Include="Domain\Policies\" />
     <Folder Include="EventBus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
