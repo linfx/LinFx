@@ -8,7 +8,7 @@ using Dapper;
 using LinFx.Data.Extensions.Sql;
 using LinFx.Data.Extensions.Mapper;
 
-namespace LinFx.Data.Extensions.Dapper
+namespace LinFx.Data.Extensions
 {
 	public interface IDapperImplementor
 	{

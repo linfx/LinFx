@@ -10,7 +10,6 @@ namespace LinFx.Data.Extensions
         public static Sorting[] ToSorting<T>(this Expression<Func<T, object>>[] sortingExpression, bool ascending = true)
         {
 			//Check.NotNullOrEmpty(sortingExpression, nameof(sortingExpression));
-
 			var sortList = new List<Sorting>();
 			sortingExpression.ToList().ForEach(sortExpression =>
 			{

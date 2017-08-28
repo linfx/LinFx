@@ -14,7 +14,7 @@ namespace LinFx.UnitTest.Data.Dapper
 		public int Id { get; set; }
 		public string Title { get; set; }
 		public string Content { get; set; }
-		public User Owner { get; set; }
+		//public User Owner { get; set; }
 	}
 
     public class Person
@@ -31,7 +31,16 @@ namespace LinFx.UnitTest.Data.Dapper
         public string Name { get; set; }
     }
 
-    public sealed class AuthorMap : ClassMapper<Author>
+	//public sealed class PostMap : ClassMapper<Post>
+	//{
+	//	public PostMap()
+	//	{
+	//		Map(p => p.Id).Key(KeyType.Identity);
+	//		AutoMap();
+	//	}
+	//}
+
+	public sealed class AuthorMap : ClassMapper<Author>
     {
         public AuthorMap()
         {

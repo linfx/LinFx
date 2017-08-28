@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using LinFx.Data.Extensions.Mapper;
-using System.Linq.Expressions;
-using LinFx.Data.Filters.Query;
 using System.Linq;
-using LinFx.Data.Extensions.Dapper;
+using System.Linq.Expressions;
+using LinFx.Data.Extensions.Mapper;
 using LinFx.Data.Extensions.Sql;
+using LinFx.Data.Filters.Query;
+using Dapper;
 
 namespace LinFx.Data.Extensions
 {
 	public interface IDatabase : IDisposable
     {
-        bool HasActiveTransaction { get; }
         IDbConnection Connection { get; }
-        void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+		int? CommandTimeout { get; set; }
+		void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
         void Commit();
         void Rollback();
         void RunInTransaction(Action action);
         T RunInTransaction<T>(Func<T> func);
+		bool HasActiveTransaction { get; }
+		IDbTransaction Transaction { get; }
 
 		void Insert<TEntity>(List<TEntity> entities, int? commandTimeout = null) where TEntity : class;
 		dynamic Insert<TEntity>(TEntity entity, int? commandTimeout = null) where TEntity : class;
@@ -32,7 +34,6 @@ namespace LinFx.Data.Extensions
 		IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;
 		IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;
-        IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout = null);
         IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, int? commandTimeout = null);
 
         void ClearCache();
@@ -62,7 +63,14 @@ namespace LinFx.Data.Extensions
             get { return _transaction != null; }
         }
 
-        public void Dispose()
+		public IDbTransaction Transaction
+		{
+			get { return _transaction; }
+		}
+
+		public int? CommandTimeout { get; set; }
+
+		public void Dispose()
         {
             if (Connection.State != ConnectionState.Closed)
             {
@@ -182,11 +190,6 @@ namespace LinFx.Data.Extensions
 			return _dapper.Count<TEntity>(Connection, filteredPredicate, _transaction);
         }
 
-        public IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
-        {
-            return _dapper.GetMultiple(Connection, predicate, transaction, commandTimeout);
-        }
-
         public IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, int? commandTimeout)
         {
             return _dapper.GetMultiple(Connection, predicate, _transaction, commandTimeout);
@@ -210,25 +213,29 @@ namespace LinFx.Data.Extensions
 
 	public static class DatabaseExtensions
 	{
-		public static int Execute(this IDatabase db, string sql, object param)
+		public static int Execute(this IDatabase db, string sql, object param, CommandType? commandType = null)
 		{
-			return db.Connection.Execute(sql, param);
+			return db.Connection.Execute(sql, param, db.Transaction, db.CommandTimeout, commandType);
 		}
 
-		public static T ExecuteScalar<T>(this IDatabase db, string sql, object param = null, IDbTransaction transaction = null)
+		public static T ExecuteScalar<T>(this IDatabase db, string sql, object param = null, CommandType? commandType = null)
 		{
-			return db.Connection.ExecuteScalar<T>(sql, param);
+			return db.Connection.ExecuteScalar<T>(sql, param, db.Transaction, db.CommandTimeout, commandType);
 		}
 
-
-		public static IEnumerable<T> Query<T>(this IDatabase db, string sql, object param = null)
+		public static IEnumerable<T> Query<T>(this IDatabase db, string sql, object param = null, CommandType? commandType = null)
 		{
-			return db.Connection.Query<T>(sql, param);
+			return db.Connection.Query<T>(sql, param, db.Transaction, true, db.CommandTimeout, commandType);
 		}
 
-		public static T QueryFirstOrDefault<T>(this IDatabase db, string sql, object param = null)
+		public static IEnumerable<T> Query<T1, T2, T>(this IDatabase db, string sql, Func<T1, T2, T> map, object param = null, CommandType? commandType = null)
 		{
-			return db.Connection.QueryFirstOrDefault<T>(sql, param);
+			return db.Connection.Query(sql, map, param, db.Transaction);
+		}
+
+		public static T QueryFirstOrDefault<T>(this IDatabase db, string sql, object param = null, CommandType? commandType = null)
+		{
+			return db.Connection.QueryFirstOrDefault<T>(sql, param, db.Transaction, db.CommandTimeout, commandType);
 		}
 	}
 }

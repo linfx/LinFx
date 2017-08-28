@@ -16,7 +16,7 @@ namespace LinFx.UnitTest.Data.Dapper
 {
 	public class Test
     {
-        const string connectionString = "server=10.10.10.183;database=test;uid=postgres;pwd=123456;pooling=true;";
+        const string connectionString = "server=db.wayto.com.cn;database=test;uid=sa;pwd=123456;pooling=true;";
 
         public void UsingDbConnectionFactory(Action<IDbConnection> action)
         {
@@ -29,23 +29,47 @@ namespace LinFx.UnitTest.Data.Dapper
             }
         }
 
+		public void UsingDataBase(Action<IDatabase> action)
+		{
+			var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
+			var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
+			using(IDatabase db = new Database(factory.Create(), new SqlGeneratorImpl(config)))
+			{
+				action(db);
+			}
+ 		}
+
+		//public void InsertTest()
+		//{
+		//	UsingDataBase(db =>
+		//	{
+		//		db.Insert(new Post { Title = "titl", Content = "222" });
+		//	});
+		//}
+
         [Fact]
         public void Test1()
         {
-			DataAccessExtensions.SetMappingAssemblies(new List<Assembly> { Assembly.GetEntryAssembly() });
-			UsingDbConnectionFactory(db =>
-			{
-				var r = db.Select<User>().ToList();
-				r.Count().ShouldNotBe(0);
+			var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
+			var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
+			IDatabase db = new Database(factory.Create(), new SqlGeneratorImpl(config));
 
-				var sql =
-					@"select * from post as p 
-						left join #user as u on u.id = p.ownerid 
-						Order by p.Id";
+			var posts = db.Select<Post>();
+			var p = db.Select<Post>(x => x.Id == 1);
 
-				var data = db.Query<Post, User, Post>(sql, (p, user) => { p.Owner = user; return p; });
-				var post = data.First();
-			});
+			//UsingDbConnectionFactory(db =>
+			//{
+			//	//var r = db.Select<User>().ToList();
+			//	//r.Count().ShouldNotBe(0);
+
+			//	var sql =@"
+			//			select * from post as p 
+			//			left join #user as u on u.id = p.ownerid 
+			//			Order by p.Id";
+
+			//	var data = db.Query<Post, User, Post>(sql, (p, user) => { p.Owner = user; return p; });
+			//	var post = data.First();
+			//});
 
 			//var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
 			//var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
@@ -67,7 +91,7 @@ namespace LinFx.UnitTest.Data.Dapper
 			//});
 			////var users = db2.GetList<User>();
 		}
-    }
+	}
 
 
 }

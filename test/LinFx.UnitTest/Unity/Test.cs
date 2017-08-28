@@ -10,8 +10,8 @@ namespace LinFx.UnitTest.Unity
 		[Fact]
 		public void Test1()
 		{
-		     UnityManager.Instance.Register<IFoo, Foo>();
-			 var t = UnityManager.Instance.Resolve<IFoo>();
+		  //   UnityManager.Instance.Register<IFoo, Foo>();
+			 //var t = UnityManager.Instance.Resolve<IFoo>();
 		}
 	}
 

@@ -26,7 +26,10 @@ namespace LinFx.Data.Filters.Query
                 predicate = filter.ExecuteFilter(predicate);
             }
 
-            IPredicate pg = predicate.ToPredicateGroup();
+			//if(predicate == null)
+			//	return null;
+
+            IPredicate pg = predicate?.ToPredicateGroup();
             return pg;
         }
 
