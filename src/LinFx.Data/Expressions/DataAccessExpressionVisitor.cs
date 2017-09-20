@@ -40,9 +40,7 @@ namespace LinFx.Data.Expressions
 
             // the 1st expression determines root group operator
             if (Expressions.Any())
-            {
                 _pg.Operator = Expressions.First().NodeType == ExpressionType.OrElse ? GroupOperator.Or : GroupOperator.And;
-            }
 
             return _pg.Predicates.Count == 1 ? _pg.Predicates[0] : _pg;
         }
@@ -110,7 +108,6 @@ namespace LinFx.Data.Expressions
                 _currentGroup.Predicates.Add(pg);
                 _predicateGroupStack.Push(_currentGroup);
                 _currentGroup = pg;
-
             }
 
             Visit(node.Left);
@@ -137,9 +134,7 @@ namespace LinFx.Data.Expressions
         protected override Expression VisitMember(MemberExpression node)
         {
             if (node.Member.MemberType != MemberTypes.Property || node.Expression.Type != typeof(TEntity))
-            {
                 throw new NotSupportedException($"The member '{node}' is not supported");
-            }
 
             // skip if prop is part of a VisitMethodCall
             if (_processedProperty != null && _processedProperty == node)
@@ -203,9 +198,7 @@ namespace LinFx.Data.Expressions
         protected override Expression VisitUnary(UnaryExpression node)
         {
             if (node.NodeType != ExpressionType.Not)
-            {
                 throw new NotSupportedException($"The unary operator '{node.NodeType}' is not supported");
-            }
 
             _unarySpecified = true;
 

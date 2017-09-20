@@ -237,5 +237,11 @@ namespace LinFx.Data.Extensions
 		{
 			return db.Connection.QueryFirstOrDefault<T>(sql, param, db.Transaction, db.CommandTimeout, commandType);
 		}
+
+		public static IMultipleResultReader QueryMultiple(this IDatabase db, string sql, object param = null, CommandType? commandType = null)
+		{
+			var result = db.Connection.QueryMultiple(sql, param, db.Transaction, db.CommandTimeout, commandType);
+			return new GridReaderResultReader(result);
+		}
 	}
 }

@@ -83,9 +83,7 @@ namespace LinFx.Data.Expressions
             public override Expression Visit(Expression exp)
             {
                 if (exp == null)
-                {
                     return null;
-                }
 
                 bool saveCannotBeEval = _cannotBeEval;
                 _cannotBeEval = false;

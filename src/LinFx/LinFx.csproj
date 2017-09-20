@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="Caching\Configuration\**" />
+    <Compile Remove="Domain\Policies\**" />
     <EmbeddedResource Remove="Caching\Configuration\**" />
+    <EmbeddedResource Remove="Domain\Policies\**" />
     <None Remove="Caching\Configuration\**" />
+    <None Remove="Domain\Policies\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Policies\" />
     <Folder Include="EventBus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="SaaS\Notifications\" />

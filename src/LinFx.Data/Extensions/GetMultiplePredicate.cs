@@ -1,10 +1,9 @@
-﻿using LinFx.Data.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace LinFx.Data.Extensions
 {
-    public class GetMultiplePredicate
+	public class GetMultiplePredicate
     {
         private readonly List<GetMultiplePredicateItem> _items;
 
