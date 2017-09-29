@@ -94,8 +94,8 @@ namespace LinFx.Data.Extensions
 			where T : class
 			where T2 : class
 		{
-			PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
-			PropertyInfo propertyInfo2 = ReflectionUtils.GetProperty(expression2) as PropertyInfo;
+			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo2 = ReflectionUtils.GetProperty(expression2) as PropertyInfo;
 			return new PropertyPredicate<T, T2>
 			{
 				PropertyName = propertyInfo.Name,
@@ -140,7 +140,7 @@ namespace LinFx.Data.Extensions
 		public static IBetweenPredicate Between<T>(Expression<Func<T, object>> expression, BetweenValues values, bool not = false)
 			where T : class
 		{
-			PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
 			return new BetweenPredicate<T>
 			{
 				Not = not,
@@ -154,7 +154,7 @@ namespace LinFx.Data.Extensions
 		/// </summary>
 		public static ISort Sort<T>(Expression<Func<T, object>> expression, bool ascending = true)
 		{
-			PropertyInfo propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
 			return new Sort
 			{
 				PropertyName = propertyInfo.Name,

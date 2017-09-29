@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Caching.Memory
 {
-    public class MemoryCache : CacheBase
+    public class MemoryCache : ICache
     {
         Microsoft.Extensions.Caching.Memory.MemoryCache _cache;
 
@@ -14,12 +14,12 @@ namespace LinFx.Caching.Memory
             _cache = new Microsoft.Extensions.Caching.Memory.MemoryCache(new OptionsWrapper<MemoryCacheOptions>(new MemoryCacheOptions()));
         }
 
-        public override Task<object> GetAsync(string key)
+        public Task<T> GetAsync<T>(string key)
         {
-            return Task.FromResult(_cache.Get(key));
+			return Task.FromResult(_cache.Get<T>(key));
         }
 
-        public override Task SetAsync(string key, object value, TimeSpan? expireTime = default(TimeSpan?))
+        public Task SetAsync<T>(string key, T value, TimeSpan? expireTime = default(TimeSpan?))
         {
             if (value == null)
                 throw new LinFxException(nameof(value));

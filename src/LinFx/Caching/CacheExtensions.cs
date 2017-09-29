@@ -5,17 +5,17 @@ namespace LinFx.Caching
 {
     public static class CacheExtensions
     {
-        public static async Task<object> GetAsync(this ICache cache, string key, Func<string, Task<object>> factory)
-        {
-            var cacheKey = key;
-            var item = await cache.GetAsync(key);
-            if (item == null)
-            {
-                await factory(key);
-                await cache.SetAsync(cacheKey, item);
-            }
-            return item;
-        }
+        //public static async Task<object> GetAsync(this ICache cache, string key, Func<string, Task<object>> factory)
+        //{
+        //    var cacheKey = key;
+        //    var item = await cache.GetAsync(key);
+        //    if (item == null)
+        //    {
+        //        await factory(key);
+        //        await cache.SetAsync(cacheKey, item);
+        //    }
+        //    return item;
+        //}
 
         //public static Task<TValue> GetAsync<TValue>(this ICache cache, string key)
         //{

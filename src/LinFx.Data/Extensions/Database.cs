@@ -228,9 +228,14 @@ namespace LinFx.Data.Extensions
 			return db.Connection.Query<T>(sql, param, db.Transaction, true, db.CommandTimeout, commandType);
 		}
 
-		public static IEnumerable<T> Query<T1, T2, T>(this IDatabase db, string sql, Func<T1, T2, T> map, object param = null, CommandType? commandType = null)
+		public static IEnumerable<T> Query<T1, T2, T>(this IDatabase db, string sql, Func<T1, T2, T> map, object param = null, CommandType? commandType = null, string splitOn = "Id")
 		{
-			return db.Connection.Query(sql, map, param, db.Transaction);
+			return db.Connection.Query(sql, map, param, db.Transaction, splitOn: splitOn);
+		}
+
+		public static IEnumerable<T> Query<T1, T2, T3, T>(this IDatabase db, string sql, Func<T1, T2, T3, T> map, object param = null, CommandType? commandType = null, string splitOn = "Id")
+		{
+			return db.Connection.Query(sql, map, param, db.Transaction, splitOn: splitOn);
 		}
 
 		public static T QueryFirstOrDefault<T>(this IDatabase db, string sql, object param = null, CommandType? commandType = null)

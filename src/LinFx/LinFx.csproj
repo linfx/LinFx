@@ -11,10 +11,13 @@
   <ItemGroup>
     <Compile Remove="Caching\Configuration\**" />
     <Compile Remove="Domain\Policies\**" />
+    <Compile Remove="EventBus\Exceptions\**" />
     <EmbeddedResource Remove="Caching\Configuration\**" />
     <EmbeddedResource Remove="Domain\Policies\**" />
+    <EmbeddedResource Remove="EventBus\Exceptions\**" />
     <None Remove="Caching\Configuration\**" />
     <None Remove="Domain\Policies\**" />
+    <None Remove="EventBus\Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,11 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EventBus\Exceptions\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="SaaS\Notifications\" />
     <Folder Include="SaaS\Localization\" />
-    <Folder Include="Security\Permissions\" />
   </ItemGroup>
 
 </Project>

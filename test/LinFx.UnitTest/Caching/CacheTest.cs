@@ -16,7 +16,7 @@ namespace LinFx.UnitTest.Caching
             await _cache.SetAsync("A", 1);
             //await _cache.SetAsync("B")
 
-            (await _cache.GetAsync("A")).ShouldBe(1);
+            (await _cache.GetAsync<int>("A")).ShouldBe(1);
         }
     }
 }
