@@ -192,7 +192,6 @@ namespace LinFx.Data.Extensions
             {
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
-
             return (int)connection.Query(sql, dynamicParameters, transaction, false, commandTimeout, CommandType.Text).Single().Total;
         }
 
