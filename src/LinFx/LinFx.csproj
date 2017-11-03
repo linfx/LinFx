@@ -29,6 +29,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc2" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
@@ -38,6 +39,12 @@
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="SaaS\Notifications\" />
     <Folder Include="SaaS\Localization\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Logging\Nlog.config">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

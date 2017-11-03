@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LinFx.Data.Extensions.Mapper;
-using LinFx.Data.Extensions;
 
 namespace LinFx.Data.Extensions.Sql
 {
-    public interface ISqlGenerator
+	public interface ISqlGenerator
     {
         IDataAccessExtensionsConfiguration Configuration { get; }
         
@@ -57,23 +56,16 @@ namespace LinFx.Data.Extensions.Sql
 		public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters)
         {
             if (sort == null || !sort.Any())
-            {
                 throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");
-            }
 
             if (parameters == null)
-            {
                 throw new ArgumentNullException("Parameters");
-            }
 
             StringBuilder innerSql = new StringBuilder(string.Format("SELECT {0} FROM {1}",
                 BuildSelectColumns(classMap),
                 GetTableName(classMap)));
             if (predicate != null)
-            {
-                innerSql.Append(" WHERE ")
-                    .Append(predicate.GetSql(this, parameters));
-            }
+                innerSql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
 
             string orderBy = sort.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings();
             innerSql.Append(" ORDER BY " + orderBy);
@@ -85,19 +77,14 @@ namespace LinFx.Data.Extensions.Sql
         public virtual string Count(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
         {
             if (parameters == null)
-            {
                 throw new ArgumentNullException("Parameters");
-            }
 
             StringBuilder sql = new StringBuilder(string.Format("SELECT COUNT(*) AS {0}Total{1} FROM {2}",
                                 Configuration.Dialect.OpenQuote,
                                 Configuration.Dialect.CloseQuote,
                                 GetTableName(classMap)));
             if (predicate != null)
-            {
-                sql.Append(" WHERE ")
-                    .Append(predicate.GetSql(this, parameters));
-            }
+                sql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
 
             return sql.ToString();
         }
