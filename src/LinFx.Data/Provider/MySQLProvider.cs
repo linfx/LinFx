@@ -3,9 +3,9 @@ using MySql.Data.MySqlClient;
 
 namespace LinFx.Data.Provider
 {
-    public class MySQLProvider : IDbProvider
+    public class MySqlProvider : IDbProvider
     {
-        public static IDbProvider Instance => new MySQLProvider();
+        public static IDbProvider Instance => new MySqlProvider();
 
         public IDbConnection CreateConnection(string connectionString)
         {
