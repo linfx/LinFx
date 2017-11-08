@@ -1,23 +1,39 @@
-﻿namespace LinFx.Data.MongoDB
+﻿using LinFx.Domain.Entities;
+using MongoDB.Driver;
+using System.Threading.Tasks;
+
+namespace LinFx.Data.MongoDB
 {
     public class MongoDbRepository<TEntity>
+        where TEntity : class, IEntity
     {
-        private readonly IMongoDatabaseProvider _databaseProvider;
+        private readonly IMongoDatabaseProvider _provider;
 
         public MongoDbRepository(IMongoDatabaseProvider databaseProvider)
         {
-            _databaseProvider = databaseProvider;
+            _provider = databaseProvider;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        //public virtual MongoCollection<TEntity> Collection
+        public virtual IMongoCollection<TEntity> Collection
+        {
+            get { return _provider.Database.GetCollection<TEntity>(typeof(TEntity).Name); }
+        }
+
+        public Task InsertAsync(TEntity item)
+        {
+            return Collection.InsertOneAsync(item);
+        }
+
+        public Task DeleteAsync(TEntity item)
+        {
+            return Collection.DeleteOneAsync(item.Id);
+        }
+
+
+
+        //public Task UpdateAsync(TEntity item)
         //{
-        //    get
-        //    {
-        //        return _databaseProvider.Database.GetCollection<TEntity>(typeof(TEntity).Name);
-        //    }
+        //    return Collection.UpdateOneAsync(item.Id, item);
         //}
     }
 }
