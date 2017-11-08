@@ -20,7 +20,7 @@ namespace LinFx.UnitTest.Data.Dapper
 
         public void UsingDbConnectionFactory(Action<IDbConnection> action)
         {
-            using (var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance))
+            using (var factory = new DbConnectionFactory(connectionString, PostgreSQLProvider.Instance))
             {
                 using (var conn = factory.Open())
                 {
@@ -31,7 +31,7 @@ namespace LinFx.UnitTest.Data.Dapper
 
 		public void UsingDataBase(Action<IDatabase> action)
 		{
-			var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
+			var factory = new DbConnectionFactory(connectionString, PostgreSQLProvider.Instance);
 			var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
 			using(IDatabase db = new Database(factory.Create(), new SqlGeneratorImpl(config)))
 			{
@@ -50,7 +50,7 @@ namespace LinFx.UnitTest.Data.Dapper
         [Fact]
         public void Test1()
         {
-			var factory = new DbConnectionFactory(connectionString, PostgreSqlProvider.Instance);
+			var factory = new DbConnectionFactory(connectionString, PostgreSQLProvider.Instance);
 			var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
 			IDatabase db = new Database(factory.Create(), new SqlGeneratorImpl(config));
 

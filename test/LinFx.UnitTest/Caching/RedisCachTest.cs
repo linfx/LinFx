@@ -7,9 +7,10 @@ namespace LinFx.UnitTest.Caching
 {
 	public class RedisCachTest
     {
-		string redisConnectionString = "beta.wayto.com.cn:6379, password=Wayto2017!";
+        //string redisConnectionString = "localhost:6379, password=Wayto2017!";
+        string redisConnectionString = "localhost:6379";
 
-		RedisCache _cache;
+        RedisCache _cache;
 
 
 		public RedisCachTest()
@@ -25,7 +26,7 @@ namespace LinFx.UnitTest.Caching
 		[Fact]
 		public void GetIncrementTest()
 		{
-			const string KEY_TASK_ID = "Zongsoft.Data.Sequence:taskid";
+			const string KEY_TASK_ID = "LinFx:UserID";
 			var id = _cache.GetIncrement(KEY_TASK_ID);
 		}
 
@@ -34,7 +35,7 @@ namespace LinFx.UnitTest.Caching
 		{
 			string key = "UnitTest.Test1";
 			await _cache.SetAsync(key, 3);
-			var r = await _cache.GetAsync<int>(key);
+            var r = await _cache.GetAsync<int>(key);
 		}
 
 		[Fact]
