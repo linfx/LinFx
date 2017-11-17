@@ -25,13 +25,5 @@
       },
       "applicationUrl": "http://localhost:51357/"
     }
-  },
-  "JwtBearer": {
-    "commandName": "Project",
-    "launchBrowser": true,
-    "applicationUrl": "http://localhost:51356",
-    "environmentVariables": {
-      "ASPNETCORE_ENVIRONMENT": "Development"
-    }
   }
 }

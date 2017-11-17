@@ -48,11 +48,11 @@ namespace LinFx.Utils
         /// </summary>
         public string Audience { get; set; }
         /// <summary>
-        /// 
+        /// 有效期
         /// </summary>
-        public TimeSpan Expiration { get; set; }
+        public TimeSpan Expiration { get; set; } = TimeSpan.FromDays(14);
         /// <summary>
-        /// 
+        /// 秘钥
         /// </summary>
         public SymmetricSecurityKey SecurityKey { get; set; }
         /// <summary>

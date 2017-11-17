@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
-using LinFx.Utils;
 using Microsoft.Extensions.Configuration;
+using LinFx.Utils;
 
 namespace LinFx.SaaS.OAuth.Controllers
 {
@@ -26,9 +26,9 @@ namespace LinFx.SaaS.OAuth.Controllers
 
             var options = new JwtTokenOptions
             {
-                Issuer = _configuration["jwt:Issuer"],
-                Audience = _configuration["jwt:Audience"],
-                SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["jwt:SecurityKey"])),
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"],
+                SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:SecurityKey"])),
                 Expiration = TimeSpan.FromDays(1),
             };
             options.SigningCredentials = new SigningCredentials(options.SecurityKey, SecurityAlgorithms.HmacSha256);

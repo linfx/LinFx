@@ -22,6 +22,7 @@ namespace LinFx.SaaS.OAuth.Controllers
         [Authorize]
         public string Get(int id)
         {
+            var identity = User.Identity;
             return "value";
         }
 
