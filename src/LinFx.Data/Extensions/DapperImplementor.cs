@@ -115,10 +115,10 @@ namespace LinFx.Data.Extensions
         public bool Update<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class
         {
             IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
-            IPredicate predicate = GetKeyPredicate<T>(classMap, entity);
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            IPredicate predicate = GetKeyPredicate(classMap, entity);
+            var parameters = new Dictionary<string, object>();
             string sql = SqlGenerator.Update(classMap, predicate, parameters);
-            DynamicParameters dynamicParameters = new DynamicParameters();
+            var dynamicParameters = new DynamicParameters();
 
             var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
             foreach (var property in ReflectionUtils.GetObjectValues(entity).Where(property => columns.Any(c => c.Name == property.Key)))
@@ -137,7 +137,7 @@ namespace LinFx.Data.Extensions
         public bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class
         {
             IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
-            IPredicate predicate = GetKeyPredicate<T>(classMap, entity);
+            IPredicate predicate = GetKeyPredicate(classMap, entity);
             return Delete<T>(connection, classMap, predicate, transaction, commandTimeout);
         }
 

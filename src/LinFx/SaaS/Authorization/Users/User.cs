@@ -9,6 +9,6 @@ namespace LinFx.SaaS.Authorization.Users
 
         public string Name { get; set; }
 
-        public virtual Account Account { get; set; }
+        //public virtual Account Account { get; set; }
     }
 }

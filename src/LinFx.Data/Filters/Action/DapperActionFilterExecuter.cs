@@ -1,4 +1,5 @@
-﻿using LinFx.Domain.Entities;
+﻿using LinFx.Data.Filters.Action;
+using LinFx.Domain.Entities;
 
 namespace LinFx.Data.Dapper.Filters.Action
 {
@@ -11,28 +12,30 @@ namespace LinFx.Data.Dapper.Filters.Action
 		void ExecuteDeletionAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>;
 	}
 
-	//public class DapperActionFilterExecuter : IDapperActionFilterExecuter
-	//{
-	//	private readonly IIocResolver _iocResolver;
+    public class DapperActionFilterExecuter : IDapperActionFilterExecuter
+    {
+        //private readonly IIocResolver _iocResolver;
 
-	//	public DapperActionFilterExecuter(IIocResolver iocResolver)
-	//	{
-	//		_iocResolver = iocResolver;
-	//	}
+        //public DapperActionFilterExecuter(IIocResolver iocResolver)
+        //{
+        //    _iocResolver = iocResolver;
+        //}
 
-	//	public void ExecuteCreationAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
-	//	{
-	//		_iocResolver.Resolve<CreationAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
-	//	}
+        public void ExecuteCreationAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
+        {
+            //_iocResolver.Resolve<CreationAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
+            new CreationAuditDapperActionFilter().ExecuteFilter<TEntity, TPrimaryKey>(entity);
+        }
 
-	//	public void ExecuteModificationAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
-	//	{
-	//		_iocResolver.Resolve<ModificationAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
-	//	}
+        public void ExecuteModificationAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
+        {
+            //_iocResolver.Resolve<ModificationAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
+            new ModificationAuditDapperActionFilter().ExecuteFilter<TEntity, TPrimaryKey>(entity);
+        }
 
-	//	public void ExecuteDeletionAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
-	//	{
-	//		_iocResolver.Resolve<DeletionAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
-	//	}
-	//}
+        public void ExecuteDeletionAuditFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
+        {
+            //_iocResolver.Resolve<DeletionAuditDapperActionFilter>().ExecuteFilter<TEntity, TPrimaryKey>(entity);
+        }
+    }
 }

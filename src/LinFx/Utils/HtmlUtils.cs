@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.SaaS.Authorization.Users
+namespace LinFx.Utils
 {
-    public class UserManager
+    public class HtmlUtils
     {
     }
 }

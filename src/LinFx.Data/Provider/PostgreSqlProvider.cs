@@ -3,9 +3,9 @@ using System.Data;
 
 namespace LinFx.Data.Provider
 {
-    public class PostgreSQLProvider : IDbProvider
+    public class PostgreSqlProvider : IDbProvider
     {
-        public static IDbProvider Instance => new PostgreSQLProvider();
+        public static IDbProvider Instance => new PostgreSqlProvider();
 
         public IDbConnection CreateConnection(string connectionString)
         {

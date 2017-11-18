@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  linfx.saas.oauth:
+    image: linfx.saas.oauth
+    build:
+      context: ./src/LinFx.SaaS.OAuth
+      dockerfile: Dockerfile

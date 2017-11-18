@@ -1,8 +1,9 @@
-﻿using LinFx.Domain.Entities;
+﻿using System;
+using LinFx.Domain.Entities;
 using LinFx.Domain.Uow;
 using LinFx.Session;
 
-namespace LinFx.Data.Dapper.Filters.Action
+namespace LinFx.Data.Filters.Action
 {
 	public interface IDapperActionFilter
 	{
@@ -11,47 +12,33 @@ namespace LinFx.Data.Dapper.Filters.Action
 
 	public abstract class DapperActionFilterBase
 	{
-		protected DapperActionFilterBase()
-		{
-			//Session = NullSession.Instance;
-			//GuidGenerator = SequentialGuidGenerator.Instance;
-		}
-
 		public ISession Session { get; set; }
 
 		public ICurrentUnitOfWorkProvider CurrentUnitOfWorkProvider { get; set; }
 
-		//public IGuidGenerator GuidGenerator { get; set; }
+        protected virtual string GetAuditUserId()
+        {
+            if (Session != null && !string.IsNullOrEmpty(Session.UserId))
+                return Session.UserId;
 
-		//protected virtual long? GetAuditUserId()
-		//{
-		//	if(Session.UserId.HasValue && CurrentUnitOfWorkProvider?.Current != null)
-		//		return Session.UserId;
+            return null;
+        }
 
-		//	return null;
-		//}
+        protected virtual void CheckAndSetId(object entityAsObj)
+        {
+            var entity = entityAsObj as IEntity;
+            if (entity != null && string.IsNullOrEmpty(entity.Id))
+            {
+                entity.Id = Guid.NewGuid().ToString("N");
+            }
+        }
 
-		//protected virtual void CheckAndSetId(object entityAsObj)
-		//{
-		//	var entity = entityAsObj as IEntity<Guid>;
-		//	if(entity != null && entity.Id == Guid.Empty)
-		//	{
-		//		Type entityType = ObjectContext.GetObjectType(entityAsObj.GetType());
-		//		PropertyInfo idProperty = entityType.GetProperty("Id");
-		//		var dbGeneratedAttr = ReflectionHelper.GetSingleAttributeOrDefault<DatabaseGeneratedAttribute>(idProperty);
-		//		if(dbGeneratedAttr == null || dbGeneratedAttr.DatabaseGeneratedOption == DatabaseGeneratedOption.None)
-		//		{
-		//			entity.Id = GuidGenerator.Create();
-		//		}
-		//	}
-		//}
+        //protected virtual int? GetCurrentTenantIdOrNull()
+        //{
+        //	if(CurrentUnitOfWorkProvider?.Current != null)
+        //		return CurrentUnitOfWorkProvider.Current.GetTenantId();
 
-		//protected virtual int? GetCurrentTenantIdOrNull()
-		//{
-		//	if(CurrentUnitOfWorkProvider?.Current != null)
-		//		return CurrentUnitOfWorkProvider.Current.GetTenantId();
-
-		//	return Session.TenantId;
-		//}
-	}
+        //	return Session.TenantId;
+        //}
+    }
 }

@@ -6,7 +6,7 @@ using LinFx.Session;
 
 namespace LinFx.Domain.Services
 {
-    public abstract class ServiceBase
+    public abstract class LinFxServiceBase
     {
         private IUnitOfWorkManager _unitOfWorkManager;
 

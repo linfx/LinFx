@@ -13,7 +13,6 @@ namespace LinFx.Session
 #else
             null;
 #endif
-
         public static DefaultPrincipalAccessor Instance => new DefaultPrincipalAccessor();
     }
 

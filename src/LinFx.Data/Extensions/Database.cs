@@ -152,7 +152,7 @@ namespace LinFx.Data.Extensions
             return _dapper.Insert(Connection, entity, _transaction, commandTimeout);
         }
 
-		public bool Update<T>(T entity, int? commandTimeout) where T : class
+		public bool Update<TEntity>(TEntity entity, int? commandTimeout) where TEntity : class
         {
             return _dapper.Update(Connection, entity, _transaction, commandTimeout);
         }

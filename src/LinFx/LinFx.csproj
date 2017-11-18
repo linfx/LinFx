@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\Repositories\" />
     <Folder Include="SaaS\BackgroundJobs\" />
     <Folder Include="SaaS\Notifications\" />
     <Folder Include="SaaS\Localization\" />

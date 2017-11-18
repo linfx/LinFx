@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using LinFx.Utils;
+using LinFx.SaaS.OAuth.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinFx.SaaS.OAuth.Controllers
 {
@@ -18,8 +20,15 @@ namespace LinFx.SaaS.OAuth.Controllers
             _configuration = configureation;
         }
 
-        public IActionResult Token()
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult Token([FromBody] AuthenticateModel model)
         {
+            if(model.UserName != "admin")
+            {
+                return BadRequest("密码不正码");
+            }
+           
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "Linsongbin"));
             JwtUtils.CreateJwtClaims(identity);
