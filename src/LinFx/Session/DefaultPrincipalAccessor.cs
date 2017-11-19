@@ -2,17 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
+using System.Threading;
 
 namespace LinFx.Session
 {
     public class DefaultPrincipalAccessor : IPrincipalAccessor
     {
-        public virtual ClaimsPrincipal Principal =>
-#if NET46
-            Thread.CurrentPrincipal as ClaimsPrincipal;
-#else
-            null;
-#endif
+        public virtual ClaimsPrincipal Principal => Thread.CurrentPrincipal as ClaimsPrincipal;
+
         public static DefaultPrincipalAccessor Instance => new DefaultPrincipalAccessor();
     }
 
