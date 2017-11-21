@@ -9,12 +9,13 @@ namespace LinFx.SaaS.Web.Services
 {
     public class ServiceBase : LinFxServiceBase
     {
-        protected IDatabase _db { get; }
-        protected IDapperActionFilterExecuter _filter = new DapperActionFilterExecuter();
+        protected IDatabase _db;
+        protected IDapperActionFilterExecuter _filter;
 
         public ServiceBase()
         {
             _db = DbUtils.GetPostgreSqlDatabase("server=localhost;database=linfx.saas;uid=dev;pwd=123456;pooling=true;");
+            _filter = new DapperActionFilterExecuter();
         }
     }
 

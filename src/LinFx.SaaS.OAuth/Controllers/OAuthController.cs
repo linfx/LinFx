@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using LinFx.Utils;
 using LinFx.SaaS.OAuth.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace LinFx.SaaS.OAuth.Controllers
 {
@@ -24,28 +24,37 @@ namespace LinFx.SaaS.OAuth.Controllers
         [AllowAnonymous]
         public IActionResult Token([FromBody] AuthenticateModel model)
         {
-            if(model.UserName != "admin")
+            if (model.UserName != "admin")
             {
                 return BadRequest("密码不正码");
             }
-           
+
+            //var user = new UserInfo
+
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "Linsongbin"));
-            JwtUtils.CreateJwtClaims(identity);
+            identity.AddClaim(new Claim(Security.ClaimTypes.Id, "Id"));
+            identity.AddClaim(new Claim(Security.ClaimTypes.Name, "Linsongbin"));
 
             var options = new JwtTokenOptions
             {
-                Issuer = _configuration["Jwt:Issuer"],
-                Audience = _configuration["Jwt:Audience"],
-                SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Jwt:SecurityKey"])),
-                Expiration = TimeSpan.FromDays(1),
+                Issuer = _configuration["JwtBearer:Issuer"],
+                Audience = _configuration["JwtBearer:Audience"],
+                SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JwtBearer:SecurityKey"])),
+                Expiration = TimeSpan.FromDays(14),
             };
             options.SigningCredentials = new SigningCredentials(options.SecurityKey, SecurityAlgorithms.HmacSha256);
-            var accessToken = JwtUtils.CreateAccessToken(options, identity.Claims);
 
+            var accessToken = JwtUtils.CreateAccessToken(identity, options);
             return Json(new
             {
-                access_token = accessToken
+                access_token = accessToken,
+                token_type = "Bearer",
+                //expires_in = new DateTimeOffset(DateTime.UtcNow, options.Expiration).ToUnixTimeSeconds(),
+                profile = new
+                {
+                    id = "11",
+                    name = "name"
+                }
             });
         }
     }

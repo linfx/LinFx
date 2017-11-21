@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using LinFx.Data.Extensions;
 using LinFx.Utils;
 using LinFx.Domain.Entities;
@@ -50,6 +51,7 @@ namespace LinFx.SaaS.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public virtual IActionResult Post([FromBody]TEntity item)
         {
@@ -64,6 +66,7 @@ namespace LinFx.SaaS.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public virtual IActionResult Put(string id, [FromBody]TEntity item)
         {
@@ -79,6 +82,7 @@ namespace LinFx.SaaS.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public virtual IActionResult Delete(string id)
         {

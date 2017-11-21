@@ -25,11 +25,9 @@ namespace LinFx.Session
         {
             get
             {
-                var claim = PrincipalAccessor.Principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.UserId);
+                var claim = PrincipalAccessor.Principal?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Id);
                 return claim?.Value;
             }
         }
-
-
     }
 }

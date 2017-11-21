@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using LinFx.Session;
+using System.Diagnostics;
 
 namespace LinFx.SaaS.OAuth.Controllers
 {
@@ -12,8 +14,11 @@ namespace LinFx.SaaS.OAuth.Controllers
     {
         // GET api/values
         [HttpGet]
+        [Authorize]
         public IEnumerable<string> Get()
         {
+            var t = LinFx.Session.HttpContext.PrincipalAccessor.Principal;
+
             return new string[] { "value1", "value2" };
         }
 

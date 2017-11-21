@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using LinFx.Session;
+using System.Security.Claims;
 
 namespace LinFx.SaaS.OAuth
 {
@@ -28,11 +30,14 @@ namespace LinFx.SaaS.OAuth
             {
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Jwt:SecurityKey"]))
+                    NameClaimType = ClaimTypes.Name,
+                    RoleClaimType = ClaimTypes.Role,
+                    ValidIssuer = Configuration["JwtBearer:Issuer"],
+                    ValidAudience = Configuration["JwtBearer:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JwtBearer:SecurityKey"]))
                 };
             });
+            services.AddHttpContextAccessor();
             services.AddMvc();
         }
         
@@ -44,6 +49,7 @@ namespace LinFx.SaaS.OAuth
                 app.UseDeveloperExceptionPage();
             }
             app.UseAuthentication();
+            app.UseAseNetCorePrincipalAccessor();
             app.UseMvc();
         }
     }

@@ -1,8 +1,8 @@
-﻿using LinFx.Domain.Entities;
+﻿using System;
+using LinFx.Domain.Entities;
 using LinFx.Domain.Entities.Auditing;
 using LinFx.Extensions;
 using LinFx.Timing;
-using System;
 
 namespace LinFx.Data.Filters.Action
 {
@@ -17,7 +17,7 @@ namespace LinFx.Data.Filters.Action
 
         public void ExecuteFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>
         {
-            //long? userId = GetAuditUserId();
+            var userId = GetAuditUserId();
             CheckAndSetId(entity);
             var entityWithCreationTime = entity as IHasCreationTime;
             if (entityWithCreationTime == null)
@@ -28,26 +28,27 @@ namespace LinFx.Data.Filters.Action
                 entityWithCreationTime.CreationTime = Clock.Now;
             }
 
-            //if (userId.HasValue && entity is ICreationAudited)
-            //{
-            //    var record = entity as ICreationAudited;
-            //    if (record.CreatorUserId == null)
-            //    {
-            //        if (entity is IMayHaveTenant || entity is IMustHaveTenant)
-            //        {
-            //            //Sets CreatorUserId only if current user is in same tenant/host with the given entity
-            //            if (entity is IMayHaveTenant && entity.As<IMayHaveTenant>().TenantId == AbpSession.TenantId ||
-            //                entity is IMustHaveTenant && entity.As<IMustHaveTenant>().TenantId == AbpSession.TenantId)
-            //            {
-            //                record.CreatorUserId = userId;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            record.CreatorUserId = userId;
-            //        }
-            //    }
-            //}
+            if (!string.IsNullOrEmpty(userId) && entity is ICreationAudited)
+            {
+                var record = entity as ICreationAudited;
+                if (record.CreatorUserId == null)
+                {
+                    //if (entity is IMayHaveTenant || entity is IMustHaveTenant)
+                    //{
+                    //    //Sets CreatorUserId only if current user is in same tenant/host with the given entity
+                    //    if (entity is IMayHaveTenant && entity.As<IMayHaveTenant>().TenantId == AbpSession.TenantId ||
+                    //        entity is IMustHaveTenant && entity.As<IMustHaveTenant>().TenantId == AbpSession.TenantId)
+                    //    {
+                    //        record.CreatorUserId = userId;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    record.CreatorUserId = userId;
+                    //}
+                    record.CreatorUserId = userId;
+                }
+            }
 
             if (entity is IHasModificationTime)
             {

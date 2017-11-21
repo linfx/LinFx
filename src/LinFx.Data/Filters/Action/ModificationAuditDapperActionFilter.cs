@@ -17,6 +17,7 @@ namespace LinFx.Data.Filters.Action
             if (entity is IModificationAudited)
             {
                 var record = entity.As<IModificationAudited>();
+                record.LastModifierUserId = Session.UserId;
             }
         }
     }
