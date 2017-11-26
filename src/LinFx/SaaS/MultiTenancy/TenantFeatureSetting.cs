@@ -7,6 +7,6 @@ namespace LinFx.SaaS.MultiTenancy
         /// <summary>
         /// Tenant's Id.
         /// </summary>
-        public virtual string TenantId { get; set; }
+        public virtual int TenantId { get; set; }
     }
 }

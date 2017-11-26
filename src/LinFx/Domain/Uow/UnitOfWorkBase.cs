@@ -61,7 +61,7 @@ namespace LinFx.Domain.Uow
 		/// <summary>
 		/// Reference to current ABP session.
 		/// </summary>
-		public ISession Session { protected get; set; }
+		public ILinFxSession Session { protected get; set; }
 		protected IUnitOfWorkFilterExecuter FilterExecuter { get; }
 
 		/// <summary>

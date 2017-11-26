@@ -5,7 +5,7 @@ using LinFx.SaaS.MultiTenancy;
 
 namespace LinFx.SaaS.Web.Services
 {
-    public class TenantService : ServiceBase<Tenant>
+    public class TenantService : ServiceBase<Tenant, int>
     {
         public override (IEnumerable<Tenant> Items, int Total, int Count) GetList(IDictionary<string, string> filter, Paging paging = null, params Sorting[] sorting)
         {

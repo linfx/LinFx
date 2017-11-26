@@ -7,7 +7,7 @@ using LinFx.SaaS.Web.Entities;
 
 namespace LinFx.SaaS.Web.Services
 {
-    public class AssetService : ServiceBase<Asset>
+    public class AssetService : ServiceBase<Asset, long>
     {
         public override (IEnumerable<Asset> Items, int Total, int Count) GetList(IDictionary<string, string> filter, Paging paging = null, params Sorting[] sorting)
         {
@@ -15,7 +15,7 @@ namespace LinFx.SaaS.Web.Services
 
             if(paging != null && paging.Page > 0)
             {
-                sql.Append(string.Format(" offset {0} limit {1}", (paging.Page - 1) * paging.Limit, paging.Limit));
+                sql.Append(string.Format(" limit {0} {1}", (paging.Page - 1) * paging.Limit, paging.Limit));
             }
 
             var items = _db.Query<Asset>(sql.ToString());

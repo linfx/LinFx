@@ -8,7 +8,7 @@ namespace LinFx.Domain.Entities.Auditing
     /// <summary>
     /// A shortcut of <see cref="AuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
     /// </summary>
-    public abstract class AuditedEntity : AuditedEntity<string>, IEntity
+    public abstract class AuditedEntity : AuditedEntity<int>, IEntity
     {
     }
 
@@ -25,7 +25,7 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Last modifier user of this entity.
         /// </summary>
-        public virtual string LastModifierUserId { get; set; }
+        public virtual long LastModifierUserId { get; set; }
     }
 
     /// <summary>
@@ -53,9 +53,9 @@ namespace LinFx.Domain.Entities.Auditing
     #region CreationAuditedEntity
 
     /// <summary>
-    /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
+    /// A shortcut of <see cref="CreationAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
     /// </summary>
-    public abstract class CreationAuditedEntity : CreationAuditedEntity<string>, IEntity
+    public abstract class CreationAuditedEntity : CreationAuditedEntity<int>, IEntity
     {
     }
 
@@ -72,7 +72,7 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Creator of this entity.
         /// </summary>
-        public virtual string CreatorUserId { get; set; }
+        public virtual long CreatorUserId { get; set; }
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -101,13 +101,6 @@ namespace LinFx.Domain.Entities.Auditing
     #region FullAuditedEntity
 
     /// <summary>
-    /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
-    /// </summary>
-    public abstract class FullAuditedEntity : FullAuditedEntity<string>, IEntity
-    {
-    }
-
-    /// <summary>
     /// Implements <see cref="IFullAudited"/> to be a base class for full-audited entities.
     /// </summary>
     /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
@@ -120,12 +113,19 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
-        public virtual string DeleterUserId { get; set; }
+        public virtual long DeleterUserId { get; set; }
         /// <summary>
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeleteionTime { get; set; }
-    } 
+    }
+
+    /// <summary>
+    /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
+    /// </summary>
+    public abstract class FullAuditedEntity : FullAuditedEntity<int>, IEntity
+    {
+    }
 
     #endregion
 }

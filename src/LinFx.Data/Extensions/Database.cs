@@ -28,7 +28,7 @@ namespace LinFx.Data.Extensions
         bool Delete<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<TEntity>(Expression<Func<TEntity, bool>> predicate, int? commandTimeout = null) where TEntity : class;
 
-		int Count<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
+		int Count<TEntity>(Expression<Func<TEntity, bool>> predicate = null) where TEntity : class;
 		TEntity Get<TEntity>(dynamic id, int? commandTimeout = null) where TEntity : class;
 		TEntity Get<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
 		IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;

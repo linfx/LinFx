@@ -19,7 +19,7 @@ namespace LinFx.SaaS.Authorization.Roles
             }
         }
 
-        public virtual async Task<bool> IsGrantedAsync(string roleId, Permission permission)
+        public virtual async Task<bool> IsGrantedAsync(int roleId, Permission permission)
         {
             //Get cached role permissions
             var cacheItem = await GetRolePermissionCacheItemAsync(roleId);
@@ -28,7 +28,7 @@ namespace LinFx.SaaS.Authorization.Roles
             return cacheItem.GrantedPermissions.Contains(permission.Name);
         }
 
-        private async Task<RolePermissionCacheItem> GetRolePermissionCacheItemAsync(string roleId)
+        private async Task<RolePermissionCacheItem> GetRolePermissionCacheItemAsync(int roleId)
         {
             //var cacheKey = roleId + "@" + (GetCurrentTenantId() ?? string.Empty);
             //return await _cacheManager.GetRolePermissionCache().GetAsync(cacheKey, async () =>

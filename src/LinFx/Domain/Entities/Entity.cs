@@ -70,20 +70,8 @@ namespace LinFx.Domain.Entities
         }
     }
 
-    public class Entity : Entity<string>, IEntity
+    public class Entity : Entity<int>, IEntity
     {
-        public override string Id { get; set; }
-    }
-
-    public static class EntityExtensions
-    {
-        /// <summary>
-        /// 生成Guid
-        /// </summary>
-        /// <param name="entity"></param>
-        public static void NewId(this IEntity entity)
-        {
-            entity.Id = Guid.NewGuid().ToString("N");
-        }
+        public override int Id { get; set; }
     }
 }

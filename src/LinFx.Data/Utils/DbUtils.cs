@@ -15,5 +15,12 @@ namespace LinFx.Data.Utils
             var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new PostgreSqlDialect());
             return new Database(factory.Create(), new SqlGeneratorImpl(config));
         }
+
+        public static IDatabase GetMySqlDatabase(string connectionString)
+        {
+            var factory = new DbConnectionFactory(connectionString, MySqlProvider.Instance);
+            var config = new DataAccessExtensionsConfiguration(typeof(AutoClassMapper<>), new List<Assembly>(), new MySqlDialect());
+            return new Database(factory.Create(), new SqlGeneratorImpl(config));
+        }
     }
 }

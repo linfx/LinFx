@@ -28,7 +28,7 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Last modifier user for this entity.
         /// </summary>
-        string LastModifierUserId { get; set; }
+        long LastModifierUserId { get; set; }
     }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Id of the creator user of this entity.
         /// </summary>
-        string CreatorUserId { get; set; }
+        long CreatorUserId { get; set; }
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ namespace LinFx.Domain.Entities.Auditing
         /// <summary>
         /// Which user deleted this entity?
         /// </summary>
-        string DeleterUserId { get; set; }
+        long DeleterUserId { get; set; }
     }
 
     /// <summary>

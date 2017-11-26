@@ -4,13 +4,17 @@ using LinFx.Domain.Entities;
 
 namespace LinFx.Domain.Services
 {
-    public interface IDataService<TEntity>
+    public interface IDataService<TEntity, TPrimaryKey>
     {
         void Insert(TEntity item);
         void Update(TEntity item);
-        void Delete(string id);
-        TEntity Get(string id);
+        void Delete(TPrimaryKey id);
+        TEntity Get(TPrimaryKey id);
         (IEnumerable<TEntity> Items, int Total, int Count) GetList(IDictionary<string, string> filter, Paging paging, params Sorting[] sorting);
+    }
+
+    public interface IDataService<TEntity> : IDataService<TEntity, string>
+    {
     }
 
     public interface IDomainService

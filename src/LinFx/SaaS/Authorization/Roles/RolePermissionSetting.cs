@@ -7,7 +7,7 @@ namespace LinFx.SaaS.Authorization.Roles
         /// <summary>
         /// Role id.
         /// </summary>
-        public string RoleId { get; set; }
+        public int RoleId { get; set; }
     }
 
     /// <summary>

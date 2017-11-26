@@ -6,7 +6,7 @@ namespace LinFx.SaaS.MultiTenancy
 	/// <summary>
 	/// 租户
 	/// </summary>
-	public class Tenant : FullAuditedEntity
+	public class Tenant : FullAuditedEntity<int>
     {
         /// <summary>
         /// Display name of the Tenant.

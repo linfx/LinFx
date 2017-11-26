@@ -9,7 +9,7 @@ namespace LinFx.SaaS.Authorization
     [Table("Permission")]
     public class PermissionSetting : CreationAuditedEntity
     {
-        public string TenantId { get; set; }
+        public int TenantId { get; set; }
         /// <summary>
         /// Unique name of the permission.
         /// </summary>

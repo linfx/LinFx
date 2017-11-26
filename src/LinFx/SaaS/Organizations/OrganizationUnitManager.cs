@@ -21,7 +21,7 @@ namespace LinFx.SaaS.Organizations
 		}
 
 		[UnitOfWork]
-		public virtual async Task DeleteAsync(string id)
+		public virtual async Task DeleteAsync(int id)
 		{
 			//var children = await FindChildrenAsync(id);
 			//foreach(var child in children)

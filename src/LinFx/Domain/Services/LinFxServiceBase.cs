@@ -39,7 +39,7 @@ namespace LinFx.Domain.Services
         /// <summary>
         /// Reference to current session.
         /// </summary>
-        public ISession Session { protected get; set; } = new ClaimsSession(HttpContext.PrincipalAccessor);
+        public ILinFxSession Session { protected get; set; } = new ClaimsLinFxSession(HttpContext.PrincipalAccessor);
         /// <summary>
         /// Gets current unit of work.
         /// </summary>

@@ -4,9 +4,9 @@ namespace LinFx.SaaS.Domain.Entities
 {
 	public class OrganizationUnit : FullAuditedEntity
 	{
-		public string TenantId { get; set; }
+		public int TenantId { get; set; }
 
-		public string ParentId { get; set; }
+		public int ParentId { get; set; }
 
 		public string No { get; set; }
 

@@ -9,8 +9,8 @@ using LinFx.Domain.Services;
 namespace LinFx.SaaS.Web.Controllers
 {
     public class LinFxController<TEntity, TService> : LinFxController
-        where TEntity : IEntity
-        where TService : IDataService<TEntity>, new()
+        where TEntity : IEntity<long>
+        where TService : IDataService<TEntity, long>, new()
     {
         protected TService _service = new TService();
 
@@ -36,7 +36,7 @@ namespace LinFx.SaaS.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public virtual IActionResult Get(string id)
+        public virtual IActionResult Get(long id)
         {
             try
             {
@@ -55,6 +55,9 @@ namespace LinFx.SaaS.Web.Controllers
         [HttpPost]
         public virtual IActionResult Post([FromBody]TEntity item)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 _service.Insert(item);
@@ -68,7 +71,7 @@ namespace LinFx.SaaS.Web.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public virtual IActionResult Put(string id, [FromBody]TEntity item)
+        public virtual IActionResult Put(long id, [FromBody]TEntity item)
         {
             try
             {
@@ -84,7 +87,7 @@ namespace LinFx.SaaS.Web.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public virtual IActionResult Delete(string id)
+        public virtual IActionResult Delete(long id)
         {
             try
             {

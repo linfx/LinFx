@@ -79,7 +79,7 @@ namespace LinFx.Data.Extensions.Sql
             if (parameters == null)
                 throw new ArgumentNullException("Parameters");
 
-            StringBuilder sql = new StringBuilder(string.Format("SELECT COUNT(*) AS {0}Total{1} FROM {2}",
+            var sql = new StringBuilder(string.Format("SELECT COUNT(*) AS {0}Total{1} FROM {2}",
                                 Configuration.Dialect.OpenQuote,
                                 Configuration.Dialect.CloseQuote,
                                 GetTableName(classMap)));

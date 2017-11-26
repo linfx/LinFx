@@ -28,24 +28,11 @@ namespace LinFx.Data.Filters.Action
                 entityWithCreationTime.CreationTime = Clock.Now;
             }
 
-            if (!string.IsNullOrEmpty(userId) && entity is ICreationAudited)
+            if (userId > 0 && entity is ICreationAudited)
             {
                 var record = entity as ICreationAudited;
-                if (record.CreatorUserId == null)
+                if (record.CreatorUserId == 0)
                 {
-                    //if (entity is IMayHaveTenant || entity is IMustHaveTenant)
-                    //{
-                    //    //Sets CreatorUserId only if current user is in same tenant/host with the given entity
-                    //    if (entity is IMayHaveTenant && entity.As<IMayHaveTenant>().TenantId == AbpSession.TenantId ||
-                    //        entity is IMustHaveTenant && entity.As<IMustHaveTenant>().TenantId == AbpSession.TenantId)
-                    //    {
-                    //        record.CreatorUserId = userId;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    record.CreatorUserId = userId;
-                    //}
                     record.CreatorUserId = userId;
                 }
             }
@@ -58,7 +45,7 @@ namespace LinFx.Data.Filters.Action
             if (entity is IModificationAudited)
             {
                 var record = entity.As<IModificationAudited>();
-                record.LastModifierUserId = null;
+                record.LastModifierUserId = 0;
             }
 
             //CheckAndSetMustHaveTenantIdProperty(entity);

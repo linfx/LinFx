@@ -12,22 +12,18 @@ namespace LinFx.Data.Filters.Action
 
 	public abstract class DapperActionFilterBase
 	{
-        public ISession Session { get; set; } = new ClaimsSession(HttpContext.PrincipalAccessor);
+        public ILinFxSession Session { get; set; } = new ClaimsLinFxSession(HttpContext.PrincipalAccessor);
 
         public ICurrentUnitOfWorkProvider CurrentUnitOfWorkProvider { get; set; }
 
-        protected virtual string GetAuditUserId()
+        protected virtual long GetAuditUserId()
         {
-            if (Session != null && !string.IsNullOrEmpty(Session.UserId))
-                return Session.UserId;
-
-            return string.Empty;
+            return Session.UserId;
         }
 
         protected virtual void CheckAndSetId(object entityAsObj)
         {
-            var entity = entityAsObj as IEntity;
-            if (entity != null && string.IsNullOrEmpty(entity.Id))
+            if (entityAsObj is IEntity<string> entity && string.IsNullOrEmpty(entity.Id))
             {
                 entity.Id = Guid.NewGuid().ToString("N");
             }
