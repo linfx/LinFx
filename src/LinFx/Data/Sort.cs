@@ -1,4 +1,4 @@
-﻿namespace LinFx.Data.Extensions
+﻿namespace LinFx.Data
 {
 	public interface ISort
 	{

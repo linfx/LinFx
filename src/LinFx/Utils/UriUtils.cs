@@ -1,4 +1,4 @@
-﻿using LinFx.Data.Extensions;
+﻿using LinFx.Data;
 using System.Collections.Generic;
 
 namespace LinFx.Utils

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using LinFx.Data.Extensions;
 using LinFx.Domain.Entities;
+using LinFx.Data;
 
 namespace LinFx.Domain.Services
 {
