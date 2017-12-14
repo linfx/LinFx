@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinFx.Data\LinFx.Data.csproj" />
     <ProjectReference Include="..\LinFx\LinFx.csproj" />
   </ItemGroup>
 

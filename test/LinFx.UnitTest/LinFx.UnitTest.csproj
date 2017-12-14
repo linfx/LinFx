@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LinFx.Data\LinFx.Data.csproj" />
     <ProjectReference Include="..\..\src\LinFx\LinFx.csproj" />
   </ItemGroup>
 
