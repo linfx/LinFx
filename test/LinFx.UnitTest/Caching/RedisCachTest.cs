@@ -1,11 +1,11 @@
-﻿using LinFx.Caching.Memory.Redis;
+﻿using LinFx.Caching.Redis;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace LinFx.UnitTest.Caching
 {
-	public class RedisCachTest
+    public class RedisCachTest
     {
         //string redisConnectionString = "localhost:6379, password=Wayto2017!";
         string redisConnectionString = "localhost:6379";
