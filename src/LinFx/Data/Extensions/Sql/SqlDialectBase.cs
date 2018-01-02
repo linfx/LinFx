@@ -16,8 +16,8 @@ namespace LinFx.Data.Extensions.Sql
         string GetTableName(string schemaName, string tableName, string alias);
         string GetColumnName(string prefix, string columnName, string alias);
         string GetIdentitySql(string tableName);
-        string GetPagingSql(string sql, int page, int resultsPerPage, IDictionary<string, object> parameters);
-        string GetSetSql(string sql, int firstResult, int maxResults, IDictionary<string, object> parameters);
+        string GetPagingSql(string sql, uint page, uint resultsPerPage, IDictionary<string, object> parameters);
+        string GetSetSql(string sql, uint firstResult, uint maxResults, IDictionary<string, object> parameters);
         bool IsQuoted(string value);
         string QuoteString(string value);
     }
@@ -96,8 +96,8 @@ namespace LinFx.Data.Extensions.Sql
         }
 
         public abstract string GetIdentitySql(string tableName);
-        public abstract string GetPagingSql(string sql, int page, int resultsPerPage, IDictionary<string, object> parameters);
-        public abstract string GetSetSql(string sql, int firstResult, int maxResults, IDictionary<string, object> parameters);
+        public abstract string GetPagingSql(string sql, uint page, uint resultsPerPage, IDictionary<string, object> parameters);
+        public abstract string GetSetSql(string sql, uint firstResult, uint maxResults, IDictionary<string, object> parameters);
 
         public virtual bool IsQuoted(string value)
         {
@@ -117,18 +117,5 @@ namespace LinFx.Data.Extensions.Sql
         {
             return IsQuoted(value) ? value.Substring(1, value.Length - 2) : value;
         }
-
-        //public static ISqlDialect GetDialect()
-        //{
-        //    string conn:
-        //    switch (conn)
-        //    {
-        //        case "mysqlconnection":
-        //            return new MySqlDialect();
-        //        case "npgsqlconnection":
-        //            return new PostgreSqlDialect();
-        //    }
-        //    throw new Exception();
-        //}
     }
 }

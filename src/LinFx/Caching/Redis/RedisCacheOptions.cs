@@ -1,4 +1,4 @@
-﻿namespace LinFx.Caching.Memory.Redis
+﻿namespace LinFx.Caching.Redis
 {
 	public class RedisCacheOptions
     {

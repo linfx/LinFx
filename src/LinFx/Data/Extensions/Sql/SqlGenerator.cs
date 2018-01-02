@@ -11,7 +11,7 @@ namespace LinFx.Data.Extensions.Sql
         IDataAccessExtensionsConfiguration Configuration { get; }
         
         string Select(IClassMapper classMap,IDictionary<string, object> parameters, IPredicate predicate, Paging paging = null, params Sorting[] sorting);
-        string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters);
+        string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDictionary<string, object> parameters);
 
         string Count(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
 
@@ -53,7 +53,7 @@ namespace LinFx.Data.Extensions.Sql
 			return innerSql.ToString();
 		}
 
-		public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDictionary<string, object> parameters)
+		public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
         {
             if (sort == null || !sort.Any())
                 throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Caching.Memory.Redis
+namespace LinFx.Caching.Redis
 {
 	/// <summary>
 	///     Interface to be implemented by all custom (de)serialization methods used when persisting and retrieving

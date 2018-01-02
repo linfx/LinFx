@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LinFx.SaaS.Web.Controllers
 {
-    [Route("api/[controller]")]
-    public class AssetsController : LinFxController<Asset, AssetService>
-    {
-    }
+    //[Route("api/[controller]")]
+    //public class AssetsController : LinFxController<Asset, AssetService>
+    //{
+    //}
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using LinFx.Data.Extensions;
 
 namespace LinFx.Data.Extensions.Mapper
 {

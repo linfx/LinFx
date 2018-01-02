@@ -14,7 +14,7 @@ namespace LinFx.Data.Extensions
 	{
 		ISqlGenerator SqlGenerator { get; }
 		IDbTransaction Transaction { get; set; }
-		void Insert<T>(IDbConnection connection, List<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class;
+		void Insert<T>(IDbConnection connection, T[] entities, IDbTransaction transaction, int? commandTimeout) where T : class;
 		dynamic Insert<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
 		bool Update<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
 		bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class;
@@ -22,7 +22,7 @@ namespace LinFx.Data.Extensions
 		int Count<T>(IDbConnection connection, object predicate, IDbTransaction transaction, int? commandTimeout = default(int?)) where T : class;
 		T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class;
 		IEnumerable<T> Select<T>(IDbConnection connection, object predicate, Paging paging, params Sorting[] sorting) where T : class;
-		IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
+		IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
 		IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
 	}
 
@@ -37,7 +37,7 @@ namespace LinFx.Data.Extensions
 
 		public IDbTransaction Transaction { get; set; }
 
-		public void Insert<T>(IDbConnection connection, List<T> entities, IDbTransaction transaction, int? commandTimeout) where T : class
+		public void Insert<T>(IDbConnection connection, T[] entities, IDbTransaction transaction, int? commandTimeout) where T : class
         {
             var classMap = SqlGenerator.Configuration.GetMap<T>();
             var properties = classMap.Properties.Where(p => p.KeyType != KeyType.NotAKey);
@@ -174,7 +174,7 @@ namespace LinFx.Data.Extensions
 			return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
 		}
 
-		public IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
+		public IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
             IClassMapper classMap = SqlGenerator.Configuration.GetMap<T>();
             IPredicate wherePredicate = GetPredicate(classMap, predicate);
@@ -204,7 +204,7 @@ namespace LinFx.Data.Extensions
             return GetMultipleBySequence(connection, predicate, transaction, commandTimeout);
         }
 
-        protected IEnumerable<T> GetSet<T>(IDbConnection connection, IClassMapper classMap, IPredicate predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
+        protected IEnumerable<T> GetSet<T>(IDbConnection connection, IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             string sql = SqlGenerator.SelectSet(classMap, predicate, sort, firstResult, maxResults, parameters);

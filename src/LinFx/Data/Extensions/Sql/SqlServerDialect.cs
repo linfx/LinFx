@@ -22,13 +22,13 @@ namespace LinFx.Data.Extensions.Sql
             return string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [Id]");
         }
 
-        public override string GetPagingSql(string sql, int page, int resultsPerPage, IDictionary<string, object> parameters)
+        public override string GetPagingSql(string sql, uint page, uint resultsPerPage, IDictionary<string, object> parameters)
         {
-            int startValue = (page * resultsPerPage) + 1;
+            uint startValue = (page * resultsPerPage) + 1;
             return GetSetSql(sql, startValue, resultsPerPage, parameters);
         }
 
-        public override string GetSetSql(string sql, int firstResult, int maxResults, IDictionary<string, object> parameters)
+        public override string GetSetSql(string sql, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
         {
             if (string.IsNullOrEmpty(sql))
             {

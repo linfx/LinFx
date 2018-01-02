@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using System;
 
-namespace LinFx.Caching.Memory.Redis
+namespace LinFx.Caching.Redis
 {
 	/// <summary>
 	/// Used to get <see cref="IDatabase"/> for Redis cache.

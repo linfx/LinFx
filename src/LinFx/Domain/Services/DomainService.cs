@@ -1,73 +1,70 @@
 ﻿using System.Collections.Generic;
 using LinFx.Domain.Entities;
 using LinFx.Data;
+using LinFx.Data.Extensions;
+using System.Linq;
+using LinFx.Data.Expressions;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace LinFx.Domain.Services
 {
-    public interface IDataService<TEntity, TPrimaryKey>
+    public interface IDomainService<TEntity, TPrimaryKey>
     {
         void Insert(TEntity item);
         void Update(TEntity item);
-        void Delete(TPrimaryKey id);
+        void Delete(TEntity item);
         TEntity Get(TPrimaryKey id);
-        (IEnumerable<TEntity> Items, int Total, int Count) GetList(IDictionary<string, string> filter, Paging paging, params Sorting[] sorting);
+        (IEnumerable<TEntity> items, int total, int count) GetList(IDictionary<string, string> filter, Paging paging, params Sorting[] sorting);
     }
 
-    public interface IDataService<TEntity> : IDataService<TEntity, string>
-    {
-    }
-
-    public interface IDomainService
-    {
-    }
-
-	public abstract class DomainService : LinFxServiceBase, IDomainService
+	public abstract class DomainService : LinFxServiceBase
 	{
-	}
+        protected IDatabase _db;
 
-    public abstract class DomainService<TEntity, TPrimaryKey> : DomainService where TEntity : IEntity<TPrimaryKey>
-    {
-        //protected readonly IRepository<TEntity, TPrimaryKey> _repository;
-
-        //public DomainService(IRepository<TEntity, TPrimaryKey> repository)
+        //public string GetConnectionString()
         //{
-        //    _repository = repository;
-        //}
-
-        //public virtual void Create(TEntity item)
-        //{
-        //    _repository.Insert(item);
-        //}
-
-        //public virtual void Update(TEntity item)
-        //{
-        //    _repository.Update(item);
-        //}
-
-        //public virtual void Delete(TEntity item)
-        //{
-        //    _repository.Delete(item);
-        //}
-
-        //public virtual TEntity Get(TPrimaryKey id)
-        //{
-        //    return _repository.Get(id);
-        //}
-
-        //public virtual IEnumerable<TEntity> GetAll()
-        //{
-        //    return _repository.GetAll();
-        //}
+        //    IConfigurationBuilder builder = new ConfigurationBuilder()
+        //        .SetBasePath(Directory.GetCurrentDirectory())
+        //        .AddJsonFile("appsettings.json");
     }
 
-    //public abstract class DomainService<TEntity> : DomainService<TEntity, string> where TEntity : IEntity
-    //{
-    //    //public DomainService(IRepository<TEntity> repository) : base(repository) { }
+    public abstract class DomainService<TEntity, TPrimaryKey> : DomainService, IDomainService<TEntity, TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>
+    {
+        public virtual void Insert(TEntity item)
+        {
+            _db.Insert(item);
+        }
 
-    //    //public override void Create(TEntity item)
-    //    //{
-    //    //    item.NewId();
-    //    //    base.Create(item);
-    //    //}
-    //}
+        public virtual void Update(TEntity item)
+        {
+            _db.Update(item);
+        }
+
+        public virtual void Delete(TEntity item)
+        {
+            _db.Delete(item);
+        }
+
+        public virtual TEntity Get(TPrimaryKey id)
+        {
+            return _db.Get<TEntity>(id);
+        }
+
+        public virtual (IEnumerable<TEntity> items, int total, int count) GetList(IDictionary<string, string> filter, Paging paging, params Sorting[] sorting)
+        {
+            var where = PredicateBuilder<TEntity>.Where();
+
+            //var map = _db.GetMap<TEntity>();
+            //foreach (var item in filter)
+            //{
+            //    Expression<Func<Goods, bool>> current = p => p.Store_Id == store_id;
+            //    var tmp = map.Properties.FirstOrDefault(p => p.Name.ToLower() == item.Key.ToLower());
+            //}
+
+            var items = _db.Select(where.Predicate, paging);
+            return (items, _db.Count(where.Predicate), items.Count());
+        }
+    }
 }

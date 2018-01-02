@@ -27,7 +27,7 @@ namespace LinFx.Domain.Services
 		/// <summary>
 		/// Reference to the logger to write logs.
 		/// </summary>
-		public ILogger Logger { protected get; set; } = new NullLogger();
+		public ILogger Logger { get; set; } = new NLogLogger();
         /// <summary>
         /// Reference to the setting manager.
         /// </summary>

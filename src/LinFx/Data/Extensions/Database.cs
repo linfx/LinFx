@@ -22,7 +22,7 @@ namespace LinFx.Data.Extensions
 		bool HasActiveTransaction { get; }
 		IDbTransaction Transaction { get; }
 
-		void Insert<TEntity>(List<TEntity> entities, int? commandTimeout = null) where TEntity : class;
+		void Insert<TEntity>(TEntity[] entities, int? commandTimeout = null) where TEntity : class;
 		dynamic Insert<TEntity>(TEntity entity, int? commandTimeout = null) where TEntity : class;
 		bool Update<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<T>(T entity, int? commandTimeout = null) where T : class;
@@ -32,8 +32,8 @@ namespace LinFx.Data.Extensions
 		TEntity Get<TEntity>(dynamic id, int? commandTimeout = null) where TEntity : class;
 		TEntity Get<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
 		IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;
-		IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
-        IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class;
+		IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
+        IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, int? commandTimeout, bool buffered) where T : class;
         IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, int? commandTimeout = null);
 
         void ClearCache();
@@ -142,7 +142,7 @@ namespace LinFx.Data.Extensions
 			return Select(predicate, null).FirstOrDefault();
 		}
 
-		public void Insert<T>(List<T> entities, int? commandTimeout) where T : class
+		public void Insert<T>(T[] entities, int? commandTimeout) where T : class
 		{
 			_dapper.Insert(Connection, entities, _transaction, commandTimeout);
 		}
@@ -174,12 +174,12 @@ namespace LinFx.Data.Extensions
 			return _dapper.Select<TEntity>(Connection, filteredPredicate, paging, sort.ToSorting());
 		}
 
-		public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
+		public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
             return _dapper.GetSet<T>(Connection, predicate, sort, firstResult, maxResults, transaction, commandTimeout, buffered);
         }
 
-        public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, int firstResult, int maxResults, int? commandTimeout, bool buffered) where T : class
+        public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, int? commandTimeout, bool buffered) where T : class
         {
             return _dapper.GetSet<T>(Connection, predicate, sort, firstResult, maxResults, _transaction, commandTimeout, buffered);
         }

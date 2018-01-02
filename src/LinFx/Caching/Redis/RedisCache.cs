@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Caching.Memory.Redis
+namespace LinFx.Caching.Redis
 {
 	public class RedisCache : ICache
 	{

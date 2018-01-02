@@ -13,6 +13,8 @@ namespace LinFx.UnitTest.Caching
         [Fact]
         public async Task CreateAsyncTestAsync()
         {
+
+
             await _cache.SetAsync("A", 1);
             //await _cache.SetAsync("B")
             (await _cache.GetAsync<int>("A")).ShouldBe(1);

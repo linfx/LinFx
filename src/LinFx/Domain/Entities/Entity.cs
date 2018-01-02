@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Domain.Entities
+﻿namespace LinFx.Domain.Entities
 {
     public class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
     {

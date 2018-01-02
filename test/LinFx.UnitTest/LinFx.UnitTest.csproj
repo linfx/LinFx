@@ -6,10 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="EventBus\**" />
+    <Compile Remove="Logging\**" />
     <Compile Remove="SaaS\**" />
     <EmbeddedResource Remove="EventBus\**" />
+    <EmbeddedResource Remove="Logging\**" />
     <EmbeddedResource Remove="SaaS\**" />
     <None Remove="EventBus\**" />
+    <None Remove="Logging\**" />
     <None Remove="SaaS\**" />
   </ItemGroup>
 
@@ -26,10 +29,6 @@
 
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Logging\" />
   </ItemGroup>
 
 </Project>

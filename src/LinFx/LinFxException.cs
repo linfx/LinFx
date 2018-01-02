@@ -18,4 +18,15 @@ namespace LinFx
         {
         }
     }
+
+    public class ResultException : Exception
+    {
+        public ResultException(int code, string message)
+            : base(message)
+        {
+            Code = code;
+        }
+
+        public int Code { get; set; }
+    }
 }

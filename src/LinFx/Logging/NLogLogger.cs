@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using NLog.Config;
+using System;
 
 namespace LinFx.Logging
 {
@@ -46,6 +48,19 @@ namespace LinFx.Logging
                 return;
             }
             logger.Log(targetLogLevel, exception, messageFunc());
+        }
+    }
+
+    public static class ConfigureExtensions
+    {
+        public static ILoggerFactory AddNLog(this ILoggerFactory factory)
+        {
+            return NLog.Extensions.Logging.ConfigureExtensions.AddNLog(factory);
+        }
+
+        public static LoggingConfiguration ConfigureNLog(this ILoggerFactory loggerFactory, string configFileRelativePath)
+        {
+            return NLog.Extensions.Logging.ConfigureExtensions.ConfigureNLog(loggerFactory, configFileRelativePath);
         }
     }
 }

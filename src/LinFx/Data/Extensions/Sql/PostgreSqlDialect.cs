@@ -9,13 +9,13 @@ namespace LinFx.Data.Extensions.Sql
             return "SELECT LASTVAL() AS Id";
         }
 
-        public override string GetPagingSql(string sql, int page, int resultsPerPage, IDictionary<string, object> parameters)
+        public override string GetPagingSql(string sql, uint page, uint resultsPerPage, IDictionary<string, object> parameters)
         {
-            int startValue = page * resultsPerPage;
+            uint startValue = page * resultsPerPage;
             return GetSetSql(sql, startValue, resultsPerPage, parameters);
         }
 
-        public override string GetSetSql(string sql, int firstResult, int maxResults, IDictionary<string, object> parameters)
+        public override string GetSetSql(string sql, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
         {
             string result = string.Format("{0} LIMIT @firstResult OFFSET @pageStartRowNbr", sql);            
             parameters.Add("@firstResult", firstResult);

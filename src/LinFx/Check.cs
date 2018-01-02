@@ -10,7 +10,6 @@ namespace LinFx
         {
             if (value == null)
                 throw new ArgumentNullException(paramName);
-
             return value;
         }
 
@@ -18,7 +17,6 @@ namespace LinFx
         {
             if (value.IsNullOrEmpty())
                 throw new ArgumentException(parameterName + " can not be null or empty!", parameterName);
-
             return value;
         }
     }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using LinFx.Data.Extensions;
 using LinFx.SaaS.Web.Entities;
+using LinFx.Data;
 
 namespace LinFx.SaaS.Web.Services
 {
