@@ -131,6 +131,8 @@ namespace LinFx.Data.Extensions
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
 
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
             return connection.Execute(sql, dynamicParameters, transaction, commandTimeout, CommandType.Text) > 0;
         }
 
@@ -171,6 +173,8 @@ namespace LinFx.Data.Extensions
 			{
 				dynamicParameters.Add(parameter.Key, parameter.Value);
 			}
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
 			return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
 		}
 
@@ -213,6 +217,8 @@ namespace LinFx.Data.Extensions
             {
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
             return connection.Query<T>(sql, dynamicParameters, transaction, buffered, commandTimeout, CommandType.Text);
         }
 
@@ -225,7 +231,8 @@ namespace LinFx.Data.Extensions
             {
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
-
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
             return connection.Execute(sql, dynamicParameters, transaction, commandTimeout, CommandType.Text) > 0;
         }
 
@@ -382,27 +389,37 @@ namespace LinFx.Data.Extensions
 	{
 		public static int Execute(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
-			return connection.Execute(sql, param, transaction, commandTimeout, CommandType.Text);
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+            return connection.Execute(sql, param, transaction, commandTimeout, CommandType.Text);
 		}
 
 		public static T ExecuteScalar<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
-			return connection.ExecuteScalar<T>(sql, param, transaction, commandTimeout, CommandType.Text);
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+            return connection.ExecuteScalar<T>(sql, param, transaction, commandTimeout, CommandType.Text);
 		}
 
 		public static IEnumerable<T> Query<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
-			return connection.Query<T>(sql, param, transaction, true, commandTimeout, CommandType.Text);
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+            return connection.Query<T>(sql, param, transaction, true, commandTimeout, CommandType.Text);
 		}
 
 		public static T QueryFirstOrDefault<T>(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
-			return connection.QueryFirst<T>(sql, param, transaction, commandTimeout);
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+            return connection.QueryFirst<T>(sql, param, transaction, commandTimeout);
 		}
 
 		public static SqlMapper.GridReader QueryMultiple(this IDapperImplementor impl, IDbConnection connection, string sql, object param, IDbTransaction transaction, int? commandTimeout)
 		{
-			return connection.QueryMultiple(sql, param, transaction, commandTimeout);
+            if (connection.State != ConnectionState.Open)
+                connection.Open();
+            return connection.QueryMultiple(sql, param, transaction, commandTimeout);
 		}
 	}
 }

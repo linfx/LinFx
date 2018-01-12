@@ -89,6 +89,32 @@ namespace LinFx.Utils
             return propertyName.ToLower();
         }
     }
+
+    public class UnderlineSplitContractResolver : DefaultContractResolver
+    {
+        protected override string ResolvePropertyName(string propertyName)
+        {
+            var builder = new StringBuilder();
+            for (int i = 0; i < propertyName.Length; i++)
+            {
+                var ch = propertyName[i];
+                if (i == 0)
+                {
+                    builder.Append(char.ToLower(ch));
+                }
+                else
+                {
+                    var prev = propertyName[i - 1];
+                    if (prev == '_')
+                        builder.Append(char.ToLower(ch));
+                    else
+                        builder.Append(ch);
+                }
+            }
+            return builder.ToString();
+        }
+    }
+
     /// <summary>  
     /// Newtonsoft.Json序列化扩展特性  
     /// <para>DateTime序列化（输出为时间戳）</para>  

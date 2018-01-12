@@ -4,22 +4,21 @@ using LinFx.Data;
 using LinFx.Data.Extensions;
 using System.Linq;
 using LinFx.Data.Expressions;
-using Microsoft.Extensions.Configuration;
-using System.IO;
+using System;
 
 namespace LinFx.Domain.Services
 {
-    public interface IDomainService<TEntity, TPrimaryKey>
+    public interface IDomainService<TEntity, TPrimaryKey> : IDisposable
     {
-        void Insert(TEntity item);
-        void Update(TEntity item);
+        void Insert(ref TEntity item);
+        void Update(ref TEntity item);
         void Delete(TEntity item);
         TEntity Get(TPrimaryKey id);
         (IEnumerable<TEntity> items, int total, int count) GetList(IDictionary<string, string> filter, Paging paging, params Sorting[] sorting);
     }
 
-	public abstract class DomainService : LinFxServiceBase
-	{
+    public abstract class DomainService : LinFxServiceBase, IDisposable
+    {
         protected IDatabase _db;
 
         //public string GetConnectionString()
@@ -27,17 +26,25 @@ namespace LinFx.Domain.Services
         //    IConfigurationBuilder builder = new ConfigurationBuilder()
         //        .SetBasePath(Directory.GetCurrentDirectory())
         //        .AddJsonFile("appsettings.json");
+
+        public void Dispose()
+        {
+            if (_db != null)
+            {
+                _db.Dispose();
+            }
+        }
     }
 
     public abstract class DomainService<TEntity, TPrimaryKey> : DomainService, IDomainService<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        public virtual void Insert(TEntity item)
+        public virtual void Insert(ref TEntity item)
         {
             _db.Insert(item);
         }
 
-        public virtual void Update(TEntity item)
+        public virtual void Update(ref TEntity item)
         {
             _db.Update(item);
         }

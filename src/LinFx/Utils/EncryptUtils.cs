@@ -67,7 +67,7 @@ namespace LinFx.Utils
 
             using (var md5 = MD5.Create())
             {
-                byte[] bytes_md5_out = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+                var bytes_md5_out = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
                 return BitConverter.ToString(bytes_md5_out).Replace("-", "");
             }
         }
