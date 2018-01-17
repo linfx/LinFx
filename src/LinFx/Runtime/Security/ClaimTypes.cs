@@ -24,5 +24,13 @@
         /// Default: <see cref="ClaimTypes.Role"/>
         /// </summary>
         public static string Role { get; set; } = System.Security.Claims.ClaimTypes.Role;
+        /// <summary>
+        /// client_id
+        /// </summary>
+        public const string Client_Id = "https://github.com/linfx/identity/claims/client_id";
+        /// <summary>
+        /// client_secret
+        /// </summary>
+        public const string Client_Secret = "https://github.com/linfx/identity/claims/client_secret";
     }
 }
