@@ -144,8 +144,17 @@ namespace LinFx.Utils
 
         public static string RSASign_MD5withRSA(string content, string privateKey, Encoding encoding)
         {
-            //var signer = SignerUtilities.GetSigner("SHA1withRSA");
-            var signer = SignerUtilities.GetSigner("MD5withRSA");
+            return RSASign("MD5withRSA", content, privateKey, encoding);
+        }
+
+        public static string RSASign_SHA1withRSA(string content, string privateKey)
+        {
+            return RSASign("SHA1withRSA", content, privateKey, Encoding.UTF8);
+        }
+
+        public static string RSASign(string algorithm, string content, string privateKey, Encoding encoding)
+        {
+            var signer = SignerUtilities.GetSigner(algorithm);
             var privateKeyParam = (RsaPrivateCrtKeyParameters)PrivateKeyFactory.CreateKey(Convert.FromBase64String(privateKey));//将java格式的rsa密钥转换成.net格式
             signer.Init(true, privateKeyParam);
             var plainBytes = encoding.GetBytes(content);
@@ -185,6 +194,76 @@ namespace LinFx.Utils
             var ret = signer.VerifySignature(signBytes);
             return ret;
         }
+
+        #endregion
+
+        #region AES
+
+        public static string AESEncrypt(string input, string key)
+        {
+            if (string.IsNullOrEmpty(input)) return null;
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(input);
+            var rm = new RijndaelManaged
+            {
+                Key = Convert.FromBase64String(key),
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
+            ICryptoTransform cTransform = rm.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(Encoding.UTF8.GetBytes(input), 0, toEncryptArray.Length);
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+        public static string AESDecrypt(string input, string key)
+        {
+            if (string.IsNullOrEmpty(input)) return null;
+            byte[] toEncryptArray = Convert.FromBase64String(input);
+            var rm = new RijndaelManaged
+            {
+                Key = Convert.FromBase64String(key),
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
+            ICryptoTransform cTransform = rm.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return Encoding.UTF8.GetString(resultArray);
+        }
+
+        ///// <summary>
+        ///// AES decrypt( no IV)  
+        ///// </summary>
+        ///// <param name="input"></param>
+        ///// <param name="key"></param>
+        ///// <returns></returns>
+        //public static string AESEncrypt(string input, string key)
+        //{
+        //    using (var mStream = new MemoryStream())
+        //    {
+        //        using (Aes aes = Aes.Create())
+        //        {
+        //            byte[] plainBytes = Encoding.UTF8.GetBytes(input);
+        //            Byte[] bKey = new Byte[32];
+        //            Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
+        //            aes.Mode = CipherMode.ECB;
+        //            aes.Padding = PaddingMode.PKCS7;
+        //            aes.KeySize = 128;
+        //            aes.Key = bKey;
+        //            using (CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write))
+        //            {
+        //                try
+        //                {
+        //                    cryptoStream.Write(plainBytes, 0, plainBytes.Length);
+        //                    cryptoStream.FlushFinalBlock();
+        //                    return Convert.ToBase64String(mStream.ToArray());
+        //                }
+        //                catch (Exception)
+        //                {
+        //                    return null;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         #endregion
     }

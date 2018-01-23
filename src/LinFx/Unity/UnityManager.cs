@@ -41,18 +41,19 @@
 		/// <summary>
 		/// Container
 		/// </summary>
-		IUnity kernel = new NInjectUnity();
+		//IUnity kernel = new NInjectUnity();
 
 		public T Resolve<T>()
 		{
-			return kernel.Resolve<T>();
+            //return kernel.Resolve<T>();
+            return default(T);
 		}
 
 	    public void Register<TType, TImpl>()
 			where TType : class
 			where TImpl : class, TType
 		{
-			kernel.Register<TType, TImpl>();
-		}
+            //kernel.Register<TType, TImpl>();
+        }
 	}
 }

@@ -7,7 +7,37 @@ namespace LinFx.Utils
 {
     public static class JsonUtils
     {
-		private const char TypeSeperator = '|';
+        public static string ToJsonString(object value, bool camelCase = false, bool indented = false)
+        {
+            var options = new JsonSerializerSettings();
+
+            if (camelCase)
+                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            if (indented)
+                options.Formatting = Formatting.Indented;
+
+            //options.Converters.Insert(0, new DateTimeConverter());
+
+            return JsonConvert.SerializeObject(value, options);
+        }
+
+        public static T ToObject<T>(string value, bool camelCase = false, bool indented = false)
+        {
+            var options = new JsonSerializerSettings();
+
+            if (camelCase)
+                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            if (indented)
+                options.Formatting = Formatting.Indented;
+
+            //options.Converters.Insert(0, new DateTimeConverter());
+
+            return JsonConvert.DeserializeObject<T>(value, options);
+        }
+
+        private const char TypeSeperator = '|';
 
 		/// <summary>
 		/// Serializes an object with a type information included.
@@ -57,27 +87,22 @@ namespace LinFx.Utils
 		}
 	}
 
-	public static class JsonExtensions
-	{
-		/// <summary>
-		/// Converts given object to JSON string.
-		/// </summary>
-		/// <returns></returns>
-		public static string ToJsonString(this object obj, bool camelCase = false, bool indented = false)
-		{
-			var options = new JsonSerializerSettings();
+    public static class JsonExtensions
+    {
+        /// <summary>
+        /// Converts given object to JSON string.
+        /// </summary>
+        /// <returns></returns>
+        public static string ToJsonString(this object value, bool camelCase = false, bool indented = false)
+        {
+            return JsonUtils.ToJsonString(value, camelCase, indented);
+        }
 
-			if(camelCase)
-				options.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-			if(indented)
-				options.Formatting = Formatting.Indented;
-
-			//options.Converters.Insert(0, new DateTimeConverter());
-
-			return JsonConvert.SerializeObject(obj, options);
-		}
-	}
+        public static T ToObject<T>(this string value, bool camelCase = false, bool indented = false)
+        {
+            return JsonUtils.ToObject<T>(value, camelCase, indented);
+        }
+    }
 
 	/// <summary>
 	/// 转化小写
