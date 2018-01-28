@@ -30,5 +30,14 @@ namespace LinFx.Caching
         //    });
         //    return (TValue)value;
         //}
+
+        //public static T Get<T>(this ICacheManager cacheManager, string key, int cacheTime, System.Func<T> acquire)
+        //{
+        //    if (cacheManager.IsSet(key))
+        //        return cacheManager.Get<T>(key);
+        //    var result = acquire();
+        //    cacheManager.Set(key, result, cacheTime);
+        //    return result;
+        //}
     }
 }
