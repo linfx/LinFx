@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using LinFx.Data.Expressions;
 using LinFx.Data.Extensions.Mapper;
 using LinFx.Data.Extensions.Sql;
 
@@ -365,4 +366,55 @@ namespace LinFx.Data.Extensions
 		And,
 		Or
 	}
+
+    public class MultiplePredicate
+    {
+        private readonly List<MultiplePredicateItem> _items;
+
+        public MultiplePredicate()
+        {
+            _items = new List<MultiplePredicateItem>();
+        }
+
+        public IEnumerable<MultiplePredicateItem> Items
+        {
+            get { return _items.AsReadOnly(); }
+        }
+
+        public void Add<T>(IPredicate predicate, IList<ISort> sort = null) where T : class
+        {
+            _items.Add(new MultiplePredicateItem
+            {
+                Value = predicate,
+                Type = typeof(T),
+                Sort = sort
+            });
+        }
+
+        public void Add<T>(Expression<Func<T, bool>> expression = null) where T : class
+        {
+            Check.NotNull(expression, nameof(expression));
+
+            var dev = new DataAccessExpressionVisitor<T>();
+            var predicate = dev.Process(expression);
+
+            Add<T>(predicate);
+        }
+
+        public void Add<T>(object id) where T : class
+        {
+            _items.Add(new MultiplePredicateItem
+            {
+                Value = id,
+                Type = typeof(T)
+            });
+        }
+
+        public class MultiplePredicateItem
+        {
+            public object Value { get; set; }
+            public Type Type { get; set; }
+            public IList<ISort> Sort { get; set; }
+        }
+    }
 }

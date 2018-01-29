@@ -19,6 +19,11 @@ namespace LinFx.Caching.Memory
 			return Task.FromResult(_cache.Get<T>(key));
         }
 
+        public Task<bool> IsExistsAsync(string key)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SetAsync<T>(string key, T value, TimeSpan? expireTime = default(TimeSpan?))
         {
             if (value == null)

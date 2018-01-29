@@ -20,14 +20,21 @@ namespace LinFx.Caching.Redis
 		public async Task<T> GetAsync<T>(string key)
 		{
 			var val = await _db.StringGetAsync(key);
-			return await _serializer.DeserializeAsync<T>(val);
-		}
+            if (val.HasValue)
+                return await _serializer.DeserializeAsync<T>(val);
+            return default(T);
+        }
 
 		public async Task SetAsync<T>(string key, T value, TimeSpan? expiry = default(TimeSpan?))
 		{
 			var val = await _serializer.SerializeAsync(value);
 			await _db.StringSetAsync(key, val, expiry);
 		}
+
+        public Task<bool> IsExistsAsync(string key)
+        {
+            return _db.KeyExistsAsync(key);
+        }
 
 		public long GetIncrement(string key)
 		{

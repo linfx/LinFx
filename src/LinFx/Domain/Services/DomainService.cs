@@ -5,6 +5,7 @@ using LinFx.Data.Extensions;
 using System.Linq;
 using LinFx.Data.Expressions;
 using System;
+using LinFx.Caching;
 
 namespace LinFx.Domain.Services
 {
@@ -20,6 +21,7 @@ namespace LinFx.Domain.Services
     public abstract class DomainService : LinFxServiceBase, IDisposable
     {
         protected IDatabase _db;
+        protected ICache _cache;
 
         //public string GetConnectionString()
         //{

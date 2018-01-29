@@ -34,7 +34,7 @@ namespace LinFx.Data.Extensions
 		IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;
 		IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, int? commandTimeout, bool buffered) where T : class;
-        IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, int? commandTimeout = null);
+        IMultipleResultReader GetMultiple(MultiplePredicate predicate, int? commandTimeout = null);
 
         void ClearCache();
         Guid GetNextGuid();
@@ -190,7 +190,7 @@ namespace LinFx.Data.Extensions
 			return _dapper.Count<TEntity>(Connection, filteredPredicate, _transaction);
         }
 
-        public IMultipleResultReader GetMultiple(GetMultiplePredicate predicate, int? commandTimeout)
+        public IMultipleResultReader GetMultiple(MultiplePredicate predicate, int? commandTimeout)
         {
             return _dapper.GetMultiple(Connection, predicate, _transaction, commandTimeout);
         }
@@ -213,7 +213,12 @@ namespace LinFx.Data.Extensions
 
 	public static class DatabaseExtensions
 	{
-		public static int Execute(this IDatabase db, string sql, object param, CommandType? commandType = null)
+        public static T FirstOrDefault<T>(this IDatabase db, Expression<Func<T, bool>> predicate = null) where T : class
+        {
+            return db.Select(predicate).FirstOrDefault();
+        }
+
+        public static int Execute(this IDatabase db, string sql, object param, CommandType? commandType = null)
 		{
 			return db.Connection.Execute(sql, param, db.Transaction, db.CommandTimeout, commandType);
 		}

@@ -23,7 +23,7 @@ namespace LinFx.Data.Extensions
 		T Get<T>(IDbConnection connection, dynamic id, IDbTransaction transaction, int? commandTimeout) where T : class;
 		IEnumerable<T> Select<T>(IDbConnection connection, object predicate, Paging paging, params Sorting[] sorting) where T : class;
 		IEnumerable<T> GetSet<T>(IDbConnection connection, object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
-		IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
+		IMultipleResultReader GetMultiple(IDbConnection connection, MultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout);
 	}
 
 	public class DapperImplementor : IDapperImplementor
@@ -199,7 +199,7 @@ namespace LinFx.Data.Extensions
             return (int)connection.Query(sql, dynamicParameters, transaction, false, commandTimeout, CommandType.Text).Single().Total;
         }
 
-        public IMultipleResultReader GetMultiple(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
+        public IMultipleResultReader GetMultiple(IDbConnection connection, MultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
         {
             if (SqlGenerator.SupportsMultipleStatements())
             {
@@ -333,7 +333,7 @@ namespace LinFx.Data.Extensions
                        };
         }
 
-        protected GridReaderResultReader GetMultipleByBatch(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
+        protected GridReaderResultReader GetMultipleByBatch(IDbConnection connection, MultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             StringBuilder sql = new StringBuilder();
@@ -357,7 +357,7 @@ namespace LinFx.Data.Extensions
             return new GridReaderResultReader(grid);
         }
 
-        protected SequenceReaderResultReader GetMultipleBySequence(IDbConnection connection, GetMultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
+        protected SequenceReaderResultReader GetMultipleBySequence(IDbConnection connection, MultiplePredicate predicate, IDbTransaction transaction, int? commandTimeout)
         {
             IList<SqlMapper.GridReader> items = new List<SqlMapper.GridReader>();
             foreach (var item in predicate.Items)

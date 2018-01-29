@@ -25,5 +25,10 @@ namespace LinFx.Utils
 
             return date.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }
+
+        public static long ToUnixTimeSeconds(this DateTime dt)
+        {
+            return new DateTimeOffset(dt).ToUnixTimeSeconds();
+        }
     }
 }
