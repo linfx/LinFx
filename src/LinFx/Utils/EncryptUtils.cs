@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
 
 namespace LinFx.Utils
 {
@@ -75,27 +76,27 @@ namespace LinFx.Utils
 
         #region RSA
 
-        ///// <summary>
-        ///// RSA加密
-        ///// </summary>
-        ///// <param name="publickey"></param>
-        ///// <param name="content"></param>
-        ///// <returns></returns>
-        //public static string RSAEncrypt(string content, string publickey)
-        //{
-        //    //publickey = @"<RSAKeyValue><Modulus>5m9m14XH3oqLJ8bNGw9e4rGpXpcktv9MSkHSVFVMjHbfv+SJ5v0ubqQxa5YjLN4vc49z7SVju8s0X4gZ6AzZTn06jzWOgyPRV54Q4I0DCYadWW4Ze3e+BOtwgVU1Og3qHKn8vygoj40J6U85Z/PTJu3hN1m75Zr195ju7g9v4Hk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-        //    //RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-        //    //byte[] cipherbytes;
-        //    //rsa.FromXmlString(publickey);
-        //    //cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
+        /// <summary>
+        /// RSA加密
+        /// </summary>
+        /// <param name="publickey"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RSAEncrypt(string input, string publickey)
+        {
+            publickey = @"<RSAKeyValue><Modulus>21wEnTU+mcD2w0Lfo1Gv4rtcSWsQJQTNa6gio05AOkV/Er9w3Y13Ddo5wGtjJ19402S71HUeN0vbKILLJdRSES5MHSdJPSVrOqdrll/vLXxDxWs/U0UT1c8u6k/Ogx9hTtZxYwoeYqdhDblof3E75d9n2F0Zvf6iTb4cI7j6fMs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            //RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            //byte[] cipherbytes;
+            //rsa.FromXmlString(publickey);
+            //cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
 
-        //    using (RSA rsa = RSA.Create())
-        //    {
-        //        rsa.e
-        //    }
-
-        //    return Convert.ToBase64String(cipherbytes);
-        //}
+            using (var rsa = RSA.Create())
+            {
+                rsa.FromLvccXmlString(publickey);
+                var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.OaepSHA512);
+                return Convert.ToBase64String(buffer);
+            }
+        }
 
         //public static string RSAEncrypt2(string publicKey, string srcString)
         //{
@@ -120,7 +121,6 @@ namespace LinFx.Utils
             byte[] cipherbytes;
             rsa.FromXmlString(privatekey);
             cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
-
             return Encoding.UTF8.GetString(cipherbytes);
         }
 
@@ -184,7 +184,6 @@ namespace LinFx.Utils
 
         public static bool VerifyRSASign_MD5withRSA(string content, string publicKey, string signData, Encoding encoding)
         {
-            //var signer = SignerUtilities.GetSigner("SHA1withRSA");
             var signer = SignerUtilities.GetSigner("MD5withRSA");
             var publicKeyParam = (RsaKeyParameters)PublicKeyFactory.CreateKey(Convert.FromBase64String(publicKey));
             signer.Init(false, publicKeyParam);
@@ -206,6 +205,21 @@ namespace LinFx.Utils
             var rm = new RijndaelManaged
             {
                 Key = Convert.FromBase64String(key),
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
+            ICryptoTransform cTransform = rm.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(Encoding.UTF8.GetBytes(input), 0, toEncryptArray.Length);
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+        public static string AESEncrypt2(string input, string key)
+        {
+            if (string.IsNullOrEmpty(input)) return null;
+            byte[] toEncryptArray = Encoding.UTF8.GetBytes(input);
+            var rm = new RijndaelManaged
+            {
+                Key = Encoding.UTF8.GetBytes(key),
                 Mode = CipherMode.ECB,
                 Padding = PaddingMode.PKCS7
             };
@@ -264,6 +278,70 @@ namespace LinFx.Utils
         //        }
         //    }
         //}
+
+        #endregion
+    }
+
+    /// <summary>
+    /// RSA参数格式化扩展
+    /// </summary>
+    internal static class RSAKeyExtensions
+    {
+        #region XML
+
+        /// <summary>
+        /// RSA导入key
+        /// </summary>
+        /// <param name="rsa">RSA实例<see cref="RSA"/></param>
+        /// <param name="jsonString">RSA的Key序列化XML字符串</param>
+        public static void FromLvccXmlString(this RSA rsa, string xmlString)
+        {
+            RSAParameters parameters = new RSAParameters();
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xmlString);
+            if (xmlDoc.DocumentElement.Name.Equals("RSAKeyValue"))
+            {
+                foreach (XmlNode node in xmlDoc.DocumentElement.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "Modulus": parameters.Modulus = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "Exponent": parameters.Exponent = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "P": parameters.P = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "Q": parameters.Q = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "DP": parameters.DP = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "DQ": parameters.DQ = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "InverseQ": parameters.InverseQ = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                        case "D": parameters.D = (string.IsNullOrEmpty(node.InnerText) ? null : Convert.FromBase64String(node.InnerText)); break;
+                    }
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid XML RSA key.");
+            }
+            rsa.ImportParameters(parameters);
+        }
+
+        /// <summary>
+        /// 获取RSA Key序列化XML
+        /// </summary>
+        /// <param name="rsa">RSA实例<see cref="RSA"/></param>
+        /// <param name="includePrivateParameters">是否包含私钥</param>
+        /// <returns></returns>
+        public static string ToLvccXmlString(this RSA rsa, bool includePrivateParameters)
+        {
+            RSAParameters parameters = rsa.ExportParameters(includePrivateParameters);
+            return string.Format("<RSAKeyValue><Modulus>{0}</Modulus><Exponent>{1}</Exponent><P>{2}</P><Q>{3}</Q><DP>{4}</DP><DQ>{5}</DQ><InverseQ>{6}</InverseQ><D>{7}</D></RSAKeyValue>",
+                  parameters.Modulus != null ? Convert.ToBase64String(parameters.Modulus) : null,
+                  parameters.Exponent != null ? Convert.ToBase64String(parameters.Exponent) : null,
+                  parameters.P != null ? Convert.ToBase64String(parameters.P) : null,
+                  parameters.Q != null ? Convert.ToBase64String(parameters.Q) : null,
+                  parameters.DP != null ? Convert.ToBase64String(parameters.DP) : null,
+                  parameters.DQ != null ? Convert.ToBase64String(parameters.DQ) : null,
+                  parameters.InverseQ != null ? Convert.ToBase64String(parameters.InverseQ) : null,
+                  parameters.D != null ? Convert.ToBase64String(parameters.D) : null);
+        }
 
         #endregion
     }
