@@ -41,7 +41,7 @@ namespace LinFx.Utils
 					var name = c.Remove(0, 1);
 					var sort = new Sorting()
 					{
-						Ascending = (order == "-"),
+						Ascending = (order == "+"),
 						PropertyName = name
 					};
 					sorts.Add(sort);
