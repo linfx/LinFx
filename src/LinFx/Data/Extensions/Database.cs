@@ -31,8 +31,9 @@ namespace LinFx.Data.Extensions
 		int Count<TEntity>(Expression<Func<TEntity, bool>> predicate = null) where TEntity : class;
 		TEntity Get<TEntity>(dynamic id, int? commandTimeout = null) where TEntity : class;
 		TEntity Get<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
-		IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;
-		IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
+        //IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Expression<Func<TEntity, object>>[] sort) where TEntity : class;
+        IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate = null, Paging paging = null, params Sorting[] sorting) where TEntity : class;
+        IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class;
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, int? commandTimeout, bool buffered) where T : class;
         IMultipleResultReader GetMultiple(MultiplePredicate predicate, int? commandTimeout = null);
 
@@ -171,13 +172,19 @@ namespace LinFx.Data.Extensions
 			return _dapper.Delete<TEntity>(Connection, filteredPredicate, _transaction, commandTimeout);
 		}
 
-		public IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate, Paging paging, params Expression<Func<TEntity, object>>[] sort) where TEntity : class
-		{
-			var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
-			return _dapper.Select<TEntity>(Connection, filteredPredicate, paging, sort.ToSorting());
-		}
+        //public IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate, Paging paging, params Expression<Func<TEntity, object>>[] sort) where TEntity : class
+        //{
+        //	var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
+        //	return _dapper.Select<TEntity>(Connection, filteredPredicate, paging, sort.ToSorting());
+        //}
 
-		public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
+        public IEnumerable<TEntity> Select<TEntity>(Expression<Func<TEntity, bool>> predicate, Paging paging, params Sorting[] sorting) where TEntity : class
+        {
+            var filteredPredicate = _dapperFilterExecuter.ExecuteFilter(predicate);
+            return _dapper.Select<TEntity>(Connection, filteredPredicate, paging, sorting);
+        }
+
+        public IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDbTransaction transaction, int? commandTimeout, bool buffered) where T : class
         {
             return _dapper.GetSet<T>(Connection, predicate, sort, firstResult, maxResults, transaction, commandTimeout, buffered);
         }
