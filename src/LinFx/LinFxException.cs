@@ -21,12 +21,19 @@ namespace LinFx
 
     public class ResultException : Exception
     {
-        public ResultException(int code, string message)
+        private string v;
+
+        public ResultException(string v)
+        {
+            this.v = v;
+        }
+
+        public ResultException(string code, string message)
             : base(message)
         {
             Code = code;
         }
 
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace LinFx.Utils
 {
     public static class JsonUtils
     {
-        public static string ToJsonString(object value, bool camelCase = false, bool indented = false)
+        public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
             var options = new JsonSerializerSettings();
 
@@ -54,7 +54,7 @@ namespace LinFx.Utils
 		/// </summary>
 		public static string SerializeWithType(object obj, Type type)
 		{
-			var serialized = obj.ToJsonString();
+			var serialized = obj.ToJson();
 
 			return string.Format(
 				"{0}{1}{2}",
@@ -93,9 +93,9 @@ namespace LinFx.Utils
         /// Converts given object to JSON string.
         /// </summary>
         /// <returns></returns>
-        public static string ToJsonString(this object value, bool camelCase = false, bool indented = false)
+        public static string ToJson(this object value, bool camelCase = false, bool indented = false)
         {
-            return JsonUtils.ToJsonString(value, camelCase, indented);
+            return JsonUtils.ToJson(value, camelCase, indented);
         }
 
         public static T ToObject<T>(this string value, bool camelCase = false, bool indented = false)

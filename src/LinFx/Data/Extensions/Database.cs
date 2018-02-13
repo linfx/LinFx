@@ -36,6 +36,8 @@ namespace LinFx.Data.Extensions
         IEnumerable<T> GetSet<T>(object predicate, IList<ISort> sort, uint firstResult, uint maxResults, int? commandTimeout, bool buffered) where T : class;
         IMultipleResultReader GetMultiple(MultiplePredicate predicate, int? commandTimeout = null);
 
+        bool Any<T>(Expression<Func<T, bool>> predicate) where T : class;
+
         void ClearCache();
         Guid GetNextGuid();
         IClassMapper GetMap<T>() where T : class;
@@ -93,7 +95,8 @@ namespace LinFx.Data.Extensions
 
         public void Rollback()
         {
-            _transaction.Rollback();
+            if(_transaction != null)
+                _transaction.Rollback();
             _transaction = null;
         }
 
@@ -209,7 +212,13 @@ namespace LinFx.Data.Extensions
         {
             return _dapper.SqlGenerator.Configuration.GetMap<T>();
         }
-	}
+
+        public bool Any<T>(Expression<Func<T, bool>> predicate) where T : class
+        {
+            var count = Count<T>(predicate);
+            return count > 0;  
+        }
+    }
 
 	public static class DatabaseExtensions
 	{

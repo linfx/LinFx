@@ -7,7 +7,7 @@ namespace LinFx.Timing
         /// <summary>
         /// Gets Now using current <see cref="Provider"/>.
         /// </summary>
-        public static DateTime Now => DateTime.Now;
+        public static DateTime Now => TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local);
 
         /// <summary>
         /// Gets Now using current <see cref="Provider"/>.

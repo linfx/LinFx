@@ -84,44 +84,57 @@ namespace LinFx.Utils
         /// <returns></returns>
         public static string RSAEncrypt(string input, string publickey)
         {
-            publickey = @"<RSAKeyValue><Modulus>21wEnTU+mcD2w0Lfo1Gv4rtcSWsQJQTNa6gio05AOkV/Er9w3Y13Ddo5wGtjJ19402S71HUeN0vbKILLJdRSES5MHSdJPSVrOqdrll/vLXxDxWs/U0UT1c8u6k/Ogx9hTtZxYwoeYqdhDblof3E75d9n2F0Zvf6iTb4cI7j6fMs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            //publickey = @"<RSAKeyValue><Modulus>" + publickey + "</Modulus><Exponent>1234567890123456</Exponent></RSAKeyValue>";
             //RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             //byte[] cipherbytes;
             //rsa.FromXmlString(publickey);
             //cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
+            //RSAParameters p = new RSAParameters();
+            //p.Modulus = Convert.FromBase64String()
 
             using (var rsa = RSA.Create())
             {
-                rsa.FromLvccXmlString(publickey);
-                var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.OaepSHA512);
+                //rsa.FromLvccXmlString(publickey);
+
+                RSAParameters p = new RSAParameters();
+                p.Exponent = Encoding.UTF8.GetBytes("1234567890123456");
+                p.Modulus = Convert.FromBase64String(publickey);
+                rsa.ImportParameters(p);
+
+                var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.Pkcs1);
                 return Convert.ToBase64String(buffer);
             }
         }
 
-        //public static string RSAEncrypt2(string publicKey, string srcString)
-        //{
-        //    using (RSA rsa = RSA.Create())
-        //    {
-        //        rsa.FromJsonString(publicKey);
-        //        byte[] encryptBytes = rsa.Encrypt(Encoding.UTF8.GetBytes(srcString), RSAEncryptionPadding.OaepSHA512);
-        //        return encryptBytes.ToHexString();
-        //    }
-        //}
+        /// <summary>
+        /// RSA私钥加密
+        /// </summary>
+        /// <param name="data">加密明文</param>
+        /// <param name="privateKey">私钥</param>
+        /// <returns>返回密文</returns>
+        public static byte[] RSAEncryptWithPrivateKey(string data, string privateKey)
+        {
+            var parameters = PrivateKeyFactory.CreateKey(Convert.FromBase64String(privateKey));
+            var c = CipherUtilities.GetCipher("RSA/ECB/PKCS1Padding");
+            c.Init(true, parameters);
+            byte[] byteData = Encoding.UTF8.GetBytes(data);
+            byteData = c.DoFinal(byteData, 0, byteData.Length);
+            return byteData;
+        }
 
         /// <summary>
-        /// RSA解密
+        /// RSA私钥解密
         /// </summary>
+        /// <param name="data"></param>
         /// <param name="privatekey"></param>
-        /// <param name="content"></param>
         /// <returns></returns>
-        public static string RSADecrypt(string content, string privatekey)
+        public static string RSADecrypt(byte[] data, string privatekey)
         {
-            privatekey = @"<RSAKeyValue><Modulus>5m9m14XH3oqLJ8bNGw9e4rGpXpcktv9MSkHSVFVMjHbfv+SJ5v0ubqQxa5YjLN4vc49z7SVju8s0X4gZ6AzZTn06jzWOgyPRV54Q4I0DCYadWW4Ze3e+BOtwgVU1Og3qHKn8vygoj40J6U85Z/PTJu3hN1m75Zr195ju7g9v4Hk=</Modulus><Exponent>AQAB</Exponent><P>/hf2dnK7rNfl3lbqghWcpFdu778hUpIEBixCDL5WiBtpkZdpSw90aERmHJYaW2RGvGRi6zSftLh00KHsPcNUMw==</P><Q>6Cn/jOLrPapDTEp1Fkq+uz++1Do0eeX7HYqi9rY29CqShzCeI7LEYOoSwYuAJ3xA/DuCdQENPSoJ9KFbO4Wsow==</Q><DP>ga1rHIJro8e/yhxjrKYo/nqc5ICQGhrpMNlPkD9n3CjZVPOISkWF7FzUHEzDANeJfkZhcZa21z24aG3rKo5Qnw==</DP><DQ>MNGsCB8rYlMsRZ2ek2pyQwO7h/sZT8y5ilO9wu08Dwnot/7UMiOEQfDWstY3w5XQQHnvC9WFyCfP4h4QBissyw==</DQ><InverseQ>EG02S7SADhH1EVT9DD0Z62Y0uY7gIYvxX/uq+IzKSCwB8M2G7Qv9xgZQaQlLpCaeKbux3Y59hHM+KpamGL19Kg==</InverseQ><D>vmaYHEbPAgOJvaEXQl+t8DQKFT1fudEysTy31LTyXjGu6XiltXXHUuZaa2IPyHgBz0Nd7znwsW/S44iql0Fen1kzKioEL3svANui63O3o5xdDeExVM6zOf1wUUh/oldovPweChyoAdMtUzgvCbJk1sYDJf++Nr0FeNW1RB1XG30=</D></RSAKeyValue>";
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            byte[] cipherbytes;
-            rsa.FromXmlString(privatekey);
-            cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
-            return Encoding.UTF8.GetString(cipherbytes);
+            var privateKey = PrivateKeyFactory.CreateKey(Convert.FromBase64String(privatekey));
+            var c = CipherUtilities.GetCipher("RSA/ECB/PKCS1Padding");
+            c.Init(false, privateKey);
+            var result = c.DoFinal(data, 0, data.Length);
+            return Encoding.UTF8.GetString(result);
         }
 
         /// <summary>
@@ -198,86 +211,44 @@ namespace LinFx.Utils
 
         #region AES
 
-        public static string AESEncrypt(string input, string key)
+        public static byte[] AESEncrypt(string input, string key)
+        {
+            return AESEncrypt(input, Encoding.UTF8.GetBytes(key));
+        }
+
+        public static byte[] AESEncrypt(string input, byte[] key)
         {
             if (string.IsNullOrEmpty(input)) return null;
             byte[] toEncryptArray = Encoding.UTF8.GetBytes(input);
             var rm = new RijndaelManaged
             {
-                Key = Convert.FromBase64String(key),
+                Key = key,
                 Mode = CipherMode.ECB,
                 Padding = PaddingMode.PKCS7
             };
             ICryptoTransform cTransform = rm.CreateEncryptor();
             byte[] resultArray = cTransform.TransformFinalBlock(Encoding.UTF8.GetBytes(input), 0, toEncryptArray.Length);
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return resultArray;
         }
 
-        public static string AESEncrypt2(string input, string key)
+        public static string AESDecrypt(byte[] input, string key)
         {
-            if (string.IsNullOrEmpty(input)) return null;
-            byte[] toEncryptArray = Encoding.UTF8.GetBytes(input);
-            var rm = new RijndaelManaged
-            {
-                Key = Encoding.UTF8.GetBytes(key),
-                Mode = CipherMode.ECB,
-                Padding = PaddingMode.PKCS7
-            };
-            ICryptoTransform cTransform = rm.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(Encoding.UTF8.GetBytes(input), 0, toEncryptArray.Length);
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return AESDecrypt(input, Encoding.UTF8.GetBytes(key));
         }
 
-        public static string AESDecrypt(string input, string key)
+        public static string AESDecrypt(byte[] input, byte[] key)
         {
-            if (string.IsNullOrEmpty(input)) return null;
-            byte[] toEncryptArray = Convert.FromBase64String(input);
             var rm = new RijndaelManaged
             {
-                Key = Convert.FromBase64String(key),
+                Key = key,
                 Mode = CipherMode.ECB,
-                Padding = PaddingMode.PKCS7
+                Padding = PaddingMode.PKCS7,
+                BlockSize = 128,
             };
             ICryptoTransform cTransform = rm.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            byte[] resultArray = cTransform.TransformFinalBlock(input, 0, input.Length);
             return Encoding.UTF8.GetString(resultArray);
         }
-
-        ///// <summary>
-        ///// AES decrypt( no IV)  
-        ///// </summary>
-        ///// <param name="input"></param>
-        ///// <param name="key"></param>
-        ///// <returns></returns>
-        //public static string AESEncrypt(string input, string key)
-        //{
-        //    using (var mStream = new MemoryStream())
-        //    {
-        //        using (Aes aes = Aes.Create())
-        //        {
-        //            byte[] plainBytes = Encoding.UTF8.GetBytes(input);
-        //            Byte[] bKey = new Byte[32];
-        //            Array.Copy(Encoding.UTF8.GetBytes(key.PadRight(bKey.Length)), bKey, bKey.Length);
-        //            aes.Mode = CipherMode.ECB;
-        //            aes.Padding = PaddingMode.PKCS7;
-        //            aes.KeySize = 128;
-        //            aes.Key = bKey;
-        //            using (CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write))
-        //            {
-        //                try
-        //                {
-        //                    cryptoStream.Write(plainBytes, 0, plainBytes.Length);
-        //                    cryptoStream.FlushFinalBlock();
-        //                    return Convert.ToBase64String(mStream.ToArray());
-        //                }
-        //                catch (Exception)
-        //                {
-        //                    return null;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
 
         #endregion
     }
