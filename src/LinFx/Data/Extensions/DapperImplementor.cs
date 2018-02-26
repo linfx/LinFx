@@ -92,7 +92,7 @@ namespace LinFx.Data.Extensions
                 long identityValue = result.First();
                 int identityInt = Convert.ToInt32(identityValue);
                 keyValues.Add(identityColumn.Name, identityInt);
-                //identityColumn.PropertyInfo.SetValue(entity, identityInt, null);
+                identityColumn.PropertyInfo.SetValue(entity, identityInt, null);
             }
             else
             {
