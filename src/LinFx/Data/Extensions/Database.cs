@@ -222,7 +222,7 @@ namespace LinFx.Data.Extensions
 
         public bool Any<T>(Expression<Func<T, bool>> predicate) where T : class
         {
-            var count = Count<T>(predicate);
+            var count = Count(predicate);
             return count > 0;  
         }
     }

@@ -197,8 +197,8 @@ namespace LinFx.Data.Expressions
 
         protected override Expression VisitUnary(UnaryExpression node)
         {
-            if (node.NodeType != ExpressionType.Not)
-                throw new NotSupportedException($"The unary operator '{node.NodeType}' is not supported");
+            //if (node.NodeType != ExpressionType.Not)
+            //    throw new NotSupportedException($"The unary operator '{node.NodeType}' is not supported");
 
             _unarySpecified = true;
 

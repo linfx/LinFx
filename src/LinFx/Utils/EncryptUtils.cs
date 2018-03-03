@@ -251,6 +251,42 @@ namespace LinFx.Utils
         }
 
         #endregion
+
+        /// <summary>
+        /// HMAC-MD5 加密
+        /// </summary>
+        /// <param name="input"> 要加密的字符串 </param>
+        /// <param name="key"> 密钥 </param>
+        /// <returns></returns>
+        public static string HMACSMD5Encrypt(string input, string key)
+        {
+            return HMACSMD5Encrypt(input, key, Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// HMAC-MD5 加密
+        /// </summary>
+        /// <param name="input"> 要加密的字符串 </param>
+        /// <param name="key"> 密钥 </param>
+        /// <param name="encoding"> 字符编码 </param>
+        /// <returns></returns>
+        public static string HMACSMD5Encrypt(string input, string key, Encoding encoding)
+        {
+            return HashEncrypt(new HMACMD5(encoding.GetBytes(key)), input, encoding);
+        }
+
+        /// <summary>
+        /// 哈希加密算法
+        /// </summary>
+        /// <param name="hashAlgorithm"> 所有加密哈希算法实现均必须从中派生的基类 </param>
+        /// <param name="input"> 待加密的字符串 </param>
+        /// <param name="encoding"> 字符编码 </param>
+        /// <returns></returns>
+        private static string HashEncrypt(HashAlgorithm hashAlgorithm, string input, Encoding encoding)
+        {
+            var data = hashAlgorithm.ComputeHash(encoding.GetBytes(input));
+            return BitConverter.ToString(data).Replace("-", "").ToLower();
+        }
     }
 
     /// <summary>

@@ -35,7 +35,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
     <PackageReference Include="MySql.Data" Version="6.10.6" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-rc5" />
-    <PackageReference Include="Npgsql" Version="3.2.6" />
+    <PackageReference Include="Npgsql" Version="3.2.7" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
