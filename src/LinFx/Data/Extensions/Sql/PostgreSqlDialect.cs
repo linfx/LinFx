@@ -11,15 +11,15 @@ namespace LinFx.Data.Extensions.Sql
 
         public override string GetPagingSql(string sql, uint page, uint resultsPerPage, IDictionary<string, object> parameters)
         {
-            uint startValue = page * resultsPerPage;
-            return GetSetSql(sql, startValue, resultsPerPage, parameters);
+            uint offset = (page - 1) * resultsPerPage;
+            return GetSetSql(sql, resultsPerPage, offset, parameters);
         }
 
-        public override string GetSetSql(string sql, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
+        public override string GetSetSql(string sql, uint limit, uint offset, IDictionary<string, object> parameters)
         {
-            string result = string.Format("{0} LIMIT @firstResult OFFSET @pageStartRowNbr", sql);            
-            parameters.Add("@firstResult", firstResult);
-            parameters.Add("@maxResults", maxResults);
+            string result = string.Format("{0} LIMIT @limit OFFSET @offset ", sql);
+            parameters.Add("@limit", limit);
+            parameters.Add("@offset", offset);
             return result;
         }
 

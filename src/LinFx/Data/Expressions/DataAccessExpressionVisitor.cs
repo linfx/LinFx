@@ -37,11 +37,10 @@ namespace LinFx.Data.Expressions
             _pg = new PredicateGroup { Predicates = new List<IPredicate>() };
             _currentGroup = _pg;
             Visit(DataAccessEvaluator.PartialEval(exp));
-
-            // the 1st expression determines root group operator
             if (Expressions.Any())
+            {
                 _pg.Operator = Expressions.First().NodeType == ExpressionType.OrElse ? GroupOperator.Or : GroupOperator.And;
-
+            }
             return _pg.Predicates.Count == 1 ? _pg.Predicates[0] : _pg;
         }
 

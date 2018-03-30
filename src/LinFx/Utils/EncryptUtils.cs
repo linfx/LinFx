@@ -69,7 +69,7 @@ namespace LinFx.Utils
             using (var md5 = MD5.Create())
             {
                 var bytes_md5_out = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-                return BitConverter.ToString(bytes_md5_out).Replace("-", "");
+                return BitConverter.ToString(bytes_md5_out).Replace("-", "").ToLower();
             }
         }
         #endregion
@@ -231,6 +231,11 @@ namespace LinFx.Utils
             return resultArray;
         }
 
+        public static string AESDecrypt(string input, string key)
+        {
+            return AESDecrypt(Encoding.UTF8.GetBytes(input), Encoding.UTF8.GetBytes(key));
+        }
+
         public static string AESDecrypt(byte[] input, string key)
         {
             return AESDecrypt(input, Encoding.UTF8.GetBytes(key));
@@ -252,6 +257,7 @@ namespace LinFx.Utils
 
         #endregion
 
+        #region 哈希加密算法
         /// <summary>
         /// HMAC-MD5 加密
         /// </summary>
@@ -286,7 +292,8 @@ namespace LinFx.Utils
         {
             var data = hashAlgorithm.ComputeHash(encoding.GetBytes(input));
             return BitConverter.ToString(data).Replace("-", "").ToLower();
-        }
+        } 
+        #endregion
     }
 
     /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace LinFx.Utils
+﻿using System;
+
+namespace LinFx.Utils
 {
     public static class MoneyUtils
     {
@@ -18,24 +20,34 @@
             return string.Format("{0:N2}", amt);
         }
 
-
         /// <summary>
-        /// 保留两位小数
+        /// 截取两位小数
         /// </summary>
         /// <param name="amt"></param>
         /// <returns></returns>
-        public static decimal ToDecimal(string amt)
+        public static decimal Truncate(decimal amt)
         {
-            decimal.TryParse(amt, out decimal tmpAmt);
-            return tmpAmt;
+            if (amt < 0)
+                throw new Exception("金额不能为负数!");
+
+            if (amt < 0.01m)
+                return 0;
+
+            amt = Math.Truncate(amt * 100) / 100;
+            return amt;
         }
     }
 
     public static class MoneyEx
     {
+        /// <summary>
+        /// 货币表示，带有逗号分隔符，默认小数点后保留两位，四舍五入
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
         public static string ToMoneyString(this decimal d)
         {
-            return string.Format("{0:N2}", d);
+            return string.Format("{0:C}", d);
         }
 
         public static decimal ToMoneyDecimal(this string amt)
