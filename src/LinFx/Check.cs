@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace LinFx
 {
+    /// <summary>
+    /// 检查
+    /// </summary>
     public static class Check
     {
         public static T NotNull<T>(T value, string paramName)
