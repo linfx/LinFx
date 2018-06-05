@@ -25,7 +25,7 @@ namespace LinFx.Data.MongoDB
 
         //public Task DeleteAsync(TEntity item)
         //{
-        //    return _collection.DeleteOneAsync<TEntity>(item);
+        //    return _collection.DeleteOneAsync(item);
         //}
 
         //public Task UpdateAsync(TEntity item)
