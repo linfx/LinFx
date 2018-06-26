@@ -145,7 +145,7 @@ namespace LinFx.Utils
         /// <returns></returns>
         public static string RSASign_MD5withRSA_GBK(string content, string privateKey)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var encoding = Encoding.GetEncoding("GBK");
             return RSASign_MD5withRSA(content, privateKey, encoding);
         }
@@ -185,7 +185,7 @@ namespace LinFx.Utils
         /// <returns></returns>
         public static bool VerifyRSASign_MD5withRSA_GBK(string content, string publicKey, string signData)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var encoding = Encoding.GetEncoding("GBK");
             return VerifyRSASign_MD5withRSA(content, publicKey, signData, encoding);
         }

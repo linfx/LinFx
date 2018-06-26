@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Caching.Redis
 {
-	public class RedisCache : ICache
+    public class RedisCache : ICache
 	{
 		private readonly IDatabase _db;
 		private readonly IRedisCacheSerializer _serializer;
@@ -41,7 +41,8 @@ namespace LinFx.Caching.Redis
 			return _db.StringIncrement(key);
 		}
 
-		public async Task ListLeftPushAsync<T>(string key, T value)
+
+        public async Task ListLeftPushAsync<T>(string key, T value)
 		{
 			var val = await _serializer.SerializeAsync(value);
 			await _db.ListLeftPushAsync(key, val);
@@ -52,5 +53,29 @@ namespace LinFx.Caching.Redis
 			string value = await _db.ListRightPopAsync(key);
 			return await _serializer.DeserializeAsync<T>(value);
 		}
-	}
+
+        #region Hash
+
+        //public Task<bool> HashSetAsync(string key, string hashField, string value)
+        //{
+        //    return _db.HashSetAsync(key, hashField, value);
+        //}
+
+        public Task HashSetAsync(string key, HashEntry[] hashFields)
+        {
+            return _db.HashSetAsync(key, hashFields);
+        }
+
+        public Task<long> HashIncrementAsync(string key, string hashField)
+        {
+            return _db.HashIncrementAsync(key, hashField);
+        }
+
+        public Task<long> HashDecrementAsync(string key, string hashField)
+        {
+            return _db.HashDecrementAsync(key, hashField);
+        }
+
+        #endregion
+    }
 }

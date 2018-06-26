@@ -7,12 +7,11 @@ namespace LinFx.Caching
     {
         public static async Task<T> GetAsync<T>(this ICache cache, string key, Func<string, Task<T>> factory, TimeSpan? expiry = default(TimeSpan?))
         {
-            var cacheKey = key;
             var item = await cache.GetAsync<T>(key);
             if (item == null)
             {
                 await factory(key);
-                await cache.SetAsync(cacheKey, item, expiry);
+                await cache.SetAsync(key, item, expiry);
             }
             return item;
         }

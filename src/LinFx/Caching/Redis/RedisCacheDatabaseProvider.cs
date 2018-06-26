@@ -38,7 +38,13 @@ namespace LinFx.Caching.Redis
 
 		private ConnectionMultiplexer CreateConnectionMultiplexer()
 		{
-			return ConnectionMultiplexer.Connect(_options.ConnectionString);
+            return ConnectionMultiplexer.Connect(new ConfigurationOptions
+            {
+                AbortOnConnectFail = false,
+                Password = _options.Password,
+                ChannelPrefix = _options.ChannelPrefix,
+                EndPoints = { _options.ConnectionString }
+            });
 		}
 	}
 }

@@ -35,23 +35,4 @@ namespace LinFx.Session
             _httpContextAccessor = httpContextAccessor;
         }
     }
-
-    public static class PrincipalAccessorExtensions
-    {
-        public static void AddHttpContextAccessor(this IServiceCollection services)
-        {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.TryAddSingleton<IPrincipalAccessor, AspNetCorePrincipalAccessor>();
-        }
-
-        public static IApplicationBuilder UseAseNetCorePrincipalAccessor(this IApplicationBuilder app)
-        {
-            //var httpContextAccessor = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
-            //HttpContext.PrincipalAccessor = new AspNetCorePrincipalAccessor(httpContextAccessor);
-            //return app;
-
-            HttpContext.PrincipalAccessor = app.ApplicationServices.GetRequiredService<IPrincipalAccessor>();
-            return app;
-        }
-    }
 }

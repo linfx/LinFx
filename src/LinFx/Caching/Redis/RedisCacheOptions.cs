@@ -7,7 +7,11 @@
 
 		public string ConnectionString { get; set; } = "localhost";
 
-		public int DatabaseId { get; set; } = -1;
+        public string Password { get; set; }
+
+        public string ChannelPrefix { get; set; }
+
+        public int DatabaseId { get; set; } = -1;
 
 		public RedisCacheOptions()
 		{
