@@ -1,8 +1,8 @@
 ﻿using LinFx.Configuration;
 using LinFx.Domain.Uow;
-using LinFx.Logging;
 using LinFx.ObjectMapping;
 using LinFx.Session;
+using Microsoft.Extensions.Logging;
 
 namespace LinFx.Domain.Services
 {
@@ -27,7 +27,7 @@ namespace LinFx.Domain.Services
 		/// <summary>
 		/// Reference to the logger to write logs.
 		/// </summary>
-		public ILogger Logger { get; set; } = new NLogLogger();
+		public ILogger Logger { get; set; }
         /// <summary>
         /// Reference to the setting manager.
         /// </summary>

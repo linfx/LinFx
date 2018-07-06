@@ -1,10 +1,10 @@
 ﻿using LinFx.Configuration;
 using LinFx.Unity;
-using LinFx.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace LinFx.Modules
 {
-	public abstract class Module
+    public abstract class Module
 	{
 		/// <summary>
 		/// Gets a reference to the IOC manager.

@@ -9,7 +9,7 @@ using LinFx.EventBus.Handlers;
 using LinFx.EventBus.Factories.Internals;
 using LinFx.EventBus.Handlers.Internals;
 using LinFx.Extensions;
-using LinFx.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace LinFx.EventBus
 {
@@ -39,7 +39,7 @@ namespace LinFx.EventBus
         public EventBus()
         {
             _handlerFactories = new ConcurrentDictionary<Type, List<IEventHandlerFactory>>();
-            Logger = NullLogger.Instance;
+            //Logger = NullLogger.Instance;
         }
 
         public IDisposable Register<TEventData>(Action<TEventData> action) where TEventData : IEventData
@@ -133,7 +133,7 @@ namespace LinFx.EventBus
                 }
                 catch (Exception ex)
                 {
-                    Logger.Warn(ex.ToString(), ex);
+                    Logger.LogWarning(ex, ex.Message);
                 }
             });
         }
