@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading;
 
 namespace LinFx.Session
@@ -24,15 +20,15 @@ namespace LinFx.Session
         public static DefaultPrincipalAccessor Instance => new DefaultPrincipalAccessor();
     }
 
-    public class AspNetCorePrincipalAccessor : DefaultPrincipalAccessor
-    {
-        public override ClaimsPrincipal Principal => _httpContextAccessor.HttpContext?.User ?? base.Principal;
+    //public class AspNetCorePrincipalAccessor : DefaultPrincipalAccessor
+    //{
+    //    public override ClaimsPrincipal Principal => _httpContextAccessor.HttpContext?.User ?? base.Principal;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
+    //    private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AspNetCorePrincipalAccessor(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-    }
+    //    public AspNetCorePrincipalAccessor(IHttpContextAccessor httpContextAccessor)
+    //    {
+    //        _httpContextAccessor = httpContextAccessor;
+    //    }
+    //}
 }

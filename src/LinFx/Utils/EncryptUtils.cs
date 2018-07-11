@@ -60,7 +60,6 @@ namespace LinFx.Utils
         /// MD5 hash
         /// </summary>
         /// <param name="input">The string to be encrypted.</param>
-        /// <param name="length">The length of hash result , default value is <see cref="MD5Length.L32"/>.</param>
         /// <returns></returns>
         public static string MD5Encrypt(string input)
         {

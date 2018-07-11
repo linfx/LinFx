@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.0</Version>
-    <Description>LinFx</Description>
+    <Version>2.0.8</Version>
+    <Description>.net core 开发框架、类库存</Description>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
   </PropertyGroup>
@@ -27,23 +27,27 @@
 
   <ItemGroup>
     <Compile Remove="Data\SqlMapperExtensions.cs" />
+    <Compile Remove="ObjectMapping\AutoMapAttribute.cs" />
+    <Compile Remove="ObjectMapping\AutoMapExtensions.cs" />
+    <Compile Remove="ObjectMapping\AutoMapperConfiguration.cs" />
+    <Compile Remove="ObjectMapping\AutoMapperModule.cs" />
+    <Compile Remove="ObjectMapping\AutoMapperObjectMapper.cs" />
+    <Compile Remove="ObjectMapping\AutoMapToAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
-    <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.2" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Npgsql" Version="4.0.1" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Npgsql" Version="4.0.2" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
     <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
