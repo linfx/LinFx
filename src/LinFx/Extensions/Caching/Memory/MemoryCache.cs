@@ -26,8 +26,8 @@ namespace LinFx.Extensions.Caching.Memory
 
         public Task SetAsync<T>(string key, T value, TimeSpan? expireTime = default(TimeSpan?))
         {
-            if (value == null)
-                throw new LinFxException(nameof(value));
+            Check.NotNull(key, nameof(key));
+            Check.NotNull(value, nameof(value));
 
             if(expireTime != null)
                 return Task.FromResult(_cache.Set(key, value, DateTimeOffset.Now.Add(expireTime.Value)));

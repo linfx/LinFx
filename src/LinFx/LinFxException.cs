@@ -4,9 +4,7 @@ namespace LinFx
 {
     public class LinFxException : Exception
     {
-        public LinFxException()
-        {
-        }
+        public LinFxException() { }
 
         public LinFxException(string message)
             : base(message)
@@ -21,13 +19,6 @@ namespace LinFx
 
     public class ResultException : Exception
     {
-        private string v;
-
-        public ResultException(string v)
-        {
-            this.v = v;
-        }
-
         public ResultException(string code, string message)
             : base(message)
         {

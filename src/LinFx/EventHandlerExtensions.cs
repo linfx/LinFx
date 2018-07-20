@@ -26,10 +26,7 @@ namespace LinFx.Extensions
         public static void InvokeSafely(this EventHandler eventHandler, object sender, EventArgs e)
         {
             if (eventHandler == null)
-            {
                 return;
-            }
-
             eventHandler(sender, e);
         }
 
@@ -44,10 +41,7 @@ namespace LinFx.Extensions
             where TEventArgs : EventArgs
         {
             if (eventHandler == null)
-            {
                 return;
-            }
-
             eventHandler(sender, e);
         }
     }
