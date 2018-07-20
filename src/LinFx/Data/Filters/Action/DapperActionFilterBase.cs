@@ -1,24 +1,24 @@
 ﻿using System;
 using LinFx.Domain.Entities;
 using LinFx.Domain.Uow;
-using LinFx.Session;
 
 namespace LinFx.Data.Filters.Action
 {
-	public interface IDapperActionFilter
+    public interface IDapperActionFilter
 	{
 		void ExecuteFilter<TEntity, TPrimaryKey>(TEntity entity) where TEntity : class, IEntity<TPrimaryKey>;
 	}
 
 	public abstract class DapperActionFilterBase
 	{
-        public ILinFxSession Session { get; set; } = new ClaimsLinFxSession(HttpContext.PrincipalAccessor);
+        //public ILinFxSession Session { get; set; } = new ClaimsLinFxSession(HttpContext.PrincipalAccessor);
 
         public ICurrentUnitOfWorkProvider CurrentUnitOfWorkProvider { get; set; }
 
         protected virtual long GetAuditUserId()
         {
-            return Session.UserId;
+            //return Session.UserId;
+            return 0;
         }
 
         protected virtual void CheckAndSetId(object entityAsObj)

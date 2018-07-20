@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.8</Version>
+    <Version>2.1.0</Version>
     <Description>.net core 开发框架、类库存</Description>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
@@ -14,31 +14,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Caching\Configuration\**" />
     <Compile Remove="Domain\Policies\**" />
-    <Compile Remove="EventBus\Exceptions\**" />
-    <EmbeddedResource Remove="Caching\Configuration\**" />
+    <Compile Remove="Extensions\EventBus\Exceptions\**" />
     <EmbeddedResource Remove="Domain\Policies\**" />
-    <EmbeddedResource Remove="EventBus\Exceptions\**" />
-    <None Remove="Caching\Configuration\**" />
+    <EmbeddedResource Remove="Extensions\EventBus\Exceptions\**" />
     <None Remove="Domain\Policies\**" />
-    <None Remove="EventBus\Exceptions\**" />
+    <None Remove="Extensions\EventBus\Exceptions\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Data\SqlMapperExtensions.cs" />
-    <Compile Remove="ObjectMapping\AutoMapAttribute.cs" />
-    <Compile Remove="ObjectMapping\AutoMapExtensions.cs" />
-    <Compile Remove="ObjectMapping\AutoMapperConfiguration.cs" />
-    <Compile Remove="ObjectMapping\AutoMapperModule.cs" />
-    <Compile Remove="ObjectMapping\AutoMapperObjectMapper.cs" />
-    <Compile Remove="ObjectMapping\AutoMapToAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.2" />
     <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />

@@ -1,11 +1,14 @@
-﻿using LinFx.Data.Extensions.Mapper;
-using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Entities;
+using LinFx.Extensions.DapperExtensions.Mapper;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.UnitTest.Data.Dapper
 {
-	public class User
+    public class User
     {
+        [Key]
         public int Id { get; set; }
+        [Key]
         public string Name { get; set; }
     }
 
@@ -31,16 +34,27 @@ namespace LinFx.UnitTest.Data.Dapper
         public string Name { get; set; }
     }
 
-	//public sealed class PostMap : ClassMapper<Post>
-	//{
-	//	public PostMap()
-	//	{
-	//		Map(p => p.Id).Key(KeyType.Identity);
-	//		AutoMap();
-	//	}
-	//}
+    //public sealed class PostMap : ClassMapper<Post>
+    //{
+    //	public PostMap()
+    //	{
+    //		Map(p => p.Id).Key(KeyType.Identity);
+    //		AutoMap();
+    //	}
+    //}
 
-	public sealed class AuthorMap : ClassMapper<Author>
+    public sealed class UseMap : ClassMapper<User>
+    {
+        public UseMap()
+        {
+            Table("user");
+            Map(x => x.Id).Key(KeyType.NotAKey);
+            Map(x => x.Name).Key(KeyType.NotAKey);
+            AutoMap();
+        }
+    }
+
+    public sealed class AuthorMap : ClassMapper<Author>
     {
         public AuthorMap()
         {

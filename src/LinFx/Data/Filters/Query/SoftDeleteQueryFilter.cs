@@ -1,4 +1,4 @@
-﻿using LinFx.Data.Extensions;
+﻿using LinFx.Extensions.DapperExtensions;
 using LinFx.Data.Utils;
 using LinFx.Domain.Entities;
 using LinFx.Domain.Uow;

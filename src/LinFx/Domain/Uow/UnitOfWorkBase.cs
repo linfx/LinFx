@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions;
-using LinFx.Session;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -7,10 +6,10 @@ using System.Linq;
 
 namespace LinFx.Domain.Uow
 {
-	/// <summary>
-	/// Base for all Unit Of Work classes.
-	/// </summary>
-	public abstract class UnitOfWorkBase : IUnitOfWork
+    /// <summary>
+    /// Base for all Unit Of Work classes.
+    /// </summary>
+    public abstract class UnitOfWorkBase : IUnitOfWork
 	{
 		/// <summary>
 		/// Is <see cref="Begin"/> method called before?
@@ -61,7 +60,7 @@ namespace LinFx.Domain.Uow
 		/// <summary>
 		/// Reference to current ABP session.
 		/// </summary>
-		public ILinFxSession Session { protected get; set; }
+		//public ILinFxSession Session { protected get; set; }
 		protected IUnitOfWorkFilterExecuter FilterExecuter { get; }
 
 		/// <summary>
@@ -370,10 +369,10 @@ namespace LinFx.Domain.Uow
 				}
 			}
 
-			if(Session.TenantId == null)
-			{
-				ChangeFilterIsEnabledIfNotOverrided(filterOverrides, DataFilters.MustHaveTenant, false);
-			}
+			//if(Session.TenantId == null)
+			//{
+			//	ChangeFilterIsEnabledIfNotOverrided(filterOverrides, DataFilters.MustHaveTenant, false);
+			//}
 		}
 
 		private void ChangeFilterIsEnabledIfNotOverrided(List<DataFilterConfiguration> filterOverrides, string filterName, bool isEnabled)

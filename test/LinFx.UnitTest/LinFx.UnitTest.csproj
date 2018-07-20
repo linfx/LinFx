@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="EventBus\**" />
     <Compile Remove="Logging\**" />
     <Compile Remove="SaaS\**" />
-    <EmbeddedResource Remove="EventBus\**" />
+    <Compile Remove="Unity\**" />
     <EmbeddedResource Remove="Logging\**" />
     <EmbeddedResource Remove="SaaS\**" />
-    <None Remove="EventBus\**" />
+    <EmbeddedResource Remove="Unity\**" />
     <None Remove="Logging\**" />
     <None Remove="SaaS\**" />
+    <None Remove="Unity\**" />
   </ItemGroup>
 
   <ItemGroup>

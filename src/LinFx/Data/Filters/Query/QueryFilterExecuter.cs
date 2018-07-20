@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using LinFx.Data.Expressions;
-using LinFx.Data.Extensions;
+using LinFx.Extensions.DapperExtensions;
 
 namespace LinFx.Data.Filters.Query
 {

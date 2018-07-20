@@ -1,4 +1,4 @@
-﻿using LinFx.Data.Extensions;
+﻿using LinFx.Extensions.DapperExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

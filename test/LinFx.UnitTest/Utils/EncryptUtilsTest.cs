@@ -22,5 +22,17 @@ namespace LinFx.UnitTest.Utils
             //Assert.Equal(content, result);
 
         }
+
+        [Fact]
+        public void EncryptTest()
+        {
+            //DesEncrypt des = new DesEncrypt();
+            //des.getKey("star");  //加解密的key
+            //String mingwen = "测试加密";
+            //String strEnc = des.getEncString(mingwen);
+            //System.out.println("加密后的密文：" + strEnc);
+
+            var r = LinFx.Utils.EncryptUtils.AESDecrypt("AC574A2CDCD98EA00239C2D694465648", "star");
+        }
     }
 }
