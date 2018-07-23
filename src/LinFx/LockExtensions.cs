@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions
+namespace LinFx
 {
     /// <summary>
     /// Extension methods to make locking easier.

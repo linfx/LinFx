@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.ExceptionServices;
 
-namespace LinFx.Extensions
+namespace LinFx
 {
     /// <summary>
     /// Extension methods for <see cref="Exception"/> class.

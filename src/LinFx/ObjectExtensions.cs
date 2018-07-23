@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace LinFx.Extensions
+namespace LinFx
 {
     public static class ObjectExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions
+namespace LinFx
 {
     /// <summary>
     /// Extension methods for <see cref="EventHandler"/>.
