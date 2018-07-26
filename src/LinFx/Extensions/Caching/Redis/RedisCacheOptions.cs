@@ -1,20 +1,32 @@
-﻿namespace LinFx.Extensions.Caching.Redis
+﻿using Microsoft.Extensions.Options;
+using StackExchange.Redis;
+
+namespace LinFx.Extensions.Caching.Redis
 {
-	public class RedisCacheOptions
+    /// <summary>
+    /// Configuration options for <see cref="RedisCache"/>.
+    /// </summary>
+    public class RedisCacheOptions : IOptions<RedisCacheOptions>
     {
-		private const string ConnectionStringKey = "LinFx.Redis.Cache";
-		private const string DatabaseIdSettingKey = "LinFx.Redis.Cache.DatabaseId";
+        /// <summary>
+        /// The configuration used to connect to Redis.
+        /// </summary>
+        public string Configuration { get; set; }
 
-		public string ConnectionString { get; set; } = "localhost";
+        /// <summary>
+        /// The configuration used to connect to Redis.
+        /// This is preferred over Configuration.
+        /// </summary>
+        public ConfigurationOptions ConfigurationOptions { get; set; }
 
-        public string Password { get; set; }
+        /// <summary>
+        /// The Redis instance name.
+        /// </summary>
+        public string InstanceName { get; set; }
 
-        public string ChannelPrefix { get; set; }
-
-        public int DatabaseId { get; set; } = -1;
-
-		public RedisCacheOptions()
-		{
-		}
-	}
+        RedisCacheOptions IOptions<RedisCacheOptions>.Value
+        {
+            get { return this; }
+        }
+    }
 }

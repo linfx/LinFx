@@ -1,7 +1,7 @@
 ﻿using LinFx.Timing;
 using System;
 
-namespace LinFx.EventBus
+namespace LinFx.Extensions.EventBus
 {
     /// <summary>
     /// Defines interface for all Event data classes.
@@ -37,9 +37,6 @@ namespace LinFx.EventBus
         /// <summary>
         /// Constructor.
         /// </summary>
-        protected EventData()
-        {
-            EventTime = Clock.Now;
-        }
+        protected EventData() => EventTime = Clock.Now;
     }
 }

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>2.1.0</Version>
-    <Description>.net core 开发框架、类库存</Description>
+    <Description>基于 .NET Core 2.0 的快速开发框架，遵循领域驱动设计（DDD）规范约束。</Description>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
   </PropertyGroup>
@@ -30,10 +30,12 @@
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.2" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql" Version="4.0.2" />

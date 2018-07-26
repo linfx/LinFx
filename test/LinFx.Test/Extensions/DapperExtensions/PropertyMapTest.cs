@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Xunit;
 
-namespace LinFx.UnitTest.Data.Dapper.Extensions
+namespace LinFx.Test.Data.Dapper.Extensions
 {
     public class PropertyMapTest
     {

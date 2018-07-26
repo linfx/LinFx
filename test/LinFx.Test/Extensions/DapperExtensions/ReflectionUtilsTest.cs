@@ -4,7 +4,7 @@ using System;
 using System.Linq.Expressions;
 using Xunit;
 
-namespace LinFx.UnitTest.Data.Dapper.Extensions
+namespace LinFx.Test.Data.Dapper.Extensions
 {
     public class ReflectionUtilsTest
     {

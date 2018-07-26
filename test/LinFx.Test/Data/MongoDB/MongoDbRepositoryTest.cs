@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.UnitTest.Data.MongoDB
+namespace LinFx.Test.Data.MongoDB
 {
     class MongoDbRepositoryTest
     {

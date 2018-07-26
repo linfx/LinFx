@@ -2,7 +2,7 @@
 using LinFx.Extensions.DapperExtensions.Mapper;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.UnitTest.Data.Dapper
+namespace LinFx.Test.Data.Dapper
 {
     public class User
     {

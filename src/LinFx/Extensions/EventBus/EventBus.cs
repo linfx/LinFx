@@ -4,14 +4,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using LinFx.EventBus.Factories;
-using LinFx.EventBus.Handlers;
-using LinFx.EventBus.Factories.Internals;
-using LinFx.EventBus.Handlers.Internals;
-using LinFx.Extensions;
+using LinFx.Extensions.EventBus.Handlers;
+using LinFx.Extensions.EventBus.Factories.Internals;
+using LinFx.Extensions.EventBus.Handlers.Internals;
 using Microsoft.Extensions.Logging;
+using LinFx.Extensions.EventBus.Factories;
 
-namespace LinFx.EventBus
+namespace LinFx.Extensions.EventBus
 {
     public class EventBus : IEventBus
     {

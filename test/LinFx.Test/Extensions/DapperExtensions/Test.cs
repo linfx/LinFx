@@ -9,7 +9,7 @@ using LinFx.Extensions.DapperExtensions;
 using LinFx.Extensions.DapperExtensions.Mapper;
 using LinFx.Extensions.DapperExtensions.Sql;
 
-namespace LinFx.UnitTest.Data.Dapper
+namespace LinFx.Test.Data.Dapper
 {
     public class Test
     {
@@ -47,13 +47,13 @@ namespace LinFx.UnitTest.Data.Dapper
             //var p = db.Select<Post>(x => x.Id == 1);
 
 
-            var id = db.Insert(new User
-            {
-                Id = 9,
-                Name = "Lua3"
-            });
+            //var id = db.Insert(new User
+            //{
+            //    Id = 9,
+            //    Name = "Lua3"
+            //});
 
-            Console.WriteLine(id);
+            //Console.WriteLine(id);
 
 
 

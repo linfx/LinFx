@@ -1,7 +1,7 @@
 ﻿using LinFx.Utils;
 using Xunit;
 
-namespace LinFx.UnitTest.Utils
+namespace LinFx.Test.Utils
 {
     public class EncryptUtilsTest
     {
