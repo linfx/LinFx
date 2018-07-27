@@ -1,5 +1,4 @@
-﻿using LinFx.Timing;
-using System;
+﻿using System;
 
 namespace LinFx.Extensions.EventBus
 {

@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Factories;
-using LinFx.Extensions.EventBus.Handlers;
+﻿using LinFx.Extensions.EventBus.Handlers;
 using System;
 using System.Threading.Tasks;
 
@@ -44,21 +43,6 @@ namespace LinFx.Extensions.EventBus
         /// <param name="handler">Object to handle the event</param>
         void Register(Type eventType, IEventHandler handler);
 
-        /// <summary>
-        /// Registers to an event.
-        /// Given factory is used to create/release handlers
-        /// </summary>
-        /// <typeparam name="TEvent">Event type</typeparam>
-        /// <param name="handlerFactory">A factory to create/release handlers</param>
-        void Register<TEvent>(IEventHandlerFactory handlerFactory) where TEvent : IEvent;
-
-        /// <summary>
-        /// Registers to an event.
-        /// </summary>
-        /// <param name="eventType">Event type</param>
-        /// <param name="handlerFactory">A factory to create/release handlers</param>
-        void Register(Type eventType, IEventHandlerFactory handlerFactory);
-
         #endregion
 
         #region Unregister
@@ -83,20 +67,6 @@ namespace LinFx.Extensions.EventBus
         /// <param name="eventType">Event type</param>
         /// <param name="handler">Handler object that is registered before</param>
         void Unregister(Type eventType, IEventHandler handler);
-
-        /// <summary>
-        /// Unregisters from an event.
-        /// </summary>
-        /// <typeparam name="TEvent">Event type</typeparam>
-        /// <param name="factory">Factory object that is registered before</param>
-        void Unregister<TEvent>(IEventHandlerFactory factory) where TEvent : IEvent;
-
-        /// <summary>
-        /// Unregisters from an event.
-        /// </summary>
-        /// <param name="eventType">Event type</param>
-        /// <param name="factory">Factory object that is registered before</param>
-        void Unregister(Type eventType, IEventHandlerFactory factory);
 
         /// <summary>
         /// Unregisters all event handlers of given event type.

@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.EventBus;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using Xunit;
 
@@ -7,16 +8,16 @@ namespace LinFx.Test.Extensions.EventBus
 {
     public class ActionBasedEventHandlerTest
     {
+        ServiceCollection _services;
         readonly IEventBus _eventBus;
 
         public ActionBasedEventHandlerTest()
         {
-            var services = new ServiceCollection();
-
-            services.AddLinFx()
+            _services = new ServiceCollection();
+            _services.AddLinFx()
                 .AddEventBus(options => { });
 
-            var container = services.BuildServiceProvider();
+            var container = _services.BuildServiceProvider();
             _eventBus = container.GetService<IEventBus>();
         }
 
@@ -25,16 +26,17 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            _eventBus.Register<MySimpleEventData>(eventData =>
-            {
-                totalData += eventData.Value;
-                Assert.Equal(this, eventData.EventSource);
-            });
+            //var handler = new MySimpleHandler();
 
-            _eventBus.Trigger(this, new MySimpleEventData(1));
-            _eventBus.Trigger(this, new MySimpleEventData(2));
-            _eventBus.Trigger(this, new MySimpleEventData(3));
-            _eventBus.Trigger(this, new MySimpleEventData(4));
+            //_services.tr<MySimpleEvent, MySimpleHandler>();
+
+            _services.Add(new ServiceDescriptor(typeof(MySimpleEvent), typeof(MySimpleHandler), ServiceLifetime.Transient));
+
+
+            _eventBus.Trigger(this, new MySimpleEvent(1));
+            _eventBus.Trigger(this, new MySimpleEvent(2));
+            _eventBus.Trigger(this, new MySimpleEvent(3));
+            _eventBus.Trigger(this, new MySimpleEvent(4));
 
             Assert.Equal(10, totalData);
         }
@@ -45,16 +47,16 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            _eventBus.Register<MySimpleEventData>(eventData =>
+            _eventBus.Register<MySimpleEvent>(eventData =>
             {
                 totalData += eventData.Value;
                 Assert.Equal(this, eventData.EventSource);
             });
 
-            _eventBus.Trigger(this, new MySimpleEventData(1));
-            _eventBus.Trigger(this, new MySimpleEventData(2));
-            _eventBus.Trigger(this, new MySimpleEventData(3));
-            _eventBus.Trigger(this, new MySimpleEventData(4));
+            _eventBus.Trigger(this, new MySimpleEvent(1));
+            _eventBus.Trigger(this, new MySimpleEvent(2));
+            _eventBus.Trigger(this, new MySimpleEvent(3));
+            _eventBus.Trigger(this, new MySimpleEvent(4));
 
             Assert.Equal(10, totalData);
         }
@@ -64,16 +66,15 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            _eventBus.Register<MySimpleEventData>(eventData =>
+            _eventBus.Register<MySimpleEvent>(eventData =>
             {
                 totalData += eventData.Value;
                 Assert.Equal(this, eventData.EventSource);
             });
 
-            _eventBus.Trigger(typeof(MySimpleEventData), this, new MySimpleEventData(1));
-            _eventBus.Trigger(typeof(MySimpleEventData), this, new MySimpleEventData(2));
-            _eventBus.Trigger(typeof(MySimpleEventData), this, new MySimpleEventData(3));
-            _eventBus.Trigger(typeof(MySimpleEventData), this, new MySimpleEventData(4));
+            _eventBus.Trigger<MySimpleEvent>(this, new MySimpleEvent(1));
+
+            
 
             Assert.Equal(10, totalData);
         }
@@ -83,15 +84,15 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            _eventBus.Register<MySimpleEventData>(eventData =>
+            _eventBus.Register<MySimpleEvent>(eventData =>
             {
                 totalData += eventData.Value;
             });
 
-            _eventBus.Trigger(this, new MySimpleEventData(1));
-            _eventBus.Trigger(this, new MySimpleEventData(2));
-            _eventBus.Trigger(this, new MySimpleEventData(3));
-            _eventBus.Trigger(this, new MySimpleEventData(4));
+            _eventBus.Trigger(this, new MySimpleEvent(1));
+            _eventBus.Trigger(this, new MySimpleEvent(2));
+            _eventBus.Trigger(this, new MySimpleEvent(3));
+            _eventBus.Trigger(this, new MySimpleEvent(4));
 
             Assert.Equal(6, totalData);
         }
@@ -101,20 +102,20 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            var action = new Action<MySimpleEventData>(eventData =>
+            var action = new Action<MySimpleEvent>(eventData =>
             {
                 totalData += eventData.Value;
             });
 
             _eventBus.Register(action);
             
-            _eventBus.Trigger(this, new MySimpleEventData(1));
-            _eventBus.Trigger(this, new MySimpleEventData(2));
-            _eventBus.Trigger(this, new MySimpleEventData(3));
+            _eventBus.Trigger(this, new MySimpleEvent(1));
+            _eventBus.Trigger(this, new MySimpleEvent(2));
+            _eventBus.Trigger(this, new MySimpleEvent(3));
             
             _eventBus.Unregister(action);
             
-            _eventBus.Trigger(this, new MySimpleEventData(4));
+            _eventBus.Trigger(this, new MySimpleEvent(4));
 
             Assert.Equal(6, totalData);
         }

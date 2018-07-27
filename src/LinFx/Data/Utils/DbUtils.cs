@@ -6,7 +6,7 @@ using LinFx.Data.Provider;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace LinFx.Utils
+namespace LinFx.Data.Utils
 {
     public static class DbUtils
     {

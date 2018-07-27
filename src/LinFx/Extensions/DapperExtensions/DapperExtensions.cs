@@ -23,12 +23,6 @@ namespace LinFx.Extensions.DapperExtensions
             Configure(typeof(AutoClassMapper<>), new List<Assembly>(), new MySqlDialect());
         }
 
-        /// <summary>
-        /// Configure DapperExtensions extension methods.
-        /// </summary>
-        /// <param name="defaultMapper"></param>
-        /// <param name="mappingAssemblies"></param>
-        /// <param name="sqlDialect"></param>
         public static void Configure(IDapperExtensionsConfiguration configuration)
         {
             _instance = null;
@@ -82,21 +76,13 @@ namespace LinFx.Extensions.DapperExtensions
                 Configure(_configuration.DefaultMapper, _configuration.MappingAssemblies, _configuration.Dialect);
             }
         }
-
-        /// <summary>
-        /// Gets or sets the default class mapper to use when generating class maps. If not specified, AutoClassMapper<T> is used.
-        /// DapperExtensions.Configure(Type, IList<Assembly>, ISqlDialect) can be used instead to set all values at once
-        /// </summary>
+        
         public static Type DefaultMapper
         {
             get { return _configuration.DefaultMapper; }
             set { Configure(value, _configuration.MappingAssemblies, _configuration.Dialect); }
         }
 
-        /// <summary>
-        /// Gets or sets the type of sql to be generated.
-        /// DapperExtensions.Configure(Type, IList<Assembly>, ISqlDialect) can be used instead to set all values at once
-        /// </summary>
         public static ISqlDialect SqlDialect
         {
             get { return _configuration.Dialect; }
@@ -111,8 +97,6 @@ namespace LinFx.Extensions.DapperExtensions
         {
             Configure(_configuration.DefaultMapper, assemblies, _configuration.Dialect);
         }
-
-
 
         /// <summary>
         /// Executes a query for the specified id, returning the data typed as per T
@@ -155,7 +139,7 @@ namespace LinFx.Extensions.DapperExtensions
         /// </summary>
         public static bool Delete<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            return Instance.Delete<T>(connection, entity, transaction, commandTimeout);
+            return Instance.Delete(connection, entity, transaction, commandTimeout);
         }
 
         /// <summary>

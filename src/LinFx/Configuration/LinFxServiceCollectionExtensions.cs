@@ -1,12 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LinFx;
 using System;
-namespace LinFx
+
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class LinFxServiceCollectionExtensions
     {
         public static ILinFxBuilder AddLinFx(this IServiceCollection services)
         {
             var builder = new LinFxBuilder(services);
+            builder.Services.AddLogging();
             return builder;
         }
 

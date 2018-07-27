@@ -1,13 +1,12 @@
 ﻿using LinFx.Extensions.EventBus.Handlers;
-using System;
 
 namespace LinFx.Test.Extensions.EventBus
 {
-    public class MySimpleHandler : IEventHandler<MySimpleEventData>
+    public class MySimpleHandler : IEventHandler<MySimpleEvent>
     {
-        public void HandleEvent(MySimpleEventData eventData)
+        public void HandleEvent(MySimpleEvent eventData)
         {
-            throw new NotImplementedException();
+            eventData.Value++;
         }
     }
 }

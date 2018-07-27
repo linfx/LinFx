@@ -1,7 +1,6 @@
 ﻿using System;
 using LinFx.Domain.Entities;
 using LinFx.Domain.Entities.Auditing;
-using LinFx.Extensions;
 using LinFx.Timing;
 
 namespace LinFx.Data.Filters.Action

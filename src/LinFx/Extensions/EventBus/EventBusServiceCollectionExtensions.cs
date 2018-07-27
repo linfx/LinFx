@@ -9,7 +9,9 @@ namespace LinFx.Extensions.EventBus
         {
             var options = new EventBusOptions();
             configAction?.Invoke(options);
-            builder.Services.AddSingleton<IEventBus>(new EventBus(builder.Services));
+            builder.Services.AddSingleton<IEventBus, EventBus>();
+
+
             return builder;
         }
     }
