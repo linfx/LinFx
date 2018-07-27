@@ -2,7 +2,7 @@
 
 namespace LinFx.Test.Extensions.EventBus
 {
-    public class MySimpleEventData : EventData
+    public class MySimpleEventData : Event
     {
         public int Value { get; set; }
 

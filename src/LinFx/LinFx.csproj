@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>2.1.0</Version>
-    <Description>基于 .NET Core 2.0 的快速开发框架，遵循领域驱动设计（DDD）规范约束。</Description>
+    <Description>基于 .NET Core 2.0 的快速开发框架，遵循领域驱动设计（DDD）规范约束。事件驱动</Description>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql" Version="4.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />

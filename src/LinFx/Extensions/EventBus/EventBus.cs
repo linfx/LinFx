@@ -3,21 +3,19 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using LinFx.Extensions.EventBus.Handlers;
 using LinFx.Extensions.EventBus.Factories.Internals;
 using LinFx.Extensions.EventBus.Handlers.Internals;
 using Microsoft.Extensions.Logging;
 using LinFx.Extensions.EventBus.Factories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.EventBus
 {
     public class EventBus : IEventBus
     {
-        /// <summary>
-        /// Gets the default <see cref="EventBus"/> instance.
-        /// </summary>
-        public static EventBus Default { get; } = new EventBus();
+        readonly IServiceCollection _services;
+        readonly IServiceProvider _container;
 
         /// <summary>
         /// Reference to the Logger.
@@ -33,96 +31,93 @@ namespace LinFx.Extensions.EventBus
 
         /// <summary>
         /// Creates a new <see cref="EventBus"/> instance.
-        /// Instead of creating a new instace, you can use <see cref="Default"/> to use Global <see cref="EventBus"/>.
         /// </summary>
-        public EventBus()
+        public EventBus(IServiceCollection services)
         {
             _handlerFactories = new ConcurrentDictionary<Type, List<IEventHandlerFactory>>();
-            //Logger = NullLogger.Instance;
+            _services = services;
         }
 
-        public IDisposable Register<TEventData>(Action<TEventData> action) where TEventData : IEventData
+        public void Register<TEvent>(Action<TEvent> action) where TEvent : IEvent
         {
-            return Register(typeof(TEventData), new ActionEventHandler<TEventData>(action));
+            Register(typeof(TEvent), new ActionEventHandler<TEvent>(action));
         }
 
-        public IDisposable Register<TEventData>(IEventHandler<TEventData> handler) where TEventData : IEventData
+        public void Register<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent
+        {
+            //_services.AddTransient<IEventHandler<TEvent>, handler>()
+        }
+
+        public void Register<TEvent, THandler>()
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>, new()
         {
             throw new NotImplementedException();
         }
 
-        public IDisposable Register<TEventData, THandler>()
-            where TEventData : IEventData
-            where THandler : IEventHandler<TEventData>, new()
+        public void Register(Type eventType, IEventHandler handler)
         {
-            throw new NotImplementedException();
+            //Register(eventType, new SingleInstanceHandlerFactory(handler));
+            _services.AddTransient(eventType, handler.GetType());
         }
 
-        public IDisposable Register(Type eventType, IEventHandler handler)
-        {
-            return Register(eventType, new SingleInstanceHandlerFactory(handler));
-        }
-
-        public IDisposable Register<TEventData>(IEventHandlerFactory handlerFactory) where TEventData : IEventData
+        public void Register<TEvent>(IEventHandlerFactory handlerFactory) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public IDisposable Register(Type eventType, IEventHandlerFactory handlerFactory)
+        public void Register(Type eventType, IEventHandlerFactory handlerFactory)
         {
             GetOrCreateHandlerFactories(eventType).Locking(factories => factories.Add(handlerFactory));
-            return new FactoryUnregistrar(this, eventType, handlerFactory);
+            new FactoryUnregistrar(this, eventType, handlerFactory);
         }
 
-        public void Trigger<TEventData>(TEventData eventData) where TEventData : IEventData
+        public void Trigger<TEvent>(TEvent eventData) where TEvent : IEvent
         {
             Trigger((object)null, eventData);
         }
 
-        public void Trigger<TEventData>(object eventSource, TEventData eventData) where TEventData : IEventData
+        public void Trigger<TEvent>(object eventSource, TEvent eventData) where TEvent : IEvent
         {
-            Trigger(typeof(TEventData), eventSource, eventData);
+            Trigger(typeof(TEvent), eventSource, eventData);
         }
 
-        public void Trigger(Type eventType, IEventData eventData)
+        public void Trigger(Type eventType, IEvent eventData)
         {
             Trigger(eventType, null, eventData);
         }
 
-        public void Trigger(Type eventType, object eventSource, IEventData eventData)
+        public void Trigger(Type eventType, object eventSource, IEvent eventData)
         {
             var exceptions = new List<Exception>();
-
             TriggerHandlingException(eventType, eventSource, eventData, exceptions);
-
             if (exceptions.Any())
             {
                 if (exceptions.Count == 1)
                 {
                     exceptions[0].ReThrow();
                 }
-
                 throw new AggregateException("More than one error has occurred while triggering the event: " + eventType, exceptions);
             }
         }
 
-        public Task TriggerAsync<TEventData>(TEventData eventData) where TEventData : IEventData
+        public Task TriggerAsync<TEvent>(TEvent eventData) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
 
-        public Task TriggerAsync<TEventData>(object eventSource, TEventData eventData) where TEventData : IEventData
+        public Task TriggerAsync<TEvent>(object eventSource, TEvent eventData) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
 
-        public Task TriggerAsync(Type eventType, IEventData eventData)
+        public Task TriggerAsync(Type eventType, IEvent eventData)
         {
             throw new NotImplementedException();
         }
 
-        public Task TriggerAsync(Type eventType, object eventSource, IEventData eventData)
+        public Task TriggerAsync(Type eventType, object eventSource, IEvent eventData)
         {
             return Task.Factory.StartNew(() =>
             {
@@ -132,17 +127,17 @@ namespace LinFx.Extensions.EventBus
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogWarning(ex, ex.Message);
+                    Logger.LogError(ex, ex.Message);
                 }
             });
         }
 
-        public void Unregister<TEventData>(Action<TEventData> action) where TEventData : IEventData
+        public void Unregister<TEvent>(Action<TEvent> action) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
 
-        public void Unregister<TEventData>(IEventHandler<TEventData> handler) where TEventData : IEventData
+        public void Unregister<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
@@ -152,7 +147,7 @@ namespace LinFx.Extensions.EventBus
             throw new NotImplementedException();
         }
 
-        public void Unregister<TEventData>(IEventHandlerFactory factory) where TEventData : IEventData
+        public void Unregister<TEvent>(IEventHandlerFactory factory) where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
@@ -162,7 +157,7 @@ namespace LinFx.Extensions.EventBus
             throw new NotImplementedException();
         }
 
-        public void UnregisterAll<TEventData>() where TEventData : IEventData
+        public void UnregisterAll<TEvent>() where TEvent : IEvent
         {
             throw new NotImplementedException();
         }
@@ -179,61 +174,11 @@ namespace LinFx.Extensions.EventBus
             return _handlerFactories.GetOrAdd(eventType, (type) => new List<IEventHandlerFactory>());
         }
 
-        private void TriggerHandlingException(Type eventType, object eventSource, IEventData eventData, List<Exception> exceptions)
+        private void TriggerHandlingException(Type eventType, object eventSource, IEvent evenDatat, List<Exception> exceptions)
         {
-            //TODO: This method can be optimized by adding all possibilities to a dictionary.
-
-            eventData.EventSource = eventSource;
-
-            foreach (var handlerFactories in GetHandlerFactories(eventType))
-            {
-                foreach (var handlerFactory in handlerFactories.EventHandlerFactories)
-                {
-                    var eventHandler = handlerFactory.GetHandler();
-
-                    try
-                    {
-                        if (eventHandler == null)
-                        {
-                            throw new Exception($"Registered event handler for event type {handlerFactories.EventType.Name} does not implement IEventHandler<{handlerFactories.EventType.Name}> interface!");
-                        }
-
-                        var handlerType = typeof(IEventHandler<>).MakeGenericType(handlerFactories.EventType);
-                        //var method = handlerType.GetMethod("HandleEvent", new[] { handlerFactories.EventType });
-                        var method = handlerType.GetRuntimeMethod("HandleEvent", new[] { handlerFactories.EventType });
-                        method.Invoke(eventHandler, new object[] { eventData });
-                    }
-                    catch (TargetInvocationException ex)
-                    {
-                        exceptions.Add(ex.InnerException);
-                    }
-                    catch (Exception ex)
-                    {
-                        exceptions.Add(ex);
-                    }
-                    finally
-                    {
-                        handlerFactory.ReleaseHandler(eventHandler);
-                    }
-                }
-            }
-
-            //Implements generic argument inheritance. See IEventDataWithInheritableGenericArgument
-            //if (eventType.GetTypeInfo().IsGenericType &&
-            //    eventType.GetGenericArguments().Length == 1 &&
-            //    typeof(IEventDataWithInheritableGenericArgument).IsAssignableFrom(eventType))
-            //{
-            //    var genericArg = eventType.GetGenericArguments()[0];
-            //    var baseArg = genericArg.GetTypeInfo().BaseType;
-            //    if (baseArg != null)
-            //    {
-            //        var baseEventType = eventType.GetGenericTypeDefinition().MakeGenericType(baseArg);
-            //        var constructorArgs = ((IEventDataWithInheritableGenericArgument)eventData).GetConstructorArgs();
-            //        var baseEventData = (IEventData)Activator.CreateInstance(baseEventType, constructorArgs);
-            //        baseEventData.EventTime = eventData.EventTime;
-            //        Trigger(baseEventType, eventData.EventSource, baseEventData);
-            //    }
-            //}
+            evenDatat.EventSource = eventSource;
+            var handlers = _container.GetServices<IEventHandler<IEvent>>();
+            handlers.AsParallel().ForAll(eventHandler => eventHandler.HandleEvent(evenDatat));
         }
 
         private IEnumerable<EventTypeWithEventHandlerFactories> GetHandlerFactories(Type eventType)

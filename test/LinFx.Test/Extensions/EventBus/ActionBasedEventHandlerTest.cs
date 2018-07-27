@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.EventBus;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Xunit;
 
@@ -6,7 +7,38 @@ namespace LinFx.Test.Extensions.EventBus
 {
     public class ActionBasedEventHandlerTest
     {
-        readonly IEventBus _eventBus = LinFx.Extensions.EventBus.EventBus.Default;
+        readonly IEventBus _eventBus;
+
+        public ActionBasedEventHandlerTest()
+        {
+            var services = new ServiceCollection();
+
+            services.AddLinFx()
+                .AddEventBus(options => { });
+
+            var container = services.BuildServiceProvider();
+            _eventBus = container.GetService<IEventBus>();
+        }
+
+        [Fact]
+        public void Should_Call_Handler_On_Event_With_Correct_Source()
+        {
+            var totalData = 0;
+
+            _eventBus.Register<MySimpleEventData>(eventData =>
+            {
+                totalData += eventData.Value;
+                Assert.Equal(this, eventData.EventSource);
+            });
+
+            _eventBus.Trigger(this, new MySimpleEventData(1));
+            _eventBus.Trigger(this, new MySimpleEventData(2));
+            _eventBus.Trigger(this, new MySimpleEventData(3));
+            _eventBus.Trigger(this, new MySimpleEventData(4));
+
+            Assert.Equal(10, totalData);
+        }
+
 
         [Fact]
         public void Should_Call_Action_On_Event_With_Correct_Source()
@@ -51,7 +83,7 @@ namespace LinFx.Test.Extensions.EventBus
         {
             var totalData = 0;
 
-            var registerDisposer = _eventBus.Register<MySimpleEventData>(eventData =>
+            _eventBus.Register<MySimpleEventData>(eventData =>
             {
                 totalData += eventData.Value;
             });
@@ -59,9 +91,6 @@ namespace LinFx.Test.Extensions.EventBus
             _eventBus.Trigger(this, new MySimpleEventData(1));
             _eventBus.Trigger(this, new MySimpleEventData(2));
             _eventBus.Trigger(this, new MySimpleEventData(3));
-
-            registerDisposer.Dispose();
-
             _eventBus.Trigger(this, new MySimpleEventData(4));
 
             Assert.Equal(6, totalData);

@@ -17,24 +17,24 @@ namespace LinFx.Extensions.EventBus
         /// Given action is called for all event occurrences.
         /// </summary>
         /// <param name="action">Action to handle events</param>
-        /// <typeparam name="TEventData">Event type</typeparam>
-        IDisposable Register<TEventData>(Action<TEventData> action) where TEventData : IEventData;
+        /// <typeparam name="TEvent">Event type</typeparam>
+        void Register<TEvent>(Action<TEvent> action) where TEvent : IEvent;
 
         /// <summary>
         /// Registers to an event. 
         /// Same (given) instance of the handler is used for all event occurrences.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="handler">Object to handle the event</param>
-        IDisposable Register<TEventData>(IEventHandler<TEventData> handler) where TEventData : IEventData;
+        void Register<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent;
 
         /// <summary>
         /// Registers to an event.
         /// A new instance of <see cref="THandler"/> object is created for every event occurrence.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <typeparam name="THandler">Type of the event handler</typeparam>
-        IDisposable Register<TEventData, THandler>() where TEventData : IEventData where THandler : IEventHandler<TEventData>, new();
+        void Register<TEvent, THandler>() where TEvent : IEvent where THandler : IEventHandler<TEvent>, new();
 
         /// <summary>
         /// Registers to an event.
@@ -42,22 +42,22 @@ namespace LinFx.Extensions.EventBus
         /// </summary>
         /// <param name="eventType">Event type</param>
         /// <param name="handler">Object to handle the event</param>
-        IDisposable Register(Type eventType, IEventHandler handler);
+        void Register(Type eventType, IEventHandler handler);
 
         /// <summary>
         /// Registers to an event.
         /// Given factory is used to create/release handlers
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="handlerFactory">A factory to create/release handlers</param>
-        IDisposable Register<TEventData>(IEventHandlerFactory handlerFactory) where TEventData : IEventData;
+        void Register<TEvent>(IEventHandlerFactory handlerFactory) where TEvent : IEvent;
 
         /// <summary>
         /// Registers to an event.
         /// </summary>
         /// <param name="eventType">Event type</param>
         /// <param name="handlerFactory">A factory to create/release handlers</param>
-        IDisposable Register(Type eventType, IEventHandlerFactory handlerFactory);
+        void Register(Type eventType, IEventHandlerFactory handlerFactory);
 
         #endregion
 
@@ -66,16 +66,16 @@ namespace LinFx.Extensions.EventBus
         /// <summary>
         /// Unregisters from an event.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="action"></param>
-        void Unregister<TEventData>(Action<TEventData> action) where TEventData : IEventData;
+        void Unregister<TEvent>(Action<TEvent> action) where TEvent : IEvent;
 
         /// <summary>
         /// Unregisters from an event.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="handler">Handler object that is registered before</param>
-        void Unregister<TEventData>(IEventHandler<TEventData> handler) where TEventData : IEventData;
+        void Unregister<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent;
 
         /// <summary>
         /// Unregisters from an event.
@@ -87,9 +87,9 @@ namespace LinFx.Extensions.EventBus
         /// <summary>
         /// Unregisters from an event.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="factory">Factory object that is registered before</param>
-        void Unregister<TEventData>(IEventHandlerFactory factory) where TEventData : IEventData;
+        void Unregister<TEvent>(IEventHandlerFactory factory) where TEvent : IEvent;
 
         /// <summary>
         /// Unregisters from an event.
@@ -101,8 +101,8 @@ namespace LinFx.Extensions.EventBus
         /// <summary>
         /// Unregisters all event handlers of given event type.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
-        void UnregisterAll<TEventData>() where TEventData : IEventData;
+        /// <typeparam name="TEvent">Event type</typeparam>
+        void UnregisterAll<TEvent>() where TEvent : IEvent;
 
         /// <summary>
         /// Unregisters all event handlers of given event type.
@@ -117,49 +117,49 @@ namespace LinFx.Extensions.EventBus
         /// <summary>
         /// Triggers an event.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="eventData">Related data for the event</param>
-        void Trigger<TEventData>(TEventData eventData) where TEventData : IEventData;
+        void Trigger<TEvent>(TEvent eventData) where TEvent : IEvent;
 
         /// <summary>
         /// Triggers an event.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="eventSource">The object which triggers the event</param>
         /// <param name="eventData">Related data for the event</param>
-        void Trigger<TEventData>(object eventSource, TEventData eventData) where TEventData : IEventData;
-
-        /// <summary>
-        /// Triggers an event.
-        /// </summary>
-        /// <param name="eventType">Event type</param>
-        /// <param name="eventData">Related data for the event</param>
-        void Trigger(Type eventType, IEventData eventData);
+        void Trigger<TEvent>(object eventSource, TEvent eventData) where TEvent : IEvent;
 
         /// <summary>
         /// Triggers an event.
         /// </summary>
         /// <param name="eventType">Event type</param>
+        /// <param name="eventData">Related data for the event</param>
+        void Trigger(Type eventType, IEvent eventData);
+
+        /// <summary>
+        /// Triggers an event.
+        /// </summary>
+        /// <param name="eventType">Event type</param>
         /// <param name="eventSource">The object which triggers the event</param>
         /// <param name="eventData">Related data for the event</param>
-        void Trigger(Type eventType, object eventSource, IEventData eventData);
+        void Trigger(Type eventType, object eventSource, IEvent eventData);
 
         /// <summary>
         /// Triggers an event asynchronously.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="eventData">Related data for the event</param>
         /// <returns>The task to handle async operation</returns>
-        Task TriggerAsync<TEventData>(TEventData eventData) where TEventData : IEventData;
+        Task TriggerAsync<TEvent>(TEvent eventData) where TEvent : IEvent;
 
         /// <summary>
         /// Triggers an event asynchronously.
         /// </summary>
-        /// <typeparam name="TEventData">Event type</typeparam>
+        /// <typeparam name="TEvent">Event type</typeparam>
         /// <param name="eventSource">The object which triggers the event</param>
         /// <param name="eventData">Related data for the event</param>
         /// <returns>The task to handle async operation</returns>
-        Task TriggerAsync<TEventData>(object eventSource, TEventData eventData) where TEventData : IEventData;
+        Task TriggerAsync<TEvent>(object eventSource, TEvent eventData) where TEvent : IEvent;
 
         /// <summary>
         /// Triggers an event asynchronously.
@@ -167,7 +167,7 @@ namespace LinFx.Extensions.EventBus
         /// <param name="eventType">Event type</param>
         /// <param name="eventData">Related data for the event</param>
         /// <returns>The task to handle async operation</returns>
-        Task TriggerAsync(Type eventType, IEventData eventData);
+        Task TriggerAsync(Type eventType, IEvent eventData);
 
         /// <summary>
         /// Triggers an event asynchronously.
@@ -176,7 +176,7 @@ namespace LinFx.Extensions.EventBus
         /// <param name="eventSource">The object which triggers the event</param>
         /// <param name="eventData">Related data for the event</param>
         /// <returns>The task to handle async operation</returns>
-        Task TriggerAsync(Type eventType, object eventSource, IEventData eventData);
+        Task TriggerAsync(Type eventType, object eventSource, IEvent eventData);
 
 
         #endregion

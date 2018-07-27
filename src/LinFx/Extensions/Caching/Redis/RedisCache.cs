@@ -436,15 +436,19 @@ namespace LinFx.Extensions.Caching.Redis
 
     public partial class RedisCache
     {
-        internal Task<long> StringIncrementAsync(string key, long value)
+        internal async Task<long> StringIncrementAsync(string key, long value = 1, CancellationToken token = default(CancellationToken))
         {
-            return _cache.StringIncrementAsync(key, value);
+            Check.NotNull(key, nameof(key));
+            await ConnectAsync(token);
+            return await _cache.HashDecrementAsync(_instance + key, value);
         }
 
-        internal Task<long> HashDecrementAsync(string key, string hashField, long value)
-        {
-            return _cache.HashDecrementAsync(key, hashField, value);
-        }
+        //internal async Task<long> HashDecrementAsync(string key, string hashField, long value = 1, CancellationToken token = default(CancellationToken))
+        //{
+        //    Check.NotNull(key, nameof(key));
+        //    await ConnectAsync(token);
+        //    return await _cache.HashDecrementAsync(_instance + key, hashField, value, AbsoluteExpirationKey, SlidingExpirationKey, DataKey);
+        //}
     }
 
 }

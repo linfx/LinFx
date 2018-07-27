@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace LinFx
+﻿namespace Microsoft.Extensions.DependencyInjection
 {
     public interface ILinFxBuilder
     {

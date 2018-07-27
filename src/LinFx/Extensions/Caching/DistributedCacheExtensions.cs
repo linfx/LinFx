@@ -19,28 +19,6 @@ namespace LinFx.Extensions.Caching
             return item;
         }
 
-        ///// <summary>
-        ///// Asynchronously gets a string from the specified cache with the specified key.
-        ///// </summary>
-        ///// <param name="cache">The cache in which to store the data.</param>
-        ///// <param name="key">The key to get the stored data for.</param>
-        ///// <param name="func">Func</param>
-        ///// <param name="options"></param>
-        ///// <param name="token">Optional. A <see cref="CancellationToken" /> to cancel the operation.</param>
-        ///// <returns>A task that gets the string value from the stored cache key.</returns>
-        //public static async Task<string> GetStringAsync(this IDistributedCache cache, string key, Func<Task<string>> func, DistributedCacheEntryOptions options, CancellationToken token = default(CancellationToken))
-        //{
-        //    var tmp = await func.Invoke();
-        //    Func<Task<byte[]>> func2 =>  Encoding.UTF8.GetBytes(tmp);
-
-        //    var data = await GetAsync(cache, key, func2, options, token);
-        //    if (data == null)
-        //    {
-        //        return null;
-        //    }
-        //    return Encoding.UTF8.GetString(data, 0, data.Length); ;
-        //}
-
         /// <summary>
         /// Asynchronously gets a string from the specified cache with the specified key.
         /// </summary>

@@ -46,20 +46,9 @@ namespace LinFx.Extensions.Caching.Redis
 
     internal static partial class RedisExtensions
     {
-        /// <summary>
-        /// Increments the number stored at field in the hash stored at key by increment.
-        /// If key does not exist, a new key holding a hash is created. If field does not
-        /// exist or holds a string that cannot be interpreted as integer, the value is set
-        /// to 0 before the operation is performed.
-        /// </summary>
-        /// <param name="cache"></param>
-        /// <param name="key"></param>
-        /// <param name="hashField"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        internal static Task<long> HashDecrementAsync(this IDatabase cache, string key, string hashField, long value)
+        internal static Task<long> HashDecrementAsync(this IDatabase cache, string key, long value = 1, params string[] members)
         {
-            return cache.HashDecrementAsync(key, hashField, value);
+            return cache.HashDecrementAsync(key, "data");
         }
     }
 }

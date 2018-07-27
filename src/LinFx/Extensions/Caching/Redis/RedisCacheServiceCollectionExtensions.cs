@@ -5,22 +5,22 @@ using System;
 namespace Microsoft.Extensions.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for setting up Redis distributed cache related services in an <see cref="IServiceCollection" />.
+    /// Extension methods for setting up Redis distributed cache related services in an <see cref="ILinFxBuilder" />.
     /// </summary>
     public static class RedisCacheServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds Redis distributed caching services to the specified <see cref="IServiceCollection" />.
+        /// Adds Redis distributed caching services to the specified <see cref="ILinFxBuilder" />.
         /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
+        /// <param name="builder">The <see cref="ILinFxBuilder" /> to add services to.</param>
         /// <param name="setupAction">An <see cref="Action{RedisCacheOptions}"/> to configure the provided
         /// <see cref="RedisCacheOptions"/>.</param>
-        /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static IServiceCollection AddDistributedRedisCache(this IServiceCollection services, Action<RedisCacheOptions> setupAction)
+        /// <returns>The <see cref="ILinFxBuilder"/> so that additional calls can be chained.</returns>
+        public static ILinFxBuilder AddDistributedRedisCache(this ILinFxBuilder builder, Action<RedisCacheOptions> setupAction)
         {
-            if (services == null)
+            if (builder == null)
             {
-                throw new ArgumentNullException(nameof(services));
+                throw new ArgumentNullException(nameof(builder));
             }
 
             if (setupAction == null)
@@ -28,11 +28,10 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(setupAction));
             }
 
-            services.AddOptions();
-            services.Configure(setupAction);
-            services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
+            builder.Services.Configure(setupAction);
+            builder.Services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
 
-            return services;
+            return builder;
         }
     }
 }

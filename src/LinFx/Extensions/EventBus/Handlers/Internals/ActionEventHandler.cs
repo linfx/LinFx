@@ -3,23 +3,21 @@
 namespace LinFx.Extensions.EventBus.Handlers.Internals
 {
     /// <summary>
-    /// This event handler is an adapter to be able to use an action as <see cref="IEventHandler{TEventData}"/> implementation.
+    /// This event handler is an adapter to be able to use an action as <see cref="IEventHandler{TEvent}"/> implementation.
     /// </summary>
-    /// <typeparam name="TEventData">Event type</typeparam>
-    internal class ActionEventHandler<TEventData> :
-        IEventHandler<TEventData>
-        //,ITransientDependency
+    /// <typeparam name="TEvent">Event type</typeparam>
+    internal class ActionEventHandler<TEvent> : IEventHandler<TEvent> 
     {
         /// <summary>
         /// Action to handle the event.
         /// </summary>
-        public Action<TEventData> Action { get; private set; }
+        public Action<TEvent> Action { get; private set; }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ActionEventHandler{TEventData}"/>.
+        /// Creates a new instance of <see cref="ActionEventHandler{TEvent}"/>.
         /// </summary>
         /// <param name="handler">Action to handle the event</param>
-        public ActionEventHandler(Action<TEventData> handler)
+        public ActionEventHandler(Action<TEvent> handler)
         {
             Action = handler;
         }
@@ -28,7 +26,7 @@ namespace LinFx.Extensions.EventBus.Handlers.Internals
         /// Handles the event.
         /// </summary>
         /// <param name="eventData"></param>
-        public void HandleEvent(TEventData eventData)
+        public void HandleEvent(TEvent eventData)
         {
             Action(eventData);
         }

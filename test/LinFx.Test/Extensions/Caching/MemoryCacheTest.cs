@@ -5,7 +5,7 @@ using Xunit;
 
 namespace LinFx.Test.Caching
 {
-    public class MemoryCachTest
+    public class MemoryCacheTest
     {
         [Fact]
         public void MemoryCacheGetAndSetTests()
