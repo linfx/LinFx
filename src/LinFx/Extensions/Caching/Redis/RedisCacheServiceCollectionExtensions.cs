@@ -1,5 +1,5 @@
-﻿using LinFx.Extensions.Caching.Redis;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Redis;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection

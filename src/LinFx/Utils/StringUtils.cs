@@ -1,8 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace LinFx.Utils
 {
-    public class StringUtils
+    public static class StringUtils
     {
         /// <summary>
         /// 过滤特殊字符

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using LinFx.Utils;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,17 +8,6 @@ namespace LinFx.Extensions.Caching
 {
     public static class DistributedCacheExtensions
     {
-        public static async Task<T> GetAsync<T>(this ICache cache, string key, Func<Task<T>> func, TimeSpan? expiry = default(TimeSpan?))
-        {
-            var item = await cache.GetAsync<T>(key);
-            if (item == null)
-            {
-                item = await func?.Invoke();
-                await cache.SetAsync(key, item, expiry);
-            }
-            return item;
-        }
-
         /// <summary>
         /// Asynchronously gets a string from the specified cache with the specified key.
         /// </summary>
@@ -37,6 +26,20 @@ namespace LinFx.Extensions.Caching
                 await cache.SetAsync(key, value, options, token);
             }
             return value;
+        }
+
+        public static async Task<T> GetAsync<T>(this IDistributedCache cache, string key, Func<Task<T>> func, DistributedCacheEntryOptions options, CancellationToken token = default(CancellationToken))
+        {
+            var tmp = await cache.GetAsync(key, token);
+            if (tmp != null)
+                return JsonUtils.ToObject<T>(tmp);
+
+            var item = await func.Invoke();
+            if (item == null)
+                return default(T);
+
+            await cache.SetAsync(key, JsonUtils.ToBytes(item), options, token);
+            return item;
         }
 
     }

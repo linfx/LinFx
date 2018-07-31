@@ -7,6 +7,18 @@ namespace LinFx.Utils
 {
     public static class JsonUtils
     {
+        public static T ToObject<T>(byte[] value, bool camelCase = false, bool indented = false)
+        {
+            var s = Encoding.UTF8.GetString(value);
+            return ToObject<T>(s, camelCase, indented);
+        }
+
+        public static byte[] ToBytes<T>(T value, bool camelCase = false, bool indented = false)
+        {
+            var s = ToJson(value);
+            return Encoding.UTF8.GetBytes(s);
+        }
+
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
             var options = new JsonSerializerSettings();
@@ -39,53 +51,53 @@ namespace LinFx.Utils
 
         private const char TypeSeperator = '|';
 
-		/// <summary>
-		/// Serializes an object with a type information included.
-		/// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
-		/// </summary>
-		public static string SerializeWithType(object obj)
-		{
-			return SerializeWithType(obj, obj.GetType());
-		}
+        /// <summary>
+        /// Serializes an object with a type information included.
+        /// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
+        /// </summary>
+        public static string SerializeWithType(object obj)
+        {
+            return SerializeWithType(obj, obj.GetType());
+        }
 
-		/// <summary>
-		/// Serializes an object with a type information included.
-		/// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
-		/// </summary>
-		public static string SerializeWithType(object obj, Type type)
-		{
-			var serialized = obj.ToJson();
+        /// <summary>
+        /// Serializes an object with a type information included.
+        /// So, it can be deserialized using <see cref="DeserializeWithType"/> method later.
+        /// </summary>
+        public static string SerializeWithType(object obj, Type type)
+        {
+            var serialized = obj.ToJson();
 
-			return string.Format(
-				"{0}{1}{2}",
-				type.AssemblyQualifiedName,
-				TypeSeperator,
-				serialized);
-		}
+            return string.Format(
+                "{0}{1}{2}",
+                type.AssemblyQualifiedName,
+                TypeSeperator,
+                serialized);
+        }
 
-		/// <summary>
-		/// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
-		/// </summary>
-		public static T DeserializeWithType<T>(string serializedObj)
-		{
-			return (T)DeserializeWithType(serializedObj);
-		}
+        /// <summary>
+        /// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
+        /// </summary>
+        public static T DeserializeWithType<T>(string serializedObj)
+        {
+            return (T)DeserializeWithType(serializedObj);
+        }
 
-		/// <summary>
-		/// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
-		/// </summary>
-		public static object DeserializeWithType(string serializedObj)
-		{
-			var typeSeperatorIndex = serializedObj.IndexOf(TypeSeperator);
-			var type = Type.GetType(serializedObj.Substring(0, typeSeperatorIndex));
-			var serialized = serializedObj.Substring(typeSeperatorIndex + 1);
+        /// <summary>
+        /// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
+        /// </summary>
+        public static object DeserializeWithType(string serializedObj)
+        {
+            var typeSeperatorIndex = serializedObj.IndexOf(TypeSeperator);
+            var type = Type.GetType(serializedObj.Substring(0, typeSeperatorIndex));
+            var serialized = serializedObj.Substring(typeSeperatorIndex + 1);
 
-			var options = new JsonSerializerSettings();
-			//options.Converters.Insert(0, new AbpDateTimeConverter());
+            var options = new JsonSerializerSettings();
+            //options.Converters.Insert(0, new AbpDateTimeConverter());
 
-			return JsonConvert.DeserializeObject(serialized, type, options);
-		}
-	}
+            return JsonConvert.DeserializeObject(serialized, type, options);
+        }
+    }
 
     public static class JsonExtensions
     {
@@ -104,10 +116,10 @@ namespace LinFx.Utils
         }
     }
 
-	/// <summary>
-	/// 转化小写
-	/// </summary>
-	public class LowercaseContractResolver : DefaultContractResolver
+    /// <summary>
+    /// 转化小写
+    /// </summary>
+    public class LowercaseContractResolver : DefaultContractResolver
     {
         protected override string ResolvePropertyName(string propertyName)
         {

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.1.0</Version>
+    <Version>3.0.0</Version>
     <Description>基于 .NET Core 2.0 的快速开发框架，遵循领域驱动设计（DDD）规范约束。事件驱动</Description>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
@@ -24,6 +24,10 @@
 
   <ItemGroup>
     <Compile Remove="Data\SqlMapperExtensions.cs" />
+    <Compile Remove="Extensions\Caching\Redis\RedisCache.cs" />
+    <Compile Remove="Extensions\Caching\Redis\RedisCacheExtensions.cs" />
+    <Compile Remove="Extensions\Caching\Redis\RedisCacheOptions.cs" />
+    <Compile Remove="Extensions\Caching\Redis\RedisExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +36,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
