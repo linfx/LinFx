@@ -8,10 +8,10 @@ namespace LinFx
     /// </summary>
     public static class Check
     {
-        public static T NotNull<T>(T value, string paramName)
+        public static T NotNull<T>(T value, string parameterName)
         {
             if (value == null)
-                throw new ArgumentNullException(paramName);
+                throw new ArgumentNullException(parameterName);
             return value;
         }
 

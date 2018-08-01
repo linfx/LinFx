@@ -7,7 +7,7 @@
         /// </summary>
         public virtual TPrimaryKey Id { get; set; }
 
-        /// <inheritdoc/>
+        // <inheritdoc/>
         //public override bool Equals(object obj)
         //{
         //    if (obj == null || !(obj is Entity<TPrimaryKey>))

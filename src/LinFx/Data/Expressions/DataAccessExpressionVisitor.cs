@@ -12,7 +12,6 @@ namespace LinFx.Data.Expressions
 	///     DapperExtension's predicate system
 	/// </summary>
 	/// <typeparam name="TEntity">The type of the entity.</typeparam>
-	/// <typeparam name="TPrimaryKey">The type of the primary key.</typeparam>
 	/// <seealso cref="System.Linq.Expressions.ExpressionVisitor" />
 	internal class DataAccessExpressionVisitor<TEntity> : ExpressionVisitor where TEntity : class
     {

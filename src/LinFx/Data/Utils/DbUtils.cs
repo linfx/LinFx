@@ -1,5 +1,4 @@
-﻿using LinFx.Data;
-using LinFx.Extensions.DapperExtensions;
+﻿using LinFx.Extensions.DapperExtensions;
 using LinFx.Extensions.DapperExtensions.Mapper;
 using LinFx.Extensions.DapperExtensions.Sql;
 using LinFx.Data.Provider;

@@ -63,7 +63,6 @@ namespace LinFx.Extensions.DapperExtensions.Mapper
         /// <summary>
         /// Fluently sets the key type of the property.
         /// </summary>
-        /// <param name="columnName">The column name as it exists in the database.</param>
         public PropertyMap Key(KeyType keyType)
         {
             if (Ignored)

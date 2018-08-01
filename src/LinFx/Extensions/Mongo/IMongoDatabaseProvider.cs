@@ -3,7 +3,7 @@
 namespace LinFx.Extensions.Mongo
 {
     /// <summary>
-    /// Defines interface to obtain a <see cref="MongoDatabase"/> object.
+    /// Defines interface to obtain a <see cref="MongoDatabaseBase"/> object.
     /// </summary>
     public interface IMongoDatabaseProvider
     {

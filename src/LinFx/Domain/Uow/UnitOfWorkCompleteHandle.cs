@@ -21,12 +21,12 @@ namespace LinFx.Domain.Uow
     {
         public const string DidNotCallCompleteMethodExceptionMessage = "Did not call Complete method of a unit of work.";
 
-        private volatile bool _isCompleteCalled;
+        //private volatile bool _isCompleteCalled = false;
         private volatile bool _isDisposed;
 
         public void Complete()
         {
-            _isCompleteCalled = true;
+            //_isCompleteCalled = true;
         }
 
 		public Task CompleteAsync()

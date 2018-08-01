@@ -44,15 +44,14 @@ namespace LinFx.Domain.Uow
 			//get { return _filters.ToImmutableList(); }
 			get { return _filters; }
 		}
-		private readonly List<DataFilterConfiguration> _filters;
+        readonly List<DataFilterConfiguration> _filters = null;
 		/// <summary>
 		/// Gets default UOW options.
 		/// </summary>
 		protected IUnitOfWorkDefaultOptions DefaultOptions { get; }
-		/// <summary>
-		/// Gets the connection string resolver.
-		/// </summary>
+
 		//protected IConnectionStringResolver ConnectionStringResolver { get; }
+
 		/// <summary>
 		/// Gets a value indicates that this unit of work is disposed or not.
 		/// </summary>

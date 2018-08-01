@@ -8,7 +8,6 @@ namespace LinFx.Utils
         /// <summary>
         /// 16进制原码字符串转字节数组
         /// </summary>
-        /// <param name="data"></param>
         /// <returns></returns>
         public static byte[] HexStringToBytes(this string hexString)
         {

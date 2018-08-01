@@ -10,8 +10,6 @@ namespace Microsoft.Extensions.DependencyInjection
             var options = new EventBusOptions();
             configAction?.Invoke(options);
             builder.Services.AddSingleton<IEventBus, EventBus>();
-
-
             return builder;
         }
     }

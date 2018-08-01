@@ -9,7 +9,7 @@
     }
 
     /// <summary>
-    /// Defines an interface of a class that handles events of type <see cref="TEvent"/>.
+    /// Defines an interface of a class that handles events.
     /// </summary>
     /// <typeparam name="TEvent">Event type to handle</typeparam>
     public interface IEventHandler<in TEvent> : IEventHandler

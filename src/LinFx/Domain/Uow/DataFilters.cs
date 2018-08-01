@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Domain.Entities;
+using System.Collections.Generic;
 
 namespace LinFx.Domain.Uow
 {

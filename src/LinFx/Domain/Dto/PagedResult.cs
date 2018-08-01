@@ -30,9 +30,7 @@ namespace LinFx.Domain.Dto
         /// <summary>
         /// Creates a new <see cref="PagedResultDto{T}"/> object.
         /// </summary>
-        public PagedResultDto()
-        {
-        }
+        public PagedResultDto() { }
 
         /// <summary>
         /// Creates a new <see cref="PagedResultDto{T}"/> object.

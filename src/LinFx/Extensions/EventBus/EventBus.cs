@@ -11,11 +11,11 @@ namespace LinFx.Extensions.EventBus
 {
     public class EventBus : IEventBus
     {
-        readonly IServiceCollection _services;
+        //readonly IServiceCollection _services;
         readonly IServiceProvider _provider;
-        readonly ILogger _logger;
 
-        public EventBus(IServiceProvider provider)
+        public EventBus(
+            IServiceProvider provider)
         {
             _provider = provider;
             //_services = services;
@@ -28,7 +28,7 @@ namespace LinFx.Extensions.EventBus
 
         public void Register<TEvent>(IEventHandler<TEvent> handler) where TEvent : IEvent
         {
-            _services.Add(new ServiceDescriptor(handler.GetType(), handler));
+            //_services.Add(new ServiceDescriptor(handler.GetType(), handler));
         }
 
         public void Register<TEvent, THandler>()
@@ -40,7 +40,7 @@ namespace LinFx.Extensions.EventBus
 
         public void Register(Type eventType, IEventHandler handler)
         {
-            _services.AddTransient(eventType, handler.GetType());
+            //_services.AddTransient(eventType, handler.GetType());
         }
 
         public void Trigger<TEvent>(TEvent eventData) where TEvent : IEvent
@@ -106,9 +106,9 @@ namespace LinFx.Extensions.EventBus
                 {
                     Trigger(eventSource, eventData);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    _logger.LogError(ex, ex.Message);
+                    //_logger.LogError(ex, ex.Message);
                 }
             });
         }
