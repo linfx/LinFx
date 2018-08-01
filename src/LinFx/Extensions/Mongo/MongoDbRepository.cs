@@ -2,13 +2,13 @@
 using MongoDB.Driver;
 using LinFx.Domain.Entities;
 
-namespace LinFx.Data.MongoDB
+namespace LinFx.Extensions.Mongo
 {
-    public class MongoDbRepository<TEntity> where TEntity : class, IEntity
+    public class MongoDBRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly IMongoDatabaseProvider _provider;
 
-        public MongoDbRepository(IMongoDatabaseProvider databaseProvider)
+        public MongoDBRepository(IMongoDatabaseProvider databaseProvider)
         {
             _provider = databaseProvider;
         }

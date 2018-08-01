@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
+using StackExchange.Redis;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -27,6 +28,13 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 throw new ArgumentNullException(nameof(setupAction));
             }
+
+            var options = new RedisCacheOptions();
+            setupAction?.Invoke(options);
+
+            //IDatabase
+            var connection = ConnectionMultiplexer.Connect(options.Configuration);
+            builder.Services.Add(ServiceDescriptor.Singleton(connection.GetDatabase()));
 
             builder.Services.Configure(setupAction);
             builder.Services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());

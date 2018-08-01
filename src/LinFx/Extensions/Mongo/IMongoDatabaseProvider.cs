@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace LinFx.Data.MongoDB
+namespace LinFx.Extensions.Mongo
 {
     /// <summary>
     /// Defines interface to obtain a <see cref="MongoDatabase"/> object.

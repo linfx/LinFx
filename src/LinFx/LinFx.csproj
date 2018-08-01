@@ -14,23 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Domain\Policies\**" />
-    <Compile Remove="Extensions\EventBus\Exceptions\**" />
-    <EmbeddedResource Remove="Domain\Policies\**" />
-    <EmbeddedResource Remove="Extensions\EventBus\Exceptions\**" />
-    <None Remove="Domain\Policies\**" />
-    <None Remove="Extensions\EventBus\Exceptions\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Data\SqlMapperExtensions.cs" />
-    <Compile Remove="Extensions\Caching\Redis\RedisCache.cs" />
-    <Compile Remove="Extensions\Caching\Redis\RedisCacheExtensions.cs" />
-    <Compile Remove="Extensions\Caching\Redis\RedisCacheOptions.cs" />
-    <Compile Remove="Extensions\Caching\Redis\RedisExtensions.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="App.Metrics" Version="2.1.0" />
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.2" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
@@ -42,6 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="NEST" Version="6.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Npgsql" Version="4.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.1" />

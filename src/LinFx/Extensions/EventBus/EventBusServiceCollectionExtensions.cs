@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.EventBus;
 using System;
 
-namespace LinFx.Extensions.EventBus
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EventBusServiceCollectionExtensions
     {

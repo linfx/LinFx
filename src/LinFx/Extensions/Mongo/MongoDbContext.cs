@@ -1,18 +1,45 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Data.MongoDB
+namespace LinFx.Extensions.Mongo
 {
     public class MongoDbContext : IDisposable
     {
-        private readonly IMongoDatabase _db;
+        private IMongoDatabase _db;
+        private volatile IMongoClient _connection;
 
-        public MongoDbContext(IMongoDatabase db)
+        readonly MongoDbOptions _options;
+        readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
+
+        public MongoDbContext(IOptions<MongoDbOptions> options)
         {
-            _db = db;
+            _options = options.Value;
+        }
+
+        private void Connect()
+        {
+            if (_db != null)
+                return;
+
+            _connectionLock.Wait();
+
+            try
+            {
+                if(_db == null)
+                {
+                    _connection = new MongoClient(_options.Configuration);
+                    _db = _connection.GetDatabase(_options.Name);
+                }
+            }
+            finally
+            {
+                _connectionLock.Release();
+            }
         }
 
         public IMongoCollection<T> GetCollection<T>()
@@ -24,6 +51,8 @@ namespace LinFx.Data.MongoDB
                 name = tableAttrs[0].Name;
             else
                 name = type.Name;
+
+            Connect();
 
             return _db.GetCollection<T>(name);
         }
@@ -48,6 +77,10 @@ namespace LinFx.Data.MongoDB
 
         public void Dispose()
         {
+            if (_connection != null)
+            {
+                _connection = null;
+            }
         }
     }
 }
