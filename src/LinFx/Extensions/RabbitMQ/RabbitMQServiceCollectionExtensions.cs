@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class RabbitMQServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddRabbitMQContext(this ILinFxBuilder builder, Action<RabbitMQOptions> optionsAction)
+        public static ILinFxBuilder AddRabbitMQ(this ILinFxBuilder builder, Action<RabbitMQOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));
