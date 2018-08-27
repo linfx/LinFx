@@ -95,9 +95,11 @@ namespace LinFx.Utils
             {
                 //rsa.FromLvccXmlString(publickey);
 
-                RSAParameters p = new RSAParameters();
-                p.Exponent = Encoding.UTF8.GetBytes("1234567890123456");
-                p.Modulus = Convert.FromBase64String(publickey);
+                RSAParameters p = new RSAParameters
+                {
+                    Exponent = Encoding.UTF8.GetBytes("1234567890123456"),
+                    Modulus = Convert.FromBase64String(publickey)
+                };
                 rsa.ImportParameters(p);
 
                 var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.Pkcs1);

@@ -32,7 +32,7 @@ namespace LinFx.Test.Utils
             //String strEnc = des.getEncString(mingwen);
             //System.out.println("加密后的密文：" + strEnc);
 
-            var r = LinFx.Utils.EncryptUtils.AESDecrypt("AC574A2CDCD98EA00239C2D694465648", "star");
+            var r = EncryptUtils.AESDecrypt("AC574A2CDCD98EA00239C2D694465648", "star");
         }
     }
 }
