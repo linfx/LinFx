@@ -4,10 +4,26 @@ namespace LinFx.Utils
 {
     public static class MoneyUtils
     {
+        /// <summary>
+        /// 元转分
+        /// </summary>
+        /// <param name="yuan"></param>
+        /// <returns></returns>
         public static string ToFen(decimal yuan)
         {
             int result = (int)(yuan * 100);
             return result.ToString();
+        }
+
+        /// <summary>
+        /// 分转元
+        /// </summary>
+        /// <param name="fen"></param>
+        /// <returns></returns>
+        public static double ToYuan(int fen)
+        {
+            int result = fen / 100;
+            return result;
         }
 
         /// <summary>
