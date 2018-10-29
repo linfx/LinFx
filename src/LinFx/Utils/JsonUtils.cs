@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.ComponentModel;
 using System.Text;
 
 namespace LinFx.Utils
@@ -15,7 +16,7 @@ namespace LinFx.Utils
 
         public static byte[] ToBytes<T>(T value, bool camelCase = false, bool indented = false)
         {
-            var s = ToJson(value);
+            var s = ToJson(value, camelCase, indented);
             return Encoding.UTF8.GetBytes(s);
         }
 
@@ -29,7 +30,8 @@ namespace LinFx.Utils
             if (indented)
                 options.Formatting = Formatting.Indented;
 
-            //options.Converters.Insert(0, new DateTimeConverter());
+            //DateTimeFormat
+            options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd hh:mm:ss" });
 
             return JsonConvert.SerializeObject(value, options);
         }
