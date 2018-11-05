@@ -31,7 +31,7 @@ namespace LinFx.Utils
                 options.Formatting = Formatting.Indented;
 
             //DateTimeFormat
-            options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd hh:mm:ss" });
+            options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
 
             return JsonConvert.SerializeObject(value, options);
         }

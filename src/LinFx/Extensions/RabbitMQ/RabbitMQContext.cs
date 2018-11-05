@@ -6,7 +6,7 @@ namespace LinFx.Extensions.RabbitMQ
 {
     public class RabbitMQContext
     {
-        private volatile IConnection _connection;
+        private static IConnection _connection;
 
         readonly RabbitMQOptions _options;
         readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
@@ -19,7 +19,6 @@ namespace LinFx.Extensions.RabbitMQ
         public void Connect()
         {
             _connectionLock.Wait();
-
             try
             {
                 var factory = new ConnectionFactory
