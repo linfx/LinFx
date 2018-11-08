@@ -1,5 +1,7 @@
 ﻿using LinFx;
 using LinFx.Extensions.RabbitMQ;
+using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -11,8 +13,21 @@ namespace Microsoft.Extensions.DependencyInjection
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));
 
-            builder.Services.Configure(optionsAction);
-            builder.Services.AddSingleton<RabbitMQContext>();
+            var options = new RabbitMQOptions();
+            optionsAction?.Invoke(options);
+
+            builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            {
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                var factory = new ConnectionFactory
+                {
+                    UserName = options.UserName,
+                    Password = options.Password,
+                    HostName = options.Host,
+                };
+
+                return new DefaultRabbitMQPersistentConnection(factory, logger);
+            });
 
             return builder;
         }
