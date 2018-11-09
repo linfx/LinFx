@@ -1,10 +1,11 @@
 ﻿using LinFx.Extensions.EventBus.Events;
+using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.Abstractions
 {
     public interface IEventBus
     {
-        void Publish(IntegrationEvent @event);
+        Task PublishAsync(IntegrationEvent evt);
 
         void Subscribe<T, TH>()
             where T : IntegrationEvent

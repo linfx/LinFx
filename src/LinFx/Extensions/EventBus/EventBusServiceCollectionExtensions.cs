@@ -27,7 +27,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iLifetimeScope, options.SubscriptionClientName, options.EventBusRetryCount);
+                return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iLifetimeScope,
+                    options.ProcessExchangeName,
+                    options.ProcessQueueName, options.EventBusRetryCount);
             });
 
             return builder;

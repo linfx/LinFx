@@ -18,8 +18,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
-        const string BROKER_NAME = "linfx_event_bus";
-
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
@@ -28,18 +26,21 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         private readonly int _retryCount;
 
         private IModel _consumerChannel;
+        private readonly string _brokerName;
         private string _queueName;
 
         public EventBusRabbitMQ(
             ILogger<EventBusRabbitMQ> logger,
             IRabbitMQPersistentConnection persistentConnection,
             IEventBusSubscriptionsManager subsManager, 
-            ILifetimeScope autofac, 
+            ILifetimeScope autofac,
+            string brokerName = default,
             string queueName = default, int retryCount = 5)
         {
-            _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
+            _brokerName = brokerName;
             _queueName = queueName;
             _consumerChannel = CreateConsumerChannel();
             _autofac = autofac;
@@ -57,7 +58,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.QueueUnbind(queue: _queueName,
-                    exchange: BROKER_NAME,
+                    exchange: _brokerName,
                     routingKey: eventName);
 
                 if (_subsManager.IsEmpty)
@@ -68,7 +69,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             }
         }
 
-        public void Publish(IntegrationEvent @event)
+        public Task PublishAsync(IntegrationEvent evt)
         {
             if (!_persistentConnection.IsConnected)
             {
@@ -84,13 +85,12 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             using (var channel = _persistentConnection.CreateModel())
             {
-                var eventName = @event.GetType()
-                    .Name;
+                var eventName = evt.GetType().Name;
 
-                channel.ExchangeDeclare(exchange: BROKER_NAME,
+                channel.ExchangeDeclare(exchange: _brokerName,
                                     type: "direct");
 
-                var message = JsonConvert.SerializeObject(@event);
+                var message = JsonConvert.SerializeObject(evt);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>
@@ -98,12 +98,14 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                     var properties = channel.CreateBasicProperties();
                     properties.DeliveryMode = 2; // persistent
 
-                    channel.BasicPublish(exchange: BROKER_NAME,
+                    channel.BasicPublish(exchange: _brokerName,
                                      routingKey: eventName,
                                      mandatory: true,
                                      basicProperties: properties,
                                      body: body);
                 });
+
+                return Task.CompletedTask;
             }
         }
 
@@ -136,7 +138,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 using (var channel = _persistentConnection.CreateModel())
                 {
                     channel.QueueBind(queue: _queueName,
-                                      exchange: BROKER_NAME,
+                                      exchange: _brokerName,
                                       routingKey: eventName);
                 }
             }
@@ -176,7 +178,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             //channel.BasicQos(0, 1, false);
 
-            channel.ExchangeDeclare(exchange: BROKER_NAME,
+            channel.ExchangeDeclare(exchange: _brokerName,
                                  type: "direct");
 
             channel.QueueDeclare(queue: _queueName,
@@ -231,7 +233,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                             var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
                             var handler = scope.ResolveOptional(subscription.HandlerType);
                             var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                            await (Task)concreteType.GetMethod("HandleAsync").Invoke(handler, new object[] { integrationEvent });
                         }
                     }
                 }

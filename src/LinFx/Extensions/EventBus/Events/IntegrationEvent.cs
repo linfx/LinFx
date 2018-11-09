@@ -1,4 +1,5 @@
 ﻿using System;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.EventBus.Events
 {
@@ -6,11 +7,12 @@ namespace LinFx.Extensions.EventBus.Events
     {
         public IntegrationEvent()
         {
-            Id = Guid.NewGuid();
-            CreationDate = DateTime.UtcNow;
+            Id = IDUtils.CreateNewId();
+            Timestamp = DateTime.UtcNow.ToUnixTimeSeconds();
         }
 
-        public Guid Id { get; }
-        public DateTime CreationDate { get; }
+        public long Id { get; }
+
+        public long Timestamp { get; }
     }
 }
