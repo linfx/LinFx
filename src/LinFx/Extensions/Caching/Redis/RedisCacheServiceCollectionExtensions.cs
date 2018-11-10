@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Redis;
-using StackExchange.Redis;
+﻿using Microsoft.Extensions.Caching.Redis;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -19,25 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The <see cref="ILinFxBuilder"/> so that additional calls can be chained.</returns>
         public static ILinFxBuilder AddDistributedRedisCache(this ILinFxBuilder builder, Action<RedisCacheOptions> setupAction)
         {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
-
-            if (setupAction == null)
-            {
-                throw new ArgumentNullException(nameof(setupAction));
-            }
-
-            var options = new RedisCacheOptions();
-            setupAction?.Invoke(options);
-
-            //IDatabase
-            var connection = ConnectionMultiplexer.Connect(options.Configuration);
-            builder.Services.Add(ServiceDescriptor.Singleton(connection.GetDatabase()));
-
-            builder.Services.Configure(setupAction);
-            builder.Services.Add(ServiceDescriptor.Singleton<IDistributedCache, RedisCache>());
+            builder.Services.AddDistributedRedisCache(setupAction);
 
             return builder;
         }

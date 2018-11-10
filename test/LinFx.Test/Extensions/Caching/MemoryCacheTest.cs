@@ -11,7 +11,9 @@ namespace LinFx.Test.Caching
         public void MemoryCacheGetAndSetTests()
         {
             var services = new ServiceCollection();
-            services.AddMemoryCache();
+            services.AddLinFx()
+                .AddDistributedMemoryCache();
+
             var container = services.BuildServiceProvider();
             var _cache = container.GetService<IMemoryCache>();
 

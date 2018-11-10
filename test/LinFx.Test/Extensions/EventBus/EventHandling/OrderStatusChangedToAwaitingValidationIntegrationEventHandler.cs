@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Test.Extensions.EventBus.Events;
+using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Test.Extensions.EventBus.EventHandling
@@ -7,9 +8,9 @@ namespace LinFx.Test.Extensions.EventBus.EventHandling
     public class OrderStatusChangedToAwaitingValidationIntegrationEventHandler :
         IIntegrationEventHandler<OrderStatusChangedToAwaitingValidationIntegrationEvent>
     {
-        public Task Handle(OrderStatusChangedToAwaitingValidationIntegrationEvent command)
+        public Task HandleAsync(OrderStatusChangedToAwaitingValidationIntegrationEvent command)
         {
-            return Task.CompletedTask;
+            throw new NotImplementedException();
         }
     }
 }
