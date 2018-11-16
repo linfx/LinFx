@@ -17,7 +17,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="options"></param>
         /// <param name="token">Optional. A <see cref="CancellationToken" /> to cancel the operation.</param>
         /// <returns>A task that gets the string value from the stored cache key.</returns>
-        public static async Task<byte[]> GetAsync(this IDistributedCache cache, string key, Func<Task<byte[]>> func, DistributedCacheEntryOptions options, CancellationToken token = default(CancellationToken))
+        public static async Task<byte[]> GetAsync(this IDistributedCache cache, string key, Func<Task<byte[]>> func, DistributedCacheEntryOptions options, CancellationToken token = default)
         {
             var value = await cache.GetAsync(key, token);
             if (value == null)
@@ -28,7 +28,7 @@ namespace LinFx.Extensions.Caching
             return value;
         }
 
-        public static async Task<T> GetAsync<T>(this IDistributedCache cache, string key, Func<Task<T>> func, DistributedCacheEntryOptions options, CancellationToken token = default(CancellationToken))
+        public static async Task<T> GetAsync<T>(this IDistributedCache cache, string key, Func<Task<T>> func, DistributedCacheEntryOptions options, CancellationToken token = default)
         {
             var tmp = await cache.GetAsync(key, token);
             if (tmp != null)
@@ -36,7 +36,7 @@ namespace LinFx.Extensions.Caching
 
             var item = await func.Invoke();
             if (item == null)
-                return default(T);
+                return default;
 
             await cache.SetAsync(key, JsonUtils.ToBytes(item), options, token);
             return item;

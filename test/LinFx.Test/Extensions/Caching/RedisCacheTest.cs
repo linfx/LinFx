@@ -17,6 +17,7 @@ namespace LinFx.Test.Caching
                     options.Configuration = "10.0.1.112:6379,password=redis";
                     options.InstanceName = "linfx_test:";
                 });
+
             var container = services.BuildServiceProvider();
             _cache = container.GetService<IDistributedCache>();
         }
@@ -54,13 +55,5 @@ namespace LinFx.Test.Caching
             result = _cache.Get(key2);
             Assert.Null(result);
         }
-
-        //[Fact]
-        //public async Task StringIncrementAsync()
-        //{
-        //    string key = "inv";
-        //    var val1 = _cache.Get(key);
-        //    //var id = await _cache.StringIncrementAsync(key);
-        //}
     }
 }
