@@ -36,11 +36,11 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             EventBusOptions options)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _options = options;
+            _autofac = autofac;
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
             _consumerChannel = CreateConsumerChannel();
-            _autofac = autofac;
-            _options = options;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
