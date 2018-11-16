@@ -84,7 +84,9 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 var eventName = evt.GetType().Name;
 
                 channel.ExchangeDeclare(exchange: _options.BrokerName,
-                                    type: "direct");
+                                    type: "direct", 
+                                    durable: _options.Durable,
+                                    autoDelete: _options.AutoDelete);
 
                 var message = JsonConvert.SerializeObject(evt);
                 var body = Encoding.UTF8.GetBytes(message);
