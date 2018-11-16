@@ -2,10 +2,14 @@
 {
     public class EventBusOptions
     {
-        public string ProcessExchangeName { get; set; }
+        public string BrokerName { get; set; }
 
-        public string ProcessQueueName { get; set; }
+        public string QueueName { get; set; }
 
-        public int EventBusRetryCount { get; set; } = 5;
+        public int RetryCount { get; set; } = 5;
+
+        public bool Durable { get; set; }
+
+        public bool AutoDelete { get; set; }
     }
 }

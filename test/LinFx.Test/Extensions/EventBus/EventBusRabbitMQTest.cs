@@ -26,7 +26,7 @@ namespace LinFx.Test.Extensions.EventBus
                 })
                 .AddEventBus(options =>
                 {
-                    options.SubscriptionClientName = "LinFx.Test";
+                    options.BrokerName = "LinFx.Test";
                 });
 
             //services
@@ -52,7 +52,7 @@ namespace LinFx.Test.Extensions.EventBus
             {
             });
 
-            _eventBus.Publish(evt);
+            _eventBus.PublishAsync(evt);
 
             Assert.True(true);
         }
