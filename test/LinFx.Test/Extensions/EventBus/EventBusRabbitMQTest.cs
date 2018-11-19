@@ -26,7 +26,9 @@ namespace LinFx.Test.Extensions.EventBus
                 })
                 .AddEventBus(options =>
                 {
+                    options.Durable = true;
                     options.BrokerName = "LinFx.Test";
+                    options.QueueName = "linfx_event_queue";
                 });
 
             //services

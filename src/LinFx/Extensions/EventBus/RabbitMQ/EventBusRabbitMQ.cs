@@ -174,10 +174,15 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             var channel = _persistentConnection.CreateModel();
 
-            //channel.BasicQos(0, 1, false);
+            if (_options.PrefetchCount > 0)
+            {
+                channel.BasicQos(0, 1, false);
+            }
 
             channel.ExchangeDeclare(exchange: _options.BrokerName,
-                                 type: "direct");
+                                type: "direct",
+                                durable: _options.Durable,
+                                autoDelete: _options.AutoDelete);
 
             channel.QueueDeclare(queue: _options.QueueName,
                                  durable: true,
