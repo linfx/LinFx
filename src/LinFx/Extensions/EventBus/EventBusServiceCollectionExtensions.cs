@@ -1,5 +1,4 @@
-﻿using Autofac;
-using LinFx;
+﻿using LinFx;
 using LinFx.Extensions.EventBus;
 using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.EventBus.RabbitMQ;
@@ -24,10 +23,11 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
                 var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                //var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                var iServiceScopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iLifetimeScope, options);
+                return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iServiceScopeFactory, options);
             });
 
             return builder;

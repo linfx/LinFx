@@ -1,7 +1,7 @@
-﻿using Autofac;
-using LinFx.Extensions.EventBus.Abstractions;
+﻿using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.EventBus.Events;
 using LinFx.Extensions.RabbitMQ;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -21,9 +21,8 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
-        private readonly ILifetimeScope _autofac;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly EventBusOptions _options;
-        private readonly string AUTOFAC_SCOPE_NAME = "linfx_event_bus";
 
         private IModel _consumerChannel;
 
@@ -32,12 +31,12 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             ILogger<EventBusRabbitMQ> logger,
             IRabbitMQPersistentConnection persistentConnection,
             IEventBusSubscriptionsManager subsManager, 
-            ILifetimeScope autofac,
+            IServiceScopeFactory serviceScopeFactory,
             EventBusOptions options)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _options = options;
-            _autofac = autofac;
+            _serviceScopeFactory = serviceScopeFactory;
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
             _consumerChannel = CreateConsumerChannel();
@@ -219,14 +218,14 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
-                using (var scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME))
+                using (var scope = _serviceScopeFactory.CreateScope())
                 {
                     var subscriptions = _subsManager.GetHandlersForEvent(eventName);
                     foreach (var subscription in subscriptions)
                     {
                         if (subscription.IsDynamic)
                         {
-                            var handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
+                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType) as IDynamicIntegrationEventHandler;
                             dynamic eventData = JObject.Parse(message);
                             await handler.Handle(eventData);
                         }
@@ -234,7 +233,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                         {
                             var eventType = _subsManager.GetEventTypeByName(eventName);
                             var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                            var handler = scope.ResolveOptional(subscription.HandlerType);
+                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
                             var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
                             await (Task)concreteType.GetMethod("HandleAsync").Invoke(handler, new object[] { integrationEvent });
                         }

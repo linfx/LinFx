@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using LinFx.Extensions.EventBus.Abstractions;
+﻿using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Test.Extensions.EventBus.EventHandling;
 using LinFx.Test.Extensions.EventBus.Events;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,9 +33,7 @@ namespace LinFx.Test.Extensions.EventBus
             services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             //services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
 
-            var container = new ContainerBuilder();
-            container.Populate(services);
-            var applicationServices =  new AutofacServiceProvider(container.Build());
+            var applicationServices = services.BuildServiceProvider();
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
@@ -53,7 +49,6 @@ namespace LinFx.Test.Extensions.EventBus
             var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
             {
             });
-
             _eventBus.PublishAsync(evt);
 
             Assert.True(true);
