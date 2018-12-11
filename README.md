@@ -58,7 +58,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ``````
 
-#### EventBus
+### EventBus
 
 ``` cs
 
