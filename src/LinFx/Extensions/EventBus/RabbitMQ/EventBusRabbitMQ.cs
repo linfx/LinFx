@@ -23,9 +23,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly EventBusOptions _options;
-
         private IModel _consumerChannel;
-
 
         public EventBusRabbitMQ(
             ILogger<EventBusRabbitMQ> logger,
@@ -173,11 +171,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             var channel = _persistentConnection.CreateModel();
 
-            if (_options.PrefetchCount > 0)
-            {
-                channel.BasicQos(0, 1, false);
-            }
-
             channel.ExchangeDeclare(exchange: _options.BrokerName,
                                 type: "direct",
                                 durable: _options.Durable,
@@ -201,6 +194,8 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 channel.BasicAck(ea.DeliveryTag, multiple: false);
             };
 
+
+            channel.BasicQos(0, (ushort)_options.PrefetchCount, false);
             channel.BasicConsume(queue: _options.QueueName,
                                  autoAck: false,
                                  consumer: consumer);

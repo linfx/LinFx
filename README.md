@@ -28,6 +28,11 @@ Caching、DapperExtensions、Elasticsearch、EventBus、Metrics、Mongo、Rabbit
 PM> Install-Package LinFx
 ````
 
+### 开发环境
+
+1. Visual Studio 15.3+
+2. .NET Core SDK 2.2+
+
 ### Samples
 
 ``` cs

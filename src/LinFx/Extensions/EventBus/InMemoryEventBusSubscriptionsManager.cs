@@ -1,8 +1,8 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Extensions.EventBus.Events;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using LinFx.Extensions.EventBus.Events;
+using LinFx.Extensions.EventBus.Abstractions;
 
 namespace LinFx.Extensions.EventBus
 {
@@ -10,7 +10,6 @@ namespace LinFx.Extensions.EventBus
     {
         private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         private readonly List<Type> _eventTypes;
-
         public event EventHandler<string> OnEventRemoved;
 
         public InMemoryEventBusSubscriptionsManager()

@@ -1,10 +1,13 @@
 ﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Test.Extensions.EventBus.EventHandling;
 using LinFx.Test.Extensions.EventBus.Events;
+using LinFx.Utils;
+using LinFx.Extensions.EventBus.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
+using LinFx.Test.Extensions.EventBus.EventHandling;
+using System.Collections.Generic;
+using System;
 
 namespace LinFx.Test.Extensions.EventBus
 {
@@ -15,18 +18,19 @@ namespace LinFx.Test.Extensions.EventBus
         public EventBusRabbitMQTest()
         {
             var services = new ServiceCollection();
+
             services.AddLinFx()
-                .AddRabbitMQ(options =>
-                {
-                    options.Host = "14.21.34.85";
-                    options.UserName = "admin";
-                    options.Password = "admin.123456";
-                })
                 .AddEventBus(options =>
                 {
                     options.Durable = true;
-                    options.BrokerName = "LinFx.Test";
-                    options.QueueName = "linfx_event_queue";
+                    options.BrokerName = "tc_cloud_event_bus";
+                    options.QueueName = "tc_cloud_process_queue";
+                    options.ConfigureEventBus = (fx, builder) => builder.UseRabbitMQ(fx, x =>
+                    {
+                        x.Host = "14.21.34.85";
+                        x.UserName = "admin";
+                        x.Password = "admin.123456";
+                    });
                 });
 
             //services
@@ -43,15 +47,24 @@ namespace LinFx.Test.Extensions.EventBus
 
 
         [Fact]
-        public void Should_Call_Handler_On_Event_With_Correct_Source()
+        public async Task Should_Call_Handler_On_Event_With_Correct_SourceAsync()
         {
             var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
             var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
             {
             });
-            _eventBus.PublishAsync(evt);
+            await _eventBus.PublishAsync(evt);
 
-            Assert.True(true);
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    await _eventBus.PublishAsync(new ClientCreateIntergrationEvent
+            //    {
+            //        ClientId = IDUtils.CreateNewId().ToString(),
+            //        ClientSecrets = new[] { "191d437f0cc3463b85669f2b570cdc21" },
+            //        AllowedGrantTypes = new[] { "client_credentials" },
+            //        AllowedScopes = new[] { "api3.device" }
+            //    });
+            //}
         }
     }
 }

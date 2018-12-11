@@ -1,10 +1,6 @@
-﻿using LinFx;
+﻿using System;
+using LinFx;
 using LinFx.Extensions.EventBus;
-using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Extensions.EventBus.RabbitMQ;
-using LinFx.Extensions.RabbitMQ;
-using Microsoft.Extensions.Logging;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -18,17 +14,9 @@ namespace Microsoft.Extensions.DependencyInjection
             var options = new EventBusOptions();
             optionsAction?.Invoke(options);
 
-            builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
-            {
-                var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                //var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                var iServiceScopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
-                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+            options.ConfigureEventBus?.Invoke(builder, new EventBusOptionsBuilder(options));
 
-                return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iServiceScopeFactory, options);
-            });
+            builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
             return builder;
         }

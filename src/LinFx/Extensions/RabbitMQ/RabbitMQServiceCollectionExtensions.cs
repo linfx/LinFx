@@ -25,7 +25,6 @@ namespace Microsoft.Extensions.DependencyInjection
                     Password = options.Password,
                     HostName = options.Host,
                 };
-
                 return new DefaultRabbitMQPersistentConnection(factory, logger);
             });
 

@@ -15,10 +15,9 @@ namespace LinFx.Extensions.RabbitMQ
         private readonly IConnectionFactory _connectionFactory;
         private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
         private readonly int _retryCount;
-        IConnection _connection;
-        bool _disposed;
-
-        object sync_root = new object();
+        private IConnection _connection;
+        private bool _disposed;
+        private readonly object sync_root = new object();
 
         public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultRabbitMQPersistentConnection> logger, int retryCount = 5)
         {
