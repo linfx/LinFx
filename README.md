@@ -20,15 +20,15 @@ Caching、DapperExtensions、Elasticsearch、EventBus、Metrics、Mongo、Rabbit
 
 ### 知识点
 
-领域驱动设计（Domain Driven Design (Layers and Domain Model Pattern)
-命令查询职责分离（CQRS：Command Query Responsibility Segregation）
-领域通知 （Domain Notification）
-领域驱动 （Domain Events）
-事件驱动架构 (EDA)
-事件回溯 （Event Sourcing）
-最终一致性 （Eventually Consistent）
-工作单元模式 （Unit of Work ）
-泛型仓储 （Repository and Generic Repository）
+1. 领域驱动设计（Domain Driven Design (Layers and Domain Model Pattern)
+2. 命令查询职责分离（CQRS：Command Query Responsibility Segregation）
+3. 领域通知 （Domain Notification）
+5. 领域驱动 （Domain Events）
+6. 事件驱动架构 (EDA)
+7. 事件回溯 （Event Sourcing）
+8. 最终一致性 （Eventually Consistent）
+9. 工作单元模式 （Unit of Work ）
+10. 泛型仓储 （Repository and Generic Repository）
 
 ### 设计规范
 
