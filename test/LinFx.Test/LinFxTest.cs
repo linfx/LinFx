@@ -11,7 +11,6 @@ namespace LinFx.Test
             var services = new ServiceCollection();
             services.AddLinFx();
             var container = services.BuildServiceProvider();
-            //container.GetService<>
         }
     }
 }

@@ -41,7 +41,7 @@ namespace LinFx.Test.Extensions.EventBus
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
-            _eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            //_eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             //eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         }
 
@@ -49,22 +49,19 @@ namespace LinFx.Test.Extensions.EventBus
         [Fact]
         public async Task Should_Call_Handler_On_Event_With_Correct_SourceAsync()
         {
-            var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
-            var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
-            {
-            });
-            await _eventBus.PublishAsync(evt);
-
-            //for (int i = 0; i < 2; i++)
+            //var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
+            //var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
             //{
-            //    await _eventBus.PublishAsync(new ClientCreateIntergrationEvent
-            //    {
-            //        ClientId = IDUtils.CreateNewId().ToString(),
-            //        ClientSecrets = new[] { "191d437f0cc3463b85669f2b570cdc21" },
-            //        AllowedGrantTypes = new[] { "client_credentials" },
-            //        AllowedScopes = new[] { "api3.device" }
-            //    });
-            //}
+            //});
+            //await _eventBus.PublishAsync(evt);
+
+            //await _eventBus.PublishAsync(new ClientCreateIntergrationEvent
+            //{
+            //    ClientId = IDUtils.CreateNewId().ToString(),
+            //    ClientSecrets = new[] { "191d437f0cc3463b85669f2b570cdc21" },
+            //    AllowedGrantTypes = new[] { "client_credentials" },
+            //    AllowedScopes = new[] { "api3.device" }
+            //});
         }
     }
 }

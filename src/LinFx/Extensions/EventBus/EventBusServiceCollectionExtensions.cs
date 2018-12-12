@@ -11,12 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));
 
+            builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
             var options = new EventBusOptions();
             optionsAction?.Invoke(options);
-
             options.ConfigureEventBus?.Invoke(builder, new EventBusOptionsBuilder(options));
-
-            builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
             return builder;
         }

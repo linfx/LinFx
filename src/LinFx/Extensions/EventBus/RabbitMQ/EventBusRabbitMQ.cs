@@ -188,10 +188,9 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             {
                 var eventName = ea.RoutingKey;
                 var message = Encoding.UTF8.GetString(ea.Body);
-
-                await ProcessEvent(eventName, message);
-
-                channel.BasicAck(ea.DeliveryTag, multiple: false);
+                var result = await ProcessEvent(eventName, message);
+                if(result)
+                    channel.BasicAck(ea.DeliveryTag, multiple: false);
             };
 
 
@@ -209,7 +208,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             return channel;
         }
 
-        private async Task ProcessEvent(string eventName, string message)
+        private async Task<bool> ProcessEvent(string eventName, string message)
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
@@ -233,8 +232,10 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                             await (Task)concreteType.GetMethod("HandleAsync").Invoke(handler, new object[] { integrationEvent });
                         }
                     }
+                    return true;
                 }
             }
+            return false;
         }
     }
 }
