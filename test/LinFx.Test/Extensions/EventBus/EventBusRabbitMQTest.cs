@@ -49,11 +49,11 @@ namespace LinFx.Test.Extensions.EventBus
         [Fact]
         public async Task Should_Call_Handler_On_Event_With_Correct_SourceAsync()
         {
-            //var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
-            //var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
-            //{
-            //});
-            //await _eventBus.PublishAsync(evt);
+            var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
+            var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
+            {
+            });
+            await _eventBus.PublishAsync(evt);
 
             //await _eventBus.PublishAsync(new ClientCreateIntergrationEvent
             //{
