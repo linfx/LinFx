@@ -18,6 +18,18 @@ Caching、DapperExtensions、Elasticsearch、EventBus、Metrics、Mongo、Rabbit
 6. 框架中每个组件都有基础实现，最简单时只需一个核心类库就能跑起来
 7. 遵循端口与适配器模式，框架组件适配多种第三方组件实现，可从单体架构到面向服务架构按需扩展
 
+### 知识点
+
+领域驱动设计（Domain Driven Design (Layers and Domain Model Pattern)
+命令查询职责分离（CQRS：Command Query Responsibility Segregation）
+领域通知 （Domain Notification）
+领域驱动 （Domain Events）
+事件驱动架构 (EDA)
+事件回溯 （Event Sourcing）
+最终一致性 （Eventually Consistent）
+工作单元模式 （Unit of Work ）
+泛型仓储 （Repository and Generic Repository）
+
 ### 设计规范
 
 1. 尽量使用.NET Standard和官方提供的类库，第三方类库设计成组件利用DI来按需组合。
