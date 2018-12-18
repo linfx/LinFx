@@ -24,20 +24,20 @@ namespace LinFx.Domain.Dto
     /// <summary>
     /// Implements <see cref="IPagedResult{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Type of the items in the <see cref="ListResultDto{T}.Items"/> list</typeparam>
-    public class PagedResultDto<T> : ListResultDto<T>, IPagedResult<T>
+    /// <typeparam name="T">Type of the items in the <see cref="ListResult{T}.Items"/> list</typeparam>
+    public class PagedInfo<T> : ListResult<T>, IPagedResult<T>
     {
         /// <summary>
-        /// Creates a new <see cref="PagedResultDto{T}"/> object.
+        /// Creates a new <see cref="PagedInfo{T}"/> object.
         /// </summary>
-        public PagedResultDto() { }
+        public PagedInfo() { }
 
         /// <summary>
-        /// Creates a new <see cref="PagedResultDto{T}"/> object.
+        /// Creates a new <see cref="PagedInfo{T}"/> object.
         /// </summary>
         /// <param name="totalCount">Total count of Items</param>
         /// <param name="items">List of items in current page</param>
-        public PagedResultDto(int totalCount, IReadOnlyList<T> items) : base(items)
+        public PagedInfo(int totalCount, IReadOnlyList<T> items) : base(items)
         {
             TotalCount = totalCount;
         }

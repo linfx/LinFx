@@ -18,22 +18,22 @@ namespace LinFx.Domain.Dto
     /// Implements <see cref="IListResult{T}"/>.
     /// </summary>
     /// <typeparam name="T">Type of the items in the <see cref="Items"/> list</typeparam>
-    public class ListResultDto<T> : IListResult<T>
+    public class ListResult<T> : IListResult<T>
     {
         private IReadOnlyList<T> _items;
 
         /// <summary>
-        /// Creates a new <see cref="ListResultDto{T}"/> object.
+        /// Creates a new <see cref="ListResult{T}"/> object.
         /// </summary>
-        public ListResultDto()
+        public ListResult()
         {
         }
 
         /// <summary>
-        /// Creates a new <see cref="ListResultDto{T}"/> object.
+        /// Creates a new <see cref="ListResult{T}"/> object.
         /// </summary>
         /// <param name="items">List of items</param>
-        public ListResultDto(IReadOnlyList<T> items)
+        public ListResult(IReadOnlyList<T> items)
         {
             Items = items;
         }
