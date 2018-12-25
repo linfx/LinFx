@@ -147,7 +147,7 @@ namespace LinFx.Test.Extensions.EventBus
 
 ```
 
-### EventBus
+### RedisCache
 
 ``` cs
 using Microsoft.Extensions.Caching.Distributed;
