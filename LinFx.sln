@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx", "src\LinFx\LinFx.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{F4E5371A-1577-43F1-B9AE-35074553A7BB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Web", "src\LinFx.Web\LinFx.Web.csproj", "{8DF7E606-C488-4B77-A70D-D6614240E72E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF7E606-C488-4B77-A70D-D6614240E72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF7E606-C488-4B77-A70D-D6614240E72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF7E606-C488-4B77-A70D-D6614240E72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF7E606-C488-4B77-A70D-D6614240E72E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
