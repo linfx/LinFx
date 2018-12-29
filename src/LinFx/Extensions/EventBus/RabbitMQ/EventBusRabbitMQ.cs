@@ -229,7 +229,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                             var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
                             var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
                             var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                            await (Task)concreteType.GetMethod("HandleAsync").Invoke(handler, new object[] { integrationEvent });
+                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
                         }
                     }
                     return true;
