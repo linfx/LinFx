@@ -1,16 +1,15 @@
 ﻿using LinFx.Extensions.DapperExtensions;
 using LinFx.Data.Utils;
 using LinFx.Domain.Entities;
-using LinFx.Domain.Uow;
 using System;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace LinFx.Data.Filters.Query
 {
-	public class SoftDeleteQueryFilter : IQueryFilter
+    public class SoftDeleteQueryFilter : IQueryFilter
     {
-        public string FilterName => DataFilters.SoftDelete;
+        //public string FilterName => DataFilters.SoftDelete;
+        public string FilterName => throw new NotImplementedException();
 
         public bool IsEnabled => false;
 

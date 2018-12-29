@@ -13,7 +13,7 @@ namespace LinFx.Data.Filters.Action
 	{
         //public ILinFxSession Session { get; set; } = new ClaimsLinFxSession(HttpContext.PrincipalAccessor);
 
-        public ICurrentUnitOfWorkProvider CurrentUnitOfWorkProvider { get; set; }
+        //public ICurrentUnitOfWorkProvider CurrentUnitOfWorkProvider { get; set; }
 
         protected virtual long GetAuditUserId()
         {

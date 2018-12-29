@@ -6,7 +6,7 @@ namespace LinFx.Extensions.EventBus.Abstractions
     public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
         where TIntegrationEvent : IntegrationEvent
     {
-        Task HandleAsync(TIntegrationEvent evt);
+        Task Handle(TIntegrationEvent evt);
     }
 
     public interface IIntegrationEventHandler
