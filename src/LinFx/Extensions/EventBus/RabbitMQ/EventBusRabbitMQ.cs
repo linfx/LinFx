@@ -37,7 +37,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             _serviceScopeFactory = serviceScopeFactory;
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _subsManager = subsManager ?? new InMemoryEventBusSubscriptionsManager();
-            _consumerChannel = CreateConsumerChannel();
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
@@ -57,7 +56,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 if (_subsManager.IsEmpty)
                 {
                     _options.QueueName = string.Empty;
-                    _consumerChannel.Close();
+                    _consumerChannel?.Close();
                 }
             }
         }
@@ -104,27 +103,23 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             }
         }
 
-        public void SubscribeDynamic<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            DoInternalSubscription(eventName);
-            _subsManager.AddDynamicSubscription<TH>(eventName);
-        }
+        //public void SubscribeDynamic<TH>(string eventName)
+        //    where TH : IDynamicIntegrationEventHandler
+        //{
+        //    DoInternalSubscription(eventName);
+        //    _subsManager.AddDynamicSubscription<TH>(eventName);
+        //}
 
         public void Subscribe<T, TH>()
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
         {
             var eventName = _subsManager.GetEventKey<T>();
-            DoInternalSubscription(eventName);
-            _subsManager.AddSubscription<T, TH>();
-        }
-
-        private void DoInternalSubscription(string eventName)
-        {
             var containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
             if (!containsKey)
             {
+                _subsManager.AddSubscription<T, TH>();
+
                 if (!_persistentConnection.IsConnected)
                 {
                     _persistentConnection.TryConnect();
@@ -132,6 +127,11 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
                 using (var channel = _persistentConnection.CreateModel())
                 {
+                    if (_consumerChannel == null)
+                    {
+                        _consumerChannel = CreateConsumerChannel();
+                    }
+
                     channel.QueueBind(queue: _options.QueueName,
                                       exchange: _options.BrokerName,
                                       routingKey: eventName);
@@ -181,7 +181,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
-
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += async (model, ea) =>

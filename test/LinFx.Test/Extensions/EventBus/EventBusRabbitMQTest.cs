@@ -23,8 +23,8 @@ namespace LinFx.Test.Extensions.EventBus
                 .AddEventBus(options =>
                 {
                     options.Durable = true;
-                    options.BrokerName = "tc_cloud_event_bus";
-                    options.QueueName = "tc_cloud_process_queue";
+                    options.BrokerName = "linfx_event_bus";
+                    options.QueueName = "linfx_process_queue";
                     options.ConfigureEventBus = (fx, builder) => builder.UseRabbitMQ(fx, x =>
                     {
                         x.Host = "14.21.34.85";
@@ -41,7 +41,7 @@ namespace LinFx.Test.Extensions.EventBus
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
-            //_eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            _eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             //eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         }
 
