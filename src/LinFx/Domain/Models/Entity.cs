@@ -5,7 +5,7 @@ namespace LinFx.Domain.Models
 {
     public abstract class Entity : Entity<int>
     {
-        public override int Id { get; protected set; }
+        public override int Id { get; set; }
     }
 
     public abstract class Entity<TPrimaryKey>
@@ -17,7 +17,7 @@ namespace LinFx.Domain.Models
         public virtual TPrimaryKey Id
         {
             get { return _Id; }
-            protected set { _Id = value; }
+            set { _Id = value; }
         }
 
         public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();

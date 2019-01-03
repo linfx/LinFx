@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Test.Extensions.EventBus.Events;
-using LinFx.Utils;
 using LinFx.Extensions.EventBus.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;

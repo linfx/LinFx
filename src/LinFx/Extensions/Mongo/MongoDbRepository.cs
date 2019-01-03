@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using MongoDB.Driver;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Models;
 
 namespace LinFx.Extensions.Mongo
 {
