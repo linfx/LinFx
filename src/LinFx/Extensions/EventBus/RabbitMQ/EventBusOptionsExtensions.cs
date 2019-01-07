@@ -3,26 +3,32 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.RabbitMQ;
+using RabbitMQ.Client;
 
 namespace LinFx.Extensions.EventBus.RabbitMQ
 {
     public static class EventBusOptionsExtensions
     {
-        public static EventBusOptionsBuilder UseRabbitMQ(this EventBusOptionsBuilder optionsBuilder, ILinFxBuilder fx, Action<RabbitMQOptions> optionsAction)
+        public static EventBusOptionsBuilder UseRabbitMQ(this EventBusOptionsBuilder optionsBuilder, ILinFxBuilder builder, Action<EventBusRabbitMqOptions> optionsAction)
         {
             Check.NotNull(optionsAction, nameof(optionsAction));
 
-            var options = new RabbitMQOptions();
+            var options = new EventBusRabbitMqOptions();
             optionsAction?.Invoke(options);
 
-            fx.AddRabbitMQ(x =>
+            builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
             {
-                x.Host = options.Host;
-                x.UserName = options.UserName;
-                x.Password = options.Password;
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                var factory = new ConnectionFactory
+                {
+                    UserName = options.UserName,
+                    Password = options.Password,
+                    HostName = options.Host,
+                };
+                return new DefaultRabbitMQPersistentConnection(factory, logger);
             });
 
-            fx.Services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+            builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
             {
                 var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
                 var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();

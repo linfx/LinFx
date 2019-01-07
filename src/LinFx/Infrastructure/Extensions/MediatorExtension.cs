@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Infrastructure
+namespace LinFx.Infrastructure.Extensions
 {
     public static class MediatorExtension
     {

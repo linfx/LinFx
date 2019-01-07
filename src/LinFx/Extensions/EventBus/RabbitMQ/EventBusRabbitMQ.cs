@@ -18,8 +18,8 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
-        private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
+        private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly EventBusOptions _options;
@@ -102,13 +102,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 return Task.CompletedTask;
             }
         }
-
-        //public void SubscribeDynamic<TH>(string eventName)
-        //    where TH : IDynamicIntegrationEventHandler
-        //{
-        //    DoInternalSubscription(eventName);
-        //    _subsManager.AddDynamicSubscription<TH>(eventName);
-        //}
 
         public void Subscribe<T, TH>()
             where T : IntegrationEvent
