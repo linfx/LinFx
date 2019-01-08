@@ -3,12 +3,19 @@ using System.Collections.Generic;
 
 namespace LinFx.Domain.Models
 {
+    /// <summary>
+    /// 领域实体
+    /// </summary>
     public abstract class Entity : Entity<int>
     {
         public override int Id { get; set; }
     }
 
-    public abstract class Entity<TPrimaryKey>
+    /// <summary>
+    /// 领域实体
+    /// </summary>
+    /// <typeparam name="TPrimaryKey"></typeparam>
+    public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
     {
         private int? _requestedHashCode;
         private TPrimaryKey _Id;

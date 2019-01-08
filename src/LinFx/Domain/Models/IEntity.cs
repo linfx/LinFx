@@ -1,5 +1,9 @@
 ﻿namespace LinFx.Domain.Models
 {
+    /// <summary>
+    /// 实体接口
+    /// </summary>
+    /// <typeparam name="TPrimaryKey"></typeparam>
     public interface IEntity<TPrimaryKey>
     {
         /// <summary>
