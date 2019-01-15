@@ -101,10 +101,17 @@ namespace LinFx.Domain.Models.Auditing
     #region FullAuditedEntity
 
     /// <summary>
+    /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
+    /// </summary>
+    public abstract class FullAuditedEntity : FullAuditedEntity<int>, IEntity
+    {
+    }
+
+    /// <summary>
     /// Implements <see cref="IFullAudited"/> to be a base class for full-audited entities.
     /// </summary>
-    /// <typeparam name="TPrimaryKey">Type of the primary key of the entity</typeparam>
-    public abstract class FullAuditedEntity<TPrimaryKey> : AuditedEntity<TPrimaryKey>, IFullAudited
+    /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
+    public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAudited
     {
         /// <summary>
         /// Is this entity Deleted?
@@ -118,13 +125,6 @@ namespace LinFx.Domain.Models.Auditing
         /// Deletion time of this entity.
         /// </summary>
         public virtual DateTime? DeleteionTime { get; set; }
-    }
-
-    /// <summary>
-    /// A shortcut of <see cref="FullAuditedEntity{TPrimaryKey}"/> for most used primary key type (<see cref="string"/>).
-    /// </summary>
-    public abstract class FullAuditedEntity : FullAuditedEntity<int>, IEntity
-    {
     }
 
     #endregion

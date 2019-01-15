@@ -1,6 +1,5 @@
 ﻿using LinFx.Domain.Models;
-using LinFx.Domain.Models.Auditing;
-using LinFx.Timing;
+using System;
 
 namespace LinFx.Infrastructure.Data.Filters.Action
 {

@@ -1,48 +1,26 @@
-﻿using MediatR;
-using System.Collections.Generic;
-
-namespace LinFx.Domain.Models
+﻿namespace LinFx.Domain.Models
 {
     /// <summary>
     /// 领域实体
     /// </summary>
-    public abstract class Entity : Entity<int>
+    public abstract class Entity : IEntity
     {
-        public override int Id { get; set; }
+        public abstract object[] GetKeys();
     }
 
     /// <summary>
     /// 领域实体
     /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>
+    /// <typeparam name="Tkey"></typeparam>
+    public abstract class Entity<Tkey> : Entity, IEntity<Tkey>
     {
         private int? _requestedHashCode;
-        private TPrimaryKey _Id;
-        private List<INotification> _domainEvents;
+        private Tkey _Id;
 
-        public virtual TPrimaryKey Id
+        public virtual Tkey Id
         {
             get { return _Id; }
             set { _Id = value; }
-        }
-
-        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
-
-        public void AddDomainEvent(INotification eventItem)
-        {
-            _domainEvents = _domainEvents ?? new List<INotification>();
-            _domainEvents.Add(eventItem);
-        }
-
-        public void RemoveDomainEvent(INotification eventItem)
-        {
-            _domainEvents?.Remove(eventItem);
-        }
-
-        public void ClearDomainEvents()
-        {
-            _domainEvents?.Clear();
         }
 
         public bool IsTransient()
@@ -52,7 +30,7 @@ namespace LinFx.Domain.Models
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Entity<TPrimaryKey>))
+            if (obj == null || !(obj is Entity<Tkey>))
                 return false;
 
             if (ReferenceEquals(this, obj))
@@ -61,7 +39,7 @@ namespace LinFx.Domain.Models
             if (GetType() != obj.GetType())
                 return false;
 
-            var item = (Entity<TPrimaryKey>)obj;
+            var item = (Entity<Tkey>)obj;
 
             if (item.IsTransient() || IsTransient())
                 return false;
@@ -80,19 +58,29 @@ namespace LinFx.Domain.Models
             }
             else
                 return base.GetHashCode();
-
         }
-        public static bool operator ==(Entity<TPrimaryKey> left, Entity<TPrimaryKey> right)
+
+        public static bool operator ==(Entity<Tkey> left, Entity<Tkey> right)
         {
             if (Equals(left, null))
-                return (Equals(right, null)) ? true : false;
+                return Equals(right, null);
             else
                 return left.Equals(right);
         }
 
-        public static bool operator !=(Entity<TPrimaryKey> left, Entity<TPrimaryKey> right)
+        public static bool operator !=(Entity<Tkey> left, Entity<Tkey> right)
         {
             return !(left == right);
+        }
+
+        public override string ToString()
+        {
+            return $"[ENTITY: {GetType().Name}] Id = {Id}";
+        }
+
+        public override object[] GetKeys()
+        {
+            return new object[] { Id };
         }
     }
 }

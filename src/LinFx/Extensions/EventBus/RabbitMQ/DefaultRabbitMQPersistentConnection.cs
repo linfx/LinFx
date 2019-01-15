@@ -9,6 +9,7 @@ using System.Net.Sockets;
 
 namespace LinFx.Extensions.RabbitMQ
 {
+    [Obsolete]
     public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {
         private readonly IConnectionFactory _connectionFactory;

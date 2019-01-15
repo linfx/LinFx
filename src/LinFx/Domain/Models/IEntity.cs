@@ -1,21 +1,22 @@
 ﻿namespace LinFx.Domain.Models
 {
     /// <summary>
-    /// 实体接口
+    /// Defines an entity. It's primary key may not be "Id" or it may have a composite primary key.
+    /// Use <see cref="IEntity{TKey}"/> where possible for better integration to repositories and other structures in the framework.
     /// </summary>
-    /// <typeparam name="TPrimaryKey"></typeparam>
-    public interface IEntity<TPrimaryKey>
+    public interface IEntity
+    {
+    }
+
+    /// <summary>
+    /// Defines an entity with a single primary key with "Id" property.
+    /// </summary>
+    /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
+    public interface IEntity<TKey> : IEntity
     {
         /// <summary>
         /// Unique identifier for this entity.
         /// </summary>
-        TPrimaryKey Id { get; set; }
-    }
-
-    /// <summary>
-    /// A shortcut of <see cref="IEntity{TPrimaryKey}"/> for most used primary key type (<see cref="int"/>).
-    /// </summary>
-    public interface IEntity : IEntity<int>
-    {
+        TKey Id { get; set; }
     }
 }

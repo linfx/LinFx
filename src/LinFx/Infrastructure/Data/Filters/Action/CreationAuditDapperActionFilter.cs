@@ -1,7 +1,5 @@
 ﻿using System;
 using LinFx.Domain.Models;
-using LinFx.Domain.Models.Auditing;
-using LinFx.Timing;
 
 namespace LinFx.Infrastructure.Data.Filters.Action
 {
@@ -18,11 +16,10 @@ namespace LinFx.Infrastructure.Data.Filters.Action
         {
             var userId = GetAuditUserId();
             CheckAndSetId(entity);
-            var entityWithCreationTime = entity as IHasCreationTime;
-            if (entityWithCreationTime == null)
+            if (!(entity is IHasCreationTime entityWithCreationTime))
                 return;
 
-            if (entityWithCreationTime.CreationTime == default(DateTime))
+            if (entityWithCreationTime.CreationTime == default)
             {
                 entityWithCreationTime.CreationTime = Clock.Now;
             }

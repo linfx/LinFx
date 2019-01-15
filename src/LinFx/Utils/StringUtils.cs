@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace LinFx.Utils
 {
@@ -12,7 +11,7 @@ namespace LinFx.Utils
         /// <returns>过滤好的字符串</returns>
         public static string Filter(string str)
         {
-            if (str == "")
+            if (string.IsNullOrEmpty(str))
                 return str;
             else
             {
@@ -42,7 +41,6 @@ namespace LinFx.Utils
                 str = str.Replace(">?", "");
                 str = str.Replace("?<", "");
                 str = str.Replace(" ", "");
-
                 str = Regex.Replace(str, @"\p{Cs}", "");
                 return str;
             }

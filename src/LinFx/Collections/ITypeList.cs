@@ -8,7 +8,6 @@ namespace LinFx.Collections
     /// </summary>
     public interface ITypeList : ITypeList<object>
     {
-
     }
 
     /// <summary>

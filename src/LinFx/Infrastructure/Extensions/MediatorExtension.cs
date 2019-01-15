@@ -11,7 +11,7 @@ namespace LinFx.Infrastructure.Extensions
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, DbContext ctx)
         {
             var domainEntities = ctx.ChangeTracker
-                .Entries<Entity>()
+                .Entries<IAggregateRoot>()
                 .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any());
 
             var domainEvents = domainEntities

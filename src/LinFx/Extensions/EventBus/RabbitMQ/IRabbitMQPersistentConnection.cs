@@ -3,6 +3,7 @@ using System;
 
 namespace LinFx.Extensions.RabbitMQ
 {
+    [Obsolete]
     public interface IRabbitMQPersistentConnection : IDisposable
     {
         bool IsConnected { get; }

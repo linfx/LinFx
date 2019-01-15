@@ -5,6 +5,10 @@
 
 一个基于 .NET Core 2.0 开发的简单易用的快速开发框架，遵循领域驱动设计（DDD）规范约束，提供实现事件驱动、事件回溯、响应式等特性的基础设施。让开发者享受到正真意义的面向对象设计模式来带的美感。
 
+官方交流群: 241445317
+
+***
+
 ## LinFx.Extensions
 
 Caching、Dapper、Polly、Elasticsearch、EventBus、Metrics、Mongo、RabbitMQ
@@ -44,6 +48,8 @@ PM> Install-Package LinFx
 
 1. Visual Studio 15.3+
 2. .NET Core SDK 2.2+
+
+***
 
 ### Samples
 

@@ -16,16 +16,4 @@ namespace LinFx
         {
         }
     }
-
-    [Obsolete("Use UserFriendlyException")]
-    public class ResultException : Exception
-    {
-        public ResultException(string code, string message)
-            : base(message)
-        {
-            Code = code;
-        }
-
-        public string Code { get; set; }
-    }
 }

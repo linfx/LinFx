@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.RabbitMQ
 {
+    [Obsolete]
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
         private readonly ILogger<EventBusRabbitMQ> _logger;
@@ -63,6 +64,8 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         public Task PublishAsync(IntegrationEvent evt)
         {
+            var eventName = evt.GetType().Name;
+
             if (!_persistentConnection.IsConnected)
             {
                 _persistentConnection.TryConnect();
@@ -77,8 +80,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             using (var channel = _persistentConnection.CreateModel())
             {
-                var eventName = evt.GetType().Name;
-
                 channel.ExchangeDeclare(exchange: _options.BrokerName,
                                     type: "direct", 
                                     durable: _options.Durable,
