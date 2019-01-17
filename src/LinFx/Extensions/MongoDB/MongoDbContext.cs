@@ -6,12 +6,14 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Mongo
+namespace Linfx.Extensions.MongoDB
 {
     public class MongoDbContext : IDisposable
     {
         private IMongoDatabase _db;
         private volatile IMongoClient _connection;
+
+        public IMongoDatabase Database { get; private set; }
 
         readonly MongoDbOptions _options;
         readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(initialCount: 1, maxCount: 1);
@@ -20,6 +22,29 @@ namespace LinFx.Extensions.Mongo
         {
             _options = options.Value;
         }
+
+        public virtual IMongoCollection<T> Collection<T>()
+        {
+            return Database.GetCollection<T>(GetCollectionName<T>());
+        }
+
+        protected virtual string GetCollectionName<T>()
+        {
+            return GetEntityModel<T>().CollectionName;
+        }
+
+        protected virtual IMongoEntityModel GetEntityModel<TEntity>()
+        {
+            var model = ModelSource.GetModel(this).Entities.GetOrDefault(typeof(TEntity));
+
+            if (model == null)
+            {
+                throw new AbpException("Could not find a model for given entity type: " + typeof(TEntity).AssemblyQualifiedName);
+            }
+
+            return model;
+        }
+
 
         private void Connect()
         {

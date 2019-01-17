@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Mongo
+﻿namespace LinFx.Extensions.MongoDB
 {
     public class MongoDbOptions
     {

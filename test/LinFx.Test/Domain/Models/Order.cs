@@ -6,7 +6,7 @@ namespace LinFx.Test.Domain.Models
 {
     public class Order : AggregateRoot<int>
     {
-        private readonly List<OrderItem> _orderItems;
+        private readonly List<OrderItem> _orderItems = new List<OrderItem>();
 
         public Order(string userId, string userName)
         {

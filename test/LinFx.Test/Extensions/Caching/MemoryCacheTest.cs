@@ -8,7 +8,7 @@ namespace LinFx.Test.Caching
     public class MemoryCacheTest
     {
         [Fact]
-        public void MemoryCacheGetAndSetTests()
+        public void MemoryCache_GetAndSetTests()
         {
             var services = new ServiceCollection();
             services.AddLinFx()

@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using LinFx.Domain.Models;
 
-namespace LinFx.Extensions.Mongo
+namespace LinFx.Extensions.MongoDB
 {
     public class MongoDBRepository<TEntity> where TEntity : class, IEntity
     {

@@ -1,5 +1,5 @@
 ﻿using LinFx;
-using LinFx.Extensions.Mongo;
+using LinFx.Extensions.MongoDB;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
