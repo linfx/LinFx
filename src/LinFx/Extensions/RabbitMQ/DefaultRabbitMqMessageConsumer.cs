@@ -53,6 +53,7 @@ namespace LinFx.Extensions.RabbitMQ
             Queue = Check.NotNull(queue, nameof(queue));
             ConnectionName = connectionName;
             //Timer.Start();
+            TryCreateChannel();
         }
 
         public virtual async Task BindAsync(string routingKey)

@@ -9,8 +9,8 @@
     <Copyright>Copyright (c) 2019 LinFx</Copyright>    <Company>LinFx</Company>
     <Product>LinFx</Product>
     <LangVersion>7.3</LangVersion>
-    <AssemblyName>LinFx</AssemblyName>
-    <RootNamespace>LinFx</RootNamespace>
+    <AssemblyName>linFx</AssemblyName>
+    <RootNamespace>linFx</RootNamespace>
     <PackageId>LinFx</PackageId>
   </PropertyGroup>
 

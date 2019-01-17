@@ -1,11 +1,13 @@
 ﻿using LinFx.Extensions.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.RabbitMQ
@@ -61,8 +63,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         public Task PublishAsync(IntegrationEvent evt)
         {
-            //Consumer.
-
             var eventName = evt.GetType().Name;
             var body = Serializer.Serialize(evt);
 
@@ -117,17 +117,11 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         private async Task ProcessEventAsync(IModel channel, BasicDeliverEventArgs ea)
         {
             var eventName = ea.RoutingKey;
-            //var eventType = EventTypes.GetOrDefault(eventName);
-            //if (eventType == null)
-            //{
-            //    return;
-            //}
-
-            var eventData = Serializer.Deserialize(ea.Body, null);
+            var eventData = Encoding.UTF8.GetString(ea.Body);
             await TriggerHandlersAsync(eventName, eventData);
         }
 
-        public virtual async Task TriggerHandlersAsync(string eventName, object eventData)
+        public virtual async Task TriggerHandlersAsync(string eventName, string eventData)
         {
             var exceptions = new List<Exception>();
 
@@ -144,7 +138,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             }
         }
 
-        protected virtual async Task TriggerHandlersAsync(string eventName, object eventData, List<Exception> exceptions)
+        protected virtual async Task TriggerHandlersAsync(string eventName, string eventData, List<Exception> exceptions)
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
@@ -154,9 +148,10 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                     try
                     {
                         var eventType = _subsManager.GetEventTypeByName(eventName);
+                        var integrationEvent = JsonConvert.DeserializeObject(eventData, eventType);
                         var handler = ServiceScope.ServiceProvider.GetService(subscription.HandlerType);
                         var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { eventData });
+                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
                     }
                     catch (Exception ex)
                     {

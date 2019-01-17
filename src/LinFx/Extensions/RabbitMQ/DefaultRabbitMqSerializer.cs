@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using LinFx.Utils;
 using System;
 using System.Text;
 
@@ -8,12 +8,13 @@ namespace LinFx.Extensions.RabbitMQ
     {
         public object Deserialize(byte[] value, Type type)
         {
-            throw new NotImplementedException();
+            var message = JsonUtils.ToObject(value);
+            return message;
         }
 
-        public byte[] Serialize(object obj)
+        public byte[] Serialize(object value)
         {
-            var message = JsonConvert.SerializeObject(obj);
+            var message = JsonUtils.ToJson(value);
             var body = Encoding.UTF8.GetBytes(message);
             return body;
         }
