@@ -7,6 +7,11 @@ namespace LinFx.Utils
 {
     public static class JsonUtils
     {
+        public static object ToObject(byte[] value, bool camelCase = false, bool indented = false)
+        {
+            return ToObject<object>(value, camelCase, indented);
+        }
+
         public static T ToObject<T>(byte[] value, bool camelCase = false, bool indented = false)
         {
             var s = Encoding.UTF8.GetString(value);

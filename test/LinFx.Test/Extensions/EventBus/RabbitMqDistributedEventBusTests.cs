@@ -1,20 +1,20 @@
 ﻿using LinFx.Test.Extensions.EventBus.Events;
+using LinFx.Test.Extensions.EventBus.EventHandling;
+using LinFx.Extensions.EventBus;
 using LinFx.Extensions.EventBus.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Xunit;
-using LinFx.Test.Extensions.EventBus.EventHandling;
 using System.Collections.Generic;
 using System;
-using LinFx.Extensions.EventBus;
+using Xunit;
 
 namespace LinFx.Test.Extensions.EventBus
 {
-    public class EventBusRabbitMQTest
+    public class RabbitMqDistributedEventBusTests
     {
         private readonly IEventBus _eventBus;
 
-        public EventBusRabbitMQTest()
+        public RabbitMqDistributedEventBusTests()
         {
             var services = new ServiceCollection();
 
@@ -43,7 +43,7 @@ namespace LinFx.Test.Extensions.EventBus
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
-            //_eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            _eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         }
 
 
