@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Test.Extensions.EventBus.Events;
+﻿using LinFx.Test.Extensions.EventBus.Events;
 using LinFx.Extensions.EventBus.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
@@ -7,6 +6,7 @@ using Xunit;
 using LinFx.Test.Extensions.EventBus.EventHandling;
 using System.Collections.Generic;
 using System;
+using LinFx.Extensions.EventBus;
 
 namespace LinFx.Test.Extensions.EventBus
 {
@@ -19,16 +19,19 @@ namespace LinFx.Test.Extensions.EventBus
             var services = new ServiceCollection();
 
             services.AddLinFx()
-                .AddEventBus(options =>
+                .AddEventBus(builder =>
                 {
-                    options.Durable = true;
-                    options.BrokerName = "linfx_event_bus";
-                    options.QueueName = "linfx_process_queue";
-                    options.ConfigureEventBus = (fx, builder) => builder.UseRabbitMQ(fx, x =>
+                    builder.Configure(options =>
                     {
-                        x.Host = "14.21.34.85";
-                        x.UserName = "admin";
-                        x.Password = "admin.123456";
+                        options.RetryCount = 3;
+                    })
+                    .UseRabbitMQ(options =>
+                    {
+                        options.HostName = "14.21.34.85";
+                        options.UserName = "admin";
+                        options.Password = "admin.123456";
+                        options.ClientName = "linfx_process_queue";
+                        options.ExchangeName = "linfx_event_bus";
                     });
                 });
 
@@ -40,8 +43,7 @@ namespace LinFx.Test.Extensions.EventBus
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
-            _eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
-            //eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+            //_eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         }
 
 
@@ -54,13 +56,6 @@ namespace LinFx.Test.Extensions.EventBus
             });
             await _eventBus.PublishAsync(evt);
 
-            //await _eventBus.PublishAsync(new ClientCreateIntergrationEvent
-            //{
-            //    ClientId = IDUtils.CreateNewId().ToString(),
-            //    ClientSecrets = new[] { "191d437f0cc3463b85669f2b570cdc21" },
-            //    AllowedGrantTypes = new[] { "client_credentials" },
-            //    AllowedScopes = new[] { "api3.device" }
-            //});
         }
     }
 }

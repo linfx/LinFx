@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.RabbitMQ;
 using RabbitMQ.Client;
 
@@ -36,6 +35,22 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
                 return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iServiceScopeFactory, optionsBuilder.Options);
             });
+
+            return optionsBuilder;
+        }
+
+        public static EventBusOptionsBuilder UseDistributedRabbitMQ(this EventBusOptionsBuilder optionsBuilder, ILinFxBuilder builder, Action<RabbitMqDistributedEventBusOptions> optionsAction)
+        {
+            Check.NotNull(optionsAction, nameof(optionsAction));
+
+
+            builder.Services.Configure(optionsAction);
+
+            builder.Services.AddSingleton<IRabbitMqSerializer, DefaultRabbitMqSerializer>();
+            builder.Services.AddSingleton<IConnectionPool, DefaultConnectionPool>();
+            builder.Services.AddSingleton<IChannelPool, DefaultChannelPool>();
+
+            builder.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
 
             return optionsBuilder;
         }

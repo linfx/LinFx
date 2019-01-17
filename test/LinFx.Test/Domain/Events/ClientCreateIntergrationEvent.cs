@@ -1,7 +1,7 @@
-﻿using LinFx.Extensions.EventBus.Events;
+﻿using LinFx.Extensions.EventBus;
 using System.Collections.Generic;
 
-namespace LinFx.Test.Extensions.EventBus.Events
+namespace LinFx.Test.Extensions.EventBus
 {
     public class ClientCreateIntergrationEvent : IntegrationEvent
     {

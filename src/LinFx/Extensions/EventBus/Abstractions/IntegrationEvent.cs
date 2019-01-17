@@ -1,7 +1,7 @@
 ﻿using System;
 using LinFx.Utils;
 
-namespace LinFx.Extensions.EventBus.Events
+namespace LinFx.Extensions.EventBus
 {
     public class IntegrationEvent
     {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using LinFx.Extensions.EventBus.Events;
-using LinFx.Extensions.EventBus.Abstractions;
 
 namespace LinFx.Extensions.EventBus
 {
@@ -27,13 +25,13 @@ namespace LinFx.Extensions.EventBus
             DoAddSubscription(typeof(TH), eventName, isDynamic: true);
         }
 
-        public void AddSubscription<T, TH>()
-            where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>
+        public void AddSubscription<TEvent, THandler>()
+            where TEvent : IntegrationEvent
+            where THandler : IIntegrationEventHandler<TEvent>
         {
-            var eventName = GetEventKey<T>();
-            DoAddSubscription(typeof(TH), eventName, isDynamic: false);
-            _eventTypes.Add(typeof(T));
+            var eventName = GetEventKey<TEvent>();
+            DoAddSubscription(typeof(THandler), eventName, isDynamic: false);
+            _eventTypes.Add(typeof(TEvent));
         }
 
         private void DoAddSubscription(Type handlerType, string eventName, bool isDynamic)

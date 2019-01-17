@@ -1,24 +1,32 @@
-﻿using LinFx.Extensions.EventBus.Events;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus.Abstractions
+namespace LinFx.Extensions.EventBus
 {
     public interface IEventBus
     {
+        /// <summary>
+        /// Triggers an event.
+        /// </summary>
+        /// <param name="evt"></param>
+        /// <returns></returns>
         Task PublishAsync(IntegrationEvent evt);
 
-        void Subscribe<T, TH>()
-            where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>;
+        /// <summary>
+        /// Registers to an event.
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <typeparam name="THandler"></typeparam>
+        void Subscribe<TEvent, THandler>()
+            where TEvent : IntegrationEvent
+            where THandler : IIntegrationEventHandler<TEvent>;
 
-        //void SubscribeDynamic<TH>(string eventName)
-        //    where TH : IDynamicIntegrationEventHandler;
-
-        void UnsubscribeDynamic<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler;
-
-        void Unsubscribe<T, TH>()
-            where TH : IIntegrationEventHandler<T>
-            where T : IntegrationEvent;
+        /// <summary>
+        /// Unregisters from an event.
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <typeparam name="THandler"></typeparam>
+        void Unsubscribe<TEvent, THandler>()
+            where TEvent : IntegrationEvent
+            where THandler : IIntegrationEventHandler<TEvent>;
     }
 }

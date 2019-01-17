@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class ConnectionPool : IConnectionPool
+    public class DefaultConnectionPool : IConnectionPool
     {
         private bool _isDisposed;
 
@@ -13,7 +13,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected ConcurrentDictionary<string, IConnection> Connections { get; }
 
-        public ConnectionPool(IOptions<RabbitMqOptions> options)
+        public DefaultConnectionPool(IOptions<RabbitMqOptions> options)
         {
             Options = options.Value;
             Connections = new ConcurrentDictionary<string, IConnection>();
@@ -22,7 +22,7 @@ namespace LinFx.Extensions.RabbitMQ
         public virtual IConnection Get(string connectionName = null)
         {
             connectionName = connectionName
-                             ?? RabbitMqConnections.DefaultConnectionName;
+                             ?? DefaultRabbitMqConnections.DefaultConnectionName;
 
             return Connections.GetOrAdd(
                 connectionName,

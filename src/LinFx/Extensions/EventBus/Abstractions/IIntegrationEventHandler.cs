@@ -1,7 +1,6 @@
-﻿using LinFx.Extensions.EventBus.Events;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus.Abstractions
+namespace LinFx.Extensions.EventBus
 {
     public interface IIntegrationEventHandler<in TIntegrationEvent> : IIntegrationEventHandler
         where TIntegrationEvent : IntegrationEvent

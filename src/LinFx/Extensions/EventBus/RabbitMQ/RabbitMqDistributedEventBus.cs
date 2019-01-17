@@ -1,12 +1,9 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Extensions.EventBus.Events;
-using LinFx.Extensions.RabbitMQ;
+﻿using LinFx.Extensions.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,38 +13,56 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
     public class RabbitMqDistributedEventBus : IEventBus
     {
         private readonly IEventBusSubscriptionsManager _subsManager;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
-
-        protected RabbitMqDistributedEventBusOptions RabbitMqDistributedEventBusOptions { get; }
+        protected IServiceScope ServiceScope { get; }
         protected DistributedEventBusOptions DistributedEventBusOptions { get; }
+        protected RabbitMqDistributedEventBusOptions RabbitMqDistributedEventBusOptions { get; }
         protected IConnectionPool ConnectionPool { get; }
         protected IRabbitMqSerializer Serializer { get; }
-
-        //protected ConcurrentDictionary<Type, List<IEventHandlerFactory>> HandlerFactories { get; }
-        protected ConcurrentDictionary<string, Type> EventTypes { get; }
         protected IRabbitMqMessageConsumerFactory MessageConsumerFactory { get; }
         protected IRabbitMqMessageConsumer Consumer { get; }
 
         public RabbitMqDistributedEventBus(
+            IOptions<DistributedEventBusOptions> distributedEventBusOptions,
             IOptions<RabbitMqDistributedEventBusOptions> rabbitMqDistributedEventBusOptions,
-            IOptions<DistributedEventBusOptions> distributedEventBusOptions, 
             IConnectionPool connectionPool, 
-            ConcurrentDictionary<string, Type> eventTypes, 
             IRabbitMqMessageConsumerFactory messageConsumerFactory,
-            IRabbitMqSerializer serializer)
+            IRabbitMqSerializer serializer,
+            IEventBusSubscriptionsManager subscriptionsManager,
+            IServiceScopeFactory serviceScopeFactory)
         {
             RabbitMqDistributedEventBusOptions = rabbitMqDistributedEventBusOptions.Value;
             DistributedEventBusOptions = distributedEventBusOptions.Value;
             ConnectionPool = connectionPool;
-            EventTypes = eventTypes;
             MessageConsumerFactory = messageConsumerFactory;
             Serializer = serializer;
+            ServiceScope = serviceScopeFactory.CreateScope();
+            _subsManager = subscriptionsManager;
+            _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
 
+            Consumer = MessageConsumerFactory.Create(
+                new ExchangeDeclareConfiguration(
+                    RabbitMqDistributedEventBusOptions.ExchangeName,
+                        type: "direct",
+                        durable: true),
+                new QueueDeclareConfiguration(
+                        RabbitMqDistributedEventBusOptions.ClientName,
+                        durable: true,
+                        exclusive: false,
+                        autoDelete: false),
+                RabbitMqDistributedEventBusOptions.ConnectionName
+            );
             Consumer.OnMessageReceived(ProcessEventAsync);
+        }
+
+        private void SubsManager_OnEventRemoved(object sender, string e)
+        {
+            //Consumer.UnbindAsync("");
         }
 
         public Task PublishAsync(IntegrationEvent evt)
         {
+            //Consumer.
+
             var eventName = evt.GetType().Name;
             var body = Serializer.Serialize(evt);
 
@@ -74,23 +89,22 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             return Task.CompletedTask;
         }
 
-        public void Subscribe<T, TH>()
-            where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>
+        public void Subscribe<TEvent, THandler>()
+            where TEvent : IntegrationEvent
+            where THandler : IIntegrationEventHandler<TEvent>
         {
-            var eventName = _subsManager.GetEventKey<T>();
+            var eventName = _subsManager.GetEventKey<TEvent>();
             var containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
             if (!containsKey)
             {
-                _subsManager.AddSubscription<T, TH>();
-
+                _subsManager.AddSubscription<TEvent, THandler>();
                 Consumer.BindAsync(eventName);
             }
         }
 
-        public void Unsubscribe<T, TH>()
-            where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>
+        public void Unsubscribe<TEvent, THandler>()
+            where TEvent : IntegrationEvent
+            where THandler : IIntegrationEventHandler<TEvent>
         {
             throw new NotImplementedException();
         }
@@ -103,13 +117,13 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         private async Task ProcessEventAsync(IModel channel, BasicDeliverEventArgs ea)
         {
             var eventName = ea.RoutingKey;
-            var eventType = EventTypes.GetOrDefault(eventName);
-            if (eventType == null)
-            {
-                return;
-            }
+            //var eventType = EventTypes.GetOrDefault(eventName);
+            //if (eventType == null)
+            //{
+            //    return;
+            //}
 
-            var eventData = Serializer.Deserialize(ea.Body, eventType);
+            var eventData = Serializer.Deserialize(ea.Body, null);
             await TriggerHandlersAsync(eventName, eventData);
         }
 
@@ -134,22 +148,19 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
-                using (var scope = _serviceScopeFactory.CreateScope())
+                var subscriptions = _subsManager.GetHandlersForEvent(eventName);
+                foreach (var subscription in subscriptions)
                 {
-                    var subscriptions = _subsManager.GetHandlersForEvent(eventName);
-                    foreach (var subscription in subscriptions)
+                    try
                     {
-                        try
-                        {
-                            var eventType = _subsManager.GetEventTypeByName(eventName);
-                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
-                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { eventData });
-                        }
-                        catch (Exception ex)
-                        {
-                            exceptions.Add(ex);
-                        }
+                        var eventType = _subsManager.GetEventTypeByName(eventName);
+                        var handler = ServiceScope.ServiceProvider.GetService(subscription.HandlerType);
+                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { eventData });
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptions.Add(ex);
                     }
                 }
             }

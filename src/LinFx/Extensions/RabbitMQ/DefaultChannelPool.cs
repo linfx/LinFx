@@ -9,7 +9,7 @@ using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class ChannelPool : IChannelPool
+    public class DefaultChannelPool : IChannelPool
     {
         protected IConnectionPool ConnectionPool { get; }
 
@@ -19,11 +19,11 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected TimeSpan TotalDisposeWaitDuration { get; set; } = TimeSpan.FromSeconds(10);
 
-        public ILogger<ChannelPool> Logger { get; set; }
+        public ILogger<DefaultChannelPool> Logger { get; set; }
 
-        public ChannelPool(IConnectionPool connectionPool)
+        public DefaultChannelPool(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<ChannelPool>.Instance;
+            Logger = NullLogger<DefaultChannelPool>.Instance;
             Channels = new ConcurrentDictionary<string, ChannelPoolItem>();
             ConnectionPool = connectionPool;
         }
@@ -59,7 +59,7 @@ namespace LinFx.Extensions.RabbitMQ
         {
             if (IsDisposed)
             {
-                throw new ObjectDisposedException(nameof(ChannelPool));
+                throw new ObjectDisposedException(nameof(DefaultChannelPool));
             }
         }
 
@@ -117,18 +117,19 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected class ChannelPoolItem : IDisposable
         {
+            private volatile bool _isInUse;
+
+            public ChannelPoolItem(IModel channel)
+            {
+                Channel = channel;
+            }
+
             public IModel Channel { get; }
 
             public bool IsInUse
             {
                 get => _isInUse;
                 private set => _isInUse = value;
-            }
-            private volatile bool _isInUse;
-
-            public ChannelPoolItem(IModel channel)
-            {
-                Channel = channel;
             }
 
             public void Acquire()

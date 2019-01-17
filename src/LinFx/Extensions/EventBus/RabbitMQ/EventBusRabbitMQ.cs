@@ -1,6 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Extensions.EventBus.Events;
-using LinFx.Extensions.RabbitMQ;
+﻿using LinFx.Extensions.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

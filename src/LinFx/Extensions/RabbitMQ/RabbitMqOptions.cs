@@ -2,11 +2,11 @@
 {
     public class RabbitMqOptions
     {
-        public RabbitMqConnections ConnectionFactories { get; }
+        public DefaultRabbitMqConnections ConnectionFactories { get; }
 
         public RabbitMqOptions()
         {
-            ConnectionFactories = new RabbitMqConnections();
+            ConnectionFactories = new DefaultRabbitMqConnections();
         }
     }
 }

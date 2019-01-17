@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
+﻿using LinFx.Extensions.EventBus;
 using LinFx.Test.Extensions.EventBus.Events;
 using System.Threading.Tasks;
 

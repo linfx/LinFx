@@ -4,20 +4,19 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class RabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
+    public class DefaultRabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
     {
-        public ILogger<RabbitMqMessageConsumer> Logger { get; set; }
+        public ILogger<DefaultRabbitMqMessageConsumer> Logger { get; set; }
 
         protected IConnectionPool ConnectionPool { get; }
-
-        //protected Timer Timer { get; }
+        protected Timer Timer { get; }
 
         protected ExchangeDeclareConfiguration Exchange { get; private set; }
-
         protected QueueDeclareConfiguration Queue { get; private set; }
 
         protected string ConnectionName { get; private set; }
@@ -30,18 +29,16 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected object ChannelSendSyncLock { get; } = new object();
 
-        public RabbitMqMessageConsumer(
-            IConnectionPool connectionPool
-            //Timer timer
-            )
+        public DefaultRabbitMqMessageConsumer(IConnectionPool connectionPool)
         {
+            Logger = NullLogger<DefaultRabbitMqMessageConsumer>.Instance;
             ConnectionPool = connectionPool;
-            Logger = NullLogger<RabbitMqMessageConsumer>.Instance;
 
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();
             Callbacks = new ConcurrentBag<Func<IModel, BasicDeliverEventArgs, Task>>();
 
-            //Timer = timer;
+            Timer = new Timer(Timer_Elapsed, null, Timeout.Infinite, Timeout.Infinite);
+            //Timer.Change(0, null, Timeout.Infinite, Timeout.Infinite);
             //Timer.Period = 5000; //5 sec.
             //Timer.Elapsed += Timer_Elapsed;
             //Timer.RunOnStart = true;
@@ -122,7 +119,7 @@ namespace LinFx.Extensions.RabbitMQ
             Callbacks.Add(callback);
         }
 
-        protected virtual void Timer_Elapsed(object sender, EventArgs e)
+        protected virtual void Timer_Elapsed(object state)
         {
             if (Channel == null || Channel.IsOpen == false)
             {
@@ -137,36 +134,31 @@ namespace LinFx.Extensions.RabbitMQ
 
             try
             {
-                var channel = ConnectionPool
-                    .Get(ConnectionName)
-                    .CreateModel();
+                var channel = ConnectionPool.Get(ConnectionName).CreateModel();
 
-                channel.ExchangeDeclare(
-                    exchange: Exchange.ExchangeName,
-                    type: Exchange.Type,
-                    durable: Exchange.Durable,
-                    autoDelete: Exchange.AutoDelete,
-                    arguments: Exchange.Arguments
+                channel.ExchangeDeclare(exchange: Exchange.ExchangeName,
+                                        type: Exchange.Type,
+                                        durable: Exchange.Durable,
+                                        autoDelete: Exchange.AutoDelete,
+                                        arguments: Exchange.Arguments
                 );
 
-                channel.QueueDeclare(
-                    queue: Queue.QueueName,
-                    durable: Queue.Durable,
-                    exclusive: Queue.Exclusive,
-                    autoDelete: Queue.AutoDelete,
-                    arguments: Queue.Arguments
+                channel.QueueDeclare(queue: Queue.QueueName,
+                                     durable: Queue.Durable,
+                                     exclusive: Queue.Exclusive,
+                                     autoDelete: Queue.AutoDelete,
+                                     arguments: Queue.Arguments
                 );
 
                 var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += async (model, basicDeliverEventArgs) =>
+                consumer.Received += async (model, ea) =>
                 {
-                    await HandleIncomingMessage(channel, basicDeliverEventArgs);
+                    await HandleIncomingMessage(channel, ea);
                 };
 
-                channel.BasicConsume(
-                    queue: Queue.QueueName,
-                    autoAck: false,
-                    consumer: consumer
+                channel.BasicConsume(queue: Queue.QueueName,
+                                     autoAck: false,
+                                     consumer: consumer
                 );
 
                 Channel = channel;
@@ -177,16 +169,15 @@ namespace LinFx.Extensions.RabbitMQ
             }
         }
 
-        protected virtual async Task HandleIncomingMessage(IModel channel, BasicDeliverEventArgs basicDeliverEventArgs)
+        protected virtual async Task HandleIncomingMessage(IModel channel, BasicDeliverEventArgs ea)
         {
             try
             {
                 foreach (var callback in Callbacks)
                 {
-                    await callback(channel, basicDeliverEventArgs);
+                    await callback(channel, ea);
                 }
-
-                channel.BasicAck(basicDeliverEventArgs.DeliveryTag, multiple: false);
+                channel.BasicAck(ea.DeliveryTag, multiple: false);
             }
             catch (Exception ex)
             {

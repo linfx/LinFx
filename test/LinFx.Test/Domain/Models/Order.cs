@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace LinFx.Test.Domain.Models
 {
-    public class Order : Entity
+    public class Order : AggregateRoot<int>
     {
         private readonly List<OrderItem> _orderItems;
 

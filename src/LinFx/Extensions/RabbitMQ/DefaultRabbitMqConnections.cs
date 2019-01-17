@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class RabbitMqConnections : Dictionary<string, ConnectionFactory>
+    public class DefaultRabbitMqConnections : Dictionary<string, ConnectionFactory>
     {
         public const string DefaultConnectionName = "Default";
 
@@ -14,9 +14,14 @@ namespace LinFx.Extensions.RabbitMQ
             set => this[DefaultConnectionName] = Check.NotNull(value, nameof(value));
         }
 
-        public RabbitMqConnections()
+        public DefaultRabbitMqConnections()
         {
-            Default = new ConnectionFactory();
+            Default = new ConnectionFactory
+            {
+                HostName = "14.21.34.85",
+                UserName = "admin",
+                Password = "admin.123456"
+            };
         }
 
         public ConnectionFactory GetOrDefault(string connectionName)
