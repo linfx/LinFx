@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class DefaultRabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
+    public class Consumer : IConsumer, IDisposable
     {
-        public ILogger<DefaultRabbitMqMessageConsumer> Logger { get; set; }
+        public ILogger<Consumer> Logger { get; set; }
 
         protected IConnectionPool ConnectionPool { get; }
         protected Timer Timer { get; }
@@ -29,9 +29,9 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected object ChannelSendSyncLock { get; } = new object();
 
-        public DefaultRabbitMqMessageConsumer(IConnectionPool connectionPool)
+        public Consumer(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<DefaultRabbitMqMessageConsumer>.Instance;
+            Logger = NullLogger<Consumer>.Instance;
             ConnectionPool = connectionPool;
 
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();
@@ -40,7 +40,6 @@ namespace LinFx.Extensions.RabbitMQ
             Timer = new Timer
             {
                 Period = 5000, //5 sec.
-                RunOnStart = true
             };
             Timer.Elapsed += Timer_Elapsed;
         }
@@ -126,6 +125,7 @@ namespace LinFx.Extensions.RabbitMQ
             {
                 TryCreateChannel();
                 //AsyncHelper.RunSync(TrySendQueueBindCommandsAsync);
+                TrySendQueueBindCommandsAsync().Wait();
             }
         }
 
@@ -205,7 +205,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         public virtual void Dispose()
         {
-            //Timer.Stop();
+            Timer.StartAsync().Wait();
             DisposeChannel();
         }
 

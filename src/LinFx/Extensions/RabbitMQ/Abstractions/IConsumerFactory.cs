@@ -1,9 +1,9 @@
 ﻿namespace LinFx.Extensions.RabbitMQ
 {
-    public interface IRabbitMqMessageConsumerFactory
+    public interface IConsumerFactory
     {
         /// <summary>
-        /// Creates a new <see cref="IRabbitMqMessageConsumer"/>.
+        /// Creates a new <see cref="IConsumer"/>.
         /// Avoid to create too many consumers since they are
         /// not disposed until end of the application.
         /// </summary>
@@ -11,7 +11,7 @@
         /// <param name="queue"></param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        IRabbitMqMessageConsumer Create(
+        IConsumer Create(
             ExchangeDeclareConfiguration exchange,
             QueueDeclareConfiguration queue,
             string connectionName = null
