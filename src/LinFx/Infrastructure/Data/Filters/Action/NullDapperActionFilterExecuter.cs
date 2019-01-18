@@ -2,7 +2,7 @@
 
 namespace LinFx.Infrastructure.Data.Dapper.Filters.Action
 {
-    public class NullDapperActionFilterExecuter : IDapperActionFilterExecuter
+    public class NullDapperActionFilterExecuter //: IDapperActionFilterExecuter
     {
         public static readonly NullDapperActionFilterExecuter Instance = new NullDapperActionFilterExecuter();
 

@@ -25,21 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Domain\Models\Auditing\**" />
-    <Compile Remove="Extensions\Dapper\**" />
-    <Compile Remove="Extensions\MongoDB\**" />
-    <Compile Remove="Infrastructure\Data\**" />
-    <EmbeddedResource Remove="Domain\Models\Auditing\**" />
-    <EmbeddedResource Remove="Extensions\Dapper\**" />
-    <EmbeddedResource Remove="Extensions\MongoDB\**" />
-    <EmbeddedResource Remove="Infrastructure\Data\**" />
-    <None Remove="Domain\Models\Auditing\**" />
-    <None Remove="Extensions\Dapper\**" />
-    <None Remove="Extensions\MongoDB\**" />
-    <None Remove="Infrastructure\Data\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.3" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="FluentValidation" Version="8.1.2" />
@@ -59,10 +44,6 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
 </Project>
