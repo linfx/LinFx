@@ -9,16 +9,16 @@ using System.Net.Sockets;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
+    public class DefaultPersistentConnection : IPersistentConnection
     {
+        private readonly ILogger<DefaultPersistentConnection> _logger;
         private readonly IConnectionFactory _connectionFactory;
-        private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
         private readonly int _retryCount;
         private IConnection _connection;
         private bool _disposed;
         private readonly object sync_root = new object();
 
-        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultRabbitMQPersistentConnection> logger, int retryCount = 5)
+        public DefaultPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultPersistentConnection> logger, int retryCount = 5)
         {
             _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -27,10 +27,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         public bool IsConnected
         {
-            get
-            {
-                return _connection != null && _connection.IsOpen && !_disposed;
-            }
+            get { return _connection != null && _connection.IsOpen && !_disposed; }
         }
 
         public IModel CreateModel()
@@ -41,22 +38,6 @@ namespace LinFx.Extensions.RabbitMQ
             }
 
             return _connection.CreateModel();
-        }
-
-        public void Dispose()
-        {
-            if (_disposed) return;
-
-            _disposed = true;
-
-            try
-            {
-                _connection.Dispose();
-            }
-            catch (IOException ex)
-            {
-                _logger.LogCritical(ex.ToString());
-            }
         }
 
         public bool TryConnect()
@@ -122,6 +103,34 @@ namespace LinFx.Extensions.RabbitMQ
             _logger.LogWarning("A RabbitMQ connection is on shutdown. Trying to re-connect...");
 
             TryConnect();
+        }
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+
+            _disposed = true;
+
+            try
+            {
+                _connection.Dispose();
+            }
+            catch (IOException ex)
+            {
+                _logger.LogCritical(ex.ToString());
+            }
+        }
+    }
+
+    /// <summary>
+    /// Use <see cref="DefaultPersistentConnection"/>
+    /// </summary>
+    [Obsolete]
+    public class DefaultRabbitMQPersistentConnection : DefaultPersistentConnection
+    {
+        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultPersistentConnection> logger, int retryCount = 5) 
+            : base(connectionFactory, logger, retryCount)
+        {
         }
     }
 }

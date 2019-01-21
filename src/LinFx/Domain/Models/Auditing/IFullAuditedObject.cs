@@ -5,7 +5,6 @@ namespace LinFx.Domain.Models.Auditing
     /// </summary>
     public interface IFullAuditedObject : IAuditedObject, IDeletionAuditedObject
     {
-        
     }
 
     /// <summary>
@@ -14,6 +13,5 @@ namespace LinFx.Domain.Models.Auditing
     /// <typeparam name="TUser">Type of the user</typeparam>
     public interface IFullAuditedObject<TUser> : IAuditedObject<TUser>, IFullAuditedObject, IDeletionAuditedObject<TUser>
     {
-
     }
 }

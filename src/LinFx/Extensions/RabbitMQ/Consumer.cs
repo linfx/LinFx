@@ -1,17 +1,17 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using LinFx.Threading;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Concurrent;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class DefaultRabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
+    public class Consumer : IConsumer, IDisposable
     {
-        public ILogger<DefaultRabbitMqMessageConsumer> Logger { get; set; }
+        public ILogger<Consumer> Logger { get; set; }
 
         protected IConnectionPool ConnectionPool { get; }
         protected Timer Timer { get; }
@@ -29,19 +29,19 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected object ChannelSendSyncLock { get; } = new object();
 
-        public DefaultRabbitMqMessageConsumer(IConnectionPool connectionPool)
+        public Consumer(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<DefaultRabbitMqMessageConsumer>.Instance;
+            Logger = NullLogger<Consumer>.Instance;
             ConnectionPool = connectionPool;
 
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();
             Callbacks = new ConcurrentBag<Func<IModel, BasicDeliverEventArgs, Task>>();
 
-            Timer = new Timer(Timer_Elapsed, null, Timeout.Infinite, Timeout.Infinite);
-            //Timer.Change(0, null, Timeout.Infinite, Timeout.Infinite);
-            //Timer.Period = 5000; //5 sec.
-            //Timer.Elapsed += Timer_Elapsed;
-            //Timer.RunOnStart = true;
+            Timer = new Timer
+            {
+                Period = 5000, //5 sec.
+            };
+            Timer.Elapsed += Timer_Elapsed;
         }
 
         public void Initialize(
@@ -52,8 +52,7 @@ namespace LinFx.Extensions.RabbitMQ
             Exchange = Check.NotNull(exchange, nameof(exchange));
             Queue = Check.NotNull(queue, nameof(queue));
             ConnectionName = connectionName;
-            //Timer.Start();
-            TryCreateChannel();
+            Timer.StartAsync().Wait();
         }
 
         public virtual async Task BindAsync(string routingKey)
@@ -120,12 +119,13 @@ namespace LinFx.Extensions.RabbitMQ
             Callbacks.Add(callback);
         }
 
-        protected virtual void Timer_Elapsed(object state)
+        protected virtual void Timer_Elapsed(object sender, EventArgs e)
         {
             if (Channel == null || Channel.IsOpen == false)
             {
                 TryCreateChannel();
                 //AsyncHelper.RunSync(TrySendQueueBindCommandsAsync);
+                TrySendQueueBindCommandsAsync().Wait();
             }
         }
 
@@ -205,7 +205,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         public virtual void Dispose()
         {
-            //Timer.Stop();
+            Timer.StartAsync().Wait();
             DisposeChannel();
         }
 

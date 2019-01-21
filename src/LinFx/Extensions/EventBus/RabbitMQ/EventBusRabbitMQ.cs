@@ -18,7 +18,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
         private readonly ILogger<EventBusRabbitMQ> _logger;
-        private readonly IRabbitMQPersistentConnection _persistentConnection;
+        private readonly IPersistentConnection _persistentConnection;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly EventBusOptions _options;
@@ -26,7 +26,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         public EventBusRabbitMQ(
             ILogger<EventBusRabbitMQ> logger,
-            IRabbitMQPersistentConnection persistentConnection,
+            IPersistentConnection persistentConnection,
             IEventBusSubscriptionsManager subsManager, 
             IServiceScopeFactory serviceScopeFactory,
             EventBusOptions options)

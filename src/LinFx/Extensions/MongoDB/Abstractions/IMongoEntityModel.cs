@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Linfx.Extensions.MongoDB
+namespace LinFx.Extensions.MongoDB
 {
     public interface IMongoEntityModel
     {

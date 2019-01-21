@@ -27,7 +27,7 @@ namespace LinFx.Test.Extensions.EventBus
                     })
                     .UseRabbitMQ(options =>
                     {
-                        options.HostName = "14.21.34.85";
+                        options.Host = "14.21.34.85";
                         options.UserName = "admin";
                         options.Password = "admin.123456";
                         options.ClientName = "linfx_event_queue";
@@ -55,7 +55,7 @@ namespace LinFx.Test.Extensions.EventBus
             {
             });
             await _eventBus.PublishAsync(evt);
-
+            await Task.Delay(100000);
         }
     }
 }

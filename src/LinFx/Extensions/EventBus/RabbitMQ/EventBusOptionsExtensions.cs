@@ -16,22 +16,22 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             var options = new EventBusRabbitMqOptions();
             optionsAction?.Invoke(options);
 
-            builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            builder.Services.AddSingleton<IPersistentConnection>(sp =>
             {
-                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                var logger = sp.GetRequiredService<ILogger<DefaultPersistentConnection>>();
                 var factory = new ConnectionFactory
                 {
                     UserName = options.UserName,
                     Password = options.Password,
                     HostName = options.Host,
                 };
-                return new DefaultRabbitMQPersistentConnection(factory, logger);
+                return new DefaultPersistentConnection(factory, logger);
             });
 
             builder.Services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
             {
                 var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IPersistentConnection>();
                 var iServiceScopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
                 return new EventBusRabbitMQ(logger, rabbitMQPersistentConnection, eventBusSubcriptionsManager, iServiceScopeFactory, optionsBuilder.Options);

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMQ
@@ -11,25 +10,24 @@ namespace LinFx.Extensions.RabbitMQ
 
         protected RabbitMqOptions Options { get; }
 
-        protected ConcurrentDictionary<string, IConnection> Connections { get; }
+        protected ConnectionFactoryWrapper ConnectionFactoryWrapper { get; }
 
-        public DefaultConnectionPool(IOptions<RabbitMqOptions> options)
+        protected ConcurrentDictionary<string, IConnection> _connections { get; }
+
+        public DefaultConnectionPool(ConnectionFactoryWrapper connectionFactoryWrapper)
         {
-            Options = options.Value;
-            Connections = new ConcurrentDictionary<string, IConnection>();
+            ConnectionFactoryWrapper = connectionFactoryWrapper;
+            _connections = new ConcurrentDictionary<string, IConnection>();
         }
 
         public virtual IConnection Get(string connectionName = null)
         {
             connectionName = connectionName
-                             ?? DefaultRabbitMqConnections.DefaultConnectionName;
+                 ?? Connections.DefaultConnectionName;
 
-            return Connections.GetOrAdd(
-                connectionName,
-                () => Options
-                    .ConnectionFactories
-                    .GetOrDefault(connectionName)
-                    .CreateConnection()
+            return _connections.GetOrAdd(
+                connectionName, () => 
+                ConnectionFactoryWrapper.CreateConnection(connectionName)
             );
         }
 
@@ -42,7 +40,7 @@ namespace LinFx.Extensions.RabbitMQ
 
             _isDisposed = true;
 
-            foreach (var connection in Connections.Values)
+            foreach (var connection in _connections.Values)
             {
                 try
                 {
@@ -54,7 +52,7 @@ namespace LinFx.Extensions.RabbitMQ
                 }
             }
 
-            Connections.Clear();
+            _connections.Clear();
         }
     }
 }

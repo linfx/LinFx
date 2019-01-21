@@ -1,6 +1,6 @@
 ﻿namespace LinFx.Domain.Models.Auditing
 {
-    public interface IAuditingEnabled
+    public interface IAuditLogScope
     {
     }
 }

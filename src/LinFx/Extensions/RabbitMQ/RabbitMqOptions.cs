@@ -2,11 +2,13 @@
 {
     public class RabbitMqOptions
     {
-        public DefaultRabbitMqConnections ConnectionFactories { get; }
+        public string ConnectionName { get; set; }
 
-        public RabbitMqOptions()
-        {
-            ConnectionFactories = new DefaultRabbitMqConnections();
-        }
+        public string Host { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public string ClientName { get; set; }
+        public string ExchangeName { get; set; }
     }
 }
