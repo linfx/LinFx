@@ -1,8 +1,8 @@
-﻿using LinFx.Extensions.DapperExtensions;
-using LinFx.Infrastructure.Data.Utils;
+﻿using LinFx.Extensions.Dapper;
 using LinFx.Domain.Models;
 using System;
 using System.Linq.Expressions;
+using LinFx.Extensions.Data.Utils;
 
 namespace LinFx.Extensions.Data.Filters.Query
 {

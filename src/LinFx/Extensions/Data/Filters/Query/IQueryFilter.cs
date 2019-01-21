@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.DapperExtensions;
+﻿using LinFx.Extensions.Dapper;
 using System;
 using System.Linq.Expressions;
 

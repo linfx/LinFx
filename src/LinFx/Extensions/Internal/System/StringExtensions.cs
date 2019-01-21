@@ -1,5 +1,5 @@
 ﻿using LinFx;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;

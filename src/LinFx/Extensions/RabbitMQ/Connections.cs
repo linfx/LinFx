@@ -1,5 +1,5 @@
 ﻿using RabbitMQ.Client;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.RabbitMQ
 {

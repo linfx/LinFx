@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using LinFx.Infrastructure.Data;
-using LinFx.Infrastructure.Data.Expressions;
-using LinFx.Extensions.DapperExtensions.Mapper;
-using LinFx.Extensions.DapperExtensions.Sql;
+using LinFx.Extensions.Dapper.Mapper;
+using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Data;
+using LinFx.Extensions.Data.Expressions;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
 	public interface IPredicate
 	{
@@ -71,7 +71,7 @@ namespace LinFx.Extensions.DapperExtensions
 		/// <returns>An instance of IFieldPredicate.</returns>
 		public static IFieldPredicate Field<T>(Expression<Func<T, object>> expression, Operator op, object value, bool not = false) where T : class
 		{
-			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo = Reflection.GetProperty(expression) as PropertyInfo;
 			return new FieldPredicate<T>
 			{
 				PropertyName = propertyInfo.Name,
@@ -96,8 +96,8 @@ namespace LinFx.Extensions.DapperExtensions
 			where T : class
 			where T2 : class
 		{
-			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
-			var propertyInfo2 = ReflectionUtils.GetProperty(expression2) as PropertyInfo;
+			var propertyInfo = Reflection.GetProperty(expression) as PropertyInfo;
+			var propertyInfo2 = Reflection.GetProperty(expression2) as PropertyInfo;
 			return new PropertyPredicate<T, T2>
 			{
 				PropertyName = propertyInfo.Name,
@@ -142,7 +142,7 @@ namespace LinFx.Extensions.DapperExtensions
 		public static IBetweenPredicate Between<T>(Expression<Func<T, object>> expression, BetweenValues values, bool not = false)
 			where T : class
 		{
-			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo = Reflection.GetProperty(expression) as PropertyInfo;
 			return new BetweenPredicate<T>
 			{
 				Not = not,
@@ -156,7 +156,7 @@ namespace LinFx.Extensions.DapperExtensions
 		/// </summary>
 		public static ISort Sort<T>(Expression<Func<T, object>> expression, bool ascending = true)
 		{
-			var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+			var propertyInfo = Reflection.GetProperty(expression) as PropertyInfo;
 			return new Sort
 			{
 				PropertyName = propertyInfo.Name,

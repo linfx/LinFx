@@ -1,13 +1,8 @@
-﻿namespace LinFx.Extensions.Data
-using Dapper;
+﻿using Dapper;
+using System.Collections.Generic;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
-    public interface IMultipleResultReader
-    {
-        IEnumerable<T> Read<T>();
-    }
-
     public class GridReaderResultReader : IMultipleResultReader
     {
         readonly SqlMapper.GridReader _reader;

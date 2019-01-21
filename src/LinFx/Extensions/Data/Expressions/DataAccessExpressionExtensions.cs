@@ -1,11 +1,11 @@
-﻿using LinFx.Extensions.DapperExtensions;
+﻿using LinFx.Extensions.Dapper;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace LinFx.Extensions.Data.Expressions
 {
-	internal static class DataAccessExpressionExtensions
+    internal static class DataAccessExpressionExtensions
     {
         public static IPredicate ToPredicateGroup<TEntity>(this Expression<Func<TEntity, bool>> expression) where TEntity : class
         {

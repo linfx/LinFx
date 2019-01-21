@@ -1,11 +1,11 @@
 ﻿using System.Numerics;
 using System;
-namespace LinFx.Extensions.Data
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Collections.Generic;
 
-namespace LinFx.Extensions.DapperExtensions.Mapper
+namespace LinFx.Extensions.Dapper.Mapper
 {
     public interface IClassMapper
     {
@@ -114,7 +114,7 @@ namespace LinFx.Extensions.DapperExtensions.Mapper
         /// </summary>
         protected PropertyMap Map(Expression<Func<T, object>> expression)
         {
-            var propertyInfo = ReflectionUtils.GetProperty(expression) as PropertyInfo;
+            var propertyInfo = Reflection.GetProperty(expression) as PropertyInfo;
             return Map(propertyInfo);
         }
 

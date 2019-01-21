@@ -1,8 +1,8 @@
 ﻿using System;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.Extensions.DapperExtensions.Sql
+namespace LinFx.Extensions.Dapper.Sql
 {
     public class SqlCeDialect : SqlDialectBase
     {

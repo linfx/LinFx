@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace LinFx.Collections

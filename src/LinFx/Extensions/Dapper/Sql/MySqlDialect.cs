@@ -1,6 +1,6 @@
-﻿namespace LinFx.Extensions.Data
+﻿using System.Collections.Generic;
 
-namespace LinFx.Extensions.DapperExtensions.Sql
+namespace LinFx.Extensions.Dapper.Sql
 {
     public class MySqlDialect : SqlDialectBase
     {

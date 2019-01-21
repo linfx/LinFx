@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
-using LinFx.Extensions.DapperExtensions.Mapper;
-using LinFx.Extensions.DapperExtensions.Sql;
-using LinFx.Infrastructure.Data.Filters.Query;
+using LinFx.Extensions.Dapper.Mapper;
+using LinFx.Extensions.Dapper.Sql;
 using Dapper;
-using LinFx.Infrastructure.Data;
 using System.Threading.Tasks;
+using LinFx.Extensions.Data;
+using LinFx.Extensions.Data.Filters.Query;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
     public class Database : IDatabase
     {

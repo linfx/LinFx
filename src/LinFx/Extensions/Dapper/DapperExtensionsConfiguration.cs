@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using LinFx.Extensions.DapperExtensions.Mapper;
-using LinFx.Extensions.DapperExtensions.Sql;
+using LinFx.Extensions.Dapper.Mapper;
+using LinFx.Extensions.Dapper.Sql;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
     public interface IDapperExtensionsConfiguration
     {

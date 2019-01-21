@@ -1,13 +1,13 @@
 ﻿using System;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
-    public static class ReflectionUtils
+    public static class Reflection
     {
         private static List<Type> _simpleTypes = new List<Type>
         {

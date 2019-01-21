@@ -1,13 +1,13 @@
 using System;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using LinFx.Infrastructure.Data.Expressions;
-using LinFx.Extensions.DapperExtensions;
+using LinFx.Extensions.Dapper;
+using LinFx.Extensions.Data.Expressions;
 
 namespace LinFx.Extensions.Data.Filters.Query
 {
-	public interface IQueryFilterExecuter
+    public interface IQueryFilterExecuter
 	{
 		IPredicate ExecuteFilter<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
 		PredicateGroup ExecuteFilter<TEntity>() where TEntity : class;

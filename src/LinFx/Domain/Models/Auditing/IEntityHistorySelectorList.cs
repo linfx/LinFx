@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Data
+﻿using System.Collections.Generic;
 
 namespace LinFx.Domain.Models.Auditing
 {

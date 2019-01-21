@@ -1,12 +1,12 @@
-﻿using LinFx.Infrastructure.Data;
-using LinFx.Extensions.DapperExtensions.Mapper;
+﻿using LinFx.Extensions.Dapper.Mapper;
+using LinFx.Extensions.Data;
 using System;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.DapperExtensions
+namespace LinFx.Extensions.Dapper
 {
     public interface IDatabase : IDisposable
     {

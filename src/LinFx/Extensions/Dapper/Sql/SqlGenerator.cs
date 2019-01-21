@@ -1,17 +1,17 @@
 ﻿using System;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using LinFx.Infrastructure.Data;
-using LinFx.Extensions.DapperExtensions.Mapper;
+using LinFx.Extensions.Dapper.Mapper;
+using LinFx.Extensions.Data;
 
-namespace LinFx.Extensions.DapperExtensions.Sql
+namespace LinFx.Extensions.Dapper.Sql
 {
-	public interface ISqlGenerator
+    public interface ISqlGenerator
     {
         IDapperExtensionsConfiguration Configuration { get; }
-        
-        string Select(IClassMapper classMap,IDictionary<string, object> parameters, IPredicate predicate, Paging paging = null, params Sorting[] sorting);
+
+        string Select(IClassMapper classMap, IDictionary<string, object> parameters, IPredicate predicate, Paging paging = null, params Sorting[] sorting);
         string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDictionary<string, object> parameters);
 
         string Count(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
@@ -36,25 +36,25 @@ namespace LinFx.Extensions.DapperExtensions.Sql
 
         public IDapperExtensionsConfiguration Configuration { get; private set; }
 
-		public virtual string Select(IClassMapper classMap, IDictionary<string, object> parameters, IPredicate predicate, Paging paging, params Sorting[] sorting)
-		{
-			if(parameters == null)
-				throw new ArgumentNullException("Parameters");
+        public virtual string Select(IClassMapper classMap, IDictionary<string, object> parameters, IPredicate predicate, Paging paging, params Sorting[] sorting)
+        {
+            if (parameters == null)
+                throw new ArgumentNullException("Parameters");
 
-			var innerSql = new StringBuilder(string.Format("SELECT {0} FROM {1}", BuildSelectColumns(classMap), GetTableName(classMap)));
-			if(predicate != null)
-				innerSql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
+            var innerSql = new StringBuilder(string.Format("SELECT {0} FROM {1}", BuildSelectColumns(classMap), GetTableName(classMap)));
+            if (predicate != null)
+                innerSql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
 
-			if(sorting != null && sorting.Any())
-				innerSql.Append(" ORDER BY ").Append(sorting.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings());
+            if (sorting != null && sorting.Any())
+                innerSql.Append(" ORDER BY ").Append(sorting.Select(s => GetColumnName(classMap, s.PropertyName, false) + (s.Ascending ? " ASC" : " DESC")).AppendStrings());
 
-			if(paging != null)
-				return Configuration.Dialect.GetPagingSql(innerSql.ToString(), paging.Page, paging.Limit, parameters);
+            if (paging != null)
+                return Configuration.Dialect.GetPagingSql(innerSql.ToString(), paging.Page, paging.Limit, parameters);
 
-			return innerSql.ToString();
-		}
+            return innerSql.ToString();
+        }
 
-		public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
+        public virtual string SelectSet(IClassMapper classMap, IPredicate predicate, IList<ISort> sort, uint firstResult, uint maxResults, IDictionary<string, object> parameters)
         {
             if (sort == null || !sort.Any())
                 throw new ArgumentNullException("Sort", "Sort cannot be null or empty.");
@@ -89,7 +89,7 @@ namespace LinFx.Extensions.DapperExtensions.Sql
 
             return sql.ToString();
         }
-        
+
         public virtual string Insert(IClassMapper classMap)
         {
             var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
@@ -108,10 +108,10 @@ namespace LinFx.Extensions.DapperExtensions.Sql
 
         public virtual string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
         {
-			Check.NotNull(predicate, nameof(predicate));
-			Check.NotNull(parameters, nameof(parameters));
+            Check.NotNull(predicate, nameof(predicate));
+            Check.NotNull(parameters, nameof(parameters));
 
-			var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
+            var columns = classMap.Properties.Where(p => !(p.Ignored || p.IsReadOnly || p.KeyType == KeyType.Identity));
             if (!columns.Any())
             {
                 throw new ArgumentException("No columns were mapped.");
@@ -128,17 +128,17 @@ namespace LinFx.Extensions.DapperExtensions.Sql
                 setSql.AppendStrings(),
                 predicate.GetSql(this, parameters));
         }
-        
+
         public virtual string Delete(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
         {
-			Check.NotNull(predicate, nameof(predicate));
-			Check.NotNull(parameters, nameof(parameters));
+            Check.NotNull(predicate, nameof(predicate));
+            Check.NotNull(parameters, nameof(parameters));
 
-			StringBuilder sql = new StringBuilder(string.Format("DELETE FROM {0}", GetTableName(classMap)));
+            StringBuilder sql = new StringBuilder(string.Format("DELETE FROM {0}", GetTableName(classMap)));
             sql.Append(" WHERE ").Append(predicate.GetSql(this, parameters));
             return sql.ToString();
         }
-        
+
         public virtual string IdentitySql(IClassMapper classMap)
         {
             return Configuration.Dialect.GetIdentitySql(GetTableName(classMap));

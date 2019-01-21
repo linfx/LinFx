@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-namespace LinFx.Extensions.Data
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.EventBus
 {

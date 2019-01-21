@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Data
+﻿using System.Collections.Generic;
 using MongoDB.Driver;
 
 namespace LinFx.Extensions.MongoDB

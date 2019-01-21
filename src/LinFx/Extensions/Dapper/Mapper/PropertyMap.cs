@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace LinFx.Extensions.DapperExtensions.Mapper
+namespace LinFx.Extensions.Dapper.Mapper
 {
     /// <summary>
     /// Maps an entity property to its corresponding column in the database.

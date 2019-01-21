@@ -1,6 +1,6 @@
 using System;
 
-namespace LinFx.Extensions.DapperExtensions.Mapper
+namespace LinFx.Extensions.Dapper.Mapper
 {
     /// <summary>
     /// Automatically maps an entity to a table using a combination of reflection and naming conventions for keys.
