@@ -9,16 +9,16 @@ using System.Net.Sockets;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class DefaultPersistentConnection : IPersistentConnection
+    public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {
-        private readonly ILogger<DefaultPersistentConnection> _logger;
+        private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
         private readonly IConnectionFactory _connectionFactory;
         private readonly int _retryCount;
         private IConnection _connection;
         private bool _disposed;
         private readonly object sync_root = new object();
 
-        public DefaultPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultPersistentConnection> logger, int retryCount = 5)
+        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultRabbitMQPersistentConnection> logger, int retryCount = 5)
         {
             _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -34,9 +34,12 @@ namespace LinFx.Extensions.RabbitMQ
         {
             if (!IsConnected)
             {
+                TryConnect();
+            }
+            if (!IsConnected)
+            {
                 throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
             }
-
             return _connection.CreateModel();
         }
 
@@ -119,18 +122,6 @@ namespace LinFx.Extensions.RabbitMQ
             {
                 _logger.LogCritical(ex.ToString());
             }
-        }
-    }
-
-    /// <summary>
-    /// Use <see cref="DefaultPersistentConnection"/>
-    /// </summary>
-    [Obsolete]
-    public class DefaultRabbitMQPersistentConnection : DefaultPersistentConnection
-    {
-        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultPersistentConnection> logger, int retryCount = 5) 
-            : base(connectionFactory, logger, retryCount)
-        {
         }
     }
 }

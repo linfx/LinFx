@@ -18,7 +18,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
         private readonly ILogger<EventBusRabbitMQ> _logger;
-        private readonly IPersistentConnection _persistentConnection;
+        private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly EventBusOptions _options;
@@ -26,7 +26,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         public EventBusRabbitMQ(
             ILogger<EventBusRabbitMQ> logger,
-            IPersistentConnection persistentConnection,
+            IRabbitMQPersistentConnection persistentConnection,
             IEventBusSubscriptionsManager subsManager, 
             IServiceScopeFactory serviceScopeFactory,
             EventBusOptions options)
@@ -41,11 +41,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         private void SubsManager_OnEventRemoved(object sender, string eventName)
         {
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
-
             using (var channel = _persistentConnection.CreateModel())
             {
                 channel.QueueUnbind(queue: _options.QueueName,
@@ -63,11 +58,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         public Task PublishAsync(IntegrationEvent evt)
         {
             var eventName = evt.GetType().Name;
-
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
 
             var policy = Policy.Handle<BrokerUnreachableException>()
                 .Or<SocketException>()
@@ -112,11 +102,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             {
                 _subsManager.AddSubscription<T, TH>();
 
-                if (!_persistentConnection.IsConnected)
-                {
-                    _persistentConnection.TryConnect();
-                }
-
                 using (var channel = _persistentConnection.CreateModel())
                 {
                     if (_consumerChannel == null)
@@ -156,11 +141,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         private IModel CreateConsumerChannel()
         {
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
-
             var channel = _persistentConnection.CreateModel();
 
             channel.ExchangeDeclare(exchange: _options.BrokerName,

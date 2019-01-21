@@ -47,7 +47,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                         type: "direct",
                         durable: true),
                 new QueueDeclareConfiguration(
-                        RabbitMqOptions.ClientName,
+                        RabbitMqOptions.QueueName,
                         durable: true,
                         exclusive: false,
                         autoDelete: false),
