@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Abstractions;
 using LinFx.Domain.Models.MultiTenancy;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 
 namespace LinFx.Domain.Models.Auditing
 {

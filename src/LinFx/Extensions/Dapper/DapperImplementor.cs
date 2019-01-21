@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Data;
 using System.Dynamic;
 using System.Linq;

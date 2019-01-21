@@ -1,6 +1,6 @@
 ﻿using LinFx.Infrastructure.Data;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Linq;
 using System.Linq.Expressions;
 

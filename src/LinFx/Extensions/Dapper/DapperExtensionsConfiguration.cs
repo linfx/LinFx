@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Linq;
 using System.Reflection;
 using LinFx.Extensions.DapperExtensions.Mapper;

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Text;
 
 namespace LinFx.Utils

@@ -2,7 +2,7 @@
 using LinFx.Extensions.DapperExtensions.Mapper;
 using LinFx.Extensions.DapperExtensions.Sql;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Data;
 using System.Reflection;
 using System.Threading.Tasks;

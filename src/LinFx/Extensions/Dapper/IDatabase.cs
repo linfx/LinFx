@@ -1,7 +1,7 @@
 ﻿using LinFx.Infrastructure.Data;
 using LinFx.Extensions.DapperExtensions.Mapper;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading.Tasks;

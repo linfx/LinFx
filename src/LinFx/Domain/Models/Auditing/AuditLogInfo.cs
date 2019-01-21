@@ -1,6 +1,6 @@
 ﻿using LinFx.Domain.Models.MultiTenancy;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Linq;
 using System.Text;
 

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization;
 using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using System.Collections.Immutable;
 using System.Linq;
 

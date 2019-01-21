@@ -1,5 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMQ

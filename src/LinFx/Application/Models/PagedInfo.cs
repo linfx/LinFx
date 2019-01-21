@@ -1,5 +1,5 @@
 ﻿using LinFx.Application.Abstractions;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 
 namespace LinFx.Application.Models
 {

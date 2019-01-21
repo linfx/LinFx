@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+namespace LinFx.Extensions.Data
 using static LinFx.Extensions.EventBus.InMemoryEventBusSubscriptionsManager;
 
 namespace LinFx.Extensions.EventBus
