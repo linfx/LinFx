@@ -1,10 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LinFx.Extensions.Data
 {
-    interface IDataFilter
+    public interface IDataFilter<TFilter> where TFilter : class
     {
+        IDisposable Enable();
+
+        IDisposable Disable();
+
+        bool IsEnabled { get; }
+    }
+
+    public interface IDataFilter
+    {
+        IDisposable Enable<TFilter>() where TFilter : class;
+
+        IDisposable Disable<TFilter>() where TFilter : class;
+
+        bool IsEnabled<TFilter>() where TFilter : class;
     }
 }

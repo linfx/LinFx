@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.Extensions.Dapper.Sql
+namespace LinFx.Extensions.Dapper.Dialect
 {
     public class SqlCeDialect : SqlDialectBase
     {

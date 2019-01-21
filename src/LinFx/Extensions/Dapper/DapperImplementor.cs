@@ -6,7 +6,7 @@ using System.Text;
 using Dapper;
 using LinFx.Extensions.Dapper.Mapper;
 using System.Threading.Tasks;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 using System.Collections.Generic;
 using LinFx.Extensions.Data;
 

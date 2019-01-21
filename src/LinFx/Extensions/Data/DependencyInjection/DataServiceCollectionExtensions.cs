@@ -1,7 +1,7 @@
 ﻿using LinFx;
 using LinFx.Extensions.Dapper;
 using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.Data.Provider;
 using System;
@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DataServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddDatabase(this ILinFxBuilder builder, string connectionString)
+        public static ILinFxBuilder AddDatabase(this ILinFxBuilder builder, Action<DbConnectionOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
 

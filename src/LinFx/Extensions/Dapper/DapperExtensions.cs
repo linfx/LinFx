@@ -1,5 +1,5 @@
 ﻿using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 using LinFx.Extensions.Data;
 using System;
 using System.Collections.Generic;

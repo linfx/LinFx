@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace linFx.Threading
+namespace LinFx.Threading
 {
     /// <summary>
     /// AsyncSemaphore should be used with a lot of care.

@@ -5,7 +5,7 @@ using System.Text;
 using LinFx.Extensions.Dapper.Mapper;
 using LinFx.Extensions.Data;
 
-namespace LinFx.Extensions.Dapper.Sql
+namespace LinFx.Extensions.Dapper.Dialect
 {
     public interface ISqlGenerator
     {

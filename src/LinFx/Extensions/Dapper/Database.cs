@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 using Dapper;
 using System.Threading.Tasks;
 using LinFx.Extensions.Data;

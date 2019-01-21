@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.Data.Expressions;
 

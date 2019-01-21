@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Sql;
+using LinFx.Extensions.Dapper.Dialect;
 
 namespace LinFx.Extensions.Dapper
 {
