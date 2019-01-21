@@ -40,7 +40,8 @@ namespace LinFx.Domain.Models.Auditing
 
         public Dictionary<string, object> ExtraProperties { get; }
 
-        public List<EntityChangeInfo> EntityChanges { get; }
+        public List<
+EntityChangeInfo> EntityChanges { get; }
 
         public List<string> Comments { get; set; }
 
@@ -97,5 +98,13 @@ namespace LinFx.Domain.Models.Auditing
 
             return sb.ToString();
         }
+    }
+
+    public class EntityChangeInfo
+    {
+        public IEnumerable<object> PropertyChanges { get; internal set; }
+        public object ChangeType { get; internal set; }
+        public object EntityTypeFullName { get; internal set; }
+        public object EntityId { get; internal set; }
     }
 }

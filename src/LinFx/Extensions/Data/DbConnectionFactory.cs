@@ -9,15 +9,15 @@ namespace LinFx.Extensions.Data
 
         private DbConnection Connection => _connection ?? (_connection = new DbConnection(this));
 
+        public IDbProvider DbProvider { get; }
+
+        public string ConnectionString { get; set; }
+
         public DbConnectionFactory(string connectionString, IDbProvider provider)
         {
             ConnectionString = connectionString;
             DbProvider = provider;
         }
-
-        public IDbProvider DbProvider { get; set; }
-
-        public string ConnectionString { get; set; }
 
         public virtual IDbConnection OpenDbConnection()
         {
