@@ -10,8 +10,6 @@ namespace LinFx.Domain.Models
     {
         private List<INotification> _domainEvents;
 
-        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
-
         public void AddDomainEvent(INotification eventItem)
         {
             _domainEvents = _domainEvents ?? new List<INotification>();
@@ -26,6 +24,11 @@ namespace LinFx.Domain.Models
         public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
+        }
+
+        public IEnumerable<INotification> GetDomainEvents()
+        {
+            return _domainEvents;
         }
     }
 
@@ -49,6 +52,11 @@ namespace LinFx.Domain.Models
         public void ClearDomainEvents()
         {
             _domainEvents?.Clear();
+        }
+
+        public IEnumerable<INotification> GetDomainEvents()
+        {
+            return _domainEvents;
         }
     }
 }

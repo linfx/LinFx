@@ -11,10 +11,10 @@ namespace MediatR
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<IAggregateRoot>()
-                .Where(x => x.Entity.DomainEvents != null && x.Entity.DomainEvents.Any());
+                .Where(x => x.Entity.GetDomainEvents() != null && x.Entity.GetDomainEvents().Any());
 
             var domainEvents = domainEntities
-                .SelectMany(x => x.Entity.DomainEvents)
+                .SelectMany(x => x.Entity.GetDomainEvents())
                 .ToList();
 
             domainEntities.ToList()

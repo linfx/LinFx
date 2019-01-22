@@ -9,7 +9,7 @@ namespace LinFx.Domain.Models
     /// </summary>
     public interface IAggregateRoot : IEntity
     {
-        IReadOnlyCollection<INotification> DomainEvents { get; }
+        IEnumerable<INotification> GetDomainEvents();
 
         void ClearDomainEvents();
     }
