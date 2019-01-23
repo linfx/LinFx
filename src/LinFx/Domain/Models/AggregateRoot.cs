@@ -8,7 +8,7 @@ namespace LinFx.Domain.Models
     /// </summary>
     public abstract class AggregateRoot : Entity, IAggregateRoot
     {
-        private List<INotification> _domainEvents;
+        private ICollection<INotification> _domainEvents;
 
         public void AddDomainEvent(INotification eventItem)
         {
@@ -34,9 +34,7 @@ namespace LinFx.Domain.Models
 
     public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot<TKey>
     {
-        private List<INotification> _domainEvents;
-
-        public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();
+        private ICollection<INotification> _domainEvents;
 
         public void AddDomainEvent(INotification eventItem)
         {
