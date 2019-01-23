@@ -8,7 +8,7 @@ namespace LinFx.Security.Principal
 {
     public static class ClaimsPrincipalExtensions
     {
-        public static Guid? FindUserId([NotNull] this ClaimsPrincipal principal)
+        public static string FindUserId([NotNull] this ClaimsPrincipal principal)
         {
             Check.NotNull(principal, nameof(principal));
 
@@ -17,10 +17,10 @@ namespace LinFx.Security.Principal
             {
                 return null;
             }
-            return Guid.Parse(claim.Value);
+            return claim.Value;
         }
 
-        public static Guid? FindTenantId([NotNull] this ClaimsPrincipal principal)
+        public static string FindTenantId([NotNull] this ClaimsPrincipal principal)
         {
             Check.NotNull(principal, nameof(principal));
 
@@ -29,10 +29,10 @@ namespace LinFx.Security.Principal
             {
                 return null;
             }
-            return Guid.Parse(claim.Value);
+            return claim.Value;
         }
 
-        public static Guid? FindClientId([NotNull] this ClaimsPrincipal principal)
+        public static string FindClientId([NotNull] this ClaimsPrincipal principal)
         {
             Check.NotNull(principal, nameof(principal));
 
@@ -41,37 +41,33 @@ namespace LinFx.Security.Principal
             {
                 return null;
             }
-            return Guid.Parse(claim.Value);
+            return claim.Value;
         }
 
-        public static Guid? FindUserId([NotNull] this IIdentity identity)
+        public static string FindUserId([NotNull] this IIdentity identity)
         {
             Check.NotNull(identity, nameof(identity));
 
             var claimsIdentity = identity as ClaimsIdentity;
-
-            var userIdOrNull = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.UserId);
-            if (userIdOrNull == null || userIdOrNull.Value.IsNullOrWhiteSpace())
+            var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.UserId);
+            if (claim == null || claim.Value.IsNullOrWhiteSpace())
             {
                 return null;
             }
-
-            return Guid.Parse(userIdOrNull.Value);
+            return claim.Value;
         }
 
-        public static Guid? FindTenantId([NotNull] this IIdentity identity)
+        public static string FindTenantId([NotNull] this IIdentity identity)
         {
             Check.NotNull(identity, nameof(identity));
 
             var claimsIdentity = identity as ClaimsIdentity;
-
-            var tenantIdOrNull = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.TenantId);
-            if (tenantIdOrNull == null || tenantIdOrNull.Value.IsNullOrWhiteSpace())
+            var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.TenantId);
+            if (claim == null || claim.Value.IsNullOrWhiteSpace())
             {
                 return null;
             }
-
-            return Guid.Parse(tenantIdOrNull.Value);
+            return claim.Value;
         }
     }
 }

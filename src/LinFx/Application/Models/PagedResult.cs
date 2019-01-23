@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Abstractions;
-using System;
 using System.Collections.Generic;
 
 namespace LinFx.Application.Models
@@ -8,27 +7,25 @@ namespace LinFx.Application.Models
     /// Implements <see cref="IPagedResult{T}"/>.
     /// </summary>
     /// <typeparam name="T">Type of the items in the <see cref="ListResult{T}.Items"/> list</typeparam>
-    [Obsolete("Use PagedResult")]
-    public class PagedInfo<T> : ListResult<T>, IPagedResult<T>
+    public class PagedResult<T> : ListResult<T>, IPagedResult<T>
     {
-        /// <summary>
-        /// Creates a new <see cref="PagedInfo{T}"/> object.
-        /// </summary>
-        public PagedInfo() { }
+        /// <inheritdoc />
+        public int TotalCount { get; set; }
 
         /// <summary>
-        /// Creates a new <see cref="PagedInfo{T}"/> object.
+        /// Creates a new <see cref="PagedResult{T}"/> object.
+        /// </summary>
+        public PagedResult() { }
+
+        /// <summary>
+        /// Creates a new <see cref="PagedResult{T}"/> object.
         /// </summary>
         /// <param name="totalCount">Total count of Items</param>
         /// <param name="items">List of items in current page</param>
-        public PagedInfo(int totalCount, IReadOnlyList<T> items) : base(items)
+        public PagedResult(int totalCount, IReadOnlyList<T> items)
+            : base(items)
         {
             TotalCount = totalCount;
         }
-
-        /// <summary>
-        /// Total count of Items.
-        /// </summary>
-        public int TotalCount { get; set; }
     }
 }
