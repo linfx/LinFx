@@ -3,6 +3,7 @@ using LinFx.Domain.Models;
 using System;
 using System.Linq.Expressions;
 using LinFx.Extensions.Data.Utils;
+using LinFx.Extensions.Auditing;
 
 namespace LinFx.Extensions.Data.Filters.Query
 {

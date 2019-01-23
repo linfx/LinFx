@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ordering.Domain.Exceptions
+namespace LinFx.Domain.Exceptions
 {
     /// <summary>
     /// Exception type for domain exceptions

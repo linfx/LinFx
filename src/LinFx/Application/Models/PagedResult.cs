@@ -10,7 +10,7 @@ namespace LinFx.Application.Models
     public class PagedResult<T> : ListResult<T>, IPagedResult<T>
     {
         /// <inheritdoc />
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.
@@ -22,7 +22,7 @@ namespace LinFx.Application.Models
         /// </summary>
         /// <param name="totalCount">Total count of Items</param>
         /// <param name="items">List of items in current page</param>
-        public PagedResult(int totalCount, IReadOnlyList<T> items)
+        public PagedResult(long totalCount, IReadOnlyList<T> items)
             : base(items)
         {
             TotalCount = totalCount;

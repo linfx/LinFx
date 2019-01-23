@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
+using LinFx.Domain.Exceptions;
 using MediatR;
-using Ordering.Domain.Exceptions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

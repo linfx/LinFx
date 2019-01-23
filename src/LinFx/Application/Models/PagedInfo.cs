@@ -21,7 +21,7 @@ namespace LinFx.Application.Models
         /// </summary>
         /// <param name="totalCount">Total count of Items</param>
         /// <param name="items">List of items in current page</param>
-        public PagedInfo(int totalCount, IReadOnlyList<T> items) : base(items)
+        public PagedInfo(long totalCount, IReadOnlyList<T> items) : base(items)
         {
             TotalCount = totalCount;
         }
@@ -29,6 +29,6 @@ namespace LinFx.Application.Models
         /// <summary>
         /// Total count of Items.
         /// </summary>
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
     }
 }
