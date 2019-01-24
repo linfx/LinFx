@@ -7,6 +7,7 @@ namespace LinFx.Extensions.RabbitMQ
     {
         private const int DefaultPort = 5672;
         private const int DefaultAmqpsPort = 5671;
+
         public string Host { get; set; }
         public ushort Port { get; set; }
         public string VirtualHost { get; set; } = "/";
@@ -15,6 +16,11 @@ namespace LinFx.Extensions.RabbitMQ
         public ushort PrefetchCount { get; set; }
         public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(10);
         public SslOption Ssl { get; }
+
+        /// <summary>
+        /// The environment variable named 'RABBITMQ_URL' isn't set. Set it to e.g. 'amqp://localhost'
+        /// </summary>
+        public Uri Uri { get; set; }
 
         public ConnectionConfiguration()
         {

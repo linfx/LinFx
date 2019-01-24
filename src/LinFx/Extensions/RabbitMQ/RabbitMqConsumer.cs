@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class Consumer : IConsumer, IDisposable
+    public class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
     {
-        public ILogger<Consumer> Logger { get; set; }
+        public ILogger<RabbitMqConsumer> Logger { get; set; }
 
         protected IConnectionPool ConnectionPool { get; }
+        protected IModel Channel { get; private set; }
         protected Timer Timer { get; }
 
         protected ExchangeDeclareConfiguration Exchange { get; private set; }
@@ -22,16 +23,13 @@ namespace LinFx.Extensions.RabbitMQ
         protected string ConnectionName { get; private set; }
 
         protected ConcurrentBag<Func<IModel, BasicDeliverEventArgs, Task>> Callbacks { get; }
-
-        protected IModel Channel { get; private set; }
-
         protected ConcurrentQueue<QueueBindCommand> QueueBindCommands { get; }
 
         protected object ChannelSendSyncLock { get; } = new object();
 
-        public Consumer(IConnectionPool connectionPool)
+        public RabbitMqConsumer(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<Consumer>.Instance;
+            Logger = NullLogger<RabbitMqConsumer>.Instance;
             ConnectionPool = connectionPool;
 
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();
@@ -125,6 +123,7 @@ namespace LinFx.Extensions.RabbitMQ
             {
                 TryCreateChannel();
                 //AsyncHelper.RunSync(TrySendQueueBindCommandsAsync);
+                //AsyncHelper.Wait.Run(TrySendQueueBindCommandsAsync());
                 TrySendQueueBindCommandsAsync().Wait();
             }
         }

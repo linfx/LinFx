@@ -5,7 +5,7 @@ using RabbitMQ.Client.Events;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public interface IConsumer
+    public interface IRabbitMqConsumer
     {
         Task BindAsync(string routingKey);
 

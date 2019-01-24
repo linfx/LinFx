@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.Test.Extensions.RabbitMQ
+namespace LinFx.Extensions.Idempotency
 {
-    public class RabbitMQTests
+    class RequestManager
     {
     }
 }

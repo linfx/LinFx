@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx", "src\LinFx\LinFx.csproj", "{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{F4E5371A-1577-43F1-B9AE-35074553A7BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{426ED508-4886-408B-9830-E6602F1E769F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F4E5371A-1577-43F1-B9AE-35074553A7BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{426ED508-4886-408B-9830-E6602F1E769F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{426ED508-4886-408B-9830-E6602F1E769F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{426ED508-4886-408B-9830-E6602F1E769F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{426ED508-4886-408B-9830-E6602F1E769F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,6 +28,7 @@
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.3" />
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="FluentValidation" Version="8.1.2" />
+    <PackageReference Include="Hangfire.Core" Version="1.6.21" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.1" />

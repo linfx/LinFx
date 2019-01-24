@@ -5,17 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\Dapper\**" />
     <Compile Remove="Infrastructure\**" />
     <Compile Remove="Logging\**" />
     <Compile Remove="SaaS\**" />
     <Compile Remove="Unity\**" />
-    <EmbeddedResource Remove="Extensions\Dapper\**" />
     <EmbeddedResource Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Logging\**" />
     <EmbeddedResource Remove="SaaS\**" />
     <EmbeddedResource Remove="Unity\**" />
-    <None Remove="Extensions\Dapper\**" />
     <None Remove="Infrastructure\**" />
     <None Remove="Logging\**" />
     <None Remove="SaaS\**" />

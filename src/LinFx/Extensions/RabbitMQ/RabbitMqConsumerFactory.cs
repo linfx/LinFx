@@ -3,21 +3,21 @@ using System;
 
 namespace LinFx.Extensions.RabbitMQ
 {
-    public class ConsumerFactory : IConsumerFactory, IDisposable
+    public class RabbitMqConsumerFactory : IConsumerFactory, IDisposable
     {
         protected IServiceScope ServiceScope { get; }
 
-        public ConsumerFactory(IServiceScopeFactory serviceScopeFactory)
+        public RabbitMqConsumerFactory(IServiceScopeFactory serviceScopeFactory)
         {
             ServiceScope = serviceScopeFactory.CreateScope();
         }
 
-        public IConsumer Create(
+        public IRabbitMqConsumer Create(
             ExchangeDeclareConfiguration exchange,
             QueueDeclareConfiguration queue,
             string connectionName = null)
         {
-            var consumer = ServiceScope.ServiceProvider.GetRequiredService<Consumer>();
+            var consumer = ServiceScope.ServiceProvider.GetRequiredService<RabbitMqConsumer>();
             consumer.Initialize(exchange, queue, connectionName);
             return consumer;
         }

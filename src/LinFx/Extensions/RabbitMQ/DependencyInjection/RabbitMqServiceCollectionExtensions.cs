@@ -28,9 +28,9 @@ namespace Microsoft.Extensions.DependencyInjection
             });
             builder.Services.AddSingleton<IConnectionPool, DefaultConnectionPool>();
             builder.Services.AddSingleton<IChannelPool, DefaultChannelPool>();
-            builder.Services.AddSingleton<IConsumerFactory, ConsumerFactory>();
+            builder.Services.AddSingleton<IConsumerFactory, RabbitMqConsumerFactory>();
             builder.Services.AddSingleton<IRabbitMqSerializer, DefaultRabbitMqSerializer>();
-            builder.Services.AddTransient<Consumer>();
+            builder.Services.AddTransient<RabbitMqConsumer>();
 
             return builder;
         }

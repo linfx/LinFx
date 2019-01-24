@@ -20,7 +20,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         protected RabbitMqOptions RabbitMqOptions { get; }
         protected IConnectionPool ConnectionPool { get; }
         protected IConsumerFactory ConsumerFactory { get; }
-        protected IConsumer Consumer { get; }
+        protected IRabbitMqConsumer Consumer { get; }
         protected IRabbitMqSerializer Serializer { get; }
 
         public RabbitMqDistributedEventBus(
