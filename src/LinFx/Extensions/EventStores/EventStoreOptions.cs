@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LinFx.Extensions.EventStores
 {
-    class EventStoresOptions
+    class EventStoreOptions
     {
     }
 }

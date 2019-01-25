@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.IntegrationEventLog
+﻿namespace LinFx.Extensions.EventStores
 {
     public enum EventStateEnum
     {

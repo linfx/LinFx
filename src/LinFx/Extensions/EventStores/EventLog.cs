@@ -5,13 +5,13 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace LinFx.Extensions.IntegrationEventLog
+namespace LinFx.Extensions.EventStores
 {
-    public class IntegrationEventLogEntry
+    public class EventLog
     {
-        private IntegrationEventLogEntry() { }
+        private EventLog() { }
 
-        public IntegrationEventLogEntry(IntegrationEvent evt)
+        public EventLog(IntegrationEvent evt)
         {
             EventId = evt.Id;
             CreationTime = DateTime.Now;
@@ -32,7 +32,7 @@ namespace LinFx.Extensions.IntegrationEventLog
         public DateTime CreationTime { get; private set; }
         public string Content { get; private set; }
 
-        public IntegrationEventLogEntry DeserializeJsonContent(Type type)
+        public EventLog DeserializeJsonContent(Type type)
         {
             IntegrationEvent = JsonConvert.DeserializeObject(Content, type) as IntegrationEvent;
             return this;

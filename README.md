@@ -11,14 +11,39 @@
 
 ## LinFx.Extensions
 
-Caching、Dapper、Polly、Elasticsearch、EventBus、Metrics、Mongo、RabbitMQ
+Polly、FluentValidation、Metrics
+
+- Auditing   (审核日志)
+- Caching  (缓存 Memory Distributed)
+- Dapper
+- Data (DataFilter)
+- Elasticsearch
+- EntityFrameworkCore
+- EventBus
+- EventStores (ES)
+- Hangfire
+- Mediator
+- MongoDB
+- MultiTenancy   (多租用户)
+- RabbitMQ
+
+***
+
+## LinFx.Utils
+
+各日常工具类集合
+
+- EncryptUtils
+- JsonUtils
+
+***
 
 ### 特性
 
-1. 领域驱动设计（DDD）
+1. 领域驱动设计 (DDD)
 2. 事件驱动架构 (EDA)
-3. 事件回溯 （ES）
-4. 最终一致性 （Eventually Consistent）
+3. 事件回溯 (ES)
+4. 最终一致性 (Eventually Consistent)
 6. 框架中每个组件都有基础实现，最简单时只需一个核心类库就能跑起来
 7. 遵循端口与适配器模式，框架组件适配多种第三方组件实现，可从单体架构到面向服务架构按需扩展
 

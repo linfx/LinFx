@@ -1,22 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LinFx.Extensions.IntegrationEventLog
+namespace LinFx.Extensions.EventStores
 {
-    public class IntegrationEventLogContext : EntityFrameworkCore.DbContext
+    public class EventStoreContext : EntityFrameworkCore.DbContext
     {
-        public IntegrationEventLogContext(DbContextOptions<IntegrationEventLogContext> options) : base(options)
+        public EventStoreContext(DbContextOptions<EventStoreContext> options) : base(options)
         {
         }
 
-        public DbSet<IntegrationEventLogEntry> IntegrationEventLogs { get; set; }
+        public DbSet<EventLog> IntegrationEventLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<IntegrationEventLogEntry>(ConfigureIntegrationEventLogEntry);
+            builder.Entity<EventLog>(ConfigureIntegrationEventLogEntry);
         }
 
-        void ConfigureIntegrationEventLogEntry(EntityTypeBuilder<IntegrationEventLogEntry> builder)
+        void ConfigureIntegrationEventLogEntry(EntityTypeBuilder<EventLog> builder)
         {
             builder.ToTable("IntegrationEventLog");
 

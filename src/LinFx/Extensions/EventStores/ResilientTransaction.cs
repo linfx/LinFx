@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.IntegrationEventLog
+namespace LinFx.Extensions.EventStores
 {
     public class ResilientTransaction
     {

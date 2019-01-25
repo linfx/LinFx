@@ -7,14 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.IntegrationEventLog
+namespace LinFx.Extensions.EventStores
 {
-    public class IntegrationEventLogService : IIntegrationEventLogService
+    public class EventStoreManager : IEventStore
     {
-        private readonly IntegrationEventLogContext _context;
+        private readonly EventStoreContext _context;
         private readonly List<Type> _eventTypes;
 
-        public IntegrationEventLogService(IntegrationEventLogContext context)
+        public EventStoreManager(EventStoreContext context)
         {
             _context = context;
             _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
@@ -23,7 +23,7 @@ namespace LinFx.Extensions.IntegrationEventLog
                 .ToList();
         }
 
-        public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync()
+        public async Task<IEnumerable<EventLog>> RetrieveEventLogsPendingToPublishAsync()
         {
             return await _context.IntegrationEventLogs
                 .Where(e => e.State == EventStateEnum.NotPublished)
@@ -32,18 +32,15 @@ namespace LinFx.Extensions.IntegrationEventLog
                 .ToListAsync();
         }
 
-        public Task SaveEventAsync(IntegrationEvent @event, DbTransaction transaction)
+        public Task SaveEventAsync(IntegrationEvent evt, DbTransaction transaction)
         {
             if (transaction == null)
-            {
                 throw new ArgumentNullException(nameof(transaction), $"A {typeof(DbTransaction).FullName} is required as a pre-requisite to save the event.");
-            }
 
-            var eventLogEntry = new IntegrationEventLogEntry(@event);
+            var eventLogEntry = new EventLog(evt);
 
             _context.Database.UseTransaction(transaction);
             _context.IntegrationEventLogs.Add(eventLogEntry);
-
             return _context.SaveChangesAsync();
         }
 
@@ -71,7 +68,6 @@ namespace LinFx.Extensions.IntegrationEventLog
                 eventLogEntry.TimesSent++;
 
             _context.IntegrationEventLogs.Update(eventLogEntry);
-
             return _context.SaveChangesAsync();
         }
     }
