@@ -19,12 +19,6 @@ namespace LinFx.Extensions.EventBus
         public bool IsEmpty => !_handlers.Keys.Any();
         public void Clear() => _handlers.Clear();
 
-        public void AddDynamicSubscription<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            DoAddSubscription(typeof(TH), eventName, isDynamic: true);
-        }
-
         public void AddSubscription<TEvent, THandler>()
             where TEvent : IntegrationEvent
             where THandler : IIntegrationEventHandler<TEvent>
@@ -58,17 +52,9 @@ namespace LinFx.Extensions.EventBus
         }
 
 
-        public void RemoveDynamicSubscription<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            var handlerToRemove = FindDynamicSubscriptionToRemove<TH>(eventName);
-            DoRemoveHandler(eventName, handlerToRemove);
-        }
-
-
         public void RemoveSubscription<T, TH>()
-            where TH : IIntegrationEventHandler<T>
             where T : IntegrationEvent
+            where TH : IIntegrationEventHandler<T>
         {
             var handlerToRemove = FindSubscriptionToRemove<T, TH>();
             var eventName = GetEventKey<T>();
@@ -111,14 +97,6 @@ namespace LinFx.Extensions.EventBus
             }
         }
 
-
-        private SubscriptionInfo FindDynamicSubscriptionToRemove<TH>(string eventName)
-            where TH : IDynamicIntegrationEventHandler
-        {
-            return DoFindSubscriptionToRemove(eventName, typeof(TH));
-        }
-
-
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
              where T : IntegrationEvent
              where TH : IIntegrationEventHandler<T>
@@ -135,7 +113,6 @@ namespace LinFx.Extensions.EventBus
             }
 
             return _handlers[eventName].SingleOrDefault(s => s.HandlerType == handlerType);
-
         }
 
         public bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent

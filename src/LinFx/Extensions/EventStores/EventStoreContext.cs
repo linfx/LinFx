@@ -5,11 +5,11 @@ namespace LinFx.Extensions.EventStores
 {
     public class EventStoreContext : EntityFrameworkCore.DbContext
     {
+        public DbSet<EventLog> EventLogs { get; set; }
+
         public EventStoreContext(DbContextOptions<EventStoreContext> options) : base(options)
         {
         }
-
-        public DbSet<EventLog> IntegrationEventLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -39,7 +39,6 @@ namespace LinFx.Extensions.EventStores
 
             builder.Property(e => e.EventTypeName)
                 .IsRequired();
-
         }
     }
 }

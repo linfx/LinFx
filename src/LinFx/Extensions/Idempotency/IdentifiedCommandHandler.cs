@@ -1,9 +1,8 @@
-﻿using LinFx.Extensions.Idempotency.Commands;
-using MediatR;
+﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Idempotency.CommandHandlers
+namespace LinFx.Extensions.Idempotency
 {
     /// <summary>
     /// Provides a base implementation for handling duplicate request and ensuring idempotent updates, in the cases where

@@ -3,7 +3,7 @@
     public interface ILinFxBuilder
     {
         /// <summary>
-        /// Gets the <see cref="IServiceCollection"/> where Linfx services are configured.
+        /// Gets the <see cref="IServiceCollection"/> where LinFx services are configured.
         /// </summary>
         IServiceCollection Services { get; }
     }

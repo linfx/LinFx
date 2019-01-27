@@ -103,6 +103,11 @@ namespace LinFx.Utils
 
             return JsonConvert.DeserializeObject(serialized, type, options);
         }
+
+        public static object DeserializeObject(string value, Type type)
+        {
+            return JsonConvert.DeserializeObject(value, type);
+        }
     }
 
     public static class JsonExtensions

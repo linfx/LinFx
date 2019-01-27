@@ -1,7 +1,6 @@
 ﻿using LinFx.Test.Extensions.EventBus.Events;
 using LinFx.Test.Extensions.EventBus.EventHandling;
 using LinFx.Extensions.EventBus;
-using LinFx.Extensions.EventBus.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -19,19 +18,15 @@ namespace LinFx.Test.Extensions.EventBus
             var services = new ServiceCollection();
 
             services.AddLinFx()
-                .AddEventBus(builder =>
+                .AddEventBus(options =>
                 {
-                    builder.Configure(options =>
+                    options.UseRabbitMQ(x =>
                     {
-                        options.RetryCount = 3;
-                    })
-                    .UseRabbitMQ(options =>
-                    {
-                        options.Host = "14.21.34.85";
-                        options.UserName = "admin";
-                        options.Password = "admin.123456";
-                        options.QueueName = "linfx_event_queue";
-                        options.ExchangeName = "linfx_event_bus";
+                        x.Host = "14.21.34.85";
+                        x.UserName = "admin";
+                        x.Password = "admin.123456";
+                        x.BrokerName = "linfx_event_bus";
+                        x.QueueName = "linfx_event_queue";
                     });
                 });
 
@@ -55,7 +50,7 @@ namespace LinFx.Test.Extensions.EventBus
             {
             });
             await _eventBus.PublishAsync(evt);
-            await Task.Delay(100000);
+            //await Task.Delay(100000);
         }
     }
 }
