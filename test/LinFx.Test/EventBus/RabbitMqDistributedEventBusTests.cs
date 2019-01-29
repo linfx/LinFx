@@ -16,7 +16,6 @@ namespace LinFx.Test.Extensions.EventBus
         public RabbitMqDistributedEventBusTests()
         {
             var services = new ServiceCollection();
-
             services.AddLinFx()
                 .AddEventBus(options =>
                 {
