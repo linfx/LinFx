@@ -4,11 +4,11 @@ using LinFx.Domain.Models;
 
 namespace LinFx.Extensions.MongoDB
 {
-    public class MongoDBRepository<TEntity> where TEntity : class, IEntity
+    public class MongoDbRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly IMongoDatabaseProvider _provider;
 
-        public MongoDBRepository(IMongoDatabaseProvider databaseProvider)
+        public MongoDbRepository(IMongoDatabaseProvider databaseProvider)
         {
             _provider = databaseProvider;
         }

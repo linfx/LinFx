@@ -1,0 +1,51 @@
+﻿using LinFx;
+using LinFx.Security.Authorization;
+using LinFx.Security.Authorization.Permissions;
+using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Linq;
+using AuthorizationOptions = LinFx.Security.Authorization.AuthorizationOptions;
+
+namespace Microsoft.Extensions.DependencyInjection
+{
+    public static class AuthorizationServiceCollectionExtensions
+    {
+        /// <summary>
+        /// Adds authorization services to the specified <see cref="LinFxBuilder" />. 
+        /// </summary>
+        /// <param name="builder">The current <see cref="LinFxBuilder" /> instance. </param>
+        /// <param name="configure">An action delegate to configure the provided <see cref="AuthorizationOptions"/>.</param>
+        /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
+        public static LinFxBuilder AddAuthorization(
+            [NotNull] this LinFxBuilder builder, 
+            [NotNull] Action<AuthorizationOptions> configure)
+        {
+            Check.NotNull(builder, nameof(builder));
+            Check.NotNull(configure, nameof(configure));
+
+
+            var options = new AuthorizationOptions();
+            configure?.Invoke(options);
+
+            builder.Services.Configure(configure);
+            builder.Services.Configure<PermissionOptions>(o =>
+            {
+                o.DefinitionProviders.Add(options.Permissions.DefinitionProviders.First());
+                o.ValueProviders.Add(options.Permissions.ValueProviders.First());
+            });
+
+
+            builder.Services.AddAuthorization();
+            builder.AddHttpContextPrincipalAccessor();
+
+            builder.Services.AddSingleton<IPermissionChecker, PermissionChecker>();
+            builder.Services.AddSingleton<IPermissionDefinitionContext, PermissionDefinitionContext>();
+            builder.Services.AddSingleton<IPermissionDefinitionManager, PermissionDefinitionManager>();
+
+            //fx.Services.TryAdd(ServiceDescriptor.Transient<IAuthorizationPolicyProvider, LinFx.Security.Authorization.DefaultAuthorizationPolicyProvider>());
+            builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+            return builder;
+        }
+    }
+}

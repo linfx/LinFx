@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DataServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddDatabase(this ILinFxBuilder builder, Action<DbConnectionOptions> optionsAction)
+        public static LinFxBuilder AddDatabase(this LinFxBuilder builder, Action<DbConnectionOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
 

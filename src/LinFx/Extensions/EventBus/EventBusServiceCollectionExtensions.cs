@@ -19,8 +19,8 @@ namespace Microsoft.Extensions.DependencyInjection
         //    return builder;
         //}
 
-        public static ILinFxBuilder AddEventBus(
-            [NotNull] this ILinFxBuilder builder,
+        public static LinFxBuilder AddEventBus(
+            [NotNull] this LinFxBuilder builder,
             [NotNull] Action<EventBusOptionsBuilder> optionsAction)
         {
             var options = new EventBusOptions();

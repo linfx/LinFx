@@ -7,8 +7,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EventStoreServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddEventStores(
-            [NotNull] this ILinFxBuilder builder,
+        public static LinFxBuilder AddEventStores(
+            [NotNull] this LinFxBuilder builder,
             [NotNull] Action<EventStoreOptionsBuilder> optionsAction) 
             => AddEventStores(
                 builder,
@@ -17,8 +17,8 @@ namespace Microsoft.Extensions.DependencyInjection
                     : (p, b) => optionsAction.Invoke(b));
 
 
-        public static ILinFxBuilder AddEventStores(
-            [NotNull] this ILinFxBuilder builder, 
+        public static LinFxBuilder AddEventStores(
+            [NotNull] this LinFxBuilder builder, 
             [NotNull] Action<IServiceProvider, EventStoreOptionsBuilder> optionsAction,
             ServiceLifetime optionsLifetime = ServiceLifetime.Scoped)
         {

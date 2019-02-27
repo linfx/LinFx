@@ -42,7 +42,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void UseRabbitMQ(
             [NotNull] this EventBusOptions options,
-            [NotNull] ILinFxBuilder fx,
+            [NotNull] LinFxBuilder fx,
             [NotNull] Action<RabbitMqOptions> optionsAction)
         {
             Check.NotNull(options, nameof(options));

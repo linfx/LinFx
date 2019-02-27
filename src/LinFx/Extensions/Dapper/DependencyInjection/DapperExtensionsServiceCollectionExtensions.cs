@@ -4,7 +4,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DapperExtensionsServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddDapperExtensions(this ILinFxBuilder builder, Action setupAction)
+        public static LinFxBuilder AddDapperExtensions(this LinFxBuilder builder, Action setupAction)
         {
             if (builder == null)
             {

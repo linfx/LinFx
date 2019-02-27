@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.MultiTenancy
 {
-    public interface IMultiTenant
+    public interface IMultiTenant 
     {
         Guid? TenantId { get; }
     }

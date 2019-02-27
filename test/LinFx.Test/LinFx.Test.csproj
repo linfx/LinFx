@@ -36,4 +36,8 @@
     <ProjectReference Include="..\..\src\LinFx\LinFx.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MongoDB\" />
+  </ItemGroup>
+
 </Project>

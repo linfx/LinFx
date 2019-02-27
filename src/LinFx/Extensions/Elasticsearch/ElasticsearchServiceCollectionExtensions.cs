@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ElasticsearchServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddElasticsearch(this ILinFxBuilder builder, Action<ElasticsearchOptions> optionsAction)
+        public static LinFxBuilder AddElasticsearch(this LinFxBuilder builder, Action<ElasticsearchOptions> optionsAction)
         {
             var options = new ElasticsearchOptions();
             optionsAction?.Invoke(options);

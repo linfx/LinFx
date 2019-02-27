@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class MongoServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddMongoDBContext(this ILinFxBuilder builder, Action<MongoDbOptions> optionsAction)
+        public static LinFxBuilder AddMongoDBContext(this LinFxBuilder builder, Action<MongoDbOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));

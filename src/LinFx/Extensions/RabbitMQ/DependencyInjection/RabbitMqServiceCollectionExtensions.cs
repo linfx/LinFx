@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class RabbitMqServiceCollectionExtensions
     {
-        public static ILinFxBuilder AddRabbitMQ(this ILinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
+        public static LinFxBuilder AddRabbitMQ(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));
@@ -35,7 +35,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static ILinFxBuilder AddRabbitMQPersistentConnection(this ILinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
+        public static LinFxBuilder AddRabbitMQPersistentConnection(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
         {
             var options = new RabbitMqOptions();
             optionsAction?.Invoke(options);
