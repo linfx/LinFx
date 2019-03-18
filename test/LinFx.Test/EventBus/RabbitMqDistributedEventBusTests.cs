@@ -37,7 +37,7 @@ namespace LinFx.Test.Extensions.EventBus
 
             //ConfigureEventBus
             _eventBus = applicationServices.GetRequiredService<IEventBus>();
-            _eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            //_eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         }
 
 

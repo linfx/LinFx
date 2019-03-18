@@ -8,6 +8,6 @@
         /// <summary>
         /// Skip count (beginning of the page).
         /// </summary>
-        int PageIndex { get; set; }
+        int Page { get; set; }
     }
 }

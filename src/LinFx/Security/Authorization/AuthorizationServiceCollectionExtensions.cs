@@ -8,6 +8,9 @@ using AuthorizationOptions = LinFx.Security.Authorization.AuthorizationOptions;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// 授权
+    /// </summary>
     public static class AuthorizationServiceCollectionExtensions
     {
         /// <summary>
@@ -30,8 +33,15 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.Configure(configure);
             builder.Services.Configure<PermissionOptions>(o =>
             {
-                o.DefinitionProviders.Add(options.Permissions.DefinitionProviders.First());
-                o.ValueProviders.Add(options.Permissions.ValueProviders.First());
+                options.Permissions.DefinitionProviders.ToList().ForEach(item =>
+                {
+                    o.DefinitionProviders.Add(item);
+                });
+
+                options.Permissions.ValueProviders.ToList().ForEach(item =>
+                {
+                    o.ValueProviders.Add(item);
+                });
             });
 
 

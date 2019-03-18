@@ -5,6 +5,6 @@ namespace LinFx.Application.Models
     public class LimitedResultRequest
     {
         [Range(1, int.MaxValue)]
-        public virtual int PageSize { get; set; } = 10;
+        public virtual int Limit { get; set; } = 10;
     }
 }

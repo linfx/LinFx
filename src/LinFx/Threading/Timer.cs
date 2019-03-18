@@ -80,7 +80,7 @@ namespace LinFx.Threading
 
             try
             {
-                Elapsed.InvokeSafely(this, new EventArgs());
+                Elapsed?.Invoke(this, new EventArgs());
             }
             catch
             {

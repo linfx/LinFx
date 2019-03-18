@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 namespace LinFx.Security.Authorization.Permissions
 {
     /// <summary>
-    /// 
+    /// 权限组
     /// </summary>
     //TODO: Consider to make possible a group have sub groups
     public class PermissionGroupDefinition 
@@ -17,8 +17,8 @@ namespace LinFx.Security.Authorization.Permissions
 
         public Dictionary<string, object> Properties { get; }
 
-        private IStringLocalizer _displayName;
-        public IStringLocalizer DisplayName
+        private string _displayName;
+        public string DisplayName
         {
             get => _displayName;
             //set => _displayName = Check.NotNull(value, nameof(value));
@@ -42,7 +42,7 @@ namespace LinFx.Security.Authorization.Permissions
             set => Properties[name] = value;
         }
 
-        protected internal PermissionGroupDefinition(string name, IStringLocalizer displayName = null)
+        protected internal PermissionGroupDefinition(string name, string displayName = null)
         {
             Name = name;
             DisplayName = displayName;
@@ -51,7 +51,7 @@ namespace LinFx.Security.Authorization.Permissions
             _permissions = new List<PermissionDefinition>();
         }
 
-        public virtual PermissionDefinition AddPermission(string name, IStringLocalizer displayName = null)
+        public virtual PermissionDefinition AddPermission(string name, string displayName = null)
         {
             var permission = new PermissionDefinition(name, displayName);
 

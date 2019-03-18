@@ -8,9 +8,8 @@ namespace LinFx.Extensions.Data
 {
     public class DataFilter
     {
-        private readonly ConcurrentDictionary<Type, object> _filters;
-
         private readonly IServiceProvider _serviceProvider;
+        private readonly ConcurrentDictionary<Type, object> _filters;
 
         public DataFilter(IServiceProvider serviceProvider)
         {

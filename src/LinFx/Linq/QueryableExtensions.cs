@@ -6,27 +6,27 @@ namespace System.Linq
     /// <summary>
     /// Some useful extension methods for <see cref="IQueryable{T}"/>.
     /// </summary>
-    public static class AbpQueryableExtensions
+    public static class QueryableExtensions
     {
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
         /// </summary>
-        public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, int skipCount, int maxResultCount)
+        public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, int page, int limit)
         {
             Check.NotNull(query, nameof(query));
 
-            return query.Skip(skipCount).Take(maxResultCount);
+            return query.Skip(page).Take(limit);
         }
 
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
         /// </summary>
-        public static TQueryable PageBy<T, TQueryable>([NotNull] this TQueryable query, int skipCount, int maxResultCount)
+        public static TQueryable PageBy<T, TQueryable>([NotNull] this TQueryable query, int page, int limit)
             where TQueryable : IQueryable<T>
         {
             Check.NotNull(query, nameof(query));
 
-            return (TQueryable)query.Skip(skipCount).Take(maxResultCount);
+            return (TQueryable)query.Skip(page).Take(limit);
         }
 
         /// <summary>

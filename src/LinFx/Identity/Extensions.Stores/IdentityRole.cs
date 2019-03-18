@@ -9,5 +9,9 @@ namespace LinFx.Identity
     public class IdentityRole : Microsoft.AspNetCore.Identity.IdentityRole, IMultiTenant
     {
         public Guid? TenantId { set; get; }
+
+        public IdentityRole() { }
+
+        public IdentityRole(string roleName) : base(roleName) { }
     }
 }

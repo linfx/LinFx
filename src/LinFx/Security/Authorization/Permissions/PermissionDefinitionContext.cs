@@ -12,7 +12,7 @@ namespace LinFx.Security.Authorization.Permissions
             Groups = new Dictionary<string, PermissionGroupDefinition>();
         }
 
-        public virtual PermissionGroupDefinition AddGroup(string name, IStringLocalizer displayName = null)
+        public virtual PermissionGroupDefinition AddGroup(string name, string displayName = null)
         {
             Check.NotNull(name, nameof(name));
 

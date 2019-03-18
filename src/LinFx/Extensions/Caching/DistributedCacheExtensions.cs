@@ -9,6 +9,14 @@ namespace Microsoft.Extensions.Caching
 {
     public static class DistributedCacheExtensions
     {
+        /// <summary>
+        /// Gets a value with the given key.
+        /// </summary>
+        /// <typeparam name="TCacheItem"></typeparam>
+        /// <param name="cache"><see cref="IDistributedCache"/></param>
+        /// <param name="key">A string identifying the requested value.</param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public static async Task<TCacheItem> GetAsync<TCacheItem>(this IDistributedCache cache, 
             [NotNull] string key, 
             CancellationToken token = default)
@@ -20,6 +28,16 @@ namespace Microsoft.Extensions.Caching
             return default;
         }
 
+        /// <summary>
+        /// Gets a value or add a value with the given key.
+        /// </summary>
+        /// <typeparam name="TCacheItem"></typeparam>
+        /// <param name="cache"><see cref="IDistributedCache"/></param>
+        /// <param name="key">A string identifying the requested value.</param>
+        /// <param name="factory"></param>
+        /// <param name="optionsFactory"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public static async Task<TCacheItem> GetOrAddAsync<TCacheItem>(this IDistributedCache cache,
             [NotNull] string key,
             Func<Task<TCacheItem>> factory,

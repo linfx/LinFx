@@ -24,13 +24,13 @@ namespace LinFx.Security.Authorization.Permissions
         /// </summary>
         public List<string> Providers { get; }
 
-        public IStringLocalizer DisplayName
+        public string DisplayName
         {
             get => _displayName;
             //set => _displayName = Check.NotNull(value, nameof(value));
             set => _displayName = value;
         }
-        private IStringLocalizer _displayName;
+        private string _displayName;
 
         public IReadOnlyList<PermissionDefinition> Children => _children.ToImmutableList();
         private readonly List<PermissionDefinition> _children;
@@ -56,7 +56,7 @@ namespace LinFx.Security.Authorization.Permissions
 
         protected internal PermissionDefinition(
             [NotNull] string name,
-            IStringLocalizer displayName = null)
+            string displayName = null)
         {
             Name = Check.NotNull(name, nameof(name));
             DisplayName = displayName;
@@ -68,7 +68,7 @@ namespace LinFx.Security.Authorization.Permissions
 
         public virtual PermissionDefinition AddChild(
             [NotNull] string name,
-            IStringLocalizer displayName = null)
+            string displayName = null)
         {
             var child = new PermissionDefinition(name, displayName)
             {

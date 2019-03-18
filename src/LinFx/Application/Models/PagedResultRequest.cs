@@ -9,6 +9,6 @@ namespace LinFx.Application.Models
     public class PagedResultRequest : LimitedResultRequest, IPagedResultRequest
     {
         [Range(0, int.MaxValue)]
-        public virtual int PageIndex { get; set; }
+        public virtual int Page { get; set; }
     }
 }
