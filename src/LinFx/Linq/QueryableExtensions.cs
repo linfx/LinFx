@@ -11,11 +11,19 @@ namespace System.Linq
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="page">页数(eg: 1)</param>
+        /// <param name="limit">页大小</param>
+        /// <returns></returns>
         public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, int page, int limit)
         {
             Check.NotNull(query, nameof(query));
 
-            return query.Skip(page).Take(limit);
+            if (page < 1)
+                page = 1;
+
+            return query.Skip((page - 1) * limit).Take(limit);
         }
 
         /// <summary>
@@ -25,6 +33,9 @@ namespace System.Linq
             where TQueryable : IQueryable<T>
         {
             Check.NotNull(query, nameof(query));
+
+            if (page < 1)
+                page = 1;
 
             return (TQueryable)query.Skip(page).Take(limit);
         }

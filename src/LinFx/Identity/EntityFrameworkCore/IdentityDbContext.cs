@@ -15,8 +15,8 @@ namespace LinFx.Identity.EntityFrameworkCore
     /// Base class for the Entity Framework database context used for identity.
     /// </summary>
     public class IdentityDbContext<TUser, TRole> : IdentityDbContext<TUser, TRole, string>
-        where TUser : Microsoft.AspNetCore.Identity.IdentityUser<string>
-        where TRole : Microsoft.AspNetCore.Identity.IdentityRole<string>
+        where TUser : IdentityUser
+        where TRole : IdentityRole
     {
         public IdentityDbContext(DbContextOptions options) : base(options) { }
 
@@ -24,12 +24,12 @@ namespace LinFx.Identity.EntityFrameworkCore
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<IdentityUser>(b =>
+            builder.Entity<TUser>(b =>
             {
                 b.Property(u => u.TenantId).HasMaxLength(32);
             });
 
-            builder.Entity<IdentityRole>(b =>
+            builder.Entity<TRole>(b =>
             {
                 b.Property(u => u.TenantId).HasMaxLength(32);
             });

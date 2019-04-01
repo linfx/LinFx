@@ -9,7 +9,19 @@ namespace LinFx.Application.Models
     /// <typeparam name="T">Type of the items in the <see cref="ListResult{T}.Items"/> list</typeparam>
     public class PagedResult<T> : ListResult<T>, IPagedResult<T>
     {
-        /// <inheritdoc />
+        /// <summary>
+        /// 当前页数
+        /// </summary>
+        public int PageIndex { get; set; }
+
+        /// <summary>
+        /// 页大小
+        /// </summary>
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// 总数
+        /// </summary>
         public long TotalCount { get; set; }
 
         /// <summary>
@@ -25,6 +37,17 @@ namespace LinFx.Application.Models
         public PagedResult(long totalCount, IReadOnlyList<T> items)
             : base(items)
         {
+            TotalCount = totalCount;
+        }
+
+        public PagedResult(
+            int pageIndex,
+            int pageSize,
+            long totalCount,
+            IReadOnlyList<T> items) : base(items)
+        {
+            PageIndex = pageIndex;
+            PageSize = pageSize;
             TotalCount = totalCount;
         }
     }
