@@ -1,4 +1,5 @@
 ﻿using LinFx;
+using LinFx.Application.Abstractions;
 using System.Linq.Expressions;
 
 namespace System.Linq
@@ -8,6 +9,20 @@ namespace System.Linq
     /// </summary>
     public static class QueryableExtensions
     {
+        /// <summary>
+        /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query"></param>
+        /// <param name="request">分页请求</param>
+        /// <returns></returns>
+        public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, IPagedResultRequest request)
+        {
+            Check.NotNull(query, nameof(request));
+
+            return PageBy<T>(query, request.Page, request.Limit);
+        }
+
         /// <summary>
         /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
         /// </summary>

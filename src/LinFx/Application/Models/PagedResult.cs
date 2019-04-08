@@ -40,6 +40,12 @@ namespace LinFx.Application.Models
             TotalCount = totalCount;
         }
 
+        public PagedResult(IPagedResultRequest request,
+            long totalCount,
+            IReadOnlyList<T> items) : this(request.Page, request.Limit, totalCount, items)
+        {
+        }
+
         public PagedResult(
             int pageIndex,
             int pageSize,

@@ -39,8 +39,7 @@
         /// <param name="visited">Dictionary with the visited items</param>
         private static void SortByDependenciesVisit<T>(T item, Func<T, IEnumerable<T>> getDependencies, List<T> sorted, Dictionary<T, bool> visited)
         {
-            bool inProcess;
-            var alreadyVisited = visited.TryGetValue(item, out inProcess);
+            var alreadyVisited = visited.TryGetValue(item, out bool inProcess);
 
             if (alreadyVisited)
             {
