@@ -1,4 +1,5 @@
 ﻿using LinFx.Utils;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -65,19 +66,23 @@ namespace LinFx.Extensions.EventBus
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
                 var subscriptions = _subsManager.GetHandlersForEvent(eventName);
-                foreach (var subscription in subscriptions)
+
+                using (var scope = _serviceProvider.CreateScope())
                 {
-                    try
+                    foreach (var subscription in subscriptions)
                     {
-                        var eventType = _subsManager.GetEventTypeByName(eventName);
-                        var integrationEvent = JsonUtils.DeserializeObject (eventData, eventType);
-                        var handler = _serviceProvider.GetService(subscription.HandlerType);
-                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
-                    }
-                    catch (Exception ex)
-                    {
-                        exceptions.Add(ex);
+                        try
+                        {
+                            var eventType = _subsManager.GetEventTypeByName(eventName);
+                            var integrationEvent = JsonUtils.DeserializeObject(eventData, eventType);
+                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
+                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                        }
+                        catch (Exception ex)
+                        {
+                            exceptions.Add(ex);
+                        }
                     }
                 }
             }
