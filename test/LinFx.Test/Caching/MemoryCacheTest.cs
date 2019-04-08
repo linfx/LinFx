@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace LinFx.Test.Caching
@@ -8,20 +10,65 @@ namespace LinFx.Test.Caching
     public class MemoryCacheTest
     {
         [Fact]
-        public void MemoryCache_GetAndSetTests()
+        public async Task MemoryCache_GetAndSet_Tests()
         {
             var services = new ServiceCollection();
             services.AddLinFx()
                 .AddDistributedMemoryCache();
 
             var container = services.BuildServiceProvider();
-            var _cache = container.GetService<IMemoryCache>();
+            var cache = container.GetService<IDistributedCache>();
+
+            Assert.NotNull(cache);
 
             var expected = 100;
-            _cache.Set("key1", expected);
-            var actual = _cache.Get("key1");
+            await cache.SetAsync("key1", 100);
+
+            var actual = await cache.GetAsync<int>("key1");
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task MemoryCache_GetOrAdd_Tests()
+        {
+            var services = new ServiceCollection();
+            services.AddLinFx()
+                .AddDistributedMemoryCache();
+
+            var container = services.BuildServiceProvider();
+            var cache = container.GetService<IDistributedCache>();
+
+
+            var expected = new User
+            {
+                Id = 100
+            };
+
+            var actual = await cache.GetOrAddAsync("key2", () =>
+            {
+                return Task.FromResult(new User
+                {
+                    Id = 100
+                });
+            });
+
+            Assert.Equal(expected, actual);
+        }
+
+        class User
+        {
+            public int Id { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                return obj.Equals(Id);
+            }
+
+            public override int GetHashCode()
+            {
+                return Id;
+            }
         }
     }
 }

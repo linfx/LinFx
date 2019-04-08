@@ -6,7 +6,7 @@ namespace LinFx.Test.Caching
 {
     public class RedisCacheTest
     {
-        IDistributedCache _cache;
+        private readonly IDistributedCache _cache;
 
         public RedisCacheTest()
         {
