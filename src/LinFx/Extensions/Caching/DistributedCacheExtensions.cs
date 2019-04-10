@@ -1,11 +1,10 @@
 ﻿using LinFx;
 using LinFx.Utils;
-using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.Extensions.Caching
+namespace Microsoft.Extensions.Caching.Distributed
 {
     public static class DistributedCacheExtensions
     {
@@ -17,8 +16,8 @@ namespace Microsoft.Extensions.Caching
         /// <param name="key">A string identifying the requested value.</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<TCacheItem> GetAsync<TCacheItem>(this IDistributedCache cache, 
-            [NotNull] string key, 
+        public static async Task<TCacheItem> GetAsync<TCacheItem>(this IDistributedCache cache,
+            [NotNull] string key,
             CancellationToken token = default)
 
         {

@@ -9,10 +9,8 @@
     <Copyright>Copyright (c) 2019 LinFx</Copyright>
     <Company>LinFx</Company>
     <Product>LinFx</Product>
-    <LangVersion>7.3</LangVersion>
-    <AssemblyName>LinFx</AssemblyName>
-    <RootNamespace>LinFx</RootNamespace>
     <PackageId>LinFx</PackageId>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -37,7 +35,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.4" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.8.0" />
     <PackageReference Include="NEST" Version="6.6.0" />
@@ -46,10 +44,6 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\PermissionManagement\Abstractions\" />
   </ItemGroup>
 
 </Project>
