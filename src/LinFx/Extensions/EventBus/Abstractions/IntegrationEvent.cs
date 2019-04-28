@@ -6,6 +6,7 @@ namespace LinFx.Extensions.EventBus
     public class IntegrationEvent
     {
         public long Id { get; }
+
         public long Timestamp { get; }
 
         public IntegrationEvent()

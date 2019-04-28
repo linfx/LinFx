@@ -65,7 +65,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
                 properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
 
                 channel.BasicPublish(
-                   exchange: RabbitMqOptions.BrokerName,
+                    exchange: RabbitMqOptions.BrokerName,
                     routingKey: eventName,
                     mandatory: true,
                     basicProperties: properties,

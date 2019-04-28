@@ -18,7 +18,7 @@ namespace LinFx.Utils
             return ToObject<T>(s, camelCase, indented);
         }
 
-        public static byte[] ToBytes<T>(T value, bool camelCase = false, bool indented = false)
+        public static byte[] ToBytes(object value, bool camelCase = false, bool indented = false)
         {
             var s = ToJson(value, camelCase, indented);
             return Encoding.UTF8.GetBytes(s);
@@ -119,6 +119,11 @@ namespace LinFx.Utils
         public static string ToJson(this object value, bool camelCase = false, bool indented = false)
         {
             return JsonUtils.ToJson(value, camelCase, indented);
+        }
+
+        public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false)
+        {
+            return JsonUtils.ToBytes(value, camelCase, indented);
         }
 
         public static T ToObject<T>(this string value, bool camelCase = false, bool indented = false)

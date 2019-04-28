@@ -1,9 +1,10 @@
-﻿using LinFx.Application.Abstractions;
+﻿using LinFx;
+using LinFx.Application.Abstractions;
+using LinFx.Application.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Application.Models
+namespace System.Linq
 {
     public static class PagedResultExtensions
     {

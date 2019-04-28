@@ -20,7 +20,7 @@ namespace System.Linq
         {
             Check.NotNull(query, nameof(request));
 
-            return PageBy<T>(query, request.Page, request.Limit);
+            return PageBy(query, request.Page, request.Limit);
         }
 
         /// <summary>

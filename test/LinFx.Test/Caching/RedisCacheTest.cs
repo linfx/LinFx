@@ -14,8 +14,8 @@ namespace LinFx.Test.Caching
             services.AddLinFx()
                 .AddDistributedRedisCache(options =>
                 {
-                    options.Configuration = "10.0.1.112:6379,password=redis";
-                    options.InstanceName = "linfx_test:";
+                    options.Configuration = "10.10.10.100,password=admin.123456,DefaultDatabase=14";
+                    options.InstanceName = "linfx:";
                 });
 
             var container = services.BuildServiceProvider();
@@ -35,9 +35,11 @@ namespace LinFx.Test.Caching
         {
             var value = new byte[1];
             string key = "myKey";
-            _cache.Set(key, value);
-            var result = _cache.Get(key);
-            Assert.Equal(value, result);
+            //_cache.Set(key, value);
+            //var result = _cache.Get(key);
+
+            _cache.SetString(key, "Hello");
+            //Assert.Equal(value, result);
         }
 
         [Fact]
