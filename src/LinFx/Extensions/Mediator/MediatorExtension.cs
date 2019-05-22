@@ -21,7 +21,8 @@ namespace MediatR
                 .ForEach(entity => entity.Entity.ClearDomainEvents());
 
             var tasks = domainEvents
-                .Select(async (domainEvent) => {
+                .Select(async (domainEvent) =>
+                {
                     await mediator.Publish(domainEvent);
                 });
 

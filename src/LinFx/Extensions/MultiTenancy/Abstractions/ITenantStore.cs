@@ -6,7 +6,8 @@ namespace LinFx.Extensions.AspNetCore.MultiTenancy
 {
     internal interface ITenantStore
     {
-        Task<TenantInfo> FindAsync(Guid parsedTenantId);
-        Task<TenantInfo> FindAsync(string tenantIdOrName);
+        Task<Tenant> FindAsync(Guid parsedTenantId);
+
+        Task<Tenant> FindAsync(string tenantIdOrName);
     }
 }

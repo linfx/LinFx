@@ -1,13 +1,12 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Extensions.Auditing;
 using System;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Domain.Models.Auditing
 {
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject" /> for an entity.
+    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for aggregate roots.
     /// </summary>
-    [Serializable]
-    public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
+    public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTime CreationTime { get; set; }
@@ -17,11 +16,10 @@ namespace LinFx.Extensions.Auditing
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for an entity.
+    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for aggregate roots.
     /// </summary>
     /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-    [Serializable]
-    public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
+    public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, ICreationAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTime CreationTime { get; set; }

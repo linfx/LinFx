@@ -40,8 +40,7 @@ namespace LinFx.Extensions.Auditing
 
         public Dictionary<string, object> ExtraProperties { get; }
 
-        public List<
-EntityChangeInfo> EntityChanges { get; }
+        public List<EntityChangeInfo> EntityChanges { get; }
 
         public List<string> Comments { get; set; }
 

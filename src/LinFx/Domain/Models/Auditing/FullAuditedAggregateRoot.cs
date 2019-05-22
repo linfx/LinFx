@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LinFx.Extensions.Auditing;
+using System;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Domain.Models.Auditing
 {
     /// <summary>
-    /// Implements <see cref="IFullAuditedObject"/> to be a base class for full-audited entities.
+    /// Implements <see cref="IFullAuditedObject"/> to be a base class for full-audited aggregate roots.
     /// </summary>
-    public abstract class FullAuditedEntity : AuditedEntity, IFullAuditedObject
+    public abstract class FullAuditedAggregateRoot : AuditedAggregateRoot, IFullAuditedObject
     {
         /// <inheritdoc />
         public virtual bool IsDeleted { get; set; }
@@ -18,10 +19,10 @@ namespace LinFx.Extensions.Auditing
     }
 
     /// <summary>
-    /// Implements <see cref="IFullAuditedObject"/> to be a base class for full-audited entities.
+    /// Implements <see cref="IFullAuditedObject"/> to be a base class for full-audited aggregate roots.
     /// </summary>
     /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-    public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAuditedObject
+    public abstract class FullAuditedAggregateRoot<TKey> : AuditedAggregateRoot<TKey>, IFullAuditedObject
     {
         /// <inheritdoc />
         public virtual bool IsDeleted { get; set; }

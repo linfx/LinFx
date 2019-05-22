@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Identity
 {

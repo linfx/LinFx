@@ -28,7 +28,7 @@ namespace LinFx.Extensions.EventBus
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
-        public abstract Task PublishAsync(IntegrationEvent evt);
+        public abstract Task PublishAsync(IntegrationEvent evt, string routingKey = default);
 
         public abstract void Subscribe<TEvent, THandler>()
             where TEvent : IntegrationEvent

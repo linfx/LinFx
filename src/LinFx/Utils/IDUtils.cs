@@ -8,6 +8,16 @@ namespace LinFx.Utils
         /// 生成新的ID
         /// </summary>
         /// <returns></returns>
+        public static long GenerateId()
+        {
+            return Snowflake.Instance().GetId();
+        }
+
+        /// <summary>
+        /// 生成新的ID
+        /// </summary>
+        /// <returns></returns>
+        [Obsolete("Use GenerateId")]
         public static long CreateNewId()
         {
             return Snowflake.Instance().GetId();

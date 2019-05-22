@@ -11,7 +11,7 @@ namespace LinFx.Extensions.EventBus
 
         public IntegrationEvent()
         {
-            Id = IDUtils.CreateNewId();
+            Id = IDUtils.GenerateId();
             Timestamp = DateTime.UtcNow.ToUnixTimeSeconds();
         }
     }

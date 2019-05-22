@@ -35,7 +35,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             Consumer = ConsumerFactory.Create(
                 new ExchangeDeclareConfiguration(
-                    RabbitMqOptions.BrokerName,
+                    RabbitMqOptions.Exchange,
                         type: "direct",
                         durable: true),
                 new QueueDeclareConfiguration(
@@ -48,25 +48,28 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             Consumer.OnMessageReceived(ProcessEventAsync);
         }
     
-        public override Task PublishAsync(IntegrationEvent evt)
+        public override Task PublishAsync(IntegrationEvent evt, string routingKey)
         {
-            var eventName = evt.GetType().Name;
+            if(routingKey == default)
+            {
+                routingKey = evt.GetType().Name;
+            }
             var body = Serializer.Serialize(evt);
 
             using (var channel = ConnectionPool.Get(RabbitMqOptions.ConnectionName).CreateModel())
             {
-                channel.ExchangeDeclare(
-                    RabbitMqOptions.BrokerName,
-                    "direct",
-                    durable: true
-                );
+                //channel.ExchangeDeclare(
+                //    RabbitMqOptions.Exchange,
+                //    type,
+                //    durable: true
+                //);
 
                 var properties = channel.CreateBasicProperties();
                 properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
 
                 channel.BasicPublish(
-                    exchange: RabbitMqOptions.BrokerName,
-                    routingKey: eventName,
+                    exchange: RabbitMqOptions.Exchange,
+                    routingKey: routingKey,
                     mandatory: true,
                     basicProperties: properties,
                     body: body

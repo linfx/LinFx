@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LinFx.Extensions.Auditing;
+using System;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Domain.Models.Auditing
 {
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="IAuditedObject"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="IAuditedObject"/>.
     /// </summary>
-    public abstract class AuditedAggregateRoot : CreationAuditedAggregateRoot, IAuditedObject
+    public abstract class AuditedEntity : CreationAuditedEntity, IAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTime? LastModificationTime { get; set; }
@@ -15,10 +16,10 @@ namespace LinFx.Extensions.Auditing
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="IAuditedObject"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="IAuditedObject"/>.
     /// </summary>
     /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-    public abstract class AuditedAggregateRoot<TKey> : CreationAuditedAggregateRoot<TKey>, IAuditedObject
+    public abstract class AuditedEntity<TKey> : CreationAuditedEntity<TKey>, IAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTime? LastModificationTime { get; set; }

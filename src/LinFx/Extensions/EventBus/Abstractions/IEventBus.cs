@@ -8,8 +8,9 @@ namespace LinFx.Extensions.EventBus
         /// Triggers an event.
         /// </summary>
         /// <param name="evt"></param>
+        /// <param name="routingKey"></param>
         /// <returns></returns>
-        Task PublishAsync(IntegrationEvent evt);
+        Task PublishAsync(IntegrationEvent evt, string routingKey = default);
 
         /// <summary>
         /// Registers to an event.
