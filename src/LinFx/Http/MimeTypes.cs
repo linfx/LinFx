@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.AspNetCore.Http
+namespace LinFx.Http
 {
     public static class MimeTypes
     {

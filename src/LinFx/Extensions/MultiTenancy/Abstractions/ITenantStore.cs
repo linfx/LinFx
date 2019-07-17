@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LinFx.Extensions.MultiTenancy;
 
-namespace LinFx.Extensions.AspNetCore.MultiTenancy
+namespace LinFx.Extensions.MultiTenancy
 {
-    internal interface ITenantStore
+    public interface ITenantStore
     {
-        Task<Tenant> FindAsync(Guid parsedTenantId);
+        Task<TenantInfo> FindAsync(Guid parsedTenantId);
 
-        Task<Tenant> FindAsync(string tenantIdOrName);
+        Task<TenantInfo> FindAsync(string tenantIdOrName);
     }
 }

@@ -40,6 +40,8 @@ namespace LinFx.Security.Authorization.Permissions
         /// </summary>
         public Dictionary<string, object> Properties { get; }
 
+#pragma warning disable CS1574 // XML 注释中有未能解析的 cref 特性“name”
+#pragma warning disable CS1574 // XML 注释中有未能解析的 cref 特性“name”
         /// <summary>
         /// Gets/sets a key-value on the <see cref="Properties"/>.
         /// </summary>
@@ -49,6 +51,8 @@ namespace LinFx.Security.Authorization.Permissions
         /// Returns null if given <see cref="name"/> is not present in the <see cref="Properties"/> dictionary.
         /// </returns>
         public object this[string name]
+#pragma warning restore CS1574 // XML 注释中有未能解析的 cref 特性“name”
+#pragma warning restore CS1574 // XML 注释中有未能解析的 cref 特性“name”
         {
             get => Properties.GetOrDefault(name);
             set => Properties[name] = value;

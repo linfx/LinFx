@@ -31,6 +31,7 @@ namespace LinFx.Extensions.Idempotency
             return default;
         }
 
+#pragma warning disable CS1570 // XML 注释出现 XML 格式错误 --“此位置不允许使用空格。”
         /// <summary>
         /// This method handles the command. It just ensures that no other request exists with the same ID, and if this is the case
         /// just enqueues the original inner command.
@@ -38,6 +39,7 @@ namespace LinFx.Extensions.Idempotency
         /// <param name="message">IdentifiedCommand which contains both original command & request ID</param>
         /// <returns>Return value of inner command or default value if request same ID was found</returns>
         public async Task<R> Handle(IdentifiedCommand<T, R> message, CancellationToken cancellationToken)
+#pragma warning restore CS1570 // XML 注释出现 XML 格式错误 --“此位置不允许使用空格。”
         {
             var alreadyExists = await _requestManager.ExistAsync(message.Id);
             if (alreadyExists)

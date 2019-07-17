@@ -1,79 +1,63 @@
-﻿//using LinFx.Extensions.MultiTenancy;
-//using Microsoft.AspNetCore.Http;
-//using System;
-//using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Threading.Tasks;
 
-//namespace LinFx.Extensions.AspNetCore.MultiTenancy
-//{
-//    public class MultiTenancyMiddleware
-//    {
-//        private readonly RequestDelegate _next;
-//        private readonly ITenantResolver _tenantResolver;
-//        private readonly ITenantStore _tenantStore;
-//        private readonly ICurrentTenantIdAccessor _currentTenantIdAccessor;
+namespace LinFx.Extensions.MultiTenancy
+{
+    public class MultiTenancyMiddleware
+    {
+        private readonly RequestDelegate _next;
+        private readonly ITenantResolver _tenantResolver;
+        private readonly ITenantStore _tenantStore;
+        private readonly ICurrentTenant _currentTenant;
+        private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor;
 
-//        public MultiTenancyMiddleware(
-//            RequestDelegate next,
-//            ITenantResolver tenantResolver,
-//            ITenantStore tenantStore,
-//            ICurrentTenantIdAccessor currentTenantIdAccessor)
-//        {
-//            _next = next;
-//            _tenantResolver = tenantResolver;
-//            _tenantStore = tenantStore;
-//            _currentTenantIdAccessor = currentTenantIdAccessor;
-//        }
+        public MultiTenancyMiddleware(
+            RequestDelegate next,
+            ITenantResolver tenantResolver,
+            ITenantStore tenantStore,
+            ICurrentTenant currentTenant,
+            ITenantResolveResultAccessor tenantResolveResultAccessor)
+        {
+            _next = next;
+            _tenantResolver = tenantResolver;
+            _tenantStore = tenantStore;
+            _currentTenant = currentTenant;
+            _tenantResolveResultAccessor = tenantResolveResultAccessor;
+        }
 
-//        public async Task Invoke(HttpContext httpContext)
-//        {
-//            using (SetCurrentTenant(await ResolveCurrentTenantAsync()))
-//            {
-//                await _next(httpContext);
-//            }
-//        }
+        public async Task Invoke(HttpContext httpContext)
+        {
+            var resolveResult = _tenantResolver.ResolveTenantIdOrName();
+            _tenantResolveResultAccessor.Result = resolveResult;
 
-//        private async Task<TenantInfo> ResolveCurrentTenantAsync()
-//        {
-//            var tenantIdOrName = _tenantResolver.ResolveTenantIdOrName();
-//            if (tenantIdOrName == null)
-//            {
-//                return null;
-//            }
+            TenantInfo tenant = null;
+            if (resolveResult.TenantIdOrName != null)
+            {
+                tenant = await FindTenantAsync(resolveResult.TenantIdOrName);
+                if (tenant == null)
+                {
+                    //TODO: A better exception?
+                    throw new LinFxException("There is no tenant with given tenant id or name: " + resolveResult.TenantIdOrName);
+                }
+            }         
 
-//            var tenant = await FindTenantAsync(tenantIdOrName);
-//            if (tenant == null)
-//            {
-//                throw new LinFxException("There is no tenant with given tenant id or name: " + tenantIdOrName);
-//            }
+            using (_currentTenant.Change(tenant?.Id, tenant?.Name))
+            {
+                await _next(httpContext);
+            }
+        }
 
-//            return tenant;
-//        }
-
-//        private Task FindTenantAsync(object tenantIdOrName)
-//        {
-//            throw new NotImplementedException();
-//        }
-
-//        private async Task<TenantInfo> FindTenantAsync(string tenantIdOrName)
-//        {
-//            if (Guid.TryParse(tenantIdOrName, out var parsedTenantId))
-//            {
-//                return await _tenantStore.FindAsync(parsedTenantId);
-//            }
-//            else
-//            {
-//                return await _tenantStore.FindAsync(tenantIdOrName);
-//            }
-//        }
-
-//        private IDisposable SetCurrentTenant([CanBeNull] TenantInfo tenant)
-//        {
-//            var parentScope = _currentTenantIdAccessor.Current;
-//            _currentTenantIdAccessor.Current = new TenantIdWrapper(tenant?.Id);
-//            return new DisposeAction(() =>
-//            {
-//                _currentTenantIdAccessor.Current = parentScope;
-//            });
-//        }
-//    }
-//}
+        private async Task<TenantInfo> FindTenantAsync(string tenantIdOrName)
+        {
+            if (Guid.TryParse(tenantIdOrName, out var parsedTenantId))
+            {
+                return await _tenantStore.FindAsync(parsedTenantId);
+            }
+            else
+            {
+                return await _tenantStore.FindAsync(tenantIdOrName);
+            }
+        }
+    }
+}

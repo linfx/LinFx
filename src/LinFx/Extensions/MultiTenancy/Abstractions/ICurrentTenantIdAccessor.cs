@@ -2,6 +2,6 @@
 {
     public interface ICurrentTenantIdAccessor
     {
-        TenantIdWrapper Current { get; set; }
+        TenantInfo Current { get; set; }
     }
 }

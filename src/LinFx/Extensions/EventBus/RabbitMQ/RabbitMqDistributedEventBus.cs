@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.RabbitMQ;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -18,7 +17,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
         protected RabbitMqOptions RabbitMqOptions { get; }
 
         public RabbitMqDistributedEventBus(
-            IConnectionPool connectionPool, 
+            IConnectionPool connectionPool,
             IConsumerFactory consumerFactory,
             IRabbitMqSerializer serializer,
             IEventBusSubscriptionsManager subscriptionsManager,
@@ -47,10 +46,10 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             );
             Consumer.OnMessageReceived(ProcessEventAsync);
         }
-    
+
         public override Task PublishAsync(IntegrationEvent evt, string routingKey)
         {
-            if(routingKey == default)
+            if (routingKey == default)
             {
                 routingKey = evt.GetType().Name;
             }
@@ -58,12 +57,6 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
             using (var channel = ConnectionPool.Get(RabbitMqOptions.ConnectionName).CreateModel())
             {
-                //channel.ExchangeDeclare(
-                //    RabbitMqOptions.Exchange,
-                //    type,
-                //    durable: true
-                //);
-
                 var properties = channel.CreateBasicProperties();
                 properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
 

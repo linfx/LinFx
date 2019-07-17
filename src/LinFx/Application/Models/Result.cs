@@ -4,33 +4,33 @@
     {
         public int Code { get; protected set; } = 200;
 
-        public string Msg { get; protected set; } = "success";
+        public string Message { get; protected set; } = "success";
 
         public Result() { }
 
-        public Result(int code, string msg)
+        public Result(int code, string message)
         {
             Code = code;
-            Msg = msg;
+            Message = message;
         }
     }
 
     public class Result<T> : Result
     {
-        public T Date { get; }
+        public T Data { get; }
 
         public Result() { }
 
-        public Result(T date)
+        public Result(T data)
         {
-            Date = date;
+            Data = data;
         }
 
-        public Result(int code, string msg, T date)
-            : this(date)
+        public Result(int code, string message, T data)
+            : this(data)
         {
             Code = code;
-            Msg = msg;
+            Message = message;
         }
     }
 }

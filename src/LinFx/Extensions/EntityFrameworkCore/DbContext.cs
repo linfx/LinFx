@@ -25,7 +25,6 @@ namespace LinFx.Extensions.EntityFrameworkCore
         public DbContext([NotNull] DbContextOptions options, IMediator mediator) : base(options)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            System.Diagnostics.Debug.WriteLine("OrderingContext::ctor ->" + GetHashCode());
         }
 
         public IDataFilter DataFilter { get; set; }

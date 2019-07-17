@@ -11,9 +11,7 @@ namespace LinFx.Threading
         /// </summary>
         /// <param name="task">A function that returns the task to run</param>
         /// <param name="handle">Error handling action, null by default</param>
-        public static void FireAndForget(
-            Func<Task> task,
-            Action<Exception> handle = null)
+        public static void FireAndForget(Func<Task> task, Action<Exception> handle = null)
         {
             Task.Run(() =>
             {

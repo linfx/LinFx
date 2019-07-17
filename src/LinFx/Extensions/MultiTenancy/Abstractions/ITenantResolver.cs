@@ -1,7 +1,7 @@
-﻿namespace LinFx.Extensions.AspNetCore.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy
 {
-    internal interface ITenantResolver
+    public interface ITenantResolver
     {
-        object ResolveTenantIdOrName();
+        TenantResolveResult ResolveTenantIdOrName();
     }
 }

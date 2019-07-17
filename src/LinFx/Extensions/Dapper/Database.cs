@@ -16,7 +16,7 @@ namespace LinFx.Extensions.Dapper
     {
         private readonly IDapperImplementor _dapper;
 		private IDbTransaction _transaction;
-		private static QueryFilterExecuter _dapperFilterExecuter = new QueryFilterExecuter();
+        private static readonly QueryFilterExecuter _dapperFilterExecuter = new QueryFilterExecuter();
 
         public IDbConnection Connection { get; private set; }
 
