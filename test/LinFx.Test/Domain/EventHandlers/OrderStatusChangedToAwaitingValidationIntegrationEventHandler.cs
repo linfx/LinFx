@@ -7,7 +7,7 @@ namespace LinFx.Test.Extensions.EventBus.EventHandling
     public class OrderStatusChangedToAwaitingValidationIntegrationEventHandler :
         IIntegrationEventHandler<OrderStatusChangedToAwaitingValidationIntegrationEvent>
     {
-        public Task Handle(OrderStatusChangedToAwaitingValidationIntegrationEvent command)
+        public Task HandleAsync(OrderStatusChangedToAwaitingValidationIntegrationEvent evt)
         {
             return Task.CompletedTask;
         }

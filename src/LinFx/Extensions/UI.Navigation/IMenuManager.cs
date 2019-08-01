@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.UI.Navigation
+namespace LinFx.Extensions.UI.Navigation
 {
     public interface IMenuManager
     {

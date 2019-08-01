@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.UI.Navigation
+namespace LinFx.Extensions.UI.Navigation
 {
     public class ApplicationMenu
     {

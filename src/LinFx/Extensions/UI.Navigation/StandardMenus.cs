@@ -1,4 +1,4 @@
-﻿namespace LinFx.UI.Navigation
+﻿namespace LinFx.Extensions.UI.Navigation
 {
     public static class StandardMenus
     {

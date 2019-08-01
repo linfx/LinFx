@@ -10,19 +10,13 @@ namespace LinFx.Application.Models
     public class PagedResult<T> : ListResult<T>, IPagedResult<T>
     {
         /// <summary>
-        /// 当前页数
-        /// </summary>
-        public int PageIndex { get; set; }
-
-        /// <summary>
-        /// 页大小
-        /// </summary>
-        public int PageSize { get; set; }
-
-        /// <summary>
         /// 总数
         /// </summary>
         public long TotalCount { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.
@@ -37,23 +31,6 @@ namespace LinFx.Application.Models
         public PagedResult(long totalCount, IReadOnlyList<T> items)
             : base(items)
         {
-            TotalCount = totalCount;
-        }
-
-        public PagedResult(IPagedResultRequest request,
-            long totalCount,
-            IReadOnlyList<T> items) : this(request.Page, request.Limit, totalCount, items)
-        {
-        }
-
-        public PagedResult(
-            int pageIndex,
-            int pageSize,
-            long totalCount,
-            IReadOnlyList<T> items) : base(items)
-        {
-            PageIndex = pageIndex;
-            PageSize = pageSize;
             TotalCount = totalCount;
         }
     }

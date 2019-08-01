@@ -20,7 +20,7 @@ namespace System.Linq
         {
             var total = query.LongCount();
             var items = query.PageBy(page, limit);
-            return new PagedResult<T>(page, limit, total, await items.ToListAsync());
+            return new PagedResult<T>(total, await items.ToListAsync());
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace System.Linq
 
             var total = query.LongCount();
             var items = query.PageBy(request);
-            return new PagedResult<T>(request, total, await items.ToListAsync());
+            return new PagedResult<T>(total, await items.ToListAsync());
         }
     }
 }

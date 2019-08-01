@@ -24,7 +24,7 @@ namespace LinFx.Test.Extensions.EventBus
                         x.Host = "14.21.34.85";
                         x.UserName = "admin";
                         x.Password = "admin.123456";
-                        x.BrokerName = "linfx_event_bus";
+                        x.Exchange = "linfx_event_bus";
                         x.QueueName = "linfx_event_queue";
                     });
                 });

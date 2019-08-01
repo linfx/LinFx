@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.UI.Navigation
+namespace LinFx.Extensions.UI.Navigation
 {
     public class MenuConfigurationContext
     {
