@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Application.Abstractions
+namespace LinFx.Application
 {
     /// <summary>
     /// This interface is defined to standardize to return a list of items to clients.

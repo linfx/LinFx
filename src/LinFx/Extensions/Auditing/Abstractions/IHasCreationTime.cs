@@ -10,6 +10,6 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Creation time.
         /// </summary>
-        DateTime CreationTime { get; set; }
+        DateTimeOffset CreationTime { get; set; }
     }
 }

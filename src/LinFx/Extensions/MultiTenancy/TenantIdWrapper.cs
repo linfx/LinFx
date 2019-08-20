@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy
 {
     public class TenantIdWrapper
     {
@@ -8,9 +6,9 @@ namespace LinFx.Extensions.MultiTenancy
         /// Null indicates the host.
         /// Not null value for a tenant.
         /// </summary>
-        public Guid? TenantId { get; }
+        public string TenantId { get; }
 
-        public TenantIdWrapper(Guid? tenantId)
+        public TenantIdWrapper(string tenantId)
         {
             TenantId = tenantId;
         }

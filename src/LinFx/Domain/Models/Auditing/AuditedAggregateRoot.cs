@@ -9,10 +9,10 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class AuditedAggregateRoot : CreationAuditedAggregateRoot, IAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime? LastModificationTime { get; set; }
+        public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? LastModifierId { get; set; }
+        public virtual string LastModifierId { get; set; }
     }
 
     /// <summary>
@@ -22,9 +22,9 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class AuditedAggregateRoot<TKey> : CreationAuditedAggregateRoot<TKey>, IAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime? LastModificationTime { get; set; }
+        public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? LastModifierId { get; set; }
+        public virtual string LastModifierId { get; set; }
     }
 }

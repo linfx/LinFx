@@ -5,9 +5,9 @@ namespace LinFx.Security.Authorization.Permissions
 {
     public class PermissionDefinitionContext : IPermissionDefinitionContext
     {
-        internal Dictionary<string, PermissionGroupDefinition> Groups { get; }
+        public Dictionary<string, PermissionGroupDefinition> Groups { get; }
 
-        internal PermissionDefinitionContext()
+        public PermissionDefinitionContext()
         {
             Groups = new Dictionary<string, PermissionGroupDefinition>();
         }

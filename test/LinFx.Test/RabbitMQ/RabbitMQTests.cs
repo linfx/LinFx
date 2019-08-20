@@ -19,7 +19,7 @@ namespace LinFx.Test.RabbitMQ
                 .AddHttpContextPrincipalAccessor()
                 .AddRabbitMQPersistentConnection(options =>
                 {
-                    options.Host = "14.21.34.87";
+                    options.Host = "127.0.0.1";
                     options.UserName = "admin";
                     options.Password = "admin.123456";
                 });

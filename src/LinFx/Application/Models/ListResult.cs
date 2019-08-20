@@ -1,5 +1,4 @@
-﻿using LinFx.Application.Abstractions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LinFx.Application.Models
 {

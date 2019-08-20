@@ -5,9 +5,19 @@ namespace LinFx.Utils
     public static class IDUtils
     {
         /// <summary>
+        /// 生成雪花ID
+        /// </summary>
+        /// <returns></returns>
+        public static long NewId()
+        {
+            return Snowflake.Instance().GetId();
+        }
+
+        /// <summary>
         /// 生成新的ID
         /// </summary>
         /// <returns></returns>
+        [Obsolete("Use NewId")]
         public static long GenerateId()
         {
             return Snowflake.Instance().GetId();
@@ -17,7 +27,7 @@ namespace LinFx.Utils
         /// 生成新的ID
         /// </summary>
         /// <returns></returns>
-        [Obsolete("Use GenerateId")]
+        [Obsolete("Use NewId")]
         public static long CreateNewId()
         {
             return Snowflake.Instance().GetId();

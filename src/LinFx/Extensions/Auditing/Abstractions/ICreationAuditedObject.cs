@@ -5,7 +5,6 @@ namespace LinFx.Extensions.Auditing
     /// </summary>
     public interface ICreationAuditedObject : IHasCreationTime, IMayHaveCreator
     {
-
     }
 
     /// <summary>
@@ -14,6 +13,5 @@ namespace LinFx.Extensions.Auditing
     /// <typeparam name="TCreator">Type of the user</typeparam>
     public interface ICreationAuditedObject<TCreator> : ICreationAuditedObject, IMayHaveCreator<TCreator>
     {
-
     }
 }

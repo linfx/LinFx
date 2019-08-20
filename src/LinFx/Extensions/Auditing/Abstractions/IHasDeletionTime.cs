@@ -11,6 +11,6 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Deletion time.
         /// </summary>
-        DateTime? DeletionTime { get; set; }
+        DateTimeOffset? DeletionTime { get; set; }
     }
 }

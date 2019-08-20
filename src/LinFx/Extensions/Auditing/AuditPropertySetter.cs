@@ -31,7 +31,7 @@ namespace LinFx.Extensions.Auditing
 
             if (objectWithCreationTime.CreationTime == default)
             {
-                objectWithCreationTime.CreationTime = DateTime.Now;
+                objectWithCreationTime.CreationTime = DateTimeOffset.Now;
             }
         }
 
@@ -82,7 +82,7 @@ namespace LinFx.Extensions.Auditing
         {
             if (targetObject is IHasModificationTime objectWithModificationTime)
             {
-                objectWithModificationTime.LastModificationTime = DateTime.Now;
+                objectWithModificationTime.LastModificationTime = DateTimeOffset.Now;
             }
         }
 
@@ -126,7 +126,7 @@ namespace LinFx.Extensions.Auditing
             {
                 if (objectWithDeletionTime.DeletionTime == null)
                 {
-                    objectWithDeletionTime.DeletionTime = DateTime.Now;
+                    objectWithDeletionTime.DeletionTime = DateTimeOffset.Now;
                 }
             }
         }

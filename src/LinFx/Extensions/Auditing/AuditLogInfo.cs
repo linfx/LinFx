@@ -12,13 +12,13 @@ namespace LinFx.Extensions.Auditing
 
         public string UserName { get; set; }
 
-        public Guid? TenantId { get; set; }
+        public string TenantId { get; set; }
 
         public Guid? ImpersonatorUserId { get; set; }
 
         public Guid? ImpersonatorTenantId { get; set; }
 
-        public DateTime ExecutionTime { get; set; }
+        public DateTimeOffset ExecutionTime { get; set; }
 
         public int ExecutionDuration { get; set; }
 

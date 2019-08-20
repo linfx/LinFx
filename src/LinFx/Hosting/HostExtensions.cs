@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Data.SqlClient;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polly;
 
-namespace LinFx.Web.Extensions
+namespace Microsoft.AspNetCore.Hosting
 {
-    public static class IWebHostExtensions
+    public static class HostExtensions
     {
-        public static IWebHost MigrateDbContext<TContext>(this IWebHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
+        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
             using (var scope = host.Services.CreateScope())
             {

@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.Auditing
 {
     /// <summary>
@@ -10,7 +8,7 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Id of the deleter user.
         /// </summary>
-        Guid? DeleterId { get; set; }
+        string DeleterId { get; set; }
     }
 
     /// <summary>

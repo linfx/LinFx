@@ -10,6 +10,6 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// The last modified time for this entity.
         /// </summary>
-        DateTime? LastModificationTime { get; set; }
+        DateTimeOffset? LastModificationTime { get; set; }
     }
 }

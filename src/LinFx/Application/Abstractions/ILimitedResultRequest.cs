@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application.Abstractions
+﻿namespace LinFx.Application
 {
     /// <summary>
     /// This interface is defined to standardize to request a limited result.

@@ -9,10 +9,10 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? CreatorId { get; set; }
+        public virtual string CreatorId { get; set; }
     }
 
     /// <summary>
@@ -22,9 +22,9 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, ICreationAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? CreatorId { get; set; }
+        public virtual string CreatorId { get; set; }
     }
 }

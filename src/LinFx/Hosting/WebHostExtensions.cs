@@ -7,7 +7,7 @@ using Polly;
 
 namespace Microsoft.AspNetCore.Hosting
 {
-    public static class IWebHostExtensions
+    public static class WebHostExtensions
     {
         public static IWebHost MigrateDbContext<TContext>(this IWebHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {

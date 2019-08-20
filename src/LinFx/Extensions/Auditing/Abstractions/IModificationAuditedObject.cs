@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.Auditing
 {
     /// <summary>
@@ -10,7 +8,7 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Last modifier user for this entity.
         /// </summary>
-        Guid? LastModifierId { get; set; }
+        string LastModifierId { get; set; }
     }
 
     /// <summary>

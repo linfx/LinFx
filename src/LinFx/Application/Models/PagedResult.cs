@@ -1,5 +1,4 @@
-﻿using LinFx.Application.Abstractions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LinFx.Application.Models
 {
@@ -14,8 +13,14 @@ namespace LinFx.Application.Models
         /// </summary>
         public long TotalCount { get; set; }
 
+        /// <summary>
+        /// 当前页
+        /// </summary>
         public int PageIndex { get; set; }
 
+        /// <summary>
+        /// 页大小
+        /// </summary>
         public int PageSize { get; set; }
 
         /// <summary>
@@ -32,6 +37,31 @@ namespace LinFx.Application.Models
             : base(items)
         {
             TotalCount = totalCount;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PagedResult{T}"/> object.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="items"></param>
+        public PagedResult(IPagedResultRequest input, long totalCount, IReadOnlyList<T> items)
+            : this(input.Page, input.Limit, totalCount, items)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PagedResult{T}"/> object.
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalCount"></param>
+        /// <param name="items"></param>
+        public PagedResult(int pageIndex, int pageSize, long totalCount, IReadOnlyList<T> items)
+            : this(totalCount, items)
+        {
+            PageIndex = pageIndex;
+            PageSize = pageSize;
         }
     }
 }

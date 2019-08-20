@@ -10,10 +10,10 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? CreatorId { get; set; }
+        public virtual string CreatorId { get; set; }
     }
 
     /// <summary>
@@ -24,9 +24,9 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
     {
         /// <inheritdoc />
-        public virtual DateTime CreationTime { get; set; }
+        public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? CreatorId { get; set; }
+        public virtual string CreatorId { get; set; }
     }
 }

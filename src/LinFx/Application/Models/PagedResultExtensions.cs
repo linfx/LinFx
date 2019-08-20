@@ -1,5 +1,5 @@
 ﻿using LinFx;
-using LinFx.Application.Abstractions;
+using LinFx.Application;
 using LinFx.Application.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;

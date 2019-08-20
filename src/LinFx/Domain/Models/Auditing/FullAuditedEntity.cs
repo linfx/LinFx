@@ -12,10 +12,10 @@ namespace LinFx.Domain.Models.Auditing
         public virtual bool IsDeleted { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? DeleterId { get; set; }
+        public virtual string DeleterId { get; set; }
 
         /// <inheritdoc />
-        public virtual DateTime? DeletionTime { get; set; }
+        public virtual DateTimeOffset? DeletionTime { get; set; }
     }
 
     /// <summary>
@@ -28,9 +28,9 @@ namespace LinFx.Domain.Models.Auditing
         public virtual bool IsDeleted { get; set; }
 
         /// <inheritdoc />
-        public virtual Guid? DeleterId { get; set; }
+        public virtual string DeleterId { get; set; }
 
         /// <inheritdoc />
-        public virtual DateTime? DeletionTime { get; set; }
+        public virtual DateTimeOffset? DeletionTime { get; set; }
     }
 }

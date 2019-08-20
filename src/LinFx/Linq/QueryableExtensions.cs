@@ -1,5 +1,5 @@
 ﻿using LinFx;
-using LinFx.Application.Abstractions;
+using LinFx.Application;
 using System.Linq.Expressions;
 
 namespace System.Linq

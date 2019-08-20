@@ -1,4 +1,4 @@
-﻿using LinFx.Application.Abstractions;
+﻿using LinFx.Application;
 using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Application.Models
