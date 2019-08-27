@@ -11,7 +11,8 @@ namespace LinFx.Extensions.MultiTenancy
         {
             TenantResolvers = new List<ITenantResolveContributor>
             {
-                new CurrentUserTenantResolveContributor()
+                new CurrentUserTenantResolveContributor(),
+                new HeaderTenantResolveContributor()
             };
         }
     }

@@ -10,11 +10,11 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 {
     public class RabbitMqDistributedEventBus : EventBus
     {
+        protected RabbitMqOptions RabbitMqOptions { get; }
         protected IConnectionPool ConnectionPool { get; }
         protected IConsumerFactory ConsumerFactory { get; }
         protected IRabbitMqConsumer Consumer { get; }
         protected IRabbitMqSerializer Serializer { get; }
-        protected RabbitMqOptions RabbitMqOptions { get; }
 
         public RabbitMqDistributedEventBus(
             IConnectionPool connectionPool,

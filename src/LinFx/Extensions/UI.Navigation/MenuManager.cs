@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.UI.Navigation
 {
+    [Service]
     public class MenuManager : IMenuManager
     {
         private readonly NavigationOptions _options;

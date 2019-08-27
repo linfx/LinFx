@@ -7,5 +7,7 @@
         /// Default: false. 
         /// </summary>
         public bool IsEnabled { get; set; }
+
+        public string TenantKey { get; set; } = "__tenant";
     }
 }

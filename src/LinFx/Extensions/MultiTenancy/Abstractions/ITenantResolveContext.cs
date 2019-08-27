@@ -1,6 +1,8 @@
-﻿namespace LinFx.Extensions.MultiTenancy
+﻿using LinFx.Extensions.DependencyInjection;
+
+namespace LinFx.Extensions.MultiTenancy
 {
-    public interface ITenantResolveContext
+    public interface ITenantResolveContext : IServiceProviderAccessor
     {
         [CanBeNull]
         string TenantIdOrName { get; set; }

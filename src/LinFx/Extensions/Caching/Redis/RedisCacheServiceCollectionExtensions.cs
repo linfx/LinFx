@@ -18,7 +18,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static LinFxBuilder AddDistributedRedisCache(this LinFxBuilder builder, Action<RedisCacheOptions> setupAction)
         {
             builder.Services.AddDistributedRedisCache(setupAction);
-
             return builder;
         }
     }

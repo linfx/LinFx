@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.MultiTenancy
@@ -8,26 +7,28 @@ namespace LinFx.Extensions.MultiTenancy
     {
         private readonly RequestDelegate _next;
         private readonly ITenantResolver _tenantResolver;
-        private readonly ITenantStore _tenantStore;
         private readonly ICurrentTenant _currentTenant;
         private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor;
 
         public MultiTenancyMiddleware(
             RequestDelegate next,
             ITenantResolver tenantResolver,
-            ITenantStore tenantStore,
             ICurrentTenant currentTenant,
             ITenantResolveResultAccessor tenantResolveResultAccessor)
         {
             _next = next;
             _tenantResolver = tenantResolver;
-            _tenantStore = tenantStore;
             _currentTenant = currentTenant;
             _tenantResolveResultAccessor = tenantResolveResultAccessor;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext httpContext, ITenantStore tenantStore)
         {
+            async Task<TenantInfo> FindTenantAsync(string tenantIdOrName)
+            {
+                return await tenantStore.FindAsync(tenantIdOrName);
+            }
+
             var resolveResult = _tenantResolver.ResolveTenantIdOrName();
             _tenantResolveResultAccessor.Result = resolveResult;
 
@@ -40,23 +41,11 @@ namespace LinFx.Extensions.MultiTenancy
                     //TODO: A better exception?
                     throw new LinFxException("There is no tenant with given tenant id or name: " + resolveResult.TenantIdOrName);
                 }
-            }         
+            }
 
             using (_currentTenant.Change(tenant?.Id, tenant?.Name))
             {
                 await _next(httpContext);
-            }
-        }
-
-        private async Task<TenantInfo> FindTenantAsync(string tenantIdOrName)
-        {
-            if (Guid.TryParse(tenantIdOrName, out var parsedTenantId))
-            {
-                return await _tenantStore.FindAsync(parsedTenantId);
-            }
-            else
-            {
-                return await _tenantStore.FindAsync(tenantIdOrName);
             }
         }
     }

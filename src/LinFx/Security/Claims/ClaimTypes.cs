@@ -10,7 +10,7 @@
         /// <summary>
         /// Default: <see cref="System.Security.Claims.ClaimTypes.NameIdentifier"/>
         /// </summary>
-        public static string UserId { get; set; } = System.Security.Claims.ClaimTypes.NameIdentifier;
+        public static string Id { get; set; } = System.Security.Claims.ClaimTypes.NameIdentifier;
 
         /// <summary>
         /// Default: <see cref="System.Security.Claims.ClaimTypes.Role"/>
@@ -40,7 +40,7 @@
         /// <summary>
         /// Default: "tenantid".
         /// </summary>
-        public static string TenantId { get; set; } = "tenantid";
+        public static string TenantId { get; set; } = "tenant_id";
 
         /// <summary>
         /// Default: "client_id".

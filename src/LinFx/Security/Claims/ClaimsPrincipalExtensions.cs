@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using ClaimTypes = LinFx.Security.Claims.ClaimTypes;
 
-namespace LinFx.Security.Principal
+namespace LinFx.Security.Claims
 {
     public static class ClaimsPrincipalExtensions
     {
@@ -12,7 +11,7 @@ namespace LinFx.Security.Principal
         {
             Check.NotNull(principal, nameof(principal));
 
-            var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.UserId);
+            var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id || c.Type == JwtClaimTypes.Subject);
             if (claim == null || claim.Value.IsNullOrWhiteSpace())
             {
                 return null;
@@ -49,7 +48,7 @@ namespace LinFx.Security.Principal
             Check.NotNull(identity, nameof(identity));
 
             var claimsIdentity = identity as ClaimsIdentity;
-            var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.UserId);
+            var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id);
             if (claim == null || claim.Value.IsNullOrWhiteSpace())
             {
                 return null;

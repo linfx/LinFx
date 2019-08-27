@@ -1,25 +1,36 @@
-﻿using System;
+﻿using LinFx.Extensions.MultiTenancy;
+using LinFx.Security.Users;
+using System;
 
 namespace LinFx.Extensions.Auditing
 {
     public class AuditPropertySetter : IAuditPropertySetter
     {
+        protected ICurrentUser CurrentUser { get; }
+        protected ICurrentTenant CurrentTenant { get; }
+
+        public AuditPropertySetter(ICurrentUser currentUser, ICurrentTenant currentTenant)
+        {
+            CurrentUser = currentUser;
+            CurrentTenant = currentTenant;
+        }
+
         public void SetCreationProperties(object targetObject)
         {
             SetCreationTime(targetObject);
-            SetCreatorId(targetObject);
+            //SetCreatorId(targetObject);
         }
 
         public void SetModificationProperties(object targetObject)
         {
             SetLastModificationTime(targetObject);
-            SetLastModifierId(targetObject);
+            //SetLastModifierId(targetObject);
         }
 
         public void SetDeletionProperties(object targetObject)
         {
             SetDeletionTime(targetObject);
-            SetDeleterId(targetObject);
+            //SetDeleterId(targetObject);
         }
 
         private void SetCreationTime(object targetObject)
@@ -37,45 +48,37 @@ namespace LinFx.Extensions.Auditing
 
         private void SetCreatorId(object targetObject)
         {
-            //if (!CurrentUser.Id.HasValue)
-            //{
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(CurrentUser.Id))
+            {
+                return;
+            }
 
-            //if (targetObject is IMultiTenant multiTenantEntity)
-            //{
-            //    if (multiTenantEntity.TenantId != CurrentUser.TenantId)
-            //    {
-            //        return;
-            //    }
-            //}
-
-            /* TODO: The code below is from old ABP, not implemented yet
-                if (tenantId.HasValue && MultiTenancyHelper.IsHostEntity(entity))
+            if (targetObject is IMultiTenant multiTenantEntity)
+            {
+                if (multiTenantEntity.TenantId != CurrentUser.TenantId)
                 {
-                    //Tenant user created a host entity
                     return;
                 }
-                 */
+            }
 
-            //if (targetObject is IMayHaveCreator mayHaveCreatorObject)
-            //{
-            //    if (mayHaveCreatorObject.CreatorId.HasValue && mayHaveCreatorObject.CreatorId.Value != default)
-            //    {
-            //        return;
-            //    }
+            if (targetObject is IMayHaveCreator mayHaveCreatorObject)
+            {
+                if (!string.IsNullOrEmpty(mayHaveCreatorObject.CreatorId))
+                {
+                    return;
+                }
 
-            //    mayHaveCreatorObject.CreatorId = CurrentUser.Id;
-            //}
-            //else if (targetObject is IMustHaveCreator mustHaveCreatorObject)
-            //{
-            //    if (mustHaveCreatorObject.CreatorId != default)
-            //    {
-            //        return;
-            //    }
+                mayHaveCreatorObject.CreatorId = CurrentUser.Id;
+            }
+            else if (targetObject is IMustHaveCreator mustHaveCreatorObject)
+            {
+                if (mustHaveCreatorObject.CreatorId != default)
+                {
+                    return;
+                }
 
-            //    mustHaveCreatorObject.CreatorId = CurrentUser.Id.Value;
-            //}
+                mustHaveCreatorObject.CreatorId = CurrentUser.Id;
+            }
         }
 
         private void SetLastModificationTime(object targetObject)
@@ -93,31 +96,22 @@ namespace LinFx.Extensions.Auditing
                 return;
             }
 
-            //if (!CurrentUser.Id.HasValue)
-            //{
-            //    modificationAuditedObject.LastModifierId = null;
-            //    return;
-            //}
-
-            //if (modificationAuditedObject is IMultiTenant multiTenantEntity)
-            //{
-            //    if (multiTenantEntity.TenantId != CurrentUser.TenantId)
-            //    {
-            //        modificationAuditedObject.LastModifierId = null;
-            //        return;
-            //    }
-            //}
-
-            /* TODO: The code below is from old ABP, not implemented yet
-            if (tenantId.HasValue && MultiTenancyHelper.IsHostEntity(entity))
+            if (string.IsNullOrEmpty(CurrentUser.Id))
             {
-                //Tenant user modified a host entity
                 modificationAuditedObject.LastModifierId = null;
                 return;
             }
-             */
 
-            //modificationAuditedObject.LastModifierId = CurrentUser.Id;
+            if (modificationAuditedObject is IMultiTenant multiTenantEntity)
+            {
+                if (multiTenantEntity.TenantId != CurrentUser.TenantId)
+                {
+                    modificationAuditedObject.LastModifierId = null;
+                    return;
+                }
+            }
+
+            modificationAuditedObject.LastModifierId = CurrentUser.Id;
         }
 
         private void SetDeletionTime(object targetObject)
@@ -143,22 +137,22 @@ namespace LinFx.Extensions.Auditing
                 return;
             }
 
-            //if (!CurrentUser.Id.HasValue)
-            //{
-            //    deletionAuditedObject.DeleterId = null;
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(CurrentUser.Id))
+            {
+                deletionAuditedObject.DeleterId = null;
+                return;
+            }
 
-            //if (deletionAuditedObject is IMultiTenant multiTenantEntity)
-            //{
-            //    if (multiTenantEntity.TenantId != CurrentUser.TenantId)
-            //    {
-            //        deletionAuditedObject.DeleterId = null;
-            //        return;
-            //    }
-            //}
+            if (deletionAuditedObject is IMultiTenant multiTenantEntity)
+            {
+                if (multiTenantEntity.TenantId != CurrentUser.TenantId)
+                {
+                    deletionAuditedObject.DeleterId = null;
+                    return;
+                }
+            }
 
-            //deletionAuditedObject.DeleterId = CurrentUser.Id;
+            deletionAuditedObject.DeleterId = CurrentUser.Id;
         }
     }
 }

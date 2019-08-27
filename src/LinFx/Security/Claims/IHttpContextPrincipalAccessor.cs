@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Microsoft.AspNetCore.Http
+namespace LinFx.Security.Claims
 {
     public interface IHttpContextPrincipalAccessor
     {

@@ -47,7 +47,6 @@ namespace Microsoft.Extensions.DependencyInjection
 
 
             builder.Services.AddAuthorization();
-            builder.AddHttpContextPrincipalAccessor();
 
             builder.Services.AddSingleton<IPermissionChecker, PermissionChecker>();
             builder.Services.AddSingleton<IPermissionDefinitionContext, PermissionDefinitionContext>();

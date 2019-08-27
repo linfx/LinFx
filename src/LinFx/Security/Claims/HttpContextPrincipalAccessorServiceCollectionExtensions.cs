@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LinFx.Security.Claims;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

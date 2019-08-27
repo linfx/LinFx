@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy
 {
-    public interface IMultiTenant 
+    public interface IMultiTenant
     {
         string TenantId { get; }
     }

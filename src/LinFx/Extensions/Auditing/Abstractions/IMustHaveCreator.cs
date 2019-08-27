@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.Auditing
 {
     /// <summary>
@@ -22,6 +20,6 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Id of the creator.
         /// </summary>
-        Guid CreatorId { get; set; }
+        string CreatorId { get; set; }
     }
 }

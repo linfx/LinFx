@@ -14,7 +14,8 @@ namespace LinFx.Extensions.EntityFrameworkCore
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext, IUnitOfWork
     {
-        private readonly IAuditPropertySetter _auditPropertySetter = new AuditPropertySetter();
+        [Autowired]
+        private readonly IAuditPropertySetter _auditPropertySetter = new AuditPropertySetter(null, null);
         protected readonly IMediator _mediator;
         protected IDbContextTransaction _currentTransaction;
 

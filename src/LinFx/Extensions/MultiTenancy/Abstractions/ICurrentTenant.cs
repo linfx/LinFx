@@ -7,11 +7,11 @@ namespace LinFx.Extensions.MultiTenancy
         bool IsAvailable { get; }
 
         [CanBeNull]
-        Guid? Id { get; }
+        string Id { get; }
 
         [CanBeNull]
         string Name { get; }
 
-        IDisposable Change(Guid? id, string name = default);
+        IDisposable Change(string id, string name = default);
     }
 }

@@ -11,22 +11,16 @@ using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Application
 {
-    public abstract class CrudService<TEntity> 
-        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntity, TEntity>
-        where TEntity : class, IEntity<string>
-    {
-        protected CrudService(DbContext context) : base(context) { }
-    }
-
     public abstract class CrudService<TEntity, TOutput, TListOutput, TKey, TListInput, TCreateInput, TUpdateInput>
+        : ApplicationService
            where TEntity : class, IEntity<TKey>
            where TListInput : IPagedAndSortedResultRequest
     {
-        protected DbContext _context;
+        protected readonly DbContext _db;
 
-        protected CrudService(DbContext context)
+        protected CrudService(ServiceContext context, DbContext db) : base(context)
         {
-            _context = context;
+            _db = db;
         }
 
         public virtual async Task<PagedResult<TListOutput>> GetListAsync(TListInput input)
@@ -52,8 +46,8 @@ namespace LinFx.Application
         {
             var entity = MapToEntity(input);
             TryToSetTenantId(entity);
-            _context.Add(entity);
-            await _context.SaveChangesAsync();
+            _db.Add(entity);
+            await _db.SaveChangesAsync();
             return MapToOutput(entity);
         }
 
@@ -61,24 +55,22 @@ namespace LinFx.Application
         {
             var entity = await GetEntityByIdAsync(id);
             MapToEntity(input, entity);
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
+            _db.Update(entity);
+            await _db.SaveChangesAsync();
             return MapToOutput(entity);
         }
 
         public virtual async Task DeleteAsync(TKey id)
         {
             var entity = await GetEntityByIdAsync(id);
-            _context.Remove(entity);
-            await _context.SaveChangesAsync();
+            _db.Remove(entity);
+            await _db.SaveChangesAsync();
         }
 
         protected virtual Task<TEntity> GetEntityByIdAsync(TKey id)
         {
-            return _context.FindAsync<TEntity>(id);
+            return _db.FindAsync<TEntity>(id);
         }
-
-
 
         protected virtual TListOutput MapToListOutput(TEntity entity)
         {
@@ -94,7 +86,7 @@ namespace LinFx.Application
         /// <param name="input">The input.</param>
         protected virtual IQueryable<TEntity> CreateFilteredQuery(TListInput input)
         {
-            return _context.Set<TEntity>();
+            return _db.Set<TEntity>();
         }
 
         /// <summary>
@@ -153,16 +145,6 @@ namespace LinFx.Application
             return entity;
         }
 
-        protected virtual void SetId(TEntity entity)
-        {
-            if (entity is IEntity<string> entityWithStringId)
-            {
-                if (string.IsNullOrWhiteSpace(entityWithStringId.Id))
-                    entityWithStringId.Id = IDUtils.NewId().ToString();
-            }
-            return;
-        }
-
         protected virtual TOutput MapToOutput(TEntity entity)
         {
             return ObjectMapper.Map<TEntity, TOutput>(entity);
@@ -176,30 +158,21 @@ namespace LinFx.Application
             }
             ObjectMapper.Map(updateInput, entity);
         }
+    }
 
-        protected virtual void TryToSetTenantId(TEntity entity)
-        {
-            if (entity is IMultiTenant && HasTenantIdProperty(entity))
-            {
-                //var tenantId = CurrentTenant.Id;
+    public abstract class CrudService<TEntity>
+        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntity, TEntity>
+        where TEntity : class, IEntity<string>
+    {
+        protected CrudService(ServiceContext context, DbContext db) 
+            : base(context, db) { }
+    }
 
-                //if (!tenantId.HasValue)
-                //{
-                //    return;
-                //}
-
-                //var propertyInfo = entity.GetType().GetProperty(nameof(IMultiTenant.TenantId));
-
-                //if (propertyInfo != null && propertyInfo.GetSetMethod() != null)
-                //{
-                //    propertyInfo.SetValue(entity, tenantId, null);
-                //}
-            }
-        }
-
-        protected virtual bool HasTenantIdProperty(TEntity entity)
-        {
-            return entity.GetType().GetProperty(nameof(IMultiTenant.TenantId)) != null;
-        }
+    public abstract class CrudService<TEntity, TEntityInput>
+        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntityInput, TEntityInput>
+        where TEntity : class, IEntity<string>
+    {
+        protected CrudService(ServiceContext context, DbContext db)
+            : base(context, db) { }
     }
 }

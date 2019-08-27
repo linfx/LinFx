@@ -16,7 +16,7 @@ namespace LinFx.Security.Authorization.Permissions
 
         public override async Task<PermissionValueProviderGrantInfo> CheckAsync(PermissionValueCheckContext context)
         {
-            var userId = context.Principal?.FindFirst(ClaimTypes.UserId)?.Value;
+            var userId = context.Principal?.FindFirst(ClaimTypes.Id)?.Value;
 
             if (userId == null)
             {

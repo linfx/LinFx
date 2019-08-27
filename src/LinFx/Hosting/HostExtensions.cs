@@ -10,7 +10,7 @@ namespace Microsoft.AspNetCore.Hosting
 {
     public static class HostExtensions
     {
-        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
+        public static IHost MigrateDbContext<TContext>(this IHost host, Action<TContext, IServiceProvider> seeder = default) where TContext : DbContext
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -37,7 +37,7 @@ namespace Microsoft.AspNetCore.Hosting
                         //apply to transient exceptions.
 
                         context.Database.Migrate();
-                        seeder(context, services);
+                        seeder?.Invoke(context, services);
                     });
 
 

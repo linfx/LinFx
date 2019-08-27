@@ -9,7 +9,7 @@ namespace LinFx.Extensions.MultiTenancy
     {
         public TenantInfo() { }
 
-        public TenantInfo(Guid? id, string name)
+        public TenantInfo(string id, string name)
         {
             Id = id;
             Name = name;
@@ -18,7 +18,7 @@ namespace LinFx.Extensions.MultiTenancy
         /// <summary>
         /// ID
         /// </summary>
-        public Guid? Id { get; }
+        public string Id { get; }
 
         /// <summary>
         /// 名称

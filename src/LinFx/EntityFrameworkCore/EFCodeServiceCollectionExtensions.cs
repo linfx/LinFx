@@ -12,7 +12,6 @@ namespace Microsoft.Extensions.DependencyInjection
             ServiceLifetime optionsLifetime = ServiceLifetime.Scoped) where TContext : DbContext
         {
             builder.Services.AddDbContext<TContext>(optionsAction, contextLifetime, optionsLifetime);
-
             return builder;
         }
     }

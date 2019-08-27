@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using LinFx.Extensions.MultiTenancy;
 
-namespace LinFx.Extensions.MultiTenancy
+namespace Microsoft.AspNetCore.Builder
 {
     public static class MultiTenancyApplicationBuilderExtensions
     {

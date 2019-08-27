@@ -7,25 +7,25 @@ namespace LinFx.Extensions.MultiTenancy
     /// </summary>
     public class CurrentTenant : ICurrentTenant
     {
-        public virtual bool IsAvailable => Id.HasValue;
+        public virtual bool IsAvailable => !string.IsNullOrEmpty(Id);
 
-        public virtual Guid? Id => _currentTenantIdAccessor.Current?.Id;
+        public virtual string Id => _currentTenantIdAccessor.Current?.Id;
 
         public string Name => _currentTenantIdAccessor.Current?.Name;
 
-        private readonly ICurrentTenantIdAccessor _currentTenantIdAccessor;
+        private readonly ICurrentTenantAccessor _currentTenantIdAccessor;
 
-        public CurrentTenant(ICurrentTenantIdAccessor currentTenantIdAccessor)
+        public CurrentTenant(ICurrentTenantAccessor currentTenantIdAccessor)
         {
             _currentTenantIdAccessor = currentTenantIdAccessor;
         }
 
-        public IDisposable Change(Guid? id, string name)
+        public IDisposable Change(string id, string name)
         {
             return SetCurrent(id, name);
         }
 
-        private IDisposable SetCurrent(Guid? id, string name)
+        private IDisposable SetCurrent(string id, string name)
         {
             var parentScope = _currentTenantIdAccessor.Current;
             _currentTenantIdAccessor.Current = new TenantInfo(id, name);

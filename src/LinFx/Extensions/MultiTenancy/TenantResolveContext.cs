@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.MultiTenancy
 {
-    public class TenantResolveContext :ITenantResolveContext
+    public class TenantResolveContext : ITenantResolveContext
     {
         public IServiceProvider ServiceProvider { get; }
 
