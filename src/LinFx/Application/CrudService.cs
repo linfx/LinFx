@@ -1,8 +1,7 @@
 ﻿using LinFx.Application.Models;
 using LinFx.Domain.Models;
-using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.ObjectMapping;
-using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -138,9 +137,9 @@ namespace LinFx.Application
             return query;
         }
 
-        protected virtual TEntity MapToEntity(TCreateInput createInput)
+        protected virtual TEntity MapToEntity<TSource>(TSource input)
         {
-            var entity = ObjectMapper.Map<TCreateInput, TEntity>(createInput);
+            var entity = ObjectMapper.Map<TSource, TEntity>(input);
             SetId(entity);
             return entity;
         }
@@ -164,7 +163,7 @@ namespace LinFx.Application
         : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntity, TEntity>
         where TEntity : class, IEntity<string>
     {
-        protected CrudService(ServiceContext context, DbContext db) 
+        protected CrudService(ServiceContext context, DbContext db)
             : base(context, db) { }
     }
 

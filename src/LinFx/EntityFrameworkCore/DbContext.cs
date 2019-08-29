@@ -1,9 +1,11 @@
 ﻿using LinFx.Domain.Abstractions;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Data;
+using LinFx.Extensions.DependencyInjection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Data;
 using System.Linq;
@@ -15,20 +17,58 @@ namespace LinFx.Extensions.EntityFrameworkCore
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext, IUnitOfWork
     {
         [Autowired]
-        private readonly IAuditPropertySetter _auditPropertySetter = new AuditPropertySetter(null, null);
+        private readonly IAuditPropertySetter _auditPropertySetter;
         protected readonly IMediator _mediator;
         protected IDbContextTransaction _currentTransaction;
+        protected readonly ServiceContext _context;
+        protected readonly object ServiceProviderLock = new object();
 
-        protected DbContext() { }
+        protected DbContext()
+        {
+            _auditPropertySetter = new AuditPropertySetter(null, null);
+        }
 
-        public DbContext([NotNull] DbContextOptions options) : base(options) { }
+        public DbContext([NotNull] DbContextOptions options) : base(options)
+        {
+            _auditPropertySetter = new AuditPropertySetter(null, null);
+        }
+
+        public DbContext([NotNull] DbContextOptions options, ServiceContext context) : base(options)
+        {
+            _context = context;
+            LazyGetRequiredService(ref _auditPropertySetter);
+        }
 
         public DbContext([NotNull] DbContextOptions options, IMediator mediator) : base(options)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        public DbContext(
+            [NotNull] DbContextOptions options, 
+            IMediator mediator,
+            IAuditPropertySetter auditPropertySetter)
+            : this(options, mediator)
+        {
+            _auditPropertySetter = auditPropertySetter;
+        }
+
         public IDataFilter DataFilter { get; set; }
+
+        protected TService LazyGetRequiredService<TService>(ref TService reference)
+        {
+            if (reference == null)
+            {
+                lock (ServiceProviderLock)
+                {
+                    if (reference == null)
+                    {
+                        reference = _context.ServiceProvider.GetRequiredService<TService>();
+                    }
+                }
+            }
+            return reference;
+        }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

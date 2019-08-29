@@ -4,6 +4,7 @@ using System;
 
 namespace LinFx.Extensions.Auditing
 {
+    [Service]
     public class AuditPropertySetter : IAuditPropertySetter
     {
         protected ICurrentUser CurrentUser { get; }
@@ -18,19 +19,19 @@ namespace LinFx.Extensions.Auditing
         public void SetCreationProperties(object targetObject)
         {
             SetCreationTime(targetObject);
-            //SetCreatorId(targetObject);
+            SetCreatorId(targetObject);
         }
 
         public void SetModificationProperties(object targetObject)
         {
             SetLastModificationTime(targetObject);
-            //SetLastModifierId(targetObject);
+            SetLastModifierId(targetObject);
         }
 
         public void SetDeletionProperties(object targetObject)
         {
             SetDeletionTime(targetObject);
-            //SetDeleterId(targetObject);
+            SetDeleterId(targetObject);
         }
 
         private void SetCreationTime(object targetObject)
@@ -48,14 +49,14 @@ namespace LinFx.Extensions.Auditing
 
         private void SetCreatorId(object targetObject)
         {
-            if (string.IsNullOrEmpty(CurrentUser.Id))
+            if (string.IsNullOrEmpty(CurrentUser?.Id))
             {
                 return;
             }
 
             if (targetObject is IMultiTenant multiTenantEntity)
             {
-                if (multiTenantEntity.TenantId != CurrentUser.TenantId)
+                if (multiTenantEntity.TenantId != CurrentUser?.TenantId)
                 {
                     return;
                 }
@@ -68,7 +69,7 @@ namespace LinFx.Extensions.Auditing
                     return;
                 }
 
-                mayHaveCreatorObject.CreatorId = CurrentUser.Id;
+                mayHaveCreatorObject.CreatorId = CurrentUser?.Id;
             }
             else if (targetObject is IMustHaveCreator mustHaveCreatorObject)
             {
@@ -77,7 +78,7 @@ namespace LinFx.Extensions.Auditing
                     return;
                 }
 
-                mustHaveCreatorObject.CreatorId = CurrentUser.Id;
+                mustHaveCreatorObject.CreatorId = CurrentUser?.Id;
             }
         }
 
@@ -96,7 +97,7 @@ namespace LinFx.Extensions.Auditing
                 return;
             }
 
-            if (string.IsNullOrEmpty(CurrentUser.Id))
+            if (string.IsNullOrEmpty(CurrentUser?.Id))
             {
                 modificationAuditedObject.LastModifierId = null;
                 return;
@@ -111,7 +112,7 @@ namespace LinFx.Extensions.Auditing
                 }
             }
 
-            modificationAuditedObject.LastModifierId = CurrentUser.Id;
+            modificationAuditedObject.LastModifierId = CurrentUser?.Id;
         }
 
         private void SetDeletionTime(object targetObject)
@@ -137,7 +138,7 @@ namespace LinFx.Extensions.Auditing
                 return;
             }
 
-            if (string.IsNullOrEmpty(CurrentUser.Id))
+            if (string.IsNullOrEmpty(CurrentUser?.Id))
             {
                 deletionAuditedObject.DeleterId = null;
                 return;
@@ -145,14 +146,14 @@ namespace LinFx.Extensions.Auditing
 
             if (deletionAuditedObject is IMultiTenant multiTenantEntity)
             {
-                if (multiTenantEntity.TenantId != CurrentUser.TenantId)
+                if (multiTenantEntity.TenantId != CurrentUser?.TenantId)
                 {
                     deletionAuditedObject.DeleterId = null;
                     return;
                 }
             }
 
-            deletionAuditedObject.DeleterId = CurrentUser.Id;
+            deletionAuditedObject.DeleterId = CurrentUser?.Id;
         }
     }
 }

@@ -42,11 +42,11 @@ namespace LinFx.Application.Models
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="request"><see cref="IPagedResultRequest"></see></param>
         /// <param name="totalCount"></param>
         /// <param name="items"></param>
-        public PagedResult(IPagedResultRequest input, long totalCount, IReadOnlyList<T> items)
-            : this(input.Page, input.Limit, totalCount, items)
+        public PagedResult(IPagedResultRequest request, long totalCount, IReadOnlyList<T> items)
+            : this(request.Page, request.Limit, totalCount, items)
         {
         }
 
