@@ -2,6 +2,7 @@
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +15,7 @@ namespace LinFx.Application
     {
         private ILoggerFactory _loggerFactory;
         private ICurrentTenant _currentTenant;
+        private IMediator _mediator;
         public readonly ServiceContext _context;
         protected readonly object ServiceProviderLock = new object();
 
@@ -40,6 +42,8 @@ namespace LinFx.Application
         public ILoggerFactory LoggerFactory => LazyGetRequiredService(ref _loggerFactory);
 
         public ICurrentTenant CurrentTenant => LazyGetRequiredService(ref _currentTenant);
+
+        public IMediator Mediator => LazyGetRequiredService(ref _mediator);
 
         protected virtual void SetId<TEntity>(TEntity entity)
         {
