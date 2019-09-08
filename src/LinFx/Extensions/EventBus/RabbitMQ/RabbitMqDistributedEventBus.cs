@@ -10,7 +10,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 {
     public class RabbitMqDistributedEventBus : EventBus
     {
-        protected RabbitMqOptions RabbitMqOptions { get; }
+        protected RabbitMqEventBusOptions RabbitMqOptions { get; }
         protected IConnectionPool ConnectionPool { get; }
         protected IConsumerFactory ConsumerFactory { get; }
         protected IRabbitMqConsumer Consumer { get; }
@@ -23,7 +23,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             IEventBusSubscriptionsManager subscriptionsManager,
             IServiceProvider serviceProvider,
             IOptions<EventBusOptions> eventBusOptions,
-            IOptions<RabbitMqOptions> rabbitMOptions)
+            IOptions<RabbitMqEventBusOptions> rabbitMOptions)
             : base(subscriptionsManager, serviceProvider, eventBusOptions)
         {
             RabbitMqOptions = rabbitMOptions.Value;

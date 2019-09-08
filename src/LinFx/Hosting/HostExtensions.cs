@@ -1,10 +1,9 @@
-﻿using System;
-using System.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polly;
+using System;
 
 namespace Microsoft.AspNetCore.Hosting
 {
@@ -22,7 +21,7 @@ namespace Microsoft.AspNetCore.Hosting
                 {
                     logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
 
-                    var retry = Policy.Handle<SqlException>()
+                    var retry = Policy.Handle<Exception>()
                          .WaitAndRetry(new TimeSpan[]
                          {
                              TimeSpan.FromSeconds(3),

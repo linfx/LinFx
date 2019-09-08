@@ -106,7 +106,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
         {
             try
             {
-                await base.SaveChangesAsync();
+                await SaveChangesAsync();
                 _currentTransaction?.Commit();
             }
             catch

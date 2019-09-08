@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>4.2.5</Version>
+    <Version>4.2.7</Version>
     <Description>一个基于 .NET Core 2.0 开发的简单易用的快速开发框架，遵循领域驱动设计（DDD）规范约束，提供实现事件驱动、事件回溯、响应式等特性的基础设施。让开发者享受到正真意义的面向对象设计模式来带的美感。</Description>
     <Authors>强悍的抽屉</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
-    <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Dapper" Version="2.0.4" />
     <PackageReference Include="EmitMapper.Core" Version="1.0.0" />
     <PackageReference Include="FluentValidation" Version="8.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
@@ -32,7 +32,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.6" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
-    <PackageReference Include="NEST" Version="7.2.1" />
+    <PackageReference Include="NEST" Version="7.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Npgsql" Version="4.0.9" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
