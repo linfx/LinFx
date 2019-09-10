@@ -58,8 +58,8 @@ namespace System.Linq
             var total = await query.LongCountAsync();
             var items = await query.PageBy(request).ToListAsync();
 
-
-            return new PagedResult<TModel>(request, total, items.Select(MapToListOutput).ToList());
+            var result = new PagedResult<TModel>(request, total, items.Select(MapToListOutput).ToList());
+            return result;
 
             TModel MapToListOutput(TEntity entity)
             {

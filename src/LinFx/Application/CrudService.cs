@@ -38,6 +38,10 @@ namespace LinFx.Application
         public virtual async Task<TOutput> GetAsync(TKey id)
         {
             var entity = await GetEntityByIdAsync(id);
+            if (entity == null)
+            {
+                throw new UserFriendlyException($"ID[{id}]不存在");
+            }
             return MapToOutput(entity);
         }
 
@@ -53,6 +57,11 @@ namespace LinFx.Application
         public virtual async Task<TOutput> UpdateAsync(TKey id, TUpdateInput input)
         {
             var entity = await GetEntityByIdAsync(id);
+            if (entity == null)
+            {
+                throw new UserFriendlyException($"ID[{id}]不存在");
+            }
+
             MapToEntity(input, entity);
             _db.Update(entity);
             await _db.SaveChangesAsync();
@@ -62,6 +71,11 @@ namespace LinFx.Application
         public virtual async Task DeleteAsync(TKey id)
         {
             var entity = await GetEntityByIdAsync(id);
+            if (entity == null)
+            {
+                throw new UserFriendlyException($"ID[{id}]不存在");
+            }
+
             _db.Remove(entity);
             await _db.SaveChangesAsync();
         }

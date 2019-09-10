@@ -34,9 +34,9 @@
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
     <PackageReference Include="NEST" Version="7.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Npgsql" Version="4.0.9" />
+    <PackageReference Include="Npgsql" Version="4.0.10" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.0" />
-    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.1" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.5.0" />
   </ItemGroup>
 
