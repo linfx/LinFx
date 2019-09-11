@@ -1,7 +1,6 @@
 ﻿using LinFx.Application.Models;
 using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.ObjectMapping;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -10,10 +9,30 @@ using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Application
 {
+    public abstract class CrudService<TEntity>
+        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntity, TEntity>
+            where TEntity : class, IEntity<string>
+    {
+        protected CrudService(ServiceContext context, DbContext db)
+            : base(context, db) { }
+    }
+
+    public abstract class CrudService<TEntity, TEntityInput>
+        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntityInput, TEntityInput>
+            where TEntity : class, IEntity<string>
+            where TEntityInput : class
+    {
+        protected CrudService(ServiceContext context, DbContext db)
+            : base(context, db) { }
+    }
+
     public abstract class CrudService<TEntity, TOutput, TListOutput, TKey, TListInput, TCreateInput, TUpdateInput>
         : ApplicationService
            where TEntity : class, IEntity<TKey>
-           where TListInput : IPagedAndSortedResultRequest
+           where TOutput : class
+           where TListOutput : class
+           where TListInput : class, IPagedAndSortedResultRequest
+           where TUpdateInput : class
     {
         protected readonly DbContext _db;
 
@@ -22,6 +41,11 @@ namespace LinFx.Application
             _db = db;
         }
 
+        /// <summary>
+        /// 列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public virtual async Task<PagedResult<TListOutput>> GetListAsync(TListInput input)
         {
             var query = CreateFilteredQuery(input);
@@ -31,20 +55,26 @@ namespace LinFx.Application
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 
-            var entities = await query.ToListAsync();
+            var entities = await query.AsNoTracking().ToListAsync();
             return new PagedResult<TListOutput>(input, totalCount, entities.Select(MapToListOutput).ToList());
         }
 
+        /// <summary>
+        /// 获取
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<TOutput> GetAsync(TKey id)
         {
-            var entity = await GetEntityByIdAsync(id);
-            if (entity == null)
-            {
-                throw new UserFriendlyException($"ID[{id}]不存在");
-            }
+            var entity = await FindEntityByIdAsync(id);
             return MapToOutput(entity);
         }
 
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public virtual async Task<TOutput> CreateAsync(TCreateInput input)
         {
             var entity = MapToEntity(input);
@@ -54,40 +84,40 @@ namespace LinFx.Application
             return MapToOutput(entity);
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public virtual async Task<TOutput> UpdateAsync(TKey id, TUpdateInput input)
         {
-            var entity = await GetEntityByIdAsync(id);
-            if (entity == null)
-            {
-                throw new UserFriendlyException($"ID[{id}]不存在");
-            }
-
+            var entity = await FindEntityByIdAsync(id);
             MapToEntity(input, entity);
             _db.Update(entity);
             await _db.SaveChangesAsync();
             return MapToOutput(entity);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task DeleteAsync(TKey id)
         {
-            var entity = await GetEntityByIdAsync(id);
-            if (entity == null)
-            {
-                throw new UserFriendlyException($"ID[{id}]不存在");
-            }
-
+            var entity = await FindEntityByIdAsync(id);
             _db.Remove(entity);
             await _db.SaveChangesAsync();
         }
 
-        protected virtual Task<TEntity> GetEntityByIdAsync(TKey id)
+        protected virtual async Task<TEntity> FindEntityByIdAsync(TKey id)
         {
-            return _db.FindAsync<TEntity>(id);
-        }
+            var entity = await _db.FindAsync<TEntity>(id);
+            if (entity == null)
+                throw new UserFriendlyException($"对象[{id}]不存在");
 
-        protected virtual TListOutput MapToListOutput(TEntity entity)
-        {
-            return ObjectMapper.Map<TEntity, TListOutput>(entity);
+            return entity;
         }
 
         /// <summary>
@@ -151,41 +181,28 @@ namespace LinFx.Application
             return query;
         }
 
-        protected virtual TEntity MapToEntity<TSource>(TSource input)
+        protected virtual TEntity MapToEntity<TInput>(TInput input)
         {
-            var entity = ObjectMapper.Map<TSource, TEntity>(input);
+            var entity = input.MapTo<TEntity>();
             SetId(entity);
             return entity;
         }
 
+        protected virtual void MapToEntity(TUpdateInput input, TEntity entity)
+        {
+            var id = entity.Id;
+            input.MapTo(entity);
+            entity.Id = id;
+        }
+
         protected virtual TOutput MapToOutput(TEntity entity)
         {
-            return ObjectMapper.Map<TEntity, TOutput>(entity);
+            return entity.MapTo<TOutput>();
         }
 
-        protected virtual void MapToEntity(TUpdateInput updateInput, TEntity entity)
+        protected virtual TListOutput MapToListOutput(TEntity entity)
         {
-            if (updateInput is IEntity<TKey> entityDto)
-            {
-                entityDto.Id = entity.Id;
-            }
-            ObjectMapper.Map(updateInput, entity);
+            return entity.MapTo<TListOutput>();
         }
-    }
-
-    public abstract class CrudService<TEntity>
-        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntity, TEntity>
-        where TEntity : class, IEntity<string>
-    {
-        protected CrudService(ServiceContext context, DbContext db)
-            : base(context, db) { }
-    }
-
-    public abstract class CrudService<TEntity, TEntityInput>
-        : CrudService<TEntity, TEntity, TEntity, string, PagedAndSortedResultRequest, TEntityInput, TEntityInput>
-        where TEntity : class, IEntity<string>
-    {
-        protected CrudService(ServiceContext context, DbContext db)
-            : base(context, db) { }
     }
 }
