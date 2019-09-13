@@ -7,7 +7,7 @@ namespace LinFx.Test.ObjectMapping
     public class ObjectMappingTest
     {
         [Fact]
-        public void MapTo_Tests()
+        public void MapTo_Test()
         {
             var person = new Person()
             {
@@ -22,7 +22,7 @@ namespace LinFx.Test.ObjectMapping
         }
 
         [Fact]
-        public void MapTo_Array_Tests()
+        public void MapTo_Array_Test()
         {
             var persions = new List<Person>
             {
@@ -37,6 +37,20 @@ namespace LinFx.Test.ObjectMapping
             var dtos2 = new PersonDto[persions.Length];
             persions.MapTo(dtos2);
             Assert.Equal(persions.Length, dtos2.Length);
+        }
+
+        [Fact]
+        public void MapTo_List_Test()
+        {
+            var persions = new List<Person>
+            {
+                new Person { Name = "Lio1", Age = 11 },
+                new Person { Name = "Lio1", Age = 12 },
+                new Person { Name = "Lio1", Age = 13 },
+            };
+
+            var dtos = persions.MapTo<List<PersonDto>>();
+            Assert.Equal(persions.Count, dtos.Count);
         }
     }
 }
