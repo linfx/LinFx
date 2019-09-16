@@ -11,7 +11,8 @@ namespace LinFx.Test.Caching
         public RedisCacheTest()
         {
             var services = new ServiceCollection();
-            services.AddLinFx()
+            services
+                .AddLinFx()
                 .AddDistributedRedisCache(options =>
                 {
                     options.Configuration = "10.10.10.100,password=admin.123456,DefaultDatabase=14";

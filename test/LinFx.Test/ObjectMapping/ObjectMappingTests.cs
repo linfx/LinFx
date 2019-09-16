@@ -7,7 +7,7 @@ namespace LinFx.Test.ObjectMapping
     public class ObjectMappingTest
     {
         [Fact]
-        public void MapTo_Test()
+        public void MapTo_Tests()
         {
             var person = new Person()
             {
@@ -22,7 +22,7 @@ namespace LinFx.Test.ObjectMapping
         }
 
         [Fact]
-        public void MapTo_Array_Test()
+        public void MapTo_Array_Tests()
         {
             var persions = new List<Person>
             {
@@ -40,7 +40,7 @@ namespace LinFx.Test.ObjectMapping
         }
 
         [Fact]
-        public void MapTo_List_Test()
+        public void MapTo_List_Tests()
         {
             var persions = new List<Person>
             {
