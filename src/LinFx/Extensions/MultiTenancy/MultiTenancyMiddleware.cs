@@ -24,18 +24,13 @@ namespace LinFx.Extensions.MultiTenancy
 
         public async Task InvokeAsync(HttpContext httpContext, ITenantStore tenantStore)
         {
-            async Task<TenantInfo> FindTenantAsync(string tenantIdOrName)
-            {
-                return await tenantStore.FindAsync(tenantIdOrName);
-            }
-
             var resolveResult = _tenantResolver.ResolveTenantIdOrName();
             _tenantResolveResultAccessor.Result = resolveResult;
 
             TenantInfo tenant = null;
             if (resolveResult.TenantIdOrName != null)
             {
-                tenant = await FindTenantAsync(resolveResult.TenantIdOrName);
+                tenant = await tenantStore.FindAsync(resolveResult.TenantIdOrName);
                 if (tenant == null)
                 {
                     //TODO: A better exception?
