@@ -16,7 +16,7 @@ namespace LinFx.Application
         private ILoggerFactory _loggerFactory;
         private ICurrentTenant _currentTenant;
         private IMediator _mediator;
-        public readonly ServiceContext _context;
+        protected readonly ServiceContext _context;
         protected readonly object ServiceProviderLock = new object();
 
         protected ApplicationService(ServiceContext context)

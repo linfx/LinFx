@@ -46,12 +46,11 @@ namespace Microsoft.Extensions.DependencyInjection
             });
 
 
-            builder.Services.AddAuthorization();
-
+            //builder.Services.AddAuthorization();
+            //builder.Services.AddAuthorizationCore();
             builder.Services.AddSingleton<IPermissionChecker, PermissionChecker>();
             builder.Services.AddSingleton<IPermissionDefinitionContext, PermissionDefinitionContext>();
             builder.Services.AddSingleton<IPermissionDefinitionManager, PermissionDefinitionManager>();
-
             //fx.Services.TryAdd(ServiceDescriptor.Transient<IAuthorizationPolicyProvider, LinFx.Security.Authorization.DefaultAuthorizationPolicyProvider>());
             builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 

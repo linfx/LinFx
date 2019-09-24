@@ -4,7 +4,7 @@ using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class EFCodeServiceCollectionExtensions
+    public static class EntityFrameworkCoreServiceCollectionExtensions
     {
         public static LinFxBuilder AddDbContext<TContext>([NotNull] this LinFxBuilder builder, 
             [CanBeNull] Action<DbContextOptionsBuilder> optionsAction = null, 

@@ -5,6 +5,7 @@ namespace LinFx.Extensions.MultiTenancy
     /// <summary>
     /// 当前租户
     /// </summary>
+    [Service]
     public class CurrentTenant : ICurrentTenant
     {
         public virtual bool IsAvailable => !string.IsNullOrEmpty(Id);
