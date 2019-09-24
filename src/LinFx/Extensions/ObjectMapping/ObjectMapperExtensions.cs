@@ -1,5 +1,6 @@
 ﻿using EmitMapper;
 using EmitMapper.MappingConfiguration;
+using System.Collections.Generic;
 
 namespace System
 {
@@ -8,7 +9,10 @@ namespace System
         public static TDestination MapTo<TDestination>(this object source) 
             where TDestination : class
         {
-            var item = ObjectMapperManager.DefaultInstance.GetMapperImpl(source.GetType(), typeof(TDestination), new DefaultMapConfig()).Map(source);
+            var config = new DefaultMapConfig()
+                .ConvertGeneric(typeof(IEnumerable<>), typeof(IEnumerable<>), new DefaultCustomConverterProvider(typeof(TDestination)));
+
+            var item = ObjectMapperManager.DefaultInstance.GetMapperImpl(source.GetType(), typeof(TDestination), config).Map(source);
             return item.As<TDestination>();
         }
 

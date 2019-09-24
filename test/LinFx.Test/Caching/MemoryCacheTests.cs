@@ -13,7 +13,8 @@ namespace LinFx.Test.Caching
         public async Task MemoryCache_GetAndSet_Tests()
         {
             var services = new ServiceCollection();
-            services.AddLinFx()
+            services
+                .AddLinFx()
                 .AddDistributedMemoryCache();
 
             var container = services.BuildServiceProvider();
@@ -33,7 +34,8 @@ namespace LinFx.Test.Caching
         public async Task MemoryCache_GetOrAdd_Tests()
         {
             var services = new ServiceCollection();
-            services.AddLinFx()
+            services
+                .AddLinFx()
                 .AddDistributedMemoryCache();
 
             var container = services.BuildServiceProvider();
