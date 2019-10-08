@@ -14,26 +14,6 @@ namespace LinFx.Utils
         }
 
         /// <summary>
-        /// 生成新的ID
-        /// </summary>
-        /// <returns></returns>
-        [Obsolete("Use NewId")]
-        public static long GenerateId()
-        {
-            return Snowflake.Instance().GetId();
-        }
-
-        /// <summary>
-        /// 生成新的ID
-        /// </summary>
-        /// <returns></returns>
-        [Obsolete("Use NewId")]
-        public static long CreateNewId()
-        {
-            return Snowflake.Instance().GetId();
-        }
-
-        /// <summary>
         /// 动态生产有规律的ID
         /// </summary>
         class Snowflake

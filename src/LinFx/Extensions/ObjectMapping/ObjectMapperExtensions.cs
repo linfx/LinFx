@@ -9,8 +9,12 @@ namespace System
         public static TDestination MapTo<TDestination>(this object source) 
             where TDestination : class
         {
-            var config = new DefaultMapConfig()
-                .ConvertGeneric(typeof(IEnumerable<>), typeof(IEnumerable<>), new DefaultCustomConverterProvider(typeof(TDestination)));
+            var config = new DefaultMapConfig();
+
+            if(typeof(TDestination).IsAssignableFrom(typeof(IEnumerable<>)))
+            {
+                config = config.ConvertGeneric(typeof(IEnumerable<>), typeof(IEnumerable<>), new DefaultCustomConverterProvider(typeof(TDestination)));
+            }
 
             var item = ObjectMapperManager.DefaultInstance.GetMapperImpl(source.GetType(), typeof(TDestination), config).Map(source);
             return item.As<TDestination>();
