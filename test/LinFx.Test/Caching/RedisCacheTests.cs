@@ -15,7 +15,7 @@ namespace LinFx.Test.Caching
                 .AddLinFx()
                 .AddDistributedRedisCache(options =>
                 {
-                    options.Configuration = "10.10.10.100,password=admin.123456,DefaultDatabase=14";
+                    options.Configuration = "10.0.1.222,password=admin.123456,DefaultDatabase=14";
                     options.InstanceName = "linfx:";
                 });
 

@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application
+﻿namespace LinFx.Application.Abstractions
 {
     public class Error
     {

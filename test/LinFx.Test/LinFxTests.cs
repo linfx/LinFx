@@ -3,7 +3,7 @@ using Xunit;
 
 namespace LinFx.Test
 {
-    public class LinFxTest
+    public class LinFxTests
     {
         [Fact]
         public void Startup()

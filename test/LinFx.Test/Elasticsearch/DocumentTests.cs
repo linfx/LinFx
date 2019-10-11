@@ -1,4 +1,4 @@
-﻿using Elasticsearch.Net;
+﻿using LinFx.Test.Domain.Models;
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
@@ -22,6 +22,7 @@ namespace LinFx.Test.Elasticsearch
                     options.Host = "http://10.0.1.222:9200";
                     options.Index = "my-index";
                 });
+
             var container = services.BuildServiceProvider();
             _client = container.GetService<IElasticClient>();
         }
@@ -43,8 +44,8 @@ namespace LinFx.Test.Elasticsearch
             //};
             //var request = new IndexRequest<Post>(post);
             //var response = _client.Index(post, idx => idx.Index("post"));
- 
-            var collection = new string[] { "林松斌", "成龙", "陈国伟", "唐峰" };
+
+            var collection = new string[] { "A", "B", "C", "D" };
             foreach (var item in collection)
             {
                 var user = new User

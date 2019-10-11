@@ -16,7 +16,6 @@ namespace LinFx.Test.ObjectMapping
             };
 
             var dto = person.MapTo<PersonDto>();
-
             Assert.Equal(person.Name, dto.Name);
             Assert.Equal(person.Age, dto.Age);
         }

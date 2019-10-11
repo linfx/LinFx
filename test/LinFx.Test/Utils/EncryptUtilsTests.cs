@@ -3,7 +3,7 @@ using Xunit;
 
 namespace LinFx.Test.Utils
 {
-    public class EncryptUtilsTest
+    public class EncryptUtilsTests
     {
         [Fact]
         public void RSAEncryptTest()
