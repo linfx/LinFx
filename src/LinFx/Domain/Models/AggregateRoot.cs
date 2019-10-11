@@ -12,7 +12,7 @@ namespace LinFx.Domain.Models
 
         public void AddDomainEvent(INotification eventItem)
         {
-            _domainEvents = _domainEvents ?? new List<INotification>();
+            _domainEvents ??= new List<INotification>();
             _domainEvents.Add(eventItem);
         }
 
@@ -32,13 +32,16 @@ namespace LinFx.Domain.Models
         }
     }
 
+    /// <summary>
+    /// 聚合根
+    /// </summary>
     public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot<TKey>
     {
         private ICollection<INotification> _domainEvents;
 
         public void AddDomainEvent(INotification eventItem)
         {
-            _domainEvents = _domainEvents ?? new List<INotification>();
+            _domainEvents ??= new List<INotification>();
             _domainEvents.Add(eventItem);
         }
 

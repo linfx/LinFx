@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Auditing;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Domain.Models.Auditing
 {
@@ -13,6 +14,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
+        [StringLength(50)]
         public virtual string CreatorId { get; set; }
     }
 
@@ -27,6 +29,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
+        [StringLength(50)]
         public virtual string CreatorId { get; set; }
     }
 }

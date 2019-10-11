@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Auditing;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Domain.Models.Auditing
 {
@@ -12,6 +13,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
+        [StringLength(50)]
         public virtual string LastModifierId { get; set; }
     }
 
@@ -25,6 +27,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
+        [StringLength(50)]
         public virtual string LastModifierId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace LinFx.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LinFx.Domain.Models
 {
     /// <summary>
     /// 领域实体
