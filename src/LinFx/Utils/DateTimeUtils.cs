@@ -11,7 +11,7 @@ namespace LinFx.Utils
         /// </summary>
         /// <param name="date">当前时间日期</param>
         /// <returns></returns>
-        public static double GetUnixTimestamp(DateTime date)
+        public static double ToUnixTimestamp(DateTime date)
         {
             return date.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         }

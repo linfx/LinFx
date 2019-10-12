@@ -106,7 +106,7 @@ namespace LinFx.Extensions.RabbitMQ
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex, LogLevel.Warning);
+                Logger.LogError(ex, ex.Message);
             }
 
             return Task.CompletedTask;
@@ -165,7 +165,7 @@ namespace LinFx.Extensions.RabbitMQ
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex, LogLevel.Warning);
+                Logger.LogError(ex, ex.Message);
             }
         }
 
@@ -181,7 +181,7 @@ namespace LinFx.Extensions.RabbitMQ
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex);
+                Logger.LogError(ex, ex.Message);
             }
         }
 
@@ -198,7 +198,7 @@ namespace LinFx.Extensions.RabbitMQ
             }
             catch (Exception ex)
             {
-                Logger.LogException(ex, LogLevel.Warning);
+                Logger.LogError(ex, ex.Message);
             }
         }
 
