@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
@@ -17,6 +20,19 @@ namespace LinFx.EntityFrameworkCore
             {
                 if (!string.IsNullOrEmpty(propertyInfo.Name))
                     entry.Property(propertyInfo.Name).IsModified = true;
+            }
+        }
+
+        internal static void RegisterCustomMappings(this DbContext context, ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        {
+            var customModelBuilderTypes = typeToRegisters.Where(x => typeof(ICustomModelBuilder).IsAssignableFrom(x));
+            foreach (var builderType in customModelBuilderTypes)
+            {
+                if (builderType != null && builderType != typeof(ICustomModelBuilder))
+                {
+                    var builder = (ICustomModelBuilder)Activator.CreateInstance(builderType);
+                    builder.Build(modelBuilder);
+                }
             }
         }
     }

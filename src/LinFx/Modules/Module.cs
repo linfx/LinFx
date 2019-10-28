@@ -1,19 +1,17 @@
-﻿using System;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace LinFx.Modules
 {
-    /// <summary>
-    /// 模块
-    /// </summary>
-    public class Module
+    public class Module : IModule
     {
-        public string Id { get; set; }
+        public virtual void ConfigureServices(IServiceCollection services)
+        {
+        }
 
-        public string Name { get; set; }
-
-        public Version Version { get; set; }
-
-        public Assembly Assembly { get; set; }
+        public virtual void Configure(IApplicationBuilder app, IHostEnvironment env)
+        {
+        }
     }
 }
