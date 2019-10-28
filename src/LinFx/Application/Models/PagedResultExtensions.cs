@@ -60,7 +60,7 @@ namespace System.Linq
             var result = new PagedResult<TModel>(request, total, items.Select(MapToListOutput).ToList());
             return result;
 
-            TModel MapToListOutput(TEntity entity)
+            static TModel MapToListOutput(TEntity entity)
             {
                 return entity.MapTo<TModel>();
             }

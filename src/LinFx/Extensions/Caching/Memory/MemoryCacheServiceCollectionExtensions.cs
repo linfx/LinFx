@@ -15,7 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 builder.Services.AddDistributedMemoryCache(setupAction);
             }
-
             return builder;
         }
     }

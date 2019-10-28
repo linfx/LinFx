@@ -33,7 +33,6 @@ namespace LinFx.Extensions.MultiTenancy
                 tenant = await tenantStore.FindAsync(resolveResult.TenantIdOrName);
                 if (tenant == null)
                 {
-                    //TODO: A better exception?
                     throw new LinFxException("There is no tenant with given tenant id or name: " + resolveResult.TenantIdOrName);
                 }
             }
