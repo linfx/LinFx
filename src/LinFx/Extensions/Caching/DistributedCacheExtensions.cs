@@ -76,15 +76,12 @@ namespace Microsoft.Extensions.Caching.Distributed
             }
 
             value = await factory.Invoke();
-
             var options = new DistributedCacheEntryOptions();
             if (optionsFactory != null)
             {
                 options = optionsFactory.Invoke();
             }
-
             await cache.SetAsync(key, JsonUtils.ToBytes(value), options, token);
-
             return value;
         }
     }
