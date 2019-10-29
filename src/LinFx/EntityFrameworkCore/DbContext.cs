@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EntityFrameworkCore
+namespace LinFx.EntityFrameworkCore
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext, IUnitOfWork
     {

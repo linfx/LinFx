@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace LinFx.Modules
 {
-    public interface IModule
+    public interface IModuleInitializer
     {
         void ConfigureServices(IServiceCollection services);
 

@@ -37,9 +37,9 @@ namespace LinFx.Modules
             return new ModuleInfo(moduleType, CreateAndRegisterModule(services, moduleType));
         }
 
-        protected virtual IModule CreateAndRegisterModule(IServiceCollection services, Type moduleType)
+        protected virtual IModuleInitializer CreateAndRegisterModule(IServiceCollection services, Type moduleType)
         {
-            var module = (IModule)Activator.CreateInstance(moduleType);
+            var module = (IModuleInitializer)Activator.CreateInstance(moduleType);
             services.AddSingleton(moduleType, module);
             return module;
         }

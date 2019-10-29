@@ -18,11 +18,11 @@ namespace LinFx.Modules
 
         public Type Type { get; }
 
-        public Assembly Assembly { get; }
+        public Assembly Assembly { get; set; }
 
-        public IModule Instance { get; }
+        public IModuleInitializer Instance { get; }
 
-        public ModuleInfo(Type type, IModule instance)
+        public ModuleInfo(Type type, IModuleInitializer instance)
         {
             Type = type;
             Instance = instance;

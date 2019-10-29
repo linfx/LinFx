@@ -1,5 +1,4 @@
-﻿using LinFx;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -14,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns></returns>
         public static LinFxBuilder AddLinFx(this IServiceCollection services, Action<LinFxOptions> optionsAction = default)
         {
-            if(optionsAction != null)
+            if (optionsAction != null)
             {
                 services.Configure(optionsAction);
             }

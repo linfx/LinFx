@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace LinFx.EntityFrameworkCore
 {
     public interface ICustomModelBuilder
     {
