@@ -1,4 +1,6 @@
-﻿namespace LinFx
+﻿using System;
+
+namespace LinFx
 {
     public class UserFriendlyException : LinFxException
     {
@@ -11,6 +13,11 @@
 
         public UserFriendlyException(string message)
             : base(message)
+        {
+        }
+
+        public UserFriendlyException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
 

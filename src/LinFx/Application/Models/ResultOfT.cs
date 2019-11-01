@@ -6,7 +6,7 @@
 
         protected internal Result(TValue data)
         {
-            Success = true;
+            Succeeded = true;
             Data = data;
         }
 

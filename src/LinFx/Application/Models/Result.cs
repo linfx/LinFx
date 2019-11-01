@@ -15,7 +15,7 @@ namespace LinFx.Application.Models
 
         protected Result(bool success, string message)
         {
-            Success = success;
+            Succeeded = success;
             Message = message;
         }
 
@@ -23,7 +23,7 @@ namespace LinFx.Application.Models
         /// Flag indicating whether if the operation succeeded or not.
         /// </summary>
         /// <value>True if the operation succeeded, otherwise false.</value>
-        public bool Success { get; protected set; }
+        public bool Succeeded { get; protected set; }
 
         /// <summary>
         /// Message
@@ -38,13 +38,19 @@ namespace LinFx.Application.Models
         public IEnumerable<Error> Errors => _errors;
 
         /// <summary>
+        /// Returns an <see cref="Result"/> indicating a successful operation.
+        /// </summary>
+        /// <returns>An <see cref="Result"/> indicating a successful operation.</returns>
+        public static Result Success { get; } = new Result { Succeeded = true };
+
+        /// <summary>
         /// Creates an <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.
         /// </summary>
         /// <param name="errors">An optional array of <see cref="Error"/>s which caused the operation to fail.</param>
         /// <returns>An <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.</returns>
         public static Result Failed(params Error[] errors)
         {
-            var result = new Result { Success = false };
+            var result = new Result { Succeeded = false };
             if (errors != null)
             {
                 result._errors.AddRange(errors);
@@ -79,10 +85,7 @@ namespace LinFx.Application.Models
             return new Result<TValue>(value, false, error);
         }
 
-        public static Result Ok()
-        {
-            return new Result { Success = true };
-        }
+        public static Result Ok() => Success;
 
         public static Result<T> Ok<T>(T data)
         {
