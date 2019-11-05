@@ -10,12 +10,13 @@ namespace LinFx
     public class Result
     {
         private readonly List<Error> _errors = new List<Error>();
+        private static Result Succeeded { get; } = new Result { Success = true };
 
         public Result() { }
 
         protected Result(bool success, string message)
         {
-            Succeeded = success;
+            Success = success;
             Message = message;
         }
 
@@ -23,25 +24,24 @@ namespace LinFx
         /// Flag indicating whether if the operation succeeded or not.
         /// </summary>
         /// <value>True if the operation succeeded, otherwise false.</value>
-        public bool Succeeded { get; protected set; }
+        public bool Success { get; protected set; }
 
         /// <summary>
         /// Message
         /// </summary>
         public string Message { get; protected set; }
 
-        /// <summary>
-        /// An <see cref="IEnumerable{T}"/> of <see cref="Error"/>s containing an errors
-        /// that occurred during the identity operation.
-        /// </summary>
-        /// <value>An <see cref="IEnumerable{T}"/> of <see cref="Error"/>s.</value>
-        public IEnumerable<Error> Errors => _errors;
+        public static Result Ok() => Succeeded;
 
-        /// <summary>
-        /// Returns an <see cref="Result"/> indicating a successful operation.
-        /// </summary>
-        /// <returns>An <see cref="Result"/> indicating a successful operation.</returns>
-        public static Result Success { get; } = new Result { Succeeded = true };
+        public static Result<T> Ok<T>(T data)
+        {
+            return new Result<T>(data);
+        }
+
+        public static Result<TValue> Ok<TValue>(TValue value, string message)
+        {
+            return new Result<TValue>(value, true, message);
+        }
 
         /// <summary>
         /// Creates an <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.
@@ -50,7 +50,7 @@ namespace LinFx
         /// <returns>An <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.</returns>
         public static Result Failed(params Error[] errors)
         {
-            var result = new Result { Succeeded = false };
+            var result = new Result { Success = false };
             if (errors != null)
             {
                 result._errors.AddRange(errors);
@@ -83,18 +83,6 @@ namespace LinFx
         public static Result Failed<TValue>(TValue value, string error)
         {
             return new Result<TValue>(value, false, error);
-        }
-
-        public static Result Ok() => Success;
-
-        public static Result<T> Ok<T>(T data)
-        {
-            return new Result<T>(data);
-        }
-
-        public static Result<TValue> Ok<TValue>(TValue value, string message)
-        {
-            return new Result<TValue>(value, true, message);
         }
     }
 }
