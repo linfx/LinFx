@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinFx.Application.Models
+namespace LinFx
 {
     /// <summary>
     /// Represents the result of an operation.

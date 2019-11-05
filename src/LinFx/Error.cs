@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application.Models
+﻿namespace LinFx
 {
     public class Error
     {
