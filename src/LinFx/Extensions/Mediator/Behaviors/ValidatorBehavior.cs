@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using LinFx.Domain.Exceptions;
 using MediatR;
 using System.Linq;
 using System.Threading;
@@ -23,7 +22,7 @@ namespace LinFx.Extensions.Mediator.Behaviors
 
             if (failures.Any())
             {
-                throw new LinFxDomainException($"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+                throw new UserFriendlyException($"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
             }
 
             var response = await next();

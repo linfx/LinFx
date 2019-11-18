@@ -13,7 +13,6 @@ namespace LinFx.Data
     /// </summary>
     public interface IRepository
     {
-
     }
 
     public interface IRepository<TEntity> where TEntity : class, IEntity

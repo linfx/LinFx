@@ -1,21 +1,21 @@
 ﻿namespace LinFx.Extensions.Email
 {
-    public class SmtpEmailOptions
+    public class EmailSenderOptions
     {
-        /// <summary>
-        /// 邮箱服务器地址
-        /// </summary>
-        public string Host { get; set; }
-
         /// <summary>
         /// 登录账号
         /// </summary>
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// 登录密码
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// 邮箱服务器地址
+        /// </summary>
+        public string Host { get; set; }
 
         /// <summary>
         /// 端口

@@ -5,7 +5,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EmailCollectionExtensions
     {
-        public static LinFxBuilder AddEmail(this LinFxBuilder fx, Action<SmtpEmailOptions> optionsAction)
+        public static LinFxBuilder AddEmail(this LinFxBuilder fx, Action<EmailSenderOptions> optionsAction)
         {
             fx.Services.Configure(optionsAction);
             fx.Services.AddSingleton<IEmailSender, SmtpEmailSender>();

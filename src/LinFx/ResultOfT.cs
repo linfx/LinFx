@@ -8,6 +8,7 @@
         {
             Success = true;
             Data = data;
+            Message = "操作成功";
         }
 
         protected internal Result(TValue value, bool success, string message)

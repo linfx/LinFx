@@ -45,7 +45,7 @@ namespace LinFx.EntityFrameworkCore
         }
 
         public DbContext(
-            [NotNull] DbContextOptions options, 
+            [NotNull] DbContextOptions options,
             IMediator mediator,
             IAuditPropertySetter auditPropertySetter)
             : this(options, mediator)

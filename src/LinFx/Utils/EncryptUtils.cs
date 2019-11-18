@@ -65,11 +65,23 @@ namespace LinFx.Utils
         {
             Check.NotNull(input, nameof(input));
 
-            using (var md5 = MD5.Create())
-            {
-                var bytes_md5_out = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-                return BitConverter.ToString(bytes_md5_out).Replace("-", "").ToLower();
-            }
+            using var md5 = MD5.Create();
+            var bytes_md5_out = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return BitConverter.ToString(bytes_md5_out).Replace("-", "").ToLower();
+        }
+
+        /// <summary>
+        /// MD5 hash
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string MD5Encrypt(byte[] input)
+        {
+            Check.NotNull(input, nameof(input));
+
+            using var md5 = MD5.Create();
+            var bytes_md5_out = md5.ComputeHash(input);
+            return BitConverter.ToString(bytes_md5_out).Replace("-", "").ToLower();
         }
         #endregion
 

@@ -8,8 +8,14 @@ namespace LinFx.Modules
     /// </summary>
     public class ModuleInfo
     {
+        /// <summary>
+        /// 模块ID
+        /// </summary>
         public string Id { get; set; }
 
+        /// <summary>
+        /// 模块名称
+        /// </summary>
         public string Name { get; set; }
 
         public bool IsBundledWithHost { get; set; }

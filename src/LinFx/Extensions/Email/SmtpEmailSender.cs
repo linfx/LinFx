@@ -7,13 +7,13 @@ namespace LinFx.Extensions.Email
 {
     public class SmtpEmailSender : IEmailSender
     {
-        private readonly ILogger<SmtpEmailSender> _logger;
-        private readonly SmtpEmailOptions _options;
+        private readonly EmailSenderOptions _options;
         private readonly SmtpClient _client;
+        private readonly ILogger<SmtpEmailSender> _logger;
 
         public SmtpEmailSender(
             ILogger<SmtpEmailSender> logger,
-            IOptions<SmtpEmailOptions> options)
+            IOptions<EmailSenderOptions> options)
         {
             _logger = logger;
             _options = options.Value;
@@ -23,20 +23,19 @@ namespace LinFx.Extensions.Email
                 Port = _options.Port,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 EnableSsl = _options.UseSSL,
-                Credentials = new System.Net.NetworkCredential(_options.Login, _options.Password)
+                Credentials = new System.Net.NetworkCredential(_options.UserName, _options.Password)
             };
         }
 
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public Task SendEmailAsync(string email, string subject, string htmlMessage, bool isHtml)
         {
-            _logger.LogInformation($"Sending email: {email}, subject: {subject}, message: {htmlMessage}");
             try
             {
-                var mail = new MailMessage(_options.Login, email)
+                var mail = new MailMessage(_options.UserName, email)
                 {
-                    IsBodyHtml = true,
                     Subject = subject,
-                    Body = htmlMessage
+                    Body = htmlMessage,
+                    IsBodyHtml = isHtml
                 };
                 _client.Send(mail);
                 _logger.LogInformation($"Email: {email}, subject: {subject}, message: {htmlMessage} successfully sent");

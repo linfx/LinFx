@@ -9,9 +9,6 @@ namespace LinFx
     /// </summary>
     public class Result
     {
-        private readonly List<Error> _errors = new List<Error>();
-        private static Result Succeeded { get; } = new Result { Success = true };
-
         public Result() { }
 
         protected Result(bool success, string message)
@@ -31,7 +28,7 @@ namespace LinFx
         /// </summary>
         public string Message { get; protected set; }
 
-        public static Result Ok() => Succeeded;
+        public static Result Ok() => new Result(true, "操作成功");
 
         public static Result<T> Ok<T>(T data)
         {
@@ -41,21 +38,6 @@ namespace LinFx
         public static Result<TValue> Ok<TValue>(TValue value, string message)
         {
             return new Result<TValue>(value, true, message);
-        }
-
-        /// <summary>
-        /// Creates an <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.
-        /// </summary>
-        /// <param name="errors">An optional array of <see cref="Error"/>s which caused the operation to fail.</param>
-        /// <returns>An <see cref="Result"/> indicating a failed identity operation, with a list of <paramref name="errors"/> if applicable.</returns>
-        public static Result Failed(params Error[] errors)
-        {
-            var result = new Result { Success = false };
-            if (errors != null)
-            {
-                result._errors.AddRange(errors);
-            }
-            return result;
         }
 
         public static Result Failed(string error)
