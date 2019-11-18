@@ -57,7 +57,7 @@ namespace LinFx
             return new Result(false, errors != null ? string.Join("\r\n", errors) : null);
         }
 
-        public static Result<TValue> Fail<TValue>(string error)
+        public static Result<TValue> Failed<TValue>(string error)
         {
             return new Result<TValue>(default, false, error);
         }
