@@ -1,12 +1,11 @@
-﻿using LinFx.Extensions.Caching;
+﻿using LinFx.Extensions.Caching.Abstractions;
 using Newtonsoft.Json;
-using ShopFx.Module.Core.Abstractions.Cache;
 using StackExchange.Redis;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopFx.Module.Core.Cache
+namespace LinFx.Extensions.Caching
 {
     /// <summary>
     /// Represents a manager for caching in Redis store (http://redis.io/).
@@ -34,13 +33,13 @@ namespace ShopFx.Module.Core.Cache
             if (string.IsNullOrEmpty(config.RedisCachingConnection))
                 throw new Exception("Redis connection string is empty");
 
-            this._perRequestCacheManager = perRequestCacheManager;
+            _perRequestCacheManager = perRequestCacheManager;
 
             // ConnectionMultiplexer.Connect should only be called once and shared between callers
-            this._connectionWrapper = connectionWrapper;
+            _connectionWrapper = connectionWrapper;
 
-            this._db = _connectionWrapper.GetDatabase();
-            this._config = config;
+            _db = _connectionWrapper.GetDatabase();
+            _config = config;
         }
 
         #endregion
@@ -64,12 +63,12 @@ namespace ShopFx.Module.Core.Cache
             //get serialized item from cache
             var serializedItem = await _db.StringGetAsync(key);
             if (!serializedItem.HasValue)
-                return default(T);
+                return default;
 
             //deserialize item
             var item = JsonConvert.DeserializeObject<T>(serializedItem);
             if (item == null)
-                return default(T);
+                return default;
 
             //set item in the per-request cache
             _perRequestCacheManager.Set(key, item, 0);
@@ -232,7 +231,7 @@ namespace ShopFx.Module.Core.Cache
         /// <param name="cacheTime">Cache time in minutes</param>
         public virtual async void Set(string key, object data, int cacheTime)
         {
-            await this.SetAsync(key, data, cacheTime);
+            await SetAsync(key, data, cacheTime);
         }
 
         /// <summary>
@@ -242,7 +241,7 @@ namespace ShopFx.Module.Core.Cache
         /// <returns>True if item already is in cache; otherwise false</returns>
         public virtual bool IsSet(string key)
         {
-            return this.IsSetAsync(key).Result;
+            return IsSetAsync(key).Result;
         }
 
         /// <summary>
@@ -251,7 +250,7 @@ namespace ShopFx.Module.Core.Cache
         /// <param name="key">Key of cached item</param>
         public virtual async void Remove(string key)
         {
-            await this.RemoveAsync(key);
+            await RemoveAsync(key);
         }
 
         /// <summary>
@@ -260,7 +259,7 @@ namespace ShopFx.Module.Core.Cache
         /// <param name="pattern">String key pattern</param>
         public virtual async void RemoveByPattern(string pattern)
         {
-            await this.RemoveByPatternAsync(pattern);
+            await RemoveByPatternAsync(pattern);
         }
 
         /// <summary>
@@ -268,7 +267,7 @@ namespace ShopFx.Module.Core.Cache
         /// </summary>
         public virtual async void Clear()
         {
-            await this.ClearAsync();
+            await ClearAsync();
         }
 
         /// <summary>

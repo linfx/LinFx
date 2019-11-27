@@ -1,13 +1,12 @@
-﻿using LinFx.Extensions.Caching;
+﻿using LinFx.Extensions.Caching.Abstractions;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
-using ShopFx.Module.Core.Abstractions.Cache;
 using StackExchange.Redis;
 using System;
 using System.Linq;
 using System.Net;
 
-namespace ShopFx.Module.Core.Cache
+namespace LinFx.Extensions.Caching
 {
     /// <summary>
     /// Represents Redis connection wrapper implementation
@@ -28,9 +27,9 @@ namespace ShopFx.Module.Core.Cache
 
         public RedisConnectionWrapper(CacheOptions config)
         {
-            this._config = config;
-            this._connectionString = new Lazy<string>(GetConnectionString);
-            this._redisLockFactory = CreateRedisLockFactory();
+            _config = config;
+            _connectionString = new Lazy<string>(GetConnectionString);
+            _redisLockFactory = CreateRedisLockFactory();
         }
 
         #endregion

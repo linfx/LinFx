@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShopFx.Module.Core.Abstractions.Cache
+namespace LinFx.Extensions.Caching.Abstractions
 {
     /// <summary>
     /// Cache manager interface

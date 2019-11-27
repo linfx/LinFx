@@ -1,12 +1,11 @@
-﻿using LinFx.Extensions.Caching;
+﻿using LinFx.Extensions.Caching.Abstractions;
 using Microsoft.AspNetCore.Http;
-using ShopFx.Module.Core.Abstractions.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace ShopFx.Module.Core.Cache
+namespace LinFx.Extensions.Caching
 {
     /// <summary>
     /// Represents a manager for caching during an HTTP request (short term caching)
@@ -24,8 +23,8 @@ namespace ShopFx.Module.Core.Cache
 
         public PerRequestCacheManager(IHttpContextAccessor httpContextAccessor, CacheOptions config)
         {
-            this._httpContextAccessor = httpContextAccessor;
-            this._config = config;
+            _httpContextAccessor = httpContextAccessor;
+            _config = config;
         }
 
         #endregion
@@ -82,12 +81,12 @@ namespace ShopFx.Module.Core.Cache
         {
             var items = GetItems();
             if (items == null)
-                return default(T);
+                return default;
 
             if (IsSet(key))
                 return (T)items?[key];
 
-            return default(T);
+            return default;
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System.Net;
 using StackExchange.Redis;
 
-namespace ShopFx.Module.Core.Abstractions.Cache
+namespace LinFx.Extensions.Caching.Abstractions
 {
     /// <summary>
     /// Represents Redis connection wrapper
