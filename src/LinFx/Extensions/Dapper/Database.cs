@@ -9,6 +9,7 @@ using Dapper;
 using System.Threading.Tasks;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.Data.Filters.Query;
+using LinFx.Data.Abstractions;
 
 namespace LinFx.Extensions.Dapper
 {

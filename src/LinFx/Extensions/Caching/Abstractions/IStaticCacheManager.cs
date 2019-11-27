@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Shop.Module.Core.Abstractions.Cache
+namespace ShopFx.Module.Core.Abstractions.Cache
 {
     /// <summary>
     /// Represents a manager for caching between HTTP requests (long term caching)

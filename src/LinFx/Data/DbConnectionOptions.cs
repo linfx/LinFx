@@ -1,4 +1,6 @@
-﻿namespace LinFx.Extensions.Data
+﻿using LinFx.Extensions.Data;
+
+namespace LinFx.Data
 {
     public class DbConnectionOptions
     {

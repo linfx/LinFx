@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Data
+﻿namespace LinFx.Data
 {
     public class DataFilterState
     {

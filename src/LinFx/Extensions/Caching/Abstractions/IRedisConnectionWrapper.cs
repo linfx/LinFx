@@ -2,7 +2,7 @@
 using System.Net;
 using StackExchange.Redis;
 
-namespace Shop.Module.Core.Abstractions.Cache
+namespace ShopFx.Module.Core.Abstractions.Cache
 {
     /// <summary>
     /// Represents Redis connection wrapper

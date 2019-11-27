@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DbContext = LinFx.EntityFrameworkCore.DbContext;
+using DbContext = LinFx.Data.DbContext;
 
 namespace LinFx.Application
 {

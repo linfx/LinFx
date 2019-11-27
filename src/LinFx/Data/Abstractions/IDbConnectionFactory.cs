@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data.Abstractions
 {
     public interface IDbConnectionFactory
     {

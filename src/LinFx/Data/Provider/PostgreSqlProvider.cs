@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using LinFx.Data.Abstractions;
+using Npgsql;
 using System.Data;
 
 namespace LinFx.Extensions.Data.Provider

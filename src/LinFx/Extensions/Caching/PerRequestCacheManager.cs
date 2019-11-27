@@ -1,12 +1,12 @@
 ﻿using LinFx.Extensions.Caching;
 using Microsoft.AspNetCore.Http;
-using Shop.Module.Core.Abstractions.Cache;
+using ShopFx.Module.Core.Abstractions.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Shop.Module.Core.Cache
+namespace ShopFx.Module.Core.Cache
 {
     /// <summary>
     /// Represents a manager for caching during an HTTP request (short term caching)

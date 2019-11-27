@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data
 {
     public class DataFilterOptions
     {

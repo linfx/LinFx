@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.Caching;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
-using Shop.Module.Core.Abstractions.Cache;
+using ShopFx.Module.Core.Abstractions.Cache;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shop.Module.Core.Cache
+namespace ShopFx.Module.Core.Cache
 {
     /// <summary>
     /// Represents a memory cache manager 

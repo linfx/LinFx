@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Options;
+﻿using LinFx.Data.Abstractions;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data
 {
     public class DataFilter
     {

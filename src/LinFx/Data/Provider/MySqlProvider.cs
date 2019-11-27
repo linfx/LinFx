@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using LinFx.Data.Abstractions;
 using MySql.Data.MySqlClient;
 
 namespace LinFx.Extensions.Data.Provider

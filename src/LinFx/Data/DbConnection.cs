@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data
 {
     public class DbConnection : IDbConnection
     {

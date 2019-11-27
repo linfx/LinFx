@@ -1,12 +1,12 @@
 ﻿using LinFx.Extensions.Caching;
 using Newtonsoft.Json;
-using Shop.Module.Core.Abstractions.Cache;
+using ShopFx.Module.Core.Abstractions.Cache;
 using StackExchange.Redis;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.Module.Core.Cache
+namespace ShopFx.Module.Core.Cache
 {
     /// <summary>
     /// Represents a manager for caching in Redis store (http://redis.io/).

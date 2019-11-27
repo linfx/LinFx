@@ -1,6 +1,7 @@
-﻿using System.Data;
+﻿using LinFx.Data.Abstractions;
+using System.Data;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data
 {
     public static class DbProvider
     {

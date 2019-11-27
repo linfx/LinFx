@@ -88,7 +88,6 @@ namespace LinFx.Http
         public static string GetByExtension(string extension)
         {
             extension = extension.RemovePreFix(".").ToLowerInvariant();
-
             switch (extension)
             {
                 case "png":
@@ -98,8 +97,6 @@ namespace LinFx.Http
                 case "jpg":
                 case "jpeg":
                     return Image.Jpeg;
-
-                //TODO: Add other extensions too..
                 default:
                     return Application.OctetStream;
             }

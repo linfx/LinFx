@@ -1,13 +1,13 @@
 ﻿using LinFx.Extensions.Caching;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
-using Shop.Module.Core.Abstractions.Cache;
+using ShopFx.Module.Core.Abstractions.Cache;
 using StackExchange.Redis;
 using System;
 using System.Linq;
 using System.Net;
 
-namespace Shop.Module.Core.Cache
+namespace ShopFx.Module.Core.Cache
 {
     /// <summary>
     /// Represents Redis connection wrapper implementation

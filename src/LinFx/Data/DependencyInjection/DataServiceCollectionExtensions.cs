@@ -1,12 +1,7 @@
 ﻿using LinFx;
+using LinFx.Data;
 using LinFx.Extensions.Dapper;
-using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Dapper.Dialect;
-using LinFx.Extensions.Data;
-using LinFx.Extensions.Data.Provider;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

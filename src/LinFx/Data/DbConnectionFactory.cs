@@ -1,7 +1,8 @@
-﻿using System;
+﻿using LinFx.Data.Abstractions;
+using System;
 using System.Data;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data
 {
     public class DbConnectionFactory : IDbConnectionFactory, IDisposable
     {

@@ -1,6 +1,5 @@
-﻿using LinFx.Domain.Abstractions;
+﻿using LinFx.Data.Abstractions;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.EntityFrameworkCore
+namespace LinFx.Data
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext, IUnitOfWork
     {

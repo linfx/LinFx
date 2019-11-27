@@ -7,12 +7,12 @@ using System.Reflection;
 using System.Text;
 using LinFx.Extensions.Dapper.Mapper;
 using LinFx.Extensions.Dapper.Dialect;
-using LinFx.Extensions.Data;
 using LinFx.Extensions.Data.Expressions;
+using LinFx.Data.Abstractions;
 
 namespace LinFx.Extensions.Dapper
 {
-	public interface IPredicate
+    public interface IPredicate
 	{
 		string GetSql(ISqlGenerator sqlGenerator, IDictionary<string, object> parameters);
 	}

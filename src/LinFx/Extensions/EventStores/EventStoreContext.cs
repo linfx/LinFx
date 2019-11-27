@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinFx.Extensions.EventStores
 {
-    public class EventStoreContext : EntityFrameworkCore.DbContext
+    public class EventStoreContext : LinFx.Data.DbContext
     {
         public DbSet<EventLog> EventLogs { get; set; }
 
