@@ -22,7 +22,7 @@ namespace LinFx.Extensions.Mediator.Behaviors
 
             if (failures.Any())
             {
-                throw new UserFriendlyException($"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
+                throw new UserFriendlyException($"Command Validation Errors for type {typeof(TRequest).Name}", new FluentValidation.ValidationException("Validation exception", failures));
             }
 
             var response = await next();
