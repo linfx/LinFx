@@ -111,7 +111,8 @@ namespace LinFx.Utils
                 {
                     long timestamp = GetTimestamp();
                     if (lastTimestamp == timestamp)
-                    { //同一微妙中生成ID
+                    { 
+                        //同一微妙中生成ID
                         sequence = (sequence + 1) & sequenceMask; //用&运算计算该微秒内产生的计数是否已经到达上限
                         if (sequence == 0)
                         {
