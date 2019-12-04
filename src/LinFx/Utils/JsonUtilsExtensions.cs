@@ -23,7 +23,7 @@ namespace LinFx.Utils
         /// <returns></returns>
         public static string ToJsonString(this object value, bool camelCase = true, bool indented = false)
         {
-            return JsonUtils.Serialize(value, camelCase, indented);
+            return JsonUtils.ToJsonString(value, camelCase, indented);
         }
 
         public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false)

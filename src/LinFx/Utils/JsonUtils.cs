@@ -20,11 +20,17 @@ namespace LinFx.Utils
 
         public static byte[] ToBytes(object value, bool camelCase = false, bool indented = false)
         {
-            var s = ToJson(value, camelCase, indented);
+            var s = ToJsonString(value, camelCase, indented);
             return Encoding.UTF8.GetBytes(s);
         }
 
+        [Obsolete]
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
+        {
+            return ToJsonString(value, camelCase, indented);
+        }
+
+        public static string ToJsonString(object value, bool camelCase = true, bool indented = false)
         {
             var options = new JsonSerializerSettings();
 
@@ -35,7 +41,8 @@ namespace LinFx.Utils
                 options.Formatting = Formatting.Indented;
 
             //DateTimeFormat
-            options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            //options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
             return JsonConvert.SerializeObject(value, options);
         }
