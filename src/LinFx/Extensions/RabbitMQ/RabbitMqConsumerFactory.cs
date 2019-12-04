@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public class RabbitMqConsumerFactory : IConsumerFactory, IDisposable
     {

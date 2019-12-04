@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.RabbitMQ;
+﻿using LinFx.Extensions.RabbitMq;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

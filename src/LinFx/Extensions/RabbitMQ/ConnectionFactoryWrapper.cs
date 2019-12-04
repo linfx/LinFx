@@ -1,6 +1,6 @@
 ﻿using RabbitMQ.Client;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public sealed class ConnectionFactoryWrapper
     {

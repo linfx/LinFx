@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public interface IRabbitMqConsumer
     {

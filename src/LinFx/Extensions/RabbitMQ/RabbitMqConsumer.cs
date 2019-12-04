@@ -7,7 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
     {

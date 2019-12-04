@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using RabbitMQ.Client;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public class DefaultConnectionPool : IConnectionPool
     {
@@ -22,8 +22,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         public virtual IConnection Get(string connectionName = null)
         {
-            connectionName = connectionName
-                 ?? Connections.DefaultConnectionName;
+            connectionName ??= Connections.DefaultConnectionName;
 
             return _connections.GetOrAdd(
                 connectionName, () => 

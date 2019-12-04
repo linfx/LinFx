@@ -1,7 +1,7 @@
 ﻿using System;
 using RabbitMQ.Client;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public interface IConnectionPool : IDisposable
     {

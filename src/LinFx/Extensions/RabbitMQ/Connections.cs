@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     internal class Connections : Dictionary<string, ConnectionFactory>
     {

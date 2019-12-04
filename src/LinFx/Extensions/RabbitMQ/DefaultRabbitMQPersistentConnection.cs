@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {

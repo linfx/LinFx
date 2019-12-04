@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.RabbitMQ;
+﻿using LinFx.Extensions.RabbitMq;
 
 namespace LinFx.Extensions.EventBus.RabbitMQ
 {

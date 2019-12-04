@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public interface IChannelPool : IDisposable
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace LinFx.Extensions.RabbitMQ
+namespace LinFx.Extensions.RabbitMq
 {
     public class DefaultRabbitMqSerializer : IRabbitMqSerializer
     {
@@ -14,7 +14,7 @@ namespace LinFx.Extensions.RabbitMQ
 
         public byte[] Serialize(object value)
         {
-            var message = JsonUtils.ToJson(value);
+            var message = value.ToJsonString();
             var body = Encoding.UTF8.GetBytes(message);
             return body;
         }

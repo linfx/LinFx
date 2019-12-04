@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.RabbitMQ
+﻿namespace LinFx.Extensions.RabbitMq
 {
     public interface IConsumerFactory
     {
