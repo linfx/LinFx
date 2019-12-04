@@ -4,7 +4,7 @@ namespace LinFx.Utils
 {
     public static partial class JsonUtils
     {
-        public static string Serialize<TValue>(TValue value, bool camelCase = false, bool indented = false, bool ignoreNullValues = false, bool ignoreReadOnlyProperties = true)
+        public static string Serialize<TValue>(TValue value, bool camelCase = true, bool indented = false, bool ignoreNullValues = false, bool ignoreReadOnlyProperties = true)
         {
             var options = new JsonSerializerOptions
             {

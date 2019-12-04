@@ -21,7 +21,7 @@ namespace LinFx.Utils
         /// <param name="camelCase"></param>
         /// <param name="indented"></param>
         /// <returns></returns>
-        public static string ToJsonString(this object value, bool camelCase = false, bool indented = false)
+        public static string ToJsonString(this object value, bool camelCase = true, bool indented = false)
         {
             return JsonUtils.Serialize(value, camelCase, indented);
         }
