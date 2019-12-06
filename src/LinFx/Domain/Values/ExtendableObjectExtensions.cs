@@ -38,7 +38,7 @@ namespace ShopFx.Models
             if (prop == null)
                 return default;
 
-            if (TypeHelper.IsPrimitiveExtendedIncludingNullable(typeof(T)))
+            if (TypeUtils.IsPrimitiveExtendedIncludingNullable(typeof(T)))
                 return prop.Value<T>();
             else
                 return (T)prop.ToObject(typeof(T), jsonSerializer ?? JsonSerializer.CreateDefault());
@@ -77,7 +77,7 @@ namespace ShopFx.Models
                 if (json[name] != null)
                     json.Remove(name);
             }
-            else if (TypeHelper.IsPrimitiveExtendedIncludingNullable(value.GetType()))
+            else if (TypeUtils.IsPrimitiveExtendedIncludingNullable(value.GetType()))
             {
                 json[name] = new JValue(value);
             }
