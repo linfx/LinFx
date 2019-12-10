@@ -15,11 +15,11 @@ namespace LinFx.Data
     {
     }
 
-    public interface IRepository<TEntity> where TEntity : class, IEntity
+    public interface IRepository<TEntity> : IRepository<TEntity, long> where TEntity : class, IEntity
     {
     }
 
-    public interface IRepository<TEntity, TKey> : IRepository<TEntity> where TEntity : class, IEntity<TKey>
+    public interface IRepository<TEntity, TKey> : IRepository
     {
         IQueryable<TEntity> Query();
 
