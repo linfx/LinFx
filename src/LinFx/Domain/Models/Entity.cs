@@ -25,7 +25,7 @@
 
         public bool IsTransient()
         {
-            return Id == default;
+            return Id == null;
         }
 
         public override bool Equals(object obj)
