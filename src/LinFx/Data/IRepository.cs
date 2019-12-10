@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace LinFx.Data
 {
-    public interface IRepository<TEntity> : IRepository<TEntity, long> where TEntity : class, IEntity<long>
+    /// <summary>
+    /// Just to mark a class as repository.
+    /// </summary>
+    public interface IRepository
     {
     }
 
-    public interface IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
+    public interface IRepository<TEntity> : IRepository<TEntity, long> where TEntity : class, IEntity
+    {
+    }
+
+    public interface IRepository<TEntity, TKey> : IRepository
     {
         IQueryable<TEntity> Query();
 
