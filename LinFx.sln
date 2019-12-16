@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx", "src\LinFx\LinFx.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{426ED508-4886-408B-9830-E6602F1E769F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity", "src\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj", "{395DE351-FB07-49E6-A4B4-41DAC6878F58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C7E2DB5E-AFE3-4FE1-BEED-631B3CB90DF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{426ED508-4886-408B-9830-E6602F1E769F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{426ED508-4886-408B-9830-E6602F1E769F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{426ED508-4886-408B-9830-E6602F1E769F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58} = {C7E2DB5E-AFE3-4FE1-BEED-631B3CB90DF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

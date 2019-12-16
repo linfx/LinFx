@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.RabbitMQ;
+﻿using LinFx.Extensions.RabbitMq;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using System.Text;

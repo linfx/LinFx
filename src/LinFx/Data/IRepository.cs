@@ -21,8 +21,6 @@ namespace LinFx.Data
 
     public interface IRepository<TEntity, TKey> : IRepository
     {
-        IQueryable<TEntity> Query();
-
         void Add(TEntity entity);
 
         void AddRange(IList<TEntity> entities);
@@ -34,6 +32,8 @@ namespace LinFx.Data
         Task<int> SaveChangesAsync();
 
         Task<TEntity> FirstOrDefaultAsync(TKey id);
+
+        IQueryable<TEntity> Query();
 
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
     }

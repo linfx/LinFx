@@ -64,7 +64,7 @@ namespace ShopFx.Models
 
             if (extendableObject.ExtensionData == null)
             {
-                if (EqualityComparer<T>.Default.Equals(value, default(T)))
+                if (EqualityComparer<T>.Default.Equals(value, default))
                     return;
 
                 extendableObject.ExtensionData = "{}";
