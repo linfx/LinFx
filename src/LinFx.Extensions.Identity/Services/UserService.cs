@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Identity.Services
 {
-    public class IdentityUserService
+    public class UserService
     {
         private readonly IdentityDbContext _context;
 
-        public IdentityUserService(IdentityDbContext context)
+        public UserService(IdentityDbContext context)
         {
             _context = context;
         }

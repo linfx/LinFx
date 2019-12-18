@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Extensions.Identity.Models
 {
-    public class IdentityUserToken : IdentityUserToken<string>
+    public class RoleClaim : IdentityRoleClaim<string>
     {
         [StringLength(36)]
-        public override string UserId { get; set; }
+        public override string RoleId { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Extensions.Identity.Models
 {
-    public class IdentityUserRole : IdentityUserRole<string>
+    public class UserRole : IdentityUserRole<string>
     {
         [StringLength(36)]
         public override string UserId { get; set; }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Identity.Services
 {
-    public class IdentityRoleService<TRole> where TRole : class
+    public class RoleService<TRole> where TRole : class
     {
         private readonly RoleManager<TRole> _roleManager;
 
-        public IdentityRoleService(RoleManager<TRole> roleManager)
+        public RoleService(RoleManager<TRole> roleManager)
         {
             _roleManager = roleManager;
         }

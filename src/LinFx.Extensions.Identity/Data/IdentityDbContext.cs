@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.Identity.Data
 {
-    public class IdentityDbContext : IdentityDbContext<IdentityUser, IdentityRole>
+    public class IdentityDbContext : IdentityDbContext<User, Role>
     {
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options) { }
     }
@@ -12,9 +12,9 @@ namespace LinFx.Extensions.Identity.Data
     /// <summary>
     /// Base class for the Entity Framework database context used for identity.
     /// </summary>
-    public class IdentityDbContext<TUser, TRole> : IdentityDbContext<TUser, TRole, string, IdentityUserClaim, IdentityUserRole, IdentityUserLogin, IdentityRoleClaim, IdentityUserToken>
-        where TUser : IdentityUser
-        where TRole : IdentityRole
+    public class IdentityDbContext<TUser, TRole> : IdentityDbContext<TUser, TRole, string, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+        where TUser : User
+        where TRole : Role
     {
         public IdentityDbContext(DbContextOptions options) : base(options) { }
 
@@ -26,13 +26,13 @@ namespace LinFx.Extensions.Identity.Data
 
         protected virtual void CustomModelBuilder(ModelBuilder builder)
         {
-            builder.Entity<TUser>().ToTable(TableConsts.IdentityUsers);
-            builder.Entity<TRole>().ToTable(TableConsts.IdentityRoles);
-            builder.Entity<IdentityUserRole>().ToTable(TableConsts.IdentityUserRoles);
-            builder.Entity<IdentityRoleClaim>().ToTable(TableConsts.IdentityRoleClaims);
-            builder.Entity<IdentityUserLogin>().ToTable(TableConsts.IdentityUserLogins);
-            builder.Entity<IdentityUserClaim>().ToTable(TableConsts.IdentityUserClaims);
-            builder.Entity<IdentityUserToken>().ToTable(TableConsts.IdentityUserTokens);
+            builder.Entity<TUser>().ToTable(TableConsts.Users);
+            builder.Entity<TRole>().ToTable(TableConsts.Roles);
+            builder.Entity<UserRole>().ToTable(TableConsts.UserRoles);
+            builder.Entity<RoleClaim>().ToTable(TableConsts.RoleClaims);
+            builder.Entity<UserLogin>().ToTable(TableConsts.UserLogins);
+            builder.Entity<UserClaim>().ToTable(TableConsts.UserClaims);
+            builder.Entity<UserToken>().ToTable(TableConsts.UserTokens);
         }
     }
 }

@@ -5,11 +5,11 @@ namespace LinFx.Extensions.Identity.Models
     /// <summary>
     /// 角色
     /// </summary>
-    public class IdentityRole : IdentityRole<string>
+    public class Role : IdentityRole<string>
     {
-        public IdentityRole() { }
+        public Role() { }
 
-        public IdentityRole(string roleName) : base(roleName) { }
+        public Role(string roleName) : base(roleName) { }
     }
 
     /// <summary>
