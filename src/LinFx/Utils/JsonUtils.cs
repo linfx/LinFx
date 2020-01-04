@@ -79,7 +79,7 @@ namespace LinFx.Utils
         /// </summary>
         public static string SerializeWithType(object obj, Type type)
         {
-            var serialized = obj.ToJson();
+            var serialized = obj.ToJsonString();
 
             return string.Format(
                 "{0}{1}{2}",

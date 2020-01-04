@@ -16,7 +16,7 @@ namespace LinFx.Extensions.EventStores
             EventId = evt.Id;
             CreationTime = DateTime.Now;
             EventTypeName = evt.GetType().FullName;
-            Content = evt.ToJson();
+            Content = evt.ToJsonString();
             State = EventStateEnum.NotPublished;
             TimesSent = 0;
         }

@@ -1,4 +1,5 @@
 ﻿using LinFx.Data.Abstractions;
+using LinFx.Domain.Models;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
 using MediatR;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading;
@@ -155,6 +157,15 @@ namespace LinFx.Data
                         _auditPropertySetter.SetDeletionProperties(entry.Entity);
                         break;
                 }
+            }
+        }
+
+        protected static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        {
+            var entityTypes = typeToRegisters.Where(x => typeof(IEntity).IsAssignableFrom(x));
+            foreach (var type in entityTypes)
+            {
+                modelBuilder.Entity(type);
             }
         }
     }
