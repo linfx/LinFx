@@ -2,6 +2,7 @@
 using LinFx.Domain.Models;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.MediatR;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

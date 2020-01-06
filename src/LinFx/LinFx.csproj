@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>4.5.3-rc2</Version>
+    <Version>4.5.3-rc3</Version>
     <Description>一个基于 .NET Core 3.0 开发的简单易用的快速开发框架，遵循领域驱动设计（DDD）规范约束，提供实现事件驱动、事件回溯、响应式等特性的基础设施。让开发者享受到正真意义的面向对象设计模式来带的美感。</Description>
     <Authors>强悍的抽屉</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
@@ -18,7 +18,7 @@
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="EmitMapper.Core" Version="1.0.0" />
-    <PackageReference Include="FluentValidation" Version="8.6.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="8.6.1" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="6.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />

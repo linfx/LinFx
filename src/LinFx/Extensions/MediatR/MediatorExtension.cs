@@ -1,9 +1,10 @@
 ﻿using LinFx.Domain.Models;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MediatR
+namespace LinFx.Extensions.MediatR
 {
     public static class MediatorExtension
     {
