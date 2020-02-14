@@ -1,5 +1,4 @@
-﻿using LinFx;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace LinFx.Utils
 {
