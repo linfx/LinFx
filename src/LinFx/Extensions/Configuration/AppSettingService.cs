@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Configuration.Abstractions;
-using LinFx.Utils;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -50,19 +49,22 @@ namespace LinFx.Extensions.Configuration
                 c.SetSlidingExpiration(TimeSpan.FromSeconds(cacheTimeForSecond));
                 c.SetAbsoluteExpiration(TimeSpan.FromSeconds(cacheTimeForSecond * 10));
 
-                var json = _configuration[key];
-                if (json == null)
-                    throw new ArgumentNullException(key);
+                //var json = _configuration[key];
+                //if (json == null)
+                //    throw new ArgumentNullException(key);
 
-                var type = typeof(T);
-                if (type == typeof(string) || type == typeof(int))
-                    return (T)Convert.ChangeType(json, type);
+                //var type = typeof(T);
+                //if (type == typeof(string) || type == typeof(int))
+                //    return (T)Convert.ChangeType(json, type);
 
-                var obj = json.ToObject<T>();
-                if (obj == null)
-                    throw new ArgumentNullException(key);
+                //var obj = json.ToObject<T>();
+                //if (obj == null)
+                //    throw new ArgumentNullException(key);
 
-                return await Task.FromResult(obj);
+                var section = _configuration.GetSection(key);
+                var result = section.Get<T>();
+
+                return await Task.FromResult(result);
             });
         }
     }
