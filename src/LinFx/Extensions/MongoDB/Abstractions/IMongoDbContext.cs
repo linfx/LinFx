@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+
 namespace LinFx.Extensions.MongoDB
 {
     public interface IMongoDbContext

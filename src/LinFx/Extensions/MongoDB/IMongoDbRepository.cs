@@ -1,5 +1,4 @@
-﻿using LinFx.Domain.Abstractions;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace linFx.Extensions.MongoDB
 {

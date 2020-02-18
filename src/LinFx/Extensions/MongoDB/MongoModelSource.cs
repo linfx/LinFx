@@ -14,10 +14,7 @@ namespace LinFx.Extensions.MongoDB
 
         public MongoDbContextModel GetModel(MongoDbContext dbContext)
         {
-            return ModelCache.GetOrAdd(
-                dbContext.GetType(),
-                _ => CreateModel(dbContext)
-            );
+            return ModelCache.GetOrAdd(dbContext.GetType(), _ => CreateModel(dbContext));
         }
 
         protected virtual MongoDbContextModel CreateModel(MongoDbContext dbContext)

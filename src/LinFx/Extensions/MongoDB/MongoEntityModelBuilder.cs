@@ -22,7 +22,7 @@ namespace LinFx.Extensions.MongoDB
         {
             EntityType = typeof(TEntity);
             _bsonClassMap = new BsonClassMap<TEntity>();
-            //_bsonClassMap.ConfigureAbpConventions();
+            _bsonClassMap.ConfigureAbpConventions();
         }
 
         public BsonClassMap GetMap()

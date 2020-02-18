@@ -5,7 +5,7 @@ namespace LinFx.Extensions.MongoDB
 {
     public class MongoDbContext : IMongoDbContext
     {
-        public IMongoModelSource ModelSource { get; set; }
+        public IMongoModelSource ModelSource = new MongoModelSource();
 
         public IMongoDatabase Database { get; private set; }
 
@@ -33,9 +33,7 @@ namespace LinFx.Extensions.MongoDB
             var model = ModelSource.GetModel(this).Entities.GetOrDefault(typeof(TEntity));
 
             if (model == null)
-            {
                 throw new LinFxException("Could not find a model for given entity type: " + typeof(TEntity).AssemblyQualifiedName);
-            }
 
             return model;
         }
