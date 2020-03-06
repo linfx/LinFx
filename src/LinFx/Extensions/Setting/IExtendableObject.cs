@@ -1,4 +1,4 @@
-﻿namespace ShopFx.Models
+﻿namespace LinFx.Extensions.Setting
 {
     /// <summary>
     /// Defines a JSON formatted string property to extend an object/entity.

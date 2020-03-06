@@ -1,5 +1,4 @@
-﻿using LinFx.Application;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Application.Models
 {

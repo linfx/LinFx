@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShopFx.Models
+namespace LinFx.Domain.Values
 {
     public abstract class ValidatableObject
     {

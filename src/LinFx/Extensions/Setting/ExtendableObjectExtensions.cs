@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace ShopFx.Models
+namespace LinFx.Extensions.Setting
 {
     public static class ExtendableObjectExtensions
     {
@@ -72,7 +72,7 @@ namespace ShopFx.Models
 
             var json = JObject.Parse(extendableObject.ExtensionData);
 
-            if (value == null || EqualityComparer<T>.Default.Equals(value, default(T)))
+            if (value == null || EqualityComparer<T>.Default.Equals(value, default))
             {
                 if (json[name] != null)
                     json.Remove(name);
