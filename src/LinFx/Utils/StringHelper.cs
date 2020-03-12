@@ -4,6 +4,7 @@ using System.Text;
 
 namespace LinFx.Utils
 {
+    [Obsolete]
     public static class StringHelper
     {
         public static string ToUrlFriendly(this string name)
@@ -56,71 +57,71 @@ namespace LinFx.Utils
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
-        public static string Strip(this string subject, params char[] stripped)
-        {
-            if (stripped == null || stripped.Length == 0 || string.IsNullOrEmpty(subject))
-            {
-                return subject;
-            }
+        //public static string Strip(this string subject, params char[] stripped)
+        //{
+        //    if (stripped == null || stripped.Length == 0 || string.IsNullOrEmpty(subject))
+        //    {
+        //        return subject;
+        //    }
 
-            var result = new char[subject.Length];
+        //    var result = new char[subject.Length];
 
-            var cursor = 0;
-            for (var i = 0; i < subject.Length; i++)
-            {
-                char current = subject[i];
-                if (Array.IndexOf(stripped, current) < 0)
-                {
-                    result[cursor++] = current;
-                }
-            }
+        //    var cursor = 0;
+        //    for (var i = 0; i < subject.Length; i++)
+        //    {
+        //        char current = subject[i];
+        //        if (Array.IndexOf(stripped, current) < 0)
+        //        {
+        //            result[cursor++] = current;
+        //        }
+        //    }
 
-            return new string(result, 0, cursor);
-        }
+        //    return new string(result, 0, cursor);
+        //}
 
-        public static string Strip(this string subject, Func<char, bool> predicate)
-        {
+        //public static string Strip(this string subject, Func<char, bool> predicate)
+        //{
 
-            var result = new char[subject.Length];
+        //    var result = new char[subject.Length];
 
-            var cursor = 0;
-            for (var i = 0; i < subject.Length; i++)
-            {
-                char current = subject[i];
-                if (!predicate(current))
-                {
-                    result[cursor++] = current;
-                }
-            }
+        //    var cursor = 0;
+        //    for (var i = 0; i < subject.Length; i++)
+        //    {
+        //        char current = subject[i];
+        //        if (!predicate(current))
+        //        {
+        //            result[cursor++] = current;
+        //        }
+        //    }
 
-            return new string(result, 0, cursor);
-        }
+        //    return new string(result, 0, cursor);
+        //}
 
-        public static string TrimStart(this string target, string trimString)
-        {
-            if (string.IsNullOrEmpty(trimString)) return target;
+        //public static string TrimStart(this string target, string trimString)
+        //{
+        //    if (string.IsNullOrEmpty(trimString)) return target;
 
-            string result = target;
-            while (result.StartsWith(trimString))
-            {
-                result = result.Substring(trimString.Length);
-            }
+        //    string result = target;
+        //    while (result.StartsWith(trimString))
+        //    {
+        //        result = result.Substring(trimString.Length);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public static string TrimEnd(this string target, string trimString)
-        {
-            if (string.IsNullOrEmpty(trimString)) return target;
+        //public static string TrimEnd(this string target, string trimString)
+        //{
+        //    if (string.IsNullOrEmpty(trimString)) return target;
 
-            string result = target;
-            while (result.EndsWith(trimString))
-            {
-                result = result.Substring(0, result.Length - trimString.Length);
-            }
+        //    string result = target;
+        //    while (result.EndsWith(trimString))
+        //    {
+        //        result = result.Substring(0, result.Length - trimString.Length);
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         private static string ConvertEdgeCases(string text)
         {
