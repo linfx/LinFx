@@ -5,6 +5,7 @@ namespace LinFx.Extensions.EventBus
     public class EventBusOptionsBuilder
     {
         public virtual EventBusOptions Options { get; }
+
         public LinFxBuilder Fx { get; }
 
         public EventBusOptionsBuilder(EventBusOptions options)

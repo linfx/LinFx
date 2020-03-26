@@ -12,10 +12,7 @@ namespace LinFx.Extensions.RabbitMq
             ServiceScope = serviceScopeFactory.CreateScope();
         }
 
-        public IRabbitMqConsumer Create(
-            ExchangeDeclareConfiguration exchange,
-            QueueDeclareConfiguration queue,
-            string connectionName = null)
+        public IRabbitMqConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = default)
         {
             var consumer = ServiceScope.ServiceProvider.GetRequiredService<RabbitMqConsumer>();
             consumer.Initialize(exchange, queue, connectionName);

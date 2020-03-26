@@ -21,7 +21,7 @@ namespace LinFx.Test.Extensions.EventBus
                 {
                     options.UseRabbitMQ(x =>
                     {
-                        x.Host = "10.0.1.222";
+                        x.Host = "127.0.0.1";
                         x.UserName = "admin";
                         x.Password = "admin.123456";
                         x.Exchange = "linfx_event_bus";
@@ -47,9 +47,9 @@ namespace LinFx.Test.Extensions.EventBus
             var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
             var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
             {
+                new OrderStockItem(1000, 1)
             });
             await _eventBus.PublishAsync(evt);
-            //await Task.Delay(100000);
         }
     }
 }

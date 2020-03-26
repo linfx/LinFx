@@ -11,10 +11,6 @@
         /// <param name="queue"></param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        IRabbitMqConsumer Create(
-            ExchangeDeclareConfiguration exchange,
-            QueueDeclareConfiguration queue,
-            string connectionName = null
-        );
+        IRabbitMqConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = null);
     }
 }

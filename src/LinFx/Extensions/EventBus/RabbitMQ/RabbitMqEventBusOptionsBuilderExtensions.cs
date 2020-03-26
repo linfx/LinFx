@@ -1,6 +1,6 @@
 ﻿using LinFx;
 using LinFx.Extensions.EventBus;
-using LinFx.Extensions.EventBus.RabbitMQ;
+using LinFx.Extensions.EventBus.RabbitMq;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -18,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             var options = new RabbitMqEventBusOptions();
             optionsAction?.Invoke(options);
-            optionsBuilder.Fx.AddRabbitMQ(x =>
+            optionsBuilder.Fx.AddRabbitMq(x =>
             {
                 x.Host = options.Host;
                 x.UserName = options.UserName;

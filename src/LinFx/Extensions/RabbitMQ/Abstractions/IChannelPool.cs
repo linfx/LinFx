@@ -4,6 +4,12 @@ namespace LinFx.Extensions.RabbitMq
 {
     public interface IChannelPool : IDisposable
     {
-        IChannelAccessor Acquire(string channelName = null, string connectionName = null);
+        /// <summary>
+        /// 获得
+        /// </summary>
+        /// <param name="channelName"></param>
+        /// <param name="connectionName"></param>
+        /// <returns></returns>
+        IChannelAccessor Acquire(string channelName = default, string connectionName = default);
     }
 }

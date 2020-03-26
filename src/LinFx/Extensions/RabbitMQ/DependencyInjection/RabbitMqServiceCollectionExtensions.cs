@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class RabbitMqServiceCollectionExtensions
     {
-        public static LinFxBuilder AddRabbitMQ(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
+        public static LinFxBuilder AddRabbitMq(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
         {
             Check.NotNull(builder, nameof(builder));
             Check.NotNull(optionsAction, nameof(optionsAction));
@@ -26,30 +26,32 @@ namespace Microsoft.Extensions.DependencyInjection
                     Password = options.Password,
                 });
             });
-            builder.Services.AddSingleton<IConnectionPool, DefaultConnectionPool>();
-            builder.Services.AddSingleton<IChannelPool, DefaultChannelPool>();
-            builder.Services.AddSingleton<IConsumerFactory, RabbitMqConsumerFactory>();
-            builder.Services.AddSingleton<IRabbitMqSerializer, DefaultRabbitMqSerializer>();
-            builder.Services.AddTransient<RabbitMqConsumer>();
+
+            builder.Services
+                .AddSingleton<IConnectionPool, DefaultConnectionPool>()
+                .AddSingleton<IChannelPool, DefaultChannelPool>()
+                .AddSingleton<IConsumerFactory, RabbitMqConsumerFactory>()
+                .AddSingleton<IRabbitMqSerializer, DefaultRabbitMqSerializer>()
+                .AddTransient<RabbitMqConsumer>();
 
             return builder;
         }
 
-        public static LinFxBuilder AddRabbitMQPersistentConnection(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
+        public static LinFxBuilder AddRabbitMqPersistentConnection(this LinFxBuilder builder, Action<RabbitMqOptions> optionsAction)
         {
             var options = new RabbitMqOptions();
             optionsAction?.Invoke(options);
 
-            builder.Services.AddSingleton((Func<IServiceProvider, IRabbitMQPersistentConnection>)(sp =>
+            builder.Services.AddSingleton((Func<IServiceProvider, IRabbitMqPersistentConnection>)(sp =>
             {
-                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMqPersistentConnection>>();
                 var factory = new ConnectionFactory
                 {
                     HostName = options.Host,
                     UserName = options.UserName,
                     Password = options.Password,
                 };
-                return new DefaultRabbitMQPersistentConnection(factory, logger);
+                return new DefaultRabbitMqPersistentConnection(factory, logger);
             }));
 
             return builder;

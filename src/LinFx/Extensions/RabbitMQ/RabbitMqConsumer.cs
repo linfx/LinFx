@@ -9,11 +9,21 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.RabbitMq
 {
+    /// <summary>
+    /// 消费者
+    /// </summary>
     public class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
     {
         public ILogger<RabbitMqConsumer> Logger { get; set; }
 
+        /// <summary>
+        /// 连接池
+        /// </summary>
         protected IConnectionPool ConnectionPool { get; }
+
+        /// <summary>
+        /// Common AMQP model
+        /// </summary>
         protected IModel Channel { get; private set; }
         protected Timer Timer { get; }
 
@@ -188,9 +198,7 @@ namespace LinFx.Extensions.RabbitMq
         protected virtual void DisposeChannel()
         {
             if (Channel == null)
-            {
                 return;
-            }
 
             try
             {

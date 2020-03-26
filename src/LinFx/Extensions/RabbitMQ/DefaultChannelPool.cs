@@ -9,8 +9,13 @@ using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq
 {
+    /// <summary>
+    /// Model pool
+    /// </summary>
     public class DefaultChannelPool : IChannelPool
     {
+        public ILogger<DefaultChannelPool> Logger { get; set; }
+
         protected IConnectionPool ConnectionPool { get; }
 
         protected ConcurrentDictionary<string, ChannelPoolItem> Channels { get; }
@@ -19,8 +24,6 @@ namespace LinFx.Extensions.RabbitMq
 
         protected TimeSpan TotalDisposeWaitDuration { get; set; } = TimeSpan.FromSeconds(10);
 
-        public ILogger<DefaultChannelPool> Logger { get; set; }
-
         public DefaultChannelPool(IConnectionPool connectionPool)
         {
             Logger = NullLogger<DefaultChannelPool>.Instance;
@@ -28,47 +31,34 @@ namespace LinFx.Extensions.RabbitMq
             ConnectionPool = connectionPool;
         }
 
-        public virtual IChannelAccessor Acquire(string channelName = null, string connectionName = null)
+        public virtual IChannelAccessor Acquire(string channelName = default, string connectionName = default)
         {
             CheckDisposed();
 
-            channelName = channelName ?? "";
+            channelName ??= "";
 
-            var poolItem = Channels.GetOrAdd(
-                channelName,
-                _ => new ChannelPoolItem(CreateChannel(channelName, connectionName))
-            );
+            var poolItem = Channels.GetOrAdd(channelName, _ => new ChannelPoolItem(CreateChannel(channelName, connectionName)));
 
             poolItem.Acquire();
 
-            return new ChannelAccessor(
-                poolItem.Channel,
-                channelName,
-                () => poolItem.Release()
-            );
+            return new ChannelAccessor(poolItem.Channel, channelName, () => poolItem.Release());
         }
 
         protected virtual IModel CreateChannel(string channelName, string connectionName)
         {
-            return ConnectionPool
-                .Get(connectionName)
-                .CreateModel();
+            return ConnectionPool.Get(connectionName).CreateModel();
         }
 
         protected void CheckDisposed()
         {
             if (IsDisposed)
-            {
                 throw new ObjectDisposedException(nameof(DefaultChannelPool));
-            }
         }
 
         public void Dispose()
         {
             if (IsDisposed)
-            {
                 return;
-            }
 
             IsDisposed = true;
 
@@ -107,10 +97,8 @@ namespace LinFx.Extensions.RabbitMq
 
             Logger.LogInformation($"Disposed RabbitMQ Channel Pool ({Channels.Count} channels in {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms).");
 
-            if(poolDisposeStopwatch.Elapsed.TotalSeconds > 5.0)
-            {
+            if (poolDisposeStopwatch.Elapsed.TotalSeconds > 5.0)
                 Logger.LogWarning($"Disposing RabbitMQ Channel Pool got time greather than expected: {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms.");
-            }
 
             Channels.Clear();
         }
@@ -137,9 +125,7 @@ namespace LinFx.Extensions.RabbitMq
                 lock (this)
                 {
                     while (IsInUse)
-                    {
                         Monitor.Wait(this);
-                    }
 
                     IsInUse = true;
                 }
@@ -150,9 +136,7 @@ namespace LinFx.Extensions.RabbitMq
                 lock (this)
                 {
                     if (!IsInUse)
-                    {
                         return;
-                    }
 
                     Monitor.Wait(this, timeout);
                 }
@@ -183,9 +167,9 @@ namespace LinFx.Extensions.RabbitMq
 
             public ChannelAccessor(IModel channel, string name, Action disposeAction)
             {
-                _disposeAction = disposeAction;
                 Name = name;
                 Channel = channel;
+                _disposeAction = disposeAction;
             }
 
             public void Dispose()
