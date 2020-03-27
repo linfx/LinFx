@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.RabbitMq
 {
-    public class RabbitMqDistributedEventBus : EventBus
+    public class RabbitMqDistributedEventBus : EventBus, IDisposable
     {
         protected RabbitMqEventBusOptions RabbitMqOptions { get; }
+
         protected IConsumerFactory ConsumerFactory { get; }
 
         protected IChannelPool ChannelPool { get; }
@@ -18,10 +19,10 @@ namespace LinFx.Extensions.EventBus.RabbitMq
         protected IChannelAccessor ChannelAccessor { get; private set; }
 
         protected IRabbitMqConsumer Consumer { get; }
+
         protected IRabbitMqSerializer Serializer { get; }
 
         public RabbitMqDistributedEventBus(
-            IConnectionPool connectionPool,
             IConsumerFactory consumerFactory,
             IRabbitMqSerializer serializer,
             IEventBusSubscriptionsManager subscriptionsManager,
@@ -63,7 +64,6 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             }
             var body = Serializer.Serialize(evt);
 
-            //var channel = ConnectionPool.Get(RabbitMqOptions.ConnectionName).CreateModel();
             var channel = ChannelAccessor.Channel;
 
             var properties = channel.CreateBasicProperties();
@@ -96,6 +96,11 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             var eventName = ea.RoutingKey;
             var eventData = Encoding.UTF8.GetString(ea.Body);
             await TriggerHandlersAsync(eventName, eventData);
+        }
+
+        public virtual void Dispose()
+        {
+            ChannelAccessor?.Dispose();
         }
     }
 }

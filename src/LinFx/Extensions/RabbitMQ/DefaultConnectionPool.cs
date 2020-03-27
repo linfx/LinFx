@@ -15,19 +15,19 @@ namespace LinFx.Extensions.RabbitMq
 
         protected ConnectionFactoryWrapper ConnectionFactoryWrapper { get; }
 
-        protected ConcurrentDictionary<string, IConnection> _connections { get; private set; }
+        protected ConcurrentDictionary<string, IConnection> Connections { get; private set; }
 
         public DefaultConnectionPool(ConnectionFactoryWrapper connectionFactoryWrapper)
         {
             ConnectionFactoryWrapper = connectionFactoryWrapper;
-            _connections = new ConcurrentDictionary<string, IConnection>();
+            Connections = new ConcurrentDictionary<string, IConnection>();
         }
 
         public virtual IConnection Get(string connectionName = null)
         {
-            connectionName ??= Connections.DefaultConnectionName;
+            connectionName ??= RabbitMq.Connections.DefaultConnectionName;
 
-            return _connections.GetOrAdd(connectionName, () => ConnectionFactoryWrapper.CreateConnection(connectionName));
+            return Connections.GetOrAdd(connectionName, () => ConnectionFactoryWrapper.CreateConnection(connectionName));
         }
 
         public void Dispose()
@@ -37,7 +37,7 @@ namespace LinFx.Extensions.RabbitMq
 
             _isDisposed = true;
 
-            foreach (var connection in _connections.Values)
+            foreach (var connection in Connections.Values)
             {
                 try
                 {
@@ -47,7 +47,7 @@ namespace LinFx.Extensions.RabbitMq
                 { }
             }
 
-            _connections.Clear();
+            Connections.Clear();
         }
     }
 }
