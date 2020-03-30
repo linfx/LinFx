@@ -1,16 +1,12 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-using System;
-using IdentityServer4.Extensions;
+﻿using IdentityServer4.Extensions;
 using IdentityServer4.Stores;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.AspNetCore.ApiAuthorization.IdentityServer
 {
@@ -64,7 +60,7 @@ namespace Microsoft.AspNetCore.ApiAuthorization.IdentityServer
             {
                 var store = messageReceivedContext.HttpContext.RequestServices.GetRequiredService<ISigningCredentialStore>();
                 var credential = await store.GetSigningCredentialsAsync();
-                options.Authority = options.Authority ?? messageReceivedContext.HttpContext.GetIdentityServerIssuerUri();
+                options.Authority ??= messageReceivedContext.HttpContext.GetIdentityServerIssuerUri();
                 options.TokenValidationParameters.IssuerSigningKey = credential.Key;
                 options.TokenValidationParameters.ValidIssuer = options.Authority;
             }

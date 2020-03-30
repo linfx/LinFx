@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Version>4.6.0</Version>
-    <Description>LinFx.Extensions.Identity</Description>
-    <Product>LinFx.Extensions.Identity</Product>
+    <Description>LinFx.Extensions.Identity.IdentityServer</Description>
+    <Product>LinFx.Extensions.Identity.IdentityServer</Product>
     <Authors>强悍的抽屉</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
     <Copyright>Copyright (c) 2020 LinFx</Copyright>
@@ -15,11 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.2" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="3.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinFx\LinFx.csproj" />
+    <ProjectReference Include="..\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
   </ItemGroup>
-  
+
 </Project>
