@@ -8,7 +8,6 @@ using LinFx.Extensions.Dapper.Mapper;
 using System.Threading.Tasks;
 using LinFx.Extensions.Dapper.Dialect;
 using System.Collections.Generic;
-using LinFx.Extensions.Data;
 using LinFx.Data.Abstractions;
 
 namespace LinFx.Extensions.Dapper

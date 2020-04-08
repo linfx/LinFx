@@ -1,4 +1,6 @@
-﻿namespace LinFx.Security.Authorization.Permissions
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace LinFx.Security.Authorization.Permissions
 {
     public class PermissionGrantInfo
     {

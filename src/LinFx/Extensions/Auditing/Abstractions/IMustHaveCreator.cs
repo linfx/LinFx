@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace LinFx.Extensions.Auditing
 {
     /// <summary>

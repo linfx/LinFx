@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Data
+namespace LinFx.Data.Abstractions
 {
     /// <summary>
     /// 工作单元接口

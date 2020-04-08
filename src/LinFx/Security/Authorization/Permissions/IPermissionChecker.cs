@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions

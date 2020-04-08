@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Data;
+﻿using LinFx.Data.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace LinFx.Extensions.Dapper
 {
-	internal static class SortingExtensions
+    internal static class SortingExtensions
     {
         public static Sorting[] ToSorting<T>(this Expression<Func<T, object>>[] sortingExpression, bool ascending = true)
         {

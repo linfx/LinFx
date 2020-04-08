@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Security.Authorization.Permissions
 {
     public interface IPermissionDefinitionManager
     {
-        [NotNull]
         PermissionDefinition Get([NotNull] string name);
 
         [CanBeNull]

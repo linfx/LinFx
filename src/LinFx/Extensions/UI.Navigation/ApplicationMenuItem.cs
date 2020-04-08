@@ -1,4 +1,6 @@
-﻿namespace LinFx.Extensions.UI.Navigation
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace LinFx.Extensions.UI.Navigation
 {
     public class ApplicationMenuItem
     {

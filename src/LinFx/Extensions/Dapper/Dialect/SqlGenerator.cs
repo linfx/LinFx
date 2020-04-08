@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using LinFx.Data.Abstractions;
 using LinFx.Extensions.Dapper.Mapper;
-using LinFx.Extensions.Data;
 
 namespace LinFx.Extensions.Dapper.Dialect
 {

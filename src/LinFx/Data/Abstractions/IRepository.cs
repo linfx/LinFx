@@ -1,12 +1,10 @@
 ﻿using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace LinFx.Data
+namespace LinFx.Data.Abstractions
 {
     /// <summary>
     /// Just to mark a class as repository.
@@ -31,11 +29,6 @@ namespace LinFx.Data
 
         Task<int> SaveChangesAsync();
 
-        Task<TEntity> FirstOrDefaultAsync(TKey id);
-
         IQueryable<TEntity> Query();
-
-        [Obsolete("Use Where")]
-        IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
     }
 }

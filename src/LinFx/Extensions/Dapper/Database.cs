@@ -7,7 +7,6 @@ using LinFx.Extensions.Dapper.Mapper;
 using LinFx.Extensions.Dapper.Dialect;
 using Dapper;
 using System.Threading.Tasks;
-using LinFx.Extensions.Data;
 using LinFx.Extensions.Data.Filters.Query;
 using LinFx.Data.Abstractions;
 

@@ -2,6 +2,7 @@
 using LinFx.Application;
 using LinFx.Application.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace System.Linq
