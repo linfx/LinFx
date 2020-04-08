@@ -101,7 +101,7 @@ namespace LinFx.Data
 
         public async Task BeginTransactionAsync()
         {
-            _currentTransaction = _currentTransaction ?? await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+            _currentTransaction ??= await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
         }
 
         public async Task CommitTransactionAsync()

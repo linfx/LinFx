@@ -35,6 +35,7 @@ namespace LinFx.Data
 
         IQueryable<TEntity> Query();
 
+        [Obsolete("Use Where")]
         IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate);
     }
 }
