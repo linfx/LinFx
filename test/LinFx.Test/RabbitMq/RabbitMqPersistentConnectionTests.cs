@@ -4,18 +4,17 @@ using RabbitMQ.Client;
 using System.Text;
 using Xunit;
 
-namespace LinFx.Test.RabbitMQ
+namespace LinFx.Test.RabbitMq
 {
-    public class RabbitMQTests
+    public class RabbitMqPersistentConnectionTests
     {
-        private readonly IRabbitMQPersistentConnection _persistentConnection;
+        private readonly IRabbitMqPersistentConnection _persistentConnection;
 
-        public RabbitMQTests()
+        public RabbitMqPersistentConnectionTests()
         {
             var services = new ServiceCollection();
             services.AddLinFx()
-                .AddHttpContextPrincipalAccessor()
-                .AddRabbitMQPersistentConnection(options =>
+                .AddRabbitMqPersistentConnection(options =>
                 {
                     options.Host = "127.0.0.1";
                     options.UserName = "admin";
@@ -23,14 +22,13 @@ namespace LinFx.Test.RabbitMQ
                 });
 
             var sp = services.BuildServiceProvider();
-            _persistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+            _persistentConnection = sp.GetRequiredService<IRabbitMqPersistentConnection>();
         }
 
-
         [Fact]
-        public void Should_Call_Handler__Correct_SourceAsync()
+        public void Should_Call_Handler_Correct_SourceAsync()
         {
-            using var channel = _persistentConnection.CreateModel();
+            var channel = _persistentConnection.CreateModel();
             var exchangeName = "hello_exchange1";
             var queueName = "hello1";
 
@@ -43,9 +41,12 @@ namespace LinFx.Test.RabbitMQ
             //将队列绑定到交换机
             channel.QueueBind(queueName, exchangeName, "", null);
 
-            string message = "Hello World"; //传递的消息内容
-            var body = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish(exchangeName, queueName, null, body); //开始传递
+            for (int i = 0; i < 1000; i++)
+            {
+                string message = "Hello World" + i;
+                var body = Encoding.UTF8.GetBytes(message);
+                channel.BasicPublish(exchangeName, queueName, null, body); //开始传递
+            }
         }
     }
 }

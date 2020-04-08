@@ -4,6 +4,9 @@ using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq
 {
+    /// <summary>
+    /// 默认连接池
+    /// </summary>
     public class DefaultConnectionPool : IConnectionPool
     {
         private bool _isDisposed;
@@ -12,46 +15,39 @@ namespace LinFx.Extensions.RabbitMq
 
         protected ConnectionFactoryWrapper ConnectionFactoryWrapper { get; }
 
-        protected ConcurrentDictionary<string, IConnection> _connections { get; }
+        protected ConcurrentDictionary<string, IConnection> Connections { get; private set; }
 
         public DefaultConnectionPool(ConnectionFactoryWrapper connectionFactoryWrapper)
         {
             ConnectionFactoryWrapper = connectionFactoryWrapper;
-            _connections = new ConcurrentDictionary<string, IConnection>();
+            Connections = new ConcurrentDictionary<string, IConnection>();
         }
 
         public virtual IConnection Get(string connectionName = null)
         {
-            connectionName ??= Connections.DefaultConnectionName;
+            connectionName ??= RabbitMq.Connections.DefaultConnectionName;
 
-            return _connections.GetOrAdd(
-                connectionName, () => 
-                ConnectionFactoryWrapper.CreateConnection(connectionName)
-            );
+            return Connections.GetOrAdd(connectionName, () => ConnectionFactoryWrapper.CreateConnection(connectionName));
         }
 
         public void Dispose()
         {
             if (_isDisposed)
-            {
                 return;
-            }
 
             _isDisposed = true;
 
-            foreach (var connection in _connections.Values)
+            foreach (var connection in Connections.Values)
             {
                 try
                 {
                     connection.Dispose();
                 }
                 catch
-                {
-
-                }
+                { }
             }
 
-            _connections.Clear();
+            Connections.Clear();
         }
     }
 }

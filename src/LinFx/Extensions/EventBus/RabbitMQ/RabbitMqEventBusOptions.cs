@@ -1,6 +1,6 @@
 ﻿using LinFx.Extensions.RabbitMq;
 
-namespace LinFx.Extensions.EventBus.RabbitMQ
+namespace LinFx.Extensions.EventBus.RabbitMq
 {
     public class RabbitMqEventBusOptions : RabbitMqOptions
     {

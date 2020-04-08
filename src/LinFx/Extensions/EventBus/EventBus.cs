@@ -67,22 +67,21 @@ namespace LinFx.Extensions.EventBus
             {
                 var subscriptions = _subsManager.GetHandlersForEvent(eventName);
 
-                using (var scope = _serviceProvider.CreateScope())
+                using var scope = _serviceProvider.CreateScope();
+
+                foreach (var subscription in subscriptions)
                 {
-                    foreach (var subscription in subscriptions)
+                    try
                     {
-                        try
-                        {
-                            var eventType = _subsManager.GetEventTypeByName(eventName);
-                            var integrationEvent = JsonUtils.DeserializeObject(eventData, eventType);
-                            var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
-                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
-                            await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
-                        }
-                        catch (Exception ex)
-                        {
-                            exceptions.Add(ex);
-                        }
+                        var eventType = _subsManager.GetEventTypeByName(eventName);
+                        var integrationEvent = JsonUtils.DeserializeObject(eventData, eventType);
+                        var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
+                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                        await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptions.Add(ex);
                     }
                 }
             }

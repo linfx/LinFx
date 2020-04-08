@@ -9,16 +9,20 @@ using System.Net.Sockets;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
+    /// <summary>
+    /// 默认连接
+    /// </summary>
+    public class DefaultRabbitMqPersistentConnection : IRabbitMqPersistentConnection
     {
-        private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
+        private readonly ILogger<DefaultRabbitMqPersistentConnection> _logger;
         private readonly IConnectionFactory _connectionFactory;
         private readonly int _retryCount;
         private IConnection _connection;
+        private IModel _model;
         private bool _disposed;
         private readonly object sync_root = new object();
 
-        public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultRabbitMQPersistentConnection> logger, int retryCount = 5)
+        public DefaultRabbitMqPersistentConnection(IConnectionFactory connectionFactory, ILogger<DefaultRabbitMqPersistentConnection> logger, int retryCount = 5)
         {
             _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -33,14 +37,12 @@ namespace LinFx.Extensions.RabbitMq
         public IModel CreateModel()
         {
             if (!IsConnected)
-            {
                 TryConnect();
-            }
+
             if (!IsConnected)
-            {
                 throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
-            }
-            return _connection.CreateModel();
+
+            return TryCreateModel();
         }
 
         public bool TryConnect()
@@ -79,6 +81,16 @@ namespace LinFx.Extensions.RabbitMq
                     return false;
                 }
             }
+        }
+
+        private IModel TryCreateModel()
+        {
+            lock (sync_root)
+            {
+                if (_model == null)
+                    _model = _connection.CreateModel();
+            }
+            return _model;
         }
 
         private void OnConnectionBlocked(object sender, ConnectionBlockedEventArgs e)

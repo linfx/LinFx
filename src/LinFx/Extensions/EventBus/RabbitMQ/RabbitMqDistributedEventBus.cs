@@ -6,31 +6,40 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus.RabbitMQ
+namespace LinFx.Extensions.EventBus.RabbitMq
 {
-    public class RabbitMqDistributedEventBus : EventBus
+    public class RabbitMqDistributedEventBus : EventBus, IDisposable
     {
         protected RabbitMqEventBusOptions RabbitMqOptions { get; }
-        protected IConnectionPool ConnectionPool { get; }
+
         protected IConsumerFactory ConsumerFactory { get; }
+
+        protected IChannelPool ChannelPool { get; }
+
+        protected IChannelAccessor ChannelAccessor { get; private set; }
+
         protected IRabbitMqConsumer Consumer { get; }
+
         protected IRabbitMqSerializer Serializer { get; }
 
         public RabbitMqDistributedEventBus(
-            IConnectionPool connectionPool,
             IConsumerFactory consumerFactory,
             IRabbitMqSerializer serializer,
             IEventBusSubscriptionsManager subscriptionsManager,
             IServiceProvider serviceProvider,
+            IChannelPool channelPool,
             IOptions<EventBusOptions> eventBusOptions,
             IOptions<RabbitMqEventBusOptions> rabbitMOptions)
             : base(subscriptionsManager, serviceProvider, eventBusOptions)
         {
             RabbitMqOptions = rabbitMOptions.Value;
-            ConnectionPool = connectionPool;
             ConsumerFactory = consumerFactory;
             Serializer = serializer;
+            ChannelPool = channelPool;
+            ChannelAccessor = ChannelAccessor;
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
+
+            ChannelAccessor = ChannelPool.Acquire();
 
             Consumer = ConsumerFactory.Create(
                 new ExchangeDeclareConfiguration(
@@ -55,19 +64,18 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             }
             var body = Serializer.Serialize(evt);
 
-            using (var channel = ConnectionPool.Get(RabbitMqOptions.ConnectionName).CreateModel())
-            {
-                var properties = channel.CreateBasicProperties();
-                properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
+            var channel = ChannelAccessor.Channel;
 
-                channel.BasicPublish(
-                    exchange: RabbitMqOptions.Exchange,
-                    routingKey: routingKey,
-                    mandatory: true,
-                    basicProperties: properties,
-                    body: body
-                );
-            }
+            var properties = channel.CreateBasicProperties();
+            properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
+
+            channel.BasicPublish(
+                exchange: RabbitMqOptions.Exchange,
+                routingKey: routingKey,
+                mandatory: true,
+                basicProperties: properties,
+                body: body
+            );
 
             return Task.CompletedTask;
         }
@@ -88,6 +96,11 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
             var eventName = ea.RoutingKey;
             var eventData = Encoding.UTF8.GetString(ea.Body);
             await TriggerHandlersAsync(eventName, eventData);
+        }
+
+        public virtual void Dispose()
+        {
+            ChannelAccessor?.Dispose();
         }
     }
 }

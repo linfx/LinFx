@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.RabbitMq;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Extensions.EventBus.RabbitMQ
+namespace LinFx.Extensions.EventBus.RabbitMq
 {
     public class RabbitMqEventBusOptionsBuilder : EventBusOptionsBuilder
     {
@@ -9,7 +9,7 @@ namespace LinFx.Extensions.EventBus.RabbitMQ
 
         public RabbitMqEventBusOptionsBuilder(
             EventBusOptions options,
-            RabbitMqOptions rabbitMqOptions) 
+            RabbitMqOptions rabbitMqOptions)
             : base(options)
         {
             RabbitMqOptions = rabbitMqOptions;

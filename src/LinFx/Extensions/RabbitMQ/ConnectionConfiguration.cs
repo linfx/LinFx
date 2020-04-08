@@ -3,6 +3,9 @@ using System;
 
 namespace LinFx.Extensions.RabbitMq
 {
+    /// <summary>
+    /// 连接配置
+    /// </summary>
     public class ConnectionConfiguration
     {
         private const int DefaultPort = 5672;
