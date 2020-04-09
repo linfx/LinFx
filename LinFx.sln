@@ -9,9 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity", "src\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj", "{395DE351-FB07-49E6-A4B4-41DAC6878F58}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C7E2DB5E-AFE3-4FE1-BEED-631B3CB90DF7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity.IdentityServer", "src\LinFx.Extensions.Identity.IdentityServer\LinFx.Extensions.Identity.IdentityServer.csproj", "{7D2F51DB-3BD8-4933-A0A3-450B5CD0389D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB28C410-8E1C-45DA-810D-7E5CBC7FBA9D}"
+	ProjectSection(SolutionItems) = preProject
+		common.props = common.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{19BCDCAB-8076-4D78-BDED-682974410439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,8 +46,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{395DE351-FB07-49E6-A4B4-41DAC6878F58} = {C7E2DB5E-AFE3-4FE1-BEED-631B3CB90DF7}
-		{7D2F51DB-3BD8-4933-A0A3-450B5CD0389D} = {C7E2DB5E-AFE3-4FE1-BEED-631B3CB90DF7}
+		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{395DE351-FB07-49E6-A4B4-41DAC6878F58} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{7D2F51DB-3BD8-4933-A0A3-450B5CD0389D} = {19BCDCAB-8076-4D78-BDED-682974410439}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using LinFx.Domain.Models;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace LinFx.Extensions.Identity.Models
 {
     /// <summary>
     /// 角色
     /// </summary>
-    public class Role : IdentityRole<string>
+    public class Role : Role<string>
     {
         public Role() { }
 
@@ -15,10 +17,10 @@ namespace LinFx.Extensions.Identity.Models
     /// <summary>
     /// 角色
     /// </summary>
-    public class IdentityRole<TKey> : Microsoft.AspNetCore.Identity.IdentityRole<TKey> where TKey : IEquatable<TKey>
+    public class Role<TKey> : IdentityRole<TKey>, IEntity<TKey> where TKey : IEquatable<TKey>
     {
-        public IdentityRole() { }
+        public Role() { }
 
-        public IdentityRole(string roleName) : base(roleName) { }
+        public Role(string roleName) : base(roleName) { }
     }
 }

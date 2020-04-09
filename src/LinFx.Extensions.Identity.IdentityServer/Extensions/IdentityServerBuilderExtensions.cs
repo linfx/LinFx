@@ -78,7 +78,6 @@ namespace LinFx.Extensions.Identity.IdentityServer.Extensions
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="configuration"></param>
-        /// <param name="logger"></param>
         /// <returns></returns>
         public static IIdentityServerBuilder AddCustomValidationKey(this IIdentityServerBuilder builder, IConfiguration configuration)
         {
