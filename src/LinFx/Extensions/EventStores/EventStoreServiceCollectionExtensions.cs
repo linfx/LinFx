@@ -2,6 +2,7 @@
 using LinFx.Extensions.EventStores;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

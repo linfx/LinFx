@@ -2,6 +2,7 @@
 using LinFx.Extensions.EventBus;
 using LinFx.Extensions.EventBus.RabbitMq;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

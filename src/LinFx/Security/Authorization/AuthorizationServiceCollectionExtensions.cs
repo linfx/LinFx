@@ -3,6 +3,7 @@ using LinFx.Security.Authorization;
 using LinFx.Security.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AuthorizationOptions = LinFx.Security.Authorization.AuthorizationOptions;
 

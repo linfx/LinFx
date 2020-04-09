@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace linFx.Extensions.MongoDB
+namespace LinFx.Extensions.MongoDB
 {
     public interface IMongoDbRepository<TEntity>
     {

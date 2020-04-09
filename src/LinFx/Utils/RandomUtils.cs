@@ -1,13 +1,13 @@
-﻿using LinFx.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace LinFx.Utils
 {
 	public static class RandomUtils
-    {
+	{
 		private static readonly Random rnd = new Random();
+		private readonly static object obj = new object();
 
 		/// <summary>
 		/// Returns a random number within a specified range.
@@ -21,7 +21,7 @@ namespace LinFx.Utils
 		/// </returns>
 		public static int GetRandom(int minValue, int maxValue)
 		{
-			lock(rnd)
+			lock (rnd)
 			{
 				return rnd.Next(minValue, maxValue);
 			}
@@ -37,7 +37,7 @@ namespace LinFx.Utils
 		/// </returns>
 		public static int GetRandom(int maxValue)
 		{
-			lock(rnd)
+			lock (rnd)
 			{
 				return rnd.Next(maxValue);
 			}
@@ -48,7 +48,7 @@ namespace LinFx.Utils
 		/// <returns>A 32-bit signed integer greater than or equal to zero and less than <see cref="int.MaxValue"/>.</returns>
 		public static int GetRandom()
 		{
-			lock(rnd)
+			lock (rnd)
 			{
 				return rnd.Next();
 			}
@@ -60,7 +60,7 @@ namespace LinFx.Utils
 		/// <param name="objs">List of object to select a random one</param>
 		public static T GetRandomOf<T>(params T[] objs)
 		{
-			if(objs.IsNullOrEmpty())
+			if (objs.IsNullOrEmpty())
 				throw new ArgumentException("objs can not be null or empty!", "objs");
 
 			return objs[GetRandom(0, objs.Length)];
@@ -75,7 +75,7 @@ namespace LinFx.Utils
 			var currentList = new List<T>(items);
 			var randomList = new List<T>();
 
-			while(currentList.Any())
+			while (currentList.Any())
 			{
 				var randomIndex = GetRandom(0, currentList.Count);
 				randomList.Add(currentList[randomIndex]);
@@ -83,6 +83,26 @@ namespace LinFx.Utils
 			}
 
 			return randomList;
+		}
+
+		/// <summary>
+		/// 生成长度{length}随机数字组合
+		/// </summary>
+		/// <param name="length"></param>
+		/// <returns></returns>
+		public static string GenerateRandomNumber(int length = 6)
+		{
+			var code = string.Empty;
+			if (length <= 0)
+				return code;
+
+			var start = Convert.ToInt32(Math.Pow(10, length - 1));
+			var end = Convert.ToInt32(Math.Pow(10, length));
+			lock (obj)
+			{
+				code = new Random().Next(start, end).ToString();
+			}
+			return code;
 		}
 	}
 }

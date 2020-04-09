@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Data
+namespace LinFx.Data.Abstractions
 {
     public interface ICustomModelBuilder
     {

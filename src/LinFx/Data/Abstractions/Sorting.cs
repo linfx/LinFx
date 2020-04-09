@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Extensions.Data
+namespace LinFx.Data.Abstractions
 {
-	public class Sorting
+    public class Sorting
     {
-		public bool Ascending { get; set; }
-		public string PropertyName { get; set; }
+        public bool Ascending { get; set; }
+        public string PropertyName { get; set; }
     }
 
     public static class SortingExt
@@ -22,7 +22,7 @@ namespace LinFx.Extensions.Data
                     var name = c.Remove(0, 1);
                     var sort = new Sorting()
                     {
-                        Ascending = (order == "+"),
+                        Ascending = order == "+",
                         PropertyName = name
                     };
                     sorts.Add(sort);
