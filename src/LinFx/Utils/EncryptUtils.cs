@@ -8,6 +8,9 @@ using System.Xml;
 
 namespace LinFx.Utils
 {
+    /// <summary>
+    /// 加密工具类
+    /// </summary>
     public class EncryptUtils
     {
         #region DES

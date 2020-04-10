@@ -7,16 +7,6 @@ namespace LinFx.Utils
         /// <summary>
         /// Converts given object to JSON string.
         /// </summary>
-        /// <returns></returns>
-        [Obsolete("Use ToJsonString()")]
-        public static string ToJson(this object value, bool camelCase = false, bool indented = false)
-        {
-            return JsonUtils.ToJson(value, camelCase, indented);
-        }
-
-        /// <summary>
-        /// Converts given object to JSON string.
-        /// </summary>
         /// <param name="value"></param>
         /// <param name="camelCase"></param>
         /// <param name="indented"></param>

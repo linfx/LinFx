@@ -33,9 +33,7 @@ namespace LinFx.Utils
             var attributes = (DisplayAttribute[])fieldInfo.GetCustomAttributes(typeof(DisplayAttribute), false);
 
             if (attributes?.Length > 0)
-            {
                 displayName = attributes[0].Description;
-            }
             else
             {
                 var desAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
