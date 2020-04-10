@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <Version>4.6.1</Version>
+    <Authors>LinFx</Authors>
+    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
+    <Copyright>Copyright (c) 2020 LinFx</Copyright>
+    <Company>LinFx</Company>
+    <Product>LinFx</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+</Project>

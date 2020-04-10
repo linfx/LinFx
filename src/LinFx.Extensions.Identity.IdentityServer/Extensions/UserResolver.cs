@@ -17,15 +17,12 @@ namespace LinFx.Extensions.Identity.IdentityServer.Extensions
 
         public async Task<TUser> GetUserAsync(string login)
         {
-            switch (_policy)
+            return _policy switch
             {
-                case LoginResolutionPolicy.Username:
-                    return await _userManager.FindByNameAsync(login);
-                case LoginResolutionPolicy.Email:
-                    return await _userManager.FindByEmailAsync(login);
-                default:
-                    return null;
-            }
+                LoginResolutionPolicy.Username => await _userManager.FindByNameAsync(login),
+                LoginResolutionPolicy.Email => await _userManager.FindByEmailAsync(login),
+                _ => null,
+            };
         }
     }
 }

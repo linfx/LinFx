@@ -14,9 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static LinFxBuilder AddLinFx(this IServiceCollection services, Action<LinFxOptions> optionsAction = default)
         {
             if (optionsAction != null)
-            {
                 services.Configure(optionsAction);
-            }
 
             var builder = new LinFxBuilder(services);
             builder.AddAssembly(typeof(LinFxModule).Assembly);

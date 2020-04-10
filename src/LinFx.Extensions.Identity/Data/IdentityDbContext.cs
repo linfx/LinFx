@@ -34,5 +34,14 @@ namespace LinFx.Extensions.Identity.Data
             builder.Entity<UserClaim>().ToTable(TableConsts.UserClaims);
             builder.Entity<UserToken>().ToTable(TableConsts.UserTokens);
         }
+
+        //private static void RegisterEntities(ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        //{
+        //    var entityTypes = typeToRegisters.Where(x => typeof(EntityBase).IsAssignableFrom(x));
+        //    foreach (var type in entityTypes)
+        //    {
+        //        modelBuilder.Entity(type);
+        //    }
+        //}
     }
 }

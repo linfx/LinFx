@@ -1,17 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="..\..\common.props" />
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>4.6.0</Version>
     <Description>LinFx.Extensions.Identity.IdentityServer</Description>
-    <Product>LinFx.Extensions.Identity.IdentityServer</Product>
-    <Authors>强悍的抽屉</Authors>
-    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
-    <Copyright>Copyright (c) 2020 LinFx</Copyright>
-    <Company>LinFx</Company>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <NoWarn>1701;1702;1591</NoWarn>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
