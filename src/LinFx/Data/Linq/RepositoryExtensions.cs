@@ -19,9 +19,9 @@ namespace LinFx.Data.Linq
             return repository.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
         }
 
-        public static IQueryable<TEntity> Where<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, Func<TEntity, bool> predicate) where TEntity : class, IEntity
+        public static IQueryable<TEntity> Where<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, [NotNull] Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity
         {
-            return repository.Query().Where(predicate).AsQueryable();
+            return repository.Query().Where(predicate);
         }
 
         public static Task<TEntity> FirstOrDefaultAsync<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, CancellationToken cancellationToken = default) where TEntity : class, IEntity
