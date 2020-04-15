@@ -2,6 +2,7 @@
 using LinFx.Data.Linq;
 using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,14 +15,19 @@ namespace LinFx.Data.Linq
 {
     public static class RepositoryExtensions
     {
-        public static Task<TEntity> FirstOrDefaultAsync<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, TKey id, CancellationToken cancellationToken = default) where TEntity : class, IEntity<TKey>
-        {
-            return repository.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
-        }
-
         public static IQueryable<TEntity> Where<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, [NotNull] Expression<Func<TEntity, bool>> predicate) where TEntity : class, IEntity
         {
             return repository.Query().Where(predicate);
+        }
+
+        public static IIncludableQueryable<TEntity, TProperty> Include<TEntity, TProperty>([NotNull] this IRepository<TEntity> repository, [NotNull] Expression<Func<TEntity, TProperty>> navigationPropertyPath) where TEntity : class, IEntity
+        {
+            return repository.Query().Include(navigationPropertyPath);
+        }
+
+        public static Task<TEntity> FirstOrDefaultAsync<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, TKey id, CancellationToken cancellationToken = default) where TEntity : class, IEntity<TKey>
+        {
+            return repository.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
         }
 
         public static Task<TEntity> FirstOrDefaultAsync<TEntity, TKey>([NotNull] this IRepository<TEntity, TKey> repository, CancellationToken cancellationToken = default) where TEntity : class, IEntity
