@@ -1,4 +1,4 @@
-﻿using LinFx.Test.Domain.Events;
+﻿using LinFx.Test.EventBus.Events;
 using MediatR;
 using System;
 using System.Threading;

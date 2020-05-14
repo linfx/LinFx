@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Extensions.EventBus.Abstractions;
+using System;
 using System.Collections.Generic;
 using static LinFx.Extensions.EventBus.InMemoryEventBusSubscriptionsManager;
 
@@ -11,14 +12,14 @@ namespace LinFx.Extensions.EventBus
         event EventHandler<string> OnEventRemoved;
         
         void AddSubscription<TEvent, THandler>()
-           where TEvent : IntegrationEvent
-           where THandler : IIntegrationEventHandler<TEvent>;
+           where TEvent : IEvent
+           where THandler : IEventHandler<TEvent>;
 
         void RemoveSubscription<TEvent, THandler>()
-             where TEvent : IntegrationEvent
-             where THandler : IIntegrationEventHandler<TEvent>;
+             where TEvent : IEvent
+             where THandler : IEventHandler<TEvent>;
         
-        bool HasSubscriptionsForEvent<TEvent>() where TEvent : IntegrationEvent;
+        bool HasSubscriptionsForEvent<TEvent>() where TEvent : IEvent;
 
         bool HasSubscriptionsForEvent(string eventName);
 
@@ -26,7 +27,7 @@ namespace LinFx.Extensions.EventBus
 
         void Clear();
 
-        IEnumerable<SubscriptionInfo> GetHandlersForEvent<T>() where T : IntegrationEvent;
+        IEnumerable<SubscriptionInfo> GetHandlersForEvent<T>() where T : IEvent;
 
         IEnumerable<SubscriptionInfo> GetHandlersForEvent(string eventName);
 

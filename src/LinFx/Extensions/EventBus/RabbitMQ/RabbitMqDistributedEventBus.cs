@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.RabbitMq;
+﻿using LinFx.Extensions.EventBus.Abstractions;
+using LinFx.Extensions.RabbitMq;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -56,7 +57,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             Consumer.OnMessageReceived(ProcessEventAsync);
         }
 
-        public override Task PublishAsync(IntegrationEvent evt, string routingKey)
+        public override Task PublishAsync(IEvent evt, string routingKey)
         {
             if (routingKey == default)
             {

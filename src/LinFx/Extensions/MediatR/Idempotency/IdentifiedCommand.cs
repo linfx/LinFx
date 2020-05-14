@@ -5,14 +5,14 @@ namespace LinFx.Extensions.Mediator.Idempotency
 {
     public class IdentifiedCommand<TCommand, TResponse> : IRequest<TResponse> where TCommand : IRequest<TResponse>
     {
-        public TCommand Command { get; }
-
         public Guid Id { get; }
 
-        public IdentifiedCommand(TCommand command, Guid id)
+        public TCommand Command { get; }
+
+        public IdentifiedCommand(Guid id, TCommand command)
         {
-            Command = command;
             Id = id;
+            Command = command;
         }
     }
 }

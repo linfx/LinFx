@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Configuration.Abstractions;
+using LinFx.Utils;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -23,17 +24,17 @@ namespace LinFx.Extensions.Configuration
 
         public async Task<string> GetAsync(string key)
         {
-            return await GetByCahche<string>(key);
+            return await GetByCahcheAsync<string>(key);
         }
 
         public async Task<T> GetAsync<T>()
         {
-            return await GetByCahche<T>(typeof(T).Name);
+            return await GetByCahcheAsync<T>(typeof(T).Name);
         }
 
         public async Task<T> GetAsync<T>(string key)
         {
-            return await GetByCahche<T>(key);
+            return await GetByCahcheAsync<T>(key);
         }
 
         public async Task ClearCacheAsync(string key)
@@ -42,22 +43,22 @@ namespace LinFx.Extensions.Configuration
             await Task.CompletedTask;
         }
 
-        async Task<T> GetByCahche<T>(string key)
+        private async Task<T> GetByCahcheAsync<T>(string key)
         {
             return await _cache.GetOrCreateAsync(key, async (c) =>
             {
                 c.SetSlidingExpiration(TimeSpan.FromSeconds(cacheTimeForSecond));
                 c.SetAbsoluteExpiration(TimeSpan.FromSeconds(cacheTimeForSecond * 10));
 
-                //var json = _configuration[key];
-                //if (json == null)
+                //var section = _configuration.GetSection
+                //if (section == null)
                 //    throw new ArgumentNullException(key);
 
                 //var type = typeof(T);
                 //if (type == typeof(string) || type == typeof(int))
-                //    return (T)Convert.ChangeType(json, type);
+                //    return (T)Convert.ChangeType(section, type);
 
-                //var obj = json.ToObject<T>();
+                //var obj = section.ToObject<T>();
                 //if (obj == null)
                 //    throw new ArgumentNullException(key);
 

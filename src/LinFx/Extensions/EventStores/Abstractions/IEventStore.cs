@@ -8,7 +8,7 @@ namespace LinFx.Extensions.EventStores
     public interface IEventStore
     {
         Task<IEnumerable<EventLog>> RetrieveEventLogsPendingToPublishAsync();
-        Task SaveEventAsync(IntegrationEvent evt, DbTransaction transaction);
+        Task SaveEventAsync(Event evt, DbTransaction transaction);
         Task MarkEventAsPublishedAsync(long eventId);
         Task MarkEventAsInProgressAsync(long eventId);
         Task MarkEventAsFailedAsync(long eventId);

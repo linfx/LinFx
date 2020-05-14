@@ -59,14 +59,10 @@ namespace System.Linq
         public static IQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName, bool isDescending = false)
         {
             if (source == null)
-            {
                 throw new ArgumentException(nameof(source));
-            }
 
             if (string.IsNullOrWhiteSpace(propertyName))
-            {
                 throw new ArgumentException(nameof(propertyName));
-            }
 
             Type type = typeof(T);
             ParameterExpression arg = Expression.Parameter(type, "x");

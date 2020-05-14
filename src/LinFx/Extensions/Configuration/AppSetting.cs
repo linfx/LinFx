@@ -10,6 +10,8 @@ namespace LinFx.Extensions.Configuration
     [Table("Core_AppSetting")]
     public class AppSetting : Entity<string>
     {
+        protected AppSetting() { }
+
         /// <summary>
         /// 构造函数
         /// </summary>

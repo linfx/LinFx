@@ -9,6 +9,8 @@ namespace LinFx
     /// </summary>
     public class Result
     {
+        protected int _code;
+
         public Result() { }
 
         protected Result(bool success, string message)
@@ -17,16 +19,28 @@ namespace LinFx
             Message = message;
         }
 
-        /// <summary>
-        /// Flag indicating whether if the operation succeeded or not.
-        /// </summary>
-        /// <value>True if the operation succeeded, otherwise false.</value>
-        public bool Success { get; protected set; }
+        public int Code 
+        {
+            get
+            {
+                if (Success)
+                    _code = 200;
+
+                return _code;
+            }
+            set { _code = value; }
+        }
 
         /// <summary>
         /// Message
         /// </summary>
         public string Message { get; protected set; }
+
+        /// <summary>
+        /// Flag indicating whether if the operation succeeded or not.
+        /// </summary>
+        /// <value>True if the operation succeeded, otherwise false.</value>
+        public bool Success { get; protected set; }
 
         public static Result Ok() => new Result(true, "操作成功");
 

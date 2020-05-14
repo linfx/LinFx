@@ -1,8 +1,9 @@
-﻿using System;
+﻿using LinFx.Test.ObjectMapping;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace LinFx.Test.ObjectMapping
+namespace LinFx.Test.Extensions.ObjectMapping
 {
     public class ObjectMappingTest
     {
