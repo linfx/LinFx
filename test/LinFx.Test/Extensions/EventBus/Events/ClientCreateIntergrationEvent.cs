@@ -1,9 +1,9 @@
 ﻿using LinFx.Extensions.EventBus;
 using System.Collections.Generic;
 
-namespace LinFx.Test.Extensions.EventBus
+namespace LinFx.Test.EventBus.Events
 {
-    public class ClientCreateIntergrationEvent : IntegrationEvent
+    public class ClientCreateIntergrationEvent : Event
     {
         public string ClientId { get; set; }
         public ICollection<string> AllowedScopes { get; set; }

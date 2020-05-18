@@ -1,5 +1,6 @@
 ﻿using LinFx;
 using LinFx.Extensions.EventBus;
+using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.EventBus.RabbitMq;
 using System;
 using System.Diagnostics.CodeAnalysis;

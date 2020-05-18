@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 
-namespace System
+namespace LinFx.Utils
 {
     public static class ObjectExtensions
     {

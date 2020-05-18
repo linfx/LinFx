@@ -1,7 +1,7 @@
 ﻿using LinFx.Test.Domain.Models;
 using MediatR;
 
-namespace LinFx.Test.Domain.Events
+namespace LinFx.Test.EventBus.Events
 {
     public class OrderStartedDomainEvent : INotification
     {

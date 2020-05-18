@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.RabbitMq;
+﻿using LinFx.Extensions.EventBus.Abstractions;
+using LinFx.Extensions.RabbitMq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.EventBus.RabbitMq

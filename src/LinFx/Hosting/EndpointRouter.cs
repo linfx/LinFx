@@ -21,9 +21,7 @@ namespace LinFx.Hosting
         public IEndpointHandler Find(HttpContext context)
         {
             if (context == null)
-            {
                 throw new ArgumentNullException(nameof(context));
-            }
 
             foreach (var endpoint in _endpoints)
             {
@@ -52,14 +50,10 @@ namespace LinFx.Hosting
                     return handler;
                 }
                 else
-                {
                     _logger.LogDebug("Endpoint enabled: {endpoint}, failed to create handler: {endpointHandler}", endpoint.Name, endpoint.Handler.FullName);
-                }
             }
             else
-            {
                 _logger.LogWarning("Endpoint disabled: {endpoint}", endpoint.Name);
-            }
 
             return null;
         }

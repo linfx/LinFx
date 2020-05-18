@@ -1,15 +1,14 @@
-﻿using LinFx.Extensions.EventBus;
+﻿using LinFx.Extensions.EventBus.Abstractions;
 using System.Collections.Generic;
 
-namespace LinFx.Test.Extensions.EventBus.Events
+namespace LinFx.Test.EventBus.Events
 {
-    public class OrderStatusChangedToAwaitingValidationIntegrationEvent : IntegrationEvent
+    public class OrderStatusChangedToAwaitingValidationEvent : IEvent
     {
         public int OrderId { get; }
         public IEnumerable<OrderStockItem> OrderStockItems { get; }
 
-        public OrderStatusChangedToAwaitingValidationIntegrationEvent(int orderId,
-            IEnumerable<OrderStockItem> orderStockItems)
+        public OrderStatusChangedToAwaitingValidationEvent(int orderId, IEnumerable<OrderStockItem> orderStockItems)
         {
             OrderId = orderId;
             OrderStockItems = orderStockItems;

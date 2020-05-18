@@ -40,10 +40,10 @@ namespace LinFx.Test.Stateless
             CreateDate = DateTime.Now;
             State = OrderState.OrderCreated;
 
-            //初始化状态机
+            // 初始化状态机
             _machine = new StateMachine<OrderState, Trigger>(() => State, s => SetState(s));
 
-            //流程配置
+            // 状态机流程配置
             _machine.Configure(OrderState.OrderCreated)
                 .Permit(Trigger.Jump, OrderState.OrderPendingPay)
                 .Permit(Trigger.Cancel, OrderState.OrderInvalided);

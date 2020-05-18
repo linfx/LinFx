@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using LinFx.Extensions.EventBus.Abstractions;
 
 namespace LinFx.Extensions.EventBus
 {
@@ -20,8 +21,8 @@ namespace LinFx.Extensions.EventBus
         public void Clear() => _handlers.Clear();
 
         public void AddSubscription<TEvent, THandler>()
-            where TEvent : IntegrationEvent
-            where THandler : IIntegrationEventHandler<TEvent>
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>
         {
             var eventName = GetEventKey<TEvent>();
             DoAddSubscription(typeof(THandler), eventName, isDynamic: false);
@@ -53,8 +54,8 @@ namespace LinFx.Extensions.EventBus
 
 
         public void RemoveSubscription<T, TH>()
-            where T : IntegrationEvent
-            where TH : IIntegrationEventHandler<T>
+            where T : IEvent
+            where TH : IEventHandler<T>
         {
             var handlerToRemove = FindSubscriptionToRemove<T, TH>();
             var eventName = GetEventKey<T>();
@@ -81,7 +82,7 @@ namespace LinFx.Extensions.EventBus
             }
         }
 
-        public IEnumerable<SubscriptionInfo> GetHandlersForEvent<T>() where T : IntegrationEvent
+        public IEnumerable<SubscriptionInfo> GetHandlersForEvent<T>() where T : IEvent
         {
             var key = GetEventKey<T>();
             return GetHandlersForEvent(key);
@@ -98,8 +99,8 @@ namespace LinFx.Extensions.EventBus
         }
 
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
-             where T : IntegrationEvent
-             where TH : IIntegrationEventHandler<T>
+             where T : IEvent
+             where TH : IEventHandler<T>
         {
             var eventName = GetEventKey<T>();
             return DoFindSubscriptionToRemove(eventName, typeof(TH));
@@ -115,7 +116,7 @@ namespace LinFx.Extensions.EventBus
             return _handlers[eventName].SingleOrDefault(s => s.HandlerType == handlerType);
         }
 
-        public bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent
+        public bool HasSubscriptionsForEvent<T>() where T : IEvent
         {
             var key = GetEventKey<T>();
             return HasSubscriptionsForEvent(key);

@@ -6,7 +6,8 @@
 
         protected internal Result(TValue data)
         {
-            Success = true;
+            _code = 200;
+            Succeeded = true;
             Data = data;
             Message = "操作成功";
         }

@@ -28,7 +28,7 @@ namespace LinFx.Extensions.EventStores
             //_context = context;
             _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
                 .GetTypes()
-                .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
+                .Where(t => t.Name.EndsWith(nameof(Event)))
                 .ToList();
         }
 
@@ -41,7 +41,7 @@ namespace LinFx.Extensions.EventStores
                 .ToListAsync();
         }
 
-        public Task SaveEventAsync(IntegrationEvent evt, DbTransaction transaction)
+        public Task SaveEventAsync(Event evt, DbTransaction transaction)
         {
             if (transaction == null)
                 throw new ArgumentNullException(nameof(transaction), $"A {typeof(DbTransaction).FullName} is required as a pre-requisite to save the event.");

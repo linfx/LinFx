@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus
+namespace LinFx.Extensions.EventBus.Abstractions
 {
     public interface IEventBus
     {
@@ -10,7 +10,7 @@ namespace LinFx.Extensions.EventBus
         /// <param name="evt"></param>
         /// <param name="routingKey"></param>
         /// <returns></returns>
-        Task PublishAsync(IntegrationEvent evt, string routingKey = default);
+        Task PublishAsync(IEvent evt, string routingKey = default);
 
         /// <summary>
         /// Registers to an event.
@@ -18,8 +18,8 @@ namespace LinFx.Extensions.EventBus
         /// <typeparam name="TEvent"></typeparam>
         /// <typeparam name="THandler"></typeparam>
         void Subscribe<TEvent, THandler>()
-            where TEvent : IntegrationEvent
-            where THandler : IIntegrationEventHandler<TEvent>;
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>;
 
         /// <summary>
         /// Unregisters from an event.
@@ -27,7 +27,7 @@ namespace LinFx.Extensions.EventBus
         /// <typeparam name="TEvent"></typeparam>
         /// <typeparam name="THandler"></typeparam>
         void Unsubscribe<TEvent, THandler>()
-            where TEvent : IntegrationEvent
-            where THandler : IIntegrationEventHandler<TEvent>;
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>;
     }
 }

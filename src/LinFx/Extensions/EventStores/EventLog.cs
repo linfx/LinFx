@@ -11,7 +11,7 @@ namespace LinFx.Extensions.EventStores
     {
         private EventLog() { }
 
-        public EventLog(IntegrationEvent evt)
+        public EventLog(Event evt)
         {
             EventId = evt.Id;
             CreationTime = DateTime.Now;
@@ -26,7 +26,7 @@ namespace LinFx.Extensions.EventStores
         [NotMapped]
         public string EventTypeShortName => EventTypeName.Split('.')?.Last();
         [NotMapped]
-        public IntegrationEvent IntegrationEvent { get; private set; }
+        public Event IntegrationEvent { get; private set; }
         public EventStateEnum State { get; set; }
         public int TimesSent { get; set; }
         public DateTime CreationTime { get; private set; }
@@ -34,7 +34,7 @@ namespace LinFx.Extensions.EventStores
 
         public EventLog DeserializeJsonContent(Type type)
         {
-            IntegrationEvent = JsonConvert.DeserializeObject(Content, type) as IntegrationEvent;
+            IntegrationEvent = JsonConvert.DeserializeObject(Content, type) as Event;
             return this;
         }
     }

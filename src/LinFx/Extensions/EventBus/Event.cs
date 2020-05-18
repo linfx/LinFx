@@ -1,15 +1,16 @@
-﻿using System;
+﻿using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Utils;
+using System;
 
 namespace LinFx.Extensions.EventBus
 {
-    public class IntegrationEvent
+    public class Event : IEvent
     {
         public long Id { get; }
 
         public long Timestamp { get; }
 
-        public IntegrationEvent()
+        public Event()
         {
             Id = IDUtils.NewId();
             Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();

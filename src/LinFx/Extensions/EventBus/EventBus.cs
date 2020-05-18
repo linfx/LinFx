@@ -1,4 +1,5 @@
-﻿using LinFx.Utils;
+﻿using LinFx.Extensions.EventBus.Abstractions;
+using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -29,15 +30,15 @@ namespace LinFx.Extensions.EventBus
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
-        public abstract Task PublishAsync(IntegrationEvent evt, string routingKey = default);
+        public abstract Task PublishAsync(IEvent evt, string routingKey = default);
 
         public abstract void Subscribe<TEvent, THandler>()
-            where TEvent : IntegrationEvent
-            where THandler : IIntegrationEventHandler<TEvent>;
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>;
 
         public virtual void Unsubscribe<TEvent, THandler>()
-            where TEvent : IntegrationEvent
-            where THandler : IIntegrationEventHandler<TEvent>
+            where TEvent : IEvent
+            where THandler : IEventHandler<TEvent>
         {
         }
 
@@ -77,7 +78,7 @@ namespace LinFx.Extensions.EventBus
                         var eventType = _subsManager.GetEventTypeByName(eventName);
                         var integrationEvent = JsonUtils.DeserializeObject(eventData, eventType);
                         var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
-                        var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+                        var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
                         await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
                     }
                     catch (Exception ex)

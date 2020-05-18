@@ -22,7 +22,10 @@ namespace LinFx.Data
 
         protected Microsoft.EntityFrameworkCore.DbContext Context { get; }
 
-        protected DbSet<TEntity> DbSet { get; }
+        protected virtual DbSet<TEntity> DbSet
+        {
+            get { return Context.Set<TEntity>(); }
+        }
 
         public void Add(TEntity entity)
         {
@@ -48,10 +51,7 @@ namespace LinFx.Data
             return Context.SaveChangesAsync();
         }
 
-        public IQueryable<TEntity> Query()
-        {
-            return DbSet;
-        }
+        public IQueryable<TEntity> Query() => DbSet;
 
         public void Remove(TEntity entity)
         {

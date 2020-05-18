@@ -2,24 +2,10 @@
 
 namespace LinFx.Utils
 {
-    public static class RegexHelper
+    public static class RegexUtils
     {
         const string patternEmail = @"\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}";
         const string patternPhone = @"^\d{11}$";
-
-        [System.Obsolete]
-        public static (bool Succeeded, string Message) VerifyEmail2(string input)
-        {
-            var result = VerifyEmail(input);
-            return (result.Success, result.Message);
-        }
-
-        [System.Obsolete]
-        public static (bool Succeeded, string Message) VerifyPhone2(string input)
-        {
-            var result = VerifyPhone(input);
-            return (result.Success, result.Message);
-        }
 
         public static Result VerifyEmail(string input)
         {

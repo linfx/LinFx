@@ -1,11 +1,11 @@
-﻿using LinFx.Test.Extensions.EventBus.Events;
-using LinFx.Test.Extensions.EventBus.EventHandling;
-using LinFx.Extensions.EventBus;
+﻿using LinFx.Test.Extensions.EventBus.EventHandling;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using Xunit;
+using LinFx.Test.EventBus.Events;
+using LinFx.Extensions.EventBus.Abstractions;
 
 namespace LinFx.Test.Extensions.EventBus
 {
@@ -30,7 +30,7 @@ namespace LinFx.Test.Extensions.EventBus
                 });
 
             //services
-            services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
+            services.AddTransient<OrderStatusChangedToAwaitingValidationEventHandler>();
             //services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
 
             var applicationServices = services.BuildServiceProvider();
@@ -45,7 +45,7 @@ namespace LinFx.Test.Extensions.EventBus
         public async Task Should_Call_Handler_On_Event_With_Correct_SourceAsync()
         {
             var orderId = Guid.NewGuid().GetHashCode() & ushort.MaxValue;
-            var evt = new OrderStatusChangedToAwaitingValidationIntegrationEvent(orderId, new List<OrderStockItem>
+            var evt = new OrderStatusChangedToAwaitingValidationEvent(orderId, new List<OrderStockItem>
             {
                 new OrderStockItem(1000, 1)
             });
