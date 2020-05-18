@@ -9,7 +9,7 @@ namespace LinFx
     /// </summary>
     public class Result
     {
-        protected int _code;
+        protected int _code = 400;
 
         public Result() { }
 
@@ -19,11 +19,14 @@ namespace LinFx
             Message = message;
         }
 
+        /// <summary>
+        /// Code
+        /// </summary>
         public int Code 
         {
             get
             {
-                if (Succeeded && _code == 0)
+                if (Succeeded && _code != 200)
                     _code = 200;
 
                 return _code;
@@ -42,23 +45,50 @@ namespace LinFx
         /// <value>True if the operation succeeded, otherwise false.</value>
         public bool Succeeded { get; protected set; }
 
+        /// <summary>
+        /// 操作成功
+        /// </summary>
+        /// <returns></returns>
         public static Result Ok() => new Result(true, "操作成功");
 
+        /// <summary>
+        /// 操作成功
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static Result<T> Ok<T>(T data)
         {
             return new Result<T>(data);
         }
 
+        /// <summary>
+        /// 操作成功
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static Result<TValue> Ok<TValue>(TValue value, string message)
         {
             return new Result<TValue>(value, true, message);
         }
 
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <param name="error"></param>
+        /// <returns></returns>
         public static Result Failed(string error)
         {
             return new Result(false, error);
         }
 
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <param name="modelStates"></param>
+        /// <returns></returns>
         public static Result Failed(ModelStateDictionary modelStates)
         {
             IEnumerable<string> errors = null;
@@ -71,11 +101,24 @@ namespace LinFx
             return new Result(false, errors != null ? string.Join("\r\n", errors) : null);
         }
 
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="error"></param>
+        /// <returns></returns>
         public static Result<TValue> Failed<TValue>(string error)
         {
             return new Result<TValue>(default, false, error);
         }
 
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="error"></param>
+        /// <returns></returns>
         public static Result Failed<TValue>(TValue value, string error)
         {
             return new Result<TValue>(value, false, error);
