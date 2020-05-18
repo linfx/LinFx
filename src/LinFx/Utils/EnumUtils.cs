@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Utils
 {
-    public static class EnumHelper
+    public static class EnumUtils
     {
         public static IDictionary<Enum, string> ToDictionary(Type type)
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Utils
 {
-    public class PasswordHelper
+    public class PasswordUtils
     {
         public static string GeneratePassword(int length = 8)
         {

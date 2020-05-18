@@ -1,5 +1,6 @@
 ﻿using EmitMapper;
 using EmitMapper.MappingConfiguration;
+using LinFx.Utils;
 using System.Collections.Generic;
 
 namespace System

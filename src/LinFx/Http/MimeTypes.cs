@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Utils;
+using System;
 
 namespace LinFx.Http
 {

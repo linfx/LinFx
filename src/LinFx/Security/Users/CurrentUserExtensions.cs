@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LinFx.Utils;
 using System.Diagnostics;
 
 namespace LinFx.Security.Users

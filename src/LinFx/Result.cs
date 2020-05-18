@@ -15,7 +15,7 @@ namespace LinFx
 
         protected Result(bool success, string message)
         {
-            Success = success;
+            Succeeded = success;
             Message = message;
         }
 
@@ -23,7 +23,7 @@ namespace LinFx
         {
             get
             {
-                if (Success)
+                if (Succeeded && _code == 0)
                     _code = 200;
 
                 return _code;
@@ -40,7 +40,7 @@ namespace LinFx
         /// Flag indicating whether if the operation succeeded or not.
         /// </summary>
         /// <value>True if the operation succeeded, otherwise false.</value>
-        public bool Success { get; protected set; }
+        public bool Succeeded { get; protected set; }
 
         public static Result Ok() => new Result(true, "操作成功");
 
