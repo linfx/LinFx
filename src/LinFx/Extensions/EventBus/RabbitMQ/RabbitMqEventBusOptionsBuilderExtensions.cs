@@ -26,9 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.UserName = options.UserName;
                 x.Password = options.Password;
             });
-
             optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
-
             return optionsBuilder;
         }
     }

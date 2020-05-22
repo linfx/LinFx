@@ -2,6 +2,9 @@
 
 namespace LinFx.Extensions.EventBus.Abstractions
 {
+    /// <summary>
+    /// 事件总线
+    /// </summary>
     public interface IEventBus
     {
         /// <summary>

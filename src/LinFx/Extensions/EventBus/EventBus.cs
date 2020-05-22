@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus
 {
+    /// <summary>
+    /// 事件总线
+    /// </summary>
     public abstract class EventBus : IEventBus
     {
         protected EventBusOptions EventBusOptions { get; }
@@ -30,21 +33,35 @@ namespace LinFx.Extensions.EventBus
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="evt"></param>
+        /// <param name="routingKey"></param>
+        /// <returns></returns>
         public abstract Task PublishAsync(IEvent evt, string routingKey = default);
 
+        /// <summary>
+        /// 订阅
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <typeparam name="THandler"></typeparam>
         public abstract void Subscribe<TEvent, THandler>()
             where TEvent : IEvent
             where THandler : IEventHandler<TEvent>;
 
+        /// <summary>
+        /// 取消订阅
+        /// </summary>
+        /// <typeparam name="TEvent"></typeparam>
+        /// <typeparam name="THandler"></typeparam>
         public virtual void Unsubscribe<TEvent, THandler>()
             where TEvent : IEvent
             where THandler : IEventHandler<TEvent>
         {
         }
 
-        protected virtual void SubsManager_OnEventRemoved(object sender, string e)
-        {
-        }
+        protected virtual void SubsManager_OnEventRemoved(object sender, string e) { }
 
         protected virtual async Task TriggerHandlersAsync(string eventName, string eventData)
         {

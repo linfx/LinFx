@@ -19,8 +19,14 @@ namespace LinFx.Extensions.EventBus.RabbitMq
 
         protected IChannelAccessor ChannelAccessor { get; private set; }
 
+        /// <summary>
+        /// 消费者
+        /// </summary>
         protected IRabbitMqConsumer Consumer { get; }
 
+        /// <summary>
+        /// 序列化
+        /// </summary>
         protected IRabbitMqSerializer Serializer { get; }
 
         public RabbitMqDistributedEventBus(
@@ -37,11 +43,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             ConsumerFactory = consumerFactory;
             Serializer = serializer;
             ChannelPool = channelPool;
-            ChannelAccessor = ChannelAccessor;
-            _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
-
             ChannelAccessor = ChannelPool.Acquire();
-
             Consumer = ConsumerFactory.Create(
                 new ExchangeDeclareConfiguration(
                     RabbitMqOptions.Exchange,
@@ -55,18 +57,17 @@ namespace LinFx.Extensions.EventBus.RabbitMq
                 RabbitMqOptions.ConnectionName
             );
             Consumer.OnMessageReceived(ProcessEventAsync);
+            _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
         }
 
         public override Task PublishAsync(IEvent evt, string routingKey)
         {
             if (routingKey == default)
-            {
                 routingKey = evt.GetType().Name;
-            }
-            var body = Serializer.Serialize(evt);
 
             var channel = ChannelAccessor.Channel;
 
+            var body = Serializer.Serialize(evt);
             var properties = channel.CreateBasicProperties();
             properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
 

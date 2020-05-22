@@ -7,17 +7,18 @@ namespace LinFx.Extensions.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {
-        private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         private readonly List<Type> _eventTypes;
+        private readonly Dictionary<string, List<SubscriptionInfo>> _handlers;
         public event EventHandler<string> OnEventRemoved;
 
         public InMemoryEventBusSubscriptionsManager()
         {
-            _handlers = new Dictionary<string, List<SubscriptionInfo>>();
             _eventTypes = new List<Type>();
+            _handlers = new Dictionary<string, List<SubscriptionInfo>>();
         }
 
         public bool IsEmpty => !_handlers.Keys.Any();
+
         public void Clear() => _handlers.Clear();
 
         public void AddSubscription<TEvent, THandler>()
@@ -32,24 +33,15 @@ namespace LinFx.Extensions.EventBus
         private void DoAddSubscription(Type handlerType, string eventName, bool isDynamic)
         {
             if (!HasSubscriptionsForEvent(eventName))
-            {
                 _handlers.Add(eventName, new List<SubscriptionInfo>());
-            }
 
             if (_handlers[eventName].Any(s => s.HandlerType == handlerType))
-            {
-                throw new ArgumentException(
-                    $"Handler Type {handlerType.Name} already registered for '{eventName}'", nameof(handlerType));
-            }
+                throw new ArgumentException($"Handler Type {handlerType.Name} already registered for '{eventName}'", nameof(handlerType));
 
             if (isDynamic)
-            {
                 _handlers[eventName].Add(SubscriptionInfo.Dynamic(handlerType));
-            }
             else
-            {
                 _handlers[eventName].Add(SubscriptionInfo.Typed(handlerType));
-            }
         }
 
 
@@ -73,9 +65,8 @@ namespace LinFx.Extensions.EventBus
                     _handlers.Remove(eventName);
                     var eventType = _eventTypes.SingleOrDefault(e => e.Name == eventName);
                     if (eventType != null)
-                    {
                         _eventTypes.Remove(eventType);
-                    }
+
                     RaiseOnEventRemoved(eventName);
                 }
 
@@ -93,9 +84,7 @@ namespace LinFx.Extensions.EventBus
         {
             var handler = OnEventRemoved;
             if (handler != null)
-            {
                 OnEventRemoved(this, eventName);
-            }
         }
 
         private SubscriptionInfo FindSubscriptionToRemove<T, TH>()
@@ -109,9 +98,7 @@ namespace LinFx.Extensions.EventBus
         private SubscriptionInfo DoFindSubscriptionToRemove(string eventName, Type handlerType)
         {
             if (!HasSubscriptionsForEvent(eventName))
-            {
                 return null;
-            }
 
             return _handlers[eventName].SingleOrDefault(s => s.HandlerType == handlerType);
         }

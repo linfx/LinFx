@@ -2,6 +2,9 @@
 
 namespace LinFx.Extensions.RabbitMq
 {
+    /// <summary>
+    /// 序列化
+    /// </summary>
     public interface IRabbitMqSerializer
     {
         byte[] Serialize(object obj);
