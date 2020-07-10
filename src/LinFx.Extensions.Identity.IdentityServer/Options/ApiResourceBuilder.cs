@@ -75,14 +75,12 @@ namespace Microsoft.AspNetCore.ApiAuthorization.IdentityServer
         {
             foreach (var scope in resourceScopes)
             {
-                if (_apiResource.Scopes.Any(s => s.Name == scope))
-                {
-                    continue;
-                }
-
-                _apiResource.Scopes.Add(new Scope(scope));
+                //if (_apiResource.Scopes.Any(s => s.Name == scope))
+                //{
+                //    continue;
+                //}
+                //_apiResource.Scopes.Add(new Scope(scope));
             }
-
             return this;
         }
 

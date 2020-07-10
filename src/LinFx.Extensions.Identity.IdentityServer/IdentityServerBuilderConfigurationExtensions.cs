@@ -58,8 +58,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .ConfigureReplacedServices()
                 .AddIdentityResources()
                 .AddApiResources()
-                .AddClients()
-                .AddSigningCredentials();
+                .AddClients();
 
             builder.Services.Configure(configure);
 
@@ -173,47 +172,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 var options = sp.GetRequiredService<IOptions<ApiAuthorizationOptions>>();
                 return options.Value.Clients;
             });
-
-            return builder;
-        }
-
-        /// <summary>
-        /// Adds a signing key from the default configuration to the server using the configuration key
-        /// IdentityServer:Key
-        /// </summary>
-        /// <param name="builder">The <see cref="IIdentityServerBuilder"/>.</param>
-        /// <returns>The <see cref="IIdentityServerBuilder"/>.</returns>
-        public static IIdentityServerBuilder AddSigningCredentials(this IIdentityServerBuilder builder) => builder.AddSigningCredentials(configuration: null);
-
-        /// <summary>
-        /// Adds a signing key from the given <paramref name="configuration"/> instance.
-        /// </summary>
-        /// <param name="builder">The <see cref="IIdentityServerBuilder"/>.</param>
-        /// <param name="configuration">The <see cref="IConfiguration"/>.</param>
-        /// <returns>The <see cref="IIdentityServerBuilder"/>.</returns>
-        public static IIdentityServerBuilder AddSigningCredentials(this IIdentityServerBuilder builder, IConfiguration configuration)
-        {
-            builder.ConfigureReplacedServices();
-            builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<ApiAuthorizationOptions>, ConfigureSigningCredentials>(sp =>
-            {
-                var logger = sp.GetRequiredService<ILogger<ConfigureSigningCredentials>>();
-                var effectiveConfig = configuration ?? sp.GetRequiredService<IConfiguration>().GetSection("IdentityServer:Key");
-                return new ConfigureSigningCredentials(effectiveConfig, logger);
-            }));
-
-            // We take over the setup for the credentials store as Identity Server registers a singleton
-            builder.Services.AddSingleton<ISigningCredentialStore>(sp =>
-            {
-                var options = sp.GetRequiredService<IOptions<ApiAuthorizationOptions>>();
-                return new DefaultSigningCredentialsStore(options.Value.SigningCredential);
-            });
-
-            // We take over the setup for the validation keys store as Identity Server registers a singleton
-            //builder.Services.AddSingleton<IValidationKeysStore>(sp =>
-            //{
-            //    var options = sp.GetRequiredService<IOptions<ApiAuthorizationOptions>>();
-            //    return new DefaultValidationKeysStore(new[] { options.Value.SigningCredential.Key });
-            //});
 
             return builder;
         }

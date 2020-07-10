@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Version>4.7.0</Version>
+    <Version>4.7.3</Version>
     <Authors>LinFx</Authors>
     <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
     <Copyright>Copyright (c) 2020 LinFx</Copyright>

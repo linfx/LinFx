@@ -103,7 +103,7 @@ namespace Microsoft.AspNetCore.ApiAuthorization.IdentityServer.Configuration
         {
             foreach (var scope in resource.Scopes)
             {
-                client.AllowedScopes.Add(scope.Name);
+                client.AllowedScopes.Add(scope);
             }
         }
     }

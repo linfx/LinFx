@@ -19,10 +19,10 @@ namespace LinFx.Test.MassTransit.MediatR
             {
                 x.AddConsumers(GetType().Assembly);
 
-                x.AddMediator((provider, cfg) =>
-                {
-                    cfg.ConfigureConsumer(provider);
-                });
+                //x.AddMediator((provider, cfg) =>
+                //{
+                //    cfg.ConfigureConsumer(provider);
+                //});
 
                 x.AddRequestClient<GetOrderStatus>();
             });

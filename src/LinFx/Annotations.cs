@@ -399,33 +399,4 @@ namespace LinFx
             AnonymousProperty = anonymousProperty;
         }
     }
-
-    [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcMasterAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcModelTypeAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
-    public sealed class AspMvcPartialViewAttribute : PathReferenceAttribute { }
-
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public sealed class AspMvcSupressViewErrorAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcDisplayTemplateAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class AspMvcEditorTemplateAttribute : Attribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
-    public sealed class AspMvcViewAttribute : PathReferenceAttribute { }
-
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
-    public sealed class AspMvcActionSelectorAttribute : Attribute { }
-
-    // Razor attributes
-
-    [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, Inherited = true)]
-    public sealed class RazorSectionAttribute : Attribute { }
 }

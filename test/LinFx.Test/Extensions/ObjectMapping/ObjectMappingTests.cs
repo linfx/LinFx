@@ -10,7 +10,7 @@ namespace LinFx.Test.Extensions.ObjectMapping
         [Fact]
         public void MapTo_Tests()
         {
-            var person = new Person()
+            var person = new Person
             {
                 Name = "Leo",
                 Age = 200,
@@ -19,6 +19,28 @@ namespace LinFx.Test.Extensions.ObjectMapping
             var dto = person.MapTo<PersonDto>();
             Assert.Equal(person.Name, dto.Name);
             Assert.Equal(person.Age, dto.Age);
+        }
+
+        [Fact]
+        public void AsMap_Tests()
+        {
+            var person = new Person
+            {
+                Name = "Leo",
+                Age = 200,
+                Teacher = new Teacher
+                {
+                    Id = 1,
+                    Name = "mmml"
+                }
+            };
+
+            //var dto = person.AsMap()
+            //     .ConvertUsing<Teacher, string>(t => t.Name)
+            //     .To<PersonDto>();
+
+            //Assert.Equal(person.Name, dto.Name);
+            //Assert.Equal(person.Age, dto.Age);
         }
 
         [Fact]
@@ -52,5 +74,7 @@ namespace LinFx.Test.Extensions.ObjectMapping
             var dtos = persions.MapTo<List<PersonDto>>();
             Assert.Equal(persions.Count, dtos.Count);
         }
+
+
     }
 }

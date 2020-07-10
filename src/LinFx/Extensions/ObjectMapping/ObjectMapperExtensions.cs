@@ -1,5 +1,6 @@
 ﻿using EmitMapper;
 using EmitMapper.MappingConfiguration;
+using LinFx.Extensions.ObjectMapping;
 using LinFx.Utils;
 using System.Collections.Generic;
 
@@ -25,5 +26,11 @@ namespace System
         {
             return ObjectMapperManager.DefaultInstance.GetMapper<TSource, TDestination>().Map(source, destination);
         }
+
+        //public static MapBuilder<TSource> AsMap<TSource>(this TSource source)
+        //{
+        //    var config = new MapBuilder<TSource>(source);
+        //    return config;
+        //}
     }
 }

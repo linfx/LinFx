@@ -96,7 +96,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
         private async Task ProcessEventAsync(IModel channel, BasicDeliverEventArgs ea)
         {
             var eventName = ea.RoutingKey;
-            var eventData = Encoding.UTF8.GetString(ea.Body);
+            var eventData = Encoding.UTF8.GetString(ea.Body.Span);
             await TriggerHandlersAsync(eventName, eventData);
         }
 
