@@ -13,8 +13,8 @@
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="EmitMapper.Core" Version="1.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.0.0" />
-    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.0" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.1" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />

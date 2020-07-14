@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus
@@ -73,7 +74,7 @@ namespace LinFx.Extensions.EventBus
             {
                 if (exceptions.Count == 1)
                 {
-                    exceptions[0].ReThrow();
+                    ExceptionDispatchInfo.Capture(exceptions[0]).Throw();
                 }
 
                 throw new AggregateException("More than one error has occurred while triggering the event: " + eventName, exceptions);

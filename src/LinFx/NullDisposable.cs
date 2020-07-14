@@ -6,12 +6,8 @@ namespace LinFx
     {
         public static NullDisposable Instance { get; } = new NullDisposable();
 
-        private NullDisposable()
-        {
-        }
+        private NullDisposable() { }
 
-        public void Dispose()
-        {
-        }
+        public void Dispose() { }
     }
 }

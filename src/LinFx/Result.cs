@@ -28,7 +28,6 @@ namespace LinFx
             {
                 if (Succeeded && _code != 200)
                     _code = 200;
-
                 return _code;
             }
             set { _code = value; }
@@ -57,10 +56,7 @@ namespace LinFx
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static Result<T> Ok<T>(T data)
-        {
-            return new Result<T>(data);
-        }
+        public static Result<T> Ok<T>(T data) => new Result<T>(data);
 
         /// <summary>
         /// 操作成功
@@ -69,20 +65,31 @@ namespace LinFx
         /// <param name="value"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static Result<TValue> Ok<TValue>(TValue value, string message)
-        {
-            return new Result<TValue>(value, true, message);
-        }
+        public static Result<TValue> Ok<TValue>(TValue value, string message) => new Result<TValue>(value, true, message);
 
         /// <summary>
         /// 操作失败
         /// </summary>
         /// <param name="error"></param>
         /// <returns></returns>
-        public static Result Failed(string error)
-        {
-            return new Result(false, error);
-        }
+        public static Result Failed(string error) => new Result(false, error);
+
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="error"></param>
+        /// <returns></returns>
+        public static Result<TValue> Failed<TValue>(string error) => new Result<TValue>(default, false, error);
+
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="error"></param>
+        /// <returns></returns>
+        public static Result Failed<TValue>(TValue value, string error) => new Result<TValue>(value, false, error);
 
         /// <summary>
         /// 操作失败
@@ -101,28 +108,6 @@ namespace LinFx
             return new Result(false, errors != null ? string.Join("\r\n", errors) : null);
         }
 
-        /// <summary>
-        /// 操作失败
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="error"></param>
-        /// <returns></returns>
-        public static Result<TValue> Failed<TValue>(string error)
-        {
-            return new Result<TValue>(default, false, error);
-        }
-
-        /// <summary>
-        /// 操作失败
-        /// </summary>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="value"></param>
-        /// <param name="error"></param>
-        /// <returns></returns>
-        public static Result Failed<TValue>(TValue value, string error)
-        {
-            return new Result<TValue>(value, false, error);
-        }
     }
 
     public class Result<TValue> : Result
