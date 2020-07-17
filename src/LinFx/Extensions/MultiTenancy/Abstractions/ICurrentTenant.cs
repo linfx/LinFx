@@ -6,10 +6,8 @@ namespace LinFx.Extensions.MultiTenancy
     {
         bool IsAvailable { get; }
 
-        [CanBeNull]
         string Id { get; }
 
-        [CanBeNull]
         string Name { get; }
 
         IDisposable Change(string id, string name = default);

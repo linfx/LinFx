@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Data.Abstractions
+namespace LinFx.Data
 {
     public class Sorting
     {
         public bool Ascending { get; set; }
+
         public string PropertyName { get; set; }
     }
 
-    public static class SortingExt
+    public static class SortingExtensions
     {
         public static Sorting[] ToSorting(this string sortby)
         {

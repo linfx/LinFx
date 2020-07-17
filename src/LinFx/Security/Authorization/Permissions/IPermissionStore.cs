@@ -7,8 +7,8 @@ namespace LinFx.Security.Authorization.Permissions
     {
         Task<bool> IsGrantedAsync(
             [NotNull] string name,
-            [CanBeNull] string providerName,
-            [CanBeNull] string providerKey
+            string providerName,
+            string providerKey
         );
     }
 }

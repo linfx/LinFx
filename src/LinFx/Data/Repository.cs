@@ -1,4 +1,4 @@
-﻿using LinFx.Data.Abstractions;
+﻿using LinFx.Data;
 using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;

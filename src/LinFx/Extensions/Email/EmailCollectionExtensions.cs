@@ -5,6 +5,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EmailCollectionExtensions
     {
+        [Obsolete]
         public static LinFxBuilder AddEmail(this LinFxBuilder fx, Action<EmailSenderOptions> optionsAction)
         {
             fx.Services.Configure(optionsAction);

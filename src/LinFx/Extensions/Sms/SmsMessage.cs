@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Sms
 {
+    [Obsolete]
     public class SmsMessage
     {
         public string PhoneNumber { get; }

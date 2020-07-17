@@ -5,7 +5,6 @@ namespace LinFx.Security.Users
 {
     public static class CurrentUserExtensions
     {
-        [CanBeNull]
         public static string FindClaimValue(this ICurrentUser currentUser, string claimType)
         {
             return currentUser.FindClaim(claimType)?.Value;

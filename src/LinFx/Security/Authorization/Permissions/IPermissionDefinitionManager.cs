@@ -7,7 +7,6 @@ namespace LinFx.Security.Authorization.Permissions
     {
         PermissionDefinition Get([NotNull] string name);
 
-        [CanBeNull]
         PermissionDefinition GetOrNull([NotNull] string name);
 
         IReadOnlyList<PermissionDefinition> GetPermissions();

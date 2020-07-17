@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Data.Abstractions
+namespace LinFx.Data
 {
     public interface IDataFilter
     {

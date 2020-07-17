@@ -1,5 +1,4 @@
-﻿using LinFx.Data.Abstractions;
-using LinFx.Data.Linq;
+﻿using LinFx.Data.Linq;
 using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;

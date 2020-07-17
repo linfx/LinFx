@@ -8,10 +8,9 @@ namespace LinFx.Security.Authorization.Permissions
         [NotNull]
         public PermissionDefinition Permission { get; }
 
-        [CanBeNull]
         public ClaimsPrincipal Principal { get; }
 
-        public PermissionValueCheckContext([NotNull] PermissionDefinition permission, [CanBeNull] ClaimsPrincipal principal)
+        public PermissionValueCheckContext([NotNull] PermissionDefinition permission, ClaimsPrincipal principal)
         {
             Check.NotNull(permission, nameof(permission));
 

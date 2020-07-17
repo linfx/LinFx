@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.Auditing
 {
     public interface IMayHaveCreator<TCreator>
@@ -7,7 +5,6 @@ namespace LinFx.Extensions.Auditing
         /// <summary>
         /// Reference to the creator.
         /// </summary>
-        [CanBeNull]
         TCreator Creator { get; set; }
     }
 

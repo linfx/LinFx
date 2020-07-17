@@ -2,7 +2,6 @@
 {
     public interface ITenantResolveResultAccessor
     {
-        [CanBeNull]
         TenantResolveResult Result { get; set; }
     }
 }

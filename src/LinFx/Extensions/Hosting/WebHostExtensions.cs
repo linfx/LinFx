@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using System;
 
-namespace Microsoft.AspNetCore.Hosting
+namespace LinFx.Extensions.Hosting
 {
     public static class WebHostExtensions
     {
@@ -33,7 +34,6 @@ namespace Microsoft.AspNetCore.Hosting
                         //if the sql server container is not created on run docker compose this
                         //migration can't fail for network related exception. The retry options for DbContext only 
                         //apply to transient exceptions.
-
                         context.Database.Migrate();
                         seeder(context, services);
                     });

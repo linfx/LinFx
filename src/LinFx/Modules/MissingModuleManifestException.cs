@@ -6,14 +6,10 @@ namespace LinFx.Modules
     {
         public string ModuleName { get; }
 
-        public MissingModuleManifestException()
-        {
-        }
+        public MissingModuleManifestException() { }
 
         public MissingModuleManifestException(string message)
-            : base(message)
-        {
-        }
+            : base(message) { }
 
         public MissingModuleManifestException(string message, string moduleName)
             : this(message)

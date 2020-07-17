@@ -4,12 +4,12 @@ using System.Reflection;
 namespace LinFx.Modules
 {
     /// <summary>
-    /// 模块
+    /// 模块信息
     /// </summary>
     public class ModuleInfo
     {
         /// <summary>
-        /// 模块ID
+        /// 模块Id
         /// </summary>
         public string Id { get; set; }
 
@@ -20,12 +20,24 @@ namespace LinFx.Modules
 
         public bool IsBundledWithHost { get; set; }
 
+        /// <summary>
+        /// 版本
+        /// </summary>
         public Version Version { get; set; }
 
+        /// <summary>
+        /// 类型
+        /// </summary>
         public Type Type { get; }
 
+        /// <summary>
+        /// 程序集
+        /// </summary>
         public Assembly Assembly { get; set; }
 
+        /// <summary>
+        /// 实例
+        /// </summary>
         public IModuleInitializer Instance { get; }
 
         public ModuleInfo(Type type, IModuleInitializer instance)

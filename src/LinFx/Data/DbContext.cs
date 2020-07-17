@@ -1,5 +1,4 @@
-﻿using LinFx.Data.Abstractions;
-using LinFx.Domain.Models;
+﻿using LinFx.Domain.Models;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MediatR;
@@ -24,6 +23,7 @@ namespace LinFx.Data
         protected readonly IMediator _mediator;
         protected IDbContextTransaction _currentTransaction;
         protected readonly ServiceContext _context;
+        public IServiceProvider ServiceProvider { get; private set; }
         protected readonly object ServiceProviderLock = new object();
 
         protected DbContext()

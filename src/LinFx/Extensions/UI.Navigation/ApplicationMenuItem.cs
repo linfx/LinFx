@@ -24,19 +24,16 @@ namespace LinFx.Extensions.UI.Navigation
         /// <summary>
         /// The URL to navigate when this menu item is selected.
         /// </summary>
-        [CanBeNull]
         public string Url { get; set; }
 
         /// <summary>
         /// Icon of the menu item if exists.
         /// </summary>
-        [CanBeNull]
         public string Icon { get; set; }
 
         /// <summary>
         /// Target of the menu item. Can be null, "_blank", "_self", "_parent", "_top" or a frame name for web applications.
         /// </summary>
-        [CanBeNull]
         public string Target { get; set; }
 
         public ApplicationMenuItem(

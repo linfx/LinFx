@@ -1,5 +1,8 @@
-﻿namespace LinFx.Extensions.Email
+﻿using System;
+
+namespace LinFx.Extensions.Email
 {
+    [Obsolete]
     public class EmailSenderOptions
     {
         /// <summary>
