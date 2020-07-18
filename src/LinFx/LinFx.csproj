@@ -18,8 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.6" />
@@ -27,10 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.6" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
-    <PackageReference Include="NEST" Version="7.8.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
     <PackageReference Include="RedLock.net.StrongName" Version="2.1.0" />
     <PackageReference Include="Stateless" Version="5.1.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />

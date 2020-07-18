@@ -66,23 +66,4 @@ namespace LinFx.Utils
             return amt;
         }
     }
-
-    public static class MoneyEx
-    {
-        /// <summary>
-        /// 货币表示，带有逗号分隔符，默认小数点后保留两位，四舍五入
-        /// </summary>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        public static string ToMoneyString(this decimal d)
-        {
-            return string.Format("{0:C}", d);
-        }
-
-        public static decimal ToMoneyDecimal(this string amt)
-        {
-            decimal.TryParse(amt, out decimal tmpAmt);
-            return tmpAmt;
-        }
-    }
 }

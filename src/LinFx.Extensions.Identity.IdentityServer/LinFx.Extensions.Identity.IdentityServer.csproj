@@ -13,8 +13,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
-  </ItemGroup>
-
 </Project>
