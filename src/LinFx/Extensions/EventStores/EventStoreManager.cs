@@ -14,7 +14,7 @@ namespace LinFx.Extensions.EventStores
     public class EventStoreManager : IEventStore
     {
         private readonly EventStoreOptions _options;
-        private readonly EventStoreContext _context;
+        //private readonly EventStoreContext _context;
         private readonly List<Type> _eventTypes;
 
         public EventStoreManager(

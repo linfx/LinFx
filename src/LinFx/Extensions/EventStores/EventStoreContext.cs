@@ -18,7 +18,7 @@ namespace LinFx.Extensions.EventStores
 
         void ConfigureIntegrationEventLogEntry(EntityTypeBuilder<EventLog> builder)
         {
-            builder.ToTable("IntegrationEventLog");
+            //builder.ToTable("IntegrationEventLog");
 
             builder.HasKey(e => e.EventId);
 

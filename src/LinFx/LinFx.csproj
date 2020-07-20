@@ -9,11 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\EventStores\**" />
+    <EmbeddedResource Remove="Extensions\EventStores\**" />
+    <None Remove="Extensions\EventStores\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.6" />
     <PackageReference Include="EmitMapper.Core" Version="1.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.0.1" />
-    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.1" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.1" />
+    <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.2" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
@@ -31,6 +37,7 @@
     <PackageReference Include="Stateless" Version="5.1.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.7.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
 </Project>

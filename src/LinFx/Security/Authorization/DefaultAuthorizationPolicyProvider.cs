@@ -14,8 +14,8 @@ namespace LinFx.Security.Authorization
     public class DefaultAuthorizationPolicyProvider : Microsoft.AspNetCore.Authorization.DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider
     {
         private readonly AuthorizationOptions _options;
-        private Task<AuthorizationPolicy> _cachedDefaultPolicy;
-        private Task<AuthorizationPolicy> _cachedRequiredPolicy;
+        //private Task<AuthorizationPolicy> _cachedDefaultPolicy;
+        //private Task<AuthorizationPolicy> _cachedRequiredPolicy;
         private readonly IPermissionDefinitionManager _permissionDefinitionManager;
 
         public DefaultAuthorizationPolicyProvider(

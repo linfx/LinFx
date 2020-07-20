@@ -100,9 +100,9 @@ namespace LinFx.Data
             }
         }
 
-        public async Task BeginTransactionAsync()
+        public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
-            _currentTransaction ??= await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+            _currentTransaction ??= await Database.BeginTransactionAsync(cancellationToken);
         }
 
         public async Task CommitTransactionAsync()
