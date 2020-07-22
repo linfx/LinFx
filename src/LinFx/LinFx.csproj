@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="Extensions\EventStores\**" />
+    <Compile Remove="Extensions\MongoDB\**" />
     <EmbeddedResource Remove="Extensions\EventStores\**" />
+    <EmbeddedResource Remove="Extensions\MongoDB\**" />
     <None Remove="Extensions\EventStores\**" />
+    <None Remove="Extensions\MongoDB\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,16 +28,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.6" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.7.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RedLock.net.StrongName" Version="2.1.0" />
-    <PackageReference Include="Stateless" Version="5.1.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.7.0" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />

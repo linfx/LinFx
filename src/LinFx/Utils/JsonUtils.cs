@@ -21,16 +21,28 @@ namespace LinFx.Utils
 
         public static byte[] ToBytes(object value, bool camelCase = false, bool indented = false)
         {
-            var s = ToJsonString(value, camelCase, indented);
+            var s = ToJson(value, camelCase, indented);
             return Encoding.UTF8.GetBytes(s);
         }
 
-        [Obsolete]
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
-            return ToJsonString(value, camelCase, indented);
+            var options = new JsonSerializerSettings();
+
+            if (camelCase)
+                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            if (indented)
+                options.Formatting = Formatting.Indented;
+
+            //DateTimeFormat
+            //options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+            return JsonConvert.SerializeObject(value, options);
         }
 
+        [Obsolete]
         public static string ToJsonString(object value, bool camelCase = true, bool indented = false)
         {
             var options = new JsonSerializerSettings();
@@ -80,7 +92,7 @@ namespace LinFx.Utils
         /// </summary>
         public static string SerializeWithType(object obj, Type type)
         {
-            var serialized = obj.ToJsonString();
+            var serialized = obj.ToJson();
 
             return string.Format(
                 "{0}{1}{2}",
@@ -228,9 +240,9 @@ namespace LinFx.Utils
         /// <param name="camelCase"></param>
         /// <param name="indented"></param>
         /// <returns></returns>
-        public static string ToJsonString(this object value, bool camelCase = true, bool indented = false)
+        public static string ToJson(this object value, bool camelCase = true, bool indented = false)
         {
-            return JsonUtils.ToJsonString(value, camelCase, indented);
+            return JsonUtils.ToJson(value, camelCase, indented);
         }
 
         public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false)
@@ -243,122 +255,4 @@ namespace LinFx.Utils
             return JsonUtils.ToObject<T>(value, camelCase, indented);
         }
     }
-
-    ///// <summary>
-    ///// 格式化DateTime
-    ///// </summary>
-    //public class DateTimeOffsetJsonConverter : JsonConverter<DateTimeOffset>
-    //{
-    //    /// <summary>
-    //    /// 获取日期格式
-    //    /// </summary>
-    //    public string DateTimeFormat { get; }
-
-    //    /// <summary>
-    //    /// ctor
-    //    /// </summary>      
-    //    /// <param name="dateTimeFormat"></param>
-    //    public DateTimeOffsetJsonConverter(string dateTimeFormat)
-    //    {
-    //        this.DateTimeFormat = dateTimeFormat;
-    //    }
-
-    //    /// <summary>
-    //    /// 读取
-    //    /// </summary>
-    //    /// <param name="reader"></param>
-    //    /// <param name="typeToConvert"></param>
-    //    /// <param name="options"></param>
-    //    /// <returns></returns>
-    //    public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    //    {
-    //        return DateTimeOffset.Parse(reader.GetString());
-    //    }
-
-    //    /// <summary>
-    //    /// 写入
-    //    /// </summary>
-    //    /// <param name="writer"></param>
-    //    /// <param name="value"></param>
-    //    /// <param name="options"></param>
-    //    public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options)
-    //    {
-    //        value = value.ToLocalTime();
-    //        writer.WriteStringValue(value.ToString(this.DateTimeFormat, CultureInfo.InvariantCulture));
-    //    }
-    //}
-
-    ///// <summary>
-    ///// 格式化DateTime
-    ///// </summary>
-    //public class DateTimeJsonConverter : JsonConverter<DateTime>
-    //{
-    //    /// <summary>
-    //    /// 获取日期格式
-    //    /// </summary>
-    //    public string DateTimeFormat { get; }
-
-    //    /// <summary>
-    //    /// ctor
-    //    /// </summary>      
-    //    /// <param name="dateTimeFormat"></param>
-    //    public DateTimeJsonConverter(string dateTimeFormat)
-    //    {
-    //        this.DateTimeFormat = dateTimeFormat;
-    //    }
-
-    //    /// <summary>
-    //    /// 读取
-    //    /// </summary>
-    //    /// <param name="reader"></param>
-    //    /// <param name="typeToConvert"></param>
-    //    /// <param name="options"></param>
-    //    /// <returns></returns>
-    //    public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    //    {
-    //        return DateTime.Parse(reader.GetString());
-    //    }
-
-    //    /// <summary>
-    //    /// 写入
-    //    /// </summary>
-    //    /// <param name="writer"></param>
-    //    /// <param name="value"></param>
-    //    /// <param name="options"></param>
-    //    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-    //    {
-    //        if (value.Kind == DateTimeKind.Utc)
-    //            value = value.ToLocalTime();
-
-    //        writer.WriteStringValue(value.ToString(this.DateTimeFormat, CultureInfo.InvariantCulture));
-    //    }
-    //}
-
-    //public static partial class JsonUtils
-    //{
-    //    public static string Serialize<TValue>(TValue value, bool camelCase = true, bool indented = false, bool ignoreNullValues = false, bool ignoreReadOnlyProperties = true)
-    //    {
-    //        var options = new JsonSerializerOptions
-    //        {
-    //            WriteIndented = indented,                               //格式化json字符串
-    //            AllowTrailingCommas = true,                             //可以结尾有逗号
-    //            PropertyNameCaseInsensitive = true,                     //忽略大小写
-    //            IgnoreNullValues = ignoreNullValues,                    //可以有空值,转换json去除空值属性
-    //            IgnoreReadOnlyProperties = ignoreReadOnlyProperties     //忽略只读属性
-    //        };
-
-    //        if (camelCase)
-    //            options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-
-    //        options.Converters.Add(new DateTimeJsonConverter("yyyy-MM-dd HH:mm"));
-    //        options.Converters.Add(new DateTimeOffsetJsonConverter("yyyy-MM-dd HH:mm"));
-
-    //        return JsonSerializer.Serialize(value, options);
-    //    }
-
-    //    public static TValue Deserialize<TValue>(string json)
-    //    {
-    //        return JsonSerializer.Deserialize<TValue>(json);
-    //    }
-    //}
 }

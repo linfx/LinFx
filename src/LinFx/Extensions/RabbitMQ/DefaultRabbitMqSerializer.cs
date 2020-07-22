@@ -14,7 +14,7 @@ namespace LinFx.Extensions.RabbitMq
 
         public byte[] Serialize(object value)
         {
-            var message = value.ToJsonString();
+            var message = value.ToJson();
             var body = Encoding.UTF8.GetBytes(message);
             return body;
         }

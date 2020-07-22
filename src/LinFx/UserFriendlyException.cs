@@ -17,9 +17,6 @@ namespace LinFx
             : base(message, innerException) { }
 
         public UserFriendlyException(int code, string message)
-            : this(message)
-        {
-            Code = code;
-        }
+            : this(message) => Code = code;
     }
 }
