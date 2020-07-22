@@ -46,17 +46,10 @@ namespace LinFx.Extensions.Setting
         /// <param name="displayName">Display name of the permission</param>
         /// <param name="description">A brief description for this setting</param>
         /// <param name="isVisibleToClients">Can clients see this setting and it's value. Default: false</param>
-        public SettingDefinition(
-            string name,
-            string defaultValue,
-            string displayName = null,
-            string description = null,
-            bool isVisibleToClients = false)
+        public SettingDefinition(string name, string defaultValue, string displayName = null, string description = null, bool isVisibleToClients = false)
         {
             if (string.IsNullOrEmpty(name))
-            {
                 throw new ArgumentNullException(nameof(name));
-            }
 
             Name = name;
             DefaultValue = defaultValue;
@@ -73,9 +66,7 @@ namespace LinFx.Extensions.Setting
         public virtual void SetExtraProperties(Dictionary<string, object> extraProperties)
         {
             if (extraProperties != null)
-            {
                 ExtraProperties = extraProperties;
-            }
         }
     }
 }

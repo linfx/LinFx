@@ -48,16 +48,12 @@ namespace System.Linq
         /// <param name="query"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static async Task<PagedResult<TModel>> ToPageResultAsync<TEntity, TModel>(
-            [NotNull] this IQueryable<TEntity> query,
-            [NotNull] IPagedResultRequest request)
-                where TModel : class
+        public static async Task<PagedResult<TModel>> ToPageResultAsync<TEntity, TModel>([NotNull] this IQueryable<TEntity> query, [NotNull] IPagedResultRequest request) where TModel : class
         {
             Check.NotNull(request, nameof(request));
 
             var total = await query.LongCountAsync();
             var items = await query.PageBy(request).ToListAsync();
-
             var result = new PagedResult<TModel>(request, total, items.Select(MapToListOutput).ToList());
             return result;
 

@@ -88,9 +88,7 @@ namespace LinFx.Extensions.Setting
 
             var data = json.ToString(Formatting.None);
             if (data == "{}")
-            {
                 data = null;
-            }
 
             extendableObject.ExtensionData = data;
         }
@@ -100,28 +98,21 @@ namespace LinFx.Extensions.Setting
             CheckNotNull(extendableObject, name);
 
             if (extendableObject.ExtensionData == null)
-            {
                 return false;
-            }
 
             var json = JObject.Parse(extendableObject.ExtensionData);
 
             var token = json[name];
             if (token == null)
-            {
                 return false;
-            }
 
             json.Remove(name);
 
             var data = json.ToString(Formatting.None);
             if (data == "{}")
-            {
                 data = null;
-            }
 
             extendableObject.ExtensionData = data;
-
             return true;
         }
 
@@ -130,9 +121,7 @@ namespace LinFx.Extensions.Setting
             foreach (var value in values)
             {
                 if (value == null)
-                {
                     throw new ArgumentNullException();
-                }
             }
         }
     }

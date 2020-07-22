@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Text;
+using System.Text.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace LinFx.Utils
