@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Text;
+using System.Text.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace LinFx.Utils
@@ -25,7 +26,6 @@ namespace LinFx.Utils
             return Encoding.UTF8.GetBytes(s);
         }
 
-        [Obsolete]
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
             return ToJsonString(value, camelCase, indented);
@@ -80,7 +80,7 @@ namespace LinFx.Utils
         /// </summary>
         public static string SerializeWithType(object obj, Type type)
         {
-            var serialized = obj.ToJsonString();
+            var serialized = obj.ToJson();
 
             return string.Format(
                 "{0}{1}{2}",
@@ -228,9 +228,9 @@ namespace LinFx.Utils
         /// <param name="camelCase"></param>
         /// <param name="indented"></param>
         /// <returns></returns>
-        public static string ToJsonString(this object value, bool camelCase = true, bool indented = false)
+        public static string ToJson(this object value, bool camelCase = true, bool indented = false)
         {
-            return JsonUtils.ToJsonString(value, camelCase, indented);
+            return JsonUtils.ToJson(value, camelCase, indented);
         }
 
         public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false)

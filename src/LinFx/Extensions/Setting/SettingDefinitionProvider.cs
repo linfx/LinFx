@@ -5,12 +5,12 @@ namespace LinFx.Extensions.Setting
 {
     public class SettingDefinitionProvider
     {
+        public Dictionary<string, SettingDefinition> SettingDefinitions { get; }
+
         public SettingDefinitionProvider()
         {
             SettingDefinitions = new Dictionary<string, SettingDefinition>();
         }
-
-        public Dictionary<string, SettingDefinition> SettingDefinitions { get; }
 
         public virtual SettingDefinition GetOrNull(string name)
         {
