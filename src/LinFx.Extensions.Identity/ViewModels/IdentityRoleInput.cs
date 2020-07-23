@@ -1,6 +1,8 @@
-﻿namespace LinFx.Module.Identity.ViewModels
+﻿using LinFx.Application.Models;
+
+namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityRoleInput
+    public class IdentityRoleInput : PagedResultRequest
     {
     }
 }

@@ -2,6 +2,7 @@
 using LinFx.Module.Identity.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Identity.Services
@@ -46,7 +47,9 @@ namespace LinFx.Extensions.Identity.Services
 
         public Task<PagedResult<IdentityRoleResult>> GetList(IdentityRoleInput input)
         {
-            throw new NotImplementedException();
+            return _roleManager.Roles
+                .Select(p => p.MapTo<IdentityRoleResult>())
+                .ToPageResultAsync(input);
         }
     }
 }
