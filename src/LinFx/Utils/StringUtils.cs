@@ -221,6 +221,7 @@ namespace LinFx.Utils
         {
             if (string.IsNullOrWhiteSpace(email))
                 return string.Empty;
+
             var split = email.Split('@');
             if (split != null && split.Length >= 2)
             {
@@ -247,6 +248,7 @@ namespace LinFx.Utils
         {
             if (string.IsNullOrWhiteSpace(phone))
                 return string.Empty;
+
             if (phone.Length > 0)
             {
                 var len = phone.Length / 3;
