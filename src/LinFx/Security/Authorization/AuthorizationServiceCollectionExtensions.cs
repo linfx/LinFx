@@ -1,9 +1,7 @@
-﻿using LinFx;
-using LinFx.Security.Authorization;
+﻿using LinFx.Security.Authorization;
 using LinFx.Security.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AuthorizationOptions = LinFx.Security.Authorization.AuthorizationOptions;
 
@@ -20,7 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="builder">The current <see cref="LinFxBuilder" /> instance. </param>
         /// <param name="configure">An action delegate to configure the provided <see cref="AuthorizationOptions"/>.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static LinFxBuilder AddAuthorization([NotNull] this LinFxBuilder builder, [NotNull] Action<AuthorizationOptions> configure)
+        public static LinFxBuilder AddAuthorization(this LinFxBuilder builder, Action<AuthorizationOptions> configure)
         {
             var options = new AuthorizationOptions();
             configure?.Invoke(options);
