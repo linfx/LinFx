@@ -6,14 +6,19 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限定义
+    /// </summary>
     public class PermissionDefinition
     {
         /// <summary>
+        /// 唯一的权限标识名称。
         /// Unique name of the permission.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
+        /// 当前权限的父级权限。
         /// Parent of this permission if one exists.
         /// If set, this permission can be granted only if parent is granted.
         /// </summary>
@@ -25,6 +30,9 @@ namespace LinFx.Security.Authorization.Permissions
         /// </summary>
         public List<string> Providers { get; }
 
+        /// <summary>
+        /// 权限的多语言名称。
+        /// </summary>
         public string DisplayName
         {
             get => _displayName;

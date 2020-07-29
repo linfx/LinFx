@@ -10,14 +10,11 @@ namespace LinFx.Security.Authorization.Permissions
         public override string Name => ProviderName;
 
         public ClientPermissionValueProvider(IPermissionStore permissionStore)
-            : base(permissionStore)
-        {
-        }
+            : base(permissionStore) { }
 
         public override async Task<PermissionValueProviderGrantInfo> CheckAsync(PermissionValueCheckContext context)
         {
             var clientId = context.Principal?.FindFirst(ClaimTypes.ClientId)?.Value;
-
             if (clientId == null)
             {
                 return PermissionValueProviderGrantInfo.NonGranted;

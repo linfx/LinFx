@@ -2,6 +2,9 @@
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限定义上下文
+    /// </summary>
     public interface IPermissionDefinitionContext
     {
         PermissionGroupDefinition GetGroupOrNull(string name);

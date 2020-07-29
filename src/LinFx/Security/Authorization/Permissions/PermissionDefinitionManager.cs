@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限管理器
+    /// </summary>
     public class PermissionDefinitionManager : IPermissionDefinitionManager
     {
         private readonly Lazy<List<IPermissionDefinitionProvider>> _lazyProviders;

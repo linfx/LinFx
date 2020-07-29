@@ -10,8 +10,7 @@ namespace LinFx.Security.Users
             return currentUser.FindClaim(claimType)?.Value;
         }
 
-        public static T FindClaimValue<T>(this ICurrentUser currentUser, string claimType)
-            where T : struct
+        public static T FindClaimValue<T>(this ICurrentUser currentUser, string claimType) where T : struct
         {
             var value = currentUser.FindClaimValue(claimType);
             if (value == null)

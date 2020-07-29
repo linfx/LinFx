@@ -5,32 +5,37 @@ using System.Collections.Immutable;
 namespace LinFx.Security.Authorization.Permissions
 {
     /// <summary>
-    /// 权限组
+    /// 权限组定义
     /// </summary>
-    //TODO: Consider to make possible a group have sub groups
     public class PermissionGroupDefinition 
     {
         /// <summary>
+        /// 唯一的权限组标识名称。
         /// Unique name of the group.
         /// </summary>
         public string Name { get; }
 
+        /// <summary>
+        /// 权限组的一些自定义属性。
+        /// </summary>
         public Dictionary<string, object> Properties { get; }
 
-        private string _displayName;
         public string DisplayName
         {
             get => _displayName;
             //set => _displayName = Check.NotNull(value, nameof(value));
             set => _displayName = value;
         }
+        private string _displayName;
 
-        private readonly List<PermissionDefinition> _permissions;
-        public IReadOnlyList<PermissionDefinition> Permissions => _permissions.ToImmutableList();
-
-#pragma warning disable CS1574 // XML 注释中有未能解析的 cref 特性“name”
-#pragma warning disable CS1574 // XML 注释中有未能解析的 cref 特性“name”
         /// <summary>
+        /// 权限组下面的所属权限。
+        /// </summary>
+        public IReadOnlyList<PermissionDefinition> Permissions => _permissions.ToImmutableList();
+        private readonly List<PermissionDefinition> _permissions;
+
+        /// <summary>
+        /// 自定义属性的快捷索引器。
         /// Gets/sets a key-value on the <see cref="Properties"/>.
         /// </summary>
         /// <param name="name">Name of the property</param>
@@ -39,8 +44,6 @@ namespace LinFx.Security.Authorization.Permissions
         /// Returns null if given <see cref="name"/> is not present in the <see cref="Properties"/> dictionary.
         /// </returns>
         public object this[string name]
-#pragma warning restore CS1574 // XML 注释中有未能解析的 cref 特性“name”
-#pragma warning restore CS1574 // XML 注释中有未能解析的 cref 特性“name”
         {
             get => Properties.GetOrDefault(name);
             set => Properties[name] = value;
@@ -55,12 +58,16 @@ namespace LinFx.Security.Authorization.Permissions
             _permissions = new List<PermissionDefinition>();
         }
 
+        /// <summary>
+        /// 添加权限
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="displayName"></param>
+        /// <returns></returns>
         public virtual PermissionDefinition AddPermission(string name, string displayName = null)
         {
             var permission = new PermissionDefinition(name, displayName);
-
             _permissions.Add(permission);
-
             return permission;
         }
 

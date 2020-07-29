@@ -2,6 +2,9 @@
 
 namespace LinFx.Security.Users
 {
+    /// <summary>
+    /// 当前用户
+    /// </summary>
     public interface ICurrentUser
     {
         bool IsAuthenticated { get; }
