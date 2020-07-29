@@ -2,7 +2,7 @@
 using System.Net;
 using StackExchange.Redis;
 
-namespace LinFx.Extensions.Caching.Abstractions
+namespace LinFx.Extensions.Caching
 {
     /// <summary>
     /// Represents Redis connection wrapper

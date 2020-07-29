@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions.Caching.Abstractions
+namespace LinFx.Extensions.Caching
 {
     public interface ILocker
     {

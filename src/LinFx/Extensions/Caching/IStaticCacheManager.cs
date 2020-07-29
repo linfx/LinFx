@@ -1,7 +1,8 @@
-﻿using System;
+﻿using LinFx.Extensions.Caching.Abstractions;
+using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Caching.Abstractions
+namespace LinFx.Extensions.Caching
 {
     /// <summary>
     /// Represents a manager for caching between HTTP requests (long term caching)
