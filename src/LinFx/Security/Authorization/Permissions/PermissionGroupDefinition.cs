@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Localization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace LinFx.Security.Authorization.Permissions
@@ -7,8 +6,10 @@ namespace LinFx.Security.Authorization.Permissions
     /// <summary>
     /// 权限组定义
     /// </summary>
-    public class PermissionGroupDefinition 
+    public class PermissionGroupDefinition
     {
+        private readonly List<PermissionDefinition> _permissions;
+
         /// <summary>
         /// 唯一的权限组标识名称。
         /// Unique name of the group.
@@ -20,19 +21,15 @@ namespace LinFx.Security.Authorization.Permissions
         /// </summary>
         public Dictionary<string, object> Properties { get; }
 
-        public string DisplayName
-        {
-            get => _displayName;
-            //set => _displayName = Check.NotNull(value, nameof(value));
-            set => _displayName = value;
-        }
-        private string _displayName;
+        /// <summary>
+        /// 显示名称。
+        /// </summary>
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// 权限组下面的所属权限。
         /// </summary>
         public IReadOnlyList<PermissionDefinition> Permissions => _permissions.ToImmutableList();
-        private readonly List<PermissionDefinition> _permissions;
 
         /// <summary>
         /// 自定义属性的快捷索引器。
@@ -40,8 +37,8 @@ namespace LinFx.Security.Authorization.Permissions
         /// </summary>
         /// <param name="name">Name of the property</param>
         /// <returns>
-        /// Returns the value in the <see cref="Properties"/> dictionary by given <see cref="name"/>.
-        /// Returns null if given <see cref="name"/> is not present in the <see cref="Properties"/> dictionary.
+        /// Returns the value in the <see cref="Properties"/> dictionary by given name.
+        /// Returns null if given name is not present in the <see cref="Properties"/> dictionary.
         /// </returns>
         public object this[string name]
         {

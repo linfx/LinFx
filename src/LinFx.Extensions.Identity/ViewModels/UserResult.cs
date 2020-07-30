@@ -2,7 +2,7 @@
 
 namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityUserResult
+    public class UserResult
     {
         /// <summary>
         /// 租户ID

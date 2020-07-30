@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{F49349EE-1D97-4B6F-A14E-64E992B4165C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity.IdentityServer", "src\LinFx.Extensions.Identity.IdentityServer\LinFx.Extensions.Identity.IdentityServer.csproj", "{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{89E0C7EF-EACB-4C80-AA65-03D278513A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89E0C7EF-EACB-4C80-AA65-03D278513A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89E0C7EF-EACB-4C80-AA65-03D278513A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308} = {19BCDCAB-8076-4D78-BDED-682974410439}
 		{89E0C7EF-EACB-4C80-AA65-03D278513A34} = {F49349EE-1D97-4B6F-A14E-64E992B4165C}
 		{F49349EE-1D97-4B6F-A14E-64E992B4165C} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{F6BEDB77-5B11-4037-AB3A-38E9E5656C9D} = {F49349EE-1D97-4B6F-A14E-64E992B4165C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

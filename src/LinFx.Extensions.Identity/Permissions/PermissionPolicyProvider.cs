@@ -10,8 +10,7 @@ namespace LinFx.Extensions.Identity.Permissions
     {
         private readonly AuthorizationOptions _options;
 
-        public PermissionPolicyProvider(IOptions<AuthorizationOptions> options)
-            : base(options)
+        public PermissionPolicyProvider(IOptions<AuthorizationOptions> options) : base(options)
         {
             _options = options.Value;
         }

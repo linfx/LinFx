@@ -2,14 +2,8 @@
 
 namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityUserCreateInput
+    public class UserUpdateInput
     {
-        /// <summary>
-        /// ID
-        /// </summary>
-        [Display(Name = "ID")]
-        public virtual string Id { get; set; }
-
         /// <summary>
         /// 姓名
         /// </summary>
@@ -26,19 +20,9 @@ namespace LinFx.Module.Identity.ViewModels
         public virtual string UserName { get; set; }
 
         /// <summary>
-        /// 密码
-        /// </summary>
-        [Required(ErrorMessage = "{0}不能为空")]
-        [StringLength(50, ErrorMessage = "{0}长度为{2}-{1}个字符", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "密码")]
-        public virtual string Password { get; set; }
-
-        /// <summary>
         /// 手机
         /// </summary>
         [Required(ErrorMessage = "{0}不能为空")]
-        [Phone]
         [Display(Name = "手机")]
         public virtual string PhoneNumber { get; set; }
     }

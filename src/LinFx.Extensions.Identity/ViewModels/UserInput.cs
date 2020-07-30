@@ -2,7 +2,7 @@
 
 namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityUserInput : PagedAndSortedResultRequest
+    public class UserInput : PagedAndSortedResultRequest
     {
         public string Filter { get; set; }
     }

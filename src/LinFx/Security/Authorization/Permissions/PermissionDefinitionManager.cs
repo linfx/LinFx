@@ -12,17 +12,27 @@ namespace LinFx.Security.Authorization.Permissions
     /// </summary>
     public class PermissionDefinitionManager : IPermissionDefinitionManager
     {
+        private readonly IServiceProvider _serviceProvider;
         private readonly Lazy<List<IPermissionDefinitionProvider>> _lazyProviders;
+        private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
+        private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
+
+        /// <summary>
+        /// 提供者
+        /// </summary>
         protected List<IPermissionDefinitionProvider> Providers => _lazyProviders.Value;
 
-        private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
-        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
-
-        private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
+        /// <summary>
+        /// 权限
+        /// </summary>
         protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
 
+        /// <summary>
+        /// 权限组
+        /// </summary>
+        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
+
         protected PermissionOptions Options { get; }
-        private readonly IServiceProvider _serviceProvider;
 
         public PermissionDefinitionManager(
             IOptions<PermissionOptions> options,
@@ -81,9 +91,7 @@ namespace LinFx.Security.Authorization.Permissions
             var permission = GetOrNull(name);
 
             if (permission == null)
-            {
                 throw new LinFxException("Undefined permission: " + name);
-            }
 
             return permission;
         }
@@ -108,9 +116,7 @@ namespace LinFx.Security.Authorization.Permissions
         protected virtual void AddPermissionToDictionaryRecursively(Dictionary<string, PermissionDefinition> permissions, PermissionDefinition permission)
         {
             if (permissions.ContainsKey(permission.Name))
-            {
                 throw new LinFxException("Duplicate permission name: " + permission.Name);
-            }
 
             permissions[permission.Name] = permission;
 

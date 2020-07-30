@@ -2,7 +2,7 @@
 
 namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityRoleUpdateInput
+    public class RoleUpdateInput
     {
         /// <summary>
         /// 姓名

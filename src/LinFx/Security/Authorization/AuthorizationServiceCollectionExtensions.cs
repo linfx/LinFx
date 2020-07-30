@@ -2,8 +2,7 @@
 using LinFx.Security.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
-using System.Linq;
-using AuthorizationOptions = LinFx.Security.Authorization.AuthorizationOptions;
+using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -16,36 +15,40 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Adds authorization services to the specified <see cref="LinFxBuilder" />. 
         /// </summary>
         /// <param name="builder">The current <see cref="LinFxBuilder" /> instance. </param>
-        /// <param name="configure">An action delegate to configure the provided <see cref="AuthorizationOptions"/>.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static LinFxBuilder AddAuthorization(this LinFxBuilder builder, Action<AuthorizationOptions> configure)
+        public static LinFxBuilder AddAuthorization(this LinFxBuilder builder)
         {
-            var options = new AuthorizationOptions();
-            configure?.Invoke(options);
+            builder.Services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+            AutoAddDefinitionProviders(builder.Services);
 
-            builder.Services.Configure(configure);
-            builder.Services.Configure<PermissionOptions>(o =>
+            builder.Services
+                .AddAuthorizationCore()
+                .AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+
+            builder.Services.Configure<PermissionOptions>(options =>
             {
-                options.Permissions.DefinitionProviders.ToList().ForEach(item =>
-                {
-                    o.DefinitionProviders.Add(item);
-                });
-
-                options.Permissions.ValueProviders.ToList().ForEach(item =>
-                {
-                    o.ValueProviders.Add(item);
-                });
+                options.ValueProviders.Add<UserPermissionValueProvider>();
+                options.ValueProviders.Add<RolePermissionValueProvider>();
+                options.ValueProviders.Add<ClientPermissionValueProvider>();
             });
 
-            //builder.Services.AddAuthorization();
-            //builder.Services.AddAuthorizationCore();
-            builder.Services.AddSingleton<IPermissionChecker, PermissionChecker>();
-            builder.Services.AddSingleton<IPermissionDefinitionContext, PermissionDefinitionContext>();
-            builder.Services.AddSingleton<IPermissionDefinitionManager, PermissionDefinitionManager>();
-            //fx.Services.TryAdd(ServiceDescriptor.Transient<IAuthorizationPolicyProvider, LinFx.Security.Authorization.DefaultAuthorizationPolicyProvider>());
-            builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
             return builder;
+        }
+
+        private static void AutoAddDefinitionProviders(IServiceCollection services)
+        {
+            var definitionProviders = new List<Type>();
+
+            services.OnRegistred(context =>
+            {
+                if (typeof(IPermissionDefinitionProvider).IsAssignableFrom(context.ImplementationType))
+                    definitionProviders.Add(context.ImplementationType);
+            });
+
+            services.Configure<PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.AddIfNotContains(definitionProviders);
+            });
         }
     }
 }

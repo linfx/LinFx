@@ -6,11 +6,11 @@ namespace LinFx.Security.Authorization
     /// <summary>
     /// 定义权限 Requirement
     /// </summary>
-    public class PermissionAuthorizationRequirement : IAuthorizationRequirement
+    public class PermissionRequirement : IAuthorizationRequirement
     {
         public string PermissionName { get; }
 
-        public PermissionAuthorizationRequirement([NotNull]string permissionName)
+        public PermissionRequirement([NotNull]string permissionName)
         {
             Check.NotNull(permissionName, nameof(permissionName));
 

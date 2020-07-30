@@ -22,13 +22,13 @@ namespace LinFx.Collections
         /// Gets the count.
         /// </summary>
         /// <value>The count.</value>
-        public int Count { get { return _typeList.Count; } }
+        public int Count => _typeList.Count;
 
         /// <summary>
         /// Gets a value indicating whether this instance is read only.
         /// </summary>
         /// <value><c>true</c> if this instance is read only; otherwise, <c>false</c>.</value>
-        public bool IsReadOnly { get { return false; } }
+        public bool IsReadOnly => false;
 
         /// <summary>
         /// Gets or sets the <see cref="Type"/> at the specified index.
@@ -60,6 +60,17 @@ namespace LinFx.Collections
             _typeList.Add(typeof(T));
         }
 
+        public bool TryAdd<T>() where T : TBaseType
+        {
+            if (Contains<T>())
+            {
+                return false;
+            }
+
+            Add<T>();
+            return true;
+        }
+
         /// <inheritdoc/>
         public void Add(Type item)
         {
@@ -70,6 +81,7 @@ namespace LinFx.Collections
         /// <inheritdoc/>
         public void Insert(int index, Type item)
         {
+            CheckType(item);
             _typeList.Insert(index, item);
         }
 
@@ -136,7 +148,7 @@ namespace LinFx.Collections
         {
             if (!typeof(TBaseType).GetTypeInfo().IsAssignableFrom(item))
             {
-                throw new ArgumentException("Given item is not type of " + typeof(TBaseType).AssemblyQualifiedName, "item");
+                throw new ArgumentException($"Given type ({item.AssemblyQualifiedName}) should be instance of {typeof(TBaseType).AssemblyQualifiedName} ", nameof(item));
             }
         }
     }

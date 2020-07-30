@@ -1,6 +1,6 @@
 ﻿namespace LinFx.Module.Identity.ViewModels
 {
-    public class IdentityRoleResult
+    public class RoleResult
     {
         /// <summary>
         /// 编号

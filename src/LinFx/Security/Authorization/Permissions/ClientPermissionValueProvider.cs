@@ -16,14 +16,10 @@ namespace LinFx.Security.Authorization.Permissions
         {
             var clientId = context.Principal?.FindFirst(ClaimTypes.ClientId)?.Value;
             if (clientId == null)
-            {
                 return PermissionValueProviderGrantInfo.NonGranted;
-            }
 
             if (await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, clientId))
-            {
                 return new PermissionValueProviderGrantInfo(true, clientId);
-            }
 
             return PermissionValueProviderGrantInfo.NonGranted;
         }

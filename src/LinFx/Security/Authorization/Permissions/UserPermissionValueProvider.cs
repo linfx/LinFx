@@ -7,6 +7,9 @@ namespace LinFx.Security.Authorization.Permissions
     {
         public const string ProviderName = "User";
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         public override string Name => ProviderName;
 
         public UserPermissionValueProvider(IPermissionStore permissionStore)
