@@ -14,13 +14,8 @@ namespace LinFx
 
         public virtual bool ReplaceServices { get; set; }
 
-        public ServiceAttribute()
-        {
-        }
+        public ServiceAttribute() { }
 
-        public ServiceAttribute(ServiceLifetime lifetime)
-        {
-            Lifetime = lifetime;
-        }
+        public ServiceAttribute(ServiceLifetime lifetime) => Lifetime = lifetime;
     }
 }

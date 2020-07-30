@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Text;
+using System.Text.Json;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace LinFx.Utils
 {
@@ -20,16 +22,28 @@ namespace LinFx.Utils
 
         public static byte[] ToBytes(object value, bool camelCase = false, bool indented = false)
         {
-            var s = ToJsonString(value, camelCase, indented);
+            var s = ToJson(value, camelCase, indented);
             return Encoding.UTF8.GetBytes(s);
         }
 
-        [Obsolete]
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
-            return ToJsonString(value, camelCase, indented);
+            var options = new JsonSerializerSettings();
+
+            if (camelCase)
+                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            if (indented)
+                options.Formatting = Formatting.Indented;
+
+            //DateTimeFormat
+            //options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
+            options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+            return JsonConvert.SerializeObject(value, options);
         }
 
+        [Obsolete]
         public static string ToJsonString(object value, bool camelCase = true, bool indented = false)
         {
             var options = new JsonSerializerSettings();
@@ -79,7 +93,7 @@ namespace LinFx.Utils
         /// </summary>
         public static string SerializeWithType(object obj, Type type)
         {
-            var serialized = obj.ToJsonString();
+            var serialized = obj.ToJson();
 
             return string.Format(
                 "{0}{1}{2}",
@@ -215,6 +229,31 @@ namespace LinFx.Utils
                 r += "\\u" + bts[i + 1].ToString("X").PadLeft(2, '0') + bts[i].ToString("X").PadLeft(2, '0');
             }
             return r;
+        }
+    }
+
+    public static class JsonUtilsExtensions
+    {
+        /// <summary>
+        /// Converts given object to JSON string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="camelCase"></param>
+        /// <param name="indented"></param>
+        /// <returns></returns>
+        public static string ToJson(this object value, bool camelCase = true, bool indented = false)
+        {
+            return JsonUtils.ToJson(value, camelCase, indented);
+        }
+
+        public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false)
+        {
+            return JsonUtils.ToBytes(value, camelCase, indented);
+        }
+
+        public static T ToObject<T>(this string value, bool camelCase = false, bool indented = false)
+        {
+            return JsonUtils.ToObject<T>(value, camelCase, indented);
         }
     }
 }

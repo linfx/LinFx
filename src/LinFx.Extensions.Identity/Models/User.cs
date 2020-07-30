@@ -21,7 +21,5 @@ namespace LinFx.Extensions.Identity.Models
     /// 用户
     /// </summary>
     /// <typeparam name="TKey">The type used from the primary key for the user.</typeparam>
-    public class User<TKey> : IdentityUser<TKey>, IEntity<TKey> where TKey : IEquatable<TKey>
-    {
-    }
+    public class User<TKey> : IdentityUser<TKey>, IEntity<TKey> where TKey : IEquatable<TKey> { }
 }

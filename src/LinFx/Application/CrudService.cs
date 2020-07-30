@@ -1,6 +1,7 @@
 ﻿using LinFx.Application.Models;
 using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

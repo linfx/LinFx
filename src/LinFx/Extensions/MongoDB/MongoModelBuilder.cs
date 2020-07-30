@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using LinFx.Utils;
+using MongoDB.Bson.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;

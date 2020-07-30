@@ -1,5 +1,6 @@
 ﻿using LinFx;
 using LinFx.Extensions.EventBus;
+using LinFx.Extensions.EventBus.Abstractions;
 using LinFx.Extensions.EventBus.RabbitMq;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -25,9 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 x.UserName = options.UserName;
                 x.Password = options.Password;
             });
-
             optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
-
             return optionsBuilder;
         }
     }

@@ -56,7 +56,6 @@ namespace LinFx.Modules
                 //        services.AddAssembly(module.Type.Assembly);
                 //    }
                 //}
-
                 module.Instance.ConfigureServices(services);
             }
         }

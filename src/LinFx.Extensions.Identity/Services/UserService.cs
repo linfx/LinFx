@@ -1,6 +1,7 @@
 ﻿using LinFx.Application.Models;
 using LinFx.Extensions.Identity.Data;
 using LinFx.Module.Identity.ViewModels;
+using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace LinFx.Extensions.Identity.Services
             _context = context;
         }
 
-        public async Task<PagedResult<IdentityUserResult>> GetListAsync(IdentityUserInput input)
+        public async Task<PagedResult<UserResult>> GetListAsync(UserInput input)
         {
             var count = await _context.Users.CountAsync();
             var items = await _context.Users
@@ -29,24 +30,24 @@ namespace LinFx.Extensions.Identity.Services
                 .PageBy(input)
                 .ToListAsync();
 
-            return new PagedResult<IdentityUserResult>(count, items.MapTo<IdentityUserResult[]>());
+            return new PagedResult<UserResult>(count, items.MapTo<UserResult[]>());
         }
 
-        public async Task<IdentityUserResult> GetAsync(string id)
+        public async Task<UserResult> GetAsync(string id)
         {
             var item = await _context.Users.FindAsync(id);
             if (item == null)
                 throw new UserFriendlyException($"对象[{id}]不存在");
 
-            return item.MapTo<IdentityUserResult>();
+            return item.MapTo<UserResult>();
         }
 
-        public Task<IdentityUserResult> UpdateAsync(string id, IdentityUserUpdateInput input)
+        public Task<UserResult> UpdateAsync(string id, UserUpdateInput input)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IdentityUserResult> CreateAsync(IdentityUserInput input)
+        public Task<UserResult> CreateAsync(UserInput input)
         {
             throw new NotImplementedException();
         }

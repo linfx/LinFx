@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Caching.Abstractions;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Concurrent;

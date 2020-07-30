@@ -48,7 +48,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         private static EventStoreOptions EventStoreOptionsFactory(
             [NotNull] IServiceProvider applicationServiceProvider,
-            [CanBeNull] Action<IServiceProvider, EventStoreOptionsBuilder> optionsAction)
+            Action<IServiceProvider, EventStoreOptionsBuilder> optionsAction)
         {
             var builder = new EventStoreOptionsBuilder(new EventStoreOptions());
             optionsAction?.Invoke(applicationServiceProvider, builder);

@@ -1,5 +1,5 @@
 ﻿using LinFx.Domain.Models;
-using LinFx.Test.Domain.Events;
+using LinFx.Test.EventBus.Events;
 using System.Collections.Generic;
 
 namespace LinFx.Test.Domain.Models

@@ -10,8 +10,7 @@ namespace LinFx.Extensions.Identity.Permissions
     {
         private readonly AuthorizationOptions _options;
 
-        public PermissionPolicyProvider(IOptions<AuthorizationOptions> options)
-            : base(options)
+        public PermissionPolicyProvider(IOptions<AuthorizationOptions> options) : base(options)
         {
             _options = options.Value;
         }
@@ -24,17 +23,11 @@ namespace LinFx.Extensions.Identity.Permissions
                 var claimValues = policyName.Split(new char[] { '.' }, StringSplitOptions.None);
                 if (claimValues.Length == 1)
                 {
-                    _options.AddPolicy(policyName, builder =>
-                    {
-                        builder.AddRequirements(new ClaimsAuthorizationRequirement(claimValues[0], null));
-                    });
+                    _options.AddPolicy(policyName, builder => builder.AddRequirements(new ClaimsAuthorizationRequirement(claimValues[0], null)));
                 }
                 else
                 {
-                    _options.AddPolicy(policyName, builder =>
-                    {
-                        builder.AddRequirements(new ClaimsAuthorizationRequirement($"{claimValues[0]}.{claimValues[1]}", new string[] { policyName }));
-                    });
+                    _options.AddPolicy(policyName, builder => builder.AddRequirements(new ClaimsAuthorizationRequirement($"{claimValues[0]}.{claimValues[1]}", new string[] { policyName })));
                 }
             }
             return Task.FromResult(_options.GetPolicy(policyName));

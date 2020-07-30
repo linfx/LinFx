@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Caching.Abstractions;
-using RedLockNet.SERedis;
+﻿using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using StackExchange.Redis;
 using System;

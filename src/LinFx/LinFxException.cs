@@ -6,14 +6,8 @@ namespace LinFx
     {
         public LinFxException() { }
 
-        public LinFxException(string message)
-            : base(message)
-        {
-        }
+        public LinFxException(string message) : base(message) { }
 
-        public LinFxException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public LinFxException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

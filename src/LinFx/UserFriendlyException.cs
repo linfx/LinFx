@@ -11,20 +11,12 @@ namespace LinFx
 
         public UserFriendlyException() { }
 
-        public UserFriendlyException(string message)
-            : base(message)
-        {
-        }
+        public UserFriendlyException(string message) : base(message) { }
 
         public UserFriendlyException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+            : base(message, innerException) { }
 
         public UserFriendlyException(int code, string message)
-            : this(message)
-        {
-            Code = code;
-        }
+            : this(message) => Code = code;
     }
 }

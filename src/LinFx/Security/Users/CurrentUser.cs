@@ -6,6 +6,9 @@ using ClaimTypes = LinFx.Security.Claims.ClaimTypes;
 
 namespace LinFx.Security.Users
 {
+    /// <summary>
+    /// 当前用户
+    /// </summary>
     [Service]
     public class CurrentUser : ICurrentUser
     {

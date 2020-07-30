@@ -8,7 +8,7 @@
 
         public virtual string ProviderKey { get; }
 
-        public PermissionValueProviderGrantInfo(bool isGranted, [CanBeNull] string providerKey = null)
+        public PermissionValueProviderGrantInfo(bool isGranted, string providerKey = null)
         {
             IsGranted = isGranted;
             ProviderKey = providerKey;

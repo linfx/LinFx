@@ -53,6 +53,9 @@ namespace LinFx.Utils
         }
     }
 
+    /// <summary>
+    /// TypeExtensions
+    /// </summary>
     public static class TypeExtensions
     {
         public static string GetFullNameWithAssemblyName(this Type type)
@@ -63,7 +66,6 @@ namespace LinFx.Utils
         /// <summary>
         /// Determines whether an instance of this type can be assigned to
         /// an instance of the <typeparamref name="TTarget"></typeparamref>.
-        ///
         /// Internally uses <see cref="Type.IsAssignableFrom"/>.
         /// </summary>
         /// <typeparam name="TTarget">Target type</typeparam> (as reverse).

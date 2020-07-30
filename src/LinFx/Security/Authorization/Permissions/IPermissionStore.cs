@@ -1,14 +1,19 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限持久化存储
+    /// </summary>
     public interface IPermissionStore
     {
-        Task<bool> IsGrantedAsync(
-            [NotNull] string name,
-            [CanBeNull] string providerName,
-            [CanBeNull] string providerKey
-        );
+        /// <summary>
+        /// 是否授权
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="providerName"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
+        Task<bool> IsGrantedAsync(string name, string providerName, string providerKey);
     }
 }

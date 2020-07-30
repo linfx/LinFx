@@ -34,10 +34,7 @@ namespace LinFx.Application.Models
         /// <param name="totalCount">Total count of Items</param>
         /// <param name="items">List of items in current page</param>
         public PagedResult(long totalCount, IReadOnlyList<T> items)
-            : base(items)
-        {
-            TotalCount = totalCount;
-        }
+            : base(items) => TotalCount = totalCount;
 
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.
@@ -46,9 +43,7 @@ namespace LinFx.Application.Models
         /// <param name="totalCount"></param>
         /// <param name="items"></param>
         public PagedResult(IPagedResultRequest request, long totalCount, IReadOnlyList<T> items)
-            : this(request.Page, request.Limit, totalCount, items)
-        {
-        }
+            : this(request.Page, request.Limit, totalCount, items) { }
 
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.

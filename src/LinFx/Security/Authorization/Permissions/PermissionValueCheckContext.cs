@@ -1,20 +1,24 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限值检查上下文
+    /// </summary>
     public class PermissionValueCheckContext
     {
-        [NotNull]
+        /// <summary>
+        /// 权限
+        /// </summary>
         public PermissionDefinition Permission { get; }
 
-        [CanBeNull]
+        /// <summary>
+        /// 身份信息
+        /// </summary>
         public ClaimsPrincipal Principal { get; }
 
-        public PermissionValueCheckContext([NotNull] PermissionDefinition permission, [CanBeNull] ClaimsPrincipal principal)
+        public PermissionValueCheckContext(PermissionDefinition permission, ClaimsPrincipal principal)
         {
-            Check.NotNull(permission, nameof(permission));
-
             Permission = permission;
             Principal = principal;
         }

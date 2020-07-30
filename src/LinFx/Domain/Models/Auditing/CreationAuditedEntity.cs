@@ -1,5 +1,4 @@
-﻿using LinFx.Domain.Models;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,17 +1,19 @@
 ﻿using EmitMapper;
 using EmitMapper.MappingConfiguration;
+using LinFx.Extensions.ObjectMapping;
+using LinFx.Utils;
 using System.Collections.Generic;
 
 namespace System
 {
     public static class ObjectMapperExtensions
     {
-        public static TDestination MapTo<TDestination>(this object source) 
+        public static TDestination MapTo<TDestination>(this object source)
             where TDestination : class
         {
             var config = new DefaultMapConfig();
 
-            if(typeof(TDestination).IsAssignableFrom(typeof(IEnumerable<>)))
+            if (typeof(TDestination).IsAssignableFrom(typeof(IEnumerable<>)))
                 config = config.ConvertGeneric(typeof(IEnumerable<>), typeof(IEnumerable<>), new DefaultCustomConverterProvider(typeof(TDestination)));
 
             var item = ObjectMapperManager.DefaultInstance.GetMapperImpl(source.GetType(), typeof(TDestination), config).Map(source);
@@ -24,5 +26,11 @@ namespace System
         {
             return ObjectMapperManager.DefaultInstance.GetMapper<TSource, TDestination>().Map(source, destination);
         }
+
+        //public static MapBuilder<TSource> AsMap<TSource>(this TSource source)
+        //{
+        //    var config = new MapBuilder<TSource>(source);
+        //    return config;
+        //}
     }
 }

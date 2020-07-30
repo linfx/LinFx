@@ -19,15 +19,15 @@ namespace LinFx.Extensions.Mediator.Behaviors
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var context = new ValidationContext(request);
-            var failures = _validators
-                .Select(v => v.Validate(context))
-                .SelectMany(result => result.Errors)
-                .Where(f => f != null)
-                .ToList();
+            //var context = new ValidationContext(request);
+            //var failures = _validators
+            //    .Select(v => v.Validate(context))
+            //    .SelectMany(result => result.Errors)
+            //    .Where(f => f != null)
+            //    .ToList();
 
-            if (failures.Any())
-                throw new UserFriendlyException($"Command Validation Errors for type {typeof(TRequest).Name}", new FluentValidation.ValidationException("Validation exception", failures));
+            //if (failures.Any())
+            //    throw new UserFriendlyException($"Command Validation Errors for type {typeof(TRequest).Name}", new FluentValidation.ValidationException("Validation exception", failures));
 
             return next();
         }

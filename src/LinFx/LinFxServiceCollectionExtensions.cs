@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Modules;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.Configure(optionsAction);
 
             var builder = new LinFxBuilder(services);
-            builder.AddAssembly(typeof(LinFxModule).Assembly);
+            builder.AddAssembly(typeof(Module).Assembly);
             builder.Services.AddOptions();
             builder.Services.AddLogging();
             return builder;
