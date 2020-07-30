@@ -7,10 +7,14 @@ using System.Reflection;
 namespace LinFx.Security.Authorization
 {
     /// <summary>
-    /// 权限验证拦截器
+    /// 权限验证拦截器注册
     /// </summary>
     public static class AuthorizationInterceptorRegistrar
     {
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="context"></param>
         public static void RegisterIfNeeded(IOnServiceRegistredContext context)
         {
             if (ShouldIntercept(context.ImplementationType))

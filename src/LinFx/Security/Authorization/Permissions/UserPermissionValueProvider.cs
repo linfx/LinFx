@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 用户授权提供者
+    /// </summary>
     public class UserPermissionValueProvider : PermissionValueProvider
     {
         public const string ProviderName = "User";
 
-        /// <summary>
-        /// 名称
-        /// </summary>
         public override string Name => ProviderName;
 
         public UserPermissionValueProvider(IPermissionStore permissionStore)

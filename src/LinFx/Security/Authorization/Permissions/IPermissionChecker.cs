@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions
@@ -9,8 +8,8 @@ namespace LinFx.Security.Authorization.Permissions
     /// </summary>
     public interface IPermissionChecker
     {
-        Task<PermissionGrantInfo> CheckAsync([NotNull] string name);
+        Task<PermissionGrantInfo> CheckAsync(string name);
 
-        Task<PermissionGrantInfo> CheckAsync(ClaimsPrincipal claimsPrincipal, [NotNull] string name);
+        Task<PermissionGrantInfo> CheckAsync(ClaimsPrincipal claimsPrincipal, string name);
     }
 }

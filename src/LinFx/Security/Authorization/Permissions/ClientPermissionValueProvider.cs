@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 客户端提供者
+    /// </summary>
     public class ClientPermissionValueProvider : PermissionValueProvider
     {
         public const string ProviderName = "Client";

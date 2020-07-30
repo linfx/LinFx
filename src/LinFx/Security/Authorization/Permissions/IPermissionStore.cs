@@ -2,6 +2,9 @@
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 权限持久化存储
+    /// </summary>
     public interface IPermissionStore
     {
         /// <summary>

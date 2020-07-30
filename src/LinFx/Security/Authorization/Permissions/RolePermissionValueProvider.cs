@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization.Permissions
 {
+    /// <summary>
+    /// 角色授权提供者
+    /// </summary>
     public class RolePermissionValueProvider : PermissionValueProvider
     {
         public const string ProviderName = "Role";

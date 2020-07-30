@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization
 {
+    /// <summary>
+    /// 授权服务
+    /// </summary>
     [Service]
     public class MethodInvocationAuthorizationService : IMethodInvocationAuthorizationService
     {

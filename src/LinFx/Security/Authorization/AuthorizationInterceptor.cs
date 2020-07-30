@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Security.Authorization
 {
+    /// <summary>
+    /// 授权拦截器
+    /// </summary>
     [Service]
     public class AuthorizationInterceptor : Interceptor
     {
@@ -19,13 +22,14 @@ namespace LinFx.Security.Authorization
             await invocation.ProceedAsync();
         }
 
+        /// <summary>
+        /// 授权
+        /// </summary>
+        /// <param name="invocation"></param>
+        /// <returns></returns>
         protected virtual async Task AuthorizeAsync(IMethodInvocation invocation)
         {
-            await _methodInvocationAuthorizationService.CheckAsync(
-                new MethodInvocationAuthorizationContext(
-                    invocation.Method
-                )
-            );
+            await _methodInvocationAuthorizationService.CheckAsync(new MethodInvocationAuthorizationContext(invocation.Method));
         }
     }
 }

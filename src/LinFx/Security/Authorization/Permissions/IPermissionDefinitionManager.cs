@@ -23,7 +23,7 @@ namespace LinFx.Security.Authorization.Permissions
         PermissionDefinition GetOrNull([NotNull] string name);
 
         /// <summary>
-        /// 获取所有权限
+        /// 获取所有权限。
         /// </summary>
         /// <returns></returns>
         IReadOnlyList<PermissionDefinition> GetPermissions();

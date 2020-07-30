@@ -5,6 +5,10 @@
     /// </summary>
     public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvider
     {
+        /// <summary>
+        /// 定义
+        /// </summary>
+        /// <param name="context"></param>
         public abstract void Define(IPermissionDefinitionContext context);
     }
 }

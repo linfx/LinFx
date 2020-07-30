@@ -8,7 +8,7 @@ namespace LinFx.Extensions.DependencyInjection
     [Service]
     public class ServiceContext : IServiceProviderAccessor
     {
-        public IServiceProvider ServiceProvider { get; private set; }
+        public IServiceProvider ServiceProvider { get; }
 
         public ServiceContext(IServiceProvider serviceProvider)
         {
