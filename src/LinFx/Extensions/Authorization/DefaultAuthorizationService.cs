@@ -7,6 +7,9 @@ using System.Security.Claims;
 
 namespace LinFx.Extensions.Authorization
 {
+    /// <summary>
+    /// The default implementation of an  <see cref="IAuthorizationService"/> .
+    /// </summary>
     [Service(ReplaceServices = true)]
     public class DefaultAuthorizationService : Microsoft.AspNetCore.Authorization.DefaultAuthorizationService, IAuthorizationService
     {
@@ -15,7 +18,6 @@ namespace LinFx.Extensions.Authorization
         public IServiceProvider ServiceProvider { get; }
 
         public ClaimsPrincipal CurrentPrincipal => _currentPrincipalAccessor.Principal;
-
 
         public DefaultAuthorizationService(
             IAuthorizationPolicyProvider policyProvider,
