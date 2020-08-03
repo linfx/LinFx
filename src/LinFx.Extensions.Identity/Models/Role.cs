@@ -7,7 +7,7 @@ namespace LinFx.Extensions.Identity.Models
     /// <summary>
     /// 角色
     /// </summary>
-    public class Role : Role<string>
+    public class Role : Role<long>
     {
         public Role() { }
 
