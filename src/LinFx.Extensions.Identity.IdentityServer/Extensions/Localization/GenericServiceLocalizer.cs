@@ -27,6 +27,7 @@ namespace LinFx.Extensions.Identity.IdentityServer.Extensions.Localization
         }
 
         /// <inheritdoc />
+        [Obsolete]
         public virtual IStringLocalizer WithCulture(CultureInfo culture)
         {
             return _localizer.WithCulture(culture);

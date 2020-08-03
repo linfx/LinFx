@@ -1,4 +1,4 @@
-﻿using LinFx.Security.Authorization.Permissions;
+﻿using LinFx.Extensions.Authorization.Permissions;
 
 namespace LinFx.Extensions.Identity.Permissions
 {

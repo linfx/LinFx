@@ -7,6 +7,9 @@ namespace LinFx.Security.Users
     /// </summary>
     public interface ICurrentUser
     {
+        /// <summary>
+        /// 是否认证
+        /// </summary>
         bool IsAuthenticated { get; }
 
         string Id { get; }
