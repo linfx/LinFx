@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace LinFx.Extensions.Authorization
 {
     /// <summary>
-    /// 定义权限 Requirement
+    /// 权限策略
     /// </summary>
     public class PermissionRequirement : IAuthorizationRequirement
     {

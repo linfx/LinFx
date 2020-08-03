@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.Authorization
 {
     /// <summary>
-    /// 权限处理器
+    /// 权限策略处理器
     /// </summary>
     public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequirement>
     {
