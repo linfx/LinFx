@@ -12,6 +12,7 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// <summary>
     /// 权限检查器
     /// </summary>
+    [Service]
     public class PermissionChecker : IPermissionChecker
     {
         private readonly Lazy<List<IPermissionValueProvider>> _lazyProviders;

@@ -4,11 +4,11 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class HttpContextPrincipalAccessorServiceCollectionExtensions
     {
-        public static LinFxBuilder AddHttpContextPrincipalAccessor(this LinFxBuilder fx)
+        public static LinFxBuilder AddHttpContextPrincipalAccessor(this LinFxBuilder builder)
         {
-            fx.Services.AddHttpContextAccessor();
-            fx.Services.AddTransient<IHttpContextPrincipalAccessor, HttpContextPrincipalAccessor>();
-            return fx;
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddTransient<IHttpContextPrincipalAccessor, HttpContextPrincipalAccessor>();
+            return builder;
         }
     }
 }

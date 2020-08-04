@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.Authorization.Permissions
 {
     /// <summary>
     /// 权限定义上下文
     /// </summary>
+    [Service(ServiceLifetime.Singleton)]
     public class PermissionDefinitionContext : IPermissionDefinitionContext
     {
         /// <summary>
