@@ -14,6 +14,15 @@ namespace LinFx.Utils
         }
 
         /// <summary>
+        /// 生成雪花ID
+        /// </summary>
+        /// <returns></returns>
+        public static string NewIdString()
+        {
+            return NewId().ToString();
+        }
+
+        /// <summary>
         /// 动态生产有规律的ID
         /// </summary>
         class Snowflake

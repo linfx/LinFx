@@ -1,5 +1,4 @@
-﻿using LinFx.Data;
-using LinFx.Domain.Models;
+﻿using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.Generic;
@@ -15,12 +14,12 @@ namespace LinFx.Data
     /// <typeparam name="TKey"></typeparam>
     public class Repository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
     {
-        public Repository(Microsoft.EntityFrameworkCore.DbContext context)
+        public Repository(DbContext context)
         {
             Context = context;
         }
 
-        protected Microsoft.EntityFrameworkCore.DbContext Context { get; }
+        protected DbContext Context { get; }
 
         protected virtual DbSet<TEntity> DbSet
         {
