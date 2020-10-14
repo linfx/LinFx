@@ -19,10 +19,10 @@ namespace LinFx.Application
         protected readonly ServiceContext _context;
         protected readonly object ServiceProviderLock = new object();
 
-        protected ApplicationService(ServiceContext context)
-        {
-            _context = context;
-        }
+        //protected ApplicationService(ServiceContext context)
+        //{
+        //    _context = context;
+        //}
 
         protected TService LazyGetRequiredService<TService>(ref TService reference)
         {

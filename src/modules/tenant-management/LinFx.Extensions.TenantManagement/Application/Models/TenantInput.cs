@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.TenantManagement.Application.Models
 {
-    public class TenantRequest : PagedAndSortedResultRequest
+    public class TenantInput : PagedAndSortedResultRequest
     {
         /// <summary>
         /// 过滤条件

@@ -10,7 +10,6 @@ namespace LinFx.Module.TenantManagement.HttpApi
     /// 租户Api接口
     /// </summary>
     [ApiController]
-    [Area("multi-tenancy")]
     [Route("api/multi-tenancy/tenants")]
     public class TenantController : ControllerBase
     {
@@ -27,7 +26,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual Task<PagedResult<TenantResult>> GetListAsync(TenantRequest input)
+        public virtual Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
         {
             return TenantService.GetListAsync(input);
         }
@@ -38,7 +37,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public virtual Task<TenantResult> GetAsync(string id)
+        public virtual Task<TenantDto> GetAsync(string id)
         {
             return TenantService.GetAsync(id);
         }
@@ -49,7 +48,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual Task<TenantResult> CreateAsync(TenantEditInput input)
+        public virtual Task<TenantDto> CreateAsync(TenantEditInput input)
         {
             return TenantService.CreateAsync(input);
         }
@@ -61,7 +60,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public virtual Task<TenantResult> UpdateAsync(string id, TenantEditInput input)
+        public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             return TenantService.UpdateAsync(id, input);
         }
