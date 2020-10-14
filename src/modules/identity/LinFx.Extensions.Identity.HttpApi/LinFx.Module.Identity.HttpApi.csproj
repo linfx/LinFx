@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>4.6.0</Version>
+    <Authors>强悍的抽屉</Authors>
+    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
+    <Copyright>Copyright (c) 2020 LinFx</Copyright>
+    <Company>LinFx</Company>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
+  </ItemGroup>
+
+
+</Project>

@@ -5,18 +5,28 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx", "src\LinFx\LinFx.csproj", "{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB28C410-8E1C-45DA-810D-7E5CBC7FBA9D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CB28C410-8E1C-45DA-810D-7E5CBC7FBA9D}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{19BCDCAB-8076-4D78-BDED-682974410439}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{19BCDCAB-8076-4D78-BDED-682974410439}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{ACC77A7F-7A6A-4B63-8351-0822FB747B36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8CCB68E8-C4B2-4DC3-85A1-97E0C03A2DCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extentsions.Authorization.Tests", "test\LinFx.Extentsions.Authorization.Tests\LinFx.Extentsions.Authorization.Tests.csproj", "{AE583670-7418-4111-8AC0-62E21AABA38E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{9DEED058-8D9B-48D1-91F7-1406F3516025}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity", "src\modules\identity\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj", "{05CEEB62-0325-4AED-B2F9-7C4AF147B53F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Module.Identity.HttpApi", "src\modules\identity\LinFx.Extensions.Identity.HttpApi\LinFx.Module.Identity.HttpApi.csproj", "{8B69C382-36C2-4F1E-B6D3-9EF148937930}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Identity.IdentityServer", "src\modules\identity\LinFx.Extensions.Identity.IdentityServer\LinFx.Extensions.Identity.IdentityServer.csproj", "{17A665B8-FD7A-481F-B2AC-F4BCBABBD686}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{BF985E93-8F09-4DE5-AB56-6EB716D18D08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +46,18 @@ Global
 		{AE583670-7418-4111-8AC0-62E21AABA38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE583670-7418-4111-8AC0-62E21AABA38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE583670-7418-4111-8AC0-62E21AABA38E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CEEB62-0325-4AED-B2F9-7C4AF147B53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CEEB62-0325-4AED-B2F9-7C4AF147B53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CEEB62-0325-4AED-B2F9-7C4AF147B53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CEEB62-0325-4AED-B2F9-7C4AF147B53F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B69C382-36C2-4F1E-B6D3-9EF148937930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B69C382-36C2-4F1E-B6D3-9EF148937930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B69C382-36C2-4F1E-B6D3-9EF148937930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B69C382-36C2-4F1E-B6D3-9EF148937930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A665B8-FD7A-481F-B2AC-F4BCBABBD686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A665B8-FD7A-481F-B2AC-F4BCBABBD686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A665B8-FD7A-481F-B2AC-F4BCBABBD686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A665B8-FD7A-481F-B2AC-F4BCBABBD686}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +66,10 @@ Global
 		{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308} = {19BCDCAB-8076-4D78-BDED-682974410439}
 		{ACC77A7F-7A6A-4B63-8351-0822FB747B36} = {8CCB68E8-C4B2-4DC3-85A1-97E0C03A2DCC}
 		{AE583670-7418-4111-8AC0-62E21AABA38E} = {8CCB68E8-C4B2-4DC3-85A1-97E0C03A2DCC}
+		{05CEEB62-0325-4AED-B2F9-7C4AF147B53F} = {BF985E93-8F09-4DE5-AB56-6EB716D18D08}
+		{8B69C382-36C2-4F1E-B6D3-9EF148937930} = {BF985E93-8F09-4DE5-AB56-6EB716D18D08}
+		{17A665B8-FD7A-481F-B2AC-F4BCBABBD686} = {BF985E93-8F09-4DE5-AB56-6EB716D18D08}
+		{BF985E93-8F09-4DE5-AB56-6EB716D18D08} = {9DEED058-8D9B-48D1-91F7-1406F3516025}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

@@ -1,0 +1,51 @@
+﻿@page
+@using LinFx.Extensions.Identity.UI.Pages.Identity.Roles
+@model PermissionsModel
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = "角色权限";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+
+    <form method="post">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>模块</th>
+                    <th>权限</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Groups.Count; i++)
+                {
+                    <tr>
+                        <td>@L[Model.Groups[i].DisplayName]</td>
+                        <td>
+                            @for (int j = 0; j < Model.Groups[i].Permissions.Count; j++)
+                            {
+                                <label>
+                                    <input type='checkbox' asp-for="@Model.Groups[i].Permissions[j].IsGranted"  />
+                                    <input asp-for="@Model.Groups[i].Permissions[j]Name" />
+                                    <span>@Model.Groups[i].Permissions[j].DisplayName</span>
+                                </label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

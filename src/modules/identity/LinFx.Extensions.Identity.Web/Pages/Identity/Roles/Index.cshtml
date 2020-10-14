@@ -1,0 +1,44 @@
+﻿@page
+@using LinFx.Extensions.Identity.UI.Pages.Identity.Roles
+@model IndexModel
+@{
+    ViewData["Title"] = "角色列表";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-page="/Identity/Roles/Create">创建</a>
+</p>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-area="" asp-page="/Identity/Roles/Edit" asp-route-id="@item.Id">编辑</a> |
+                        <a asp-area="" asp-page="/Identity/Roles/Permissions" asp-route-id="@item.Id">权限</a> |
+                        <a asp-area="" asp-page="/Identity/Roles/Delete" asp-route-id="@item.Id">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,8 +1,11 @@
-﻿namespace LinFx
+﻿using System;
+
+namespace LinFx
 {
     /// <summary>
     /// Can be used to store Name/Value (or Key/Value) pairs.
     /// </summary>
+    [Serializable]
     public class NameValue : NameValue<string>
     {
 		public NameValue() { }
@@ -18,12 +21,14 @@
     /// Can be used to store Name/Value (or Key/Value) pairs.
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Serializable]
     public class NameValue<T>
     {
         /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Value
         /// </summary>

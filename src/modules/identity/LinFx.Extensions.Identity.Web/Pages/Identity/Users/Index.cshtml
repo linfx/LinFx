@@ -1,0 +1,44 @@
+﻿@page
+@using LinFx.Extensions.Identity.UI.Pages.Identity.Users
+@model IndexModel
+@{
+    ViewData["Title"] = "用户列表";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>电子邮件</th>
+                <th>手机</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        <a asp-area="" asp-page="/Identity/User/Edit" asp-route-id="@item.Id">编辑</a> |
+                        <a href="/Identity/Roles/Permissions/@item.Id">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
