@@ -1,6 +1,6 @@
 ﻿using LinFx.Module.TenantManagement.Models;
 using Microsoft.EntityFrameworkCore;
-using DbContext = LinFx.Data.DbContext;
+using DbContext = LinFx.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Module.TenantManagement.Data
 {

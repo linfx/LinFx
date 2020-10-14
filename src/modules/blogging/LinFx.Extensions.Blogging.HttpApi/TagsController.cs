@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace LinFx.Extensions.Blogging.Api
+namespace LinFx.Extensions.Blogging.HttpApi
 {
-    public class TagsController : Controller
+    public class TagsController : ControllerBase
     {
     }
 }
