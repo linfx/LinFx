@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinFx.Module.PermissionManagement\LinFx.Extensions.PermissionManagement.csproj" />
+    <ProjectReference Include="..\LinFx.Extensions.PermissionManagement\LinFx.Extensions.PermissionManagement.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Module.TenantManagement.ViewModels
+namespace LinFx.Extensions.TenantManagement.Application.Models
 {
-    public class TenantUpdateInput
+    public class TenantEditInput
     {
         /// <summary>
         /// 名称
         /// </summary>
         [Required(ErrorMessage = "名称不能为空")]
-        [StringLength(200)]
+        [StringLength(64)]
         public virtual string Name { get; set; }
     }
 }

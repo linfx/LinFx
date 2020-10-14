@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement.Application
 {
+    [Authorize]
     public class PermissionService : IPermissionService
     {
         protected PermissionManagementOptions Options { get; }

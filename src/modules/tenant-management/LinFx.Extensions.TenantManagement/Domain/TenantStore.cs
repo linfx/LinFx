@@ -1,8 +1,8 @@
 ﻿using LinFx.Extensions.MultiTenancy;
-using LinFx.Module.TenantManagement.Data;
+using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace LinFx.Module.TenantManagement.Models
+namespace LinFx.Extensions.TenantManagement.Domain
 {
     [Service]
     public class TenantStore : ITenantStore

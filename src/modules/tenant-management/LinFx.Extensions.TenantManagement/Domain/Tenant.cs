@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Models.Auditing;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Module.TenantManagement.Models
+namespace LinFx.Extensions.TenantManagement.Domain
 {
     /// <summary>
     /// 租户
@@ -12,7 +12,7 @@ namespace LinFx.Module.TenantManagement.Models
         /// 租户名称
         /// </summary>
         [Required]
-        [StringLength(200)]
+        [StringLength(64)]
         public virtual string Name { get; set; }
 
         public Tenant() { }

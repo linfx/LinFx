@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace LinFx.Module.TenantManagement.ViewModels
+namespace LinFx.Extensions.TenantManagement.Application.Models
 {
     public class TenantResult
     {
         /// <summary>
-        /// ID
+        /// 租户Id
         /// </summary>
         public string Id { get; set; }
 

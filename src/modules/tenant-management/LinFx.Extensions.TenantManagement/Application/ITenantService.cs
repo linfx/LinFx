@@ -1,8 +1,8 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Module.TenantManagement.ViewModels;
+using LinFx.Extensions.TenantManagement.Application.Models;
 using System.Threading.Tasks;
 
-namespace LinFx.Module.TenantManagement.Services
+namespace LinFx.Extensions.TenantManagement.Application
 {
     /// <summary>
     /// 租户服务
@@ -14,7 +14,7 @@ namespace LinFx.Module.TenantManagement.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResult<TenantResult>> GetListAsync(TenantInput input);
+        Task<PagedResult<TenantResult>> GetListAsync(TenantRequest input);
 
         /// <summary>
         /// 获取租户
@@ -28,7 +28,7 @@ namespace LinFx.Module.TenantManagement.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantResult> CreateAsync(TenantCreateInput input);
+        Task<TenantResult> CreateAsync(TenantEditInput input);
 
         /// <summary>
         /// 更新租户
@@ -36,7 +36,7 @@ namespace LinFx.Module.TenantManagement.Services
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantResult> UpdateAsync(string id, TenantUpdateInput input);
+        Task<TenantResult> UpdateAsync(string id, TenantEditInput input);
 
         /// <summary>
         /// 删除租户
