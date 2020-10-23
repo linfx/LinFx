@@ -1,4 +1,6 @@
-﻿using LinFx.Extensions.Blogging.Domain.Models;
+﻿using LinFx.Extensions.Blogging.Domain.Blogs;
+using LinFx.Extensions.Blogging.Domain.Models;
+using LinFx.Extensions.Blogging.Domain.Posts;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.Blogging.EntityFrameworkCore

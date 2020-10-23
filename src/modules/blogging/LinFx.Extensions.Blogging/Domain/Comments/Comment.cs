@@ -1,5 +1,4 @@
 ﻿using LinFx.Domain.Models.Auditing;
-using LinFx.Extensions.Auditing;
 using System;
 
 namespace LinFx.Extensions.Blogging.Domain.Models
@@ -14,6 +13,9 @@ namespace LinFx.Extensions.Blogging.Domain.Models
         /// </summary>
         public virtual Guid PostId { get; protected set; }
 
+        /// <summary>
+        /// 回复Id
+        /// </summary>
         public virtual Guid? RepliedCommentId { get; protected set; }
 
         /// <summary>

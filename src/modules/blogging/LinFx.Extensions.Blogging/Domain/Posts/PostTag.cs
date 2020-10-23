@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Models.Auditing;
 using System;
 
-namespace LinFx.Extensions.Blogging.Domain.Models
+namespace LinFx.Extensions.Blogging.Domain.Posts
 {
     /// <summary>
     /// 标签
@@ -17,6 +17,8 @@ namespace LinFx.Extensions.Blogging.Domain.Models
         /// 帖子ID
         /// </summary>
         public virtual Guid TagId { get; protected set; }
+
+        public PostTag() { }
 
         /// <summary>
         /// 帖子标签

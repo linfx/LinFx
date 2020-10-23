@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Models.Auditing;
 using System;
 
-namespace LinFx.Extensions.Blogging.Domain.Models
+namespace LinFx.Extensions.Blogging.Domain.Blogs
 {
     /// <summary>
     /// 博客

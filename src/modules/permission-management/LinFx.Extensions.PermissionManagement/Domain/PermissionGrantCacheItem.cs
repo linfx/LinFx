@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.PermissionManagement
+﻿namespace LinFx.Extensions.PermissionManagement.Domain
 {
     public class PermissionGrantCacheItem
     {

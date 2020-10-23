@@ -2,7 +2,7 @@
 using LinFx.Extensions.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.PermissionManagement
+namespace LinFx.Extensions.PermissionManagement.Domain
 {
     /// <summary>
     /// 权限授权

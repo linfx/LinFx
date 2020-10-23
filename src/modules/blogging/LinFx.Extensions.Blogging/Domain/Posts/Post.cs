@@ -1,9 +1,9 @@
 ﻿using LinFx.Domain.Models.Auditing;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.Blogging.Domain.Models
+namespace LinFx.Extensions.Blogging.Domain.Posts
 {
     /// <summary>
     /// 帖子
@@ -46,7 +46,7 @@ namespace LinFx.Extensions.Blogging.Domain.Models
         /// <summary>
         /// 标签集合
         /// </summary>
-        public virtual ICollection<PostTag> Tags { get; protected set; }
+        public virtual Collection<PostTag> Tags { get; protected set; }
 
         /// <summary>
         /// 阅读数增长

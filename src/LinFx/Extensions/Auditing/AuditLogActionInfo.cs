@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Abstractions;
+﻿using LinFx.Domain.Models;
 using LinFx.Extensions.MultiTenancy;
 using System;
 using System.Collections.Generic;

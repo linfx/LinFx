@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LinFx.Extensions.Blogging.Application
+namespace LinFx.Extensions.Blogging.HttpApi
 {
-    public class TagService
+    class BlogsController
     {
     }
 }

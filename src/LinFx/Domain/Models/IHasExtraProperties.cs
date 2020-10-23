@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Domain.Abstractions
+namespace LinFx.Domain.Models
 {
     public interface IHasExtraProperties
     {

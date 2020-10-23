@@ -2,13 +2,27 @@
 
 namespace LinFx.Extensions.Account.Application.Models
 {
+    /// <summary>
+    /// 登录表单 
+    /// </summary>
     public class LoginInput
     {
+        /// <summary>
+        /// 账号
+        /// </summary>
         [Required]
-        public string UserName { get; set; }
+        public virtual string UserName { get; set; }
 
+        /// <summary>
+        /// 密码
+        /// </summary>
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public virtual string Password { get; set; }
+
+        /// <summary>
+        /// 记住
+        /// </summary>
+        public bool RememberMe { get; set; }
     }
 }

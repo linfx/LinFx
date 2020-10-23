@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using LinFx.Extensions.Blogging.Application.Models;
 
-namespace LinFx.Extensions.Blogging.Application.Services
+namespace LinFx.Extensions.Blogging.Application
 {
+    [Service]
     public class PostService
     {
         protected BloggingDbContext _context;
@@ -15,6 +17,11 @@ namespace LinFx.Extensions.Blogging.Application.Services
         public PostService(BloggingDbContext context)
         {
             _context = context;
+        }
+
+        public Task<PostWithDetailsDto> GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         //public async Task<PostWithDetails> GetAsync(Guid id)
