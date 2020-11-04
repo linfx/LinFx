@@ -16,9 +16,16 @@ namespace LinFx.Extensions.Account.HttpApi
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        protected ICurrentUser CurrentUser { get; }
+        protected readonly ICurrentUser _currentUser;
+        protected readonly IAccountService _accountService;
 
-        protected IAccountService AccountService { get; }
+        public AccountController(
+            ICurrentUser currentUser, 
+            IAccountService accountService)
+        {
+            _currentUser = currentUser;
+            _accountService = accountService;
+        }
 
         /// <summary>
         /// 登录
@@ -29,7 +36,7 @@ namespace LinFx.Extensions.Account.HttpApi
         [HttpPost("login")]
         public virtual Task<Result> LoginAsync(LoginInput input)
         {
-            return AccountService.LoginAsync(input);
+            return _accountService.LoginAsync(input);
         }
 
         /// <summary>
@@ -41,7 +48,7 @@ namespace LinFx.Extensions.Account.HttpApi
         [HttpPost("register")]
         public virtual Task<Result> RegisterAsync(RegisterInput input)
         {
-            return AccountService.RegisterAsync(input);
+            return _accountService.RegisterAsync(input);
         }
 
         /// <summary>

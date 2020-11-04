@@ -1,6 +1,6 @@
 ﻿namespace LinFx.Extensions.Account.Application
 {
-    internal class UserTokenCache
+    public class UserTokenCache
     {
     }
 }
