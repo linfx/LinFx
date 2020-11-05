@@ -39,6 +39,11 @@ namespace LinFx.Extensions.Blogging.Domain.Posts
         public virtual string Content { get; set; }
 
         /// <summary>
+        /// 简介
+        /// </summary>
+        public virtual string Description { get; set; }
+
+        /// <summary>
         /// 阅读数
         /// </summary>
         public virtual int ReadCount { get; protected set; }

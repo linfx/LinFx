@@ -2,6 +2,7 @@
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
 using System;
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.AuditLogging.Domain
 {
@@ -45,9 +46,9 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual int? HttpStatusCode { get; set; }
 
-        //public virtual ICollection<EntityChange> EntityChanges { get; protected set; }
+        public virtual ICollection<EntityChange> EntityChanges { get; protected set; }
 
-        //public virtual ICollection<AuditLogAction> Actions { get; protected set; }
+        public virtual ICollection<AuditLogAction> Actions { get; protected set; }
 
         protected AuditLog()
         {
