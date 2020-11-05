@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Identity.Application
+namespace LinFx.Extensions.Identity
 {
     /// <summary>
     /// 角色服务

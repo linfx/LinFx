@@ -1,6 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 
-namespace LinFx.Extensions.Identity.Application
+namespace LinFx.Extensions.Identity
 {
     public class IdentityPermissionDefinitionProvider : PermissionDefinitionProvider
     {

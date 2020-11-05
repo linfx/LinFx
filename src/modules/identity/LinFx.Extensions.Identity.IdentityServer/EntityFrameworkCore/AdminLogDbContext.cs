@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Skoruba.IdentityServer4.Admin.EntityFramework.Constants;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Entities;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Interfaces;
 
@@ -25,7 +24,7 @@ namespace LinFx.Extensions.Identity.IdentityServer.EntityFrameworkCore
         {
             builder.Entity<Log>(log =>
             {
-                log.ToTable(TableConsts.Logging);
+                //log.ToTable(TableConsts.Logging);
                 log.HasKey(x => x.Id);
                 log.Property(x => x.Level).HasMaxLength(128);
             });

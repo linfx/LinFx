@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Identity.Application
+﻿namespace LinFx.Extensions.Identity
 {
     public static class IdentityPermissions
     {
