@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.PermissionManagement.Domain
+namespace LinFx.Extensions.PermissionManagement
 {
     public class PermissionStore : IPermissionStore
     {

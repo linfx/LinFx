@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LinFx.Extensions.SettingManagement.Domain
+﻿namespace LinFx.Extensions.SettingManagement
 {
     class Setting
     {

@@ -2,7 +2,6 @@
 using LinFx.Application.Models;
 using LinFx.Data;
 using LinFx.Data.Linq;
-using LinFx.Extensions.TenantManagement.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Threading.Tasks;

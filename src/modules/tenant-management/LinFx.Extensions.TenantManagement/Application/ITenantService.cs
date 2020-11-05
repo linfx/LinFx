@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Extensions.TenantManagement.Application.Models;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement

@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.PermissionManagement.Application.Models
+﻿namespace LinFx.Extensions.PermissionManagement
 {
     public class ProviderInfoDto
     {

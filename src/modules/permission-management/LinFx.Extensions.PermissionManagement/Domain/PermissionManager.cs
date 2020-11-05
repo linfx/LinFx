@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.PermissionManagement.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;

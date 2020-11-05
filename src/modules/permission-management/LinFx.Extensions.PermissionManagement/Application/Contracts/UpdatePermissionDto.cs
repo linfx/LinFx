@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.PermissionManagement.Application.Models
+namespace LinFx.Extensions.PermissionManagement
 {
     public class UpdatePermissionDto
     {
