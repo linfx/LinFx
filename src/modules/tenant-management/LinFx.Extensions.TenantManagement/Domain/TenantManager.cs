@@ -1,10 +1,9 @@
-﻿using LinFx.Extensions.TenantManagement.Domain;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+﻿using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace LinFx.Module.TenantManagement.Models
+namespace LinFx.Extensions.TenantManagement
 {
     [Service]
     public class TenantManager

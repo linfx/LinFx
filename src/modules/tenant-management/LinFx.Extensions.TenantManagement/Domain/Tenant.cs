@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Models.Auditing;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.TenantManagement.Domain
+namespace LinFx.Extensions.TenantManagement
 {
     /// <summary>
     /// 租户

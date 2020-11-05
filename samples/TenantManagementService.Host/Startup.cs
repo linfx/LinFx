@@ -14,6 +14,10 @@ namespace TenantManagementService.Host
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services
+                .AddLinFx()
+                .AddTenantManagement();
+
             services.AddControllers();
 
             services.AddSwaggerGen(options =>

@@ -1,5 +1,5 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Extensions.TenantManagement.Application;
+using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,11 +13,11 @@ namespace LinFx.Module.TenantManagement.HttpApi
     [Route("api/multi-tenancy/tenants")]
     public class TenantController : ControllerBase
     {
-        protected ITenantService TenantService;
+        protected ITenantService _tenantService;
 
         public TenantController(ITenantService service)
         {
-            TenantService = service;
+            _tenantService = service;
         }
 
         /// <summary>
@@ -28,18 +28,18 @@ namespace LinFx.Module.TenantManagement.HttpApi
         [HttpGet]
         public virtual Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
         {
-            return TenantService.GetListAsync(input);
+            return _tenantService.GetListAsync(input);
         }
 
         /// <summary>
         /// 获取租户
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">租户Id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public virtual Task<TenantDto> GetAsync(string id)
         {
-            return TenantService.GetAsync(id);
+            return _tenantService.GetAsync(id);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         [HttpPost]
         public virtual Task<TenantDto> CreateAsync(TenantEditInput input)
         {
-            return TenantService.CreateAsync(input);
+            return _tenantService.CreateAsync(input);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         [HttpPut("{id}")]
         public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
-            return TenantService.UpdateAsync(id, input);
+            return _tenantService.UpdateAsync(id, input);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace LinFx.Module.TenantManagement.HttpApi
         [HttpDelete("{id}")]
         public virtual Task DeleteAsync(string id)
         {
-            return TenantService.DeleteAsync(id);
+            return _tenantService.DeleteAsync(id);
         }
     }
 }
