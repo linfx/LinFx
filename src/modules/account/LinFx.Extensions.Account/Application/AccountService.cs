@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Account.Application.Models;
-using LinFx.Extensions.Identity;
+﻿using LinFx.Extensions.Identity;
 using LinFx.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Account.Application
+namespace LinFx.Extensions.Account
 {
     public class AccountService : IAccountService
     {

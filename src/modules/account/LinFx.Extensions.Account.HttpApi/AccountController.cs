@@ -1,6 +1,4 @@
-﻿using LinFx.Extensions.Account.Application;
-using LinFx.Extensions.Account.Application.Models;
-using LinFx.Security.Users;
+﻿using LinFx.Security.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,7 +18,7 @@ namespace LinFx.Extensions.Account.HttpApi
         protected readonly IAccountService _accountService;
 
         public AccountController(
-            ICurrentUser currentUser, 
+            ICurrentUser currentUser,
             IAccountService accountService)
         {
             _currentUser = currentUser;

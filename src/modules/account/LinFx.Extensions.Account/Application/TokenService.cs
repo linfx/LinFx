@@ -11,7 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Account.Application
+namespace LinFx.Extensions.Account
 {
     /// <summary>
     /// token 服务

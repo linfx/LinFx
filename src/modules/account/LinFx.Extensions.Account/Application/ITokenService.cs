@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Account.Application
+namespace LinFx.Extensions.Account
 {
     /// <summary>
     /// token 服务

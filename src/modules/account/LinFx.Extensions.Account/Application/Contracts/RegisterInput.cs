@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.Account.Application.Models
+namespace LinFx.Extensions.Account
 {
     public class RegisterInput
     {
