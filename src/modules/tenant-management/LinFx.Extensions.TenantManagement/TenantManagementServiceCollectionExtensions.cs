@@ -9,8 +9,12 @@ namespace Microsoft.Extensions.DependencyInjection
         public static LinFxBuilder AddTenantManagement(this LinFxBuilder builder, Action<MultiTenancyOptions> optionsAction = default)
         {
             builder.AddMultiTenancy(optionsAction);
-            builder.Services.AddTransient<ITenantStore, TenantStore>();
-            builder.Services.AddTransient<ITenantService, TenantService>();
+
+            builder.Services
+                .AddTransient<TenantManager>()
+                .AddTransient<ITenantStore, TenantStore>()
+                .AddTransient<ITenantService, TenantService>();
+
             return builder;
         }
     }

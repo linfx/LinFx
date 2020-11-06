@@ -28,6 +28,7 @@ namespace LinFx.Data.Linq
             return repository.Query().Select(selector);
         }
 
+        [Obsolete]
         public static Task<TEntity> FirstOrDefaultAsync<TEntity, TKey>(this IRepository<TEntity, TKey> repository, TKey id, CancellationToken cancellationToken = default) where TEntity : class, IEntity<TKey>
         {
             return repository.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);

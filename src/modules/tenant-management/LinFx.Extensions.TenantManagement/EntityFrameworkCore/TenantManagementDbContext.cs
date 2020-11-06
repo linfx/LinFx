@@ -15,7 +15,7 @@ namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
             builder.Entity<Tenant>(b =>
             {
                 b.HasKey(p => p.Id);
-                b.Property(p => p.Id).HasMaxLength(64);
+                b.Property(p => p.Id).HasMaxLength(32);
 
                 b.Property(p => p.Name)
                     .IsRequired()    

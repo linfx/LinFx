@@ -1,5 +1,7 @@
+using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -16,7 +18,14 @@ namespace TenantManagementService.Host
         {
             services
                 .AddLinFx()
+                .AddHttpContextPrincipalAccessor()
                 .AddTenantManagement();
+
+            services.AddDbContextPool<TenantManagementDbContext>(options =>
+            {
+                options.EnableSensitiveDataLogging();
+                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
+            });
 
             services.AddControllers();
 

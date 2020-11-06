@@ -13,7 +13,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
-        [StringLength(50)]
+        [StringLength(32)]
         public virtual string LastModifierId { get; set; }
     }
 
@@ -27,7 +27,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
-        [StringLength(50)]
+        [StringLength(32)]
         public virtual string LastModifierId { get; set; }
     }
 }

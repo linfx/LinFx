@@ -13,7 +13,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual bool IsDeleted { get; set; }
 
         /// <inheritdoc />
-        [StringLength(50)]
+        [StringLength(32)]
         public virtual string DeleterId { get; set; }
 
         /// <inheritdoc />
@@ -30,7 +30,7 @@ namespace LinFx.Domain.Models.Auditing
         public virtual bool IsDeleted { get; set; }
 
         /// <inheritdoc />
-        [StringLength(50)]
+        [StringLength(32)]
         public virtual string DeleterId { get; set; }
 
         /// <inheritdoc />
