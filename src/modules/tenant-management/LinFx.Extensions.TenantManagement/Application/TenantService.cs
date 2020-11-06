@@ -23,7 +23,7 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TenantDto> GetAsync(string id)
+        public virtual async Task<TenantDto> GetAsync(string id)
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
             return tenant?.MapTo<TenantDto>();
@@ -34,7 +34,7 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
+        public virtual Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +45,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(TenantManagementPermissions.Tenants.Create)]
-        public async Task<TenantDto> CreateAsync(TenantEditInput input)
+        public virtual async Task<TenantDto> CreateAsync(TenantEditInput input)
         {
             var tenant = await TenantManager.CreateAsync(input.Name);
 
@@ -62,7 +62,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(TenantManagementPermissions.Tenants.Update)]
-        public async Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
+        public virtual async Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
             if (tenant == null)
@@ -79,7 +79,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(TenantManagementPermissions.Tenants.Delete)]
-        public async Task DeleteAsync(string id)
+        public virtual async Task DeleteAsync(string id)
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
             if (tenant == null)

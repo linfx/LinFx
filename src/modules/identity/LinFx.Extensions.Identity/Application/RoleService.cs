@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Extensions.Identity.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System;

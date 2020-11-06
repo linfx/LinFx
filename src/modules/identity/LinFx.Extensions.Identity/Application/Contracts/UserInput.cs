@@ -1,6 +1,6 @@
 ﻿using LinFx.Application.Models;
 
-namespace LinFx.Extensions.Identity.Application.Models
+namespace LinFx.Extensions.Identity
 {
     public class UserInput : PagedAndSortedResultRequest
     {
