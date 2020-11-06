@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Identity.Application
+namespace LinFx.Extensions.Identity
 {
     public class PermissionPolicyProvider : DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider
     {

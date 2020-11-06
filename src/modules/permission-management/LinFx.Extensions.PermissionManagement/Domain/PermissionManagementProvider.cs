@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.PermissionManagement.Domain;
 using LinFx.Utils;
 using System.Threading.Tasks;
 

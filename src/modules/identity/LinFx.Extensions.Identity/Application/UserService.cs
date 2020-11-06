@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Identity.Application
+namespace LinFx.Extensions.Identity
 {
     public class UserService
     {

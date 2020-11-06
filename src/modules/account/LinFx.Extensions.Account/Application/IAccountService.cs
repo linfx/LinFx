@@ -1,7 +1,6 @@
-﻿using LinFx.Extensions.Account.Application.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Account.Application
+namespace LinFx.Extensions.Account
 {
     /// <summary>
     /// 账户服务

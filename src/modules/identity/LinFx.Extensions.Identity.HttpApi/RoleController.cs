@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Identity.Application;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Identity.HttpApi

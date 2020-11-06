@@ -1,6 +1,4 @@
-﻿using LinFx.Extensions.PermissionManagement.Application;
-using LinFx.Extensions.PermissionManagement.Application.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement.HttpApi
@@ -9,7 +7,6 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
     /// 权限管理
     /// </summary>
     [ApiController]
-    [Area("permissionManagement")]
     [Route("api/permission-management/permissions")]
     public class PermissionController : ControllerBase
     {
@@ -27,7 +24,7 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
         /// <param name="providerKey"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual Task<PermissionListResult> GetAsync(string providerName, string providerKey)
+        public virtual Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
         {
             return PermissionAppService.GetAsync(providerName, providerKey);
         }

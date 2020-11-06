@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.PermissionManagement.Domain
+namespace LinFx.Extensions.PermissionManagement
 {
     public class PermissionDataSeeder
     {

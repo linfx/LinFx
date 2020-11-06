@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Account.Application
+﻿namespace LinFx.Extensions.Account
 {
     public class UserTokenCache
     {

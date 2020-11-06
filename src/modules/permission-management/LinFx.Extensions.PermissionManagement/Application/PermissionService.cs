@@ -1,12 +1,11 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.PermissionManagement.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.PermissionManagement.Application
+namespace LinFx.Extensions.PermissionManagement
 {
     [Authorize]
     public class PermissionService : IPermissionService
@@ -33,11 +32,11 @@ namespace LinFx.Extensions.PermissionManagement.Application
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
         /// <returns></returns>
-        public async Task<PermissionListResult> GetAsync(string providerName, string providerKey)
+        public async Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
         {
             await CheckProviderPolicy(providerName);
 
-            var result = new PermissionListResult
+            var result = new PermissionListResultDto
             {
                 //EntityDisplayName = providerKey,
                 //Groups = new List<PermissionGroupDto>()

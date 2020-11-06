@@ -32,7 +32,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <summary>
         /// 获取租户
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">租户Id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public virtual Task<TenantDto> GetAsync(string id)
