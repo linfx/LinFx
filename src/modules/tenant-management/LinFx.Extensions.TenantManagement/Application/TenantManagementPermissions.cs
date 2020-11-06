@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.TenantManagement.Application
+﻿namespace LinFx.Extensions.TenantManagement
 {
     public static class TenantManagementPermissions
     {

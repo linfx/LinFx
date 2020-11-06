@@ -2,13 +2,11 @@
 using LinFx.Application.Models;
 using LinFx.Data;
 using LinFx.Data.Linq;
-using LinFx.Extensions.TenantManagement.Application.Models;
-using LinFx.Extensions.TenantManagement.Domain;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.TenantManagement.Application
+namespace LinFx.Extensions.TenantManagement
 {
     /// <summary>
     /// 租户服务
@@ -27,13 +25,13 @@ namespace LinFx.Extensions.TenantManagement.Application
 
         public Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         [Authorize(TenantManagementPermissions.Tenants.Create)]
         public Task<TenantDto> CreateAsync(TenantEditInput input)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         [Authorize(TenantManagementPermissions.Tenants.Update)]

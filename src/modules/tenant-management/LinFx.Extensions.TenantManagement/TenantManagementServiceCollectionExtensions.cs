@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.TenantManagement.Application;
-using LinFx.Extensions.TenantManagement.Domain;
+using LinFx.Extensions.TenantManagement;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection

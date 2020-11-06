@@ -1,10 +1,8 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Extensions.TenantManagement.Application;
-using LinFx.Extensions.TenantManagement.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace LinFx.Module.TenantManagement.HttpApi
+namespace LinFx.Extensions.TenantManagement.HttpApi
 {
     /// <summary>
     /// 租户Api接口

@@ -1,6 +1,6 @@
 ﻿using LinFx.Application.Models;
 
-namespace LinFx.Extensions.TenantManagement.Application.Models
+namespace LinFx.Extensions.TenantManagement
 {
     public class TenantInput : PagedAndSortedResultRequest
     {

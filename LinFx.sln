@@ -62,11 +62,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Account.Ht
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{2811B54F-6B0C-4073-8DF3-048CCDA1202C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Host", "samples\IdentityService.Host\IdentityService.Host.csproj", "{52CE1966-6E59-4255-822A-4988D48BA3B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Host", "samples\IdentityService.Host\IdentityService.Host.csproj", "{52CE1966-6E59-4255-822A-4988D48BA3B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TenantManagementService.Host", "samples\TenantManagementService.Host\TenantManagementService.Host.csproj", "{68DBD2C0-656A-4030-93B8-562E8E916358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantManagementService.Host", "samples\TenantManagementService.Host\TenantManagementService.Host.csproj", "{68DBD2C0-656A-4030-93B8-562E8E916358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloggingService.Host", "samples\BloggingService.Host\BloggingService.Host.csproj", "{1DCDC15C-207E-4501-A06E-BACE665FFF10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingService.Host", "samples\BloggingService.Host\BloggingService.Host.csproj", "{1DCDC15C-207E-4501-A06E-BACE665FFF10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

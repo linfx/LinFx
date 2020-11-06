@@ -2,7 +2,7 @@
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.TenantManagement.Domain
+namespace LinFx.Extensions.TenantManagement
 {
     [Service]
     public class TenantStore : ITenantStore

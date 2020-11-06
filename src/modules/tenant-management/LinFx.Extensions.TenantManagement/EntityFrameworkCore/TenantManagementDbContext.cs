@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.TenantManagement.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using DbContext = LinFx.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
@@ -13,11 +12,14 @@ namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
             builder.Entity<Tenant>(b =>
             {
                 b.HasKey(p => p.Id);
-                b.Property(p => p.Id).HasMaxLength(50);
+                b.Property(p => p.Id).HasMaxLength(64);
+
+                b.Property(p => p.Name)
+                    .IsRequired()    
+                    .HasMaxLength(64);
             });
         }
     }
