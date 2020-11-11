@@ -4,6 +4,7 @@ using LinFx.Data;
 using LinFx.Data.Linq;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement
@@ -16,6 +17,7 @@ namespace LinFx.Extensions.TenantManagement
     public class TenantService : ApplicationService, ITenantService
     {
         protected IRepository<Tenant> TenantRepository { get; }
+
         protected TenantManager TenantManager { get; }
 
         /// <summary>
@@ -34,9 +36,9 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public virtual Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
+        public virtual async Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
         {
-            throw new NotImplementedException();
+            return await TenantRepository.Query().ToPageResultAsync<Tenant, TenantDto>(input);
         }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
+        public virtual Task<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantInput input)
         {
             return TenantService.GetListAsync(input);
         }
