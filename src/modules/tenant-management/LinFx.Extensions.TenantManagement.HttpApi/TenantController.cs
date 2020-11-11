@@ -1,4 +1,4 @@
-﻿using LinFx.Application.Models;
+﻿using LinFx.Application.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

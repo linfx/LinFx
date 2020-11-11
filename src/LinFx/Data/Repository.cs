@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.Generic;

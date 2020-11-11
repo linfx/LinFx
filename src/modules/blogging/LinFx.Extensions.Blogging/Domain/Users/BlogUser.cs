@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using System;
 
 namespace LinFx.Extensions.Blogging.Domain.Models

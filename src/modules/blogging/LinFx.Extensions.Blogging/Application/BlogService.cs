@@ -1,5 +1,5 @@
-﻿using LinFx.Application;
-using LinFx.Application.Models;
+﻿using LinFx.Application.Contracts;
+using LinFx.Application.Services;
 using LinFx.Extensions.Blogging.Domain.Blogs;
 using LinFx.Extensions.Blogging.EntityFrameworkCore;
 using LinFx.Extensions.DependencyInjection;

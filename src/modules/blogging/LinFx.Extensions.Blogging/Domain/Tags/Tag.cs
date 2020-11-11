@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models.Auditing;
+﻿using LinFx.Domain.Entities.Auditing;
 using LinFx.Extensions.Auditing;
 using System;
 

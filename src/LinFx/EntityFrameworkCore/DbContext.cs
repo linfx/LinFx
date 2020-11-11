@@ -1,5 +1,5 @@
 ﻿using LinFx.Data;
-using LinFx.Domain.Models;
+using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MediatR;

@@ -1,5 +1,4 @@
-﻿using LinFx.Application.Models;
-using LinFx.Extensions.Blogging.EntityFrameworkCore;
+﻿using LinFx.Extensions.Blogging.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;

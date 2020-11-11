@@ -1,4 +1,4 @@
-﻿using LinFx.Application.Models;
+﻿using LinFx.Application.Contracts;
 
 namespace LinFx.Extensions.TenantManagement
 {

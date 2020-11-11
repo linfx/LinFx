@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
