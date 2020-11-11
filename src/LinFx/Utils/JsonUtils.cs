@@ -64,7 +64,6 @@ namespace LinFx.Utils
         public static T ToObject<T>(string value, bool camelCase = false, bool indented = false)
         {
             var options = new JsonSerializerSettings();
-
             if (camelCase)
                 options.ContractResolver = new CamelCasePropertyNamesContractResolver();
 

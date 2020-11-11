@@ -14,18 +14,13 @@ namespace LinFx
         /// <see cref="Required"/> set to <see langword="true"/>.
         /// </summary>
         public LocalizationRequiredAttribute()
-            : this(true)
-        {
-        }
+            : this(true) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute"/> class.
         /// </summary>
         /// <param name="required"><c>true</c> if a element should be localized; otherwise, <c>false</c>.</param>
-        public LocalizationRequiredAttribute(bool required)
-        {
-            Required = required;
-        }
+        public LocalizationRequiredAttribute(bool required) => Required = required;
 
         /// <summary>
         /// Gets a value indicating whether a element should be localized.
@@ -133,9 +128,7 @@ namespace LinFx
     public sealed class ContractAnnotationAttribute : Attribute
     {
         public ContractAnnotationAttribute([NotNull] string fdt)
-            : this(fdt, false)
-        {
-        }
+            : this(fdt, false) { }
 
         public ContractAnnotationAttribute([NotNull] string fdt, bool forceFullStates)
         {
@@ -144,6 +137,7 @@ namespace LinFx
         }
 
         public string FDT { get; private set; }
+
         public bool ForceFullStates { get; private set; }
     }
 
@@ -243,9 +237,7 @@ namespace LinFx
 
         [UsedImplicitly]
         public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
-            : this(useKindFlags, ImplicitUseTargetFlags.Default)
-        {
-        }
+            : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
 
         [UsedImplicitly]
         public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)

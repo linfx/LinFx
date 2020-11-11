@@ -9,10 +9,7 @@
         /// Creates a new instance of <see cref="LinFxBuilder"/>
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to attach to.</param>
-        public LinFxBuilder(IServiceCollection services)
-        {
-            Services = services;
-        }
+        public LinFxBuilder(IServiceCollection services) => Services = services;
 
         /// <summary>
         /// Gets the <see cref="IServiceCollection"/> services are attached to.
