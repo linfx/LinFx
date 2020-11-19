@@ -1,9 +1,7 @@
 ﻿using LinFx;
-using LinFx.Domain;
-using LinFx.Domain.Entities;
 using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Models
 {
     public interface IHasExtraProperties
     {

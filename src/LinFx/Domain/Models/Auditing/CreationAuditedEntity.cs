@@ -1,36 +1,37 @@
 ﻿using LinFx;
-using LinFx.Domain;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Models.Auditing;
 using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Domain.Entities.Auditing
+namespace LinFx.Domain.Models.Auditing
 {
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject" /> for an entity.
     /// </summary>
-    public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAuditedObject
+    [Serializable]
+    public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        [StringLength(32)]
+        [StringLength(50)]
         public virtual string CreatorId { get; set; }
     }
 
     /// <summary>
-    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for aggregate roots.
+    /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for an entity.
     /// </summary>
     /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
-    public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, ICreationAuditedObject
+    [Serializable]
+    public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
     {
         /// <inheritdoc />
         public virtual DateTimeOffset CreationTime { get; set; }
 
         /// <inheritdoc />
-        [StringLength(32)]
+        [StringLength(50)]
         public virtual string CreatorId { get; set; }
     }
 }

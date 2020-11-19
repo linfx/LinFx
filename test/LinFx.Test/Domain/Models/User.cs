@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Models;
 
 namespace LinFx.Test.Domain.Models
 {

@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Entities.Auditing;
+﻿using LinFx.Domain.Models.Auditing;
 using System;
 
 namespace LinFx.Extensions.Blogging.Domain.Posts

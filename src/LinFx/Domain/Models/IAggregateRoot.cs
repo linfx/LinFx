@@ -1,10 +1,8 @@
 ﻿using LinFx;
-using LinFx.Domain;
-using LinFx.Domain.Entities;
 using MediatR;
 using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Models
 {
     /// <summary>
     /// Defines an aggregate root. It's primary key may not be "Id" or it may have a composite primary key.

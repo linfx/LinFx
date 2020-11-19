@@ -1,7 +1,7 @@
 ﻿using LinFx;
 using LinFx.Application.Contracts;
 using LinFx.Application.Services;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;

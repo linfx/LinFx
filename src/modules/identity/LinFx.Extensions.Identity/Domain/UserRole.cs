@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 

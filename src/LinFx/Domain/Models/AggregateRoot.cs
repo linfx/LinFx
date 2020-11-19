@@ -1,10 +1,8 @@
 ﻿using LinFx;
-using LinFx.Domain;
-using LinFx.Domain.Entities;
 using MediatR;
 using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Models
 {
     /// <summary>
     /// 聚合根

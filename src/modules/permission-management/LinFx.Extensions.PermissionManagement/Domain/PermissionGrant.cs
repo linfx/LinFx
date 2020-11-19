@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Models;
 using LinFx.Extensions.MultiTenancy;
 using System.ComponentModel.DataAnnotations;
 

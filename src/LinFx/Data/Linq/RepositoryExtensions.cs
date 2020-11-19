@@ -1,5 +1,5 @@
 ﻿using LinFx.Data.Linq;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;

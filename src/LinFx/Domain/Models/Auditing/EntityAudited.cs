@@ -1,11 +1,10 @@
 ﻿using LinFx;
-using LinFx.Domain;
-using LinFx.Domain.Entities;
+using LinFx.Domain.Models.Auditing;
 using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LinFx.Domain.Entities.Auditing
+namespace LinFx.Domain.Models.Auditing
 {
     /// <summary>
     /// 审计实体

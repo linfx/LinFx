@@ -1,7 +1,6 @@
 ﻿using LinFx;
-using LinFx.Domain;
 
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Models
 {
     /// <summary>
     /// 领域实体
