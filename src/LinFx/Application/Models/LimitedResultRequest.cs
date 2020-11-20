@@ -1,9 +1,6 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Contracts;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Contracts
+namespace LinFx.Application.Models
 {
     public class LimitedResultRequest
     {

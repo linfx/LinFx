@@ -1,9 +1,6 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Contracts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LinFx.Application.Contracts
+namespace LinFx.Application.Models
 {
     /// <summary>
     /// This interface is defined to standardize to return a list of items to clients.

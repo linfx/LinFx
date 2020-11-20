@@ -1,8 +1,4 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Contracts;
-
-namespace LinFx.Application.Contracts
+﻿namespace LinFx.Application.Models
 {
     /// <summary>
     /// Simply implements <see cref="IPagedAndSortedResultRequest"/>.

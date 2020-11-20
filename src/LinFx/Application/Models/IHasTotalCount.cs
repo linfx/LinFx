@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application.Contracts
+﻿namespace LinFx.Application.Models
 {
     /// <summary>
     /// This interface is defined to standardize to set "Total Count of Items" to a DTO.

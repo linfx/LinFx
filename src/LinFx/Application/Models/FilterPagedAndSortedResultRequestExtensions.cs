@@ -1,10 +1,7 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Contracts;
-using System;
+﻿using System;
 using System.Linq.Expressions;
 
-namespace LinFx.Application.Contracts
+namespace LinFx.Application.Models
 {
     public static class PagedAndSortedResultRequestExtensions
     {

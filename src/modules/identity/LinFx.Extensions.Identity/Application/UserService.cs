@@ -1,4 +1,5 @@
-﻿using LinFx.Application.Contracts;
+﻿using LinFx.Application.Models;
+using LinFx.Extensions.Identity.Application.Models;
 using LinFx.Extensions.Identity.EntityFrameworkCore;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;

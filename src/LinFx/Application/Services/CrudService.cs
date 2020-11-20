@@ -1,5 +1,5 @@
 ﻿using LinFx;
-using LinFx.Application.Contracts;
+using LinFx.Application.Models;
 using LinFx.Application.Services;
 using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;

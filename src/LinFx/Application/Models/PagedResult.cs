@@ -1,9 +1,6 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Contracts;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LinFx.Application.Contracts
+namespace LinFx.Application.Models
 {
     /// <summary>
     /// Implements <see cref="IPagedResult{T}"/>.

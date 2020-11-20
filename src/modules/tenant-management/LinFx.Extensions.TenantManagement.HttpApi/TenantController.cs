@@ -1,4 +1,5 @@
-﻿using LinFx.Application.Contracts;
+﻿using LinFx.Application.Models;
+using LinFx.Extensions.TenantManagement.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

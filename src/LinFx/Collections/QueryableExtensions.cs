@@ -1,6 +1,6 @@
 ﻿using LinFx;
 using LinFx.Application;
-using LinFx.Application.Contracts;
+using LinFx.Application.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;

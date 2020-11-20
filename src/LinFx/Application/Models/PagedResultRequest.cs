@@ -1,7 +1,6 @@
-﻿using LinFx;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Contracts
+namespace LinFx.Application.Models
 {
     /// <summary>
     /// Simply implements <see cref="IPagedResultRequest"/>.

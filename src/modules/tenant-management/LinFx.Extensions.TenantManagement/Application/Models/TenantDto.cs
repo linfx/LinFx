@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace LinFx.Extensions.TenantManagement
-{ 
+namespace LinFx.Extensions.TenantManagement.Application.Models
+{
     public class TenantDto
     {
         /// <summary>

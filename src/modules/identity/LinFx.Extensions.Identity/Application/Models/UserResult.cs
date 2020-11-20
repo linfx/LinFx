@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions.Identity
+namespace LinFx.Extensions.Identity.Application.Models
 {
     public class UserResult
     {

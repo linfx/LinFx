@@ -1,4 +1,4 @@
-﻿using LinFx.Application.Contracts;
+﻿using LinFx.Application.Models;
 using LinFx.Application.Services;
 using LinFx.Extensions.Blogging.Domain.Blogs;
 using LinFx.Extensions.Blogging.EntityFrameworkCore;
