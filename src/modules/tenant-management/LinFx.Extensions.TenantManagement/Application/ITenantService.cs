@@ -14,21 +14,21 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResult<TenantDto>> GetListAsync(TenantInput input);
+        Task<PagedResult<TenantResult>> GetListAsync(TenantRequest input);
 
         /// <summary>
         /// 获取租户
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<TenantDto> GetAsync(string id);
+        Task<TenantResult> GetAsync(string id);
 
         /// <summary>
         /// 创建租户
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantDto> CreateAsync(TenantEditInput input);
+        Task<TenantResult> CreateAsync(TenantEditInput input);
 
         /// <summary>
         /// 更新租户
@@ -36,7 +36,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<TenantDto> UpdateAsync(string id, TenantEditInput input);
+        Task<TenantResult> UpdateAsync(string id, TenantEditInput input);
 
         /// <summary>
         /// 删除租户

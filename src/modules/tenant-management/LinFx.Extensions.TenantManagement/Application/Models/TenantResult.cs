@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.TenantManagement.Application.Models
 {
-    public class TenantDto
+    public class TenantResult
     {
         /// <summary>
         /// 租户Id

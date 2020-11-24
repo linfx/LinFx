@@ -1,6 +1,4 @@
-﻿using LinFx.Extensions.Authorization.Permissions;
-
-namespace LinFx.Extensions.Authorization.Permissions
+﻿namespace LinFx.Extensions.Authorization.Permissions
 {
     /// <summary>
     /// 权限定义提供者

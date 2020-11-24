@@ -39,11 +39,26 @@ namespace LinFx.Extensions.Identity.EntityFrameworkCore
         {
             builder.Entity<TUser>().ToTable(TableConsts.Users);
             builder.Entity<TRole>().ToTable(TableConsts.Roles);
-            builder.Entity<UserRole>().ToTable(TableConsts.UserRoles);
             builder.Entity<RoleClaim>().ToTable(TableConsts.RoleClaims);
-            builder.Entity<UserLogin>().ToTable(TableConsts.UserLogins);
             builder.Entity<UserClaim>().ToTable(TableConsts.UserClaims);
-            builder.Entity<UserToken>().ToTable(TableConsts.UserTokens);
+
+            builder.Entity<UserRole>(b =>
+            {
+                b.HasKey(r => new { r.UserId, r.RoleId });
+                b.ToTable(TableConsts.UserRoles);
+            });
+
+            builder.Entity<UserLogin>(b =>
+            {
+                b.HasKey(l => new { l.LoginProvider, l.ProviderKey });
+                b.ToTable(TableConsts.UserLogins);
+            });
+
+            builder.Entity<UserToken>(b =>
+            {
+                b.HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
+                b.ToTable(TableConsts.UserTokens);
+            });
         }
     }
 }

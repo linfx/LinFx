@@ -26,10 +26,10 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual async Task<TenantDto> GetAsync(string id)
+        public virtual async Task<TenantResult> GetAsync(string id)
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
-            return tenant?.MapTo<TenantDto>();
+            return tenant?.MapTo<TenantResult>();
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public virtual async Task<PagedResult<TenantDto>> GetListAsync(TenantInput input)
+        public virtual async Task<PagedResult<TenantResult>> GetListAsync(TenantRequest input)
         {
-            return await TenantRepository.Query().ToPageResultAsync<Tenant, TenantDto>(input);
+            return await TenantRepository.Query().ToPageResultAsync<Tenant, TenantResult>(input);
         }
 
         /// <summary>
@@ -48,14 +48,14 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(TenantManagementPermissions.Tenants.Create)]
-        public virtual async Task<TenantDto> CreateAsync(TenantEditInput input)
+        public virtual async Task<TenantResult> CreateAsync(TenantEditInput input)
         {
             var tenant = await TenantManager.CreateAsync(input.Name);
 
             TenantRepository.Add(tenant);
             await TenantRepository.SaveChangesAsync();
 
-            return tenant.MapTo<TenantDto>();
+            return tenant.MapTo<TenantResult>();
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(TenantManagementPermissions.Tenants.Update)]
-        public virtual async Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
+        public virtual async Task<TenantResult> UpdateAsync(string id, TenantEditInput input)
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
             if (tenant == null)
@@ -73,7 +73,7 @@ namespace LinFx.Extensions.TenantManagement
 
             input.MapTo(tenant);
             await TenantRepository.SaveChangesAsync();
-            return tenant.MapTo<TenantDto>();
+            return tenant.MapTo<TenantResult>();
         }
 
         /// <summary>
