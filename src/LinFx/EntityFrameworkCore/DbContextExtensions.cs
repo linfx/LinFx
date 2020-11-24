@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinFx;
+using LinFx.Data;
+using LinFx.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace LinFx.Data
+namespace LinFx.EntityFrameworkCore
 {
     public static class DbContextExtensions
     {
