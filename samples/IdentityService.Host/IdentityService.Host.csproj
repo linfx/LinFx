@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\modules\blogging\LinFx.Extensions.Blogging.HttpApi\LinFx.Extensions.Blogging.HttpApi.csproj" />
+    <ProjectReference Include="..\..\src\modules\account\LinFx.Extensions.Account.HttpApi\LinFx.Extensions.Account.HttpApi.csproj" />
     <ProjectReference Include="..\..\src\modules\identity\LinFx.Extensions.Identity.HttpApi\LinFx.Extensions.Identity.HttpApi.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Modules
+namespace LinFx.Extensions.Modules
 {
     public class MissingModuleManifestException : Exception
     {

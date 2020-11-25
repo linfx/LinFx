@@ -21,6 +21,8 @@ namespace IdentityService.Host
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Identity.xml"), true);
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Identity.HttpApi.xml"), true);
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Account.xml"), true);
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Account.HttpApi.xml"), true);
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });

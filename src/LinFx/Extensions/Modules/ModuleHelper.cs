@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Modules
+namespace LinFx.Extensions.Modules
 {
     internal class ModuleHelper
     {

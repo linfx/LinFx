@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace LinFx.Modules
+namespace LinFx.Extensions.Modules
 {
     public class Module : IModuleInitializer
     {
