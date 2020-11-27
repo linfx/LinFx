@@ -2,6 +2,7 @@
 using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinFx.Domain.Models.Auditing
 {
@@ -11,6 +12,7 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class AuditedEntity : CreationAuditedEntity, IAuditedObject
     {
         /// <inheritdoc />
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />
@@ -25,6 +27,7 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class AuditedEntity<TKey> : CreationAuditedEntity<TKey>, IAuditedObject
     {
         /// <inheritdoc />
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public virtual DateTimeOffset? LastModificationTime { get; set; }
 
         /// <inheritdoc />

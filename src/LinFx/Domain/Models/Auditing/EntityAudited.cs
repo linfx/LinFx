@@ -25,12 +25,12 @@ namespace LinFx.Domain.Models.Auditing
         /// 创建时间
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTimeOffset CreatedOn { get; set; }
+        public virtual DateTimeOffset CreatedOn { get; set; }
 
         /// <summary>
         /// 更新时间
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTimeOffset UpdatedOn { get; set; }
+        public virtual DateTimeOffset? UpdatedOn { get; set; }
     }
 }
