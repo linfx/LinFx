@@ -12,10 +12,19 @@ namespace LinFx.Extensions.Account
     /// <summary>
     /// 账户服务
     /// </summary>
+    [Service]
     public class AccountService : IAccountService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+
+        public AccountService(
+            UserManager<User> userManager, 
+            SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
 
         public async Task<Result> LoginAsync(LoginInput input)
         {

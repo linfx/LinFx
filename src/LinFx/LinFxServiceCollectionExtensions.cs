@@ -17,7 +17,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 services.Configure(optionsAction);
 
             var builder = new LinFxBuilder(services);
-            builder.AddAssembly(typeof(Module).Assembly);
             builder.Services.AddOptions();
             builder.Services.AddLogging();
             return builder;
