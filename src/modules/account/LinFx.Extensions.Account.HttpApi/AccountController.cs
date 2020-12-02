@@ -14,14 +14,14 @@ namespace LinFx.Extensions.Account.HttpApi
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        //protected readonly ICurrentUser _currentUser;
+        protected readonly ICurrentUser _currentUser;
         protected readonly IAccountService _accountService;
 
         public AccountController(
-            //ICurrentUser currentUser,
+            ICurrentUser currentUser,
             IAccountService accountService)
         {
-            //_currentUser = currentUser;
+            _currentUser = currentUser;
             _accountService = accountService;
         }
 
