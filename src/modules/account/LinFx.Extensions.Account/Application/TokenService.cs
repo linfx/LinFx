@@ -172,18 +172,18 @@ namespace LinFx.Extensions.Account
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        protected virtual async Task<IList<Claim>> BuildClaims(User user)
+        protected virtual async Task<IList<Claim>> BuildClaims(IUser user)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti,  Guid.NewGuid().ToString()),
                 // https://stackoverflow.com/questions/51119926/jwt-authentication-usermanager-getuserasync-returns-null
                 // default the value of UserIdClaimType is ClaimTypes.NameIdentifier, i.e. "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-                new Claim(JwtRegisteredClaimNames.NameId,  user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                //new Claim(JwtRegisteredClaimNames.NameId,  user.Id.ToString()),
+                //new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
             };
-            var userRoles = await _userManager.GetRolesAsync(user);
-            claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+            //var userRoles = await _userManager.GetRolesAsync(user);
+            //claims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
             return claims;
         }
     }

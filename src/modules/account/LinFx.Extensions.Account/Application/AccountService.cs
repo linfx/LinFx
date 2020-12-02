@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Account
 {
+    /// <summary>
+    /// 账户服务
+    /// </summary>
     public class AccountService : IAccountService
     {
         private readonly UserManager<User> _userManager;

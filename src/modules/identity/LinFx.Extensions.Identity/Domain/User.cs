@@ -7,7 +7,7 @@ namespace LinFx.Extensions.Identity
     /// <summary>
     /// 用户
     /// </summary>
-    public class User : User<long> { }
+    public class User : User<string>, IUser { }
 
     /// <summary>
     /// 用户

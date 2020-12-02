@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\ApplicationDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\ApplicationDbContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
@@ -15,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\modules\account\LinFx.Extensions.Account.HttpApi\LinFx.Extensions.Account.HttpApi.csproj" />
     <ProjectReference Include="..\..\src\modules\identity\LinFx.Extensions.Identity.HttpApi\LinFx.Extensions.Identity.HttpApi.csproj" />
+    <ProjectReference Include="..\..\src\modules\identity\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
   </ItemGroup>
 
 </Project>
