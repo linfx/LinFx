@@ -1,13 +1,13 @@
 <Project>
   <PropertyGroup>
-    <Authors>LinFx</Authors>
-    <Version>4.8.1</Version>
-    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
-    <Copyright>Copyright (c) 2020 LinFx</Copyright>
-    <Company>LinFx</Company>
-    <Product>LinFx</Product>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <Version>5.0.3</Version>
     <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>LinFx</Company>
+    <Authors>LinFx</Authors>
+    <Product>LinFx</Product>
+    <Copyright>Copyright (c) 2020 LinFx</Copyright>
+    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
   </PropertyGroup>
 </Project>
