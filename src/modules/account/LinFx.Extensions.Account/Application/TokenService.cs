@@ -1,6 +1,7 @@
 ﻿using LinFx.Extensions.Caching;
 using LinFx.Extensions.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,16 @@ namespace LinFx.Extensions.Account
     /// </summary>
     public class TokenService : ITokenService
     {
-        private readonly IStaticCacheManager _cacheManager;
+        private readonly IDistributedCache _cache;
         private readonly UserManager<User> _userManager;
         private readonly AuthenticationConfig _config;
 
         public TokenService(
-            IStaticCacheManager cacheManager,
+            IDistributedCache cache,
             UserManager<User> userManager,
             AuthenticationConfig config)
         {
-            _cacheManager = cacheManager;
+            _cache = cache;
             _userManager = userManager;
             _config = config;
         }

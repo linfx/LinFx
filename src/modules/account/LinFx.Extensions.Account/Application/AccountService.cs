@@ -26,6 +26,11 @@ namespace LinFx.Extensions.Account
             _signInManager = signInManager;
         }
 
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<Result> LoginAsync(LoginInput input)
         {
             User user = null;
@@ -87,35 +92,45 @@ namespace LinFx.Extensions.Account
                     signInResult.RequiresTwoFactor
                 }, "当前账号存在安全风险，请进一步验证身份");
             }
-            //else if (signInResult.Succeeded)
-            //{
-            //    var token = await _tokenService.CreateAccessTokenAsync(user);
-            //    var loginResult = new LoginResult
-            //    {
-            //        AccessToken = token,
-            //        Avatar = user.AvatarUrl,
-            //        Email = user.Email,
-            //        Name = user.FullName,
-            //        Phone = user.PhoneNumber
-            //    };
-            //    if (includeRefreshToken)
-            //    {
-            //        loginResult.RefreshToken = _tokenService.CreateRefreshToken();
-            //        user.RefreshTokenHash = _userManager.PasswordHasher.HashPassword(user, loginResult.RefreshToken);
-            //        await _userManager.UpdateAsync(user);
-            //    }
-            //    if (includeRoles)
-            //    {
-            //        loginResult.Roles = await _userManager.GetRolesAsync(user);
-            //    }
-            //    return Result.Ok(loginResult);
-            //}
+            else if (signInResult.Succeeded)
+            {
+                //var token = await _tokenService.CreateAccessTokenAsync(user);
+                //var loginResult = new LoginResult
+                //{
+                //    AccessToken = token,
+                //    Avatar = user.AvatarUrl,
+                //    Email = user.Email,
+                //    Name = user.FullName,
+                //    Phone = user.PhoneNumber
+                //};
+                //if (includeRefreshToken)
+                //{
+                //    loginResult.RefreshToken = _tokenService.CreateRefreshToken();
+                //    user.RefreshTokenHash = _userManager.PasswordHasher.HashPassword(user, loginResult.RefreshToken);
+                //    await _userManager.UpdateAsync(user);
+                //}
+                //if (includeRoles)
+                //{
+                //    loginResult.Roles = await _userManager.GetRolesAsync(user);
+                //}
+                //return Result.Ok(loginResult);
+            }
             return Result.Failed("用户名或密码错误");
         }
 
-        public Task<Result> RegisterAsync(RegisterInput input)
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<Result> RegisterAsync(RegisterInput input)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                UserName = input.UserName,
+            };
+            await _userManager.CreateAsync(user, input.Password);
+            return Result.Ok();
         }
     }
 }
