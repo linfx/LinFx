@@ -12,7 +12,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static LinFxBuilder AddAccountExtensions(this LinFxBuilder services)
         {
             services.Services
-                //.AddTransient<ITokenService, TokenService>()
+                .AddDistributedMemoryCache()
+                .AddSingleton<AuthenticationConfig>()
+                .AddTransient<ITokenService, TokenService>()
                 .AddTransient<IAccountService, AccountService>();
 
             return services;
