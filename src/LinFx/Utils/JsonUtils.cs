@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
+﻿using System;
 using System.Text;
 using System.Text.Json;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace LinFx.Utils
 {
@@ -28,51 +25,41 @@ namespace LinFx.Utils
 
         public static string ToJson(object value, bool camelCase = false, bool indented = false)
         {
-            var options = new JsonSerializerSettings();
+            var options = new JsonSerializerOptions();
 
             if (camelCase)
-                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.PropertyNameCaseInsensitive = true;
 
             if (indented)
-                options.Formatting = Formatting.Indented;
+                options.WriteIndented = true;
 
-            //DateTimeFormat
-            //options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-
-            return JsonConvert.SerializeObject(value, options);
+            return JsonSerializer.Serialize(value, options);
         }
 
-        [Obsolete]
-        public static string ToJsonString(object value, bool camelCase = true, bool indented = false)
+        public static string ToJson<TValue>(TValue value, bool camelCase = false, bool indented = false)
         {
-            var options = new JsonSerializerSettings();
+            var options = new JsonSerializerOptions();
 
             if (camelCase)
-                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.PropertyNameCaseInsensitive = true;
 
             if (indented)
-                options.Formatting = Formatting.Indented;
+                options.WriteIndented = true;
 
-            //DateTimeFormat
-            //options.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" });
-            options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-
-            return JsonConvert.SerializeObject(value, options);
+            return JsonSerializer.Serialize(value, options);
         }
 
-        public static T ToObject<T>(string value, bool camelCase = false, bool indented = false)
+        public static TValue ToObject<TValue>(string json, bool camelCase = false, bool indented = false)
         {
-            var options = new JsonSerializerSettings();
+            var options = new JsonSerializerOptions();
+
             if (camelCase)
-                options.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.PropertyNameCaseInsensitive = true;
 
             if (indented)
-                options.Formatting = Formatting.Indented;
+                options.WriteIndented = true;
 
-            //options.Converters.Insert(0, new DateTimeConverter());
-
-            return JsonConvert.DeserializeObject<T>(value, options);
+            return JsonSerializer.Deserialize<TValue>(json, options);
         }
 
         private const char TypeSeperator = '|';
@@ -118,116 +105,14 @@ namespace LinFx.Utils
             var type = Type.GetType(serializedObj.Substring(0, typeSeperatorIndex));
             var serialized = serializedObj.Substring(typeSeperatorIndex + 1);
 
-            var options = new JsonSerializerSettings();
-            //options.Converters.Insert(0, new AbpDateTimeConverter());
+           var options = new JsonSerializerOptions();
 
-            return JsonConvert.DeserializeObject(serialized, type, options);
+            return JsonSerializer.Deserialize(serialized, type, options);
         }
 
         public static object DeserializeObject(string value, Type type)
         {
-            return JsonConvert.DeserializeObject(value, type);
-        }
-    }
-
-    /// <summary>
-    /// 转化小写
-    /// </summary>
-    public class LowercaseContractResolver : DefaultContractResolver
-    {
-        protected override string ResolvePropertyName(string propertyName)
-        {
-            return propertyName.ToLower();
-        }
-    }
-
-    public class UnderlineSplitContractResolver : DefaultContractResolver
-    {
-        protected override string ResolvePropertyName(string propertyName)
-        {
-            var builder = new StringBuilder();
-            for (int i = 0; i < propertyName.Length; i++)
-            {
-                var ch = propertyName[i];
-                if (i == 0)
-                {
-                    builder.Append(char.ToLower(ch));
-                }
-                else
-                {
-                    var prev = propertyName[i - 1];
-                    if (prev == '_')
-                        builder.Append(char.ToLower(ch));
-                    else
-                        builder.Append(ch);
-                }
-            }
-            return builder.ToString();
-        }
-    }
-
-    /// <summary>  
-    /// Newtonsoft.Json序列化扩展特性  
-    /// <para>DateTime序列化（输出为时间戳）</para>  
-    /// </summary>  
-    public class TimestampConverter : JsonConverter
-    {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(DateTime);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return ConvertIntDateTime(int.Parse(reader.Value.ToString()));
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            writer.WriteValue(ConvertDateTimeInt((DateTime)value));
-        }
-
-        public static DateTime ConvertIntDateTime(int aSeconds)
-        {
-            return new DateTime(1970, 1, 1).AddSeconds(aSeconds);
-        }
-
-        public static int ConvertDateTimeInt(DateTime aDT)
-        {
-            return (int)(aDT - new DateTime(1970, 1, 1)).TotalSeconds;
-        }
-    }
-
-    /// <summary>  
-    /// Newtonsoft.Json序列化扩展特性  
-    /// <para>String Unicode 序列化（输出为Unicode编码字符）</para>  
-    /// </summary>  
-    public class UnicodeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(string);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return reader.Value;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            writer.WriteValue(ToUnicode(value.ToString()));
-        }
-
-        public static string ToUnicode(string str)
-        {
-            byte[] bts = Encoding.Unicode.GetBytes(str);
-            string r = "";
-            for (int i = 0; i < bts.Length; i += 2)
-            {
-                r += "\\u" + bts[i + 1].ToString("X").PadLeft(2, '0') + bts[i].ToString("X").PadLeft(2, '0');
-            }
-            return r;
+            return JsonSerializer.Deserialize(value, type);
         }
     }
 
