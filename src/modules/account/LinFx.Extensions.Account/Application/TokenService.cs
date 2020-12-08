@@ -1,16 +1,14 @@
-﻿using LinFx.Extensions.Caching;
-using LinFx.Extensions.Identity;
+﻿using LinFx.Extensions.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Account
 {
@@ -20,17 +18,17 @@ namespace LinFx.Extensions.Account
     public class TokenService : ITokenService
     {
         private readonly IDistributedCache _cache;
-        private readonly UserManager<User> _userManager;
-        private readonly AuthenticationConfig _config;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AuthenticationOptions _config;
 
         public TokenService(
             IDistributedCache cache,
-            UserManager<User> userManager,
-            AuthenticationConfig config)
+            UserManager<IdentityUser> userManager,
+            IOptionsMonitor<AuthenticationOptions> config)
         {
             _cache = cache;
             _userManager = userManager;
-            _config = config;
+            _config = config.CurrentValue;
         }
 
         /// <summary>
@@ -38,13 +36,13 @@ namespace LinFx.Extensions.Account
         /// </summary>
         /// <param name="user">用户</param>
         /// <returns></returns>
-        public async Task<string> CreateAccessTokenAsync(User user)
+        public string CreateAccessToken(IUser user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Jwt.Key));
             var minutes = _config.Jwt.AccessTokenDurationInMinutes;
             var utcNow = DateTime.UtcNow;
             var expires = utcNow.AddMinutes(minutes);
-            var claims = await BuildClaims(user);
+            var claims = BuildClaims(user);
             var jwtToken = new JwtSecurityToken(
                 issuer: _config.Jwt.Issuer,
                 audience: "Anyone",
@@ -173,11 +171,11 @@ namespace LinFx.Extensions.Account
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        protected virtual async Task<IList<Claim>> BuildClaims(IUser user)
+        protected virtual IList<Claim> BuildClaims(IUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Jti,  Guid.NewGuid().ToString()),
+                //new Claim(JwtRegisteredClaimNames.Jti,  Guid.NewGuid().ToString()),
                 // https://stackoverflow.com/questions/51119926/jwt-authentication-usermanager-getuserasync-returns-null
                 // default the value of UserIdClaimType is ClaimTypes.NameIdentifier, i.e. "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
                 //new Claim(JwtRegisteredClaimNames.NameId,  user.Id.ToString()),

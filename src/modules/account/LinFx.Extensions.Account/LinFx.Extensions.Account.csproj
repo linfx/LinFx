@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\identity\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
+    <ProjectReference Include="..\..\..\LinFx\LinFx.csproj" />
   </ItemGroup>
 
 </Project>

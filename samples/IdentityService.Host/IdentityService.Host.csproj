@@ -3,19 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>81eaea09-fe19-4457-afa0-ed2df78e524b</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\ApplicationDbContext.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Data\ApplicationDbContext.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,8 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\modules\account\LinFx.Extensions.Account.HttpApi\LinFx.Extensions.Account.HttpApi.csproj" />
-    <ProjectReference Include="..\..\src\modules\identity\LinFx.Extensions.Identity.HttpApi\LinFx.Extensions.Identity.HttpApi.csproj" />
-    <ProjectReference Include="..\..\src\modules\identity\LinFx.Extensions.Identity\LinFx.Extensions.Identity.csproj" />
   </ItemGroup>
 
 </Project>

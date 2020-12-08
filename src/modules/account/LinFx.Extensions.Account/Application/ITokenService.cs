@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Identity;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Account
 {
@@ -14,7 +13,7 @@ namespace LinFx.Extensions.Account
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<string> CreateAccessTokenAsync(User user);
+        string CreateAccessToken(IUser user);
 
         /// <summary>
         /// create refresh_token

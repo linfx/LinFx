@@ -1,4 +1,5 @@
-using LinFx.Extensions.Identity;
+using IdentityService.Host.Data;
+using IdentityService.Host.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -27,26 +28,27 @@ namespace IdentityService.Host
         {
             services
                 .AddLinFx()
-                .AddHttpContextPrincipalAccessor()
-                .AddAccountExtensions();
+                .AddHttpContextPrincipalAccessor();
 
-            services.AddDbContext<IdentityDbContext>(option =>
+            services.AddDbContext<ApplicationDbContext>(option =>
             {
                 option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(typeof(Startup).Assembly.GetName().Name));
             });
 
             services
-                .AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddIdentityCore<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddControllers();
+            services
+                .AddDataProtection();
+
+            services
+                .AddControllers();
 
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Identity.xml"), true);
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Identity.HttpApi.xml"), true);
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Account.xml"), true);
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.Account.HttpApi.xml"), true);
                 options.DocInclusionPredicate((docName, description) => true);
