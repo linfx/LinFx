@@ -16,8 +16,5 @@ $projects = (
 
     # modules/account
     "src/modules/account/LinFx.Extensions.Account",
-    "src/modules/account/LinFx.Extensions.Account.HttpApi",
-
-    # # modules/account
-    "src/modules/identity/LinFx.Extensions.Identity"
+    "src/modules/account/LinFx.Extensions.Account.HttpApi"
 )
