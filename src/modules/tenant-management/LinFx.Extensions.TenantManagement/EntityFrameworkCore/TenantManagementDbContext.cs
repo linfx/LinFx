@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DbContext = LinFx.EntityFrameworkCore.DbContext;
+using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
 {

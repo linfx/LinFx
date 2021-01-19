@@ -1,7 +1,4 @@
-﻿using LinFx;
-using LinFx.Application;
-using LinFx.Application.Services;
-using LinFx.Domain.Models;
+﻿using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
