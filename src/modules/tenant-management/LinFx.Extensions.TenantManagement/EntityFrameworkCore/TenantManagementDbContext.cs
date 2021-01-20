@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
 {
-    public class TenantManagementDbContext : DbContext
+    public class TenantManagementDbContext : LinFx.Extensions.EntityFrameworkCore.DbContext
     {
         public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options) : base(options) { }
 

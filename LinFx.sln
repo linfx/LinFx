@@ -60,6 +60,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantManagementService.Hos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingService.Host", "samples\BloggingService.Host\BloggingService.Host.csproj", "{1DCDC15C-207E-4501-A06E-BACE665FFF10}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A412A505-FA01-4887-888F-70E5A4D2701E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
