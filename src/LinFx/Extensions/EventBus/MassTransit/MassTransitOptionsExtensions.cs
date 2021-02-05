@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.RabbitMq;
 using System.Collections.Specialized;
 
-namespace ShopFx.Extensions.MassTransit.Options
+namespace LinFx.Extensions.EventBus.MassTransit
 {
     public static class MassTransitOptionsExtensions
     {

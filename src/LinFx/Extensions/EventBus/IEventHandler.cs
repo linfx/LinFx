@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus.Abstractions
+namespace LinFx.Extensions.EventBus
 {
     public interface IEventHandler<in TEvent> : IEventHandler where TEvent : IEvent
     {

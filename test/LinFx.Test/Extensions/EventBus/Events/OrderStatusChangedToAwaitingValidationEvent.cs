@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
+﻿using LinFx.Extensions.EventBus;
 using System.Collections.Generic;
 
 namespace LinFx.Test.EventBus.Events

@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using LinFx.Utils;
+﻿using LinFx.Utils;
 using System;
 
 namespace LinFx.Extensions.EventBus

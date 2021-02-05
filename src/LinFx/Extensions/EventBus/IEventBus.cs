@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EventBus.Abstractions
+namespace LinFx.Extensions.EventBus
 {
     /// <summary>
     /// 事件总线
