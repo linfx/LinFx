@@ -29,7 +29,7 @@ namespace LinFx.Domain.Models.Auditing
     {
         /// <inheritdoc />
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual DateTimeOffset CreationTime { get; set; }
+        public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.Now;
 
         /// <inheritdoc />
         [StringLength(50)]
