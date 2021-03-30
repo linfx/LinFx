@@ -8,6 +8,6 @@
         /// <summary>
         /// Max expected result count.
         /// </summary>
-        int Limit { get; set; }
+        int PageSize { get; set; }
     }
 }

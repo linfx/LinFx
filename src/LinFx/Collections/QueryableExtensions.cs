@@ -23,7 +23,7 @@ namespace System.Linq
         {
             Check.NotNull(query, nameof(request));
 
-            return PageBy(query, request.Page, request.Limit);
+            return PageBy(query, request.Page, request.PageSize);
         }
 
         /// <summary>
