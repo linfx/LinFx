@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using static LinFx.Extensions.EventBus.InMemoryEventBusSubscriptionsManager;
 

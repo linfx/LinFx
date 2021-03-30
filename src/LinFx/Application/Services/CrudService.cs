@@ -1,6 +1,4 @@
-﻿using LinFx;
-using LinFx.Application.Models;
-using LinFx.Application.Services;
+﻿using LinFx.Application.Models;
 using LinFx.Domain.Models;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Utils;
@@ -8,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DbContext = LinFx.EntityFrameworkCore.DbContext;
+using DbContext = LinFx.Extensions.EntityFrameworkCore.DbContext;
 
 namespace LinFx.Application.Services
 {

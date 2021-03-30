@@ -1,8 +1,6 @@
-﻿using LinFx.Extensions.Identity;
-using LinFx.Utils;
+﻿using LinFx.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,12 +13,12 @@ namespace LinFx.Extensions.Account
     [Service]
     public class AccountService : IAccountService
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         public AccountService(
-            UserManager<User> userManager, 
-            SignInManager<User> signInManager)
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -33,7 +31,7 @@ namespace LinFx.Extensions.Account
         /// <returns></returns>
         public async Task<Result> LoginAsync(LoginInput input)
         {
-            User user = null;
+            IdentityUser user = null;
             if (RegexUtils.VerifyPhone(input.UserName).Succeeded)
             {
                 // 手机号验证
@@ -125,7 +123,7 @@ namespace LinFx.Extensions.Account
         /// <returns></returns>
         public async Task<Result> RegisterAsync(RegisterInput input)
         {
-            var user = new User
+            var user = new IdentityUser
             {
                 UserName = input.UserName,
             };

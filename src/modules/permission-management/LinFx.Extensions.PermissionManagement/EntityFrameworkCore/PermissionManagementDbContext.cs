@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore
 {
-    public class PermissionManagementDbContext : LinFx.EntityFrameworkCore.DbContext
+    public class PermissionManagementDbContext : LinFx.Extensions.EntityFrameworkCore.DbContext
     {
         public PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options)
             : base(options) { }

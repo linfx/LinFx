@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 using Xunit;
 using LinFx.Test.EventBus.Events;
-using LinFx.Extensions.EventBus.Abstractions;
+using LinFx.Extensions.EventBus;
 
 namespace LinFx.Test.Extensions.EventBus
 {

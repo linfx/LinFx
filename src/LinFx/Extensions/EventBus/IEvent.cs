@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.EventBus.Abstractions
+﻿namespace LinFx.Extensions.EventBus
 {
     /// <summary>
     /// 事件

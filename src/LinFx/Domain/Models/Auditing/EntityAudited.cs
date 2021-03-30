@@ -1,6 +1,4 @@
-﻿using LinFx;
-using LinFx.Domain.Models.Auditing;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Data;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,13 +17,13 @@ namespace LinFx.Domain.Models.Auditing
         /// <summary>
         /// 是否已删除
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual DateTimeOffset CreatedOn { get; set; }
+        public virtual DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
 
         /// <summary>
         /// 更新时间

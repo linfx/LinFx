@@ -69,7 +69,7 @@ namespace LinFx.Extensions.TenantManagement
         {
             var tenant = await TenantRepository.FirstOrDefaultAsync(p => p.Id == id);
             if (tenant == null)
-                throw new Exception("tenant 不存在");
+                throw new UserFriendlyException("tenant 不存在");
 
             input.MapTo(tenant);
             await TenantRepository.SaveChangesAsync();

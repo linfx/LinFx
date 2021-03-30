@@ -16,29 +16,25 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.EntityFrameworkCore
+namespace LinFx.Extensions.EntityFrameworkCore
 {
     public class DbContext : Microsoft.EntityFrameworkCore.DbContext, IUnitOfWork
     {
         [Autowired]
-        private readonly IAuditPropertySetter _auditPropertySetter;
+        private readonly IAuditPropertySetter _auditPropertySetter = new AuditPropertySetter(null, null);
         protected readonly IMediator _mediator;
         protected IDbContextTransaction _currentTransaction;
         protected readonly ServiceContext _context;
         public IServiceProvider ServiceProvider { get; private set; }
         protected readonly object ServiceProviderLock = new object();
 
-        protected DbContext()
-        {
-            _auditPropertySetter = new AuditPropertySetter(null, null);
-        }
+        protected DbContext() { }
 
-        public DbContext(DbContextOptions options) : base(options)
-        {
-            _auditPropertySetter = new AuditPropertySetter(null, null);
-        }
+        public DbContext(DbContextOptions options)
+            : base(options) { }
 
-        public DbContext(DbContextOptions options, ServiceContext context) : base(options)
+        public DbContext(DbContextOptions options, ServiceContext context)
+            : base(options)
         {
             _context = context;
             LazyGetRequiredService(ref _auditPropertySetter);

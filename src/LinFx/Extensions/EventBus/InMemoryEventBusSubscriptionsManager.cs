@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using LinFx.Extensions.EventBus.Abstractions;
 
 namespace LinFx.Extensions.EventBus
 {

@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Caching.Abstractions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Caching

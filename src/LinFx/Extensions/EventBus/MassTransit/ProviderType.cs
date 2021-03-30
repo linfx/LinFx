@@ -1,4 +1,4 @@
-﻿namespace ShopFx.Extensions.MassTransit.Options
+﻿namespace LinFx.Extensions.EventBus.MassTransit
 {
     public enum ProviderType
     {

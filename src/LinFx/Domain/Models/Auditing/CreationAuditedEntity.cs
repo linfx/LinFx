@@ -1,6 +1,4 @@
-﻿using LinFx;
-using LinFx.Domain.Models.Auditing;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,8 +28,8 @@ namespace LinFx.Domain.Models.Auditing
     public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
     {
         /// <inheritdoc />
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
-        public virtual DateTimeOffset CreationTime { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.Now;
 
         /// <inheritdoc />
         [StringLength(50)]

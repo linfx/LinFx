@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.Services
                 .AddDistributedMemoryCache()
-                .AddSingleton<AuthenticationConfig>()
+                .AddSingleton<AuthenticationOptions>()
                 .AddTransient<ITokenService, TokenService>()
                 .AddTransient<IAccountService, AccountService>();
 

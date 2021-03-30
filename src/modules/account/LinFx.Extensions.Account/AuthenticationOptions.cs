@@ -1,14 +1,17 @@
 ﻿namespace LinFx.Extensions.Account
 {
-    public class AuthenticationConfig
+    public class AuthenticationOptions
     {
-        public AuthenticationJwtConfig Jwt { get; set; } = new AuthenticationJwtConfig();
+        public JwtOptions Jwt { get; set; } = new JwtOptions();
     }
 
-    public class AuthenticationJwtConfig
+    public class JwtOptions
     {
         public string Key { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Issuer { get; set; }
 
         /// <summary>

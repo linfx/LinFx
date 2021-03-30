@@ -1,5 +1,4 @@
-﻿using LinFx;
-using MediatR;
+﻿using MediatR;
 using System.Collections.Generic;
 
 namespace LinFx.Domain.Models
