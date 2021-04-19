@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Setting
+﻿namespace LinFx.Domain.Models
 {
     /// <summary>
     /// Defines a JSON formatted string property to extend an object/entity.
