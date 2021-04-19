@@ -8,6 +8,6 @@ namespace LinFx.Application.Models
         /// 页大小
         /// </summary>
         [Range(1, int.MaxValue)]
-        public virtual int Limit { get; set; } = 15;
+        public virtual int PageSize { get; set; } = 15;
     }
 }

@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 
 namespace LinFx.Application.Models
 {
+    [Obsolete]
     public static class PagedAndSortedResultRequestExtensions
     {
         /// <summary>

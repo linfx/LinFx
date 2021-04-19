@@ -16,7 +16,7 @@ namespace LinFx.Application.Models
         /// <summary>
         /// 当前页
         /// </summary>
-        public int PageIndex { get; set; }
+        public int Page { get; set; }
 
         /// <summary>
         /// 页大小
@@ -43,7 +43,7 @@ namespace LinFx.Application.Models
         /// <param name="totalCount"></param>
         /// <param name="items"></param>
         public PagedResult(IPagedResultRequest request, long totalCount, IReadOnlyList<T> items)
-            : this(request.Page, request.Limit, totalCount, items) { }
+            : this(request.Page, request.PageSize, totalCount, items) { }
 
         /// <summary>
         /// Creates a new <see cref="PagedResult{T}"/> object.
@@ -55,7 +55,7 @@ namespace LinFx.Application.Models
         public PagedResult(int pageIndex, int pageSize, long totalCount, IReadOnlyList<T> items)
             : this(totalCount, items)
         {
-            PageIndex = pageIndex;
+            Page = pageIndex;
             PageSize = pageSize;
         }
     }

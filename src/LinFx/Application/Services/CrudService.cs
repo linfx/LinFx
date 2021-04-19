@@ -175,7 +175,7 @@ namespace LinFx.Application.Services
             //Try to limit query result if available
             if (input is ILimitedResultRequest limitedInput)
             {
-                return query.Take(limitedInput.Limit);
+                return query.Take(limitedInput.PageSize);
             }
 
             //No paging
