@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.Setting
+namespace LinFx.Domain.Models
 {
     public static class ExtendableObjectExtensions
     {
