@@ -32,7 +32,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddSingleton<IChannelPool, DefaultChannelPool>()
                 .AddSingleton<IConsumerFactory, RabbitMqConsumerFactory>()
                 .AddSingleton<IRabbitMqSerializer, DefaultRabbitMqSerializer>()
-                .AddTransient<RabbitMqConsumer>();
+                .AddScoped<RabbitMqConsumer>();
 
             return builder;
         }

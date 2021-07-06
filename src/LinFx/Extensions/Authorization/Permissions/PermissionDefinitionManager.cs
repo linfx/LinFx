@@ -14,28 +14,8 @@ namespace LinFx.Extensions.Authorization.Permissions
     public class PermissionDefinitionManager : IPermissionDefinitionManager
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly Lazy<List<IPermissionDefinitionProvider>> _lazyProviders;
         private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
         private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
-
-        /// <summary>
-        /// 提供者
-        /// </summary>
-        protected List<IPermissionDefinitionProvider> Providers => _lazyProviders.Value;
-
-        /// <summary>
-        /// 权限
-        /// </summary>
-        protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
-
-        /// <summary>
-        /// 权限组
-        /// </summary>
-        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
-
-        /// <summary>
-        /// 权限选项
-        /// </summary>
         protected PermissionOptions Options { get; }
 
         public PermissionDefinitionManager(
@@ -48,6 +28,16 @@ namespace LinFx.Extensions.Authorization.Permissions
             _lazyPermissionDefinitions = new Lazy<Dictionary<string, PermissionDefinition>>(CreatePermissionDefinitions, true);
             _lazyPermissionGroupDefinitions = new Lazy<Dictionary<string, PermissionGroupDefinition>>(CreatePermissionGroupDefinitions, true);
         }
+
+        /// <summary>
+        /// 权限
+        /// </summary>
+        protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
+
+        /// <summary>
+        /// 权限组
+        /// </summary>
+        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
 
         /// <summary>
         /// 创建权限定义
@@ -74,22 +64,16 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// <returns></returns>
         protected virtual Dictionary<string, PermissionGroupDefinition> CreatePermissionGroupDefinitions()
         {
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var context = new PermissionDefinitionContext();
+            using var scope = _serviceProvider.CreateScope();
+            var context = new PermissionDefinitionContext();
+            
+            Options
+                .DefinitionProviders
+                .Select(p => scope.ServiceProvider.GetRequiredService(p) as IPermissionDefinitionProvider)
+                .ToList()
+                .ForEach(item => item.Define(context));
 
-                var providers = Options
-                        .DefinitionProviders
-                        .Select(p => scope.ServiceProvider.GetRequiredService(p) as IPermissionDefinitionProvider)
-                        .ToList();
-
-                foreach (var provider in Providers)
-                {
-                    provider.Define(context);
-                }
-
-                return context.Groups;
-            }
+            return context.Groups;
         }
 
         public virtual PermissionDefinition Get(string name)
@@ -104,7 +88,8 @@ namespace LinFx.Extensions.Authorization.Permissions
 
         public virtual PermissionDefinition GetOrNull(string name)
         {
-            Check.NotNull(name, nameof(name));
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
 
             return PermissionDefinitions.GetOrDefault(name);
         }

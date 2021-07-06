@@ -1,6 +1,7 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,8 +39,8 @@ namespace LinFx.Extensions.PermissionManagement
 
             var result = new PermissionListResultDto
             {
-                //EntityDisplayName = providerKey,
-                //Groups = new List<PermissionGroupDto>()
+                EntityDisplayName = providerKey,
+                Groups = new List<PermissionGroupDto>()
             };
 
             //var multiTenancySide = CurrentTenant.GetMultiTenancySide();
@@ -89,7 +90,7 @@ namespace LinFx.Extensions.PermissionManagement
 
                 if (groupDto.Permissions.Any())
                 {
-                    //result.Groups.Add(groupDto);
+                    result.Groups.Add(groupDto);
                 }
             }
 
@@ -116,12 +117,11 @@ namespace LinFx.Extensions.PermissionManagement
         protected virtual async Task CheckProviderPolicy(string providerName)
         {
             var policyName = Options.ProviderPolicies.GetOrDefault(providerName);
-            //if (policyName.IsNullOrEmpty())
-            //{
-            //    throw new Exception($"No policy defined to get/set permissions for the provider '{policyName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
-            //}
+            if (string.IsNullOrEmpty(policyName))
+                throw new Exception($"No policy defined to get/set permissions for the provider '{policyName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
 
             //await AuthorizationService.CheckAsync(policyName);
+            await Task.CompletedTask;
         }
     }
 }

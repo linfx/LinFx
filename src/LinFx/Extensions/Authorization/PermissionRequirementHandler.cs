@@ -20,10 +20,8 @@ namespace LinFx.Extensions.Authorization
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             // 如果当前用户拥有某个权限，则通过 Contxt.Succeed() 通过授权验证。
-            if (await _permissionChecker.IsGrantedAsync(context.User, requirement.PermissionName))
-            {
+            if (await PermissionCheckerExtensions.IsGrantedAsync(_permissionChecker, context.User, requirement.PermissionName))
                 context.Succeed(requirement);
-            }
         }
     }
 }

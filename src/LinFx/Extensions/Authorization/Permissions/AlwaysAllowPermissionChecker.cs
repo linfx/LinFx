@@ -10,12 +10,12 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// </summary>
     public class AlwaysAllowPermissionChecker : IPermissionChecker
     {
-        public Task<PermissionGrantInfo> CheckAsync(string name)
+        public Task<PermissionGrantInfo> IsGrantedAsync(string name)
         {
             return Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
         }
 
-        public Task<PermissionGrantInfo> CheckAsync(ClaimsPrincipal claimsPrincipal, string name)
+        public Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
         {
             return Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
         }

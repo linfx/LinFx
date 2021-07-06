@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 
 namespace LinFx.Extensions.Authorization.Permissions
@@ -12,16 +13,12 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// <summary>
         /// 权限组
         /// </summary>
-        public Dictionary<string, PermissionGroupDefinition> Groups { get; }
-
-        public PermissionDefinitionContext()
-        {
-            Groups = new Dictionary<string, PermissionGroupDefinition>();
-        }
+        public Dictionary<string, PermissionGroupDefinition> Groups { get; } = new Dictionary<string, PermissionGroupDefinition>();
 
         public virtual PermissionGroupDefinition AddGroup(string name, string displayName = null)
         {
-            Check.NotNull(name, nameof(name));
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
 
             if (Groups.ContainsKey(name))
                 throw new LinFxException($"There is already an existing permission group with name: {name}");
@@ -31,7 +28,8 @@ namespace LinFx.Extensions.Authorization.Permissions
 
         public virtual PermissionGroupDefinition GetGroupOrNull(string name)
         {
-            Check.NotNull(name, nameof(name));
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
 
             if (!Groups.ContainsKey(name))
                 return null;

@@ -24,7 +24,6 @@ namespace LinFx.Extensions.PermissionManagement
 
         protected IReadOnlyList<IPermissionManagementProvider> ManagementProviders => _lazyProviders.Value;
 
-
         protected PermissionManagementOptions Options { get; }
 
         public PermissionManager(
@@ -40,10 +39,9 @@ namespace LinFx.Extensions.PermissionManagement
             PermissionDefinitionManager = permissionDefinitionManager;
             Options = options.Value;
 
-            _lazyProviders = new Lazy<List<IPermissionManagementProvider>>(() => Options
-                    .ManagementProviders
-                    .Select(c => serviceProvider.GetRequiredService(c) as IPermissionManagementProvider)
-                    .ToList(), true);
+            _lazyProviders = new Lazy<List<IPermissionManagementProvider>>(() => Options.ManagementProviders
+                .Select(c => serviceProvider.GetRequiredService(c) as IPermissionManagementProvider)
+                .ToList(), true);
         }
 
         public async Task<PermissionWithGrantedProviders> GetAsync(string permissionName, string providerName, string providerKey)
@@ -93,9 +91,7 @@ namespace LinFx.Extensions.PermissionManagement
             //}
 
             if (permission.Providers.Any() && !permission.Providers.Contains(providerName))
-            {
                 return result;
-            }
 
             foreach (var provider in ManagementProviders)
             {

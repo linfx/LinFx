@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Authorization
@@ -12,9 +13,7 @@ namespace LinFx.Extensions.Authorization
 
         public PermissionRequirement([NotNull] string permissionName)
         {
-            Check.NotNull(permissionName, nameof(permissionName));
-
-            PermissionName = permissionName;
+            PermissionName = permissionName ?? throw new ArgumentNullException(nameof(permissionName));
         }
     }
 }

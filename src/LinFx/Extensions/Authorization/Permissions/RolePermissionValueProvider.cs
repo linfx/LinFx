@@ -9,26 +9,26 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// </summary>
     public class RolePermissionValueProvider : PermissionValueProvider
     {
-        public const string ProviderName = "Role";
+        public const string ProviderName = "R";
 
         public override string Name => ProviderName;
 
         public RolePermissionValueProvider(IPermissionStore permissionStore)
             : base(permissionStore) { }
 
-        public override async Task<PermissionValueProviderGrantInfo> CheckAsync(PermissionValueCheckContext context)
+        public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
         {
             var roles = context.Principal?.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();
             if (roles == null || !roles.Any())
-                return PermissionValueProviderGrantInfo.NonGranted;
+                return PermissionGrantResult.Undefined;
 
             foreach (var role in roles)
             {
                 if (await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, role))
-                    return new PermissionValueProviderGrantInfo(true, role);
+                    return PermissionGrantResult.Granted;
             }
 
-            return PermissionValueProviderGrantInfo.NonGranted;
+            return PermissionGrantResult.Undefined;
         }
     }
 }

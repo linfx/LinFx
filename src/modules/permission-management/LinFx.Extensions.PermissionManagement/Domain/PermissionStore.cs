@@ -1,5 +1,6 @@
-﻿using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
+﻿using LinFx.Data;
+using LinFx.Data.Linq;
+using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Threading.Tasks;
@@ -8,14 +9,16 @@ namespace LinFx.Extensions.PermissionManagement
 {
     public class PermissionStore : IPermissionStore
     {
-        private readonly PermissionManagementDbContext _context;
+        private readonly IRepository<PermissionGrant> _repository;
 
         protected IDistributedCache Cache { get; }
 
-        public PermissionStore(PermissionManagementDbContext context, IDistributedCache cache)
+        public PermissionStore(
+            IDistributedCache cache,
+            IRepository<PermissionGrant> repository)
         {
-            _context = context;
             Cache = cache;
+            _repository = repository;
         }
 
         public async Task<bool> IsGrantedAsync(string name, string providerName, string providerKey)
@@ -29,15 +32,9 @@ namespace LinFx.Extensions.PermissionManagement
             var cacheItem = await Cache.GetAsync<PermissionGrantCacheItem>(cacheKey);
 
             if (cacheItem != null)
-            {
                 return cacheItem;
-            }
 
-            cacheItem = new PermissionGrantCacheItem(name, await _context.PermissionGrants.AnyAsync(
-                p => p.Name == name &&
-                p.ProviderName == providerName &&
-                p.ProviderKey == providerKey));
-
+            cacheItem = new PermissionGrantCacheItem(name, await _repository.AnyAsync(p => p.Name == name && p.ProviderName == providerName && p.ProviderKey == providerKey));
             await Cache.SetAsync(cacheKey, cacheItem);
 
             return cacheItem;

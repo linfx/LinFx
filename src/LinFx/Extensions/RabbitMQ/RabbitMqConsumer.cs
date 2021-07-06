@@ -26,14 +26,17 @@ namespace LinFx.Extensions.RabbitMq
         /// Common AMQP model
         /// </summary>
         protected IModel Channel { get; private set; }
+
         protected Timer Timer { get; }
 
         protected ExchangeDeclareConfiguration Exchange { get; private set; }
+
         protected QueueDeclareConfiguration Queue { get; private set; }
 
         protected string ConnectionName { get; private set; }
 
         protected ConcurrentBag<Func<IModel, BasicDeliverEventArgs, Task>> Callbacks { get; }
+
         protected ConcurrentQueue<QueueBindCommand> QueueBindCommands { get; }
 
         protected object ChannelSendSyncLock { get; } = new object();

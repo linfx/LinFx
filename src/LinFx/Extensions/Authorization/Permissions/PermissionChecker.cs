@@ -41,10 +41,9 @@ namespace LinFx.Extensions.Authorization.Permissions
             PermissionDefinitionManager = permissionDefinitionManager;
             Options = options.Value;
 
-            _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options
-                    .ValueProviders
-                    .Select(c => serviceProvider.GetRequiredService(c) as IPermissionValueProvider)
-                    .ToList(), true);
+            _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options.ValueProviders
+                .Select(c => serviceProvider.GetRequiredService(c) as IPermissionValueProvider)
+                .ToList(), true);
         }
 
         /// <summary>
@@ -52,9 +51,9 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public virtual Task<PermissionGrantInfo> CheckAsync(string name)
+        public virtual Task<PermissionGrantInfo> IsGrantedAsync(string name)
         {
-            return CheckAsync(PrincipalAccessor.Principal, name);
+            return IsGrantedAsync(PrincipalAccessor.Principal, name);
         }
 
         /// <summary>
@@ -63,9 +62,10 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// <param name="claimsPrincipal"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public virtual async Task<PermissionGrantInfo> CheckAsync(ClaimsPrincipal claimsPrincipal, string name)
+        public virtual async Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
         {
-            Check.NotNull(name, nameof(name));
+            if (name is null)
+                throw new ArgumentNullException(nameof(name));
 
             var context = new PermissionValueCheckContext(PermissionDefinitionManager.Get(name), claimsPrincipal);
 
@@ -75,8 +75,8 @@ namespace LinFx.Extensions.Authorization.Permissions
                     continue;
 
                 var result = await provider.CheckAsync(context);
-                if (result.IsGranted)
-                    return new PermissionGrantInfo(context.Permission.Name, true, provider.Name, result.ProviderKey);
+                //if (result == PermissionGrantResult.Granted)
+                //    return new PermissionGrantInfo(context.Permission.Name, true, provider.Name, result.ProviderKey);
             }
 
             return new PermissionGrantInfo(context.Permission.Name, false);

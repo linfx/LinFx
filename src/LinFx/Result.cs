@@ -108,6 +108,20 @@ namespace LinFx
             return new Result(false, errors != null ? string.Join("\r\n", errors) : null);
         }
 
+        /// <summary>
+        /// NotFound
+        /// </summary>
+        /// <returns></returns>
+        public static Result NotFound(string message = default)
+        {
+            var result = new Result
+            {
+                Code = 404,
+                Succeeded = false,
+                Message = message,
+            };
+            return result;
+        }
     }
 
     public class Result<TValue> : Result

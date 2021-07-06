@@ -19,7 +19,7 @@ namespace LinFx.Extensions.Authorization.Permissions
 
         public PermissionValueCheckContext(PermissionDefinition permission, ClaimsPrincipal principal)
         {
-            Permission = permission;
+            Permission = permission ?? throw new System.ArgumentNullException(nameof(permission));
             Principal = principal;
         }
     }

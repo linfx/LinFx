@@ -1,5 +1,6 @@
 ﻿using LinFx.Domain.Models;
 using LinFx.Extensions.MultiTenancy;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Extensions.PermissionManagement
@@ -33,10 +34,8 @@ namespace LinFx.Extensions.PermissionManagement
 
         public PermissionGrant(long id, string name, string providerName, string providerKey, string tenantId = default)
         {
-            Check.NotNull(name, nameof(name));
-
             Id = id;
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             ProviderName = providerName;
             ProviderKey = providerKey;
             TenantId = tenantId;
