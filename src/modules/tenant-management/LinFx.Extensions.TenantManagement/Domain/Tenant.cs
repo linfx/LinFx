@@ -10,7 +10,7 @@ namespace LinFx.Extensions.TenantManagement
         /// <summary>
         /// 租户名称
         /// </summary>
-        public virtual string Name { get; protected set; }
+        public virtual string Name { get; set; }
 
         public Tenant() { }
 

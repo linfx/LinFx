@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 return new ConnectionFactoryWrapper(new ConnectionConfiguration
                 {
-                    Host = options.Host,
+                    Host = options.HostName,
                     UserName = options.UserName,
                     Password = options.Password,
                 });
@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMqPersistentConnection>>();
                 var factory = new ConnectionFactory
                 {
-                    HostName = options.Host,
+                    HostName = options.HostName,
                     UserName = options.UserName,
                     Password = options.Password,
                 };

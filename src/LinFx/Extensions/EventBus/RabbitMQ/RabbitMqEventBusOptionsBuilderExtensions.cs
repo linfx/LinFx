@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class EventBusBuilderExtensions
     {
-        public static EventBusOptionsBuilder UseRabbitMQ(
+        public static EventBusOptionsBuilder UseRabbitMq(
             [NotNull] this EventBusOptionsBuilder optionsBuilder,
             [NotNull] Action<RabbitMqEventBusOptions> optionsAction)
         {
@@ -21,12 +21,20 @@ namespace Microsoft.Extensions.DependencyInjection
             optionsAction?.Invoke(options);
             optionsBuilder.Fx.AddRabbitMq(x =>
             {
-                x.Host = options.Host;
+                x.HostName = options.HostName;
                 x.UserName = options.UserName;
                 x.Password = options.Password;
             });
             optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
             return optionsBuilder;
+        }
+
+        [Obsolete]
+        public static EventBusOptionsBuilder UseRabbitMQ(
+            [NotNull] this EventBusOptionsBuilder optionsBuilder,
+            [NotNull] Action<RabbitMqEventBusOptions> optionsAction)
+        {
+            return UseRabbitMq(optionsBuilder, optionsAction);
         }
     }
 }

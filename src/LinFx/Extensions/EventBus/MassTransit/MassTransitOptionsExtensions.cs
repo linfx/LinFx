@@ -17,7 +17,7 @@ namespace LinFx.Extensions.EventBus.MassTransit
 
             return new RabbitMqOptions
             {
-                Host = collection["host"],
+                HostName = collection["host"],
                 UserName = collection["username"],
                 Password = collection["password"]
             };

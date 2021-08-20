@@ -21,7 +21,7 @@ namespace LinFx.Test.Extensions.EventBus
                 {
                     options.UseRabbitMQ(x =>
                     {
-                        x.Host = "127.0.0.1";
+                        x.HostName = "127.0.0.1";
                         x.UserName = "admin";
                         x.Password = "admin.123456";
                         x.Exchange = "linfx_event_bus";

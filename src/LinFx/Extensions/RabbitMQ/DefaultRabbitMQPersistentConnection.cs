@@ -14,7 +14,7 @@ namespace LinFx.Extensions.RabbitMq
     /// </summary>
     public class DefaultRabbitMqPersistentConnection : IRabbitMqPersistentConnection
     {
-        private readonly ILogger<DefaultRabbitMqPersistentConnection> _logger;
+        private readonly ILogger _logger;
         private readonly IConnectionFactory _connectionFactory;
         private readonly int _retryCount;
         private IConnection _connection;
@@ -62,6 +62,8 @@ namespace LinFx.Extensions.RabbitMq
                 policy.Execute(() =>
                 {
                     _connection = _connectionFactory.CreateConnection();
+                    //var tmp = AmqpTcpEndpoint.Parse("amqp://admin:admin.123456@localhost:5672");
+                    //_connection = _connectionFactory.CreateConnection(new AmqpTcpEndpoint[] { tmp });
                 });
 
                 if (IsConnected)

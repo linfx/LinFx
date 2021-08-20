@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CB28C410-8E1
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{19BCDCAB-8076-4D78-BDED-682974410439}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fx", "fx", "{19BCDCAB-8076-4D78-BDED-682974410439}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{ACC77A7F-7A6A-4B63-8351-0822FB747B36}"
 EndProject

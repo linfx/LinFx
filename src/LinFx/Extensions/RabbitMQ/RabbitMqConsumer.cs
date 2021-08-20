@@ -86,9 +86,7 @@ namespace LinFx.Extensions.RabbitMq
                 while (!QueueBindCommands.IsEmpty)
                 {
                     if (Channel == null || Channel.IsClosed)
-                    {
                         return Task.CompletedTask;
-                    }
 
                     lock (ChannelSendSyncLock)
                     {
@@ -97,18 +95,10 @@ namespace LinFx.Extensions.RabbitMq
                         switch (command.Type)
                         {
                             case QueueBindType.Bind:
-                                Channel.QueueBind(
-                                    queue: Queue.QueueName,
-                                    exchange: Exchange.ExchangeName,
-                                    routingKey: command.RoutingKey
-                                );
+                                Channel.QueueBind(queue: Queue.QueueName, exchange: Exchange.ExchangeName, routingKey: command.RoutingKey);
                                 break;
                             case QueueBindType.Unbind:
-                                Channel.QueueUnbind(
-                                    queue: Queue.QueueName,
-                                    exchange: Exchange.ExchangeName,
-                                    routingKey: command.RoutingKey
-                                );
+                                Channel.QueueUnbind(queue: Queue.QueueName, exchange: Exchange.ExchangeName, routingKey: command.RoutingKey);
                                 break;
                             default:
                                 throw new LinFxException($"Unknown {nameof(QueueBindType)}: {command.Type}");
@@ -122,7 +112,6 @@ namespace LinFx.Extensions.RabbitMq
             {
                 Logger.LogError(ex, ex.Message);
             }
-
             return Task.CompletedTask;
         }
 
@@ -136,8 +125,6 @@ namespace LinFx.Extensions.RabbitMq
             if (Channel == null || Channel.IsOpen == false)
             {
                 TryCreateChannel();
-                //AsyncHelper.RunSync(TrySendQueueBindCommandsAsync);
-                //AsyncHelper.Wait.Run(TrySendQueueBindCommandsAsync());
                 TrySendQueueBindCommandsAsync().Wait();
             }
         }
@@ -148,34 +135,14 @@ namespace LinFx.Extensions.RabbitMq
 
             try
             {
-                var channel = ConnectionPool.Get(ConnectionName).CreateModel();
+                Channel = ConnectionPool.Get(ConnectionName).CreateModel();
+                Channel.ExchangeDeclare(Exchange.ExchangeName, Exchange.Type, Exchange.Durable, Exchange.AutoDelete, Exchange.Arguments);
+                Channel.QueueDeclare(Queue.QueueName, Queue.Durable, Queue.Exclusive, Queue.AutoDelete, Queue.Arguments);
 
-                channel.ExchangeDeclare(exchange: Exchange.ExchangeName,
-                                        type: Exchange.Type,
-                                        durable: Exchange.Durable,
-                                        autoDelete: Exchange.AutoDelete,
-                                        arguments: Exchange.Arguments
-                );
+                var consumer = new EventingBasicConsumer(Channel);
+                consumer.Received += async (model, ea) => await HandleIncomingMessage(Channel, ea);
 
-                channel.QueueDeclare(queue: Queue.QueueName,
-                                     durable: Queue.Durable,
-                                     exclusive: Queue.Exclusive,
-                                     autoDelete: Queue.AutoDelete,
-                                     arguments: Queue.Arguments
-                );
-
-                var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += async (model, ea) =>
-                {
-                    await HandleIncomingMessage(channel, ea);
-                };
-
-                channel.BasicConsume(queue: Queue.QueueName,
-                                     autoAck: false,
-                                     consumer: consumer
-                );
-
-                Channel = channel;
+                Channel.BasicConsume(queue: Queue.QueueName, autoAck: false, consumer: consumer);
             }
             catch (Exception ex)
             {

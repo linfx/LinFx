@@ -5,16 +5,16 @@ namespace LinFx.Extensions.RabbitMq
     public class ExchangeDeclareConfiguration
     {
         public string ExchangeName { get; }
+
         public string Type { get; }
+
         public bool Durable { get; set; }
+
         public bool AutoDelete { get; set; }
+
         public IDictionary<string, object> Arguments { get; }
 
-        public ExchangeDeclareConfiguration(
-            string exchangeName, 
-            string type, 
-            bool durable = false, 
-            bool autoDelete = false)
+        public ExchangeDeclareConfiguration(string exchangeName, string type, bool durable = false, bool autoDelete = false)
         {
             ExchangeName = exchangeName;
             Type = type;

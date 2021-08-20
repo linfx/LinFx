@@ -13,10 +13,11 @@ namespace LinFx.Test.RabbitMq
         public RabbitMqPersistentConnectionTests()
         {
             var services = new ServiceCollection();
-            services.AddLinFx()
+            services
+                .AddLinFx()
                 .AddRabbitMqPersistentConnection(options =>
                 {
-                    options.Host = "127.0.0.1";
+                    options.HostName = "localhost:5672";
                     options.UserName = "admin";
                     options.Password = "admin.123456";
                 });

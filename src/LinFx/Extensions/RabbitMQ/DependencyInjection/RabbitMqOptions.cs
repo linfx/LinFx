@@ -4,7 +4,10 @@
     {
         public string ConnectionName { get; set; }
 
-        public string Host { get; set; }
+        /// <summary>
+        /// amqp://user:pass@localhost:5672
+        /// </summary>
+        public string HostName { get; set; } = "localhost";
 
         public string UserName { get; set; }
 

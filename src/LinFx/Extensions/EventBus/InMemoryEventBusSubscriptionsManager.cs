@@ -115,10 +115,7 @@ namespace LinFx.Extensions.EventBus
         {
             return typeof(T).Name;
         }
-    }
 
-    public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
-    {
         public class SubscriptionInfo
         {
             public bool IsDynamic { get; }
