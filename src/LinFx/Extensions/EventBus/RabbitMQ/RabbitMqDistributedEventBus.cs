@@ -44,8 +44,8 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             ChannelPool = channelPool;
             ChannelAccessor = ChannelPool.Acquire();
             Consumer = ConsumerFactory.Create(
-                new ExchangeDeclareConfiguration(RabbitMqOptions.Exchange, type: "direct", durable: true),
-                new QueueDeclareConfiguration(RabbitMqOptions.QueueName, durable: true, exclusive: false, autoDelete: false),
+                new ExchangeDeclareConfiguration(exchangeName: RabbitMqOptions.Exchange, type: "direct", durable: true),
+                new QueueDeclareConfiguration(queueName: RabbitMqOptions.QueueName, durable: true, exclusive: false, autoDelete: false),
                 RabbitMqOptions.ConnectionName
             );
             Consumer.OnMessageReceived(ProcessEventAsync);

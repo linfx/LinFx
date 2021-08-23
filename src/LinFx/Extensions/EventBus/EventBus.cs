@@ -72,9 +72,7 @@ namespace LinFx.Extensions.EventBus
             if (exceptions.Any())
             {
                 if (exceptions.Count == 1)
-                {
                     ExceptionDispatchInfo.Capture(exceptions[0]).Throw();
-                }
 
                 throw new AggregateException("More than one error has occurred while triggering the event: " + eventName, exceptions);
             }

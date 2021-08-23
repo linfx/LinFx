@@ -28,13 +28,5 @@ namespace Microsoft.Extensions.DependencyInjection
             optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
             return optionsBuilder;
         }
-
-        [Obsolete]
-        public static EventBusOptionsBuilder UseRabbitMQ(
-            [NotNull] this EventBusOptionsBuilder optionsBuilder,
-            [NotNull] Action<RabbitMqEventBusOptions> optionsAction)
-        {
-            return UseRabbitMq(optionsBuilder, optionsAction);
-        }
     }
 }
