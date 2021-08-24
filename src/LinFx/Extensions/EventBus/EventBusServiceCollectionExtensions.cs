@@ -11,8 +11,6 @@ namespace Microsoft.Extensions.DependencyInjection
             var optionsBuilder = new EventBusOptionsBuilder(builder, options);
             optionsAction?.Invoke(optionsBuilder);
 
-            builder.Services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-
             return builder;
         }
     }

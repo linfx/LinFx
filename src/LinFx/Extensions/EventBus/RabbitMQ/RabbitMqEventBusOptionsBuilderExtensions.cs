@@ -15,17 +15,21 @@ namespace Microsoft.Extensions.DependencyInjection
             Check.NotNull(optionsBuilder, nameof(optionsBuilder));
             Check.NotNull(optionsAction, nameof(optionsAction));
 
-            optionsBuilder.Fx.Services.Configure(optionsAction);
-
             var options = new RabbitMqEventBusOptions();
             optionsAction?.Invoke(options);
+            optionsBuilder.Fx.Services.Configure(optionsAction);
+
             optionsBuilder.Fx.AddRabbitMq(x =>
             {
-                //x.HostName = options.HostName;
-                //x.UserName = options.UserName;
-                //x.Password = options.Password;
+                x.Connections.Default.HostName = options.Connections.Default.HostName;
+                x.Connections.Default.UserName = options.Connections.Default.UserName;
+                x.Connections.Default.Password = options.Connections.Default.Password;
             });
-            optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
+
+            optionsBuilder.Fx.Services
+                .AddSingleton<IEventErrorHandler, RabbitMqEventErrorHandler>()
+                .AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
+
             return optionsBuilder;
         }
     }

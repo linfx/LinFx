@@ -25,8 +25,8 @@ namespace LinFx.Test.Extensions.EventBus
                         x.Connections.Default.HostName = "127.0.0.1";
                         x.Connections.Default.UserName = "admin";
                         x.Connections.Default.Password = "admin.123456";
-                        x.Exchange = "linfx_event_bus";
-                        x.QueueName = "linfx_event_queue";
+                        x.ExchangeName = "linfx_event_bus";
+                        x.ClientName = "linfx_event_queue";
                     });
                 });
 
