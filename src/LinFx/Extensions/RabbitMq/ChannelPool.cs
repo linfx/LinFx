@@ -3,19 +3,16 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    /// <summary>
-    /// Model pool
-    /// </summary>
-    public class DefaultChannelPool : IChannelPool
+    [Service(Lifetime = ServiceLifetime.Singleton)]
+    public class ChannelPool : IChannelPool
     {
-        public ILogger<DefaultChannelPool> Logger { get; set; }
-
         protected IConnectionPool ConnectionPool { get; }
 
         protected ConcurrentDictionary<string, ChannelPoolItem> Channels { get; }
@@ -24,9 +21,11 @@ namespace LinFx.Extensions.RabbitMq
 
         protected TimeSpan TotalDisposeWaitDuration { get; set; } = TimeSpan.FromSeconds(10);
 
-        public DefaultChannelPool(IConnectionPool connectionPool)
+        public ILogger<ChannelPool> Logger { get; set; }
+
+        public ChannelPool(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<DefaultChannelPool>.Instance;
+            Logger = NullLogger<ChannelPool>.Instance;
             Channels = new ConcurrentDictionary<string, ChannelPoolItem>();
             ConnectionPool = connectionPool;
         }
@@ -34,13 +33,9 @@ namespace LinFx.Extensions.RabbitMq
         public virtual IChannelAccessor Acquire(string channelName = default, string connectionName = default)
         {
             CheckDisposed();
-
             channelName ??= "";
-
             var poolItem = Channels.GetOrAdd(channelName, _ => new ChannelPoolItem(CreateChannel(channelName, connectionName)));
-
             poolItem.Acquire();
-
             return new ChannelAccessor(poolItem.Channel, channelName, () => poolItem.Release());
         }
 
@@ -52,7 +47,7 @@ namespace LinFx.Extensions.RabbitMq
         protected void CheckDisposed()
         {
             if (IsDisposed)
-                throw new ObjectDisposedException(nameof(DefaultChannelPool));
+                throw new ObjectDisposedException(nameof(ChannelPool));
         }
 
         public void Dispose()
@@ -105,14 +100,14 @@ namespace LinFx.Extensions.RabbitMq
 
         protected class ChannelPoolItem : IDisposable
         {
-            private volatile bool _isInUse;
+            public IModel Channel { get; }
 
             public ChannelPoolItem(IModel channel)
             {
                 Channel = channel;
             }
 
-            public IModel Channel { get; }
+            private volatile bool _isInUse;
 
             public bool IsInUse
             {

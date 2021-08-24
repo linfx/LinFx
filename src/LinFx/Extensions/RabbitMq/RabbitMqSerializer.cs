@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    public class DefaultRabbitMqSerializer : IRabbitMqSerializer
+    public class RabbitMqSerializer : IRabbitMqSerializer
     {
         public object Deserialize(byte[] value, Type type)
         {

@@ -57,8 +57,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Host", "sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantManagementService.Host", "samples\TenantManagementService.Host\TenantManagementService.Host.csproj", "{68DBD2C0-656A-4030-93B8-562E8E916358}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloggingService.Host", "samples\BloggingService.Host\BloggingService.Host.csproj", "{1DCDC15C-207E-4501-A06E-BACE665FFF10}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,10 +119,6 @@ Global
 		{68DBD2C0-656A-4030-93B8-562E8E916358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68DBD2C0-656A-4030-93B8-562E8E916358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68DBD2C0-656A-4030-93B8-562E8E916358}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DCDC15C-207E-4501-A06E-BACE665FFF10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DCDC15C-207E-4501-A06E-BACE665FFF10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DCDC15C-207E-4501-A06E-BACE665FFF10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DCDC15C-207E-4501-A06E-BACE665FFF10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,7 +144,6 @@ Global
 		{B7A52525-7DDA-4A21-B7D1-B2B6B78FBA5D} = {C7A4CCCC-DD2C-4D36-BAF0-805CB41EA088}
 		{52CE1966-6E59-4255-822A-4988D48BA3B0} = {2811B54F-6B0C-4073-8DF3-048CCDA1202C}
 		{68DBD2C0-656A-4030-93B8-562E8E916358} = {2811B54F-6B0C-4073-8DF3-048CCDA1202C}
-		{1DCDC15C-207E-4501-A06E-BACE665FFF10} = {2811B54F-6B0C-4073-8DF3-048CCDA1202C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

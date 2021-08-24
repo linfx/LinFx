@@ -13,9 +13,10 @@ namespace LinFx.Extensions.RabbitMq
     /// <summary>
     /// 消费者
     /// </summary>
-    public class RabbitMqConsumer : IRabbitMqConsumer, IDisposable
+    [Service]
+    public class RabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
     {
-        public ILogger<RabbitMqConsumer> Logger { get; set; }
+        public ILogger<RabbitMqMessageConsumer> Logger { get; set; }
 
         /// <summary>
         /// 连接池
@@ -41,9 +42,9 @@ namespace LinFx.Extensions.RabbitMq
 
         protected object ChannelSendSyncLock { get; } = new object();
 
-        public RabbitMqConsumer(IConnectionPool connectionPool)
+        public RabbitMqMessageConsumer(IConnectionPool connectionPool)
         {
-            Logger = NullLogger<RabbitMqConsumer>.Instance;
+            Logger = NullLogger<RabbitMqMessageConsumer>.Instance;
             ConnectionPool = connectionPool;
 
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();

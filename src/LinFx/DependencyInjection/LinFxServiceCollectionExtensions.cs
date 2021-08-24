@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Modules;
-using System;
+﻿using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

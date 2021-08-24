@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    internal class Connections : Dictionary<string, ConnectionFactory>
+    public class RabbitMqConnections : Dictionary<string, ConnectionFactory>
     {
         public const string DefaultConnectionName = "Default";
 
@@ -15,7 +15,7 @@ namespace LinFx.Extensions.RabbitMq
             set => this[DefaultConnectionName] = Check.NotNull(value, nameof(value));
         }
 
-        public Connections()
+        public RabbitMqConnections()
         {
             Default = new ConnectionFactory();
         }

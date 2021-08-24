@@ -21,9 +21,9 @@ namespace Microsoft.Extensions.DependencyInjection
             optionsAction?.Invoke(options);
             optionsBuilder.Fx.AddRabbitMq(x =>
             {
-                x.HostName = options.HostName;
-                x.UserName = options.UserName;
-                x.Password = options.Password;
+                //x.HostName = options.HostName;
+                //x.UserName = options.UserName;
+                //x.Password = options.Password;
             });
             optionsBuilder.Fx.Services.AddSingleton<IEventBus, RabbitMqDistributedEventBus>();
             return optionsBuilder;

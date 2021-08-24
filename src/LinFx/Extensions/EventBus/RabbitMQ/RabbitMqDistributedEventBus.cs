@@ -10,18 +10,20 @@ namespace LinFx.Extensions.EventBus.RabbitMq
 {
     public class RabbitMqDistributedEventBus : EventBus, IDisposable
     {
-        protected RabbitMqEventBusOptions RabbitMqOptions { get; }
-
-        protected IConsumerFactory ConsumerFactory { get; }
+        protected RabbitMqEventBusOptions RabbitMqEventBusOptions { get; }
 
         protected IChannelPool ChannelPool { get; }
 
+        protected IConnectionPool ConnectionPool { get; }
+
         protected IChannelAccessor ChannelAccessor { get; private set; }
+
+        protected IRabbitMqMessageConsumerFactory MessageConsumerFactory { get; }
 
         /// <summary>
         /// 消费者
         /// </summary>
-        protected IRabbitMqConsumer Consumer { get; }
+        protected IRabbitMqMessageConsumer Consumer { get; }
 
         /// <summary>
         /// 序列化
@@ -29,24 +31,24 @@ namespace LinFx.Extensions.EventBus.RabbitMq
         protected IRabbitMqSerializer Serializer { get; }
 
         public RabbitMqDistributedEventBus(
-            IConsumerFactory consumerFactory,
+            IRabbitMqMessageConsumerFactory consumerFactory,
             IRabbitMqSerializer serializer,
             IEventBusSubscriptionsManager subscriptionsManager,
             IServiceProvider serviceProvider,
             IChannelPool channelPool,
             IOptions<EventBusOptions> eventBusOptions,
-            IOptions<RabbitMqEventBusOptions> rabbitMOptions)
+            IOptions<RabbitMqEventBusOptions> options)
             : base(subscriptionsManager, serviceProvider, eventBusOptions)
         {
-            RabbitMqOptions = rabbitMOptions.Value;
-            ConsumerFactory = consumerFactory;
+            RabbitMqEventBusOptions = options.Value;
+            MessageConsumerFactory = consumerFactory;
             Serializer = serializer;
             ChannelPool = channelPool;
             ChannelAccessor = ChannelPool.Acquire();
-            Consumer = ConsumerFactory.Create(
-                new ExchangeDeclareConfiguration(exchangeName: RabbitMqOptions.Exchange, type: "direct", durable: true),
-                new QueueDeclareConfiguration(queueName: RabbitMqOptions.QueueName, durable: true, exclusive: false, autoDelete: false),
-                RabbitMqOptions.ConnectionName
+            Consumer = MessageConsumerFactory.Create(
+                new ExchangeDeclareConfiguration(exchangeName: RabbitMqEventBusOptions.Exchange, type: "direct", durable: true),
+                new QueueDeclareConfiguration(queueName: RabbitMqEventBusOptions.QueueName, durable: true, exclusive: false, autoDelete: false),
+                RabbitMqEventBusOptions.ConnectionName
             );
             Consumer.OnMessageReceived(ProcessEventAsync);
             _subsManager.OnEventRemoved += SubsManager_OnEventRemoved;
@@ -61,7 +63,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             var body = Serializer.Serialize(evt);
             var properties = channel.CreateBasicProperties();
             properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
-            channel.BasicPublish(RabbitMqOptions.Exchange, routingKey, true, properties, body);
+            channel.BasicPublish(RabbitMqEventBusOptions.Exchange, routingKey, true, properties, body);
 
             return Task.CompletedTask;
         }

@@ -7,5 +7,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
         public string Exchange { get; set; }
 
         public string QueueName { get; set; }
+
+        public string ConnectionName { get; set; }
     }
 }

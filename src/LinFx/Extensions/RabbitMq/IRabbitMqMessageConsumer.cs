@@ -8,7 +8,7 @@ namespace LinFx.Extensions.RabbitMq
     /// <summary>
     /// 消费者
     /// </summary>
-    public interface IRabbitMqConsumer
+    public interface IRabbitMqMessageConsumer
     {
         Task BindAsync(string routingKey);
 
