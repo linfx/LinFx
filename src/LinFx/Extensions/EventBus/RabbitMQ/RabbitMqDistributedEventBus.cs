@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.RabbitMq
 {
-    public class RabbitMqDistributedEventBus : EventBus
+    public class RabbitMqDistributedEventBus : EventBusBase
     {
         protected RabbitMqEventBusOptions RabbitMqEventBusOptions { get; }
         protected DistributedEventBusOptions DistributedEventBusOptions { get; }
@@ -172,7 +172,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
             await PublishAsync(eventType, eventData, null);
         }
 
-        public Task PublishAsync(Type eventType, object eventData, IBasicProperties properties, Dictionary<string, object> headersArguments = null)
+        public virtual Task PublishAsync(Type eventType, object eventData, IBasicProperties properties, Dictionary<string, object> headersArguments = null)
         {
             var eventName = EventNameAttribute.GetNameOrDefault(eventType);
             var body = Serializer.Serialize(eventData);
@@ -209,9 +209,7 @@ namespace LinFx.Extensions.EventBus.RabbitMq
         private void SetEventMessageHeaders(IBasicProperties properties, Dictionary<string, object> headersArguments)
         {
             if (headersArguments == null)
-            {
                 return;
-            }
 
             properties.Headers ??= new Dictionary<string, object>();
 

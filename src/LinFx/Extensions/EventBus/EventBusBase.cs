@@ -1,5 +1,4 @@
 ﻿using LinFx.Collections;
-using LinFx.Extensions.EventBus.Local;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,12 +10,13 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus
 {
-    public abstract class EventBus : IEventBus
+    public abstract class EventBusBase : IEventBus
     {
         protected IServiceScopeFactory ServiceScopeFactory { get; }
+
         protected IEventErrorHandler ErrorHandler { get; }
 
-        protected EventBus(IServiceScopeFactory serviceScopeFactory, IEventErrorHandler errorHandler)
+        protected EventBusBase(IServiceScopeFactory serviceScopeFactory, IEventErrorHandler errorHandler)
         {
             ServiceScopeFactory = serviceScopeFactory;
             ErrorHandler = errorHandler;
@@ -25,8 +25,7 @@ namespace LinFx.Extensions.EventBus
         /// <inheritdoc/>
         public virtual IDisposable Subscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class
         {
-            //return Subscribe(typeof(TEvent), new ActionEventHandler<TEvent>(action));
-            throw new NotImplementedException();
+            return Subscribe(typeof(TEvent), new ActionEventHandler<TEvent>(action));
         }
 
         /// <inheritdoc/>
@@ -34,15 +33,13 @@ namespace LinFx.Extensions.EventBus
             where TEvent : class
             where THandler : IEventHandler, new()
         {
-            //return Subscribe(typeof(TEvent), new TransientEventHandlerFactory<THandler>());
-            throw new NotImplementedException();
+            return Subscribe(typeof(TEvent), new TransientEventHandlerFactory<THandler>());
         }
 
         /// <inheritdoc/>
         public virtual IDisposable Subscribe(Type eventType, IEventHandler handler)
         {
-            //return Subscribe(eventType, new SingleInstanceHandlerFactory(handler));
-            throw new NotImplementedException();
+            return Subscribe(eventType, new SingleInstanceHandlerFactory(handler));
         }
 
         /// <inheritdoc/>
@@ -58,8 +55,7 @@ namespace LinFx.Extensions.EventBus
         /// <inheritdoc/>
         public virtual void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class
         {
-            //Unsubscribe(typeof(TEvent), handler);
-            throw new NotImplementedException();
+            Unsubscribe(typeof(TEvent), handler);
         }
 
         public abstract void Unsubscribe(Type eventType, IEventHandler handler);
@@ -158,51 +154,49 @@ namespace LinFx.Extensions.EventBus
 
         protected virtual async Task TriggerHandlerAsync(IEventHandlerFactory asyncHandlerFactory, Type eventType, object eventData, List<Exception> exceptions)
         {
-            //using var eventHandlerWrapper = asyncHandlerFactory.GetHandler();
-            //try
-            //{
-            //    var handlerType = eventHandlerWrapper.EventHandler.GetType();
+            using var eventHandlerWrapper = asyncHandlerFactory.GetHandler();
+            try
+            {
+                var handlerType = eventHandlerWrapper.EventHandler.GetType();
 
-            //    using (CurrentTenant.Change(GetEventDataTenantId(eventData)))
-            //    {
-            //        if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(ILocalEventHandler<>)))
-            //        {
-            //            var method = typeof(ILocalEventHandler<>)
-            //                .MakeGenericType(eventType)
-            //                .GetMethod(
-            //                    nameof(ILocalEventHandler<object>.HandleEventAsync),
-            //                    new[] { eventType }
-            //                );
+                //using (CurrentTenant.Change(GetEventDataTenantId(eventData)))
+                //{
+                //    if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(ILocalEventHandler<>)))
+                //    {
+                //        var method = typeof(ILocalEventHandler<>)
+                //            .MakeGenericType(eventType)
+                //            .GetMethod(
+                //                nameof(ILocalEventHandler<object>.HandleEventAsync),
+                //                new[] { eventType }
+                //            );
 
-            //            await ((Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData }));
-            //        }
-            //        else if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(IDistributedEventHandler<>)))
-            //        {
-            //            var method = typeof(IDistributedEventHandler<>)
-            //                .MakeGenericType(eventType)
-            //                .GetMethod(
-            //                    nameof(IDistributedEventHandler<object>.HandleEventAsync),
-            //                    new[] { eventType }
-            //                );
+                //        await ((Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData }));
+                //    }
+                //    else if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(IDistributedEventHandler<>)))
+                //    {
+                //        var method = typeof(IDistributedEventHandler<>)
+                //            .MakeGenericType(eventType)
+                //            .GetMethod(
+                //                nameof(IDistributedEventHandler<object>.HandleEventAsync),
+                //                new[] { eventType }
+                //            );
 
-            //            await ((Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData }));
-            //        }
-            //        else
-            //        {
-            //            throw new Exception("The object instance is not an event handler. Object type: " + handlerType.AssemblyQualifiedName);
-            //        }
-            //    }
-            //}
-            //catch (TargetInvocationException ex)
-            //{
-            //    exceptions.Add(ex.InnerException);
-            //}
-            //catch (Exception ex)
-            //{
-            //    exceptions.Add(ex);
-            //}
-
-            throw new NotImplementedException();
+                //        await ((Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData }));
+                //    }
+                //    else
+                //    {
+                //        throw new Exception("The object instance is not an event handler. Object type: " + handlerType.AssemblyQualifiedName);
+                //    }
+                //}
+            }
+            catch (TargetInvocationException ex)
+            {
+                exceptions.Add(ex.InnerException);
+            }
+            catch (Exception ex)
+            {
+                exceptions.Add(ex);
+            }
         }
 
         protected virtual Guid? GetEventDataTenantId(object eventData)

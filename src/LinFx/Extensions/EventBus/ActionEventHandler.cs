@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EventBus.Local;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus
@@ -9,7 +8,7 @@ namespace LinFx.Extensions.EventBus
     /// </summary>
     /// <typeparam name="TEvent">Event type</typeparam>
     [Service]
-    public class ActionEventHandler<TEvent> : ILocalEventHandler<TEvent> where TEvent : class
+    public class ActionEventHandler<TEvent> : ILocalEventHandler<TEvent>
     {
         /// <summary>
         /// Function to handle the event.

@@ -3,6 +3,7 @@ using System;
 
 namespace LinFx.Extensions.EventBus
 {
+    [Obsolete]
     public class Event : IEvent
     {
         public long Id { get; }
