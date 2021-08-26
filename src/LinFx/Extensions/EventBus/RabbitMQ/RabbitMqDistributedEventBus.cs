@@ -46,8 +46,6 @@ namespace LinFx.Extensions.EventBus.RabbitMq
 
             HandlerFactories = new ConcurrentDictionary<Type, List<IEventHandlerFactory>>();
             EventTypes = new ConcurrentDictionary<string, Type>();
-
-            Initialize();
         }
 
         public void Initialize()

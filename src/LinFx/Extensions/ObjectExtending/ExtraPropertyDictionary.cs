@@ -8,7 +8,6 @@ namespace LinFx.Extensions.ObjectExtending
     {
         public ExtraPropertyDictionary()
         {
-
         }
 
         public ExtraPropertyDictionary(IDictionary<string, object> dictionary)

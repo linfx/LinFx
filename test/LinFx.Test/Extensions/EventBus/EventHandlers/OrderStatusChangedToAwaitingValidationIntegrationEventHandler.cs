@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Test.Extensions.EventBus.EventHandling
 {
-    public class OrderStatusChangedToAwaitingValidationEventHandler : IEventHandler<OrderStatusChangedToAwaitingValidationEvent>
+    public class OrderStatusChangedToAwaitingValidationEventHandler
     {
         public Task HandleAsync(OrderStatusChangedToAwaitingValidationEvent evt)
         {
