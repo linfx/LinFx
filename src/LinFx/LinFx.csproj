@@ -39,9 +39,5 @@
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Extensions\EventBus\Local\" />
-  </ItemGroup>
 
 </Project>

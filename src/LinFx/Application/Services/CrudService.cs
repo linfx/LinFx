@@ -1,5 +1,5 @@
 ﻿using LinFx.Application.Models;
-using LinFx.Domain.Models;
+using LinFx.Domain.Entities;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
