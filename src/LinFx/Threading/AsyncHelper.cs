@@ -1,94 +1,77 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using Nito.AsyncEx;
+using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LinFx.Threading
 {
+    /// <summary>
+    /// Provides some helper methods to work with async methods.
+    /// </summary>
     public static class AsyncHelper
     {
         /// <summary>
-        /// Runs a task with the "Fire and Forget" pattern using Task.Run,
-        /// and unwraps and handles exceptions
+        /// Checks if given method is an async method.
         /// </summary>
-        /// <param name="task">A function that returns the task to run</param>
-        /// <param name="handle">Error handling action, null by default</param>
-        public static void FireAndForget(Func<Task> task, Action<Exception> handle = null)
+        /// <param name="method">A method to check</param>
+        public static bool IsAsync([NotNull] this MethodInfo method)
         {
-            Task.Run(() =>
-            {
-                ((Func<Task>)(async () =>
-                {
-                    try
-                    {
-                        await task().ConfigureAwait(true);
-                    }
-                    catch (Exception e)
-                    {
-                        handle?.Invoke(e);
-                    }
-                }))();
-            });
+            Check.NotNull(method, nameof(method));
+
+            return method.ReturnType.IsTaskOrTaskOfT();
+        }
+
+        public static bool IsTaskOrTaskOfT([NotNull] this Type type)
+        {
+            return type == typeof(Task) || type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>);
+        }
+
+        public static bool IsTaskOfT([NotNull] this Type type)
+        {
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>);
         }
 
         /// <summary>
-        /// Creates a new AsyncBridge. This should always be used in
-        /// conjunction with the using statement, to ensure it is disposed
+        /// Returns void if given type is Task.
+        /// Return T, if given type is Task{T}.
+        /// Returns given type otherwise.
         /// </summary>
-        public static AsyncBridge Wait => new AsyncBridge();
-
-        public class AsyncBridge : IDisposable
+        public static Type UnwrapTask([NotNull] Type type)
         {
-            /// <summary>
-            /// Execute's an async task with a void return type
-            /// from a synchronous context
-            /// </summary>
-            /// <param name="task">Task to execute</param>
-            /// <param name="callback">Optional callback</param>
-            public void Run(Task task, Action<Task> callback = default)
+            Check.NotNull(type, nameof(type));
+
+            if (type == typeof(Task))
             {
-                //_hasAsyncTasks = true;
-                //_currentContext.Post(
-                //    async _ =>
-                //    {
-                //        try
-                //        {
-                //            Increment();
-                //            await task.ConfigureAwait(true);
-                //            callback?.Invoke(task);
-                //        }
-                //        catch (Exception e)
-                //        {
-                //            _currentContext.InnerException = e;
-                //        }
-                //        finally
-                //        {
-                //            Decrement();
-                //        }
-                //    },
-                //    null);
+                return typeof(void);
             }
 
-            /// <summary>
-            /// Execute's an async task with a T return type
-            /// from a synchronous context
-            /// </summary>
-            /// <typeparam name="T">The type of the task</typeparam>
-            /// <param name="task">Task to execute</param>
-            /// <param name="callback">Optional callback</param>
-            public void Run<T>(Task<T> task, Action<Task<T>> callback = null)
+            if (type.IsTaskOfT())
             {
-                if (null != callback)
-                {
-                    Run((Task)task, (finishedTask) => callback((Task<T>)finishedTask));
-                }
-                else
-                {
-                    Run((Task)task);
-                }
+                return type.GenericTypeArguments[0];
             }
 
-            public void Dispose()
-            {
-            }
+            return type;
+        }
+
+        /// <summary>
+        /// Runs a async method synchronously.
+        /// </summary>
+        /// <param name="func">A function that returns a result</param>
+        /// <typeparam name="TResult">Result type</typeparam>
+        /// <returns>Result of the async operation</returns>
+        public static TResult RunSync<TResult>(Func<Task<TResult>> func)
+        {
+            return AsyncContext.Run(func);
+        }
+
+        /// <summary>
+        /// Runs a async method synchronously.
+        /// </summary>
+        /// <param name="action">An async action</param>
+        public static void RunSync(Func<Task> action)
+        {
+            AsyncContext.Run(action);
         }
     }
 }

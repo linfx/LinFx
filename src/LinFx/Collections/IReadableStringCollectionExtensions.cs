@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 
-namespace LinFx
+namespace LinFx.Collections
 {
     public static class IReadableStringCollectionExtensions
     {

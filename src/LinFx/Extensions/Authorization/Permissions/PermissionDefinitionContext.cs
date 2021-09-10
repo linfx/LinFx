@@ -36,6 +36,5 @@ namespace LinFx.Extensions.Authorization.Permissions
 
             return Groups[name];
         }
-
     }
 }

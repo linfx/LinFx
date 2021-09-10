@@ -1,64 +1,57 @@
-﻿using LinFx.Domain.Entities;
-using MediatR;
-using System.Collections.Generic;
+﻿using LinFx.Extensions.ObjectExtending;
+using System;
 
-namespace LinFx.Domain.Models
+namespace LinFx.Domain.Entities
 {
-    /// <summary>
-    /// 聚合根
-    /// </summary>
-    public abstract class AggregateRoot : Entity, IAggregateRoot
+    public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
     {
-        private ICollection<INotification> _domainEvents;
+        public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
-        public void AddDomainEvent(INotification eventItem)
+        public virtual string ConcurrencyStamp { get; set; }
+
+        protected AggregateRoot()
         {
-            _domainEvents ??= new List<INotification>();
-            _domainEvents.Add(eventItem);
+            ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            ExtraProperties = new ExtraPropertyDictionary();
+            //this.SetDefaultsForExtraProperties();
         }
 
-        public void RemoveDomainEvent(INotification eventItem)
-        {
-            _domainEvents?.Remove(eventItem);
-        }
-
-        public void ClearDomainEvents()
-        {
-            _domainEvents?.Clear();
-        }
-
-        public IEnumerable<INotification> GetDomainEvents()
-        {
-            return _domainEvents;
-        }
+        //public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    return ExtensibleObjectValidator.GetValidationErrors(
+        //        this,
+        //        validationContext
+        //    );
+        //}
     }
 
-    /// <summary>
-    /// 聚合根
-    /// </summary>
-    public abstract class AggregateRoot<TKey> : Entity<TKey>, IAggregateRoot<TKey>
+    public abstract class AggregateRoot<TKey> : BasicAggregateRoot<TKey>, IHasExtraProperties
     {
-        private ICollection<INotification> _domainEvents;
+        public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
-        public void AddDomainEvent(INotification eventItem)
+        public virtual string ConcurrencyStamp { get; set; }
+
+        protected AggregateRoot()
         {
-            _domainEvents ??= new List<INotification>();
-            _domainEvents.Add(eventItem);
+            ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            ExtraProperties = new ExtraPropertyDictionary();
+            //this.SetDefaultsForExtraProperties();
         }
 
-        public void RemoveDomainEvent(INotification eventItem)
+        protected AggregateRoot(TKey id)
+            : base(id)
         {
-            _domainEvents?.Remove(eventItem);
+            ConcurrencyStamp = Guid.NewGuid().ToString("N");
+            ExtraProperties = new ExtraPropertyDictionary();
+            //this.SetDefaultsForExtraProperties();
         }
 
-        public void ClearDomainEvents()
-        {
-            _domainEvents?.Clear();
-        }
-
-        public IEnumerable<INotification> GetDomainEvents()
-        {
-            return _domainEvents;
-        }
+        //public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    return ExtensibleObjectValidator.GetValidationErrors(
+        //        this,
+        //        validationContext
+        //    );
+        //}
     }
 }

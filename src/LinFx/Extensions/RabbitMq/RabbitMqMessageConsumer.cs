@@ -18,7 +18,7 @@ namespace LinFx.Extensions.RabbitMq
     {
         public ILogger<RabbitMqMessageConsumer> Logger { get; set; }
         protected IConnectionPool ConnectionPool { get; }
-        protected Timer Timer { get; }
+        protected AsyncTimer Timer { get; }
         protected ExchangeDeclareConfiguration Exchange { get; private set; }
         protected QueueDeclareConfiguration Queue { get; private set; }
         protected string ConnectionName { get; private set; }
@@ -35,11 +35,11 @@ namespace LinFx.Extensions.RabbitMq
             QueueBindCommands = new ConcurrentQueue<QueueBindCommand>();
             Callbacks = new ConcurrentBag<Func<IModel, BasicDeliverEventArgs, Task>>();
 
-            Timer = new Timer
+            Timer = new AsyncTimer
             {
                 Period = 5000, //5 sec.
             };
-            Timer.Elapsed += Timer_Elapsed;
+            //Timer.Elapsed += Timer_Elapsed;
         }
 
         public void Initialize(
@@ -50,7 +50,7 @@ namespace LinFx.Extensions.RabbitMq
             Exchange = Check.NotNull(exchange, nameof(exchange));
             Queue = Check.NotNull(queue, nameof(queue));
             ConnectionName = connectionName;
-            Timer.StartAsync().Wait();
+            //Timer.StartAsync().Wait();
         }
 
         public virtual async Task BindAsync(string routingKey)
@@ -178,7 +178,7 @@ namespace LinFx.Extensions.RabbitMq
 
         public virtual void Dispose()
         {
-            Timer.StartAsync().Wait();
+            //Timer.StartAsync().Wait();
             DisposeChannel();
         }
 

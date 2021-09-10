@@ -1,7 +1,4 @@
-﻿using MediatR;
-using System.Collections.Generic;
-
-namespace LinFx.Domain.Entities
+﻿namespace LinFx.Domain.Entities
 {
     /// <summary>
     /// Defines an aggregate root. It's primary key may not be "Id" or it may have a composite primary key.
@@ -9,11 +6,6 @@ namespace LinFx.Domain.Entities
     /// </summary>
     public interface IAggregateRoot : IEntity
     {
-        [System.Obsolete]
-        IEnumerable<INotification> GetDomainEvents();
-
-        [System.Obsolete]
-        void ClearDomainEvents();
     }
 
     /// <summary>

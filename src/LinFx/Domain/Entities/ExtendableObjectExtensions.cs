@@ -1,5 +1,4 @@
-﻿using LinFx.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -38,10 +37,12 @@ namespace LinFx.Domain.Entities
             if (prop == null)
                 return default;
 
-            if (TypeUtils.IsPrimitiveExtendedIncludingNullable(typeof(T)))
-                return prop.Value<T>();
-            else
-                return (T)prop.ToObject(typeof(T), jsonSerializer ?? JsonSerializer.CreateDefault());
+            //if (TypeHelper.IsPrimitiveExtendedIncludingNullable(typeof(T)))
+            //    return prop.Value<T>();
+            //else
+            //    return (T)prop.ToObject(typeof(T), jsonSerializer ?? JsonSerializer.CreateDefault());
+
+            throw new NotImplementedException();
         }
 
         public static void SetData<T>(this IExtendableObject extendableObject, string name, T value, bool handleType = false)
@@ -77,10 +78,10 @@ namespace LinFx.Domain.Entities
                 if (json[name] != null)
                     json.Remove(name);
             }
-            else if (TypeUtils.IsPrimitiveExtendedIncludingNullable(value.GetType()))
-            {
-                json[name] = new JValue(value);
-            }
+            //else if (TypeHelper.IsPrimitiveExtendedIncludingNullable(value.GetType()))
+            //{
+            //    json[name] = new JValue(value);
+            //}
             else
             {
                 json[name] = JToken.FromObject(value, jsonSerializer);

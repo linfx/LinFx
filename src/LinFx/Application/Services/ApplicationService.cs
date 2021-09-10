@@ -1,84 +1,132 @@
-﻿using LinFx.Domain.Entities;
-using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.MultiTenancy;
-using LinFx.Utils;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+//using JetBrains.Annotations;
+//using LinFx.Data;
+//using LinFx.Extensions.Auditing;
+//using LinFx.Extensions.DependencyInjection;
+//using LinFx.Extensions.Guids;
+//using LinFx.Extensions.MultiTenancy;
+//using LinFx.Extensions.ObjectMapping;
+//using LinFx.Extensions.Setting;
+//using LinFx.Extensions.Timing;
+//using LinFx.Extensions.Uow;
+//using LinFx.Linq;
+//using LinFx.Security.Users;
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.Extensions.Localization;
+//using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging.Abstractions;
+//using System;
+//using System.Collections.Generic;
+//using System.Threading.Tasks;
 
-namespace LinFx.Application.Services
-{
-    /// <summary>
-    /// 服务抽象类
-    /// </summary>
-    public abstract class ApplicationService
-    {
-        private ILoggerFactory _loggerFactory;
-        private ICurrentTenant _currentTenant;
-        private IMediator _mediator;
-        protected readonly ServiceContext _context;
-        protected readonly object ServiceProviderLock = new object();
+//namespace LinFx.Application.Services
+//{
+//    public abstract class ApplicationService :
+//        IApplicationService,
+//        IAvoidDuplicateCrossCuttingConcerns,
+//        IValidationEnabled,
+//        IUnitOfWorkEnabled,
+//        IAuditingEnabled,
+//        IGlobalFeatureCheckingEnabled,
+//        ITransientDependency
+//    {
+//        public ILazyServiceProvider LazyServiceProvider { get; set; }
 
-        protected ApplicationService() { }
+//        [Obsolete("Use LazyServiceProvider instead.")]
+//        public IServiceProvider ServiceProvider { get; set; }
 
-        protected ApplicationService(ServiceContext context)
-        {
-            _context = context;
-        }
+//        public static string[] CommonPostfixes { get; set; } = { "AppService", "ApplicationService", "Service" };
 
-        protected TService LazyGetRequiredService<TService>(ref TService reference)
-        {
-            if (reference == null)
-            {
-                lock (ServiceProviderLock)
-                {
-                    if (reference == null)
-                    {
-                        reference = _context.ServiceProvider.GetRequiredService<TService>();
-                    }
-                }
-            }
-            return reference;
-        }
+//        public List<string> AppliedCrossCuttingConcerns { get; } = new List<string>();
 
-        public ILoggerFactory LoggerFactory => LazyGetRequiredService(ref _loggerFactory);
+//        protected IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
-        public ICurrentTenant CurrentTenant => LazyGetRequiredService(ref _currentTenant);
+//        protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
-        public IMediator Mediator => LazyGetRequiredService(ref _mediator);
+//        protected Type ObjectMapperContext { get; set; }
+//        protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider =>
+//            ObjectMapperContext == null
+//                ? provider.GetRequiredService<IObjectMapper>()
+//                : (IObjectMapper)provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 
-        protected virtual void SetId<TEntity>(TEntity entity)
-        {
-            if (entity is IEntity<string> entityWithStringId)
-            {
-                if (string.IsNullOrWhiteSpace(entityWithStringId.Id))
-                    entityWithStringId.Id = IDUtils.NewId().ToString();
-            }
-        }
+//        protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
-        protected virtual void TryToSetTenantId<TEntity>(TEntity entity)
-        {
-            if (entity is IMultiTenant && HasTenantIdProperty(entity))
-            {
-                var tenantId = CurrentTenant.Id;
+//        protected ILoggerFactory LoggerFactory => LazyServiceProvider.LazyGetRequiredService<ILoggerFactory>();
 
-                if (string.IsNullOrEmpty(tenantId))
-                {
-                    return;
-                }
+//        protected ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
-                var propertyInfo = entity.GetType().GetProperty(nameof(IMultiTenant.TenantId));
+//        protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
 
-                if (propertyInfo != null && propertyInfo.GetSetMethod() != null)
-                {
-                    propertyInfo.SetValue(entity, tenantId, null);
-                }
-            }
-        }
+//        protected ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
 
-        protected virtual bool HasTenantIdProperty<TEntity>(TEntity entity)
-        {
-            return entity.GetType().GetProperty(nameof(IMultiTenant.TenantId)) != null;
-        }
-    }
-}
+//        protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
+
+//        protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
+
+//        protected IAuthorizationService AuthorizationService => LazyServiceProvider.LazyGetRequiredService<IAuthorizationService>();
+
+//        protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
+
+//        protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
+
+//        protected IStringLocalizer L
+//        {
+//            get
+//            {
+//                if (_localizer == null)
+//                {
+//                    _localizer = CreateLocalizer();
+//                }
+
+//                return _localizer;
+//            }
+//        }
+//        private IStringLocalizer _localizer;
+
+//        protected Type LocalizationResource
+//        {
+//            get => _localizationResource;
+//            set
+//            {
+//                _localizationResource = value;
+//                _localizer = null;
+//            }
+//        }
+//        private Type _localizationResource = typeof(DefaultResource);
+
+//        protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
+
+//        protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
+
+//        /// <summary>
+//        /// Checks for given <paramref name="policyName"/>.
+//        /// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
+//        /// </summary>
+//        /// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
+//        protected virtual async Task CheckPolicyAsync([CanBeNull] string policyName)
+//        {
+//            if (string.IsNullOrEmpty(policyName))
+//            {
+//                return;
+//            }
+
+//            await AuthorizationService.CheckAsync(policyName);
+//        }
+
+//        protected virtual IStringLocalizer CreateLocalizer()
+//        {
+//            if (LocalizationResource != null)
+//            {
+//                return StringLocalizerFactory.Create(LocalizationResource);
+//            }
+
+//            var localizer = StringLocalizerFactory.CreateDefaultOrNull();
+//            if (localizer == null)
+//            {
+//                throw new Exception($"Set {nameof(LocalizationResource)} or define the default localization resource type (by configuring the {nameof(AbpLocalizationOptions)}.{nameof(AbpLocalizationOptions.DefaultResourceType)}) to be able to use the {nameof(L)} object!");
+//            }
+
+//            return localizer;
+//        }
+//    }
+//}

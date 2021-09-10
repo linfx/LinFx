@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace LinFx.Extensions.EntityFrameworkCore
+namespace LinFx.EntityFrameworkCore
 {
     public static class DbContextExtensions
     {
-        public static void Update<TEntity, TEntityNew>(this DbContext context, TEntity entity, Expression<Func<TEntity, TEntityNew>> expression) where TEntity : class
+        public static void Update<TEntity, TEntityNew>(this EfCodeDbContext context, TEntity entity, Expression<Func<TEntity, TEntityNew>> expression) where TEntity : class
         {
             context.Update(entity);
             var entry = context.Entry(entity);
@@ -21,7 +21,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
             }
         }
 
-        public static void RegisterCustomMappings(this DbContext context, ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        public static void RegisterCustomMappings(this EfCodeDbContext context, ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
             var customModelBuilderTypes = typeToRegisters.Where(x => typeof(ICustomModelBuilder).IsAssignableFrom(x));
             foreach (var builderType in customModelBuilderTypes)

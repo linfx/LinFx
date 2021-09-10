@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,22 +10,20 @@ namespace LinFx.Extensions.ObjectExtending
     {
         public ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
-        public ExtensibleObject()
-            : this(true)
-        {
-        }
+        //public ExtensibleObject()
+        //    : this(true)
+        //{
+        //}
 
-        public ExtensibleObject(bool setDefaultsForExtraProperties)
-        {
-            //ExtraProperties = new ExtraPropertyDictionary();
+        //public ExtensibleObject(bool setDefaultsForExtraProperties)
+        //{
+        //    ExtraProperties = new ExtraPropertyDictionary();
 
-            //if (setDefaultsForExtraProperties)
-            //{
-            //    this.SetDefaultsForExtraProperties(ProxyHelper.UnProxy(this).GetType());
-            //}
-
-            throw new NotImplementedException();
-        }
+        //    if (setDefaultsForExtraProperties)
+        //    {
+        //        this.SetDefaultsForExtraProperties(ProxyHelper.UnProxy(this).GetType());
+        //    }
+        //}
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
