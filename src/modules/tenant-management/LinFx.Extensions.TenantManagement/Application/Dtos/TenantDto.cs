@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace LinFx.Extensions.TenantManagement.Application.Models
+namespace LinFx.Extensions.TenantManagement.Application.Dtos
 {
-    public class TenantResult
+    public class TenantDto
     {
         /// <summary>
         /// 租户Id

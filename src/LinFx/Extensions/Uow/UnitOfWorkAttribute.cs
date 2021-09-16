@@ -39,7 +39,6 @@ namespace LinFx.Extensions.Uow
 
         public UnitOfWorkAttribute()
         {
-
         }
 
         public UnitOfWorkAttribute(bool isTransactional)
@@ -61,7 +60,6 @@ namespace LinFx.Extensions.Uow
         }
 
         //TODO: More constructors!
-
         public virtual void SetOptions(UnitOfWorkOptions options)
         {
             if (IsTransactional.HasValue)

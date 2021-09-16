@@ -12,10 +12,6 @@ namespace Microsoft.Extensions.DependencyInjection
                 builder.Services.Configure(optionsAction);
             }
 
-            builder.Services.AddTransient<ITenantResolver, TenantResolver>();
-            builder.Services.AddTransient<ICurrentTenant, CurrentTenant>();
-            builder.Services.AddSingleton<ICurrentTenantAccessor, CurrentTenantAccessor>();
-            builder.Services.AddSingleton<ITenantResolveResultAccessor, HttpContextTenantResolveResultAccessor>();
             return builder;
         }
     }

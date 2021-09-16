@@ -1,7 +1,6 @@
-﻿using LinFx.Application.Dtos;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace LinFx.Application.Models
+namespace LinFx.Application.Dtos
 {
     /// <summary>
     /// Implements <see cref="IPagedResult{T}"/>.

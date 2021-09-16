@@ -38,8 +38,7 @@ namespace LinFx.Data
             return GetFilter<TFilter>().IsEnabled;
         }
 
-        private IDataFilter<TFilter> GetFilter<TFilter>()
-            where TFilter : class
+        private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class
         {
             return _filters.GetOrAdd(typeof(TFilter), () => _serviceProvider.GetRequiredService<IDataFilter<TFilter>>()) as IDataFilter<TFilter>;
         }
@@ -70,9 +69,7 @@ namespace LinFx.Data
         public IDisposable Enable()
         {
             if (IsEnabled)
-            {
                 return NullDisposable.Instance;
-            }
 
             _filter.Value.IsEnabled = true;
 
@@ -82,9 +79,7 @@ namespace LinFx.Data
         public IDisposable Disable()
         {
             if (!IsEnabled)
-            {
                 return NullDisposable.Instance;
-            }
 
             _filter.Value.IsEnabled = false;
 
@@ -94,9 +89,7 @@ namespace LinFx.Data
         private void EnsureInitialized()
         {
             if (_filter.Value != null)
-            {
                 return;
-            }
 
             _filter.Value = _options.DefaultStates.GetOrDefault(typeof(TFilter))?.Clone() ?? new DataFilterState(true);
         }

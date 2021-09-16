@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinFx.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
 {
-    public class TenantManagementDbContext : LinFx.Extensions.EntityFrameworkCore.DbContext
+    public class TenantManagementDbContext : EfCodeDbContext
     {
-        public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options) : base(options) { }
+        public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
+            : base(options) { }
 
         public DbSet<Tenant> Tenants { get; set; }
 
@@ -15,9 +17,8 @@ namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
             {
                 b.HasKey(p => p.Id);
                 b.Property(p => p.Id).HasMaxLength(32);
-
                 b.Property(p => p.Name)
-                    .IsRequired()    
+                    .IsRequired()
                     .HasMaxLength(64);
             });
         }

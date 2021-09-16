@@ -1,8 +1,9 @@
-﻿using System.Threading;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace LinFx.Extensions.MultiTenancy
 {
-    [Service]
+    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class CurrentTenantAccessor : ICurrentTenantAccessor
     {
         private readonly AsyncLocal<TenantInfo> _current;

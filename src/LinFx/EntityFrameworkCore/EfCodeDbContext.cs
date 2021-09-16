@@ -20,6 +20,7 @@ using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
@@ -36,7 +37,7 @@ namespace LinFx.EntityFrameworkCore
 {
     public abstract class EfCodeDbContext : DbContext, IEfCoreDbContext
     {
-        public ILazyServiceProvider LazyServiceProvider { get; set; }
+        public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
         protected virtual string CurrentTenantId => CurrentTenant?.Id;
 
@@ -201,20 +202,21 @@ namespace LinFx.EntityFrameworkCore
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
-        //public virtual void Initialize(EfCoreDbContextInitializationContext initializationContext)
-        //{
-        //    if (initializationContext.UnitOfWork.Options.Timeout.HasValue &&
-        //        Database.IsRelational() &&
-        //        !Database.GetCommandTimeout().HasValue)
-        //    {
-        //        Database.SetCommandTimeout(TimeSpan.FromMilliseconds(initializationContext.UnitOfWork.Options.Timeout.Value));
-        //    }
+        public virtual void Initialize(EfCoreDbContextInitializationContext initializationContext)
+        {
+            LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
 
-        //    ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
+            if (initializationContext.UnitOfWork.Options.Timeout.HasValue &&
+                Database.IsRelational() &&
+                !Database.GetCommandTimeout().HasValue)
+            {
+                Database.SetCommandTimeout(TimeSpan.FromMilliseconds(initializationContext.UnitOfWork.Options.Timeout.Value));
+            }
 
-        //    ChangeTracker.Tracked += ChangeTracker_Tracked;
-        //    ChangeTracker.StateChanged += ChangeTracker_StateChanged;
-        //}
+            ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
+            ChangeTracker.Tracked += ChangeTracker_Tracked;
+            ChangeTracker.StateChanged += ChangeTracker_StateChanged;
+        }
 
         protected virtual void ChangeTracker_Tracked(object sender, EntityTrackedEventArgs e)
         {

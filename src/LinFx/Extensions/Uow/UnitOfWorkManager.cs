@@ -23,12 +23,16 @@ namespace LinFx.Extensions.Uow
         {
             Check.NotNull(options, nameof(options));
 
-            var currentUow = Current;
+            // 获得当前的工作单元
+            var currentUow = Current; 
+
+            // 如果当前工作单元不为空，并且开发人员明确说明不需要构建新的工作单元时，创建内部工作单元
             if (currentUow != null && !requiresNew)
             {
                 return new ChildUnitOfWork(currentUow);
             }
 
+            // 创建新的外部工作单元
             var unitOfWork = CreateNewUnitOfWork();
             unitOfWork.Initialize(options);
 
@@ -101,12 +105,13 @@ namespace LinFx.Extensions.Uow
             try
             {
                 var outerUow = _ambientUnitOfWork.UnitOfWork;
-
                 var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
+                // 设置当前工作单元的外部工作单元
                 unitOfWork.SetOuter(outerUow);
 
-                _ambientUnitOfWork.SetUnitOfWork(unitOfWork);
+                // 设置最外层的工作单元
+                _ambientUnitOfWork.SetUnitOfWork(unitOfWork); 
 
                 unitOfWork.Disposed += (sender, args) =>
                 {

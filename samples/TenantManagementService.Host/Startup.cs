@@ -19,6 +19,13 @@ namespace TenantManagementService.Host
             services
                 .AddLinFx()
                 .AddHttpContextPrincipalAccessor()
+                .AddThreading()
+                .AddDataFilter()
+                .AddDbContextProvider()
+                .AddDbContext<TenantManagementDbContext>(option =>
+                {
+                    option.AddDefaultRepositories();
+                })
                 .AddTenantManagement();
 
             services.AddDbContextPool<TenantManagementDbContext>(options =>

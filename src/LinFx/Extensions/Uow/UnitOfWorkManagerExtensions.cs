@@ -1,7 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
 using System.Data;
-using JetBrains.Annotations;
-using LinFx.Extensions.Uow;
 
 namespace LinFx.Extensions.Uow
 {

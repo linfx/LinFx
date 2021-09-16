@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow
 {
+    /// <summary>
+    /// 工作单元
+    /// </summary>
     [Service]
     public class UnitOfWork : IUnitOfWork
     {
@@ -41,12 +44,11 @@ namespace LinFx.Extensions.Uow
         public event EventHandler<UnitOfWorkEventArgs> Disposed;
 
         public IServiceProvider ServiceProvider { get; }
+
         protected IUnitOfWorkEventPublisher UnitOfWorkEventPublisher { get; }
 
         [NotNull]
-        public Dictionary<string, object> Items { get; }
-
-        UnitOfWorkOptions IUnitOfWork.Options => throw new NotImplementedException();
+        public Dictionary<string, object> Items { get; } = new Dictionary<string, object>();
 
         private readonly Dictionary<string, IDatabaseApi> _databaseApis;
         private readonly Dictionary<string, ITransactionApi> _transactionApis;
@@ -67,8 +69,6 @@ namespace LinFx.Extensions.Uow
 
             _databaseApis = new Dictionary<string, IDatabaseApi>();
             _transactionApis = new Dictionary<string, ITransactionApi>();
-
-            Items = new Dictionary<string, object>();
         }
 
         public virtual void Initialize(UnitOfWorkOptions options)
@@ -100,16 +100,13 @@ namespace LinFx.Extensions.Uow
         public virtual async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             if (_isRolledback)
-            {
                 return;
-            }
 
+            // 遍历集合，如果对象实现了 ISupportsSavingChanges 则调用相应的方法进行数据持久化
             foreach (var databaseApi in GetAllActiveDatabaseApis())
             {
                 if (databaseApi is ISupportsSavingChanges)
-                {
                     await (databaseApi as ISupportsSavingChanges).SaveChangesAsync(cancellationToken);
-                }
             }
         }
 
@@ -125,11 +122,11 @@ namespace LinFx.Extensions.Uow
 
         public virtual async Task CompleteAsync(CancellationToken cancellationToken = default)
         {
+            // 是否已经进行了回滚操作，如果进行了回滚操作，则不提交工作单元
             if (_isRolledback)
-            {
                 return;
-            }
 
+            // 防止多次调用 Complete 方法，原理就是看 _isCompleting 或者 IsCompleted 是不是已经为 True 了
             PreventMultipleComplete();
 
             try
@@ -143,18 +140,14 @@ namespace LinFx.Extensions.Uow
                     {
                         var localEventsToBePublished = LocalEvents.OrderBy(e => e.EventOrder).ToArray();
                         LocalEvents.Clear();
-                        await UnitOfWorkEventPublisher.PublishLocalEventsAsync(
-                            localEventsToBePublished
-                        );
+                        await UnitOfWorkEventPublisher.PublishLocalEventsAsync(localEventsToBePublished);
                     }
 
                     if (DistributedEvents.Any())
                     {
                         var distributedEventsToBePublished = DistributedEvents.OrderBy(e => e.EventOrder).ToArray();
                         DistributedEvents.Clear();
-                        await UnitOfWorkEventPublisher.PublishDistributedEventsAsync(
-                            distributedEventsToBePublished
-                        );
+                        await UnitOfWorkEventPublisher.PublishDistributedEventsAsync(distributedEventsToBePublished);
                     }
 
                     await SaveChangesAsync(cancellationToken);
@@ -162,10 +155,13 @@ namespace LinFx.Extensions.Uow
 
                 await CommitTransactionsAsync();
                 IsCompleted = true;
+
+                // 数据储存了，事务提交了，则说明工作单元已经完成了，遍历完成事件集合，依次调用这些方法
                 await OnCompletedAsync();
             }
             catch (Exception ex)
             {
+                // 一旦在持久化或者是提交事务时出现了异常，则往上层抛出
                 _exception = ex;
                 throw;
             }
@@ -174,9 +170,7 @@ namespace LinFx.Extensions.Uow
         public virtual async Task RollbackAsync(CancellationToken cancellationToken = default)
         {
             if (_isRolledback)
-            {
                 return;
-            }
 
             _isRolledback = true;
 
@@ -194,9 +188,7 @@ namespace LinFx.Extensions.Uow
             Check.NotNull(api, nameof(api));
 
             if (_databaseApis.ContainsKey(key))
-            {
                 throw new Exception("There is already a database API in this unit of work with given key: " + key);
-            }
 
             _databaseApis.Add(key, api);
         }
@@ -222,9 +214,7 @@ namespace LinFx.Extensions.Uow
             Check.NotNull(api, nameof(api));
 
             if (_transactionApis.ContainsKey(key))
-            {
                 throw new Exception("There is already a transaction API in this unit of work with given key: " + key);
-            }
 
             _transactionApis.Add(key, api);
         }
@@ -300,18 +290,14 @@ namespace LinFx.Extensions.Uow
         public virtual void Dispose()
         {
             if (IsDisposed)
-            {
                 return;
-            }
 
             IsDisposed = true;
 
             DisposeTransactions();
 
             if (!IsCompleted || _exception != null)
-            {
                 OnFailed();
-            }
 
             OnDisposed();
         }

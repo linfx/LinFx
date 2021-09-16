@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus
 {
-    //[Dependency(ReplaceServices = true)]
-    [Service]
+    [Service(ReplaceServices = true)]
     public class UnitOfWorkEventPublisher : IUnitOfWorkEventPublisher
     {
         private readonly ILocalEventBus _localEventBus;

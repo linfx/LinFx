@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Models
+namespace LinFx.Application.Dtos
 {
     public class LimitedResultRequest
     {

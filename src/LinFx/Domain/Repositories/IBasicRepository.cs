@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity>
-        where TEntity : class, IEntity
+    public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity> where TEntity : class, IEntity
     {
         /// <summary>
         /// Inserts a new entity.
@@ -78,8 +77,7 @@ namespace LinFx.Domain.Repositories
         Task DeleteManyAsync([NotNull] IEnumerable<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default);
     }
 
-    public interface IBasicRepository<TEntity, TKey> : IBasicRepository<TEntity>, IReadOnlyBasicRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
+    public interface IBasicRepository<TEntity, TKey> : IBasicRepository<TEntity>, IReadOnlyBasicRepository<TEntity, TKey> where TEntity : class, IEntity<TKey>
     {
         /// <summary>
         /// Deletes an entity by primary key.

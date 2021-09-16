@@ -6,11 +6,14 @@ using JetBrains.Annotations;
 
 namespace LinFx.Extensions.Uow
 {
+    /// <summary>
+    /// 内部工作单元
+    /// </summary>
     internal class ChildUnitOfWork : IUnitOfWork
     {
         public Guid Id => _parent.Id;
 
-        public UnitOfWorkOptions Options => _parent.Options;
+        public IUnitOfWorkOptions Options => _parent.Options;
 
         public IUnitOfWork Outer => _parent.Outer;
 
@@ -25,7 +28,7 @@ namespace LinFx.Extensions.Uow
         public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
         public event EventHandler<UnitOfWorkEventArgs> Disposed;
 
-        //public IServiceProvider ServiceProvider => _parent.ServiceProvider;
+        public IServiceProvider ServiceProvider => _parent.ServiceProvider;
 
         public Dictionary<string, object> Items => _parent.Items;
 
@@ -37,8 +40,8 @@ namespace LinFx.Extensions.Uow
 
             _parent = parent;
 
-            //_parent.Failed += (sender, args) => { Failed.InvokeSafely(sender, args); };
-            //_parent.Disposed += (sender, args) => { Disposed.InvokeSafely(sender, args); };
+            _parent.Failed += (sender, args) => { Failed.InvokeSafely(sender, args); };
+            _parent.Disposed += (sender, args) => { Disposed.InvokeSafely(sender, args); };
         }
 
         public void SetOuter(IUnitOfWork outer)
@@ -90,39 +93,38 @@ namespace LinFx.Extensions.Uow
             _parent.AddOrReplaceDistributedEvent(eventRecord, replacementSelector);
         }
 
-        //public IDatabaseApi FindDatabaseApi(string key)
-        //{
-        //    return _parent.FindDatabaseApi(key);
-        //}
+        public IDatabaseApi FindDatabaseApi(string key)
+        {
+            return _parent.FindDatabaseApi(key);
+        }
 
-        //public void AddDatabaseApi(string key, IDatabaseApi api)
-        //{
-        //    _parent.AddDatabaseApi(key, api);
-        //}
+        public void AddDatabaseApi(string key, IDatabaseApi api)
+        {
+            _parent.AddDatabaseApi(key, api);
+        }
 
-        //public IDatabaseApi GetOrAddDatabaseApi(string key, Func<IDatabaseApi> factory)
-        //{
-        //    return _parent.GetOrAddDatabaseApi(key, factory);
-        //}
+        public IDatabaseApi GetOrAddDatabaseApi(string key, Func<IDatabaseApi> factory)
+        {
+            return _parent.GetOrAddDatabaseApi(key, factory);
+        }
 
-        //public ITransactionApi FindTransactionApi(string key)
-        //{
-        //    return _parent.FindTransactionApi(key);
-        //}
+        public ITransactionApi FindTransactionApi(string key)
+        {
+            return _parent.FindTransactionApi(key);
+        }
 
-        //public void AddTransactionApi(string key, ITransactionApi api)
-        //{
-        //    _parent.AddTransactionApi(key, api);
-        //}
+        public void AddTransactionApi(string key, ITransactionApi api)
+        {
+            _parent.AddTransactionApi(key, api);
+        }
 
-        //public ITransactionApi GetOrAddTransactionApi(string key, Func<ITransactionApi> factory)
-        //{
-        //    return _parent.GetOrAddTransactionApi(key, factory);
-        //}
+        public ITransactionApi GetOrAddTransactionApi(string key, Func<ITransactionApi> factory)
+        {
+            return _parent.GetOrAddTransactionApi(key, factory);
+        }
 
         public void Dispose()
         {
-
         }
 
         public override string ToString()

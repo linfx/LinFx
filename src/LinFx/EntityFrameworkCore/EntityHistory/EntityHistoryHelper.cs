@@ -20,7 +20,7 @@ using System.Text.Json;
 
 namespace LinFx.EntityFrameworkCore.EntityHistory
 {
-    [Service]
+    //[Service]
     public class EntityHistoryHelper : IEntityHistoryHelper
     {
         public ILogger<EntityHistoryHelper> Logger { get; set; }

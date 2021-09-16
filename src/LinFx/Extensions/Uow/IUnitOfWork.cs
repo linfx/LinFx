@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow
 {
+    /// <summary>
+    /// 工作单元
+    /// </summary>
     public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, IDisposable
     {
         Guid Id { get; }
@@ -17,7 +20,7 @@ namespace LinFx.Extensions.Uow
 
         event EventHandler<UnitOfWorkEventArgs> Disposed;
 
-        UnitOfWorkOptions Options { get; }
+        IUnitOfWorkOptions Options { get; }
 
         IUnitOfWork Outer { get; }
 

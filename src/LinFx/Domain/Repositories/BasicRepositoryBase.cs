@@ -6,6 +6,7 @@ using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Uow;
 using LinFx.Linq;
 using LinFx.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -17,7 +18,7 @@ namespace LinFx.Domain.Repositories
     public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, IServiceProviderAccessor
         where TEntity : class, IEntity
     {
-        public ILazyServiceProvider LazyServiceProvider { get; set; }
+        public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
         public IServiceProvider ServiceProvider { get; set; }
 
@@ -31,7 +32,11 @@ namespace LinFx.Domain.Repositories
 
         public ICancellationTokenProvider CancellationTokenProvider => LazyServiceProvider.LazyGetService<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
 
-        protected BasicRepositoryBase() { }
+        protected BasicRepositoryBase(IServiceProvider serviceProvider) 
+        {
+            ServiceProvider = serviceProvider;
+            LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
+        }
 
         public abstract Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
 
@@ -94,7 +99,7 @@ namespace LinFx.Domain.Repositories
 
         public abstract Task<long> GetCountAsync(CancellationToken cancellationToken = default);
 
-        public abstract Task<List<TEntity>> GetPagedListAsync(int skipCount, int maxResultCount, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default);
+        public abstract Task<List<TEntity>> GetPagedListAsync(int page, int limit, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default);
 
         protected virtual CancellationToken GetCancellationToken(CancellationToken preferredValue = default)
         {
@@ -105,6 +110,11 @@ namespace LinFx.Domain.Repositories
     public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<TEntity>, IBasicRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
+        protected BasicRepositoryBase(IServiceProvider serviceProvider) 
+            : base(serviceProvider)
+        {
+        }
+
         public virtual async Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
         {
             var entity = await FindAsync(id, includeDetails, cancellationToken);

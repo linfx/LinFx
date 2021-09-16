@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.ObjectExtending;
+﻿using LinFx.Extensions.Auditing;
+using LinFx.Extensions.ObjectExtending;
 using System;
 
 namespace LinFx.Domain.Entities
@@ -7,6 +8,7 @@ namespace LinFx.Domain.Entities
     {
         public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
+        [DisableAuditing]
         public virtual string ConcurrencyStamp { get; set; }
 
         protected AggregateRoot()
@@ -29,6 +31,7 @@ namespace LinFx.Domain.Entities
     {
         public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
+        [DisableAuditing]
         public virtual string ConcurrencyStamp { get; set; }
 
         protected AggregateRoot()

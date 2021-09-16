@@ -4,6 +4,7 @@ using System;
 
 namespace LinFx.Extensions.MultiTenancy
 {
+    [Service]
     public class TenantResolver : ITenantResolver
     {
         private readonly IServiceProvider _serviceProvider;

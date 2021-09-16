@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Application.Models
+namespace LinFx.Application.Dtos
 {
     /// <summary>
     /// Implements <see cref="IListResult{T}"/>.
@@ -8,6 +8,12 @@ namespace LinFx.Application.Models
     /// <typeparam name="T">Type of the items in the <see cref="Items"/> list</typeparam>
     public class ListResult<T> : IListResult<T>
     {
+        /// <inheritdoc />
+        public IReadOnlyList<T> Items
+        {
+            get { return _items ?? (_items = new List<T>()); }
+            set { _items = value; }
+        }
         private IReadOnlyList<T> _items;
 
         /// <summary>
@@ -20,14 +26,5 @@ namespace LinFx.Application.Models
         /// </summary>
         /// <param name="items">List of items</param>
         public ListResult(IReadOnlyList<T> items) => Items = items;
-
-        /// <summary>
-        /// List of items.
-        /// </summary>
-        public IReadOnlyList<T> Items
-        {
-            get { return _items ??= new List<T>(); }
-            set { _items = value; }
-        }
     }
 }

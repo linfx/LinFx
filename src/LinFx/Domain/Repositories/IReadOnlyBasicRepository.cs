@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public interface IReadOnlyBasicRepository<TEntity> : IRepository
-        where TEntity : class, IEntity
+    public interface IReadOnlyBasicRepository<TEntity> : IRepository where TEntity : class, IEntity
     {
         /// <summary>
         /// Gets a list of all the entities.
@@ -22,15 +21,14 @@ namespace LinFx.Domain.Repositories
         Task<long> GetCountAsync(CancellationToken cancellationToken = default);
 
         Task<List<TEntity>> GetPagedListAsync(
-            int skipCount,
-            int maxResultCount,
+            int page,
+            int pageSize,
             string sorting,
             bool includeDetails = false,
             CancellationToken cancellationToken = default);
     }
 
-    public interface IReadOnlyBasicRepository<TEntity, TKey> : IReadOnlyBasicRepository<TEntity>
-        where TEntity : class, IEntity<TKey>
+    public interface IReadOnlyBasicRepository<TEntity, TKey> : IReadOnlyBasicRepository<TEntity> where TEntity : class, IEntity<TKey>
     {
         /// <summary>
         /// Gets an entity with given primary key.

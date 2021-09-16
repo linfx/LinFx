@@ -1,6 +1,5 @@
 ﻿using LinFx;
 using LinFx.Application.Dtos;
-using LinFx.Application.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;

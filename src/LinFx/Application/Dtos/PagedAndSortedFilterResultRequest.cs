@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinFx.Application.Dtos;
+using System;
 using System.Linq.Expressions;
 
 namespace LinFx.Application.Models

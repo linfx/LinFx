@@ -1,6 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
-using LinFx.EntityFrameworkCore;
+using LinFx.EntityFrameworkCore.DependencyInjection;
 using LinFx.Extensions.Guids;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +13,24 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Domain.Repositories.EntityFrameworkCore
+namespace LinFx.EntityFrameworkCore.Repositories
 {
     public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfCoreRepository<TEntity>
         where TDbContext : IEfCoreDbContext
         where TEntity : class, IEntity
     {
+        public EfCoreRepository(
+            IServiceProvider serviceProvider,
+            IDbContextProvider<TDbContext> dbContextProvider) : base(serviceProvider)
+        {
+            _dbContextProvider = dbContextProvider;
+            _entityOptionsLazy = new Lazy<EntityOptions<TEntity>>(() => ServiceProvider
+                          .GetRequiredService<IOptions<EntityOptions>>()
+                          .Value
+                          .GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty
+            );
+        }
+
         async Task<DbContext> IEfCoreRepository<TEntity>.GetDbContextAsync()
         {
             return await GetDbContextAsync() as DbContext;
@@ -27,13 +39,13 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         protected virtual Task<TDbContext> GetDbContextAsync()
         {
             // Multi-tenancy unaware entities should always use the host connection string
-            if (!EntityHelper.IsMultiTenant<TEntity>())
-            {
-                using (CurrentTenant.Change(null))
-                {
-                    return _dbContextProvider.GetDbContextAsync();
-                }
-            }
+            //if (!EntityHelper.IsMultiTenant<TEntity>())
+            //{
+            //    using (CurrentTenant.Change(null))
+            //    {
+            //        return _dbContextProvider.GetDbContextAsync();
+            //    }
+            //}
 
             return _dbContextProvider.GetDbContextAsync();
         }
@@ -56,17 +68,6 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         public virtual IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
         public IEfCoreBulkOperationProvider BulkOperationProvider => LazyServiceProvider.LazyGetService<IEfCoreBulkOperationProvider>();
-
-        public EfCoreRepository(IDbContextProvider<TDbContext> dbContextProvider)
-        {
-            _dbContextProvider = dbContextProvider;
-            _entityOptionsLazy = new Lazy<EntityOptions<TEntity>>(
-                () => ServiceProvider
-                          .GetRequiredService<IOptions<EntityOptions>>()
-                          .Value
-                          .GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty
-            );
-        }
 
         public override async Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
         {
@@ -203,8 +204,8 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         }
 
         public override async Task<List<TEntity>> GetPagedListAsync(
-            int skipCount,
-            int maxResultCount,
+            int page,
+            int limit,
             string sorting,
             bool includeDetails = false,
             CancellationToken cancellationToken = default)
@@ -215,7 +216,7 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
 
             return await queryable
                 .OrderBy(sorting)
-                .PageBy(skipCount, maxResultCount)
+                .PageBy(page, limit)
                 .ToListAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -287,9 +288,7 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         public override async Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken token)
         {
             if (AbpEntityOptions.DefaultWithDetailsFunc == null)
-            {
                 return await base.WithDetailsAsync(token);
-            }
 
             return AbpEntityOptions.DefaultWithDetailsFunc(await GetQueryableAsync());
         }
@@ -340,26 +339,20 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         }
     }
 
-    public class EfCoreRepository<TDbContext, TEntity, TKey> : EfCoreRepository<TDbContext, TEntity>,
-        IEfCoreRepository<TEntity, TKey>,
-        ISupportsExplicitLoading<TEntity, TKey>
-
+    public class EfCoreRepository<TDbContext, TEntity, TKey> : EfCoreRepository<TDbContext, TEntity>, IEfCoreRepository<TEntity, TKey>, ISupportsExplicitLoading<TEntity, TKey>
         where TDbContext : IEfCoreDbContext
         where TEntity : class, IEntity<TKey>
     {
-        public EfCoreRepository(IDbContextProvider<TDbContext> dbContextProvider)
-            : base(dbContextProvider)
+        public EfCoreRepository(IServiceProvider serviceProvider, IDbContextProvider<TDbContext> dbContextProvider)
+            : base(serviceProvider, dbContextProvider)
         {
-
         }
 
         public virtual async Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
         {
             var entity = await FindAsync(id, includeDetails, GetCancellationToken(cancellationToken));
             if (entity == null)
-            {
                 throw new EntityNotFoundException(typeof(TEntity), id);
-            }
 
             return entity;
         }
@@ -383,9 +376,7 @@ namespace LinFx.Domain.Repositories.EntityFrameworkCore
         public virtual async Task DeleteManyAsync(IEnumerable<TKey> ids, bool autoSave = false, CancellationToken cancellationToken = default)
         {
             cancellationToken = GetCancellationToken(cancellationToken);
-
             var entities = await (await GetDbSetAsync()).Where(x => ids.Contains(x.Id)).ToListAsync(cancellationToken);
-
             await DeleteManyAsync(entities, autoSave, cancellationToken);
         }
     }

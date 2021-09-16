@@ -12,14 +12,12 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IRepository<TEntity>
-        where TEntity : class, IEntity
+    public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IRepository<TEntity> where TEntity : class, IEntity
     {
-        public Type ElementType => throw new NotImplementedException();
-
-        public Expression Expression => throw new NotImplementedException();
-
-        public IQueryProvider Provider => throw new NotImplementedException();
+        protected RepositoryBase(IServiceProvider serviceProvider)
+            : base(serviceProvider)
+        {
+        }
 
         public virtual Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken cancellationToken = default)
         {
@@ -49,8 +47,7 @@ namespace LinFx.Domain.Repositories
 
         public abstract Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default);
 
-        protected virtual TQueryable ApplyDataFilters<TQueryable>(TQueryable query)
-            where TQueryable : IQueryable<TEntity>
+        protected virtual TQueryable ApplyDataFilters<TQueryable>(TQueryable query) where TQueryable : IQueryable<TEntity>
         {
             if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             {
@@ -67,16 +64,19 @@ namespace LinFx.Domain.Repositories
         }
 
         [Obsolete("This method will be removed in future versions.")]
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        public virtual Type ElementType => GetQueryable().ElementType;
 
         [Obsolete("This method will be removed in future versions.")]
-        public IEnumerator<TEntity> GetEnumerator()
-        {
-            return GetQueryable().GetEnumerator();
-        }
+        public virtual Expression Expression => GetQueryable().Expression;
+
+        [Obsolete("This method will be removed in future versions.")]
+        public virtual IQueryProvider Provider => GetQueryable().Provider;
+
+        [Obsolete("This method will be removed in future versions.")]
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        [Obsolete("This method will be removed in future versions.")]
+        public IEnumerator<TEntity> GetEnumerator() => GetQueryable().GetEnumerator();
 
         [Obsolete("Use GetQueryableAsync method.")]
         protected abstract IQueryable<TEntity> GetQueryable();
@@ -85,6 +85,11 @@ namespace LinFx.Domain.Repositories
     public abstract class RepositoryBase<TEntity, TKey> : RepositoryBase<TEntity>, IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
+        protected RepositoryBase(IServiceProvider serviceProvider) 
+            : base(serviceProvider)
+        {
+        }
+
         public abstract Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
 
         public abstract Task<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);

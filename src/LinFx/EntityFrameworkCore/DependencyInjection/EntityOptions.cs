@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinFx.EntityFrameworkCore
+namespace LinFx.EntityFrameworkCore.DependencyInjection
 {
     public class EntityOptions<TEntity>
         where TEntity : IEntity

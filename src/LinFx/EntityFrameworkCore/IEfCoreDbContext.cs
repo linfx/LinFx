@@ -12,6 +12,8 @@ namespace LinFx.EntityFrameworkCore
 {
     public interface IEfCoreDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
     {
+        void Initialize(EfCoreDbContextInitializationContext initializationContext);
+
         EntityEntry<TEntity> Attach<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
         EntityEntry Attach([NotNull] object entity);

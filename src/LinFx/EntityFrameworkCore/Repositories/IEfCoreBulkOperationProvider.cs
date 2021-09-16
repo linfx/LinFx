@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Domain.Repositories.EntityFrameworkCore
+namespace LinFx.EntityFrameworkCore.Repositories
 {
     public interface IEfCoreBulkOperationProvider
     {

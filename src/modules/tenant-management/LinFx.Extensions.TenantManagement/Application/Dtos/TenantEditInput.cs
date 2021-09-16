@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.TenantManagement.Application.Models
+namespace LinFx.Extensions.TenantManagement.Application.Dtos
 {
     public class TenantEditInput
     {

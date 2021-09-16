@@ -1,6 +1,9 @@
-﻿namespace Microsoft.Extensions.DependencyInjection
+﻿using System;
+using System.Collections.Generic;
+
+namespace LinFx.Extensions.DependencyInjection
 {
-    public class ServiceExposingActionList
+    public class ServiceExposingActionList : List<Action<IOnServiceExposingContext>>
     {
     }
 }

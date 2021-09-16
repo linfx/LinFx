@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application.Models
+﻿namespace LinFx.Application.Dtos
 {
     /// <summary>
     /// Simply implements <see cref="IPagedAndSortedResultRequest"/>.

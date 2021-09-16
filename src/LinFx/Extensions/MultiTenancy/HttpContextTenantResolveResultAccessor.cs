@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.MultiTenancy
 {
+    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class HttpContextTenantResolveResultAccessor : ITenantResolveResultAccessor
     {
         public const string HttpContextItemName = "tenant_id";

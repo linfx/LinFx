@@ -54,7 +54,6 @@ namespace LinFx.Domain.Entities
 
         protected BasicAggregateRoot()
         {
-
         }
 
         protected BasicAggregateRoot(TKey id)

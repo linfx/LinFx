@@ -12,11 +12,11 @@ namespace LinFx.Extensions.Auditing
     {
         public string ApplicationName { get; set; }
 
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
 
         public string UserName { get; set; }
 
-        public Guid? TenantId { get; set; }
+        public string TenantId { get; set; }
 
         public string TenantName { get; set; }
 

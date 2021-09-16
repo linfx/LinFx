@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LinFx.Domain.Entities
 {
     /// <inheritdoc/>
+    [Serializable]
     public abstract class Entity : IEntity
     {
         /// <inheritdoc/>
@@ -15,6 +17,7 @@ namespace LinFx.Domain.Entities
     }
 
     /// <inheritdoc cref="IEntity{TKey}" />
+    [Serializable]
     public abstract class Entity<TKey> : Entity, IEntity<TKey>
     {
         /// <inheritdoc/>

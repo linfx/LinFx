@@ -15,7 +15,7 @@ namespace LinFx.Extensions.ObjectMapping
         }
     }
 
-    [Service]
+    //[Service]
     public class DefaultObjectMapper : IObjectMapper
     {
         public IAutoObjectMappingProvider AutoObjectMappingProvider { get; }

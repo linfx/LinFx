@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow
 {
-    [Service]
     public class UnitOfWorkInterceptor : Interceptor
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
@@ -28,7 +27,6 @@ namespace LinFx.Extensions.Uow
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var options = CreateOptions(scope.ServiceProvider, invocation, unitOfWorkAttribute);
-
                 var unitOfWorkManager = scope.ServiceProvider.GetRequiredService<IUnitOfWorkManager>();
 
                 //Trying to begin a reserved UOW by AbpUnitOfWorkMiddleware

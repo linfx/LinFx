@@ -1,6 +1,6 @@
-﻿using LinFx.Application.Models;
+﻿using LinFx.Application.Dtos;
 
-namespace LinFx.Extensions.TenantManagement.Application.Models
+namespace LinFx.Extensions.TenantManagement.Application.Dtos
 {
     public class TenantRequest : PagedAndSortedResultRequest
     {

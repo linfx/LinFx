@@ -1,7 +1,6 @@
-﻿using LinFx.Application.Dtos;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Models
+namespace LinFx.Application.Dtos
 {
     /// <summary>
     /// Simply implements <see cref="IPagedResultRequest"/>.
