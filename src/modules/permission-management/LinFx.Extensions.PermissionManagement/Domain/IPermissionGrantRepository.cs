@@ -1,19 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Domain.Repositories;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement
 {
-    /// <summary>
-    /// 权限授权仓储
-    /// </summary>
-    public interface IPermissionGrantRepository
+    public interface IPermissionGrantRepository : IBasicRepository<PermissionGrant, long>
     {
-        Task InsertAsync(PermissionGrant permissionGrant);
+        Task<PermissionGrant> FindAsync(
+            string name,
+            string providerName,
+            string providerKey,
+            CancellationToken cancellationToken = default
+        );
 
-        Task DeleteAsync(PermissionGrant permissionGrant);
+        Task<List<PermissionGrant>> GetListAsync(
+            string providerName,
+            string providerKey,
+            CancellationToken cancellationToken = default
+        );
 
-        Task<PermissionGrant> FindAsync(string name, string providerName, string providerKey);
-
-        Task<List<PermissionGrant>> GetListAsync(string providerName, string providerKey);
+        Task<List<PermissionGrant>> GetListAsync(
+            string[] names,
+            string providerName,
+            string providerKey,
+            CancellationToken cancellationToken = default
+        );
     }
 }

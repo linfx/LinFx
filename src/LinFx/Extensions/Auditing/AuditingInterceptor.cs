@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Auditing
 {
+    /// <summary>
+    /// 审计日志拦截器
+    /// </summary>
     [Service]
     public class AuditingInterceptor : Interceptor
     {

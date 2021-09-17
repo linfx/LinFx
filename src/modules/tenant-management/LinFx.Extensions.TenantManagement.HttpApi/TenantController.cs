@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Dtos;
-using LinFx.Extensions.TenantManagement.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

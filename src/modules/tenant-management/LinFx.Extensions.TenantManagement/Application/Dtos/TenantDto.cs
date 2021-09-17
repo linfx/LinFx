@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions.TenantManagement.Application.Dtos
+namespace LinFx.Extensions.TenantManagement
 {
     public class TenantDto
     {

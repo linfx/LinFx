@@ -17,19 +17,13 @@ namespace LinFx.Extensions.Auditing
         private static bool ShouldIntercept(Type type)
         {
             if (DynamicProxyIgnoreTypes.Contains(type))
-            {
                 return false;
-            }
 
             if (ShouldAuditTypeByDefaultOrNull(type) == true)
-            {
                 return true;
-            }
 
             if (type.GetMethods().Any(m => m.IsDefined(typeof(AuditedAttribute), true)))
-            {
                 return true;
-            }
 
             return false;
         }

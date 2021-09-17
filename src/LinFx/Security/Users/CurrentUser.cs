@@ -1,4 +1,5 @@
 ﻿using LinFx.Security.Claims;
+using LinFx.Security.Principal;
 using System;
 using System.Linq;
 using System.Security.Claims;

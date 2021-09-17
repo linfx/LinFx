@@ -1,6 +1,5 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
-using LinFx.Extensions.TenantManagement.Application.Dtos;
 using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Authorization;
 using System;

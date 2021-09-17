@@ -30,7 +30,7 @@ namespace LinFx.Application.Services
     {
         public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
-        public static string[] CommonPostfixes { get; set; } = { "AppService", "ApplicationService", "Service" };
+        public static string[] CommonPostfixes { get; set; } = { "ApplicationService", "Service" };
 
         public List<string> AppliedCrossCuttingConcerns { get; } = new List<string>();
 
@@ -77,11 +77,10 @@ namespace LinFx.Application.Services
                 {
                     //_localizer = CreateLocalizer();
                 }
-
                 return _localizer;
             }
         }
-        private IStringLocalizer _localizer;
+        private readonly IStringLocalizer _localizer;
 
         //protected Type LocalizationResource
         //{

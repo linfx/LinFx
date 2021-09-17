@@ -37,7 +37,7 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual Task UpdateAsync(string providerName, string providerKey, UpdatePermissionDto input)
+        public virtual Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input)
         {
             return _permissionService.UpdateAsync(providerName, providerKey, input);
         }

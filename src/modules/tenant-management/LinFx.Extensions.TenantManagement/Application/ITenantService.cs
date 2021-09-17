@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Dtos;
-using LinFx.Extensions.TenantManagement.Application.Dtos;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement

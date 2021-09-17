@@ -53,33 +53,23 @@ namespace LinFx.Extensions.Auditing
         public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
         {
             if (methodInfo == null)
-            {
                 return false;
-            }
 
             if (!methodInfo.IsPublic)
-            {
                 return false;
-            }
 
             if (methodInfo.IsDefined(typeof(AuditedAttribute), true))
-            {
                 return true;
-            }
 
             if (methodInfo.IsDefined(typeof(DisableAuditingAttribute), true))
-            {
                 return false;
-            }
 
             var classType = methodInfo.DeclaringType;
             if (classType != null)
             {
                 var shouldAudit = AuditingInterceptorRegistrar.ShouldAuditTypeByDefaultOrNull(classType);
                 if (shouldAudit != null)
-                {
                     return shouldAudit.Value;
-                }
             }
 
             return defaultValue;
@@ -88,37 +78,25 @@ namespace LinFx.Extensions.Auditing
         public virtual bool IsEntityHistoryEnabled(Type entityType, bool defaultValue = false)
         {
             if (!entityType.IsPublic)
-            {
                 return false;
-            }
 
             if (Options.IgnoredTypes.Any(t => t.IsAssignableFrom(entityType)))
-            {
                 return false;
-            }
 
             if (entityType.IsDefined(typeof(AuditedAttribute), true))
-            {
                 return true;
-            }
 
             foreach (var propertyInfo in entityType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 if (propertyInfo.IsDefined(typeof(AuditedAttribute)))
-                {
                     return true;
-                }
             }
 
             if (entityType.IsDefined(typeof(DisableAuditingAttribute), true))
-            {
                 return false;
-            }
 
             if (Options.EntityHistorySelectors.Any(selector => selector.Predicate(entityType)))
-            {
                 return true;
-            }
 
             return defaultValue;
         }
