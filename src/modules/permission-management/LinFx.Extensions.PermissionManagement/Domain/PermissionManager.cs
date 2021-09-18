@@ -104,9 +104,7 @@ namespace LinFx.Extensions.PermissionManagement
 
             var currentGrantInfo = await GetInternalAsync(permission, providerName, providerKey);
             if (currentGrantInfo.IsGranted == isGranted)
-            {
                 return;
-            }
 
             var provider = ManagementProviders.FirstOrDefault(m => m.Name == providerName);
             if (provider == null)

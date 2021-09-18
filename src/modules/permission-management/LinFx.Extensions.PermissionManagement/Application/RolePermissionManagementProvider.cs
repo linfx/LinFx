@@ -6,6 +6,7 @@
 
 //namespace LinFx.Extensions.PermissionManagement
 //{
+//    [Service(ServiceLifetime.Singleton)]
 //    public class RolePermissionManagementProvider : PermissionManagementProvider
 //    {
 //        public override string Name => RolePermissionValueProvider.ProviderName;

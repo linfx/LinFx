@@ -1,5 +1,6 @@
 ﻿using LinFx.Application.Services;
 using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Uow;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace LinFx.Extensions.PermissionManagement
 
         public virtual async Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
         {
+            using var uow = UnitOfWorkManager.Begin();
+
             await CheckProviderPolicy(providerName);
 
             var result = new PermissionListResultDto
@@ -96,17 +99,22 @@ namespace LinFx.Extensions.PermissionManagement
                 }
             }
 
+            await uow.CompleteAsync();
             return result;
         }
 
         public virtual async Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input)
         {
+            using var uow = UnitOfWorkManager.Begin();
+
             await CheckProviderPolicy(providerName);
 
             foreach (var permissionDto in input.Permissions)
             {
                 await PermissionManager.SetAsync(permissionDto.Name, providerName, providerKey, permissionDto.IsGranted);
             }
+
+            await uow.CompleteAsync();
         }
 
         protected virtual async Task CheckProviderPolicy(string providerName)
