@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.TenantManagement.HttpApi
 {
     /// <summary>
-    /// 租户Api接口
+    /// 租户管理
     /// </summary>
     [ApiController]
     [Route("api/multi-tenancy/tenants")]

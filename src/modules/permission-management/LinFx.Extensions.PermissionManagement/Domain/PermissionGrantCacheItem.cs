@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LinFx.Utils;
+using System;
+using System.Linq;
 
 namespace LinFx.Extensions.PermissionManagement
 {

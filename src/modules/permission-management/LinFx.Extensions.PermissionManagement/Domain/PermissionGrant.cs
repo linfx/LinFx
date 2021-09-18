@@ -28,7 +28,7 @@ namespace LinFx.Extensions.PermissionManagement
         public virtual string ProviderName { get; protected set; }
 
         [StringLength(64)]
-        public virtual string ProviderKey { get; protected set; }
+        public virtual string ProviderKey { get; protected internal set; }
 
         protected PermissionGrant() { }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace LinFx.Extensions.Authorization.Permissions
@@ -22,9 +23,9 @@ namespace LinFx.Extensions.Authorization.Permissions
         public Dictionary<string, object> Properties { get; }
 
         /// <summary>
-        /// 显示名称。
+        /// 本地化名称。
         /// </summary>
-        public string DisplayName { get; set; }
+        public LocalizedString DisplayName { get; set; }
 
         /// <summary>
         /// 权限组下面的所属权限。
@@ -49,7 +50,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         protected internal PermissionGroupDefinition(string name, string displayName = null)
         {
             Name = name;
-            DisplayName = displayName;
+            //DisplayName = displayName;
 
             Properties = new Dictionary<string, object>();
             _permissions = new List<PermissionDefinition>();

@@ -1,5 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using Microsoft.Extensions.Caching.Distributed;
+using LinFx.Extensions.Caching;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;

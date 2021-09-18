@@ -1,4 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Caching;
+using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -9,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Scoped)]
     public class PermissionManager : IPermissionManager
     {
         protected IPermissionGrantRepository PermissionGrantRepository { get; }
 
         protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
-        protected ISimpleStateCheckerManager<PermissionDefinition> SimpleStateCheckerManager { get; }
+        //protected ISimpleStateCheckerManager<PermissionDefinition> SimpleStateCheckerManager { get; }
 
         protected IGuidGenerator GuidGenerator { get; }
 
@@ -32,7 +34,7 @@ namespace LinFx.Extensions.PermissionManagement
 
         public PermissionManager(
             IPermissionDefinitionManager permissionDefinitionManager,
-            ISimpleStateCheckerManager<PermissionDefinition> simpleStateCheckerManager,
+            //ISimpleStateCheckerManager<PermissionDefinition> simpleStateCheckerManager,
             IPermissionGrantRepository permissionGrantRepository,
             IServiceProvider serviceProvider,
             IGuidGenerator guidGenerator,
@@ -43,7 +45,7 @@ namespace LinFx.Extensions.PermissionManagement
             GuidGenerator = guidGenerator;
             CurrentTenant = currentTenant;
             Cache = cache;
-            SimpleStateCheckerManager = simpleStateCheckerManager;
+            //SimpleStateCheckerManager = simpleStateCheckerManager;
             PermissionGrantRepository = permissionGrantRepository;
             PermissionDefinitionManager = permissionDefinitionManager;
             Options = options.Value;
@@ -82,11 +84,11 @@ namespace LinFx.Extensions.PermissionManagement
         {
             var permission = PermissionDefinitionManager.Get(permissionName);
 
-            if (!permission.IsEnabled || !await SimpleStateCheckerManager.IsEnabledAsync(permission))
-            {
-                //TODO: BusinessException
-                throw new ApplicationException($"The permission named '{permission.Name}' is disabled!");
-            }
+            //if (!permission.IsEnabled || !await SimpleStateCheckerManager.IsEnabledAsync(permission))
+            //{
+            //    //TODO: BusinessException
+            //    throw new ApplicationException($"The permission named '{permission.Name}' is disabled!");
+            //}
 
             if (permission.Providers.Any() && !permission.Providers.Contains(providerName))
             {
@@ -94,11 +96,11 @@ namespace LinFx.Extensions.PermissionManagement
                 throw new ApplicationException($"The permission named '{permission.Name}' has not compatible with the provider named '{providerName}'");
             }
 
-            if (!permission.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
-            {
-                //TODO: BusinessException
-                throw new ApplicationException($"The permission named '{permission.Name}' has multitenancy side '{permission.MultiTenancySide}' which is not compatible with the current multitenancy side '{CurrentTenant.GetMultiTenancySide()}'");
-            }
+            //if (!permission.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
+            //{
+            //    //TODO: BusinessException
+            //    throw new ApplicationException($"The permission named '{permission.Name}' has multitenancy side '{permission.MultiTenancySide}' which is not compatible with the current multitenancy side '{CurrentTenant.GetMultiTenancySide()}'");
+            //}
 
             var currentGrantInfo = await GetInternalAsync(permission, providerName, providerKey);
             if (currentGrantInfo.IsGranted == isGranted)
@@ -110,7 +112,7 @@ namespace LinFx.Extensions.PermissionManagement
             if (provider == null)
             {
                 //TODO: BusinessException
-                throw new AbpException("Unknown permission management provider: " + providerName);
+                throw new Exception("Unknown permission management provider: " + providerName);
             }
 
             await provider.SetAsync(permissionName, providerKey, isGranted);
@@ -158,20 +160,17 @@ namespace LinFx.Extensions.PermissionManagement
             var neededCheckPermissions = new List<PermissionDefinition>();
 
             foreach (var permission in permissions
-                                        .Where(x => x.IsEnabled)
-                                        .Where(x => x.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
+                                        //.Where(x => x.IsEnabled)
+                                        //.Where(x => x.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
                                         .Where(x => !x.Providers.Any() || x.Providers.Contains(providerName)))
             {
-                if (await SimpleStateCheckerManager.IsEnabledAsync(permission))
-                {
-                    neededCheckPermissions.Add(permission);
-                }
+                //if (await SimpleStateCheckerManager.IsEnabledAsync(permission))
+                //    neededCheckPermissions.Add(permission);
+                neededCheckPermissions.Add(permission);
             }
 
             if (!neededCheckPermissions.Any())
-            {
                 return multiplePermissionWithGrantedProviders;
-            }
 
             foreach (var provider in ManagementProviders)
             {

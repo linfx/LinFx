@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Blogging.Application
+﻿namespace LinFx.Extensions.Blogging
 {
     public class BloggingPermissions
     {

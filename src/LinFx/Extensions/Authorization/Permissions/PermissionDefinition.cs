@@ -43,6 +43,19 @@ namespace LinFx.Extensions.Authorization.Permissions
         public Dictionary<string, object> Properties { get; }
 
         /// <summary>
+        /// Indicates whether this permission is enabled or disabled.
+        /// A permission is normally enabled.
+        /// A disabled permission can not be granted to anyone, but it is still
+        /// will be available to check its value (while it will always be false).
+        ///
+        /// Disabling a permission would be helpful to hide a related application
+        /// functionality from users/clients.
+        ///
+        /// Default: true.
+        /// </summary>
+        public bool IsEnabled { get; set; }
+
+        /// <summary>
         /// Gets/sets a key-value on the <see cref="Properties"/>.
         /// </summary>
         /// <param name="name">Name of the property</param>
