@@ -1,3 +1,5 @@
+using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Blogging;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -34,12 +36,13 @@ namespace TenantManagementService.Host
                 })
                 .AddAuthorization()
                 .AddPermissionManagement()
+                .AddBlogging()
                 .AddTenantManagement();
 
-            //services.Configure<PermissionOptions>(options =>
-            //{
-            //    options.DefinitionProviders.Add(typeof(BloggingPermissionDefinitionProvider));
-            //});
+            services.Configure<PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.Add(typeof(BloggingPermissionDefinitionProvider));
+            });
 
             services.AddDbContextPool<TenantManagementDbContext>(options =>
             {

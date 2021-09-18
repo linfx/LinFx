@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\modules\blogging\LinFx.Extensions.Blogging.HttpApi\LinFx.Extensions.Blogging.HttpApi.csproj" />
     <ProjectReference Include="..\..\src\modules\permission-management\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
     <ProjectReference Include="..\..\src\modules\tenant-management\LinFx.Extensions.TenantManagement.HttpApi\LinFx.Extensions.TenantManagement.HttpApi.csproj" />
   </ItemGroup>

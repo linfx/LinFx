@@ -1,7 +1,9 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Blogging
 {
+    [Service(ServiceLifetime.Singleton)]
     public class BloggingPermissionDefinitionProvider : PermissionDefinitionProvider
     {
         public override void Define(IPermissionDefinitionContext context)

@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.PermissionManagement;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,17 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             context
                 .AddAssembly(typeof(PermissionManagementServiceCollectionExtensions).Assembly);
+
+
+            context.Services.Configure<PermissionManagementOptions>(options =>
+            {
+                options.ManagementProviders.Add<UserPermissionManagementProvider>();
+                //options.ManagementProviders.Add<RolePermissionManagementProvider>();
+
+                //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
+                options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Identity.Users.ManagePermissions";
+                options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Identity.Roles.ManagePermissions";
+            });
 
             AutoAddDefinitionProviders(context.Services);
 
