@@ -1,11 +1,17 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 
 namespace LinFx.Extensions.Blogging
 {
     [Service(ServiceLifetime.Singleton)]
     public class BloggingPermissionDefinitionProvider : PermissionDefinitionProvider
     {
+        public BloggingPermissionDefinitionProvider(IStringLocalizer<BloggingPermissionDefinitionProvider> localizer)
+            : base(localizer)
+        {
+        }
+
         public override void Define(IPermissionDefinitionContext context)
         {
             var bloggingGroup = context.AddGroup(BloggingPermissions.GroupName, L("Permission:Blogging"));
@@ -30,11 +36,6 @@ namespace LinFx.Extensions.Blogging
             comments.AddChild(BloggingPermissions.Comments.Update, L("Permission:Edit"));
             comments.AddChild(BloggingPermissions.Comments.Delete, L("Permission:Delete"));
             comments.AddChild(BloggingPermissions.Comments.Create, L("Permission:Create"));
-        }
-
-        private static string L(string name)
-        {
-            return name;
         }
     }
 }

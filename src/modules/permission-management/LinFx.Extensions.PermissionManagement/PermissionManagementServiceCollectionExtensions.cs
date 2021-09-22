@@ -9,6 +9,12 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static LinFxBuilder AddPermissionManagement(this LinFxBuilder context)
         {
+            context.Services
+                .AddLocalization(o =>
+                {
+                    o.ResourcesPath = "Resources";
+                });
+
             context
                 .AddAssembly(typeof(PermissionManagementServiceCollectionExtensions).Assembly);
 

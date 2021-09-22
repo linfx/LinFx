@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
@@ -33,7 +34,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// <summary>
         /// 权限的多语言名称。
         /// </summary>
-        public string DisplayName { get; set; }
+        public LocalizedString DisplayName { get; set; }
 
         public IReadOnlyList<PermissionDefinition> Children => _children.ToImmutableList();
 
@@ -69,7 +70,7 @@ namespace LinFx.Extensions.Authorization.Permissions
             set => Properties[name] = value;
         }
 
-        protected internal PermissionDefinition([NotNull] string name, string displayName = null)
+        protected internal PermissionDefinition([NotNull] string name, LocalizedString displayName = null)
         {
             Name = Check.NotNull(name, nameof(name));
             DisplayName = displayName;
@@ -79,7 +80,7 @@ namespace LinFx.Extensions.Authorization.Permissions
             _children = new List<PermissionDefinition>();
         }
 
-        public virtual PermissionDefinition AddChild([NotNull] string name, string displayName = null)
+        public virtual PermissionDefinition AddChild([NotNull] string name, LocalizedString displayName = null)
         {
             var child = new PermissionDefinition(name, displayName)
             {

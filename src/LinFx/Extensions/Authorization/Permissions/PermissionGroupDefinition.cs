@@ -47,10 +47,10 @@ namespace LinFx.Extensions.Authorization.Permissions
             set => Properties[name] = value;
         }
 
-        protected internal PermissionGroupDefinition(string name, string displayName = null)
+        protected internal PermissionGroupDefinition(string name, LocalizedString displayName = null)
         {
             Name = name;
-            //DisplayName = displayName;
+            DisplayName = displayName;
 
             Properties = new Dictionary<string, object>();
             _permissions = new List<PermissionDefinition>();
@@ -62,7 +62,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// <param name="name"></param>
         /// <param name="displayName"></param>
         /// <returns></returns>
-        public virtual PermissionDefinition AddPermission(string name, string displayName = null)
+        public virtual PermissionDefinition AddPermission(string name, LocalizedString displayName = null)
         {
             var permission = new PermissionDefinition(name, displayName);
             _permissions.Add(permission);

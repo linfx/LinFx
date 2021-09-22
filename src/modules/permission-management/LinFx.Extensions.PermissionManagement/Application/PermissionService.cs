@@ -45,7 +45,7 @@ namespace LinFx.Extensions.PermissionManagement
                 var groupDto = new PermissionGroupDto
                 {
                     Name = group.Name,
-                    //DisplayName = group.DisplayName.Localize(StringLocalizerFactory),
+                    DisplayName = group.DisplayName,
                     Permissions = new List<PermissionGrantInfoDto>()
                 };
 
@@ -67,7 +67,7 @@ namespace LinFx.Extensions.PermissionManagement
                 var grantInfoDtos = neededCheckPermissions.Select(x => new PermissionGrantInfoDto
                 {
                     Name = x.Name,
-                    //DisplayName = x.DisplayName.Localize(StringLocalizerFactory),
+                    DisplayName = x.DisplayName,
                     ParentName = x.Parent?.Name,
                     AllowedProviders = x.Providers,
                     GrantedProviders = new List<ProviderInfoDto>()
