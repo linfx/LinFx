@@ -19,7 +19,10 @@ namespace TenantManagementService.Host
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.Configure<PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.Add(typeof(BloggingPermissionDefinitionProvider));
+            });
 
             services
                 .AddLinFx()
@@ -41,11 +44,6 @@ namespace TenantManagementService.Host
                 .AddBlogging()
                 .AddTenantManagement();
 
-            services.Configure<PermissionOptions>(options =>
-            {
-                options.DefinitionProviders.Add(typeof(BloggingPermissionDefinitionProvider));
-            });
-
             services.AddDbContextPool<TenantManagementDbContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
@@ -58,9 +56,7 @@ namespace TenantManagementService.Host
                 options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
             });
 
-
             services.AddControllers();
-
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
@@ -92,6 +88,9 @@ namespace TenantManagementService.Host
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
             });
+
+            app.UseMiddleware<InterceptMiddlware>();
+           
 
             app.UseEndpoints(endpoints =>
             {

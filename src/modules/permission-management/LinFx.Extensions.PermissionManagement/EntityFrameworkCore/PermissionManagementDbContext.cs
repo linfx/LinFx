@@ -1,4 +1,4 @@
-﻿using LinFx.EntityFrameworkCore;
+﻿using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore

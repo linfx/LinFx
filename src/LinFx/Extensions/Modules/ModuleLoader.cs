@@ -49,13 +49,14 @@ namespace LinFx.Extensions.Modules
             // ConfigureServices
             foreach (var module in modules)
             {
-                //if (module.Instance is ModuleInfo abpModule)
-                //{
-                //    if (!abpModule.SkipAutoServiceRegistration)
-                //    {
-                //        services.AddAssembly(module.Type.Assembly);
-                //    }
-                //}
+                if (module.Instance is ModuleInfo abpModule)
+                {
+                    // 是否跳过服务的自动注册，默认为 false
+                    //if (!abpModule.SkipAutoServiceRegistration)
+                    //{
+                    //    services.AddAssembly(module.Type.Assembly);
+                    //}
+                }
                 module.Instance.ConfigureServices(services);
             }
         }
