@@ -3,7 +3,7 @@ using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Domain.Models.Auditing
+namespace LinFx.Domain.Entities.Auditing
 {
     /// <summary>
     /// This class can be used to simplify implementing <see cref="ICreationAuditedObject"/> for aggregate roots.

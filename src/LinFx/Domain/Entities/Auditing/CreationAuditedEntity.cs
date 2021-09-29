@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LinFx.Domain.Models.Auditing
+namespace LinFx.Domain.Entities.Auditing
 {
     /// <summary>
     /// This class can be used to simplify implementing <see cref="ICreationAuditedObject" /> for an entity.

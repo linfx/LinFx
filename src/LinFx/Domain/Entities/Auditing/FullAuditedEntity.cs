@@ -1,9 +1,8 @@
-﻿using LinFx.Domain.Entities.Auditing;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.Auditing;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Domain.Models.Auditing
+namespace LinFx.Domain.Entities.Auditing
 {
     /// <summary>
     /// Implements <see cref="IFullAuditedObject"/> to be a base class for full-audited entities.

@@ -3,7 +3,7 @@ using LinFx.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LinFx.Domain.Models.Auditing
+namespace LinFx.Domain.Entities.Auditing
 {
     /// <summary>
     /// 审计实体
