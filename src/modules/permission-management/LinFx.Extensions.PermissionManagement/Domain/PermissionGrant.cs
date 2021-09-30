@@ -2,12 +2,14 @@
 using LinFx.Extensions.MultiTenancy;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinFx.Extensions.PermissionManagement
 {
     /// <summary>
     /// 权限授权
     /// </summary>
+    [Table("Core_PermissionGrant")]
     public class PermissionGrant : Entity<long>, IMultiTenant
     {
         /// <summary>
