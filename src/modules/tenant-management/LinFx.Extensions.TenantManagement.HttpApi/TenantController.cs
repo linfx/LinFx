@@ -1,4 +1,5 @@
 ﻿using LinFx.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -58,6 +59,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize(TenantManagementPermissions.Tenants.Update)]
         public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             return TenantService.UpdateAsync(id, input);

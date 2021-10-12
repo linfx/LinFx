@@ -7,7 +7,8 @@ namespace LinFx.Extensions.Blogging
     [Service(ServiceLifetime.Singleton)]
     public class BloggingPermissionDefinitionProvider : PermissionDefinitionProvider
     {
-        public BloggingPermissionDefinitionProvider(IStringLocalizer<BloggingPermissionDefinitionProvider> localizer)
+        public BloggingPermissionDefinitionProvider(
+            IStringLocalizer<BloggingPermissionDefinitionProvider> localizer)
             : base(localizer)
         {
         }

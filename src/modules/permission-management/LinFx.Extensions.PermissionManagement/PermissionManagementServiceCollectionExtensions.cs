@@ -25,8 +25,8 @@ namespace Microsoft.Extensions.DependencyInjection
                 //options.ManagementProviders.Add<RolePermissionManagementProvider>();
 
                 //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
-                options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Identity.Users.ManagePermissions";
-                options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Identity.Roles.ManagePermissions";
+                options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
+                options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
             });
 
             AutoAddDefinitionProviders(context.Services);
