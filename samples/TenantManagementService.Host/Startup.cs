@@ -1,7 +1,4 @@
-using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.Blogging;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,16 +13,8 @@ namespace TenantManagementService.Host
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<PermissionOptions>(options =>
-            {
-                options.DefinitionProviders.Add(typeof(BloggingPermissionDefinitionProvider));
-                options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
-            });
-
             services
                 .AddLinFx()
                 .AddHttpContextPrincipalAccessor()
@@ -64,8 +53,8 @@ namespace TenantManagementService.Host
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.xml"), true);
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.HttpApi.xml"), true);
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.xml"), true);
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.HttpApi.xml"), true);
+                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.xml"), true);
+                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.HttpApi.xml"), true);
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             });
@@ -79,7 +68,7 @@ namespace TenantManagementService.Host
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -92,7 +81,7 @@ namespace TenantManagementService.Host
             });
 
             app.UseMiddleware<InterceptMiddlware>();
-           
+
 
             app.UseEndpoints(endpoints =>
             {

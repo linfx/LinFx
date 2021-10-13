@@ -1,4 +1,6 @@
-﻿using LinFx.Extensions.MultiTenancy;
+﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.TenantManagement;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -9,6 +11,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             builder
                 .AddAssembly(typeof(TenantManagementServiceCollectionExtensions).Assembly);
+
+            builder.Services.Configure<PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
+            });
 
             return builder;
         }

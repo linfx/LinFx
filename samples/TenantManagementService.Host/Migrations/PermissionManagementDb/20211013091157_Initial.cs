@@ -2,12 +2,12 @@
 
 namespace TenantManagementService.Host.Migrations.PermissionManagementDb
 {
-    public partial class PermissionManagement : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "PermissionGrants",
+                name: "Core_PermissionGrant",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -19,14 +19,14 @@ namespace TenantManagementService.Host.Migrations.PermissionManagementDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PermissionGrants", x => x.Id);
+                    table.PrimaryKey("PK_Core_PermissionGrant", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PermissionGrants");
+                name: "Core_PermissionGrant");
         }
     }
 }

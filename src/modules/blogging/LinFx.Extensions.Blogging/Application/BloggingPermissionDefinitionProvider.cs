@@ -1,8 +1,10 @@
-﻿using LinFx.Extensions.Authorization.Permissions;
+﻿using LinFx;
+using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Blogging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
-namespace LinFx.Extensions.Blogging
+namespace TenantManagementService.Host.Permissions
 {
     [Service(ServiceLifetime.Singleton)]
     public class BloggingPermissionDefinitionProvider : PermissionDefinitionProvider

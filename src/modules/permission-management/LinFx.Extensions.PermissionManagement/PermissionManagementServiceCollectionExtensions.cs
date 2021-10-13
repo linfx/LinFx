@@ -22,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             context.Services.Configure<PermissionManagementOptions>(options =>
             {
                 options.ManagementProviders.Add<UserPermissionManagementProvider>();
-                //options.ManagementProviders.Add<RolePermissionManagementProvider>();
+                options.ManagementProviders.Add<RolePermissionManagementProvider>();
 
                 //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
                 options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
