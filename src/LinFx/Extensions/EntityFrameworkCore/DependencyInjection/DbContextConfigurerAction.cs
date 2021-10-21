@@ -22,7 +22,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
     }
 
     public class DbContextConfigurerAction<TDbContext> : DbContextConfigurerAction
-        where TDbContext : EfCodeDbContext
+        where TDbContext : EfCoreDbContext
     {
         public DbContextConfigurerAction([NotNull] Action<DbContextConfigurationContext> action)
             : base(action)

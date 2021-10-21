@@ -12,7 +12,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
     public static class DbContextOptionsFactory
     {
         public static DbContextOptions<TDbContext> Create<TDbContext>(IServiceProvider serviceProvider)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             // 获取一个 DbContextCreationContext 对象
             var creationContext = GetCreationContext<TDbContext>(serviceProvider);
@@ -37,7 +37,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
         private static void PreConfigure<TDbContext>(
             DbContextOptions options,
             DbContextConfigurationContext<TDbContext> context)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             //foreach (var defaultPreConfigureAction in options.DefaultPreConfigureActions)
             //{
@@ -57,7 +57,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
         private static void Configure<TDbContext>(
             DbContextOptions options,
             DbContextConfigurationContext<TDbContext> context)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             //var configureAction = options.ConfigureActions.GetOrDefault(typeof(TDbContext));
             //if (configureAction != null)
@@ -76,13 +76,13 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
         }
 
         private static DbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             return serviceProvider.GetRequiredService<IOptions<DbContextOptions>>().Value;
         }
 
         private static DbContextCreationContext GetCreationContext<TDbContext>(IServiceProvider serviceProvider)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             var context = DbContextCreationContext.Current;
             if (context != null)

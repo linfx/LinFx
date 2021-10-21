@@ -8,7 +8,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
     }
 
     public interface IDbContextConfigurer<TDbContext>
-        where TDbContext : EfCodeDbContext
+        where TDbContext : EfCoreDbContext
     {
         void Configure(DbContextConfigurationContext<TDbContext> context);
     }

@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace LinFx.Data
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     public class DataFilter : IDataFilter
     {
         private readonly ConcurrentDictionary<Type, object> _filters;

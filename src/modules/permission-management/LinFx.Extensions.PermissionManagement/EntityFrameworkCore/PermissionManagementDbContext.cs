@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore
 {
-    public class PermissionManagementDbContext : EfCodeDbContext, IPermissionManagementDbContext
+    public class PermissionManagementDbContext : EfCoreDbContext, IPermissionManagementDbContext
     {
         public PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options)
             : base(options) { }

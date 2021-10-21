@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
 {
-    public class TenantManagementDbContext : EfCodeDbContext
+    public class TenantManagementDbContext : EfCoreDbContext
     {
         public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
             : base(options) { }

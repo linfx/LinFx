@@ -35,7 +35,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore
 {
-    public abstract class EfCodeDbContext : DbContext, IEfCoreDbContext
+    public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext
     {
         public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
@@ -67,21 +67,21 @@ namespace LinFx.Extensions.EntityFrameworkCore
 
         public ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
-        public ILogger<EfCodeDbContext> Logger => LazyServiceProvider.LazyGetService<ILogger<EfCodeDbContext>>(NullLogger<EfCodeDbContext>.Instance);
+        public ILogger<EfCoreDbContext> Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
 
         private static readonly MethodInfo ConfigureBasePropertiesMethodInfo
-            = typeof(EfCodeDbContext)
+            = typeof(EfCoreDbContext)
                 .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static readonly MethodInfo ConfigureValueConverterMethodInfo
-            = typeof(EfCodeDbContext)
+            = typeof(EfCoreDbContext)
                 .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static readonly MethodInfo ConfigureValueGeneratedMethodInfo
-            = typeof(EfCodeDbContext)
+            = typeof(EfCoreDbContext)
                 .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
-        protected EfCodeDbContext(DbContextOptions options)
+        protected EfCoreDbContext(DbContextOptions options)
             : base(options)
         {
         }

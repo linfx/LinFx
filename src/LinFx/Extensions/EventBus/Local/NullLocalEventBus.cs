@@ -9,7 +9,6 @@ namespace LinFx.Extensions.EventBus.Local
 
         private NullLocalEventBus()
         {
-
         }
 
         public IDisposable Subscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class
@@ -44,37 +43,30 @@ namespace LinFx.Extensions.EventBus.Local
 
         public void Unsubscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class
         {
-
         }
 
         public void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class
         {
-
         }
 
         public void Unsubscribe(Type eventType, IEventHandler handler)
         {
-
         }
 
         public void Unsubscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class
         {
-
         }
 
         public void Unsubscribe(Type eventType, IEventHandlerFactory factory)
         {
-
         }
 
         public void UnsubscribeAll<TEvent>() where TEvent : class
         {
-
         }
 
         public void UnsubscribeAll(Type eventType)
         {
-
         }
 
         public Task PublishAsync<TEvent>(TEvent eventData, bool onUnitOfWorkComplete = true) where TEvent : class

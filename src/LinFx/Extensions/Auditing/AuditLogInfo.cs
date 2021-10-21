@@ -20,9 +20,9 @@ namespace LinFx.Extensions.Auditing
 
         public string TenantName { get; set; }
 
-        public Guid? ImpersonatorUserId { get; set; }
+        public string ImpersonatorUserId { get; set; }
 
-        public Guid? ImpersonatorTenantId { get; set; }
+        public string ImpersonatorTenantId { get; set; }
 
         public DateTime ExecutionTime { get; set; }
 

@@ -22,7 +22,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow
         private readonly IConnectionStringResolver _connectionStringResolver;
         private readonly ICancellationTokenProvider _cancellationTokenProvider;
         private readonly ICurrentTenant _currentTenant;
-        private readonly EfCodeDbContextOptions _options = new EfCodeDbContextOptions();
+        private readonly EfCoreDbContextOptions _options = new EfCoreDbContextOptions();
 
         public UnitOfWorkDbContextProvider(
             IUnitOfWorkManager unitOfWorkManager,

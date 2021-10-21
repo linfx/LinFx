@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.EntityFrameworkCore
 {
-    public class EfCodeDbContextOptions
+    public class EfCoreDbContextOptions
     {
         internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
 
@@ -37,7 +37,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
         }
 
         public void PreConfigure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             Check.NotNull(action, nameof(action));
 
@@ -51,7 +51,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
         }
 
         public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-            where TDbContext : EfCodeDbContext
+            where TDbContext : EfCoreDbContext
         {
             Check.NotNull(action, nameof(action));
 

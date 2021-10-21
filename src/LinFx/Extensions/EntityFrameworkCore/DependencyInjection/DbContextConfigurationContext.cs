@@ -38,7 +38,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
     }
 
     public class DbContextConfigurationContext<TDbContext> : DbContextConfigurationContext
-        where TDbContext : EfCodeDbContext
+        where TDbContext : EfCoreDbContext
     {
         public new DbContextOptionsBuilder<TDbContext> DbContextOptions => (DbContextOptionsBuilder<TDbContext>)base.DbContextOptions;
 

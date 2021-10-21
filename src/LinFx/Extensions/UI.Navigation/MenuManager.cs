@@ -9,7 +9,6 @@ namespace LinFx.Extensions.UI.Navigation
     /// <summary>
     /// 菜单管理
     /// </summary>
-    [Service]
     public class MenuManager : IMenuManager
     {
         private readonly NavigationOptions _options;
