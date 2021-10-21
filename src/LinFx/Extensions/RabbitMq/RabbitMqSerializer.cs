@@ -1,6 +1,5 @@
-﻿using LinFx.Utils;
-using System;
-using System.Text;
+﻿using System;
+using System.Text.Json;
 
 namespace LinFx.Extensions.RabbitMq
 {
@@ -8,15 +7,12 @@ namespace LinFx.Extensions.RabbitMq
     {
         public object Deserialize(byte[] value, Type type)
         {
-            var message = JsonUtils.ToObject(value);
-            return message;
+            return JsonSerializer.Deserialize(value, type);
         }
 
         public byte[] Serialize(object value)
         {
-            var message = value.ToJson();
-            var body = Encoding.UTF8.GetBytes(message);
-            return body;
+            return JsonSerializer.SerializeToUtf8Bytes(value);
         }
     }
 }

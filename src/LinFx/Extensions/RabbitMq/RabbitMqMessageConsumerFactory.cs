@@ -3,7 +3,6 @@ using System;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class RabbitMqMessageConsumerFactory : IRabbitMqMessageConsumerFactory, IDisposable
     {
         protected IServiceScope ServiceScope { get; }

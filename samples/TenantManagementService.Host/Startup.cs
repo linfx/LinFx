@@ -33,6 +33,7 @@ namespace TenantManagementService.Host
                 .AddAuthorization()
                 .AddPermissionManagement()
                 .AddBlogging()
+                .AddMultiTenancy()
                 .AddTenantManagement();
 
             services.AddDbContextPool<TenantManagementDbContext>(options =>

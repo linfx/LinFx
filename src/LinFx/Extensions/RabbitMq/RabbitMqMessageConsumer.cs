@@ -13,7 +13,6 @@ namespace LinFx.Extensions.RabbitMq
     /// <summary>
     /// 消费者
     /// </summary>
-    [Service]
     public class RabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
     {
         public ILogger<RabbitMqMessageConsumer> Logger { get; set; }

@@ -9,7 +9,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
     /// 租户管理
     /// </summary>
     [ApiController]
-    [Route("api/multi-tenancy/tenants")]
+    [Route("api/multi-tenancy/tenant")]
     public class TenantController : ControllerBase
     {
         protected ITenantService TenantService;
@@ -35,7 +35,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("/api/multi-tenancy/tenants")]
         public virtual Task<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input)
         {
             return TenantService.GetListAsync(input);
