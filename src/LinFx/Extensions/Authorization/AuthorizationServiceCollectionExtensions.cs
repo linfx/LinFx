@@ -12,27 +12,30 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class AuthorizationServiceCollectionExtensions
     {
         /// <summary>
+        /// 授权
         /// Adds authorization services to the specified <see cref="LinFxBuilder" />. 
         /// </summary>
-        /// <param name="builder">The current <see cref="LinFxBuilder" /> instance. </param>
+        /// <param name="context">The current <see cref="LinFxBuilder" /> instance. </param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static LinFxBuilder AddAuthorization(this LinFxBuilder builder)
+        public static LinFxBuilder AddAuthorization(this LinFxBuilder context)
         {
-            builder.Services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
-            AutoAddDefinitionProviders(builder.Services);
+            context.Services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+            AutoAddDefinitionProviders(context.Services);
 
-            builder.Services
+            // 替换掉 ASP.NET Core 提供的权限处理器
+            context.Services
                 .AddAuthorizationCore()
                 .AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
 
-            builder.Services.Configure<PermissionOptions>(options =>
+            // 添加内置的一些权限值检查
+            context.Services.Configure<PermissionOptions>(options =>
             {
                 options.ValueProviders.Add<UserPermissionValueProvider>();
                 options.ValueProviders.Add<RolePermissionValueProvider>();
                 options.ValueProviders.Add<ClientPermissionValueProvider>();
             });
 
-            return builder;
+            return context;
         }
 
         private static void AutoAddDefinitionProviders(IServiceCollection services)

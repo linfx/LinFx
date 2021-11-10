@@ -1,17 +1,17 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.ObjectExtending;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace LinFx.Extensions.AuditLogging.Domain
+namespace LinFx.Extensions.AuditLogging
 {
-    public class AuditLogAction : Entity<Guid>, IMultiTenant, IHasExtraProperties
+    [DisableAuditing]
+    public class AuditLogAction : Entity<string>, IMultiTenant, IHasExtraProperties
     {
         public virtual string TenantId { get; protected set; }
 
-        public virtual Guid AuditLogId { get; protected set; }
+        public virtual string AuditLogId { get; protected set; }
 
         public virtual string ServiceName { get; protected set; }
 
@@ -19,28 +19,25 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual string Parameters { get; protected set; }
 
-        public virtual DateTimeOffset ExecutionTime { get; protected set; }
+        public virtual DateTime ExecutionTime { get; protected set; }
 
         public virtual int ExecutionDuration { get; protected set; }
 
-        public virtual Dictionary<string, object> ExtraProperties { get; protected set; }
+        public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
-        protected AuditLogAction()
-        {
-            ExtraProperties = new Dictionary<string, object>();
-        }
+        protected AuditLogAction() { }
 
-        public AuditLogAction(Guid id, Guid auditLogId, AuditLogActionInfo actionInfo, string tenantId = default)
+        public AuditLogAction(string id, string auditLogId, AuditLogActionInfo actionInfo, string tenantId = null)
         {
             Id = id;
             TenantId = tenantId;
             AuditLogId = auditLogId;
             ExecutionTime = actionInfo.ExecutionTime;
             ExecutionDuration = actionInfo.ExecutionDuration;
-            ExtraProperties = actionInfo.ExtraProperties.ToDictionary(pair => pair.Key, pair => pair.Value);
-            //ServiceName = actionInfo.ServiceName.TruncateFromBeginning(AuditLogActionConsts.MaxServiceNameLength);
-            //MethodName = actionInfo.MethodName.TruncateFromBeginning(AuditLogActionConsts.MaxMethodNameLength);
-            //Parameters = actionInfo.Parameters.Length > AuditLogActionConsts.MaxParametersLength ? "" : actionInfo.Parameters;
+            ExtraProperties = new ExtraPropertyDictionary(actionInfo.ExtraProperties);
+            ServiceName = actionInfo.ServiceName.TruncateFromBeginning(AuditLogActionConsts.MaxServiceNameLength);
+            MethodName = actionInfo.MethodName.TruncateFromBeginning(AuditLogActionConsts.MaxMethodNameLength);
+            Parameters = actionInfo.Parameters.Length > AuditLogActionConsts.MaxParametersLength ? "" : actionInfo.Parameters;
         }
     }
 }

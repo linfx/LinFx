@@ -1,45 +1,38 @@
-﻿using LinFx.Extensions.Authorization.Permissions;
-using Microsoft.AspNetCore.Authorization;
+﻿using LinFx.Application.Services;
+using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.Extensions.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement
 {
-    [Authorize]
-    public class PermissionService : IPermissionService
+    public class PermissionService : ApplicationService, IPermissionService
     {
         protected PermissionManagementOptions Options { get; }
-        protected PermissionManager PermissionManager { get; }
+        protected IPermissionManager PermissionManager { get; }
         protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
-        private readonly IAuthorizationService AuthorizationService;
-
         public PermissionService(
-            PermissionManager permissionManager,
+            IServiceProvider serviceProvider,
+            IPermissionManager permissionManager,
             IPermissionDefinitionManager permissionDefinitionManager,
-            IOptions<PermissionManagementOptions> options)
+            IOptions<PermissionManagementOptions> options) : base(serviceProvider)
         {
+            Options = options.Value;
             PermissionManager = permissionManager;
             PermissionDefinitionManager = permissionDefinitionManager;
-            Options = options.Value;
         }
 
-        /// <summary>
-        /// 获取权限
-        /// </summary>
-        /// <param name="providerName"></param>
-        /// <param name="providerKey"></param>
-        /// <returns></returns>
-        public async Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
+        public virtual async Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
         {
             await CheckProviderPolicy(providerName);
 
             var result = new PermissionListResultDto
             {
-                //EntityDisplayName = providerKey,
-                //Groups = new List<PermissionGroupDto>()
+                EntityDisplayName = providerKey,
+                Groups = new List<PermissionGroupDto>()
             };
 
             //var multiTenancySide = CurrentTenant.GetMultiTenancySide();
@@ -53,27 +46,37 @@ namespace LinFx.Extensions.PermissionManagement
                     Permissions = new List<PermissionGrantInfoDto>()
                 };
 
+                var neededCheckPermissions = new List<PermissionDefinition>();
+
                 foreach (var permission in group.GetPermissionsWithChildren())
+                //.Where(x => x.IsEnabled)
+                //.Where(x => !x.Providers.Any() || x.Providers.Contains(providerName)))
+                //.Where(x => x.MultiTenancySide.HasFlag(multiTenancySide))
                 {
-                    if (permission.Providers.Any() && !permission.Providers.Contains(providerName))
-                        continue;
+                    //if (await SimpleStateCheckerManager.IsEnabledAsync(permission))
+                    //    neededCheckPermissions.Add(permission);
+                    neededCheckPermissions.Add(permission);
+                }
 
-                    //if (!permission.MultiTenancySide.HasFlag(multiTenancySide))
-                    //{
-                    //    continue;
-                    //}
+                if (!neededCheckPermissions.Any())
+                    continue;
 
-                    var grantInfo = await PermissionManager.GetAsync(permission.Name, providerName, providerKey);
+                var grantInfoDtos = neededCheckPermissions.Select(x => new PermissionGrantInfoDto
+                {
+                    Name = x.Name,
+                    DisplayName = x.DisplayName,
+                    ParentName = x.Parent?.Name,
+                    AllowedProviders = x.Providers,
+                    GrantedProviders = new List<ProviderInfoDto>()
+                }).ToList();
 
-                    var grantInfoDto = new PermissionGrantInfoDto
-                    {
-                        Name = permission.Name,
-                        DisplayName = permission.DisplayName,
-                        ParentName = permission.Parent?.Name,
-                        AllowedProviders = permission.Providers,
-                        IsGranted = grantInfo.IsGranted,
-                        GrantedProviders = new List<ProviderInfoDto>(),
-                    };
+                var multipleGrantInfo = await PermissionManager.GetAsync(neededCheckPermissions.Select(x => x.Name).ToArray(), providerName, providerKey);
+
+                foreach (var grantInfo in multipleGrantInfo.Result)
+                {
+                    var grantInfoDto = grantInfoDtos.First(x => x.Name == grantInfo.Name);
+
+                    grantInfoDto.IsGranted = grantInfo.IsGranted;
 
                     foreach (var provider in grantInfo.Providers)
                     {
@@ -89,39 +92,31 @@ namespace LinFx.Extensions.PermissionManagement
 
                 if (groupDto.Permissions.Any())
                 {
-                    //result.Groups.Add(groupDto);
+                    result.Groups.Add(groupDto);
                 }
             }
 
             return result;
         }
 
-        /// <summary>
-        /// 更新权限
-        /// </summary>
-        /// <param name="providerName"></param>
-        /// <param name="providerKey"></param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public async Task UpdateAsync(string providerName, string providerKey, UpdatePermissionDto input)
+        public virtual async Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input)
         {
             await CheckProviderPolicy(providerName);
 
-            //foreach (var permissionDto in input.Permissions)
-            //{
-            //    await _permissionManager.SetAsync(permissionDto.Name, providerName, providerKey, permissionDto.IsGranted);
-            //}
+            foreach (var permissionDto in input.Permissions)
+            {
+                await PermissionManager.SetAsync(permissionDto.Name, providerName, providerKey, permissionDto.IsGranted);
+            }
         }
 
         protected virtual async Task CheckProviderPolicy(string providerName)
         {
             var policyName = Options.ProviderPolicies.GetOrDefault(providerName);
             //if (policyName.IsNullOrEmpty())
-            //{
-            //    throw new Exception($"No policy defined to get/set permissions for the provider '{policyName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
-            //}
+            //    throw new Exception($"No policy defined to get/set permissions for the provider '{providerName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
 
             //await AuthorizationService.CheckAsync(policyName);
+            await Task.CompletedTask;
         }
     }
 }

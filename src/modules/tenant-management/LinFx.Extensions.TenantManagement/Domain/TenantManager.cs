@@ -1,18 +1,16 @@
-﻿using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
-using LinFx.Utils;
-using Microsoft.EntityFrameworkCore;
+﻿using LinFx.Utils;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement
 {
     [Service]
-    public class TenantManager
+    public class TenantManager : ITenantManager
     {
-        private readonly TenantManagementDbContext _context;
+        protected ITenantRepository TenantRepository { get; }
 
-        public TenantManager(TenantManagementDbContext context)
+        public TenantManager(ITenantRepository tenantRepository)
         {
-            _context = context;
+            TenantRepository = tenantRepository;
         }
 
         /// <summary>
@@ -45,7 +43,7 @@ namespace LinFx.Extensions.TenantManagement
 
         protected virtual async Task ValidateNameAsync(string name, string expectedId = null)
         {
-            var tenant = await _context.Tenants.FirstOrDefaultAsync(p => p.Name == name);
+            var tenant = await TenantRepository.FindByNameAsync(name);
             if (tenant != null && tenant.Id != expectedId)
             {
                 throw new UserFriendlyException("Duplicate tenancy name: " + name); //TODO: A domain exception would be better..?

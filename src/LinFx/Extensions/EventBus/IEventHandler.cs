@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
-
 namespace LinFx.Extensions.EventBus
 {
-    public interface IEventHandler<in TEvent> : IEventHandler where TEvent : IEvent
-    {
-        Task HandleAsync(TEvent evt);
-    }
-
+    /// <summary>
+    /// Undirect base interface for all event handlers.
+    /// Implement <see cref="ILocalEventHandler{TEvent}"/> or <see cref="IDistributedEventHandler{TEvent}"/> instead of this one.
+    /// </summary>
     public interface IEventHandler
     {
     }

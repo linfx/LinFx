@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 
 namespace LinFx.Extensions.MultiTenancy
 {
@@ -6,10 +7,12 @@ namespace LinFx.Extensions.MultiTenancy
     {
         bool IsAvailable { get; }
 
+        [CanBeNull]
         string Id { get; }
 
+        [CanBeNull]
         string Name { get; }
 
-        IDisposable Change(string id, string name = default);
+        IDisposable Change(string id, string name = null);
     }
 }

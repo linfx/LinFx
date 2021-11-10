@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LinFx.Extensions.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore
 {
-    public class PermissionManagementDbContext : LinFx.Extensions.EntityFrameworkCore.DbContext
+    public class PermissionManagementDbContext : EfCoreDbContext, IPermissionManagementDbContext
     {
         public PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options)
             : base(options) { }
 
-        /// <summary>
-        /// 权限授权
-        /// </summary>
         public DbSet<PermissionGrant> PermissionGrants { get; set; }
     }
 }

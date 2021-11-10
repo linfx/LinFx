@@ -1,14 +1,20 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
+using LinFx.Domain.Entities.Auditing;
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.ObjectExtending;
+using LinFx.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace LinFx.Extensions.AuditLogging.Domain
+namespace LinFx.Extensions.AuditLogging
 {
-    public class EntityChange : Entity<Guid>, IMultiTenant, IHasExtraProperties
+    [DisableAuditing]
+    public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
     {
-        public virtual Guid AuditLogId { get; protected set; }
+        public virtual string AuditLogId { get; protected set; }
 
         public virtual string TenantId { get; protected set; }
 
@@ -16,7 +22,7 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual EntityChangeType ChangeType { get; protected set; }
 
-        public virtual Guid? EntityTenantId { get; protected set; }
+        public virtual string EntityTenantId { get; protected set; }
 
         public virtual string EntityId { get; protected set; }
 
@@ -24,36 +30,40 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual ICollection<EntityPropertyChange> PropertyChanges { get; protected set; }
 
-        public virtual Dictionary<string, object> ExtraProperties { get; protected set; }
+        public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
         protected EntityChange()
         {
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public EntityChange(
-            Guid auditLogId,
+            string auditLogId,
             EntityChangeInfo entityChangeInfo,
-            Guid? tenantId = null)
+            string tenantId = null)
         {
-            //Id = guidGenerator.Create();
-            //AuditLogId = auditLogId;
-            //TenantId = tenantId;
-            //ChangeTime = entityChangeInfo.ChangeTime;
-            //ChangeType = entityChangeInfo.ChangeType;
-            //EntityId = entityChangeInfo.EntityId.Truncate(EntityChangeConsts.MaxEntityTypeFullNameLength);
-            //EntityTypeFullName = entityChangeInfo.EntityTypeFullName.TruncateFromBeginning(EntityChangeConsts.MaxEntityTypeFullNameLength);
+            Id = IDUtils.NewIdString();
+            AuditLogId = auditLogId;
+            TenantId = tenantId;
+            ChangeTime = entityChangeInfo.ChangeTime;
+            ChangeType = entityChangeInfo.ChangeType;
+            EntityId = entityChangeInfo.EntityId.Truncate(EntityChangeConsts.MaxEntityTypeFullNameLength);
+            EntityTypeFullName = entityChangeInfo.EntityTypeFullName.TruncateFromBeginning(EntityChangeConsts.MaxEntityTypeFullNameLength);
 
-            //PropertyChanges = entityChangeInfo
-            //                      .PropertyChanges?
-            //                      .Select(p => new EntityPropertyChange(guidGenerator, Id, p, tenantId))
-            //                      .ToList()
-            //                  ?? new List<EntityPropertyChange>();
+            PropertyChanges = entityChangeInfo
+                                  .PropertyChanges?
+                                  .Select(p => new EntityPropertyChange(Id, p, tenantId))
+                                  .ToList()
+                              ?? new List<EntityPropertyChange>();
 
-            //ExtraProperties = entityChangeInfo
-            //                      .ExtraProperties?
-            //                      .ToDictionary(pair => pair.Key, pair => pair.Value)
-            //                  ?? new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
+            if (entityChangeInfo.ExtraProperties != null)
+            {
+                foreach (var pair in entityChangeInfo.ExtraProperties)
+                {
+                    ExtraProperties.Add(pair.Key, pair.Value);
+                }
+            }
         }
     }
 }

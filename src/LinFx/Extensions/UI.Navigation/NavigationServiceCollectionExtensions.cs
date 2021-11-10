@@ -8,7 +8,10 @@ namespace Microsoft.Extensions.DependencyInjection
         public static LinFxBuilder AddNavigation(this LinFxBuilder builder, Action<NavigationOptions> optionsAction)
         {
             builder.Services.Configure(optionsAction);
-            builder.Services.AddSingleton<IMenuManager, MenuManager>();
+
+            builder.Services
+                .AddSingleton<IMenuManager, MenuManager>();
+
             return builder;
         }
     }

@@ -8,8 +8,8 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// </summary>
     public interface IPermissionChecker
     {
-        Task<PermissionGrantInfo> CheckAsync(string name);
+        Task<PermissionGrantInfo> IsGrantedAsync(string name);
 
-        Task<PermissionGrantInfo> CheckAsync(ClaimsPrincipal claimsPrincipal, string name);
+        Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name);
     }
 }

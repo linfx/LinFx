@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
 {
     public static class DbContextExtensions
     {
-        public static void Update<TEntity, TEntityNew>(this DbContext context, TEntity entity, Expression<Func<TEntity, TEntityNew>> expression) where TEntity : class
+        public static void Update<TEntity, TEntityNew>(this EfCoreDbContext context, TEntity entity, Expression<Func<TEntity, TEntityNew>> expression) where TEntity : class
         {
             context.Update(entity);
             var entry = context.Entry(entity);
@@ -21,7 +22,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
             }
         }
 
-        public static void RegisterCustomMappings(this DbContext context, ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
+        public static void RegisterCustomMappings(this EfCoreDbContext context, ModelBuilder modelBuilder, IEnumerable<Type> typeToRegisters)
         {
             var customModelBuilderTypes = typeToRegisters.Where(x => typeof(ICustomModelBuilder).IsAssignableFrom(x));
             foreach (var builderType in customModelBuilderTypes)
@@ -32,6 +33,11 @@ namespace LinFx.Extensions.EntityFrameworkCore
                     builder.Build(modelBuilder);
                 }
             }
+        }
+
+        public static bool HasRelationalTransactionManager(this DbContext dbContext)
+        {
+            return dbContext.Database.GetService<IDbContextTransactionManager>() is IRelationalTransactionManager;
         }
     }
 }

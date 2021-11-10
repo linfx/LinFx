@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using System;
 
-namespace Microsoft.AspNetCore.Hosting
+namespace LinFx.Extensions.Hosting
 {
     public static class HostExtensions
     {

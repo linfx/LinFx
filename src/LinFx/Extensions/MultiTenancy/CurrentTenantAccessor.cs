@@ -2,7 +2,6 @@
 
 namespace LinFx.Extensions.MultiTenancy
 {
-    [Service]
     public class CurrentTenantAccessor : ICurrentTenantAccessor
     {
         private readonly AsyncLocal<TenantInfo> _current;

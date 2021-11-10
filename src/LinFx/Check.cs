@@ -16,6 +16,14 @@ namespace LinFx
             return value;
         }
 
+        internal static string NotNullOrWhiteSpace(string value, string paramName)
+        {
+            if(string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException(paramName + " can not be null or empty!", paramName);
+
+            return value;
+        }
+
         public static ICollection<T> NotNullOrEmpty<T>(ICollection<T> value, string paramName)
         {
             if (value.IsNullOrEmpty())

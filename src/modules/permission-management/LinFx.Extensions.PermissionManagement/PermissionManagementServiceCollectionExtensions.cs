@@ -1,23 +1,55 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.PermissionManagement;
+using System;
+using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class PermissionManagementServiceCollectionExtensions
     {
-        public static LinFxBuilder AddPermissionManagement(this LinFxBuilder builder)
+        public static LinFxBuilder AddPermissionManagement(this LinFxBuilder context)
         {
-            builder.Services.AddTransient<IPermissionService, PermissionService>();
-            builder.Services.AddSingleton<PermissionManager>();
+            context.Services
+                .AddLocalization(o =>
+                {
+                    o.ResourcesPath = "Resources";
+                });
 
-            //services.AddHttpContextAccessor();
-            //services.AddTransient<IHttpContextPrincipalAccessor, HttpContextPrincipalAccessor>();
+            context
+                .AddAssembly(typeof(PermissionManagementServiceCollectionExtensions).Assembly);
 
-            //services.AddSingleton<IPermissionChecker, PermissionChecker>();
-            builder.Services.AddSingleton<IPermissionDefinitionContext, PermissionDefinitionContext>();
-            builder.Services.AddSingleton<IPermissionDefinitionManager, PermissionDefinitionManager>();
 
-            return builder;
+            context.Services.Configure<PermissionManagementOptions>(options =>
+            {
+                options.ManagementProviders.Add<UserPermissionManagementProvider>();
+                options.ManagementProviders.Add<RolePermissionManagementProvider>();
+
+                //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
+                options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
+                options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
+            });
+
+            AutoAddDefinitionProviders(context.Services);
+
+            return context;
+        }
+
+        private static void AutoAddDefinitionProviders(IServiceCollection services)
+        {
+            var definitionProviders = new List<Type>();
+
+            services.OnRegistred(context =>
+            {
+                if (typeof(IPermissionDefinitionProvider).IsAssignableFrom(context.ImplementationType))
+                {
+                    definitionProviders.Add(context.ImplementationType);
+                }
+            });
+
+            services.Configure<PermissionOptions>(options =>
+            {
+                options.DefinitionProviders.AddIfNotContains(definitionProviders);
+            });
         }
     }
 }

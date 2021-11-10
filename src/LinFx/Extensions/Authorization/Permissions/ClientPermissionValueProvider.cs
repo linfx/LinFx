@@ -8,23 +8,22 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// </summary>
     public class ClientPermissionValueProvider : PermissionValueProvider
     {
-        public const string ProviderName = "Client";
+        public const string ProviderName = "C";
 
         public override string Name => ProviderName;
 
         public ClientPermissionValueProvider(IPermissionStore permissionStore)
             : base(permissionStore) { }
 
-        public override async Task<PermissionValueProviderGrantInfo> CheckAsync(PermissionValueCheckContext context)
+        public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
         {
             var clientId = context.Principal?.FindFirst(ClaimTypes.ClientId)?.Value;
             if (clientId == null)
-                return PermissionValueProviderGrantInfo.NonGranted;
+                return PermissionGrantResult.Undefined;
 
-            if (await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, clientId))
-                return new PermissionValueProviderGrantInfo(true, clientId);
-
-            return PermissionValueProviderGrantInfo.NonGranted;
+            return await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, clientId)
+                ? PermissionGrantResult.Granted
+                : PermissionGrantResult.Undefined;
         }
     }
 }

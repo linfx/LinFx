@@ -1,14 +1,17 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
+using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Utils;
 using System;
 
-namespace LinFx.Extensions.AuditLogging.Domain
+namespace LinFx.Extensions.AuditLogging
 {
-    public class EntityPropertyChange : Entity<Guid>, IMultiTenant
+    [DisableAuditing]
+    public class EntityPropertyChange : Entity<string>, IMultiTenant
     {
         public virtual string TenantId { get; protected set; }
 
-        public virtual Guid EntityChangeId { get; protected set; }
+        public virtual string EntityChangeId { get; protected set; }
 
         public virtual string NewValue { get; protected set; }
 
@@ -20,15 +23,18 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         protected EntityPropertyChange() { }
 
-        public EntityPropertyChange(Guid entityChangeId, EntityPropertyChangeInfo entityChangeInfo, string tenantId = default)
+        public EntityPropertyChange(
+            string entityChangeId,
+            EntityPropertyChangeInfo entityChangeInfo,
+            string tenantId = null)
         {
-            //Id = Guid.NewGuid();
-            //TenantId = tenantId;
-            //EntityChangeId = entityChangeId;
-            //NewValue = entityChangeInfo.NewValue.Truncate(EntityPropertyChangeConsts.MaxNewValueLength);
-            //OriginalValue = entityChangeInfo.OriginalValue.Truncate(EntityPropertyChangeConsts.MaxOriginalValueLength);
-            //PropertyName = entityChangeInfo.PropertyName.TruncateFromBeginning(EntityPropertyChangeConsts.MaxPropertyNameLength);
-            //PropertyTypeFullName = entityChangeInfo.PropertyTypeFullName.TruncateFromBeginning(EntityPropertyChangeConsts.MaxPropertyTypeFullNameLength);
+            Id = IDUtils.NewIdString();
+            TenantId = tenantId;
+            EntityChangeId = entityChangeId;
+            NewValue = entityChangeInfo.NewValue.Truncate(EntityPropertyChangeConsts.MaxNewValueLength);
+            OriginalValue = entityChangeInfo.OriginalValue.Truncate(EntityPropertyChangeConsts.MaxOriginalValueLength);
+            PropertyName = entityChangeInfo.PropertyName.TruncateFromBeginning(EntityPropertyChangeConsts.MaxPropertyNameLength);
+            PropertyTypeFullName = entityChangeInfo.PropertyTypeFullName.TruncateFromBeginning(EntityPropertyChangeConsts.MaxPropertyTypeFullNameLength);
         }
     }
 }

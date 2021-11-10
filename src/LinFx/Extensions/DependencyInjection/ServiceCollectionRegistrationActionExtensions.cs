@@ -1,5 +1,4 @@
-﻿using LinFx.DependencyInjection;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using System;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -28,12 +27,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return actionList;
         }
 
-        //// OnExposing
-
-        //public static void OnExposing(this IServiceCollection services, Action<IOnServiceExposingContext> exposeAction)
-        //{
-        //    GetOrCreateExposingList(services).Add(exposeAction);
-        //}
+        // OnExposing
+        public static void OnExposing(this IServiceCollection services, Action<IOnServiceExposingContext> exposeAction)
+        {
+            GetOrCreateExposingList(services).Add(exposeAction);
+        }
 
         public static ServiceExposingActionList GetExposingActionList(this IServiceCollection services)
         {

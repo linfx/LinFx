@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement.HttpApi
@@ -6,15 +7,16 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
     /// <summary>
     /// 权限管理
     /// </summary>
+    [Authorize]
     [ApiController]
-    [Route("api/permission-management/permissions")]
+    [Route("api/permission-management/permission")]
     public class PermissionController : ControllerBase
     {
-        protected IPermissionService PermissionAppService;
+        protected IPermissionService _permissionService;
 
-        public PermissionController(IPermissionService permissionAppService)
+        public PermissionController(IPermissionService permissionService)
         {
-            PermissionAppService = permissionAppService;
+            _permissionService = permissionService;
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
         [HttpGet]
         public virtual Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
         {
-            return PermissionAppService.GetAsync(providerName, providerKey);
+            return _permissionService.GetAsync(providerName, providerKey);
         }
 
         /// <summary>
@@ -37,9 +39,9 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual Task UpdateAsync(string providerName, string providerKey, UpdatePermissionDto input)
+        public virtual Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input)
         {
-            return PermissionAppService.UpdateAsync(providerName, providerKey, input);
+            return _permissionService.UpdateAsync(providerName, providerKey, input);
         }
     }
 }

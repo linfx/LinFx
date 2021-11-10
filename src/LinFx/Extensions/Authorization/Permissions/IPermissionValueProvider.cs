@@ -17,6 +17,6 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        Task<PermissionValueProviderGrantInfo> CheckAsync(PermissionValueCheckContext context);
+        Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context);
     }
 }

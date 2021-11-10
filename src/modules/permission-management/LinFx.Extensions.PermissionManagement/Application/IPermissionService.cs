@@ -6,6 +6,6 @@ namespace LinFx.Extensions.PermissionManagement
     {
         Task<PermissionListResultDto> GetAsync(string providerName, string providerKey);
 
-        Task UpdateAsync(string providerName, string providerKey, UpdatePermissionDto input);
+        Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input);
     }
 }

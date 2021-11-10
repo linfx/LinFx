@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -399,17 +400,6 @@ namespace LinFx.Utils
         /// Removes first occurrence of the given prefixes from beginning of the given string.
         /// </summary>
         /// <param name="str">The string.</param>
-        /// <param name="preFixes">one or more prefix.</param>
-        /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
-        public static string RemovePreFix(this string str, params string[] preFixes)
-        {
-            return str.RemovePreFix(StringComparison.Ordinal, preFixes);
-        }
-
-        /// <summary>
-        /// Removes first occurrence of the given prefixes from beginning of the given string.
-        /// </summary>
-        /// <param name="str">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
         /// <param name="preFixes">one or more prefix.</param>
         /// <returns>Modified string or the same string if it has not any of given prefixes</returns>
@@ -596,86 +586,6 @@ namespace LinFx.Utils
             }
 
             return (useCurrentCulture ? char.ToUpper(str[0]) : char.ToUpperInvariant(str[0])) + str.Substring(1);
-        }
-
-        /// <summary>
-        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        public static string Truncate(this string str, int maxLength)
-        {
-            if (str == null)
-            {
-                return null;
-            }
-
-            if (str.Length <= maxLength)
-            {
-                return str;
-            }
-
-            return str.Left(maxLength);
-        }
-
-        /// <summary>
-        /// Gets a substring of a string from Ending of the string if it exceeds maximum length.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        public static string TruncateFromBeginning(this string str, int maxLength)
-        {
-            if (str == null)
-            {
-                return null;
-            }
-
-            if (str.Length <= maxLength)
-            {
-                return str;
-            }
-
-            return str.Right(maxLength);
-        }
-
-        /// <summary>
-        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
-        /// It adds a "..." postfix to end of the string if it's truncated.
-        /// Returning string can not be longer than maxLength.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        public static string TruncateWithPostfix(this string str, int maxLength)
-        {
-            return TruncateWithPostfix(str, maxLength, "...");
-        }
-
-        /// <summary>
-        /// Gets a substring of a string from beginning of the string if it exceeds maximum length.
-        /// It adds given <paramref name="postfix"/> to end of the string if it's truncated.
-        /// Returning string can not be longer than maxLength.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        public static string TruncateWithPostfix(this string str, int maxLength, string postfix)
-        {
-            if (str == null)
-            {
-                return null;
-            }
-
-            if (str == string.Empty || maxLength == 0)
-            {
-                return string.Empty;
-            }
-
-            if (str.Length <= maxLength)
-            {
-                return str;
-            }
-
-            if (maxLength <= postfix.Length)
-            {
-                return postfix.Left(maxLength);
-            }
-
-            return str.Left(maxLength - postfix.Length) + postfix;
         }
 
         /// <summary>

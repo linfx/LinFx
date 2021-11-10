@@ -13,9 +13,7 @@ namespace LinFx.Extensions.PermissionManagement
 
         public PermissionWithGrantedProviders([NotNull] string name, bool isGranted)
         {
-            Check.NotNull(name, nameof(name));
-
-            Name = name;
+            Name = name ?? throw new System.ArgumentNullException(nameof(name));
             IsGranted = isGranted;
             Providers = new List<PermissionValueProviderInfo>();
         }

@@ -1,22 +1,34 @@
-﻿namespace LinFx.Extensions.PermissionManagement
+﻿using LinFx.Utils;
+using System;
+using System.Linq;
+
+namespace LinFx.Extensions.PermissionManagement
 {
+    [Serializable]
     public class PermissionGrantCacheItem
     {
-        public string Name { get; set; }
+        private const string CacheKeyFormat = "pn:{0},pk:{1},n:{2}";
 
         public bool IsGranted { get; set; }
 
-        public PermissionGrantCacheItem() { }
-
-        public PermissionGrantCacheItem(string name, bool isGranted)
+        public PermissionGrantCacheItem()
         {
-            Name = name;
+        }
+
+        public PermissionGrantCacheItem(bool isGranted)
+        {
             IsGranted = isGranted;
         }
 
         public static string CalculateCacheKey(string name, string providerName, string providerKey)
         {
-            return "pn:" + providerName + ",pk:" + providerKey + ",n:" + name;
+            return string.Format(CacheKeyFormat, providerName, providerKey, name);
+        }
+
+        public static string GetPermissionNameFormCacheKeyOrNull(string cacheKey)
+        {
+            var result = FormattedStringValueExtracter.Extract(cacheKey, CacheKeyFormat, true);
+            return result.IsMatch ? result.Matches.Last().Value : null;
         }
     }
 }

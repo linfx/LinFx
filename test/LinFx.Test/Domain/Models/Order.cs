@@ -1,4 +1,4 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using LinFx.Test.EventBus.Events;
 using System.Collections.Generic;
 

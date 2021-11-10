@@ -16,10 +16,9 @@ namespace Microsoft.Extensions.Caching.Distributed
         /// <param name="key">A string identifying the requested value.</param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<TCacheItem> GetAsync<TCacheItem>(this IDistributedCache cache,
-            [NotNull] string key,
+        public static async Task<TCacheItem> GetAsync<TCacheItem>(this IDistributedCache cache, 
+            [NotNull] string key, 
             CancellationToken token = default)
-
         {
             var value = await cache.GetAsync(key, token);
             if (value != null)

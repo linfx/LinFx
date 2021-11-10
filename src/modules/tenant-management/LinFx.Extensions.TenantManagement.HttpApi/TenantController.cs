@@ -1,33 +1,22 @@
-﻿using LinFx.Application.Models;
-using LinFx.Extensions.TenantManagement.Application.Models;
+﻿using LinFx.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement.HttpApi
 {
     /// <summary>
-    /// 租户Api接口
+    /// 租户管理
     /// </summary>
     [ApiController]
-    [Route("api/multi-tenancy/tenants")]
+    [Route("api/multi-tenancy/tenant")]
     public class TenantController : ControllerBase
     {
         protected ITenantService TenantService;
 
-        public TenantController(ITenantService service)
+        public TenantController(ITenantService tenantService)
         {
-            TenantService = service;
-        }
-
-        /// <summary>
-        /// 租户列表
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public virtual Task<PagedResult<TenantResult>> GetListAsync([FromQuery] TenantRequest input)
-        {
-            return TenantService.GetListAsync(input);
+            TenantService = tenantService;
         }
 
         /// <summary>
@@ -36,9 +25,20 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="id">租户Id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public virtual Task<TenantResult> GetAsync(string id)
+        public virtual Task<TenantDto> GetAsync(string id)
         {
             return TenantService.GetAsync(id);
+        }
+
+        /// <summary>
+        /// 租户列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("/api/multi-tenancy/tenants")]
+        public virtual Task<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input)
+        {
+            return TenantService.GetListAsync(input);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual Task<TenantResult> CreateAsync(TenantEditInput input)
+        public virtual Task<TenantDto> CreateAsync(TenantEditInput input)
         {
             return TenantService.CreateAsync(input);
         }
@@ -59,7 +59,8 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public virtual Task<TenantResult> UpdateAsync(string id, TenantEditInput input)
+        [Authorize(TenantManagementPermissions.Tenants.Update)]
+        public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             return TenantService.UpdateAsync(id, input);
         }

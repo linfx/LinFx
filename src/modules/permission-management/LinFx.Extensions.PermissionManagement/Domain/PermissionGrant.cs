@@ -1,12 +1,15 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.MultiTenancy;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinFx.Extensions.PermissionManagement
 {
     /// <summary>
     /// 权限授权
     /// </summary>
+    [Table("Core_PermissionGrant")]
     public class PermissionGrant : Entity<long>, IMultiTenant
     {
         /// <summary>
@@ -27,16 +30,14 @@ namespace LinFx.Extensions.PermissionManagement
         public virtual string ProviderName { get; protected set; }
 
         [StringLength(64)]
-        public virtual string ProviderKey { get; protected set; }
+        public virtual string ProviderKey { get; protected internal set; }
 
         protected PermissionGrant() { }
 
         public PermissionGrant(long id, string name, string providerName, string providerKey, string tenantId = default)
         {
-            Check.NotNull(name, nameof(name));
-
             Id = id;
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
             ProviderName = providerName;
             ProviderKey = providerKey;
             TenantId = tenantId;

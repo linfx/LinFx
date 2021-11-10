@@ -1,12 +1,14 @@
-﻿using LinFx.Domain.Models;
+﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.ObjectExtending;
 using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.AuditLogging.Domain
+namespace LinFx.Extensions.AuditLogging
 {
-    public class AuditLog : AggregateRoot<Guid>, IMultiTenant
+    [DisableAuditing]
+    public class AuditLog : AggregateRoot<string>, IMultiTenant
     {
         public virtual string ApplicationName { get; set; }
 
@@ -22,7 +24,7 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual string ImpersonatorTenantId { get; protected set; }
 
-        public virtual DateTimeOffset ExecutionTime { get; protected set; }
+        public virtual DateTime ExecutionTime { get; protected set; }
 
         public virtual int ExecutionDuration { get; protected set; }
 
@@ -50,58 +52,57 @@ namespace LinFx.Extensions.AuditLogging.Domain
 
         public virtual ICollection<AuditLogAction> Actions { get; protected set; }
 
-        protected AuditLog()
+        protected AuditLog() { }
+
+        public AuditLog(
+            string id,
+            string applicationName,
+            string tenantId,
+            string tenantName,
+            string userId,
+            string userName,
+            DateTime executionTime,
+            int executionDuration,
+            string clientIpAddress,
+            string clientName,
+            string clientId,
+            string correlationId,
+            string browserInfo,
+            string httpMethod,
+            string url,
+            int? httpStatusCode,
+            string impersonatorUserId,
+            string impersonatorTenantId,
+            ExtraPropertyDictionary extraPropertyDictionary,
+            List<EntityChange> entityChanges,
+            List<AuditLogAction> actions,
+            string exceptions,
+            string comments)
+            : base(id)
         {
-            //ExtraProperties = new Dictionary<string, object>();
-        }
+            ApplicationName = applicationName.Truncate(AuditLogConsts.MaxApplicationNameLength);
+            TenantId = tenantId;
+            TenantName = tenantName.Truncate(AuditLogConsts.MaxTenantNameLength);
+            UserId = userId;
+            UserName = userName.Truncate(AuditLogConsts.MaxUserNameLength);
+            ExecutionTime = executionTime;
+            ExecutionDuration = executionDuration;
+            ClientIpAddress = clientIpAddress.Truncate(AuditLogConsts.MaxClientIpAddressLength);
+            ClientName = clientName.Truncate(AuditLogConsts.MaxClientNameLength);
+            ClientId = clientId.Truncate(AuditLogConsts.MaxClientIdLength);
+            CorrelationId = correlationId.Truncate(AuditLogConsts.MaxCorrelationIdLength);
+            BrowserInfo = browserInfo.Truncate(AuditLogConsts.MaxBrowserInfoLength);
+            HttpMethod = httpMethod.Truncate(AuditLogConsts.MaxHttpMethodLength);
+            Url = url.Truncate(AuditLogConsts.MaxUrlLength);
+            HttpStatusCode = httpStatusCode;
+            ImpersonatorUserId = impersonatorUserId;
+            ImpersonatorTenantId = impersonatorTenantId;
 
-        public AuditLog(AuditLogInfo auditInfo)
-        {
-            //Id = guidGenerator.Create();
-            //ApplicationName = auditInfo.ApplicationName.Truncate(AuditLogConsts.MaxApplicationNameLength);
-            TenantId = auditInfo.TenantId;
-            //TenantName = auditInfo.TenantName.Truncate(AuditLogConsts.MaxTenantNameLength);
-            UserId = auditInfo.UserId;
-            //UserName = auditInfo.UserName.Truncate(AuditLogConsts.MaxUserNameLength);
-            ExecutionTime = auditInfo.ExecutionTime;
-            ExecutionDuration = auditInfo.ExecutionDuration;
-            //ClientIpAddress = auditInfo.ClientIpAddress.Truncate(AuditLogConsts.MaxClientIpAddressLength);
-            //ClientName = auditInfo.ClientName.Truncate(AuditLogConsts.MaxClientNameLength);
-            //ClientId = auditInfo.ClientId.Truncate(AuditLogConsts.MaxClientIdLength);
-            //CorrelationId = auditInfo.CorrelationId.Truncate(AuditLogConsts.MaxCorrelationIdLength);
-            //BrowserInfo = auditInfo.BrowserInfo.Truncate(AuditLogConsts.MaxBrowserInfoLength);
-            //HttpMethod = auditInfo.HttpMethod.Truncate(AuditLogConsts.MaxHttpMethodLength);
-            //Url = auditInfo.Url.Truncate(AuditLogConsts.MaxUrlLength);
-            HttpStatusCode = auditInfo.HttpStatusCode;
-            ImpersonatorUserId = auditInfo.ImpersonatorUserId;
-            ImpersonatorTenantId = auditInfo.ImpersonatorTenantId;
-
-            //ExtraProperties = auditInfo
-            //                      .ExtraProperties?
-            //                      .ToDictionary(pair => pair.Key, pair => pair.Value)
-            //                  ?? new Dictionary<string, object>();
-
-            //EntityChanges = auditInfo
-            //                    .EntityChanges?
-            //                    .Select(entityChangeInfo => new EntityChange(guidGenerator, Id, entityChangeInfo, tenantId: auditInfo.TenantId))
-            //                    .ToList()
-            //                ?? new List<EntityChange>();
-
-            //Actions = auditInfo
-            //              .Actions?
-            //              .Select(auditLogActionInfo => new AuditLogAction(guidGenerator.Create(), Id, auditLogActionInfo, tenantId: auditInfo.TenantId))
-            //              .ToList()
-            //          ?? new List<AuditLogAction>();
-
-            //Exceptions = auditInfo
-            //    .Exceptions?
-            //    .JoinAsString(Environment.NewLine)
-            //    .Truncate(AuditLogConsts.MaxExceptionsLengthValue);
-
-            //Comments = auditInfo
-            //    .Comments?
-            //    .JoinAsString(Environment.NewLine)
-            //    .Truncate(AuditLogConsts.MaxCommentsLength);
+            ExtraProperties = extraPropertyDictionary;
+            EntityChanges = entityChanges;
+            Actions = actions;
+            Exceptions = exceptions;
+            Comments = comments.Truncate(AuditLogConsts.MaxCommentsLength);
         }
     }
 }

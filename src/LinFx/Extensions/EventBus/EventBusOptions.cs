@@ -1,15 +1,22 @@
-﻿namespace LinFx.Extensions.EventBus
+﻿using System;
+
+namespace LinFx.Extensions.EventBus
 {
     public class EventBusOptions
     {
-        public int RetryCount { get; set; } = 3;
+        public bool EnabledErrorHandle { get; set; }
 
-        public int FailCount { get; set; } = 3;
+        public Func<Type, bool> ErrorHandleSelector { get; set; }
 
-        public bool Durable { get; set; }
+        public string DeadLetterName { get; set; }
 
-        public bool AutoDelete { get; set; }
+        public EventBusRetryStrategyOptions RetryStrategyOptions { get; set; }
 
-        public int PrefetchCount { get; set; } = 1;
+        public void UseRetryStrategy(Action<EventBusRetryStrategyOptions> action = null)
+        {
+            EnabledErrorHandle = true;
+            RetryStrategyOptions = new EventBusRetryStrategyOptions();
+            action?.Invoke(RetryStrategyOptions);
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Authorization.Permissions;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization.Permissions
@@ -8,12 +7,12 @@ namespace LinFx.Extensions.Authorization.Permissions
     {
         public static async Task<bool> IsGrantedAsync(this IPermissionChecker permissionChecker, string name)
         {
-            return (await permissionChecker.CheckAsync(name)).IsGranted;
+            return (await permissionChecker.IsGrantedAsync(name)).IsGranted;
         }
 
         public static async Task<bool> IsGrantedAsync(this IPermissionChecker permissionChecker, ClaimsPrincipal principal, string name)
         {
-            return (await permissionChecker.CheckAsync(principal, name)).IsGranted;
+            return (await permissionChecker.IsGrantedAsync(principal, name)).IsGranted;
         }
     }
 }
