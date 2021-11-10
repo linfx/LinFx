@@ -1,5 +1,4 @@
 ﻿using LinFx;
-using System.Diagnostics.CodeAnalysis;
 
 namespace System.Collections.Generic
 {

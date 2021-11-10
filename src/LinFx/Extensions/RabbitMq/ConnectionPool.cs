@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class ConnectionPool : IConnectionPool
     {
         private bool _isDisposed;
@@ -28,15 +26,12 @@ namespace LinFx.Extensions.RabbitMq
 
             try
             {
-                var lazyConnection = Connections.GetOrAdd(
-                    connectionName, () => new Lazy<IConnection>(() =>
-                    {
-                        var connection = Options.Connections.GetOrDefault(connectionName);
-                        var hostnames = connection.HostName.TrimEnd(';').Split(';');
-                        return hostnames.Length == 1 ? connection.CreateConnection() : connection.CreateConnection(hostnames);
-                    })
-                );
-
+                var lazyConnection = Connections.GetOrAdd(connectionName, () => new Lazy<IConnection>(() =>
+                {
+                    var connection = Options.Connections.GetOrDefault(connectionName);
+                    var hostnames = connection.HostName.TrimEnd(';').Split(';');
+                    return hostnames.Length == 1 ? connection.CreateConnection() : connection.CreateConnection(hostnames);
+                }));
                 return lazyConnection.Value;
             }
             catch (Exception)

@@ -16,7 +16,7 @@ namespace LinFx.Extensions.EventBus.Local
     /// <summary>
     /// Implements EventBus as Singleton pattern.
     /// </summary>
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     [ExposeServices(typeof(ILocalEventBus), typeof(LocalEventBus))]
     public class LocalEventBus : EventBusBase, ILocalEventBus
     {

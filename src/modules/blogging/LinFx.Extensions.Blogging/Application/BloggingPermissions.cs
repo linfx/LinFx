@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Blogging.Application
+﻿namespace LinFx.Extensions.Blogging
 {
     public class BloggingPermissions
     {
@@ -36,10 +36,5 @@
             public const string Update = Default + ".Update";
             public const string Create = Default + ".Create";
         }
-
-        //public static string[] GetAll()
-        //{
-        //    return ReflectionHelper.GetPublicConstantsRecursively(typeof(BloggingPermissions));
-        //}
     }
 }

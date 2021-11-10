@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Extensions.Authorization.Permissions;
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.PermissionManagement
 {

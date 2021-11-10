@@ -53,9 +53,7 @@ namespace LinFx.Extensions.Auditing
             IAuditingHelper auditingHelper)
         {
             if (!options.IsEnabled)
-            {
                 return false;
-            }
 
             //if (AbpCrossCuttingConcerns.IsApplied(invocation.TargetObject, AbpCrossCuttingConcerns.Auditing))
             //{
@@ -63,9 +61,7 @@ namespace LinFx.Extensions.Auditing
             //}
 
             if (!auditingHelper.ShouldSaveAudit(invocation.Method))
-            {
                 return false;
-            }
 
             return true;
         }
@@ -144,20 +140,13 @@ namespace LinFx.Extensions.Auditing
             bool hasError)
         {
             if (options.AlwaysLogOnException && hasError)
-            {
                 return true;
-            }
 
             if (!options.IsEnabledForAnonymousUsers && !currentUser.IsAuthenticated)
-            {
                 return false;
-            }
 
-            if (!options.IsEnabledForGetRequests &&
-                invocation.Method.Name.StartsWith("Get", StringComparison.OrdinalIgnoreCase))
-            {
+            if (!options.IsEnabledForGetRequests && invocation.Method.Name.StartsWith("Get", StringComparison.OrdinalIgnoreCase))
                 return false;
-            }
 
             return true;
         }

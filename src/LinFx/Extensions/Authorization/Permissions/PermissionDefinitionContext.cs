@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         public Dictionary<string, PermissionGroupDefinition> Groups { get; } = new Dictionary<string, PermissionGroupDefinition>();
 
-        public virtual PermissionGroupDefinition AddGroup(string name, string displayName = null)
+        public virtual PermissionGroupDefinition AddGroup(string name, LocalizedString displayName = null)
         {
             if (name is null)
                 throw new ArgumentNullException(nameof(name));

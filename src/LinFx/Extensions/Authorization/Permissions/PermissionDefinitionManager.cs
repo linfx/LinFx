@@ -14,8 +14,19 @@ namespace LinFx.Extensions.Authorization.Permissions
     public class PermissionDefinitionManager : IPermissionDefinitionManager
     {
         private readonly IServiceProvider _serviceProvider;
+
+        /// <summary>
+        /// 权限
+        /// </summary>
+        protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
         private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
+
+        /// <summary>
+        /// 权限组
+        /// </summary>
+        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
         private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
+
         protected PermissionOptions Options { get; }
 
         public PermissionDefinitionManager(
@@ -28,16 +39,6 @@ namespace LinFx.Extensions.Authorization.Permissions
             _lazyPermissionDefinitions = new Lazy<Dictionary<string, PermissionDefinition>>(CreatePermissionDefinitions, true);
             _lazyPermissionGroupDefinitions = new Lazy<Dictionary<string, PermissionGroupDefinition>>(CreatePermissionGroupDefinitions, true);
         }
-
-        /// <summary>
-        /// 权限
-        /// </summary>
-        protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
-
-        /// <summary>
-        /// 权限组
-        /// </summary>
-        protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
 
         /// <summary>
         /// 创建权限定义

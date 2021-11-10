@@ -1,12 +1,12 @@
-﻿using LinFx.Application.Models;
+﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
 using LinFx.Extensions.Blogging.Domain.Blogs;
 using LinFx.Extensions.Blogging.EntityFrameworkCore;
-using LinFx.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Blogging.Application
+namespace LinFx.Extensions.Blogging
 {
     /// <summary>
     /// 博客服务
@@ -15,7 +15,7 @@ namespace LinFx.Extensions.Blogging.Application
     {
         protected BloggingDbContext _db;
 
-        public BlogService(ServiceContext context, BloggingDbContext db) : base(context)
+        public BlogService(IServiceProvider context, BloggingDbContext db) : base(context)
         {
             _db = db;
         }

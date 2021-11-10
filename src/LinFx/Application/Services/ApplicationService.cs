@@ -39,8 +39,7 @@ namespace LinFx.Application.Services
         protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
         protected Type ObjectMapperContext { get; set; }
-        protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider =>
-            ObjectMapperContext == null
+        protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
                 ? provider.GetRequiredService<IObjectMapper>()
                 : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 

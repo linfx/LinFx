@@ -8,8 +8,22 @@ namespace LinFx.Extensions.PermissionManagement
     {
         string Name { get; }
 
-        Task<PermissionValueProviderGrantInfo> CheckAsync([NotNull] string name, [NotNull] string providerName, [NotNull] string providerKey);
+        Task<PermissionValueProviderGrantInfo> CheckAsync(
+            [NotNull] string name,
+            [NotNull] string providerName,
+            [NotNull] string providerKey
+        );
 
-        Task SetAsync([NotNull] string name, [NotNull] string providerKey, bool isGranted);
+        Task<MultiplePermissionValueProviderGrantInfo> CheckAsync(
+            [NotNull] string[] names,
+            [NotNull] string providerName,
+            [NotNull] string providerKey
+        );
+
+        Task SetAsync(
+            [NotNull] string name,
+            [NotNull] string providerKey,
+            bool isGranted
+        );
     }
 }

@@ -1,4 +1,7 @@
-﻿using LinFx.Extensions.MultiTenancy;
+﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Guids;
+using LinFx.Extensions.MultiTenancy;
+using LinFx.Utils;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,19 +64,9 @@ namespace LinFx.Extensions.PermissionManagement
         {
             var permissionGrant = await PermissionGrantRepository.FindAsync(name, Name, providerKey);
             if (permissionGrant != null)
-            {
                 return;
-            }
 
-            await PermissionGrantRepository.InsertAsync(
-                new PermissionGrant(
-                    GuidGenerator.Create(),
-                    name,
-                    Name,
-                    providerKey,
-                    CurrentTenant.Id
-                )
-            );
+            await PermissionGrantRepository.InsertAsync(new PermissionGrant(IDUtils.NewId(), name, Name, providerKey, CurrentTenant.Id));
         }
 
         protected virtual async Task RevokeAsync(string name, string providerKey)

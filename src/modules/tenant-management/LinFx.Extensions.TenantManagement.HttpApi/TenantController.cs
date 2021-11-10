@@ -1,14 +1,15 @@
 ﻿using LinFx.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement.HttpApi
 {
     /// <summary>
-    /// 租户Api接口
+    /// 租户管理
     /// </summary>
     [ApiController]
-    [Route("api/multi-tenancy/tenants")]
+    [Route("api/multi-tenancy/tenant")]
     public class TenantController : ControllerBase
     {
         protected ITenantService TenantService;
@@ -34,7 +35,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("/api/multi-tenancy/tenants")]
         public virtual Task<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input)
         {
             return TenantService.GetListAsync(input);
@@ -58,6 +59,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize(TenantManagementPermissions.Tenants.Update)]
         public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             return TenantService.UpdateAsync(id, input);

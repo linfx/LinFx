@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using RabbitMQ.Client;
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class ChannelPool : IChannelPool
     {
         protected IConnectionPool ConnectionPool { get; }
