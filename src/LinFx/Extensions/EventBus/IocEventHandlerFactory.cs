@@ -43,7 +43,6 @@ namespace LinFx.Extensions.EventBus
 
         public void Dispose()
         {
-
         }
     }
 }

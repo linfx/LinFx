@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Linq
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     public class AsyncQueryableExecuter : IAsyncQueryableExecuter
     {
         protected IEnumerable<IAsyncQueryableProvider> Providers { get; }
