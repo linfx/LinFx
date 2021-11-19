@@ -11,6 +11,9 @@ namespace LinFx.Extensions.Uow
     /// </summary>
     public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, IDisposable
     {
+        /// <summary>
+        /// 唯一标识信息
+        /// </summary>
         Guid Id { get; }
 
         Dictionary<string, object> Items { get; }
@@ -20,6 +23,9 @@ namespace LinFx.Extensions.Uow
 
         event EventHandler<UnitOfWorkEventArgs> Disposed;
 
+        /// <summary>
+        /// 配置信息
+        /// </summary>
         IUnitOfWorkOptions Options { get; }
 
         IUnitOfWork Outer { get; }

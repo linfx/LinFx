@@ -69,17 +69,14 @@ namespace LinFx.Extensions.EntityFrameworkCore
 
         public ILogger<EfCoreDbContext> Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
 
-        private static readonly MethodInfo ConfigureBasePropertiesMethodInfo
-            = typeof(EfCoreDbContext)
-                .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfCoreDbContext)
+            .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
 
-        private static readonly MethodInfo ConfigureValueConverterMethodInfo
-            = typeof(EfCoreDbContext)
-                .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfCoreDbContext)
+            .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
 
-        private static readonly MethodInfo ConfigureValueGeneratedMethodInfo
-            = typeof(EfCoreDbContext)
-                .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfCoreDbContext)
+            .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
         protected EfCoreDbContext(DbContextOptions options)
             : base(options)

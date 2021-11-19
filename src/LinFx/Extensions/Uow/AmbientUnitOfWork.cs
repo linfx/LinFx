@@ -3,10 +3,11 @@ using System.Threading;
 
 namespace LinFx.Extensions.Uow
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     [ExposeServices(typeof(IAmbientUnitOfWork), typeof(IUnitOfWorkAccessor))]
     public class AmbientUnitOfWork : IAmbientUnitOfWork
     {
+        /// <inheritdoc/>
         public IUnitOfWork UnitOfWork => _currentUow.Value;
 
         private readonly AsyncLocal<IUnitOfWork> _currentUow;

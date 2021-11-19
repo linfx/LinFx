@@ -3,10 +3,13 @@ using System;
 
 namespace LinFx.Extensions.Uow
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    /// <summary>
+    /// 工作单元管理器
+    /// </summary>
+    [Service(ServiceLifetime.Singleton)]
     public class UnitOfWorkManager : IUnitOfWorkManager
     {
-        public IUnitOfWork Current => GetCurrentUnitOfWork();
+        public IUnitOfWork Current => _ambientUnitOfWork.GetCurrentByChecking();
 
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IAmbientUnitOfWork _ambientUnitOfWork;
@@ -24,17 +27,15 @@ namespace LinFx.Extensions.Uow
             Check.NotNull(options, nameof(options));
 
             // 获得当前的工作单元
-            var currentUow = Current; 
-
             // 如果当前工作单元不为空，并且开发人员明确说明不需要构建新的工作单元时，创建内部工作单元
+            var currentUow = Current;
             if (currentUow != null && !requiresNew)
             {
                 return new ChildUnitOfWork(currentUow);
             }
 
-            // 创建新的外部工作单元
-            var unitOfWork = CreateNewUnitOfWork();
-            unitOfWork.Initialize(options);
+            var unitOfWork = CreateNewUnitOfWork();   // 创建新的外部工作单元
+            unitOfWork.Initialize(options);           // 使用工作单元配置初始化外部工作单元。
 
             return unitOfWork;
         }
@@ -86,19 +87,10 @@ namespace LinFx.Extensions.Uow
             return true;
         }
 
-        private IUnitOfWork GetCurrentUnitOfWork()
-        {
-            var uow = _ambientUnitOfWork.UnitOfWork;
-
-            //Skip reserved unit of work
-            while (uow != null && (uow.IsReserved || uow.IsDisposed || uow.IsCompleted))
-            {
-                uow = uow.Outer;
-            }
-
-            return uow;
-        }
-
+        /// <summary>
+        /// 创建新的工作单元
+        /// </summary>
+        /// <returns></returns>
         private IUnitOfWork CreateNewUnitOfWork()
         {
             var scope = _serviceScopeFactory.CreateScope();
@@ -107,11 +99,8 @@ namespace LinFx.Extensions.Uow
                 var outerUow = _ambientUnitOfWork.UnitOfWork;
                 var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-                // 设置当前工作单元的外部工作单元
-                unitOfWork.SetOuter(outerUow);
-
-                // 设置最外层的工作单元
-                _ambientUnitOfWork.SetUnitOfWork(unitOfWork); 
+                unitOfWork.SetOuter(outerUow);                  // 设置当前工作单元的外部工作单元
+                _ambientUnitOfWork.SetUnitOfWork(unitOfWork);   // 设置最外层的工作单元
 
                 unitOfWork.Disposed += (sender, args) =>
                 {

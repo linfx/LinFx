@@ -34,6 +34,10 @@ namespace LinFx.Extensions.Uow
 
         private readonly IUnitOfWork _parent;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="parent">外部工作单元(带事务)</param>
         public ChildUnitOfWork([NotNull] IUnitOfWork parent)
         {
             Check.NotNull(parent, nameof(parent));
