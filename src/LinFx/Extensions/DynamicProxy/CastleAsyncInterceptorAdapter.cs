@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.DynamicProxy
 {
+    /// <summary>
+    /// 泛型适配器
+    /// </summary>
+    /// <typeparam name="TInterceptor"></typeparam>
     public class CastleAsyncInterceptorAdapter<TInterceptor> : AsyncInterceptorBase where TInterceptor : IInterceptor
     {
         private readonly TInterceptor _abpInterceptor;
@@ -15,20 +19,14 @@ namespace LinFx.Extensions.DynamicProxy
 
         protected override async Task InterceptAsync(IInvocation invocation, IInvocationProceedInfo proceedInfo, Func<IInvocation, IInvocationProceedInfo, Task> proceed)
         {
-            //await _abpInterceptor.InterceptAsync(new CastleMethodInvocationAdapter(invocation, proceedInfo, proceed));
-
-            throw new NotImplementedException();
+            await _abpInterceptor.InterceptAsync(new CastleMethodInvocationAdapter(invocation, proceedInfo, proceed));
         }
 
         protected override async Task<TResult> InterceptAsync<TResult>(IInvocation invocation, IInvocationProceedInfo proceedInfo, Func<IInvocation, IInvocationProceedInfo, Task<TResult>> proceed)
         {
-            //var adapter = new CastleMethodInvocationAdapterWithReturnValue<TResult>(invocation, proceedInfo, proceed);
-
-            //await _abpInterceptor.InterceptAsync(adapter);
-
-            //return (TResult)adapter.ReturnValue;
-
-            throw new NotImplementedException();
+            var adapter = new CastleMethodInvocationAdapterWithReturnValue<TResult>(invocation, proceedInfo, proceed);
+            await _abpInterceptor.InterceptAsync(adapter);
+            return (TResult)adapter.ReturnValue;
         }
     }
 }

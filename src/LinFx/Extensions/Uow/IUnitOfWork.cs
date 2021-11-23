@@ -46,6 +46,11 @@ namespace LinFx.Extensions.Uow
 
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 提交工作单元
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task CompleteAsync(CancellationToken cancellationToken = default);
 
         Task RollbackAsync(CancellationToken cancellationToken = default);

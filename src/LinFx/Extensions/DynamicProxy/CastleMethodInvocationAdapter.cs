@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using LinFx.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 

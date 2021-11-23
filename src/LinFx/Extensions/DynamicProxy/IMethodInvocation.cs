@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.DependencyInjection
+namespace LinFx.Extensions.DynamicProxy
 {
     /// <summary>
     /// 调用方法

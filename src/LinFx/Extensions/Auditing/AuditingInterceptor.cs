@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DynamicProxy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -48,6 +48,13 @@ namespace LinFx.Extensions.Auditing
             }
         }
 
+        /// <summary>
+        /// 是否拦截
+        /// </summary>
+        /// <param name="invocation"></param>
+        /// <param name="options"></param>
+        /// <param name="auditingHelper"></param>
+        /// <returns></returns>
         protected virtual bool ShouldIntercept(IMethodInvocation invocation,
             AuditingOptions options,
             IAuditingHelper auditingHelper)

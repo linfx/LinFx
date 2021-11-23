@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx", "src\LinFx\LinFx.csproj", "{6A79FF3F-E9CF-4FD3-9D69-9454C14D2308}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{CB28C410-8E1C-45DA-810D-7E5CBC7FBA9D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CB28C410-8E1C-45DA-810D-7E5CBC7FBA9D}"
 	ProjectSection(SolutionItems) = preProject
 		common.props = common.props
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fx", "fx", "{19BCDCAB-8076-4D78-BDED-682974410439}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{19BCDCAB-8076-4D78-BDED-682974410439}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Test", "test\LinFx.Test\LinFx.Test.csproj", "{ACC77A7F-7A6A-4B63-8351-0822FB747B36}"
 EndProject

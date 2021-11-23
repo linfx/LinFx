@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.DependencyInjection
+namespace LinFx.Extensions.DynamicProxy
 {
     /// <summary>
     /// 拦截器
