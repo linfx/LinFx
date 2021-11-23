@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using LinFx.Extensions.Modularity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

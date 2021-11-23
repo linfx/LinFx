@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Extensions.Modularity;
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.Modules
 {

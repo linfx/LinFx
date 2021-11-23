@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Modules;
+﻿using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection
