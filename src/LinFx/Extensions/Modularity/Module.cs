@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace LinFx.Extensions.Modules
 {
+    /// <summary>
+    /// 模块
+    /// </summary>
     public class Module : IModuleInitializer
     {
         public virtual void ConfigureServices(IServiceCollection services)

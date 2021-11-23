@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.DynamicProxy;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Linq;
