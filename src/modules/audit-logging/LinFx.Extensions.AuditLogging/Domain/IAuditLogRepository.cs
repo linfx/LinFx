@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging
 {
+    /// <summary>
+    /// 审记日志仓储
+    /// </summary>
     public interface IAuditLogRepository : IRepository<AuditLog, string>
     {
         Task<List<AuditLog>> GetListAsync(

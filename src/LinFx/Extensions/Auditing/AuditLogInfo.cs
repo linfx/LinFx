@@ -5,107 +5,151 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+/// <summary>
+///  审计日志
+/// </summary>
+[Serializable]
+public class AuditLogInfo : IHasExtraProperties
 {
-    [Serializable]
-    public class AuditLogInfo : IHasExtraProperties
+    /// <summary>
+    /// 当你保存不同的应用审计日志到同一个数据库,这个属性用来区分应用程序.
+    /// </summary>
+    public string ApplicationName { get; set; }
+
+    /// <summary>
+    /// 当前用户的Id,用户未登录为 null.
+    /// </summary>
+    public string UserId { get; set; }
+
+    /// <summary>
+    /// 当前用户的用户名,如果用户已经登录(这里的值不依赖于标识模块/系统进行查找).
+    /// </summary>
+    public string UserName { get; set; }
+
+    /// <summary>
+    /// 当前租户的Id.
+    /// </summary>
+    public string TenantId { get; set; }
+
+    /// <summary>
+    /// 当前租户的名称.
+    /// </summary>
+    public string TenantName { get; set; }
+
+    public string ImpersonatorUserId { get; set; }
+
+    public string ImpersonatorTenantId { get; set; }
+
+    /// <summary>
+    /// 审计日志对象创建的时间.
+    /// </summary>
+    public DateTime ExecutionTime { get; set; }
+
+    /// <summary>
+    /// 请求的总执行时间,以毫秒为单位. 可以用来观察应用程序的性能.
+    /// </summary>
+    public int ExecutionDuration { get; set; }
+
+    /// <summary>
+    /// 当前客户端的Id,如果客户端已经通过认证.客户端通常是使用HTTP API的第三方应用程序.
+    /// </summary>
+    public string ClientId { get; set; }
+
+    /// <summary>
+    /// 当前相关Id. 相关Id用于在单个逻辑操作中关联由不同应用程序(或微服务)写入的审计日志.
+    /// </summary>
+    public string CorrelationId { get; set; }
+
+    /// <summary>
+    /// 客户端/用户设备的IP地址.
+    /// </summary>
+    public string ClientIpAddress { get; set; }
+
+    /// <summary>
+    /// 当前客户端的Id,如果客户端已经通过认证.客户端通常是使用HTTP API的第三方应用程序.
+    /// </summary>
+    public string ClientName { get; set; }
+
+    /// <summary>
+    /// 当前用户的浏览器名称/版本信息.
+    /// </summary>
+    public string BrowserInfo { get; set; }
+
+    /// <summary>
+    /// 当前HTTP请求的方法
+    /// </summary>
+    public string HttpMethod { get; set; }
+
+    /// <summary>
+    /// HTTP响应状态码.
+    /// </summary>
+    public int? HttpStatusCode { get; set; }
+
+    public string Url { get; set; }
+
+    public List<AuditLogActionInfo> Actions { get; set; }
+
+    public List<Exception> Exceptions { get; }
+
+    public ExtraPropertyDictionary ExtraProperties { get; }
+
+    public List<EntityChangeInfo> EntityChanges { get; }
+
+    public List<string> Comments { get; set; }
+
+    public AuditLogInfo()
     {
-        public string ApplicationName { get; set; }
+        Actions = new List<AuditLogActionInfo>();
+        Exceptions = new List<Exception>();
+        ExtraProperties = new ExtraPropertyDictionary();
+        EntityChanges = new List<EntityChangeInfo>();
+        Comments = new List<string>();
+    }
 
-        public string UserId { get; set; }
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
 
-        public string UserName { get; set; }
+        sb.AppendLine($"AUDIT LOG: [{HttpStatusCode?.ToString() ?? "---"}: {HttpMethod ?? "-------",-7}] {Url}");
+        sb.AppendLine($"- UserName - UserId                 : {UserName} - {UserId}");
+        sb.AppendLine($"- ClientIpAddress        : {ClientIpAddress}");
+        sb.AppendLine($"- ExecutionDuration      : {ExecutionDuration}");
 
-        public string TenantId { get; set; }
-
-        public string TenantName { get; set; }
-
-        public string ImpersonatorUserId { get; set; }
-
-        public string ImpersonatorTenantId { get; set; }
-
-        public DateTime ExecutionTime { get; set; }
-
-        public int ExecutionDuration { get; set; }
-
-        public string ClientId { get; set; }
-
-        public string CorrelationId { get; set; }
-
-        public string ClientIpAddress { get; set; }
-
-        public string ClientName { get; set; }
-
-        public string BrowserInfo { get; set; }
-
-        public string HttpMethod { get; set; }
-
-        public int? HttpStatusCode { get; set; }
-
-        public string Url { get; set; }
-
-        public List<AuditLogActionInfo> Actions { get; set; }
-
-        public List<Exception> Exceptions { get; }
-
-        public ExtraPropertyDictionary ExtraProperties { get; }
-
-        public List<EntityChangeInfo> EntityChanges { get; }
-
-        public List<string> Comments { get; set; }
-
-        public AuditLogInfo()
+        if (Actions.Any())
         {
-            Actions = new List<AuditLogActionInfo>();
-            Exceptions = new List<Exception>();
-            ExtraProperties = new ExtraPropertyDictionary();
-            EntityChanges = new List<EntityChangeInfo>();
-            Comments = new List<string>();
+            sb.AppendLine("- Actions:");
+            foreach (var action in Actions)
+            {
+                sb.AppendLine($"  - {action.ServiceName}.{action.MethodName} ({action.ExecutionDuration} ms.)");
+                sb.AppendLine($"    {action.Parameters}");
+            }
         }
 
-        public override string ToString()
+        if (Exceptions.Any())
         {
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"AUDIT LOG: [{HttpStatusCode?.ToString() ?? "---"}: {(HttpMethod ?? "-------").PadRight(7)}] {Url}");
-            sb.AppendLine($"- UserName - UserId                 : {UserName} - {UserId}");
-            sb.AppendLine($"- ClientIpAddress        : {ClientIpAddress}");
-            sb.AppendLine($"- ExecutionDuration      : {ExecutionDuration}");
-
-            if (Actions.Any())
+            sb.AppendLine("- Exceptions:");
+            foreach (var exception in Exceptions)
             {
-                sb.AppendLine("- Actions:");
-                foreach (var action in Actions)
-                {
-                    sb.AppendLine($"  - {action.ServiceName}.{action.MethodName} ({action.ExecutionDuration} ms.)");
-                    sb.AppendLine($"    {action.Parameters}");
-                }
+                sb.AppendLine($"  - {exception.Message}");
+                sb.AppendLine($"    {exception}");
             }
-
-            if (Exceptions.Any())
-            {
-                sb.AppendLine("- Exceptions:");
-                foreach (var exception in Exceptions)
-                {
-                    sb.AppendLine($"  - {exception.Message}");
-                    sb.AppendLine($"    {exception}");
-                }
-            }
-
-            if (EntityChanges.Any())
-            {
-                sb.AppendLine("- Entity Changes:");
-                foreach (var entityChange in EntityChanges)
-                {
-                    sb.AppendLine($"  - [{entityChange.ChangeType}] {entityChange.EntityTypeFullName}, Id = {entityChange.EntityId}");
-                    foreach (var propertyChange in entityChange.PropertyChanges)
-                    {
-                        sb.AppendLine($"    {propertyChange.PropertyName}: {propertyChange.OriginalValue} -> {propertyChange.NewValue}");
-                    }
-                }
-            }
-
-            return sb.ToString();
         }
+
+        if (EntityChanges.Any())
+        {
+            sb.AppendLine("- Entity Changes:");
+            foreach (var entityChange in EntityChanges)
+            {
+                sb.AppendLine($"  - [{entityChange.ChangeType}] {entityChange.EntityTypeFullName}, Id = {entityChange.EntityId}");
+                foreach (var propertyChange in entityChange.PropertyChanges)
+                {
+                    sb.AppendLine($"    {propertyChange.PropertyName}: {propertyChange.OriginalValue} -> {propertyChange.NewValue}");
+                }
+            }
+        }
+
+        return sb.ToString();
     }
 }

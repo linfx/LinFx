@@ -1,7 +1,6 @@
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+public interface IAuditSerializer
 {
-    public interface IAuditSerializer
-    {
-        string Serialize(object obj);
-    }
+    string Serialize(object obj);
 }

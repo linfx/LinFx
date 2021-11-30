@@ -1,12 +1,14 @@
 ﻿using JetBrains.Annotations;
 
-namespace LinFx.Extensions.Auditing
-{
-    public interface IAuditingManager
-    {
-        [CanBeNull]
-        IAuditLogScope Current { get; }
+namespace LinFx.Extensions.Auditing;
 
-        IAuditLogSaveHandle BeginScope();
-    }
+/// <summary>
+/// 审计日志管理器
+/// </summary>
+public interface IAuditingManager
+{
+    [CanBeNull]
+    IAuditLogScope Current { get; }
+
+    IAuditLogSaveHandle BeginScope();
 }

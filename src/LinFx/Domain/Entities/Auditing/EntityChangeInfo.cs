@@ -41,22 +41,16 @@ namespace LinFx.Domain.Entities.Auditing
             {
                 var existingChange = PropertyChanges.FirstOrDefault(p => p.PropertyName == propertyChange.PropertyName);
                 if (existingChange == null)
-                {
                     PropertyChanges.Add(propertyChange);
-                }
                 else
-                {
                     existingChange.NewValue = propertyChange.NewValue;
-                }
             }
 
             foreach (var extraProperty in changeInfo.ExtraProperties)
             {
                 var key = extraProperty.Key;
                 if (ExtraProperties.ContainsKey(key))
-                {
                     key = InternalUtils.AddCounter(key);
-                }
 
                 ExtraProperties[key] = extraProperty.Value;
             }

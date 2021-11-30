@@ -7,6 +7,9 @@ namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore
     [ConnectionStringName(AuditLoggingDbProperties.ConnectionStringName)]
     public class AuditLoggingDbContext : EfCoreDbContext, IAuditLoggingDbContext
     {
+        /// <summary>
+        /// 审计日志
+        /// </summary>
         public DbSet<AuditLog> AuditLogs { get; set; }
 
         public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext> options)

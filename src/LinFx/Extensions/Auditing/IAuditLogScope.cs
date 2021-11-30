@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+public interface IAuditLogScope
 {
-    public interface IAuditLogScope
-    {
-        [NotNull]
-        AuditLogInfo Log { get; }
-    }
+    [NotNull]
+    AuditLogInfo Log { get; }
 }

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.AuditLogging
 {
+    /// <summary>
+    /// 审计日志
+    /// </summary>
     [DisableAuditing]
     public class AuditLog : AggregateRoot<string>, IMultiTenant
     {
