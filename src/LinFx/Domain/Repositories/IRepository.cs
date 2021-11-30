@@ -12,7 +12,8 @@ namespace LinFx.Domain.Repositories
     /// </summary>
     public interface IRepository { }
 
-    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity>, IBasicRepository<TEntity> where TEntity : class, IEntity
+    public interface IRepository<TEntity> : IReadOnlyRepository<TEntity>, IBasicRepository<TEntity> 
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Get a single entity by the given <paramref name="predicate"/>.

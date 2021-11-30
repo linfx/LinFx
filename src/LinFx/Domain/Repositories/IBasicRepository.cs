@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity> where TEntity : class, IEntity
+    public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity> 
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Inserts a new entity.

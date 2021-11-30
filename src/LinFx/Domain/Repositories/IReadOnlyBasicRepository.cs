@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public interface IReadOnlyBasicRepository<TEntity> : IRepository where TEntity : class, IEntity
+    public interface IReadOnlyBasicRepository<TEntity> : IRepository 
+        where TEntity : class, IEntity
     {
         /// <summary>
         /// Gets a list of all the entities.
@@ -28,7 +29,8 @@ namespace LinFx.Domain.Repositories
             CancellationToken cancellationToken = default);
     }
 
-    public interface IReadOnlyBasicRepository<TEntity, TKey> : IReadOnlyBasicRepository<TEntity> where TEntity : class, IEntity<TKey>
+    public interface IReadOnlyBasicRepository<TEntity, TKey> : IReadOnlyBasicRepository<TEntity> 
+        where TEntity : class, IEntity<TKey>
     {
         /// <summary>
         /// Gets an entity with given primary key.

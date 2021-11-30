@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public interface IReadOnlyRepository<TEntity> : IQueryable<TEntity>, IReadOnlyBasicRepository<TEntity>
+    public interface IReadOnlyRepository<TEntity> : IReadOnlyBasicRepository<TEntity>
         where TEntity : class, IEntity
     {
         IAsyncQueryableExecuter AsyncExecuter { get; }

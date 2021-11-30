@@ -2,8 +2,8 @@
 using LinFx.Data;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.Uow;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IRepository<TEntity> where TEntity : class, IEntity
+    public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IRepository<TEntity>, IUnitOfWorkManagerAccessor
+        where TEntity : class, IEntity
     {
         protected RepositoryBase(IServiceProvider serviceProvider)
             : base(serviceProvider)
@@ -62,30 +63,12 @@ namespace LinFx.Domain.Repositories
 
             return query;
         }
-
-        [Obsolete("This method will be removed in future versions.")]
-        public virtual Type ElementType => GetQueryable().ElementType;
-
-        [Obsolete("This method will be removed in future versions.")]
-        public virtual Expression Expression => GetQueryable().Expression;
-
-        [Obsolete("This method will be removed in future versions.")]
-        public virtual IQueryProvider Provider => GetQueryable().Provider;
-
-        [Obsolete("This method will be removed in future versions.")]
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        [Obsolete("This method will be removed in future versions.")]
-        public IEnumerator<TEntity> GetEnumerator() => GetQueryable().GetEnumerator();
-
-        [Obsolete("Use GetQueryableAsync method.")]
-        protected abstract IQueryable<TEntity> GetQueryable();
     }
 
     public abstract class RepositoryBase<TEntity, TKey> : RepositoryBase<TEntity>, IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
-        protected RepositoryBase(IServiceProvider serviceProvider) 
+        protected RepositoryBase(IServiceProvider serviceProvider)
             : base(serviceProvider)
         {
         }

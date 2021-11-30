@@ -34,6 +34,9 @@ namespace LinFx.Application.Services
 
         public List<string> AppliedCrossCuttingConcerns { get; } = new List<string>();
 
+        /// <summary>
+        /// 工作单元管理器
+        /// </summary>
         protected IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
         protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
@@ -45,12 +48,24 @@ namespace LinFx.Application.Services
 
         protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
+        /// <summary>
+        /// 日志厂工
+        /// </summary>
         protected ILoggerFactory LoggerFactory => LazyServiceProvider.LazyGetRequiredService<ILoggerFactory>();
 
+        /// <summary>
+        /// 当前租户
+        /// </summary>
         protected ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
+        /// <summary>
+        /// 数据过滤
+        /// </summary>
         protected IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
 
+        /// <summary>
+        /// 当前用户
+        /// </summary>
         protected ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
 
         protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
