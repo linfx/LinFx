@@ -6,6 +6,9 @@ using System;
 
 namespace LinFx.Extensions.AuditLogging
 {
+    /// <summary>
+    /// 审计日志动作
+    /// </summary>
     [DisableAuditing]
     public class AuditLogAction : Entity<string>, IMultiTenant, IHasExtraProperties
     {

@@ -1,7 +1,5 @@
 using JetBrains.Annotations;
-using LinFx.Data;
 using LinFx.Domain.Entities;
-using LinFx.Domain.Entities.Auditing;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;

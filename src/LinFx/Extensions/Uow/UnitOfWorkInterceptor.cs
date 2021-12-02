@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow
 {
+    /// <summary>
+    /// 工作单元拦截器
+    /// </summary>
     public class UnitOfWorkInterceptor : Interceptor
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;

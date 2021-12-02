@@ -1,6 +1,5 @@
-﻿namespace LinFx.Application.Services
+﻿namespace LinFx.Application.Services;
+
+public interface IRemoteService
 {
-    public interface IRemoteService
-    {
-    }
 }

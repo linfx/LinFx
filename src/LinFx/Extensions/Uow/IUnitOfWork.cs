@@ -11,6 +11,9 @@ namespace LinFx.Extensions.Uow
     /// </summary>
     public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, IDisposable
     {
+        /// <summary>
+        /// 唯一标识信息
+        /// </summary>
         Guid Id { get; }
 
         Dictionary<string, object> Items { get; }
@@ -20,6 +23,9 @@ namespace LinFx.Extensions.Uow
 
         event EventHandler<UnitOfWorkEventArgs> Disposed;
 
+        /// <summary>
+        /// 配置信息
+        /// </summary>
         IUnitOfWorkOptions Options { get; }
 
         IUnitOfWork Outer { get; }
@@ -40,6 +46,11 @@ namespace LinFx.Extensions.Uow
 
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 提交工作单元
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task CompleteAsync(CancellationToken cancellationToken = default);
 
         Task RollbackAsync(CancellationToken cancellationToken = default);

@@ -1,15 +1,14 @@
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Entities;
+
+public class DomainEventRecord
 {
-    public class DomainEventRecord
+    public object EventData { get; }
+
+    public long EventOrder { get; }
+
+    public DomainEventRecord(object eventData, long eventOrder)
     {
-        public object EventData { get; }
-
-        public long EventOrder { get; }
-
-        public DomainEventRecord(object eventData, long eventOrder)
-        {
-            EventData = eventData;
-            EventOrder = eventOrder;
-        }
+        EventData = eventData;
+        EventOrder = eventOrder;
     }
 }

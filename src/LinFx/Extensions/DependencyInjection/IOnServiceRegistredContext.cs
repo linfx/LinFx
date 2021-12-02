@@ -1,8 +1,12 @@
 ﻿using LinFx.Collections;
+using LinFx.Extensions.DynamicProxy;
 using System;
 
 namespace LinFx.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// 拦截器注册上下文
+    /// </summary>
     public interface IOnServiceRegistredContext
     {
         /// <summary>

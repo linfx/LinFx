@@ -1,5 +1,5 @@
-﻿using LinFx.Domain.Entities.Auditing;
-using LinFx.Domain.Repositories;
+﻿using LinFx.Domain.Repositories;
+using LinFx.Extensions.Auditing;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging
 {
+    /// <summary>
+    /// 审记日志仓储
+    /// </summary>
     public interface IAuditLogRepository : IRepository<AuditLog, string>
     {
         Task<List<AuditLog>> GetListAsync(

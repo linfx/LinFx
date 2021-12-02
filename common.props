@@ -1,7 +1,8 @@
 <Project>
   <PropertyGroup>
-    <Version>5.1.0</Version>
+    <Version>5.1.1</Version>
     <NoWarn>1701;1702;1591</NoWarn>
+	<LangVersion>10.0</LangVersion>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>LinFx</Company>

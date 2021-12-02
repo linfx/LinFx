@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using LinFx.Extensions.Modularity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace LinFx.Extensions.Modules
 {
+    /// <summary>
+    /// 模块
+    /// </summary>
     public class Module : IModuleInitializer
     {
         public virtual void ConfigureServices(IServiceCollection services)

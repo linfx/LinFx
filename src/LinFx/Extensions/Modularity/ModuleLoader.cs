@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.Modules
+namespace LinFx.Extensions.Modularity
 {
     public class ModuleLoader
     {

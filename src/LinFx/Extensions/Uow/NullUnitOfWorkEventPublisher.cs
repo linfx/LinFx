@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     public class NullUnitOfWorkEventPublisher : IUnitOfWorkEventPublisher
     {
         public Task PublishLocalEventsAsync(IEnumerable<UnitOfWorkEventRecord> localEvents)

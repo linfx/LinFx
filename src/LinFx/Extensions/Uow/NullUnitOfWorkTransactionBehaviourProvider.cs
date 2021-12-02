@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.Uow
 {
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     public class NullUnitOfWorkTransactionBehaviourProvider : IUnitOfWorkTransactionBehaviourProvider
     {
         public bool? IsTransactional => null;

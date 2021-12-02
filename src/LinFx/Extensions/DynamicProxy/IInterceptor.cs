@@ -1,16 +1,16 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.DependencyInjection
+namespace LinFx.Extensions.DynamicProxy
 {
     /// <summary>
-    /// 拦截器
+    /// 拦截器接口
     /// </summary>
     public interface IInterceptor
     {
         /// <summary>
         /// 拦截
         /// </summary>
-        /// <param name="invocation"></param>
+        /// <param name="invocation">调用方法</param>
         /// <returns></returns>
         Task InterceptAsync(IMethodInvocation invocation);
     }

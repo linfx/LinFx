@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging
 {
+    /// <summary>
+    /// 审计日志储存
+    /// </summary>
     [Service]
     public class AuditingStore : IAuditingStore
     {
@@ -16,6 +19,7 @@ namespace LinFx.Extensions.AuditLogging
         protected IUnitOfWorkManager UnitOfWorkManager { get; }
         protected AuditingOptions Options { get; }
         protected IAuditLogInfoToAuditLogConverter Converter { get; }
+
         public AuditingStore(
             IAuditLogRepository auditLogRepository,
             IUnitOfWorkManager unitOfWorkManager,

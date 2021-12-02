@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace LinFx.Extensions.Modules
+namespace LinFx.Extensions.Modularity
 {
     /// <summary>
     /// 模块信息

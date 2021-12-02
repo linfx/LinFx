@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Modules
+﻿namespace LinFx.Extensions.Modularity
 {
     public class ModuleOptions
     {

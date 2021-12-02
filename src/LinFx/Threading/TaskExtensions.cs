@@ -1,52 +1,46 @@
-﻿namespace System.Threading.Tasks
+﻿namespace System.Threading.Tasks;
+
+public static class TaskExtensions
 {
-    public static class TaskExtensions
+    public static async Task TimeoutAfterAsync(Func<CancellationToken, Task> action, TimeSpan timeout, CancellationToken cancellationToken)
     {
-        public static async Task TimeoutAfterAsync(Func<CancellationToken, Task> action, TimeSpan timeout, CancellationToken cancellationToken)
-        {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+        if (action == null) 
+            throw new ArgumentNullException(nameof(action));
 
-            using (var timeoutCts = new CancellationTokenSource(timeout))
-            using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken))
-            {
-                try
-                {
-                    await action(linkedCts.Token).ConfigureAwait(false);
-                }
-                catch (OperationCanceledException exception)
-                {
-                    var timeoutReached = timeoutCts.IsCancellationRequested && !cancellationToken.IsCancellationRequested;
-                    if (timeoutReached)
-                    {
-                        throw new TimeoutException("Timeout", exception);
-                    }
-                    throw;
-                }
-            }
+        using var timeoutCts = new CancellationTokenSource(timeout);
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken);
+        try
+        {
+            await action(linkedCts.Token).ConfigureAwait(false);
         }
-
-        public static async Task<TResult> TimeoutAfterAsync<TResult>(Func<CancellationToken, Task<TResult>> action, TimeSpan timeout, CancellationToken cancellationToken)
+        catch (OperationCanceledException exception)
         {
-            if (action == null) throw new ArgumentNullException(nameof(action));
+            var timeoutReached = timeoutCts.IsCancellationRequested && !cancellationToken.IsCancellationRequested;
+            if (timeoutReached)
+                throw new TimeoutException("Timeout", exception);
 
-            using (var timeoutCts = new CancellationTokenSource(timeout))
-            using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken))
-            {
-                try
-                {
-                    return await action(linkedCts.Token).ConfigureAwait(false);
-                }
-                catch (OperationCanceledException exception)
-                {
-                    var timeoutReached = timeoutCts.IsCancellationRequested && !cancellationToken.IsCancellationRequested;
-                    if (timeoutReached)
-                    {
-                        throw new TimeoutException("Timeout", exception);
-                    }
+            throw;
+        }
+    }
 
-                    throw;
-                }
-            }
+    public static async Task<TResult> TimeoutAfterAsync<TResult>(Func<CancellationToken, Task<TResult>> action, TimeSpan timeout, CancellationToken cancellationToken)
+    {
+        if (action == null) 
+            throw new ArgumentNullException(nameof(action));
+
+        using var timeoutCts = new CancellationTokenSource(timeout);
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(timeoutCts.Token, cancellationToken);
+        try
+        {
+            return await action(linkedCts.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException exception)
+        {
+            var timeoutReached = timeoutCts.IsCancellationRequested && !cancellationToken.IsCancellationRequested;
+            if (timeoutReached)
+                throw new TimeoutException("Timeout", exception);
+
+            throw;
         }
     }
 }

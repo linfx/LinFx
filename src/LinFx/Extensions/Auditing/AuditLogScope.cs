@@ -1,14 +1,13 @@
 ﻿using LinFx.Extensions.Auditing;
 
-namespace LinFx.Domain.Entities.Auditing
-{
-    public class AuditLogScope : IAuditLogScope
-    {
-        public AuditLogInfo Log { get; }
+namespace LinFx.Domain.Entities.Auditing;
 
-        public AuditLogScope(AuditLogInfo log)
-        {
-            Log = log;
-        }
+public class AuditLogScope : IAuditLogScope
+{
+    public AuditLogInfo Log { get; }
+
+    public AuditLogScope(AuditLogInfo log)
+    {
+        Log = log;
     }
 }

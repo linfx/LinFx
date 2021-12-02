@@ -1,26 +1,25 @@
 ﻿using System;
 
-namespace LinFx.Data
+namespace LinFx.Data;
+
+public interface IDataFilter
 {
-    public interface IDataFilter<TFilter>
-        where TFilter : class
-    {
-        IDisposable Enable();
+    IDisposable Enable<TFilter>()
+        where TFilter : class;
 
-        IDisposable Disable();
+    IDisposable Disable<TFilter>()
+        where TFilter : class;
 
-        bool IsEnabled { get; }
-    }
+    bool IsEnabled<TFilter>()
+        where TFilter : class;
+}
 
-    public interface IDataFilter
-    {
-        IDisposable Enable<TFilter>()
-            where TFilter : class;
+public interface IDataFilter<TFilter>
+    where TFilter : class
+{
+    IDisposable Enable();
 
-        IDisposable Disable<TFilter>()
-            where TFilter : class;
+    IDisposable Disable();
 
-        bool IsEnabled<TFilter>()
-            where TFilter : class;
-    }
+    bool IsEnabled { get; }
 }

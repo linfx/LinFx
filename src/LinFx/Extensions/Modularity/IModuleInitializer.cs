@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace LinFx.Extensions.Modules
+namespace LinFx.Extensions.Modularity
 {
     /// <summary>
     /// 模块初始化

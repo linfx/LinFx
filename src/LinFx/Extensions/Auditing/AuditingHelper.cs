@@ -11,210 +11,230 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+[Service]
+public class AuditingHelper : IAuditingHelper
 {
-    [Service]
-    public class AuditingHelper : IAuditingHelper
+    protected ILogger<AuditingHelper> Logger { get; }
+    protected IAuditingStore AuditingStore { get; }
+
+    /// <summary>
+    /// 当前用户
+    /// </summary>
+    protected ICurrentUser CurrentUser { get; }
+
+    /// <summary>
+    /// 当前租户
+    /// </summary>
+    protected ICurrentTenant CurrentTenant { get; }
+
+    /// <summary>
+    /// 当前客户端
+    /// </summary>
+    protected ICurrentClient CurrentClient { get; }
+
+    protected IClock Clock { get; }
+    protected AuditingOptions Options;
+    protected IServiceProvider ServiceProvider;
+    //protected ICorrelationIdProvider CorrelationIdProvider { get; }
+
+    public AuditingHelper(
+        IOptions<AuditingOptions> options,
+        ICurrentUser currentUser,
+        ICurrentTenant currentTenant,
+        //ICurrentClient currentClient,
+        IClock clock,
+        //IAuditingStore auditingStore,
+        ILogger<AuditingHelper> logger,
+        IServiceProvider serviceProvider
+        //ICorrelationIdProvider correlationIdProvider
+        )
     {
-        protected ILogger<AuditingHelper> Logger { get; }
-        protected IAuditingStore AuditingStore { get; }
-        protected ICurrentUser CurrentUser { get; }
-        protected ICurrentTenant CurrentTenant { get; }
-        protected ICurrentClient CurrentClient { get; }
-        protected IClock Clock { get; }
-        protected AuditingOptions Options;
-        protected IServiceProvider ServiceProvider;
-        //protected ICorrelationIdProvider CorrelationIdProvider { get; }
+        Options = options.Value;
+        CurrentUser = currentUser;
+        CurrentTenant = currentTenant;
+        //CurrentClient = currentClient;
+        Clock = clock;
+        //AuditingStore = auditingStore;
 
-        public AuditingHelper(
-            IOptions<AuditingOptions> options,
-            ICurrentUser currentUser,
-            ICurrentTenant currentTenant,
-            //ICurrentClient currentClient,
-            IClock clock,
-            //IAuditingStore auditingStore,
-            ILogger<AuditingHelper> logger,
-            IServiceProvider serviceProvider
-            //ICorrelationIdProvider correlationIdProvider
-            )
+        Logger = logger;
+        ServiceProvider = serviceProvider;
+        //CorrelationIdProvider = correlationIdProvider;
+    }
+
+    /// <summary>
+    /// 是否保存
+    /// </summary>
+    /// <param name="methodInfo"></param>
+    /// <param name="defaultValue"></param>
+    /// <returns></returns>
+    public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
+    {
+        if (methodInfo == null)
+            return false;
+
+        if (!methodInfo.IsPublic)
+            return false;
+
+        if (methodInfo.IsDefined(typeof(AuditedAttribute), true))
+            return true;
+
+        if (methodInfo.IsDefined(typeof(DisableAuditingAttribute), true))
+            return false;
+
+        var classType = methodInfo.DeclaringType;
+        if (classType != null)
         {
-            Options = options.Value;
-            CurrentUser = currentUser;
-            CurrentTenant = currentTenant;
-            //CurrentClient = currentClient;
-            Clock = clock;
-            //AuditingStore = auditingStore;
-
-            Logger = logger;
-            ServiceProvider = serviceProvider;
-            //CorrelationIdProvider = correlationIdProvider;
+            var shouldAudit = AuditingInterceptorRegistrar.ShouldAuditTypeByDefaultOrNull(classType);
+            if (shouldAudit != null)
+                return shouldAudit.Value;
         }
 
-        public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
+        return defaultValue;
+    }
+
+    public virtual bool IsEntityHistoryEnabled(Type entityType, bool defaultValue = false)
+    {
+        if (!entityType.IsPublic)
+            return false;
+
+        if (Options.IgnoredTypes.Any(t => t.IsAssignableFrom(entityType)))
+            return false;
+
+        if (entityType.IsDefined(typeof(AuditedAttribute), true))
+            return true;
+
+        foreach (var propertyInfo in entityType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
         {
-            if (methodInfo == null)
-                return false;
-
-            if (!methodInfo.IsPublic)
-                return false;
-
-            if (methodInfo.IsDefined(typeof(AuditedAttribute), true))
+            if (propertyInfo.IsDefined(typeof(AuditedAttribute)))
                 return true;
-
-            if (methodInfo.IsDefined(typeof(DisableAuditingAttribute), true))
-                return false;
-
-            var classType = methodInfo.DeclaringType;
-            if (classType != null)
-            {
-                var shouldAudit = AuditingInterceptorRegistrar.ShouldAuditTypeByDefaultOrNull(classType);
-                if (shouldAudit != null)
-                    return shouldAudit.Value;
-            }
-
-            return defaultValue;
         }
 
-        public virtual bool IsEntityHistoryEnabled(Type entityType, bool defaultValue = false)
+        if (entityType.IsDefined(typeof(DisableAuditingAttribute), true))
+            return false;
+
+        if (Options.EntityHistorySelectors.Any(selector => selector.Predicate(entityType)))
+            return true;
+
+        return defaultValue;
+    }
+
+    /// <summary>
+    /// 创建审计信息
+    /// </summary>
+    /// <returns></returns>
+    public virtual AuditLogInfo CreateAuditLogInfo()
+    {
+        var auditInfo = new AuditLogInfo
         {
-            if (!entityType.IsPublic)
-                return false;
+            ApplicationName = Options.ApplicationName,
+            TenantId = CurrentTenant.Id,
+            TenantName = CurrentTenant.Name,
+            UserId = CurrentUser.Id,
+            UserName = CurrentUser.UserName,
+            ClientId = CurrentClient.Id,
+            //CorrelationId = CorrelationIdProvider.Get(),
+            //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
+            //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
+            ExecutionTime = Clock.Now
+        };
 
-            if (Options.IgnoredTypes.Any(t => t.IsAssignableFrom(entityType)))
-                return false;
+        ExecutePreContributors(auditInfo);
 
-            if (entityType.IsDefined(typeof(AuditedAttribute), true))
-                return true;
+        return auditInfo;
+    }
 
-            foreach (var propertyInfo in entityType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
-            {
-                if (propertyInfo.IsDefined(typeof(AuditedAttribute)))
-                    return true;
-            }
+    public virtual AuditLogActionInfo CreateAuditLogAction(
+        AuditLogInfo auditLog,
+        Type type,
+        MethodInfo method,
+        object[] arguments)
+    {
+        return CreateAuditLogAction(auditLog, type, method, CreateArgumentsDictionary(method, arguments));
+    }
 
-            if (entityType.IsDefined(typeof(DisableAuditingAttribute), true))
-                return false;
-
-            if (Options.EntityHistorySelectors.Any(selector => selector.Predicate(entityType)))
-                return true;
-
-            return defaultValue;
-        }
-
-        public virtual AuditLogInfo CreateAuditLogInfo()
+    public virtual AuditLogActionInfo CreateAuditLogAction(
+        AuditLogInfo auditLog,
+        Type type,
+        MethodInfo method,
+        IDictionary<string, object> arguments)
+    {
+        var actionInfo = new AuditLogActionInfo
         {
-            var auditInfo = new AuditLogInfo
-            {
-                ApplicationName = Options.ApplicationName,
-                TenantId = CurrentTenant.Id,
-                TenantName = CurrentTenant.Name,
-                UserId = CurrentUser.Id,
-                UserName = CurrentUser.UserName,
-                ClientId = CurrentClient.Id,
-                //CorrelationId = CorrelationIdProvider.Get(),
-                //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
-                //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
-                ExecutionTime = Clock.Now
-            };
+            ServiceName = type != null
+                ? type.FullName
+                : "",
+            MethodName = method.Name,
+            Parameters = SerializeConvertArguments(arguments),
+            ExecutionTime = Clock.Now
+        };
 
-            ExecutePreContributors(auditInfo);
+        //TODO Execute contributors
 
-            return auditInfo;
-        }
+        return actionInfo;
+    }
 
-        public virtual AuditLogActionInfo CreateAuditLogAction(
-            AuditLogInfo auditLog,
-            Type type,
-            MethodInfo method,
-            object[] arguments)
-        {
-            return CreateAuditLogAction(auditLog, type, method, CreateArgumentsDictionary(method, arguments));
-        }
+    protected virtual void ExecutePreContributors(AuditLogInfo auditLogInfo)
+    {
+        using var scope = ServiceProvider.CreateScope();
+        var context = new AuditLogContributionContext(scope.ServiceProvider, auditLogInfo);
 
-        public virtual AuditLogActionInfo CreateAuditLogAction(
-            AuditLogInfo auditLog,
-            Type type,
-            MethodInfo method,
-            IDictionary<string, object> arguments)
-        {
-            var actionInfo = new AuditLogActionInfo
-            {
-                ServiceName = type != null
-                    ? type.FullName
-                    : "",
-                MethodName = method.Name,
-                Parameters = SerializeConvertArguments(arguments),
-                ExecutionTime = Clock.Now
-            };
-
-            //TODO Execute contributors
-
-            return actionInfo;
-        }
-
-        protected virtual void ExecutePreContributors(AuditLogInfo auditLogInfo)
-        {
-            using (var scope = ServiceProvider.CreateScope())
-            {
-                var context = new AuditLogContributionContext(scope.ServiceProvider, auditLogInfo);
-
-                foreach (var contributor in Options.Contributors)
-                {
-                    try
-                    {
-                        contributor.PreContribute(context);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.LogException(ex, LogLevel.Warning);
-                    }
-                }
-            }
-        }
-
-        protected virtual string SerializeConvertArguments(IDictionary<string, object> arguments)
+        foreach (var contributor in Options.Contributors)
         {
             try
             {
-                if (arguments.IsNullOrEmpty())
-                {
-                    return "{}";
-                }
-
-                var dictionary = new Dictionary<string, object>();
-
-                foreach (var argument in arguments)
-                {
-                    if (argument.Value != null && Options.IgnoredTypes.Any(t => t.IsInstanceOfType(argument.Value)))
-                    {
-                        dictionary[argument.Key] = null;
-                    }
-                    else
-                    {
-                        dictionary[argument.Key] = argument.Value;
-                    }
-                }
-
-                return JsonSerializer.Serialize(dictionary);
+                contributor.PreContribute(context);
             }
             catch (Exception ex)
             {
                 Logger.LogException(ex, LogLevel.Warning);
+            }
+        }
+    }
+
+    protected virtual string SerializeConvertArguments(IDictionary<string, object> arguments)
+    {
+        try
+        {
+            if (arguments.IsNullOrEmpty())
+            {
                 return "{}";
             }
-        }
 
-        protected virtual Dictionary<string, object> CreateArgumentsDictionary(MethodInfo method, object[] arguments)
-        {
-            var parameters = method.GetParameters();
             var dictionary = new Dictionary<string, object>();
 
-            for (var i = 0; i < parameters.Length; i++)
+            foreach (var argument in arguments)
             {
-                dictionary[parameters[i].Name] = arguments[i];
+                if (argument.Value != null && Options.IgnoredTypes.Any(t => t.IsInstanceOfType(argument.Value)))
+                {
+                    dictionary[argument.Key] = null;
+                }
+                else
+                {
+                    dictionary[argument.Key] = argument.Value;
+                }
             }
 
-            return dictionary;
+            return JsonSerializer.Serialize(dictionary);
         }
+        catch (Exception ex)
+        {
+            Logger.LogException(ex, LogLevel.Warning);
+            return "{}";
+        }
+    }
+
+    protected virtual Dictionary<string, object> CreateArgumentsDictionary(MethodInfo method, object[] arguments)
+    {
+        var parameters = method.GetParameters();
+        var dictionary = new Dictionary<string, object>();
+
+        for (var i = 0; i < parameters.Length; i++)
+        {
+            dictionary[parameters[i].Name] = arguments[i];
+        }
+
+        return dictionary;
     }
 }

@@ -1,15 +1,14 @@
 using System;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+/// <summary>
+/// A standard interface to add CreationTime property.
+/// </summary>
+public interface IHasCreationTime
 {
     /// <summary>
-    /// A standard interface to add CreationTime property.
+    /// Creation time.
     /// </summary>
-    public interface IHasCreationTime
-    {
-        /// <summary>
-        /// Creation time.
-        /// </summary>
-        DateTimeOffset CreationTime { get; set; }
-    }
+    DateTimeOffset CreationTime { get; set; }
 }

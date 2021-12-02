@@ -7,6 +7,9 @@ namespace LinFx.Extensions.Uow
     /// </summary>
     public interface IUnitOfWorkManager
     {
+        /// <summary>
+        /// 当前工作单元
+        /// </summary>
         [CanBeNull]
         IUnitOfWork Current { get; }
 

@@ -1,6 +1,5 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
-using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using LinFx.Extensions.Guids;
 using LinFx.Utils;
@@ -40,13 +39,13 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories
         protected virtual Task<TDbContext> GetDbContextAsync()
         {
             // Multi-tenancy unaware entities should always use the host connection string
-            //if (!EntityHelper.IsMultiTenant<TEntity>())
-            //{
-            //    using (CurrentTenant.Change(null))
-            //    {
-            //        return _dbContextProvider.GetDbContextAsync();
-            //    }
-            //}
+            if (!EntityHelper.IsMultiTenant<TEntity>())
+            {
+                using (CurrentTenant.Change(null))
+                {
+                    return _dbContextProvider.GetDbContextAsync();
+                }
+            }
 
             return _dbContextProvider.GetDbContextAsync();
         }
@@ -123,7 +122,6 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories
             {
                 await dbContext.SaveChangesAsync(GetCancellationToken(cancellationToken));
             }
-
             return updatedEntity;
         }
 
@@ -331,12 +329,6 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories
                 return;
 
             EntityHelper.TrySetId(entity, IDUtils.NewIdString(), true);
-        }
-
-        [Obsolete("Use GetQueryableAsync method.")]
-        protected override IQueryable<TEntity> GetQueryable()
-        {
-            return GetDbContextAsync().Result.Set<TEntity>().AsQueryable();
         }
     }
 

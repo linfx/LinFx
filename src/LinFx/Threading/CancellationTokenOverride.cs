@@ -1,14 +1,13 @@
 ﻿using System.Threading;
 
-namespace LinFx.Threading
-{
-    public class CancellationTokenOverride
-    {
-        public CancellationToken CancellationToken { get; }
+namespace LinFx.Threading;
 
-        public CancellationTokenOverride(CancellationToken cancellationToken)
-        {
-            CancellationToken = cancellationToken;
-        }
+public class CancellationTokenOverride
+{
+    public CancellationToken CancellationToken { get; }
+
+    public CancellationTokenOverride(CancellationToken cancellationToken)
+    {
+        CancellationToken = cancellationToken;
     }
 }

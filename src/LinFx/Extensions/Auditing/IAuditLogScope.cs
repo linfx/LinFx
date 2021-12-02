@@ -1,10 +1,15 @@
 ﻿using JetBrains.Annotations;
 
-namespace LinFx.Extensions.Auditing
+namespace LinFx.Extensions.Auditing;
+
+/// <summary>
+/// 审计日志范围
+/// </summary>
+public interface IAuditLogScope
 {
-    public interface IAuditLogScope
-    {
-        [NotNull]
-        AuditLogInfo Log { get; }
-    }
+    /// <summary>
+    /// 日志信息
+    /// </summary>
+    [NotNull]
+    AuditLogInfo Log { get; }
 }

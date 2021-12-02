@@ -1,46 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities
+namespace LinFx.Domain.Entities;
+
+/// <summary>
+/// 实体
+/// </summary>
+[Serializable]
+public abstract class Entity : IEntity
 {
     /// <inheritdoc/>
-    [Serializable]
-    public abstract class Entity : IEntity
+    public override string ToString()
     {
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return $"[ENTITY: {GetType().Name}] Keys = {GetKeys().JoinAsString(", ")}";
-        }
-
-        public abstract object[] GetKeys();
+        return $"[ENTITY: {GetType().Name}] Keys = {GetKeys().JoinAsString(", ")}";
     }
 
-    /// <inheritdoc cref="IEntity{TKey}" />
-    [Serializable]
-    public abstract class Entity<TKey> : Entity, IEntity<TKey>
+    public abstract object[] GetKeys();
+}
+
+/// <summary>
+/// 实体
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
+[Serializable]
+public abstract class Entity<TKey> : Entity, IEntity<TKey>
+{
+    /// <inheritdoc/>
+    public virtual TKey Id { get; set; }
+
+    protected Entity() { }
+
+    protected Entity(TKey id)
     {
-        /// <inheritdoc/>
-        public virtual TKey Id { get; set; }
+        Id = id;
+    }
 
-        protected Entity()
-        {
-        }
+    public override object[] GetKeys()
+    {
+        return new object[] { Id };
+    }
 
-        protected Entity(TKey id)
-        {
-            Id = id;
-        }
-
-        public override object[] GetKeys()
-        {
-            return new object[] { Id };
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return $"[ENTITY: {GetType().Name}] Id = {Id}";
-        }
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"[ENTITY: {GetType().Name}] Id = {Id}";
     }
 }

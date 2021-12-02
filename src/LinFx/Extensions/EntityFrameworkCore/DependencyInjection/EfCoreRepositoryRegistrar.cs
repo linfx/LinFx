@@ -1,4 +1,4 @@
-using Domain.Repositories;
+using LinFx.Domain.Repositories;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.Repositories;
 using System;

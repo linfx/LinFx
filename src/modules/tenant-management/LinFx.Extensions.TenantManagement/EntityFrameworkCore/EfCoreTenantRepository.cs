@@ -45,7 +45,7 @@ namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
 
         public virtual async Task<long> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
         {
-            return await this.WhereIf(!filter.IsNullOrWhiteSpace(), u => u.Name.Contains(filter)).CountAsync(cancellationToken: cancellationToken);
+            return await (await GetDbSetAsync()).WhereIf(!filter.IsNullOrWhiteSpace(), u => u.Name.Contains(filter)).CountAsync(cancellationToken: cancellationToken);
         }
     }
 }

@@ -1,39 +1,38 @@
 ﻿using System.Security.Claims;
 
-namespace LinFx.Security.Users
+namespace LinFx.Security.Users;
+
+/// <summary>
+/// 当前用户
+/// </summary>
+public interface ICurrentUser
 {
     /// <summary>
-    /// 当前用户
+    /// 是否认证
     /// </summary>
-    public interface ICurrentUser
-    {
-        /// <summary>
-        /// 是否认证
-        /// </summary>
-        bool IsAuthenticated { get; }
+    bool IsAuthenticated { get; }
 
-        string Id { get; }
+    string Id { get; }
 
-        string UserName { get; }
+    string UserName { get; }
 
-        string PhoneNumber { get; }
+    string PhoneNumber { get; }
 
-        bool PhoneNumberVerified { get; }
+    bool PhoneNumberVerified { get; }
 
-        string Email { get; }
+    string Email { get; }
 
-        bool EmailVerified { get; }
+    bool EmailVerified { get; }
 
-        string TenantId { get; }
+    string TenantId { get; }
 
-        string[] Roles { get; }
+    string[] Roles { get; }
 
-        Claim FindClaim(string claimType);
+    Claim FindClaim(string claimType);
 
-        Claim[] FindClaims(string claimType);
+    Claim[] FindClaims(string claimType);
 
-        Claim[] GetAllClaims();
+    Claim[] GetAllClaims();
 
-        bool IsInRole(string roleName);
-    }
+    bool IsInRole(string roleName);
 }

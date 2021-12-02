@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DynamicProxy;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization

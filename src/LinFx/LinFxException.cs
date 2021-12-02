@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace LinFx
+namespace LinFx;
+
+public class LinFxException : Exception
 {
-    public class LinFxException : Exception
-    {
-        public LinFxException() { }
+    public LinFxException() { }
 
-        public LinFxException(string message) : base(message) { }
+    public LinFxException(string message) : base(message) { }
 
-        public LinFxException(string message, Exception innerException) : base(message, innerException) { }
-    }
+    public LinFxException(string message, Exception innerException) : base(message, innerException) { }
 }

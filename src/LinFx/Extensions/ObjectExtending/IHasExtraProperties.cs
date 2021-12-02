@@ -1,7 +1,9 @@
-﻿namespace LinFx.Extensions.ObjectExtending
+﻿namespace LinFx.Extensions.ObjectExtending;
+
+public interface IHasExtraProperties
 {
-    public interface IHasExtraProperties
-    {
-        ExtraPropertyDictionary ExtraProperties { get; }
-    }
+    /// <summary>
+    /// 属性扩展
+    /// </summary>
+    ExtraPropertyDictionary ExtraProperties { get; }
 }
