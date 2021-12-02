@@ -18,9 +18,22 @@ public class AuditingHelper : IAuditingHelper
 {
     protected ILogger<AuditingHelper> Logger { get; }
     protected IAuditingStore AuditingStore { get; }
+
+    /// <summary>
+    /// 当前用户
+    /// </summary>
     protected ICurrentUser CurrentUser { get; }
+
+    /// <summary>
+    /// 当前租户
+    /// </summary>
     protected ICurrentTenant CurrentTenant { get; }
+
+    /// <summary>
+    /// 当前客户端
+    /// </summary>
     protected ICurrentClient CurrentClient { get; }
+
     protected IClock Clock { get; }
     protected AuditingOptions Options;
     protected IServiceProvider ServiceProvider;
@@ -50,6 +63,12 @@ public class AuditingHelper : IAuditingHelper
         //CorrelationIdProvider = correlationIdProvider;
     }
 
+    /// <summary>
+    /// 是否保存
+    /// </summary>
+    /// <param name="methodInfo"></param>
+    /// <param name="defaultValue"></param>
+    /// <returns></returns>
     public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
     {
         if (methodInfo == null)
@@ -101,6 +120,10 @@ public class AuditingHelper : IAuditingHelper
         return defaultValue;
     }
 
+    /// <summary>
+    /// 创建审计信息
+    /// </summary>
+    /// <returns></returns>
     public virtual AuditLogInfo CreateAuditLogInfo()
     {
         var auditInfo = new AuditLogInfo
@@ -154,20 +177,18 @@ public class AuditingHelper : IAuditingHelper
 
     protected virtual void ExecutePreContributors(AuditLogInfo auditLogInfo)
     {
-        using (var scope = ServiceProvider.CreateScope())
-        {
-            var context = new AuditLogContributionContext(scope.ServiceProvider, auditLogInfo);
+        using var scope = ServiceProvider.CreateScope();
+        var context = new AuditLogContributionContext(scope.ServiceProvider, auditLogInfo);
 
-            foreach (var contributor in Options.Contributors)
+        foreach (var contributor in Options.Contributors)
+        {
+            try
             {
-                try
-                {
-                    contributor.PreContribute(context);
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogException(ex, LogLevel.Warning);
-                }
+                contributor.PreContribute(context);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex, LogLevel.Warning);
             }
         }
     }

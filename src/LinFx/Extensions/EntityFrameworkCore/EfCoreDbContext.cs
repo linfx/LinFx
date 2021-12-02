@@ -1,6 +1,5 @@
 ﻿using LinFx.Data;
 using LinFx.Domain.Entities;
-using LinFx.Domain.Entities.Auditing;
 using LinFx.Domain.Entities.Events;
 using LinFx.Domain.Repositories;
 using LinFx.Extensions.Auditing;

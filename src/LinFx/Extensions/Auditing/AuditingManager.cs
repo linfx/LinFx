@@ -42,6 +42,9 @@ public class AuditingManager : IAuditingManager
         _auditingStore = auditingStore;
     }
 
+    /// <summary>
+    /// 当前审计日志范围
+    /// </summary>
     public IAuditLogScope Current => _ambientScopeProvider.GetValue(AmbientContextKey);
 
     public IAuditLogSaveHandle BeginScope()

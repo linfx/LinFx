@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace LinFx.Threading
-{
-    public interface IAmbientScopeProvider<T>
-    {
-        T GetValue(string contextKey);
+namespace LinFx.Threading;
 
-        IDisposable BeginScope(string contextKey, T value);
-    }
+public interface IAmbientScopeProvider<T>
+{
+    T GetValue(string contextKey);
+
+    IDisposable BeginScope(string contextKey, T value);
 }

@@ -22,6 +22,11 @@ public class AuditingInterceptor : Interceptor
         _serviceScopeFactory = serviceScopeFactory;
     }
 
+    /// <summary>
+    /// 拦截
+    /// </summary>
+    /// <param name="invocation"></param>
+    /// <returns></returns>
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {
         using var serviceScope = _serviceScopeFactory.CreateScope();
@@ -111,30 +116,24 @@ public class AuditingInterceptor : Interceptor
         IAuditingHelper auditingHelper)
     {
         var hasError = false;
-        using (var saveHandle = auditingManager.BeginScope())
+        using var saveHandle = auditingManager.BeginScope();
+        try
         {
-            try
-            {
-                await ProceedByLoggingAsync(invocation, auditingHelper, auditingManager.Current);
+            await ProceedByLoggingAsync(invocation, auditingHelper, auditingManager.Current);
 
-                Debug.Assert(auditingManager.Current != null);
-                if (auditingManager.Current.Log.Exceptions.Any())
-                {
-                    hasError = true;
-                }
-            }
-            catch (Exception)
-            {
+            Debug.Assert(auditingManager.Current != null);
+            if (auditingManager.Current.Log.Exceptions.Any())
                 hasError = true;
-                throw;
-            }
-            finally
-            {
-                if (ShouldWriteAuditLog(invocation, options, currentUser, hasError))
-                {
-                    await saveHandle.SaveAsync();
-                }
-            }
+        }
+        catch (Exception)
+        {
+            hasError = true;
+            throw;
+        }
+        finally
+        {
+            if (ShouldWriteAuditLog(invocation, options, currentUser, hasError))
+                await saveHandle.SaveAsync();
         }
     }
 

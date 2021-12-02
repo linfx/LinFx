@@ -1,7 +1,6 @@
-﻿namespace LinFx.Domain.Repositories
+﻿namespace LinFx.Domain.Repositories;
+
+public static class UnitOfWorkItemNames
 {
-    public static class UnitOfWorkItemNames
-    {
-        public const string HardDeletedEntities = "HardDeletedEntities";
-    }
+    public const string HardDeletedEntities = "HardDeletedEntities";
 }

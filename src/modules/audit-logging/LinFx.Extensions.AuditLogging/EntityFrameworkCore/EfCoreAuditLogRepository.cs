@@ -1,5 +1,5 @@
 ﻿using LinFx.Domain.Entities;
-using LinFx.Domain.Entities.Auditing;
+using LinFx.Extensions.Auditing;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.Repositories;
 using Microsoft.EntityFrameworkCore;

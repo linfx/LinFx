@@ -1,7 +1,6 @@
-﻿namespace LinFx.Domain.Entities
+﻿namespace LinFx.Domain.Entities;
+
+public static class ConcurrencyStampConsts
 {
-    public static class ConcurrencyStampConsts
-    {
-        public const int MaxLength = 40;
-    }
+    public const int MaxLength = 40;
 }

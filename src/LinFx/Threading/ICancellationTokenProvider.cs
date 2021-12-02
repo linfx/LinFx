@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-namespace LinFx.Threading
-{
-    public interface ICancellationTokenProvider
-    {
-        CancellationToken Token { get; }
+namespace LinFx.Threading;
 
-        IDisposable Use(CancellationToken cancellationToken);
-    }
+public interface ICancellationTokenProvider
+{
+    CancellationToken Token { get; }
+
+    IDisposable Use(CancellationToken cancellationToken);
 }

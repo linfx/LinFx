@@ -1,5 +1,4 @@
-﻿using LinFx.Domain.Entities.Auditing;
-using LinFx.Extensions.ObjectExtending;
+﻿using LinFx.Extensions.ObjectExtending;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Text;
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>
-///  审计日志
+///  审计信息
 /// </summary>
 [Serializable]
 public class AuditLogInfo : IHasExtraProperties

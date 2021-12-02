@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LinFx.Domain.Entities.Auditing;
+using LinFx.Extensions.Auditing;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace LinFx.Extensions.EntityFrameworkCore.EntityHistory

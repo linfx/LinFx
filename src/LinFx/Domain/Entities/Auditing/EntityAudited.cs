@@ -1,5 +1,4 @@
 ﻿using LinFx.Data;
-using LinFx.Domain.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
