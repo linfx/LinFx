@@ -1,4 +1,4 @@
-﻿namespace LinFx.Data;
+﻿namespace LinFx.Extensions.Auditing;
 
 /// <summary>
 /// Used to standardize soft deleting entities.

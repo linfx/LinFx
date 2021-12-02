@@ -4,6 +4,9 @@ using System;
 
 namespace LinFx.Domain.Entities;
 
+/// <summary>
+/// 聚合根
+/// </summary>
 public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
 {
     public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
@@ -27,6 +30,9 @@ public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
     //}
 }
 
+/// <summary>
+/// 聚合根
+/// </summary>
 public abstract class AggregateRoot<TKey> : BasicAggregateRoot<TKey>, IHasExtraProperties
 {
     public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }

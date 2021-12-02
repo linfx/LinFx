@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Domain.Entities;
 
-/// <inheritdoc/>
+/// <summary>
+/// 实体
+/// </summary>
 [Serializable]
 public abstract class Entity : IEntity
 {
@@ -16,7 +18,10 @@ public abstract class Entity : IEntity
     public abstract object[] GetKeys();
 }
 
-/// <inheritdoc cref="IEntity{TKey}" />
+/// <summary>
+/// 实体
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
 [Serializable]
 public abstract class Entity<TKey> : Entity, IEntity<TKey>
 {

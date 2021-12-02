@@ -1,5 +1,4 @@
-﻿using LinFx.Data;
-using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.EntityFrameworkCore.ObjectExtending;
 using LinFx.Extensions.EntityFrameworkCore.ValueComparers;

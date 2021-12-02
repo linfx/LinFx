@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace LinFx
+namespace LinFx;
+
+public sealed class NullDisposable : IDisposable
 {
-    public sealed class NullDisposable : IDisposable
-    {
-        public static NullDisposable Instance { get; } = new NullDisposable();
+    public static NullDisposable Instance { get; } = new NullDisposable();
 
-        private NullDisposable() { }
+    private NullDisposable() { }
 
-        public void Dispose() { }
-    }
+    public void Dispose() { }
 }
