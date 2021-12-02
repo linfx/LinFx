@@ -25,14 +25,14 @@ namespace LinFx.Extensions.EntityFrameworkCore.EntityHistory
 
         protected IAuditingStore AuditingStore { get; }
         protected AuditingOptions Options { get; }
-        protected IAuditingHelper AuditingHelper { get; }
+        protected IAuditingFactory AuditingHelper { get; }
         protected IClock Clock { get; }
 
         public EntityHistoryHelper(
             IAuditingStore auditingStore,
             IOptions<AuditingOptions> options,
             IClock clock,
-            IAuditingHelper auditingHelper)
+            IAuditingFactory auditingHelper)
         {
             Clock = clock;
             AuditingStore = auditingStore;

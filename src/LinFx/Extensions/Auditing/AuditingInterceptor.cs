@@ -30,7 +30,7 @@ public class AuditingInterceptor : Interceptor
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {
         using var serviceScope = _serviceScopeFactory.CreateScope();
-        var auditingHelper = serviceScope.ServiceProvider.GetRequiredService<IAuditingHelper>();
+        var auditingHelper = serviceScope.ServiceProvider.GetRequiredService<IAuditingFactory>();
         var auditingOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<AuditingOptions>>().Value;
 
         if (!ShouldIntercept(invocation, auditingOptions, auditingHelper))
@@ -60,7 +60,7 @@ public class AuditingInterceptor : Interceptor
     /// <returns></returns>
     protected virtual bool ShouldIntercept(IMethodInvocation invocation,
         AuditingOptions options,
-        IAuditingHelper auditingHelper)
+        IAuditingFactory auditingHelper)
     {
         if (!options.IsEnabled)
             return false;
@@ -78,7 +78,7 @@ public class AuditingInterceptor : Interceptor
 
     private static async Task ProceedByLoggingAsync(
         IMethodInvocation invocation,
-        IAuditingHelper auditingHelper,
+        IAuditingFactory auditingHelper,
         IAuditLogScope auditLogScope)
     {
         var auditLog = auditLogScope.Log;
@@ -113,7 +113,7 @@ public class AuditingInterceptor : Interceptor
         AuditingOptions options,
         ICurrentUser currentUser,
         IAuditingManager auditingManager,
-        IAuditingHelper auditingHelper)
+        IAuditingFactory auditingHelper)
     {
         var hasError = false;
         using var saveHandle = auditingManager.BeginScope();

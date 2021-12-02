@@ -23,12 +23,12 @@ public class AuditingManager : IAuditingManager
     protected AuditingOptions Options { get; }
     protected ILogger<AuditingManager> Logger { get; set; }
     private readonly IAmbientScopeProvider<IAuditLogScope> _ambientScopeProvider;
-    private readonly IAuditingHelper _auditingHelper;
+    private readonly IAuditingFactory _auditingFactory;
     private readonly IAuditingStore _auditingStore;
 
     public AuditingManager(
         IAmbientScopeProvider<IAuditLogScope> ambientScopeProvider,
-        IAuditingHelper auditingHelper,
+        IAuditingFactory auditingFactory,
         IAuditingStore auditingStore,
         IServiceProvider serviceProvider,
         IOptions<AuditingOptions> options)
@@ -38,7 +38,7 @@ public class AuditingManager : IAuditingManager
         Logger = NullLogger<AuditingManager>.Instance;
 
         _ambientScopeProvider = ambientScopeProvider;
-        _auditingHelper = auditingHelper;
+        _auditingFactory = auditingFactory;
         _auditingStore = auditingStore;
     }
 
@@ -47,18 +47,23 @@ public class AuditingManager : IAuditingManager
     /// </summary>
     public IAuditLogScope Current => _ambientScopeProvider.GetValue(AmbientContextKey);
 
+    /// <summary>
+    /// 开始审计
+    /// </summary>
+    /// <returns></returns>
     public IAuditLogSaveHandle BeginScope()
     {
-        var ambientScope = _ambientScopeProvider.BeginScope(
-            AmbientContextKey,
-            new AuditLogScope(_auditingHelper.CreateAuditLogInfo())
-        );
+        var ambientScope = _ambientScopeProvider.BeginScope(AmbientContextKey, new AuditLogScope(_auditingFactory.CreateAuditLogInfo()));
 
         Debug.Assert(Current != null, "Current != null");
 
         return new DisposableSaveHandle(this, ambientScope, Current.Log, Stopwatch.StartNew());
     }
 
+    /// <summary>
+    /// 执行审计贡献者
+    /// </summary>
+    /// <param name="auditLogInfo">审计信息</param>
     protected virtual void ExecutePostContributors(AuditLogInfo auditLogInfo)
     {
         using var scope = ServiceProvider.CreateScope();

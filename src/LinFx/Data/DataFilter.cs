@@ -10,14 +10,13 @@ namespace LinFx.Data;
 [Service(ServiceLifetime.Singleton)]
 public class DataFilter : IDataFilter
 {
-    private readonly ConcurrentDictionary<Type, object> _filters;
+    private readonly ConcurrentDictionary<Type, object> _filters = new();
 
     private readonly IServiceProvider _serviceProvider;
 
     public DataFilter(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
-        _filters = new ConcurrentDictionary<Type, object>();
     }
 
     public IDisposable Enable<TFilter>()
@@ -40,7 +39,10 @@ public class DataFilter : IDataFilter
 
     private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class
     {
-        return _filters.GetOrAdd(typeof(TFilter), () => _serviceProvider.GetRequiredService<IDataFilter<TFilter>>()) as IDataFilter<TFilter>;
+        return _filters.GetOrAdd(
+            typeof(TFilter),
+            factory: () => _serviceProvider.GetRequiredService<IDataFilter<TFilter>>()
+        ) as IDataFilter<TFilter>;
     }
 }
 
