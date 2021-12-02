@@ -14,9 +14,9 @@ using System.Text.Json;
 namespace LinFx.Extensions.Auditing;
 
 [Service]
-public class AuditingHelper : IAuditingHelper
+public class AuditingFactory : IAuditingFactory
 {
-    protected ILogger<AuditingHelper> Logger { get; }
+    protected ILogger<AuditingFactory> Logger { get; }
     protected IAuditingStore AuditingStore { get; }
 
     /// <summary>
@@ -39,14 +39,14 @@ public class AuditingHelper : IAuditingHelper
     protected IServiceProvider ServiceProvider;
     //protected ICorrelationIdProvider CorrelationIdProvider { get; }
 
-    public AuditingHelper(
+    public AuditingFactory(
         IOptions<AuditingOptions> options,
         ICurrentUser currentUser,
         ICurrentTenant currentTenant,
         //ICurrentClient currentClient,
         IClock clock,
         //IAuditingStore auditingStore,
-        ILogger<AuditingHelper> logger,
+        ILogger<AuditingFactory> logger,
         IServiceProvider serviceProvider
         //ICorrelationIdProvider correlationIdProvider
         )
@@ -140,6 +140,7 @@ public class AuditingHelper : IAuditingHelper
             ExecutionTime = Clock.Now
         };
 
+        // 执行审计贡献者
         ExecutePreContributors(auditInfo);
 
         return auditInfo;
@@ -175,6 +176,10 @@ public class AuditingHelper : IAuditingHelper
         return actionInfo;
     }
 
+    /// <summary>
+    /// 执行审计贡献者
+    /// </summary>
+    /// <param name="auditLogInfo">审计信息</param>
     protected virtual void ExecutePreContributors(AuditLogInfo auditLogInfo)
     {
         using var scope = ServiceProvider.CreateScope();

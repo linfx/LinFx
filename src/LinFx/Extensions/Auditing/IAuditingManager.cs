@@ -7,8 +7,15 @@ namespace LinFx.Extensions.Auditing;
 /// </summary>
 public interface IAuditingManager
 {
+    /// <summary>
+    /// 当前审计范围
+    /// </summary>
     [CanBeNull]
     IAuditLogScope Current { get; }
 
+    /// <summary>
+    /// 开始审计
+    /// </summary>
+    /// <returns></returns>
     IAuditLogSaveHandle BeginScope();
 }

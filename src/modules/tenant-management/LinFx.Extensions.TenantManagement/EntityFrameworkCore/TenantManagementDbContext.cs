@@ -1,26 +1,25 @@
 ﻿using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore
+namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+
+public class TenantManagementDbContext : EfCoreDbContext
 {
-    public class TenantManagementDbContext : EfCoreDbContext
+    public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
+        : base(options) { }
+
+    public DbSet<Tenant> Tenants { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
-            : base(options) { }
-
-        public DbSet<Tenant> Tenants { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
+        base.OnModelCreating(builder);
+        builder.Entity<Tenant>(b =>
         {
-            base.OnModelCreating(builder);
-            builder.Entity<Tenant>(b =>
-            {
-                b.HasKey(p => p.Id);
-                b.Property(p => p.Id).HasMaxLength(32);
-                b.Property(p => p.Name)
-                    .IsRequired()
-                    .HasMaxLength(64);
-            });
-        }
+            b.HasKey(p => p.Id);
+            b.Property(p => p.Id).HasMaxLength(32);
+            b.Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(64);
+        });
     }
 }
