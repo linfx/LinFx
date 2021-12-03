@@ -2,42 +2,42 @@
 using Microsoft.Extensions.Options;
 using System;
 
-namespace LinFx.Extensions.MultiTenancy
+namespace LinFx.Extensions.MultiTenancy;
+
+[Service]
+public class TenantResolver : ITenantResolver
 {
-    public class TenantResolver : ITenantResolver
+    private readonly IServiceProvider _serviceProvider;
+    private readonly TenantResolveOptions _options;
+
+    public TenantResolver(IOptions<TenantResolveOptions> options, IServiceProvider serviceProvider)
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly TenantResolveOptions _options;
+        _options = options.Value;
+        _serviceProvider = serviceProvider;
+    }
 
-        public TenantResolver(IOptions<TenantResolveOptions> options, IServiceProvider serviceProvider)
+    public TenantResolveResult ResolveTenantIdOrName()
+    {
+        var result = new TenantResolveResult();
+
+        using (var scope = _serviceProvider.CreateScope())
         {
-            _options = options.Value;
-            _serviceProvider = serviceProvider;
-        }
+            var context = new TenantResolveContext(scope.ServiceProvider);
 
-        public TenantResolveResult ResolveTenantIdOrName()
-        {
-            var result = new TenantResolveResult();
-
-            using (var scope = _serviceProvider.CreateScope())
+            foreach (var tenantResolver in _options.TenantResolvers)
             {
-                var context = new TenantResolveContext(scope.ServiceProvider);
+                tenantResolver.Resolve(context);
 
-                foreach (var tenantResolver in _options.TenantResolvers)
+                result.AppliedResolvers.Add(tenantResolver.Name);
+
+                if (context.HasResolvedTenantOrHost())
                 {
-                    tenantResolver.Resolve(context);
-
-                    result.AppliedResolvers.Add(tenantResolver.Name);
-
-                    if (context.HasResolvedTenantOrHost())
-                    {
-                        result.TenantIdOrName = context.TenantIdOrName;
-                        break;
-                    }
+                    result.TenantIdOrName = context.TenantIdOrName;
+                    break;
                 }
             }
-
-            return result;
         }
+
+        return result;
     }
 }

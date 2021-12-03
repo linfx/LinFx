@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.PermissionManagement;
+using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
@@ -7,19 +8,22 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class PermissionManagementServiceCollectionExtensions
     {
-        public static LinFxBuilder AddPermissionManagement(this LinFxBuilder context)
+        public static LinFxBuilder AddPermissionManagement(this LinFxBuilder builder)
         {
-            context.Services
+            builder.Services
                 .AddLocalization(o =>
                 {
                     o.ResourcesPath = "Resources";
                 });
 
-            context
-                .AddAssembly(typeof(PermissionManagementServiceCollectionExtensions).Assembly);
+            builder
+                .AddAssembly(typeof(PermissionManagementServiceCollectionExtensions).Assembly)
+                .AddDbContext<PermissionManagementDbContext>(options =>
+                {
+                    options.AddDefaultRepositories();
+                });
 
-
-            context.Services.Configure<PermissionManagementOptions>(options =>
+            builder.Services.Configure<PermissionManagementOptions>(options =>
             {
                 options.ManagementProviders.Add<UserPermissionManagementProvider>();
                 options.ManagementProviders.Add<RolePermissionManagementProvider>();
@@ -29,9 +33,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
             });
 
-            AutoAddDefinitionProviders(context.Services);
+            AutoAddDefinitionProviders(builder.Services);
 
-            return context;
+            return builder;
         }
 
         private static void AutoAddDefinitionProviders(IServiceCollection services)

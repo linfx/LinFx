@@ -2,7 +2,7 @@
 {
     public static class AuditLoggingDbProperties
     {
-        public static string DbTablePrefix { get; set; }
+        public static string DbTablePrefix { get; set; } = "Auditing_";
 
         public static string DbSchema { get; set; }
 

@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy;
+
+public interface ICurrentTenantAccessor
 {
-    public interface ICurrentTenantAccessor
-    {
-        TenantInfo Current { get; set; }
-    }
+    TenantInfo Current { get; set; }
 }

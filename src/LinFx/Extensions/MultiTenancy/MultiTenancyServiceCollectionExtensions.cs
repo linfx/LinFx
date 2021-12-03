@@ -13,9 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             builder.Services
-                .AddTransient<ITenantResolver, TenantResolver>()
-                .AddSingleton<ICurrentTenantAccessor, CurrentTenantAccessor>()
-                .AddTransient<ICurrentTenant, CurrentTenant>();
+                .AddSingleton<ICurrentTenantAccessor>(AsyncLocalCurrentTenantAccessor.Instance);
 
             return builder;
         }

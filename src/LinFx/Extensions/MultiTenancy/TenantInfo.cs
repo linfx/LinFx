@@ -1,28 +1,25 @@
-﻿using System;
+﻿namespace LinFx.Extensions.MultiTenancy;
 
-namespace LinFx.Extensions.MultiTenancy
+/// <summary>
+/// 租户信息
+/// </summary>
+public class TenantInfo
 {
-    /// <summary>
-    /// 租户
-    /// </summary>
-    public class TenantInfo
+    public TenantInfo() { }
+
+    public TenantInfo(string id, string name)
     {
-        public TenantInfo() { }
-
-        public TenantInfo(string id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        /// <summary>
-        /// ID
-        /// </summary>
-        public string Id { get; }
-
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; }
+        Id = id;
+        Name = name;
     }
+
+    /// <summary>
+    /// ID
+    /// </summary>
+    public string Id { get; }
+
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string Name { get; }
 }

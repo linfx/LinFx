@@ -1,54 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Data
+namespace LinFx.Data;
+
+public class DbConnectionOptions
 {
-    public class DbConnectionOptions
+    public ConnectionStrings ConnectionStrings { get; set; }
+
+    public DatabaseInfoDictionary Databases { get; set; }
+
+    public DbConnectionOptions()
     {
-        public ConnectionStrings ConnectionStrings { get; set; }
+        ConnectionStrings = new ConnectionStrings();
+        Databases = new DatabaseInfoDictionary();
+    }
 
-        public DatabaseInfoDictionary Databases { get; set; }
+    public string GetConnectionStringOrNull(
+        string connectionStringName,
+        bool fallbackToDatabaseMappings = true,
+        bool fallbackToDefault = true)
+    {
+        var connectionString = ConnectionStrings.GetOrDefault(connectionStringName);
+        if (!connectionString.IsNullOrEmpty())
+            return connectionString;
 
-        public DbConnectionOptions()
+        if (fallbackToDatabaseMappings)
         {
-            ConnectionStrings = new ConnectionStrings();
-            Databases = new DatabaseInfoDictionary();
-        }
-
-        public string GetConnectionStringOrNull(
-            string connectionStringName,
-            bool fallbackToDatabaseMappings = true,
-            bool fallbackToDefault = true)
-        {
-            var connectionString = ConnectionStrings.GetOrDefault(connectionStringName);
-            if (!connectionString.IsNullOrEmpty())
+            var database = Databases.GetMappedDatabaseOrNull(connectionStringName);
+            if (database != null)
             {
-                return connectionString;
-            }
-
-            if (fallbackToDatabaseMappings)
-            {
-                var database = Databases.GetMappedDatabaseOrNull(connectionStringName);
-                if (database != null)
-                {
-                    connectionString = ConnectionStrings.GetOrDefault(database.DatabaseName);
-                    if (!connectionString.IsNullOrEmpty())
-                    {
-                        return connectionString;
-                    }
-                }
-            }
-
-            if (fallbackToDefault)
-            {
-                connectionString = ConnectionStrings.Default;
-                if (!connectionString.IsNullOrWhiteSpace())
-                {
+                connectionString = ConnectionStrings.GetOrDefault(database.DatabaseName);
+                if (!connectionString.IsNullOrEmpty())
                     return connectionString;
-                }
             }
-
-            return null;
         }
+
+        if (fallbackToDefault)
+        {
+            connectionString = ConnectionStrings.Default;
+            if (!connectionString.IsNullOrWhiteSpace())
+                return connectionString;
+        }
+
+        return null;
     }
 }

@@ -1,11 +1,10 @@
 ﻿using JetBrains.Annotations;
 using System.Threading.Tasks;
 
-namespace LinFx.Data
+namespace LinFx.Data;
+
+public interface IConnectionStringResolver
 {
-    public interface IConnectionStringResolver
-    {
-        [NotNull]
-        Task<string> ResolveAsync(string connectionStringName = null);
-    }
+    [NotNull]
+    Task<string> ResolveAsync(string connectionStringName = null);
 }

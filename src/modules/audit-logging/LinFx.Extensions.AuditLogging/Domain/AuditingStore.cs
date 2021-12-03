@@ -30,7 +30,6 @@ namespace LinFx.Extensions.AuditLogging
             UnitOfWorkManager = unitOfWorkManager;
             Converter = converter;
             Options = options.Value;
-
             Logger = NullLogger<AuditingStore>.Instance;
         }
 

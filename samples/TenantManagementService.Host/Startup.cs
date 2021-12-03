@@ -1,3 +1,4 @@
+using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -21,19 +22,12 @@ namespace TenantManagementService.Host
                 .AddThreading()
                 .AddCaching()
                 .AddDataFilter()
-                .AddDbContextProvider()
-                .AddDbContext<TenantManagementDbContext>(option =>
-                {
-                    option.AddDefaultRepositories();
-                })
-                .AddDbContext<PermissionManagementDbContext>(option =>
-                {
-                    option.AddDefaultRepositories();
-                })
-                .AddAuthorization()
-                .AddPermissionManagement()
-                .AddBlogging()
                 .AddMultiTenancy()
+                .AddAuthorization()
+                .AddDbContextProvider()
+                .AddBlogging()
+                .AddAuditLogging()
+                .AddPermissionManagement()
                 .AddTenantManagement();
 
             services.AddDbContextPool<TenantManagementDbContext>(options =>
@@ -43,6 +37,12 @@ namespace TenantManagementService.Host
             });
 
             services.AddDbContextPool<PermissionManagementDbContext>(options =>
+            {
+                options.EnableSensitiveDataLogging();
+                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
+            });
+
+            services.AddDbContextPool<AuditLoggingDbContext>(options =>
             {
                 options.EnableSensitiveDataLogging();
                 options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
@@ -83,6 +83,7 @@ namespace TenantManagementService.Host
 
             app.UseMiddleware<InterceptMiddlware>();
 
+            app.UseAuditing();
 
             app.UseEndpoints(endpoints =>
             {

@@ -2,15 +2,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace LinFx.Extensions.Modularity
-{
-    /// <summary>
-    /// 模块初始化
-    /// </summary>
-    public interface IModuleInitializer
-    {
-        void ConfigureServices(IServiceCollection services);
+namespace LinFx.Extensions.Modularity;
 
-        void Configure(IApplicationBuilder app, IHostEnvironment env);
-    }
+/// <summary>
+/// 模块初始化
+/// </summary>
+public interface IModuleInitializer
+{
+    void ConfigureServices(IServiceCollection services);
+
+    void Configure(IApplicationBuilder app, IHostEnvironment env);
 }

@@ -1,13 +1,12 @@
-﻿namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy;
+
+/// <summary>
+/// 多租户
+/// </summary>
+public interface IMultiTenant
 {
     /// <summary>
-    /// 多租户
+    /// 租户Id
     /// </summary>
-    public interface IMultiTenant
-    {
-        /// <summary>
-        /// 租户Id
-        /// </summary>
-        string TenantId { get; }
-    }
+    string TenantId { get; }
 }

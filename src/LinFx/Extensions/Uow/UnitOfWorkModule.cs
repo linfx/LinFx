@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Modules;
+﻿using LinFx.Extensions.Modularity;
 using LinFx.Extensions.Uow;
 
 namespace Microsoft.Extensions.DependencyInjection

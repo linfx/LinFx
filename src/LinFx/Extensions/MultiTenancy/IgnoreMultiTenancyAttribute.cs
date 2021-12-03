@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace LinFx.Extensions.MultiTenancy
+namespace LinFx.Extensions.MultiTenancy;
+
+[AttributeUsage(AttributeTargets.All)]
+public class IgnoreMultiTenancyAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.All)]
-    public class IgnoreMultiTenancyAttribute : Attribute
-    {
-    }
 }

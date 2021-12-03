@@ -133,7 +133,7 @@ public class AuditingFactory : IAuditingFactory
             TenantName = CurrentTenant.Name,
             UserId = CurrentUser.Id,
             UserName = CurrentUser.UserName,
-            ClientId = CurrentClient.Id,
+            //ClientId = CurrentClient.Id,
             //CorrelationId = CorrelationIdProvider.Get(),
             //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
             //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
