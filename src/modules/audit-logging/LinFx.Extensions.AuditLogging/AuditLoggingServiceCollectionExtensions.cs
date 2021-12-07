@@ -15,6 +15,10 @@ public static class AuditLoggingServiceCollectionExtensions
     /// <returns></returns>
     public static LinFxBuilder AddAuditLogging(this LinFxBuilder builder, Action<AuditingOptions> optionsAction = default)
     {
+        builder.Services.Configure<AuditingOptions>(options =>
+        {
+        });
+
         builder
             .AddAssembly(typeof(AuditLoggingServiceCollectionExtensions).Assembly)
             .AddDbContext<AuditLoggingDbContext>(options =>
@@ -22,9 +26,7 @@ public static class AuditLoggingServiceCollectionExtensions
                 options.AddRepository<AuditLog, EfCoreAuditLogRepository>();
             });
 
-        builder.Services.Configure<AuditingOptions>(options =>
-        {
-        });
+        builder.Services.AddTransient<IAuditLoggingDbContext, AuditLoggingDbContext>();
 
         return builder;
     }
