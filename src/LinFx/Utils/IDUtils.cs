@@ -92,7 +92,7 @@ namespace LinFx.Utils
             /// <returns>毫秒</returns>
             private static long GetTimestamp()
             {
-                return DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             }
 
             /// <summary>

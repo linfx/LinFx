@@ -26,7 +26,7 @@ public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
 public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.Now;
+    public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.UtcNow;
 
     [StringLength(50)]
     public virtual string CreatorId { get; set; }
