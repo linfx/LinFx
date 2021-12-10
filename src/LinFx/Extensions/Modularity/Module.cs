@@ -10,7 +10,13 @@ namespace LinFx.Extensions.Modularity;
 /// <summary>
 /// 模块
 /// </summary>
-public abstract class Module : IModuleInitializer, IModule
+public abstract class Module : 
+    IModuleInitializer, 
+    IModule,
+    //IOnPreApplicationInitialization
+    IOnApplicationInitialization
+    //IOnPostApplicationInitialization
+    //IOnApplicationShutdown
 {
     private ServiceConfigurationContext _serviceConfigurationContext;
 

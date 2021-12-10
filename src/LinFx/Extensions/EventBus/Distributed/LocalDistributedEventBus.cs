@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.Distributed
 {
-    [Service(TryRegister = true)]
-    [ExposeServices(typeof(IDistributedEventBus), typeof(LocalDistributedEventBus))]
     public class LocalDistributedEventBus : IDistributedEventBus
     {
         private readonly ILocalEventBus _localEventBus;

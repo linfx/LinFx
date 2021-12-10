@@ -15,7 +15,6 @@ namespace LinFx.Extensions.Auditing;
 /// <summary>
 /// 审计日志管理器
 /// </summary>
-[Service]
 public class AuditingManager : IAuditingManager
 {
     private const string AmbientContextKey = "Auditing.IAuditLogScope";

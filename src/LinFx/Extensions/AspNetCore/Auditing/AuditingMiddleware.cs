@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Auditing;
-using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Uow;
 using LinFx.Security.Users;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +13,6 @@ namespace LinFx.Extensions.AspNetCore.Auditing;
 /// <summary>
 /// 审计日志中间件
 /// </summary>
-[Service]
 public class AuditingMiddleware : IMiddleware
 {
     private readonly IAuditingManager _auditingManager;

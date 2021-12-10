@@ -23,7 +23,10 @@ namespace LinFx.Extensions.DependencyInjection
         /// </summary>
         public virtual bool ReplaceServices { get; set; }
 
-        public ServiceAttribute() { }
+        public ServiceAttribute() 
+        { 
+            Lifetime = ServiceLifetime.Transient;
+        }
 
         public ServiceAttribute(ServiceLifetime lifetime) => Lifetime = lifetime;
     }

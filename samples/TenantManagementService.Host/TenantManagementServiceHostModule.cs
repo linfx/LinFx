@@ -63,8 +63,7 @@ namespace TenantManagementService.Host
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
             });
 
-            app.UseMiddleware<UnitOfWorkMiddleware>();
-            app.UseAuditing();
+            app.UseUnitOfWork();
         }
     }
 }

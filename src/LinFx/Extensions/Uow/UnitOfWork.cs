@@ -13,8 +13,7 @@ namespace LinFx.Extensions.Uow
     /// <summary>
     /// 工作单元
     /// </summary>
-    [Service]
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, ITransientDependency
     {
         /// <summary>
         /// Default: false.

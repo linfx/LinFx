@@ -19,14 +19,14 @@ using System.Collections.Generic;
 
 namespace LinFx.Application.Services;
 
-[Service]
 public abstract class ApplicationService :
     IApplicationService,
     //IAvoidDuplicateCrossCuttingConcerns,
     //IValidationEnabled,
     IUnitOfWorkEnabled,
-    IAuditingEnabled
-//IGlobalFeatureCheckingEnabled
+    IAuditingEnabled,
+    //IGlobalFeatureCheckingEnabled
+    ITransientDependency
 {
     public ILazyServiceProvider LazyServiceProvider { get; private set; }
 

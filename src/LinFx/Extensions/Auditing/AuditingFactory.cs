@@ -14,7 +14,6 @@ using System.Text.Json;
 
 namespace LinFx.Extensions.Auditing;
 
-[Service]
 public class AuditingFactory : IAuditingFactory
 {
     protected ILogger<AuditingFactory> Logger { get; }
