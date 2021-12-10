@@ -1,4 +1,5 @@
 ﻿using LinFx.Collections;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EventBus.Local;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -8,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.Distributed
 {
-    //[Dependency(TryRegister = true)]
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(TryRegister = true)]
     [ExposeServices(typeof(IDistributedEventBus), typeof(LocalDistributedEventBus))]
     public class LocalDistributedEventBus : IDistributedEventBus
     {

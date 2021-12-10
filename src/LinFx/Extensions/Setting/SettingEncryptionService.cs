@@ -1,4 +1,5 @@
-﻿using LinFx.Security.Encryption;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Security.Encryption;
 using System;
 
 namespace LinFx.Extensions.Setting

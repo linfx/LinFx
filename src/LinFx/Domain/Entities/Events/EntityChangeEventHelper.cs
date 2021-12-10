@@ -1,4 +1,5 @@
 using LinFx.Domain.Entities.Events.Distributed;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EventBus;
 using LinFx.Extensions.EventBus.Distributed;
 using LinFx.Extensions.EventBus.Local;

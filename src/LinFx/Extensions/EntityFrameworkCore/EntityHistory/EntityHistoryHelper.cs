@@ -4,7 +4,7 @@ using LinFx.Extensions.Auditing;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Extensions.Timing;
-using LinFx.Utils;
+using LinFx.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;

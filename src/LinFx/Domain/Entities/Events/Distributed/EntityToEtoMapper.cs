@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.ObjectMapping;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.ObjectMapping;
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

@@ -9,10 +9,11 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             if(optionsAction != null)
             {
-                builder.Services.Configure(optionsAction);
+                builder.Configure(optionsAction);
             }
 
             builder.Services
+                .AddTransient<ICurrentTenant, CurrentTenant>()
                 .AddSingleton<ICurrentTenantAccessor>(AsyncLocalCurrentTenantAccessor.Instance);
 
             return builder;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace LinFx.Extensions.Uow

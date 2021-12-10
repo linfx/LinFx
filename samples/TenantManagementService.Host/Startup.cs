@@ -1,14 +1,7 @@
-using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using System;
-using System.IO;
 
 namespace TenantManagementService.Host
 {
@@ -18,47 +11,16 @@ namespace TenantManagementService.Host
         {
             services
                 .AddLinFx()
-                .AddHttpContextPrincipalAccessor()
                 .AddThreading()
                 .AddCaching()
                 .AddDataFilter()
                 .AddMultiTenancy()
                 .AddAuthorization()
                 .AddDbContextProvider()
-                .AddBlogging()
-                .AddAuditLogging()
-                .AddPermissionManagement()
-                .AddTenantManagement();
-
-            services.AddDbContextPool<TenantManagementDbContext>(options =>
-            {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
-            });
-
-            services.AddDbContextPool<PermissionManagementDbContext>(options =>
-            {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
-            });
-
-            services.AddDbContextPool<AuditLoggingDbContext>(options =>
-            {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
-            });
+                .AddAspNetCore()
+                .AddApplication<TenantManagementServiceHostModule>();
 
             services.AddControllers();
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.xml"), true);
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.HttpApi.xml"), true);
-                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.xml"), true);
-                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.HttpApi.xml"), true);
-                options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,15 +37,7 @@ namespace TenantManagementService.Host
 
             app.UseAuthorization();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
-            });
-
-            app.UseMiddleware<InterceptMiddlware>();
-
-            app.UseAuditing();
+            app.InitializeApplication();
 
             app.UseEndpoints(endpoints =>
             {

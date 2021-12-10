@@ -15,6 +15,7 @@ using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Extensions.Timing;
 using LinFx.Extensions.Uow;
+using LinFx.Reflection;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

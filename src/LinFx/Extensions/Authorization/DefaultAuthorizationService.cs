@@ -1,4 +1,5 @@
-﻿using LinFx.Security.Claims;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -13,7 +14,7 @@ namespace LinFx.Extensions.Authorization
     [Service(ReplaceServices = true)]
     public class DefaultAuthorizationService : Microsoft.AspNetCore.Authorization.DefaultAuthorizationService, IAuthorizationService
     {
-        private readonly IHttpContextPrincipalAccessor _currentPrincipalAccessor;
+        private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
 
         public IServiceProvider ServiceProvider { get; }
 
@@ -26,7 +27,7 @@ namespace LinFx.Extensions.Authorization
             IAuthorizationHandlerContextFactory contextFactory,
             IAuthorizationEvaluator evaluator,
             IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions> options,
-            IHttpContextPrincipalAccessor currentPrincipalAccessor,
+            ICurrentPrincipalAccessor currentPrincipalAccessor,
             IServiceProvider serviceProvider)
                 : base(policyProvider, handlers, logger, contextFactory, evaluator, options)
         {

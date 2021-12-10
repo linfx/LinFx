@@ -5,9 +5,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public class UnitOfWorkModule : Module
     {
-        public override void ConfigureServices(IServiceCollection services)
+        public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
+            context.Services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
         }
     }
 }

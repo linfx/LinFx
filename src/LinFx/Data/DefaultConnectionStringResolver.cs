@@ -1,11 +1,11 @@
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Data;
 
-[Service]
-public class DefaultConnectionStringResolver : IConnectionStringResolver
+public class DefaultConnectionStringResolver : IConnectionStringResolver, ITransientDependency
 {
     protected DbConnectionOptions Options { get; }
 
