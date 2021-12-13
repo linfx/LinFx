@@ -18,7 +18,7 @@ namespace TenantManagementService.Host
 {
     [DependsOn(
         typeof(AspNetCoreMvcModule),
-        //typeof(PermissionManagementModule),
+        typeof(PermissionManagementModule),
         typeof(AuditLoggingModule),
         typeof(TenantManagementModule)
     )]

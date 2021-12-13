@@ -9,22 +9,9 @@ namespace LinFx.Extensions.PermissionManagement
 {
     public class PermissionManagementModule : Module
     {
-        public LinFxBuilder AddPermissionManagement(LinFxBuilder builder)
+        public override void ConfigureServices(IServiceCollection services)
         {
-            builder.Services
-                .AddLocalization(o =>
-                {
-                    o.ResourcesPath = "Resources";
-                });
-
-            builder
-                .Services
-                .AddDbContext<PermissionManagementDbContext>(options =>
-                {
-                    options.AddDefaultRepositories();
-                });
-
-            builder.Services.Configure<PermissionManagementOptions>(options =>
+            Configure<PermissionManagementOptions>(options =>
             {
                 options.ManagementProviders.Add<UserPermissionManagementProvider>();
                 options.ManagementProviders.Add<RolePermissionManagementProvider>();
@@ -34,27 +21,18 @@ namespace LinFx.Extensions.PermissionManagement
                 options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
             });
 
-            AutoAddDefinitionProviders(builder.Services);
+            //builder.Services
+            //    .AddLocalization(o =>
+            //    {
+            //        o.ResourcesPath = "Resources";
+            //    });
 
-            return builder;
-        }
-
-        private void AutoAddDefinitionProviders(IServiceCollection services)
-        {
-            var definitionProviders = new List<Type>();
-
-            services.OnRegistred(context =>
-            {
-                if (typeof(IPermissionDefinitionProvider).IsAssignableFrom(context.ImplementationType))
-                {
-                    definitionProviders.Add(context.ImplementationType);
-                }
-            });
-
-            services.Configure<PermissionOptions>(options =>
-            {
-                options.DefinitionProviders.AddIfNotContains(definitionProviders);
-            });
+            //builder
+            //    .Services
+            //    .AddDbContext<PermissionManagementDbContext>(options =>
+            //    {
+            //        options.AddDefaultRepositories();
+            //    });
         }
     }
 }
