@@ -3,6 +3,7 @@ using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 
@@ -43,10 +44,10 @@ public class AuthorizationModule : Module
         //    options.FileSets.AddEmbedded<AbpAuthorizationResource>();
         //});
 
-        //Configure<AbpLocalizationOptions>(options =>
+        //Configure<LocalizationOptions>(options =>
         //{
         //    options.Resources
-        //        .Add<AbpAuthorizationResource>("en")
+        //        .Add<AuthorizationResource>("en")
         //        .AddVirtualJson("/Volo/Abp/Authorization/Localization");
         //});
 
