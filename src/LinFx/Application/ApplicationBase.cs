@@ -75,9 +75,7 @@ public abstract class ApplicationBase : IApplication
     {
         var logger = serviceProvider.GetService<ILogger<ApplicationBase>>();
         if (logger == null)
-        {
             return;
-        }
 
         //var initLogger = serviceProvider.GetRequiredService<IInitLoggerFactory>().Create<AbpApplicationBase>();
 

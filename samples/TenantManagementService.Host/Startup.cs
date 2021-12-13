@@ -11,10 +11,7 @@ namespace TenantManagementService.Host
         {
             services
                 .AddLinFx()
-                .AddMultiTenancy()
-                .AddAuthorization()
-                .AddAspNetCoreMvc()
-                .AddApplication<TenantManagementServiceHostModule>();
+                .AddApplication<TenantManagementHostModule>();
 
             services.AddControllers();
         }

@@ -1,8 +1,7 @@
-﻿using LinFx.Extensions.Threading;
-using System;
+﻿using System;
 using System.Threading;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 public abstract class CancellationTokenProviderBase : ICancellationTokenProvider
 {

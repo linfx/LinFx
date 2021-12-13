@@ -1,7 +1,6 @@
-﻿using LinFx.Extensions.Threading;
-using System.Threading;
+﻿using System.Threading;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 public static class CancellationTokenProviderExtensions
 {

@@ -1,4 +1,4 @@
-﻿using LinFx.Data;
+﻿using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

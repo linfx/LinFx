@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 /// <summary>
 /// Extension methods to make locking easier.

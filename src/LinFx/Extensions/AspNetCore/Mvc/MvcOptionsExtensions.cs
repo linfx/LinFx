@@ -7,7 +7,7 @@ namespace LinFx.Extensions.AspNetCore.Mvc;
 
 internal static class MvcOptionsExtensions
 {
-    public static void AddOptions(this MvcOptions options, IServiceCollection services)
+    public static void AddMyOptions(this MvcOptions options, IServiceCollection services)
     {
         AddConventions(options, services);
         AddActionFilters(options);

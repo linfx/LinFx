@@ -6,7 +6,6 @@ using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using LinFx.Linq;
-using LinFx.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

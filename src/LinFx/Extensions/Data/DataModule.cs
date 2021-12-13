@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.Data;
 
+[DependsOn(
+    typeof(UnitOfWorkModule)
+)]
 public class DataModule : Module
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

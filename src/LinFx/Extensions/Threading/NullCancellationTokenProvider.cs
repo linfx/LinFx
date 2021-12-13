@@ -1,5 +1,4 @@
-﻿using LinFx.Threading;
-using System.Threading;
+﻿using System.Threading;
 
 namespace LinFx.Extensions.Threading;
 

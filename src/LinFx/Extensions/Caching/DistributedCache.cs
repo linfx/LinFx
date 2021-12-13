@@ -2,7 +2,6 @@
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
-using LinFx.Threading;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

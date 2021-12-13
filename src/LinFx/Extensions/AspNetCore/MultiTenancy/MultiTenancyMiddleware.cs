@@ -1,27 +1,28 @@
-﻿using LinFx.Extensions.MultiTenancy;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.MultiTenancy;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy
 {
-    public class MultiTenancyMiddleware
+    public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
     {
         private readonly RequestDelegate _next;
         private readonly ITenantResolver _tenantResolver;
         private readonly ICurrentTenant _currentTenant;
         private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor;
 
-        public MultiTenancyMiddleware(
-            RequestDelegate next,
-            ITenantResolver tenantResolver,
-            ICurrentTenant currentTenant,
-            ITenantResolveResultAccessor tenantResolveResultAccessor)
-        {
-            _next = next;
-            _tenantResolver = tenantResolver;
-            _currentTenant = currentTenant;
-            _tenantResolveResultAccessor = tenantResolveResultAccessor;
-        }
+        //public MultiTenancyMiddleware(
+        //    RequestDelegate next,
+        //    ITenantResolver tenantResolver,
+        //    ICurrentTenant currentTenant,
+        //    ITenantResolveResultAccessor tenantResolveResultAccessor)
+        //{
+        //    _next = next;
+        //    _tenantResolver = tenantResolver;
+        //    _currentTenant = currentTenant;
+        //    _tenantResolveResultAccessor = tenantResolveResultAccessor;
+        //}
 
         public async Task InvokeAsync(HttpContext httpContext, ITenantStore tenantStore)
         {
@@ -42,6 +43,11 @@ namespace LinFx.Extensions.AspNetCore.MultiTenancy
             {
                 await _next(httpContext);
             }
+        }
+
+        public Task InvokeAsync(HttpContext context, RequestDelegate next)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

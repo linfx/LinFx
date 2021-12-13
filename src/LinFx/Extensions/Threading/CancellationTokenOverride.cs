@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 public class CancellationTokenOverride
 {

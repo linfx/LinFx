@@ -3,12 +3,12 @@ using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
-using LinFx.Threading;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,21 +23,21 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow
         private readonly IConnectionStringResolver _connectionStringResolver;
         private readonly ICancellationTokenProvider _cancellationTokenProvider;
         private readonly ICurrentTenant _currentTenant;
-        private readonly EfCoreDbContextOptions _options = new EfCoreDbContextOptions();
+        private readonly EfCoreDbContextOptions _options;
 
         public UnitOfWorkDbContextProvider(
             IUnitOfWorkManager unitOfWorkManager,
-            IConnectionStringResolver connectionStringResolver
-            //ICancellationTokenProvider cancellationTokenProvider
-            //ICurrentTenant currentTenant,
-            //IOptions<EfCodeDbContextOptions> options
+            IConnectionStringResolver connectionStringResolver,
+            ICancellationTokenProvider cancellationTokenProvider,
+            ICurrentTenant currentTenant,
+            IOptions<EfCoreDbContextOptions> options
             )
         {
             _unitOfWorkManager = unitOfWorkManager;
             _connectionStringResolver = connectionStringResolver;
-            //_cancellationTokenProvider = cancellationTokenProvider;
-            //_currentTenant = currentTenant;
-            //_options = options.Value;
+            _cancellationTokenProvider = cancellationTokenProvider;
+            _currentTenant = currentTenant;
+            _options = options.Value;
 
             Logger = NullLogger<UnitOfWorkDbContextProvider<TDbContext>>.Instance;
         }

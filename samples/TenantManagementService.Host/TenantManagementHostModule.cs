@@ -1,8 +1,7 @@
-﻿using LinFx.Extensions.AspNetCore.Uow;
+﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
@@ -17,11 +16,12 @@ using System.IO;
 namespace TenantManagementService.Host
 {
     [DependsOn(
-        //typeof(AuditLoggingModule),
+        typeof(AspNetCoreMvcModule),
         //typeof(PermissionManagementModule),
-        //typeof(TenantManagementModule)
+        typeof(AuditLoggingModule),
+        typeof(TenantManagementModule)
     )]
-    public class TenantManagementServiceHostModule : Module
+    public class TenantManagementHostModule : Module
     {
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -63,7 +63,8 @@ namespace TenantManagementService.Host
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
             });
 
-            app.UseUnitOfWork();
+            //app.UseAuditing();
+            //app.UseUnitOfWork();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace LinFx.Extensions.Modularity;
 
@@ -13,10 +14,12 @@ namespace LinFx.Extensions.Modularity;
 public abstract class Module : 
     IModuleInitializer, 
     IModule,
-    //IOnPreApplicationInitialization
-    IOnApplicationInitialization
-    //IOnPostApplicationInitialization
-    //IOnApplicationShutdown
+    //IOnPreApplicationInitialization,
+    IOnApplicationInitialization,
+    //IOnPostApplicationInitialization,
+    IOnApplicationShutdown,
+    IPreConfigureServices,
+    IPostConfigureServices
 {
     private ServiceConfigurationContext _serviceConfigurationContext;
 
@@ -62,9 +65,37 @@ public abstract class Module :
         Configure(app, env);
     }
 
+    public virtual void OnApplicationShutdown(ApplicationShutdownContext context)
+    {
+    }
+
+    protected void Configure<TOptions>(Action<TOptions> configureOptions)
+        where TOptions : class
+    {
+        ServiceConfigurationContext.Services.Configure(configureOptions);
+    }
+
+    protected void Configure<TOptions>(string name, Action<TOptions> configureOptions)
+        where TOptions : class
+    {
+        ServiceConfigurationContext.Services.Configure(name, configureOptions);
+    }
+
     protected void Configure<TOptions>(IConfiguration configuration)
         where TOptions : class
     {
         ServiceConfigurationContext.Services.Configure<TOptions>(configuration);
+    }
+
+    protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder)
+        where TOptions : class
+    {
+        ServiceConfigurationContext.Services.Configure<TOptions>(configuration, configureBinder);
+    }
+
+    protected void Configure<TOptions>(string name, IConfiguration configuration)
+        where TOptions : class
+    {
+        ServiceConfigurationContext.Services.Configure<TOptions>(name, configuration);
     }
 }

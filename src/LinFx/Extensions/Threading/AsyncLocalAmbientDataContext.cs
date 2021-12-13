@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 [Service(ServiceLifetime.Singleton)]
 public class AsyncLocalAmbientDataContext : IAmbientDataContext
