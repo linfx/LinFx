@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.EntityFrameworkCore;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;

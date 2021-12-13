@@ -1,6 +1,7 @@
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
-using LinFx.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -16,14 +17,12 @@ namespace LinFx.Extensions.EventBus.Local
     /// <summary>
     /// Implements EventBus as Singleton pattern.
     /// </summary>
-    [Service(ServiceLifetime.Singleton)]
-    [ExposeServices(typeof(ILocalEventBus), typeof(LocalEventBus))]
     public class LocalEventBus : EventBusBase, ILocalEventBus
     {
         /// <summary>
         /// Reference to the Logger.
         /// </summary>
-        public ILogger<LocalEventBus> Logger { get; set; }
+        public ILogger Logger { get; set; }
 
         protected LocalEventBusOptions Options { get; }
 
@@ -97,15 +96,10 @@ namespace LinFx.Extensions.EventBus.Local
         /// <inheritdoc/>
         public override void Unsubscribe(Type eventType, IEventHandler handler)
         {
-            GetOrCreateHandlerFactories(eventType)
-                .Locking(factories =>
-                {
-                    factories.RemoveAll(
-                        factory =>
-                            factory is SingleInstanceHandlerFactory &&
-                            (factory as SingleInstanceHandlerFactory).HandlerInstance == handler
-                    );
-                });
+            GetOrCreateHandlerFactories(eventType).Locking(factories =>
+            {
+                factories.RemoveAll(factory => factory is SingleInstanceHandlerFactory && (factory as SingleInstanceHandlerFactory).HandlerInstance == handler);
+            });
         }
 
         /// <inheritdoc/>
@@ -160,15 +154,11 @@ namespace LinFx.Extensions.EventBus.Local
         {
             //Should trigger same type
             if (handlerEventType == targetEventType)
-            {
                 return true;
-            }
 
             //Should trigger for inherited types
             if (handlerEventType.IsAssignableFrom(targetEventType))
-            {
                 return true;
-            }
 
             return false;
         }

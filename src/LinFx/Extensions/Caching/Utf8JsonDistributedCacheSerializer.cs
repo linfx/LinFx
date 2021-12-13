@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using LinFx.Extensions.DependencyInjection;
+using System.Text;
 using System.Text.Json;
 
 namespace LinFx.Extensions.Caching

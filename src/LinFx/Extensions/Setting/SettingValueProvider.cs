@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Setting

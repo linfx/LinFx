@@ -1,4 +1,4 @@
-using LinFx.Data;
+using LinFx.Extensions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -26,9 +26,9 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
             );
 
             // ªÒ»° DbOptions ≈‰÷√
-            //var options = GetDbContextOptions<TDbContext>(serviceProvider);
+            var options = GetDbContextOptions<TDbContext>(serviceProvider);
 
-            //PreConfigure(options, context);
+            PreConfigure(options, context);
             //Configure(options, context);
 
             return context.DbContextOptions.Options;

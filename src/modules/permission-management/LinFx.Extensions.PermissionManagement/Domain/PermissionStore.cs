@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Collections.Generic;

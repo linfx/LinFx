@@ -1,4 +1,6 @@
-﻿namespace LinFx.Extensions.Setting
+﻿using LinFx.Extensions.DependencyInjection;
+
+namespace LinFx.Extensions.Setting
 {
     [Service]
     public abstract class SettingDefinitionProvider : ISettingDefinitionProvider

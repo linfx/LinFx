@@ -1,5 +1,5 @@
 ﻿using LinFx.Domain.Entities.Auditing;
-using LinFx.Threading;
+using LinFx.Extensions.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -14,7 +14,6 @@ namespace LinFx.Extensions.Auditing;
 /// <summary>
 /// 审计日志管理器
 /// </summary>
-[Service]
 public class AuditingManager : IAuditingManager
 {
     private const string AmbientContextKey = "Auditing.IAuditLogScope";

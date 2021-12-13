@@ -303,22 +303,22 @@ namespace LinFx.Utils
             return string.IsNullOrWhiteSpace(str);
         }
 
-        /// <summary>
-        /// Gets a substring of a string from beginning of the string.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
-        public static string Left(this string str, int len)
-        {
-            Check.NotNull(str, nameof(str));
+        ///// <summary>
+        ///// Gets a substring of a string from beginning of the string.
+        ///// </summary>
+        ///// <exception cref="ArgumentNullException">Thrown if <paramref name="str"/> is null</exception>
+        ///// <exception cref="ArgumentException">Thrown if <paramref name="len"/> is bigger that string's length</exception>
+        //public static string Left(this string str, int len)
+        //{
+        //    Check.NotNull(str, nameof(str));
 
-            if (str.Length < len)
-            {
-                throw new ArgumentException("len argument can not be bigger than given string's length!");
-            }
+        //    if (str.Length < len)
+        //    {
+        //        throw new ArgumentException("len argument can not be bigger than given string's length!");
+        //    }
 
-            return str.Substring(0, len);
-        }
+        //    return str.Substring(0, len);
+        //}
 
         /// <summary>
         /// Converts line endings in the string to <see cref="Environment.NewLine"/>.

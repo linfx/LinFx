@@ -1,6 +1,6 @@
-﻿using LinFx.Extensions.Identity;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement

@@ -19,7 +19,8 @@ namespace LinFx.Extensions.TenantManagement
         public TenantService(
             IServiceProvider serviceProvider,
             ITenantRepository tenantRepository,
-            ITenantManager tenantManager) : base(serviceProvider)
+            ITenantManager tenantManager
+            ) : base(serviceProvider)
         {
             TenantRepository = tenantRepository;
             TenantManager = tenantManager;
@@ -63,7 +64,7 @@ namespace LinFx.Extensions.TenantManagement
         public virtual async Task<TenantDto> CreateAsync(TenantEditInput input)
         {
             var tenant = await TenantManager.CreateAsync(input.Name);
-            await TenantRepository.InsertAsync(tenant);
+            tenant = await TenantRepository.InsertAsync(tenant);
 
             return tenant.MapTo<TenantDto>();
         }

@@ -1,4 +1,5 @@
-﻿using LinFx.Security.Claims;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Security.Claims;
 using LinFx.Security.Principal;
 using System;
 using System.Linq;
@@ -10,8 +11,7 @@ namespace LinFx.Security.Users;
 /// <summary>
 /// 当前用户
 /// </summary>
-[Service]
-public class CurrentUser : ICurrentUser
+public class CurrentUser : ICurrentUser, ITransientDependency
 {
     private static readonly Claim[] EmptyClaimsArray = new Claim[0];
 
@@ -33,9 +33,9 @@ public class CurrentUser : ICurrentUser
 
     public virtual string[] Roles => FindClaims(ClaimTypes.Role).Select(c => c.Value).ToArray();
 
-    private readonly IHttpContextPrincipalAccessor _principalAccessor;
+    private readonly ICurrentPrincipalAccessor _principalAccessor;
 
-    public CurrentUser(IHttpContextPrincipalAccessor principalAccessor)
+    public CurrentUser(ICurrentPrincipalAccessor principalAccessor)
     {
         _principalAccessor = principalAccessor;
     }

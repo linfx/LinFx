@@ -1,5 +1,5 @@
 using LinFx.Domain.Entities;
-using LinFx.Utils;
+using LinFx.Reflection;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

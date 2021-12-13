@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.MultiTenancy;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.MultiTenancy;
 using LinFx.Security.Users;
 using System;
 

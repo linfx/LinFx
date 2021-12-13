@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.DynamicProxy;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.DynamicProxy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

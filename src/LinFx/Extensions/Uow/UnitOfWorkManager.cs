@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace LinFx.Extensions.Uow
@@ -6,8 +7,7 @@ namespace LinFx.Extensions.Uow
     /// <summary>
     /// 工作单元管理器
     /// </summary>
-    [Service(ServiceLifetime.Singleton)]
-    public class UnitOfWorkManager : IUnitOfWorkManager
+    public class UnitOfWorkManager : IUnitOfWorkManager, ISingletonDependency
     {
         public IUnitOfWork Current => _ambientUnitOfWork.GetCurrentByChecking();
 

@@ -1,4 +1,5 @@
-﻿using LinFx.Security.Claims;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Security.Claims;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,7 +13,7 @@ namespace LinFx.Extensions.Authorization.Permissions
     /// <summary>
     /// 权限检查器
     /// </summary>
-    [Service(Lifetime = ServiceLifetime.Singleton)]
+    [Service(ServiceLifetime.Singleton)]
     public class PermissionChecker : IPermissionChecker
     {
         private readonly Lazy<List<IPermissionValueProvider>> _lazyProviders;
@@ -27,14 +28,14 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         protected IReadOnlyList<IPermissionValueProvider> ValueProviders => _lazyProviders.Value;
 
-        protected IHttpContextPrincipalAccessor PrincipalAccessor { get; }
+        protected ICurrentPrincipalAccessor PrincipalAccessor { get; }
 
         protected PermissionOptions Options { get; }
 
         public PermissionChecker(
             IOptions<PermissionOptions> options,
             IServiceProvider serviceProvider,
-            IHttpContextPrincipalAccessor principalAccessor,
+            ICurrentPrincipalAccessor principalAccessor,
             IPermissionDefinitionManager permissionDefinitionManager)
         {
             PrincipalAccessor = principalAccessor;
