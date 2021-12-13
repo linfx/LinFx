@@ -7,3 +7,6 @@ dotnet tool update -g dotnet-ef
 # 数据迁移
 dotnet ef migrations add Initial
 dotnet ef database update
+
+
+dotnet ef migrations add -c AuditLoggingDbContext Initial

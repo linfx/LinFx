@@ -1,18 +1,26 @@
 ﻿using JetBrains.Annotations;
 using System;
 
-namespace LinFx.Extensions.MultiTenancy
+namespace LinFx.Extensions.MultiTenancy;
+
+/// <summary>
+/// 当前租户
+/// </summary>
+public interface ICurrentTenant
 {
-    public interface ICurrentTenant
-    {
-        bool IsAvailable { get; }
+    bool IsAvailable { get; }
 
-        [CanBeNull]
-        string Id { get; }
+    /// <summary>
+    /// 租户Id
+    /// </summary>
+    [CanBeNull]
+    string Id { get; }
 
-        [CanBeNull]
-        string Name { get; }
+    /// <summary>
+    /// 租户名称
+    /// </summary>
+    [CanBeNull]
+    string Name { get; }
 
-        IDisposable Change(string id, string name = null);
-    }
+    IDisposable Change(string id, string name = null);
 }

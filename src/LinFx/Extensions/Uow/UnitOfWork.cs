@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,7 @@ namespace LinFx.Extensions.Uow
     /// <summary>
     /// 工作单元
     /// </summary>
-    [Service]
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, ITransientDependency
     {
         /// <summary>
         /// Default: false.
@@ -28,6 +28,9 @@ namespace LinFx.Extensions.Uow
 
         public IUnitOfWork Outer { get; private set; }
 
+        /// <summary>
+        /// 是否保留
+        /// </summary>
         public bool IsReserved { get; set; }
 
         public bool IsDisposed { get; private set; }

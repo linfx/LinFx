@@ -1,5 +1,5 @@
-using LinFx.Data;
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
@@ -19,14 +19,14 @@ using System.Collections.Generic;
 
 namespace LinFx.Application.Services;
 
-[Service]
 public abstract class ApplicationService :
     IApplicationService,
     //IAvoidDuplicateCrossCuttingConcerns,
     //IValidationEnabled,
     IUnitOfWorkEnabled,
-    IAuditingEnabled
-//IGlobalFeatureCheckingEnabled
+    IAuditingEnabled,
+    //IGlobalFeatureCheckingEnabled
+    ITransientDependency
 {
     public ILazyServiceProvider LazyServiceProvider { get; private set; }
 

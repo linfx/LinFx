@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace LinFx.Extensions.MultiTenancy
+namespace LinFx.Extensions.MultiTenancy;
+
+public interface ITenantStore
 {
-    public interface ITenantStore
-    {
-        Task<TenantInfo> FindAsync(string tenantIdOrName);
-    }
+    Task<TenantInfo> FindAsync(string tenantIdOrName);
 }

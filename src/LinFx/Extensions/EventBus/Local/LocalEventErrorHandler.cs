@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus.Local
 {
-    //[ExposeServices(typeof(LocalEventErrorHandler), typeof(IEventErrorHandler))]
-    [Service(Lifetime = ServiceLifetime.Singleton)]
     public class LocalEventErrorHandler : EventErrorHandlerBase
     {
         protected Dictionary<Guid, int> RetryTracking { get; }

@@ -1,3 +1,4 @@
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EventBus.Local;
 using System;
 using System.Threading.Tasks;

@@ -32,7 +32,7 @@ namespace LinFx.Extensions.Uow
                 var options = CreateOptions(scope.ServiceProvider, invocation, unitOfWorkAttribute);
                 var unitOfWorkManager = scope.ServiceProvider.GetRequiredService<IUnitOfWorkManager>();
 
-                //Trying to begin a reserved UOW by AbpUnitOfWorkMiddleware
+                //Trying to begin a reserved UOW by UnitOfWorkMiddleware
                 if (unitOfWorkManager.TryBeginReserved(UnitOfWork.UnitOfWorkReservationName, options))
                 {
                     await invocation.ProceedAsync();

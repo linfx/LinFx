@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using LinFx.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 
 namespace LinFx.Extensions.Timing;

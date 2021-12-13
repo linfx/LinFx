@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using LinFx.Utils;
+using LinFx.Reflection;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;

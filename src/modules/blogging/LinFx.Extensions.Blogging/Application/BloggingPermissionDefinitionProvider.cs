@@ -1,6 +1,6 @@
-﻿using LinFx;
-using LinFx.Extensions.Authorization.Permissions;
+﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Blogging;
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 

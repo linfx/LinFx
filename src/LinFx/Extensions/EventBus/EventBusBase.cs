@@ -3,7 +3,7 @@ using LinFx.Extensions.EventBus.Distributed;
 using LinFx.Extensions.EventBus.Local;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Uow;
-using LinFx.Utils;
+using LinFx.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

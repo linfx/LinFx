@@ -6,6 +6,7 @@ namespace LinFx.Extensions.Modularity
     /// <summary>
     /// 模块信息
     /// </summary>
+    [Obsolete]
     public class ModuleInfo
     {
         /// <summary>

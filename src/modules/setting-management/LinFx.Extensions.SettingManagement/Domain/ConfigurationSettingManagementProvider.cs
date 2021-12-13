@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.Setting;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.Setting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;

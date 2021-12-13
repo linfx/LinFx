@@ -10,7 +10,6 @@ namespace LinFx.Extensions.EntityFrameworkCore.Modeling
             get => _tablePrefix;
             set
             {
-                //Check.NotNull(value, nameof(value), $"{nameof(TablePrefix)} can not be null! Set to empty string if you don't want a table prefix.");
                 _tablePrefix = value;
             }
         }
@@ -20,8 +19,8 @@ namespace LinFx.Extensions.EntityFrameworkCore.Modeling
         public string Schema { get; set; }
 
         public ModelBuilderConfigurationOptions(
-            [NotNull] string tablePrefix = "",
-            [CanBeNull] string schema = null)
+            [NotNull] string tablePrefix = default,
+            [CanBeNull] string schema = default)
         {
             Check.NotNull(tablePrefix, nameof(tablePrefix));
 

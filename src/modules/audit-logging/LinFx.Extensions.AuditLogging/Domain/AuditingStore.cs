@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Auditing;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -30,7 +31,6 @@ namespace LinFx.Extensions.AuditLogging
             UnitOfWorkManager = unitOfWorkManager;
             Converter = converter;
             Options = options.Value;
-
             Logger = NullLogger<AuditingStore>.Instance;
         }
 

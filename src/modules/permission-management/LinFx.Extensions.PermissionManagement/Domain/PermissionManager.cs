@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
