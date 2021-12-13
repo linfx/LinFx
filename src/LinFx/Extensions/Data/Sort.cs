@@ -1,4 +1,6 @@
-﻿namespace LinFx.Data
+﻿using LinFx.Extensions.Data;
+
+namespace LinFx.Data
 {
     public class Sort : ISort
     {

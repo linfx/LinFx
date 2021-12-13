@@ -2,7 +2,7 @@
 using System.Reflection;
 using JetBrains.Annotations;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public class ConnectionStringNameAttribute : Attribute
 {

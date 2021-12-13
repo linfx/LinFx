@@ -1,9 +1,8 @@
 ﻿using JetBrains.Annotations;
-using LinFx.Extensions.Data;
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public static class ConnectionStringResolverExtensions
 {

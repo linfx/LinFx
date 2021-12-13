@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public class DbConcurrencyException : Exception
 {

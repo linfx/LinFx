@@ -1,9 +1,8 @@
-﻿namespace LinFx.Data
-{
-    public class Sorting
-    {
-        public bool Ascending { get; set; }
+﻿namespace LinFx.Extensions.Data;
 
-        public string PropertyName { get; set; }
-    }
+public class Sorting
+{
+    public bool Ascending { get; set; }
+
+    public string PropertyName { get; set; }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using LinFx.Data;
 
 namespace LinFx.Extensions.Data;
 

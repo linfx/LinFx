@@ -1,4 +1,4 @@
-using LinFx.Data;
+using LinFx.Extensions.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
