@@ -1,4 +1,5 @@
 ﻿using LinFx.Application;
+using LinFx.Extensions.AspNetCore.Auditing;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Modularity;
@@ -23,7 +24,7 @@ public class AspNetCoreModule : Module
     {
         Configure<AuditingOptions>(options =>
         {
-            //options.Contributors.Add(new AspNetCoreAuditLogContributor());
+            options.Contributors.Add(new AspNetCoreAuditLogContributor());
         });
 
         //Configure<StaticFileOptions>(options =>

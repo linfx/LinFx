@@ -2,6 +2,7 @@
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
@@ -63,8 +64,7 @@ namespace TenantManagementService.Host
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
             });
 
-            //app.UseAuditing();
-            //app.UseUnitOfWork();
+            app.UseAuditing();
         }
     }
 }

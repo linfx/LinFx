@@ -19,31 +19,28 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
             return;
         }
 
-        //using (CrossCuttingConcerns.Applying(context.Controller, CrossCuttingConcerns.Auditing))
-        //{
-        //    var stopwatch = Stopwatch.StartNew();
+        var stopwatch = Stopwatch.StartNew();
 
-        //    try
-        //    {
-        //        var result = await next();
+        try
+        {
+            var result = await next();
 
-        //        if (result.Exception != null && !result.ExceptionHandled)
-        //        {
-        //            auditLog.Exceptions.Add(result.Exception);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        auditLog.Exceptions.Add(ex);
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        stopwatch.Stop();
-        //        auditLogAction.ExecutionDuration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
-        //        auditLog.Actions.Add(auditLogAction);
-        //    }
-        //}
+            if (result.Exception != null && !result.ExceptionHandled)
+            {
+                auditLog.Exceptions.Add(result.Exception);
+            }
+        }
+        catch (Exception ex)
+        {
+            auditLog.Exceptions.Add(ex);
+            throw;
+        }
+        finally
+        {
+            stopwatch.Stop();
+            auditLogAction.ExecutionDuration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
+            auditLog.Actions.Add(auditLogAction);
+        }
     }
 
     private bool ShouldSaveAudit(ActionExecutingContext context, out AuditLogInfo auditLog, out AuditLogActionInfo auditLogAction)
@@ -53,34 +50,26 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
 
         var options = context.GetRequiredService<IOptions<AuditingOptions>>().Value;
         if (!options.IsEnabled)
-        {
             return false;
-        }
 
         if (!context.ActionDescriptor.IsControllerAction())
-        {
             return false;
-        }
 
         var auditLogScope = context.GetService<IAuditingManager>()?.Current;
         if (auditLogScope == null)
-        {
             return false;
-        }
 
-        //var auditingHelper = context.GetRequiredService<IAuditingHelper>();
-        //if (!auditingHelper.ShouldSaveAudit(context.ActionDescriptor.GetMethodInfo(), true))
-        //{
-        //    return false;
-        //}
+        var auditingFactory = context.GetRequiredService<IAuditingFactory>();
+        if (!auditingFactory.ShouldSaveAudit(context.ActionDescriptor.GetMethodInfo(), true))
+            return false;
 
-        //auditLog = auditLogScope.Log;
-        //auditLogAction = auditingHelper.CreateAuditLogAction(
-        //    auditLog,
-        //    context.ActionDescriptor.AsControllerActionDescriptor().ControllerTypeInfo.AsType(),
-        //    context.ActionDescriptor.AsControllerActionDescriptor().MethodInfo,
-        //    context.ActionArguments
-        //);
+        auditLog = auditLogScope.Log;
+        auditLogAction = auditingFactory.CreateAuditLogAction(
+            auditLog,
+            context.ActionDescriptor.AsControllerActionDescriptor().ControllerTypeInfo.AsType(),
+            context.ActionDescriptor.AsControllerActionDescriptor().MethodInfo,
+            context.ActionArguments
+        );
 
         return true;
     }

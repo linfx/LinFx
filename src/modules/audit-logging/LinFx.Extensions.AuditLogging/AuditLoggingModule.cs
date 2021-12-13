@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
+﻿using LinFx.Extensions.Auditing;
+using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
@@ -13,6 +14,7 @@ namespace LinFx.Extensions.AuditLogging;
 [DependsOn(
     typeof(DataModule),
     typeof(MultiTenancyModule),
+    typeof(AuditingModule),
     typeof(EntityFrameworkCoreModule)
 )]
 public class AuditLoggingModule : Module
