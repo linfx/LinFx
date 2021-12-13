@@ -19,7 +19,7 @@ namespace TenantManagementService.Host
     [DependsOn(
         //typeof(AuditLoggingModule),
         //typeof(PermissionManagementModule),
-        typeof(TenantManagementModule)
+        //typeof(TenantManagementModule)
     )]
     public class TenantManagementServiceHostModule : Module
     {

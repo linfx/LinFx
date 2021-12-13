@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 /// <summary>
 /// Provides some helper methods to work with async methods.

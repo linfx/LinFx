@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 [Serializable]
 public class ConnectionStrings : Dictionary<string, string>

@@ -1,6 +1,7 @@
-﻿using System.Threading;
+﻿using LinFx.Threading;
+using System.Threading;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 public class NullCancellationTokenProvider : CancellationTokenProviderBase
 {

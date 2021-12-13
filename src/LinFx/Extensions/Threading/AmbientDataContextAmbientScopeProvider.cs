@@ -2,10 +2,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using LinFx.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 /// <summary>
 /// 周围上下文

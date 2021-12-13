@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 /// <summary>
 /// 数据过滤

@@ -3,6 +3,7 @@ using LinFx.Domain.Entities;
 using LinFx.Domain.Entities.Events;
 using LinFx.Domain.Repositories;
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EntityFrameworkCore.EntityHistory;
 using LinFx.Extensions.EntityFrameworkCore.Modeling;

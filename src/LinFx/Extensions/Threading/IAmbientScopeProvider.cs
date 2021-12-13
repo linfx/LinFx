@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 public interface IAmbientScopeProvider<T>
 {

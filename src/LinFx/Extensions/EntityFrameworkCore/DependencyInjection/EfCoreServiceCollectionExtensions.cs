@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
-using LinFx.Extensions.EntityFrameworkCore.Uow;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -52,12 +51,6 @@ namespace Microsoft.Extensions.DependencyInjection
             new EfCoreRepositoryRegistrar(options).AddRepositories();
 
             return services;
-        }
-
-        public static LinFxBuilder AddDbContextProvider(this LinFxBuilder builder)
-        {
-            builder.Services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
-            return builder;
         }
     }
 }

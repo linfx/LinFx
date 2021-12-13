@@ -1,6 +1,8 @@
 using LinFx.Data;
+using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using LinFx.Threading;
 using Microsoft.EntityFrameworkCore;

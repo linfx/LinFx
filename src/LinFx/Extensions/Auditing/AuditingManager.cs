@@ -1,6 +1,6 @@
 ﻿using LinFx.Domain.Entities.Auditing;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Threading;
+using LinFx.Extensions.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;

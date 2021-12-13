@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System.Threading.Tasks;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public interface IConnectionStringResolver
 {

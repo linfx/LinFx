@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Data;
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
@@ -6,10 +7,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
-[Service(ServiceLifetime.Singleton)]
-public class DataFilter : IDataFilter
+public class DataFilter : IDataFilter, ISingletonDependency
 {
     private readonly ConcurrentDictionary<Type, object> _filters = new();
 

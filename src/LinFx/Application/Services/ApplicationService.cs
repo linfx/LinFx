@@ -1,5 +1,5 @@
-using LinFx.Data;
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;

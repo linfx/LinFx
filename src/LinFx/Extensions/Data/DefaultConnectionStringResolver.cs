@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public class DefaultConnectionStringResolver : IConnectionStringResolver, ITransientDependency
 {

@@ -5,13 +5,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Threading;
+namespace LinFx.Extensions.Threading;
 
 /// <summary>
 /// A robust timer implementation that ensures no overlapping occurs. It waits exactly specified <see cref="Period"/> between ticks.
 /// </summary>
-[Service]
-public class AsyncTimer
+public class AsyncTimer : ITransientDependency
 {
     /// <summary>
     /// This func is raised periodically according to Period of Timer.

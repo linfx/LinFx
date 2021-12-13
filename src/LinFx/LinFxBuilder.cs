@@ -27,7 +27,7 @@ public static class LinFxBuilderExtensions
     public static LinFxBuilder Configure<TOptions>(this LinFxBuilder builder, Action<TOptions> configureOptions) 
         where TOptions : class
     {
-        builder.Configure(configureOptions);
+        builder.Services.Configure(configureOptions);
         return builder;
     }
 }

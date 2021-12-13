@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LinFx.Extensions.DependencyInjection;
 
 /// <summary>
-/// 常规注册
+/// 服务注册
 /// </summary>
 public interface IConventionalRegistrar
 {

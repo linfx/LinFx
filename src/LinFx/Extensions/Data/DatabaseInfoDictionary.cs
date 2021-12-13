@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using LinFx.Data;
 
-namespace LinFx.Data;
+namespace LinFx.Extensions.Data;
 
 public class DatabaseInfoDictionary : Dictionary<string, DatabaseInfo>
 {

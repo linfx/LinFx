@@ -28,6 +28,9 @@ namespace LinFx.Extensions.Uow
 
         public IUnitOfWork Outer { get; private set; }
 
+        /// <summary>
+        ///  «∑Ò±£¡Ù
+        /// </summary>
         public bool IsReserved { get; set; }
 
         public bool IsDisposed { get; private set; }
