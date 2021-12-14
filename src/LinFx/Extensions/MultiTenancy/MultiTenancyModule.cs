@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.MultiTenancy;
 
+/// <summary>
+/// 多租户模块
+/// </summary>
 [DependsOn(
     typeof(DataModule)
 )]

@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace LinFx.Extensions.EntityFrameworkCore
 {
+    /// <summary>
+    /// 数据库上下文
+    /// </summary>
     public interface IEfCoreDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
     {
         void Initialize(EfCoreDbContextInitializationContext initializationContext);

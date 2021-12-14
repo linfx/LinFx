@@ -1,8 +1,8 @@
 ﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
@@ -13,12 +13,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
+using TenantManagementService.Host.Extensions;
 
 namespace TenantManagementService.Host
 {
     [DependsOn(
         typeof(AspNetCoreMvcModule),
-        typeof(PermissionManagementModule),
+        //typeof(PermissionManagementModule),
         typeof(AuditLoggingModule),
         typeof(TenantManagementModule)
     )]
@@ -26,29 +27,26 @@ namespace TenantManagementService.Host
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<TenantManagementDbContext>(options =>
+            Configure<EfCoreDbContextOptions>(options =>
             {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
+                options.UseSqlite<AuditLoggingDbContext>();
             });
 
-            services.AddDbContextPool<PermissionManagementDbContext>(options =>
+            Configure<EfCoreDbContextOptions>(options =>
             {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
+                options.UseSqlite<TenantManagementDbContext>();
             });
 
-            services.AddDbContextPool<AuditLoggingDbContext>(options =>
+            Configure<EfCoreDbContextOptions>(options =>
             {
-                options.EnableSensitiveDataLogging();
-                options.UseSqlite("Data Source=tenant.db", b => b.MigrationsAssembly("TenantManagementService.Host"));
+                options.UseSqlite<PermissionManagementDbContext>();
             });
 
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.xml"), true);
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.HttpApi.xml"), true);
+                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.xml"), true);
+                //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.HttpApi.xml"), true);
                 //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.xml"), true);
                 //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.HttpApi.xml"), true);
                 options.DocInclusionPredicate((docName, description) => true);
@@ -58,13 +56,29 @@ namespace TenantManagementService.Host
 
         public override void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
             });
-
             app.UseAuditing();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
+            });
         }
     }
 }

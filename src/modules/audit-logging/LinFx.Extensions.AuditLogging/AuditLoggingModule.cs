@@ -25,8 +25,5 @@ public class AuditLoggingModule : Module
         {
             options.AddRepository<AuditLog, EfCoreAuditLogRepository>();
         });
-
-        context.Services
-            .AddTransient<IAuditLoggingDbContext, AuditLoggingDbContext>();
     }
 }

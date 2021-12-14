@@ -1,5 +1,4 @@
-﻿using LinFx.Data;
-using LinFx.Domain.Entities;
+﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Entities.Events;
 using LinFx.Domain.Repositories;
 using LinFx.Extensions.Auditing;
@@ -36,7 +35,10 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 
-public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext
+/// <summary>
+/// 数据库上下文
+/// </summary>
+public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientDependency
 {
     public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
