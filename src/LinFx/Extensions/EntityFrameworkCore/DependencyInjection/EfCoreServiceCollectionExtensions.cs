@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class EfCoreServiceCollectionExtensions
     {
         public static IServiceCollection AddDbContext<TDbContext>(this IServiceCollection services, Action<IDbContextRegistrationOptionsBuilder> optionsBuilder = null)
-            where TDbContext : IEfCoreDbContext
+            where TDbContext : EfCoreDbContext
         {
             services.AddMemoryCache();
 
@@ -30,8 +30,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             optionsBuilder?.Invoke(options);
 
-            // 注入指定 TDbContext 的 DbOptions<TDbContext> ，将会使用 Create<TDbContext> 方法进行瞬时对象构造
-            //services.TryAddTransient(DbContextOptionsFactory.Create<TDbContext>);
+            // 注入指定 TDbContext 的 DbOptions<TDbContext> ，将会使用 Create<TDbContext> 方法进行瞬时对象构造。
+            services.TryAddTransient(DbContextOptionsFactory.Create<TDbContext>);
 
             // 替换指定类型的 DbContext 为当前 TDbContext
             foreach (var entry in options.ReplacedDbContextTypes)

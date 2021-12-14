@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
 {
+    /// <summary>
+    /// 数据库注册配置对象
+    /// </summary>
     public class DbContextRegistrationOptions : CommonDbContextRegistrationOptions, IDbContextRegistrationOptionsBuilder
     {
         public Dictionary<Type, object> EntityOptions { get; }

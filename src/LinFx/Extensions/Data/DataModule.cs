@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.Data;
 
+/// <summary>
+/// 数据过滤模块
+/// </summary>
 [DependsOn(
     typeof(UnitOfWorkModule)
 )]

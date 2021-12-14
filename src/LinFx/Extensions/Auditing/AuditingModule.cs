@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Auditing;
 
+/// <summary>
+/// 审计模块
+/// </summary>
 [DependsOn(
     typeof(DataModule),
     //typeof(AbpTimingModule),

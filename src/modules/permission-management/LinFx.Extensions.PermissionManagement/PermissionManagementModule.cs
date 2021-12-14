@@ -1,38 +1,38 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.Caching;
+using LinFx.Extensions.Data;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 
-namespace LinFx.Extensions.PermissionManagement
+namespace LinFx.Extensions.PermissionManagement;
+
+[DependsOn(
+    typeof(DataModule),
+    typeof(CachingModule),
+    typeof(MultiTenancyModule),
+    typeof(EntityFrameworkCoreModule)
+)]
+public class PermissionManagementModule : Module
 {
-    public class PermissionManagementModule : Module
+    public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        public override void ConfigureServices(IServiceCollection services)
+        Configure<PermissionManagementOptions>(options =>
         {
-            Configure<PermissionManagementOptions>(options =>
-            {
-                options.ManagementProviders.Add<UserPermissionManagementProvider>();
-                options.ManagementProviders.Add<RolePermissionManagementProvider>();
+            options.ManagementProviders.Add<UserPermissionManagementProvider>();
+            options.ManagementProviders.Add<RolePermissionManagementProvider>();
 
-                //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
-                options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
-                options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
-            });
+            //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
+            options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
+            options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
+        });
 
-            //builder.Services
-            //    .AddLocalization(o =>
-            //    {
-            //        o.ResourcesPath = "Resources";
-            //    });
-
-            //builder
-            //    .Services
-            //    .AddDbContext<PermissionManagementDbContext>(options =>
-            //    {
-            //        options.AddDefaultRepositories();
-            //    });
-        }
+        context.Services.AddDbContext<PermissionManagementDbContext>(options =>
+        {
+            options.AddDefaultRepositories<IPermissionManagementDbContext>();
+            options.AddRepository<PermissionGrant, EfCorePermissionGrantRepository>();
+        });
     }
 }

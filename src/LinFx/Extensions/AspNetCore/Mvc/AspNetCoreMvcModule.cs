@@ -1,6 +1,7 @@
 using LinFx.Application;
 using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.AspNetCore.Mvc;
 
@@ -78,26 +79,26 @@ public class AspNetCoreMvcModule : Module
         //        )
         //    );
 
-        //var mvcBuilder = context.Services.AddMvc()
-        //    .AddRazorRuntimeCompilation()
-        //    .AddDataAnnotationsLocalization(options =>
+        var mvcBuilder = context.Services.AddMvc();
+        //.AddRazorRuntimeCompilation()
+        //.AddDataAnnotationsLocalization(options =>
+        //{
+        //    options.DataAnnotationLocalizerProvider = (type, factory) =>
         //    {
-        //        options.DataAnnotationLocalizerProvider = (type, factory) =>
+        //        var resourceType = abpMvcDataAnnotationsLocalizationOptions
+        //            .AssemblyResources
+        //            .GetOrDefault(type.Assembly);
+
+        //        if (resourceType != null)
         //        {
-        //            var resourceType = abpMvcDataAnnotationsLocalizationOptions
-        //                .AssemblyResources
-        //                .GetOrDefault(type.Assembly);
+        //            return factory.Create(resourceType);
+        //        }
 
-        //            if (resourceType != null)
-        //            {
-        //                return factory.Create(resourceType);
-        //            }
-
-        //            return factory.CreateDefaultOrNull() ??
-        //                   factory.Create(type);
-        //        };
-        //    })
-        //    .AddViewLocalization(); //TODO: How to configure from the application? Also, consider to move to a UI module since APIs does not care about it.
+        //        return factory.CreateDefaultOrNull() ??
+        //               factory.Create(type);
+        //    };
+        //})
+        //.AddViewLocalization(); //TODO: How to configure from the application? Also, consider to move to a UI module since APIs does not care about it.
 
         //mvcCoreBuilder.AddAbpHybridJson();
 
@@ -117,7 +118,7 @@ public class AspNetCoreMvcModule : Module
         //context.Services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
         //Use DI to create controllers
-        //mvcBuilder.AddControllersAsServices();
+        mvcBuilder.AddControllersAsServices();
 
         //Use DI to create view components
         //mvcBuilder.AddViewComponentsAsServices();
