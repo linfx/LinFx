@@ -29,16 +29,8 @@ namespace TenantManagementService.Host
             Configure<EfCoreDbContextOptions>(options =>
             {
                 options.UseSqlite<AuditLoggingDbContext>();
-            });
-
-            Configure<EfCoreDbContextOptions>(options =>
-            {
-                options.UseSqlite<TenantManagementDbContext>();
-            });
-
-            Configure<EfCoreDbContextOptions>(options =>
-            {
                 options.UseSqlite<PermissionManagementDbContext>();
+                options.UseSqlite<TenantManagementDbContext>();
             });
 
             services.AddSwaggerGen(options =>

@@ -4,6 +4,7 @@ using LinFx.Extensions.EntityFrameworkCore.Uow;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
@@ -14,9 +15,9 @@ namespace LinFx.Extensions.EntityFrameworkCore;
     //typeof(EventBusModule),
     //typeof(AbpGuidsModule),
     typeof(MultiTenancyModule),
-    typeof(ThreadingModule)
+    typeof(ThreadingModule),
     //typeof(AbpTimingModule),
-    //typeof(UnitOfWorkModule),
+    typeof(UnitOfWorkModule)
     //typeof(AbpObjectMappingModule),
     //typeof(AbpExceptionHandlingModule),
     //typeof(AbpSpecificationsModule)

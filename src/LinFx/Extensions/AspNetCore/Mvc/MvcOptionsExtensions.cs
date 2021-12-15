@@ -7,7 +7,7 @@ namespace LinFx.Extensions.AspNetCore.Mvc;
 
 internal static class MvcOptionsExtensions
 {
-    public static void AddMyOptions(this MvcOptions options, IServiceCollection services)
+    public static void AddOptions(this MvcOptions options, IServiceCollection services)
     {
         AddConventions(options, services);
         AddActionFilters(options);
@@ -26,10 +26,14 @@ internal static class MvcOptionsExtensions
         //options.Conventions.Add(new AbpServiceConventionWrapper(services));
     }
 
+    /// <summary>
+    /// 注入过滤器
+    /// </summary>
+    /// <param name="options"></param>
     private static void AddActionFilters(MvcOptions options)
     {
         //options.Filters.AddService(typeof(GlobalFeatureActionFilter));
-        options.Filters.AddService(typeof(AuditActionFilter));
+        options.Filters.AddService(typeof(AuditActionFilter));            // 注入审计日志过滤器
         //options.Filters.AddService(typeof(AbpNoContentActionFilter));
         //options.Filters.AddService(typeof(AbpFeatureActionFilter));
         //options.Filters.AddService(typeof(AbpValidationActionFilter));

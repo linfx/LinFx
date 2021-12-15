@@ -70,7 +70,7 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
     public ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
-    public ILogger<EfCoreDbContext> Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
+    public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
 
     private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfCoreDbContext)
         .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);

@@ -138,7 +138,7 @@ public class AspNetCoreMvcModule : Module
 
         Configure<MvcOptions>(mvcOptions =>
         {
-            mvcOptions.AddMyOptions(context.Services);
+            mvcOptions.AddOptions(context.Services);
         });
 
         //Configure<AbpEndpointRouterOptions>(options =>
