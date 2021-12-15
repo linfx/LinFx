@@ -72,7 +72,7 @@ namespace LinFx.Extensions.Modularity
         protected virtual List<IModuleDescriptor> SortByDependency(List<IModuleDescriptor> modules, Type startupModuleType)
         {
             var sortedModules = modules.SortByDependencies(m => m.Dependencies);
-            //sortedModules.MoveItem(m => m.Type == startupModuleType, modules.Count - 1);
+            sortedModules.MoveItem(m => m.Type == startupModuleType, modules.Count - 1);
             return sortedModules;
         }
 
@@ -99,67 +99,6 @@ namespace LinFx.Extensions.Modularity
                 }
 
                 module.AddDependency(dependedModule);
-            }
-        }
-
-        [Obsolete]
-        public ModuleInfo[] LoadModules(IServiceCollection services, Type startupModuleType)
-        {
-            Check.NotNull(services, nameof(services));
-            Check.NotNull(startupModuleType, nameof(startupModuleType));
-
-            var modules = GetModuleInfos(services, startupModuleType);
-            ConfigureServices(services, modules);
-            return modules.ToArray();
-        }
-
-        [Obsolete]
-        private List<ModuleInfo> GetModuleInfos(IServiceCollection services, Type startupModuleType)
-        {
-            var modules = new List<ModuleInfo>();
-            FillModules(services, startupModuleType, modules);
-            return modules;
-        }
-
-        [Obsolete]
-        protected virtual void FillModules(IServiceCollection services, Type startupModuleType, List<ModuleInfo> modules)
-        {
-            // All modules starting from the startup module
-            foreach (var moduleType in ModuleHelper.FindAllModuleTypes(startupModuleType))
-            {
-                modules.Add(CreateModuleInfo(services, moduleType));
-            }
-        }
-
-        [Obsolete]
-        protected virtual ModuleInfo CreateModuleInfo(IServiceCollection services, Type moduleType)
-        {
-            return new ModuleInfo(moduleType, CreateAndRegisterModuleInfo(services, moduleType));
-        }
-
-        [Obsolete]
-        protected virtual IModuleInitializer CreateAndRegisterModuleInfo(IServiceCollection services, Type moduleType)
-        {
-            var module = (IModuleInitializer)Activator.CreateInstance(moduleType);
-            services.AddSingleton(moduleType, module);
-            return module;
-        }
-
-        [Obsolete]
-        protected virtual void ConfigureServices(IServiceCollection services, List<ModuleInfo> modules)
-        {
-            // ConfigureServices
-            foreach (var module in modules)
-            {
-                if (module.Instance is ModuleInfo item)
-                {
-                    // 是否跳过服务的自动注册，默认为 false
-                    //if (!abpModule.SkipAutoServiceRegistration)
-                    //{
-                    //    services.AddAssembly(module.Type.Assembly);
-                    //}
-                }
-                module.Instance.ConfigureServices(services);
             }
         }
     }

@@ -10,10 +10,8 @@ using System.Linq;
 namespace LinFx.Extensions.Modularity
 {
     [Service(ServiceLifetime.Singleton)]
-    public class ModuleManager : IModuleManager, IModuleConfigurationManager
+    public class ModuleManager : IModuleManager
     {
-        const string MODULES_FILE_NAME = "modules.json";
-
         private readonly IModuleContainer _moduleContainer;
         private readonly IEnumerable<IModuleLifecycleContributor> _lifecycleContributors;
         private readonly ILogger _logger;
@@ -32,19 +30,6 @@ namespace LinFx.Extensions.Modularity
                 .Select(serviceProvider.GetRequiredService)
                 .Cast<IModuleLifecycleContributor>()
                 .ToArray();
-        }
-
-        [Obsolete]
-        public virtual IEnumerable<ModuleInfo> GetModules()
-        {
-            var modules = new List<ModuleInfo>();
-            //var modulesPath = Path.Combine(Global.ContentRootPath, MODULES_FILE_NAME);
-            //using (var reader = new StreamReader(modulesPath))
-            //{
-            //    string content = reader.ReadToEnd();
-            //    modules = JsonConvert.DeserializeObject<List<ModuleInfo>>(content);
-            //}
-            return modules;
         }
 
         /// <summary>

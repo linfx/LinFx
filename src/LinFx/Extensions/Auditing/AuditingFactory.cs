@@ -15,7 +15,11 @@ namespace LinFx.Extensions.Auditing;
 
 public class AuditingFactory : IAuditingFactory
 {
-    protected ILogger<AuditingFactory> Logger { get; }
+    protected ILogger Logger { get; }
+
+    /// <summary>
+    /// 审计日志储存
+    /// </summary>
     protected IAuditingStore AuditingStore { get; }
 
     /// <summary>
@@ -62,12 +66,6 @@ public class AuditingFactory : IAuditingFactory
         //CorrelationIdProvider = correlationIdProvider;
     }
 
-    /// <summary>
-    /// 是否保存
-    /// </summary>
-    /// <param name="methodInfo"></param>
-    /// <param name="defaultValue"></param>
-    /// <returns></returns>
     public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
     {
         if (methodInfo == null)
@@ -125,6 +123,7 @@ public class AuditingFactory : IAuditingFactory
     /// <returns></returns>
     public virtual AuditLogInfo CreateAuditLogInfo()
     {
+        // 构建一个审计信息对象
         var auditInfo = new AuditLogInfo
         {
             ApplicationName = Options.ApplicationName,
