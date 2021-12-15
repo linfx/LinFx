@@ -48,10 +48,16 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
     protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
 
+    /// <summary>
+    /// 当前租户
+    /// </summary>
     public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
     public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
+    /// <summary>
+    /// 数据过滤
+    /// </summary>
     public IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
 
     public IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
@@ -60,8 +66,14 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
     public IEntityHistoryHelper EntityHistoryHelper => LazyServiceProvider.LazyGetService<IEntityHistoryHelper>(NullEntityHistoryHelper.Instance);
 
+    /// <summary>
+    /// 审记日志管理器
+    /// </summary>
     public IAuditingManager AuditingManager => LazyServiceProvider.LazyGetRequiredService<IAuditingManager>();
 
+    /// <summary>
+    /// 工作单元管理器
+    /// </summary>
     public IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
     public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
@@ -156,10 +168,12 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
             ApplyConcepts();
 
+            // 创建领域事件
             var eventReport = CreateEventReport();
 
             var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
+            // 发布领域事件
             PublishEntityEvents(eventReport);
 
             if (entityChangeList != null)
@@ -181,6 +195,10 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         }
     }
 
+    /// <summary>
+    /// 发布领域事件
+    /// </summary>
+    /// <param name="changeReport"></param>
     private void PublishEntityEvents(EntityEventReport changeReport)
     {
         foreach (var localEvent in changeReport.DomainEvents)
@@ -301,10 +319,15 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         }
     }
 
+    /// <summary>
+    /// 创建领域事件
+    /// </summary>
+    /// <returns></returns>
     protected virtual EntityEventReport CreateEventReport()
     {
         var eventReport = new EntityEventReport();
 
+        // 遍历所有的实体变更事件。
         foreach (var entry in ChangeTracker.Entries().ToList())
         {
             var generatesDomainEventsEntity = entry.Entity as IGeneratesDomainEvents;
@@ -356,7 +379,7 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         if (entityType == null)
             return;
 
-        if (!(entry.Entity is IHasExtraProperties entity))
+        if (entry.Entity is not IHasExtraProperties entity)
             return;
 
         var objectExtension = ObjectExtensionManager.Instance.GetOrNull(entityType);
@@ -476,7 +499,7 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
     protected virtual bool TryCancelDeletionForSoftDelete(EntityEntry entry)
     {
-        if (!(entry.Entity is ISoftDelete))
+        if (entry.Entity is not ISoftDelete)
             return false;
 
         if (IsHardDeleted(entry))

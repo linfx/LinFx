@@ -10,9 +10,4 @@ public static class DbContextExtensions
     {
         return dbContext.Database.GetService<IDbContextTransactionManager>() is IRelationalTransactionManager;
     }
-
-    public static bool MoveItem(this DbContext dbContext)
-    {
-        return dbContext.Database.GetService<IDbContextTransactionManager>() is IRelationalTransactionManager;
-    }
 }

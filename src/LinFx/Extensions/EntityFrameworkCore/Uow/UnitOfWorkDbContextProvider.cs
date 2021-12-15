@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.EntityFrameworkCore.Uow
 {
     /// <summary>
-    /// 数据库上下文提供者
+    /// 工作单元数据库上下文提供者
     /// </summary>
     /// <typeparam name="TDbContext"></typeparam>
     public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext

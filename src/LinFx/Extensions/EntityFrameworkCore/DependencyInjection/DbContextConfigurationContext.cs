@@ -8,6 +8,9 @@ using System.Data.Common;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
 {
+    /// <summary>
+    /// 配置上下文
+    /// </summary>
     public class DbContextConfigurationContext : IServiceProviderAccessor
     {
         public IServiceProvider ServiceProvider { get; }
@@ -18,6 +21,9 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
 
         public DbConnection ExistingConnection { get; }
 
+        /// <summary>
+        /// 数据库上下文配置
+        /// </summary>
         public DbContextOptionsBuilder DbContextOptions { get; protected set; }
 
         public DbContextConfigurationContext(

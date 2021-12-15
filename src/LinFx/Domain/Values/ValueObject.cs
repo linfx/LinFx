@@ -2,6 +2,9 @@
 
 namespace LinFx.Domain.Values;
 
+/// <summary>
+/// 值对象
+/// </summary>
 public abstract class ValueObject
 {
     protected abstract IEnumerable<object> GetAtomicValues();

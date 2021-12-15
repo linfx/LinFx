@@ -59,11 +59,19 @@ public abstract class BasicAggregateRoot<TKey> : Entity<TKey>,
     {
     }
 
+    /// <summary>
+    /// 获得所有本地事件
+    /// </summary>
+    /// <returns></returns>
     public virtual IEnumerable<DomainEventRecord> GetLocalEvents()
     {
         return _localEvents;
     }
 
+    /// <summary>
+    /// 获得所有分布式事件
+    /// </summary>
+    /// <returns></returns>
     public virtual IEnumerable<DomainEventRecord> GetDistributedEvents()
     {
         return _distributedEvents;
@@ -79,11 +87,19 @@ public abstract class BasicAggregateRoot<TKey> : Entity<TKey>,
         _distributedEvents.Clear();
     }
 
+    /// <summary>
+    /// 添加本地事件
+    /// </summary>
+    /// <param name="eventData"></param>
     protected virtual void AddLocalEvent(object eventData)
     {
         _localEvents.Add(new DomainEventRecord(eventData, EventOrderGenerator.GetNext()));
     }
 
+    /// <summary>
+    /// 填加分步式事件
+    /// </summary>
+    /// <param name="eventData"></param>
     protected virtual void AddDistributedEvent(object eventData)
     {
         _distributedEvents.Add(new DomainEventRecord(eventData, EventOrderGenerator.GetNext()));
