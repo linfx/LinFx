@@ -1,4 +1,4 @@
-using LinFx.Extensions.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
 {
@@ -8,7 +8,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection
     }
 
     public interface IDbContextConfigurer<TDbContext>
-        where TDbContext : EfCoreDbContext
+        where TDbContext : DbContext
     {
         void Configure(DbContextConfigurationContext<TDbContext> context);
     }

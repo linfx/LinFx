@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
@@ -37,7 +38,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
         }
 
         public void PreConfigure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-            where TDbContext : EfCoreDbContext
+            where TDbContext : DbContext
         {
             Check.NotNull(action, nameof(action));
 
@@ -51,7 +52,7 @@ namespace LinFx.Extensions.EntityFrameworkCore
         }
 
         public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-            where TDbContext : EfCoreDbContext
+            where TDbContext : DbContext
         {
             Check.NotNull(action, nameof(action));
 

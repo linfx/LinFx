@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.EntityFrameworkCore;
-using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
+﻿using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
@@ -11,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class EfCoreServiceCollectionExtensions
     {
         public static IServiceCollection AddDbContext<TDbContext>(this IServiceCollection services, Action<IDbContextRegistrationOptionsBuilder> optionsBuilder = null)
-            where TDbContext : EfCoreDbContext
+            where TDbContext : DbContext
         {
             services.AddMemoryCache();
 
