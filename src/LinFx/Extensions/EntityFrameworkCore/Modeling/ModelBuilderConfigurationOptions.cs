@@ -1,31 +1,30 @@
 ﻿using JetBrains.Annotations;
 
-namespace LinFx.Extensions.EntityFrameworkCore.Modeling
+namespace LinFx.Extensions.EntityFrameworkCore.Modeling;
+
+public class ModelBuilderConfigurationOptions
 {
-    public class ModelBuilderConfigurationOptions
+    [NotNull]
+    public string TablePrefix
     {
-        [NotNull]
-        public string TablePrefix
+        get => _tablePrefix;
+        set
         {
-            get => _tablePrefix;
-            set
-            {
-                _tablePrefix = value;
-            }
+            _tablePrefix = value;
         }
-        private string _tablePrefix;
+    }
+    private string _tablePrefix;
 
-        [CanBeNull]
-        public string Schema { get; set; }
+    [CanBeNull]
+    public string Schema { get; set; }
 
-        public ModelBuilderConfigurationOptions(
-            [NotNull] string tablePrefix = default,
-            [CanBeNull] string schema = default)
-        {
-            Check.NotNull(tablePrefix, nameof(tablePrefix));
+    public ModelBuilderConfigurationOptions(
+        [NotNull] string tablePrefix = default,
+        [CanBeNull] string schema = default)
+    {
+        Check.NotNull(tablePrefix, nameof(tablePrefix));
 
-            TablePrefix = tablePrefix;
-            Schema = schema;
-        }
+        TablePrefix = tablePrefix;
+        Schema = schema;
     }
 }
