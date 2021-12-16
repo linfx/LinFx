@@ -1,4 +1,5 @@
 using LinFx.Extensions.Data;
+using LinFx.Extensions.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -115,23 +116,21 @@ public static class DbContextOptionsFactory
 
     private static string ResolveConnectionString<TDbContext>(IServiceProvider serviceProvider, string connectionStringName)
     {
-        //            // Use DefaultConnectionStringResolver.Resolve when we remove IConnectionStringResolver.Resolve
-        //#pragma warning disable 618
-        //            var connectionStringResolver = serviceProvider.GetRequiredService<IConnectionStringResolver>();
-        //            var currentTenant = serviceProvider.GetRequiredService<ICurrentTenant>();
+        // Use DefaultConnectionStringResolver.Resolve when we remove IConnectionStringResolver.Resolve
+#pragma warning disable 618
+        var connectionStringResolver = serviceProvider.GetRequiredService<IConnectionStringResolver>();
+        var currentTenant = serviceProvider.GetRequiredService<ICurrentTenant>();
 
-        //            // Multi-tenancy unaware contexts should always use the host connection string
-        //            if (typeof(TDbContext).IsDefined(typeof(IgnoreMultiTenancyAttribute), false))
-        //            {
-        //                using (currentTenant.Change(null))
-        //                {
-        //                    return connectionStringResolver.Resolve(connectionStringName);
-        //                }
-        //            }
+        // Multi-tenancy unaware contexts should always use the host connection string
+        if (typeof(TDbContext).IsDefined(typeof(IgnoreMultiTenancyAttribute), false))
+        {
+            using (currentTenant.Change(null))
+            {
+                return connectionStringResolver.ResolveAsync(connectionStringName).Result;
+            }
+        }
 
-        //            return connectionStringResolver.Resolve(connectionStringName);
-        //#pragma warning restore 618
-
-        throw new NotImplementedException();
+        return connectionStringResolver.ResolveAsync(connectionStringName).Result;
+//#pragma warning restore 618
     }
 }

@@ -54,9 +54,7 @@ public static class EntityTypeBuilderExtensions
     public static void TryConfigureExtraProperties(this EntityTypeBuilder b)
     {
         if (!b.Metadata.ClrType.IsAssignableTo<IHasExtraProperties>())
-        {
             return;
-        }
 
         b.Property<ExtraPropertyDictionary>(nameof(IHasExtraProperties.ExtraProperties))
             .HasColumnName(nameof(IHasExtraProperties.ExtraProperties))
