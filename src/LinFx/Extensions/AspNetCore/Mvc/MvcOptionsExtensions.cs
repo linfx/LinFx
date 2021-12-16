@@ -43,7 +43,7 @@ internal static class MvcOptionsExtensions
 
     private static void AddModelBinders(MvcOptions options)
     {
-        //options.ModelBinderProviders.Insert(0, new AbpDateTimeModelBinderProvider());
+        //options.ModelBinderProviders.Insert(0, new DateTimeModelBinderProvider());
         //options.ModelBinderProviders.Insert(1, new AbpExtraPropertiesDictionaryModelBinderProvider());
         //options.ModelBinderProviders.Insert(2, new AbpRemoteStreamContentModelBinderProvider());
     }
