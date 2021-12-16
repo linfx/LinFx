@@ -1,14 +1,13 @@
-﻿namespace LinFx.Extensions.EntityFrameworkCore
+﻿namespace LinFx.Extensions.EntityFrameworkCore;
+
+public enum EfCoreDatabaseProvider
 {
-    public enum EfCoreDatabaseProvider
-    {
-        SqlServer,
-        MySql,
-        Oracle,
-        PostgreSql,
-        Sqlite,
-        InMemory,
-        Cosmos,
-        Firebird
-    }
+    SqlServer,
+    MySql,
+    Oracle,
+    PostgreSql,
+    Sqlite,
+    InMemory,
+    Cosmos,
+    Firebird
 }

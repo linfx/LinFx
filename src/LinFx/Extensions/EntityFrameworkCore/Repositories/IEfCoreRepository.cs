@@ -3,18 +3,17 @@ using LinFx.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EntityFrameworkCore.Repositories
+namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
+
+public interface IEfCoreRepository<TEntity> : IRepository<TEntity>
+    where TEntity : class, IEntity
 {
-    public interface IEfCoreRepository<TEntity> : IRepository<TEntity>
-        where TEntity : class, IEntity
-    {
-        Task<DbContext> GetDbContextAsync();
+    Task<DbContext> GetDbContextAsync();
 
-        Task<DbSet<TEntity>> GetDbSetAsync();
-    }
+    Task<DbSet<TEntity>> GetDbSetAsync();
+}
 
-    public interface IEfCoreRepository<TEntity, TKey> : IEfCoreRepository<TEntity>, IRepository<TEntity, TKey>
-        where TEntity : class, IEntity<TKey>
-    {
-    }
+public interface IEfCoreRepository<TEntity, TKey> : IEfCoreRepository<TEntity>, IRepository<TEntity, TKey>
+    where TEntity : class, IEntity<TKey>
+{
 }

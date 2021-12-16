@@ -8,89 +8,88 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace LinFx.Extensions.EntityFrameworkCore
+namespace LinFx.Extensions.EntityFrameworkCore;
+
+/// <summary>
+/// 数据库上下文
+/// </summary>
+public interface IEfCoreDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
 {
+    void Initialize(EfCoreDbContextInitializationContext initializationContext);
+
+    EntityEntry<TEntity> Attach<TEntity>([NotNull] TEntity entity) where TEntity : class;
+
+    EntityEntry Attach([NotNull] object entity);
+
+    int SaveChanges();
+
+    int SaveChanges(bool acceptAllChangesOnSuccess);
+
+    Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
     /// <summary>
-    /// 数据库上下文
+    /// This method will call the DbContext <see cref="SaveChangesAsync(bool, CancellationToken)"/> method directly of EF Core, which doesn't apply concepts of abp.
     /// </summary>
-    public interface IEfCoreDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
-    {
-        void Initialize(EfCoreDbContextInitializationContext initializationContext);
+    Task<int> SaveChangesOnDbContextAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
 
-        EntityEntry<TEntity> Attach<TEntity>([NotNull] TEntity entity) where TEntity : class;
+    DbSet<T> Set<T>()
+        where T : class;
 
-        EntityEntry Attach([NotNull] object entity);
+    DatabaseFacade Database { get; }
 
-        int SaveChanges();
+    ChangeTracker ChangeTracker { get; }
 
-        int SaveChanges(bool acceptAllChangesOnSuccess);
+    EntityEntry Add([NotNull] object entity);
 
-        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+    EntityEntry<TEntity> Add<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+    ValueTask<EntityEntry> AddAsync([NotNull] object entity, CancellationToken cancellationToken = default);
 
-        /// <summary>
-        /// This method will call the DbContext <see cref="SaveChangesAsync(bool, CancellationToken)"/> method directly of EF Core, which doesn't apply concepts of abp.
-        /// </summary>
-        Task<int> SaveChangesOnDbContextAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+    ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>([NotNull] TEntity entity, CancellationToken cancellationToken = default) where TEntity : class;
 
-        DbSet<T> Set<T>()
-            where T : class;
+    void AddRange([NotNull] IEnumerable<object> entities);
 
-        DatabaseFacade Database { get; }
+    void AddRange([NotNull] params object[] entities);
 
-        ChangeTracker ChangeTracker { get; }
+    Task AddRangeAsync([NotNull] params object[] entities);
 
-        EntityEntry Add([NotNull] object entity);
+    Task AddRangeAsync([NotNull] IEnumerable<object> entities, CancellationToken cancellationToken = default);
 
-        EntityEntry<TEntity> Add<TEntity>([NotNull] TEntity entity) where TEntity : class;
+    void AttachRange([NotNull] IEnumerable<object> entities);
 
-        ValueTask<EntityEntry> AddAsync([NotNull] object entity, CancellationToken cancellationToken = default);
+    void AttachRange([NotNull] params object[] entities);
 
-        ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>([NotNull] TEntity entity, CancellationToken cancellationToken = default) where TEntity : class;
+    EntityEntry<TEntity> Entry<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
-        void AddRange([NotNull] IEnumerable<object> entities);
+    EntityEntry Entry([NotNull] object entity);
 
-        void AddRange([NotNull] params object[] entities);
+    object Find([NotNull] Type entityType, [NotNull] params object[] keyValues);
 
-        Task AddRangeAsync([NotNull] params object[] entities);
+    TEntity Find<TEntity>([NotNull] params object[] keyValues) where TEntity : class;
 
-        Task AddRangeAsync([NotNull] IEnumerable<object> entities, CancellationToken cancellationToken = default);
+    ValueTask<object> FindAsync([NotNull] Type entityType, [NotNull] object[] keyValues, CancellationToken cancellationToken);
 
-        void AttachRange([NotNull] IEnumerable<object> entities);
+    ValueTask<TEntity> FindAsync<TEntity>([NotNull] object[] keyValues, CancellationToken cancellationToken) where TEntity : class;
 
-        void AttachRange([NotNull] params object[] entities);
+    ValueTask<TEntity> FindAsync<TEntity>([NotNull] params object[] keyValues) where TEntity : class;
 
-        EntityEntry<TEntity> Entry<TEntity>([NotNull] TEntity entity) where TEntity : class;
+    ValueTask<object> FindAsync([NotNull] Type entityType, [NotNull] params object[] keyValues);
 
-        EntityEntry Entry([NotNull] object entity);
+    EntityEntry<TEntity> Remove<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
-        object Find([NotNull] Type entityType, [NotNull] params object[] keyValues);
+    EntityEntry Remove([NotNull] object entity);
 
-        TEntity Find<TEntity>([NotNull] params object[] keyValues) where TEntity : class;
+    void RemoveRange([NotNull] IEnumerable<object> entities);
 
-        ValueTask<object> FindAsync([NotNull] Type entityType, [NotNull] object[] keyValues, CancellationToken cancellationToken);
+    void RemoveRange([NotNull] params object[] entities);
 
-        ValueTask<TEntity> FindAsync<TEntity>([NotNull] object[] keyValues, CancellationToken cancellationToken) where TEntity : class;
+    EntityEntry<TEntity> Update<TEntity>([NotNull] TEntity entity) where TEntity : class;
 
-        ValueTask<TEntity> FindAsync<TEntity>([NotNull] params object[] keyValues) where TEntity : class;
+    EntityEntry Update([NotNull] object entity);
 
-        ValueTask<object> FindAsync([NotNull] Type entityType, [NotNull] params object[] keyValues);
+    void UpdateRange([NotNull] params object[] entities);
 
-        EntityEntry<TEntity> Remove<TEntity>([NotNull] TEntity entity) where TEntity : class;
-
-        EntityEntry Remove([NotNull] object entity);
-
-        void RemoveRange([NotNull] IEnumerable<object> entities);
-
-        void RemoveRange([NotNull] params object[] entities);
-
-        EntityEntry<TEntity> Update<TEntity>([NotNull] TEntity entity) where TEntity : class;
-
-        EntityEntry Update([NotNull] object entity);
-
-        void UpdateRange([NotNull] params object[] entities);
-
-        void UpdateRange([NotNull] IEnumerable<object> entities);
-    }
+    void UpdateRange([NotNull] IEnumerable<object> entities);
 }

@@ -2,20 +2,19 @@ using LinFx.Extensions.Uow;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EntityFrameworkCore.Uow
+namespace LinFx.Extensions.EntityFrameworkCore.Uow;
+
+public class EfCoreDatabaseApi : IDatabaseApi, ISupportsSavingChanges
 {
-    public class EfCoreDatabaseApi : IDatabaseApi, ISupportsSavingChanges
+    public IEfCoreDbContext DbContext { get; }
+
+    public EfCoreDatabaseApi(IEfCoreDbContext dbContext)
     {
-        public IEfCoreDbContext DbContext { get; }
+        DbContext = dbContext;
+    }
 
-        public EfCoreDatabaseApi(IEfCoreDbContext dbContext)
-        {
-            DbContext = dbContext;
-        }
-
-        public Task SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            return DbContext.SaveChangesAsync(cancellationToken);
-        }
+    public Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return DbContext.SaveChangesAsync(cancellationToken);
     }
 }
