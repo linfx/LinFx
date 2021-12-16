@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Extensions.EntityFrameworkCore
 {
+    /// <summary>
+    /// 数据库上下文配置
+    /// </summary>
     public class EfCoreDbContextOptions
     {
         internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
@@ -18,6 +21,10 @@ namespace LinFx.Extensions.EntityFrameworkCore
 
         internal Dictionary<Type, Type> DbContextReplacements { get; } = new Dictionary<Type, Type>();
 
+        /// <summary>
+        /// 预配置
+        /// </summary>
+        /// <param name="action"></param>
         public void PreConfigure([NotNull] Action<DbContextConfigurationContext> action)
         {
             Check.NotNull(action, nameof(action));
@@ -25,6 +32,10 @@ namespace LinFx.Extensions.EntityFrameworkCore
             DefaultPreConfigureActions.Add(action);
         }
 
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="action"></param>
         public void Configure([NotNull] Action<DbContextConfigurationContext> action)
         {
             Check.NotNull(action, nameof(action));
@@ -37,6 +48,11 @@ namespace LinFx.Extensions.EntityFrameworkCore
             return DefaultConfigureAction != null;
         }
 
+        /// <summary>
+        /// 预配置
+        /// </summary>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <param name="action"></param>
         public void PreConfigure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
             where TDbContext : DbContext
         {
@@ -51,6 +67,11 @@ namespace LinFx.Extensions.EntityFrameworkCore
             actions.Add(action);
         }
 
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <param name="action"></param>
         public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
             where TDbContext : DbContext
         {

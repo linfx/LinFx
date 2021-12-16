@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Data;
 
+/// <summary>
+/// 默认连接字符串解析器
+/// </summary>
 public class DefaultConnectionStringResolver : IConnectionStringResolver, ITransientDependency
 {
     protected DbConnectionOptions Options { get; }
