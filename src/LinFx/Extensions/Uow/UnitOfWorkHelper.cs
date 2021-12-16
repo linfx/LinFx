@@ -57,6 +57,11 @@ namespace LinFx.Extensions.Uow
             return false;
         }
 
+        /// <summary>
+        /// 获取当前方法工作单元特性
+        /// </summary>
+        /// <param name="methodInfo">方法类型</param>
+        /// <returns><see cref="UnitOfWorkAttribute"/></returns>
         public static UnitOfWorkAttribute GetUnitOfWorkAttributeOrNull(MethodInfo methodInfo)
         {
             var attrs = methodInfo.GetCustomAttributes(true).OfType<UnitOfWorkAttribute>().ToArray();

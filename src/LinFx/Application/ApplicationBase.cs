@@ -87,6 +87,9 @@ public abstract class ApplicationBase : IApplication
         //initLogger.Entries.Clear();
     }
 
+    /// <summary>
+    /// 加载模块
+    /// </summary>
     protected virtual IReadOnlyList<IModuleDescriptor> LoadModules(IServiceCollection services, ApplicationCreationOptions options)
     {
         return services

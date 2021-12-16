@@ -7,12 +7,12 @@ namespace LinFx.Extensions.AspNetCore.Mvc;
 
 [DependsOn(
     typeof(AspNetCoreModule)
-//typeof(LocalizationModule),
-//typeof(AbpApiVersioningAbstractionsModule),
-//typeof(AbpAspNetCoreMvcContractsModule),
-//typeof(AbpUiNavigationModule),
-//typeof(AbpGlobalFeaturesModule),
-//typeof(AbpDddApplicationModule)
+    //typeof(LocalizationModule),
+    //typeof(AbpApiVersioningAbstractionsModule),
+    //typeof(AbpAspNetCoreMvcContractsModule),
+    //typeof(AbpUiNavigationModule),
+    //typeof(AbpGlobalFeaturesModule),
+    //typeof(AbpDddApplicationModule)
 )]
 public class AspNetCoreMvcModule : Module
 {
@@ -138,7 +138,7 @@ public class AspNetCoreMvcModule : Module
 
         Configure<MvcOptions>(mvcOptions =>
         {
-            mvcOptions.AddMyOptions(context.Services);
+            mvcOptions.AddOptions(context.Services);
         });
 
         //Configure<AbpEndpointRouterOptions>(options =>

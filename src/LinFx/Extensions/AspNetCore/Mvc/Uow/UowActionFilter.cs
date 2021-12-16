@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.Mvc.Uow;
 
+/// <summary>
+/// 工作单元过滤器
+/// </summary>
 public class UowActionFilter : IAsyncActionFilter, ITransientDependency
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
@@ -37,7 +40,7 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
 
         var unitOfWorkManager = context.GetRequiredService<IUnitOfWorkManager>();
 
-        //Trying to begin a reserved UOW by AbpUnitOfWorkMiddleware
+        //Trying to begin a reserved UOW by UnitOfWorkMiddleware
         if (unitOfWorkManager.TryBeginReserved(UnitOfWork.UnitOfWorkReservationName, options))
         {
             var result = await next();
@@ -75,8 +78,8 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
 
         if (unitOfWorkAttribute?.IsTransactional == null)
         {
-            var abpUnitOfWorkDefaultOptions = context.GetRequiredService<IOptions<UnitOfWorkDefaultOptions>>().Value;
-            options.IsTransactional = abpUnitOfWorkDefaultOptions.CalculateIsTransactional(
+            var unitOfWorkDefaultOptions = context.GetRequiredService<IOptions<UnitOfWorkDefaultOptions>>().Value;
+            options.IsTransactional = unitOfWorkDefaultOptions.CalculateIsTransactional(
                 autoValue: !string.Equals(context.HttpContext.Request.Method, HttpMethod.Get.Method, StringComparison.OrdinalIgnoreCase)
             );
         }

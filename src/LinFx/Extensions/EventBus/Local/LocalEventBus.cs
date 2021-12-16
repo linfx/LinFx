@@ -124,6 +124,11 @@ namespace LinFx.Extensions.EventBus.Local
             unitOfWork.AddOrReplaceLocalEvent(eventRecord);
         }
 
+        /// <summary>
+        /// ·¢²¼
+        /// </summary>
+        /// <param name="localEventMessage"></param>
+        /// <returns></returns>
         public virtual async Task PublishAsync(LocalEventMessage localEventMessage)
         {
             await TriggerHandlersAsync(localEventMessage.EventType, localEventMessage.EventData, errorContext =>

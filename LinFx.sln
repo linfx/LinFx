@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Blogging.H
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "account", "account", "{C7A4CCCC-DD2C-4D36-BAF0-805CB41EA088}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "audit-logging", "audit-logging", "{61D4C561-69C5-44D6-B76C-BCE5D7D3F951}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auditLogging", "auditLogging", "{61D4C561-69C5-44D6-B76C-BCE5D7D3F951}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.AuditLogging", "src\modules\audit-logging\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj", "{49453574-FAAA-4FB7-B2CC-B6E56E510B86}"
 EndProject
