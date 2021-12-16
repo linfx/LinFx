@@ -27,7 +27,8 @@ public static class EfCoreServiceCollectionExtensions
             options.ReplaceDbContext(dbContextType);
         }
 
-        optionsBuilder?.Invoke(options);
+            // 回调传入的委托。
+            optionsBuilder?.Invoke(options);
 
         // 注入指定 TDbContext 的 DbOptions<TDbContext> ，将会使用 Create<TDbContext> 方法进行瞬时对象构造。
         services.TryAddTransient(DbContextOptionsFactory.Create<TDbContext>);

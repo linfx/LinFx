@@ -5,8 +5,14 @@ using System;
 
 namespace LinFx.Extensions.Modularity;
 
+/// <summary>
+/// 模块加载器
+/// </summary>
 public interface IModuleLoader
 {
+    /// <summary>
+    /// 加载模块
+    /// </summary>
     [NotNull]
     IModuleDescriptor[] LoadModules(
         [NotNull] IServiceCollection services,

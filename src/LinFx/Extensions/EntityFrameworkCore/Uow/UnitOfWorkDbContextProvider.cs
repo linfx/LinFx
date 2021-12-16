@@ -13,15 +13,15 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.EntityFrameworkCore.Uow;
-
-/// <summary>
-/// 数据库上下文提供者
-/// </summary>
-/// <typeparam name="TDbContext"></typeparam>
-public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext
+namespace LinFx.Extensions.EntityFrameworkCore.Uow
 {
-    public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; }
+    /// <summary>
+    /// 工作单元数据库上下文提供者
+    /// </summary>
+    /// <typeparam name="TDbContext"></typeparam>
+    public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext
+    {
+        public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; }
 
     private readonly IUnitOfWorkManager _unitOfWorkManager;
     private readonly IConnectionStringResolver _connectionStringResolver;

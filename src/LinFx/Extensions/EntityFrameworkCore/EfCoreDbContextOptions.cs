@@ -4,11 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.EntityFrameworkCore;
-
-public class EfCoreDbContextOptions
+namespace LinFx.Extensions.EntityFrameworkCore
 {
-    internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
+    /// <summary>
+    /// 数据库上下文配置
+    /// </summary>
+    public class EfCoreDbContextOptions
+    {
+        internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
 
     internal Action<DbContextConfigurationContext> DefaultConfigureAction { get; set; }
 
@@ -18,16 +21,24 @@ public class EfCoreDbContextOptions
 
     internal Dictionary<Type, Type> DbContextReplacements { get; } = new Dictionary<Type, Type>();
 
-    public void PreConfigure([NotNull] Action<DbContextConfigurationContext> action)
-    {
-        Check.NotNull(action, nameof(action));
+        /// <summary>
+        /// 预配置
+        /// </summary>
+        /// <param name="action"></param>
+        public void PreConfigure([NotNull] Action<DbContextConfigurationContext> action)
+        {
+            Check.NotNull(action, nameof(action));
 
         DefaultPreConfigureActions.Add(action);
     }
 
-    public void Configure([NotNull] Action<DbContextConfigurationContext> action)
-    {
-        Check.NotNull(action, nameof(action));
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <param name="action"></param>
+        public void Configure([NotNull] Action<DbContextConfigurationContext> action)
+        {
+            Check.NotNull(action, nameof(action));
 
         DefaultConfigureAction = action;
     }
@@ -37,10 +48,15 @@ public class EfCoreDbContextOptions
         return DefaultConfigureAction != null;
     }
 
-    public void PreConfigure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-        where TDbContext : DbContext
-    {
-        Check.NotNull(action, nameof(action));
+        /// <summary>
+        /// 预配置
+        /// </summary>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <param name="action"></param>
+        public void PreConfigure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
+            where TDbContext : DbContext
+        {
+            Check.NotNull(action, nameof(action));
 
         var actions = PreConfigureActions.GetOrDefault(typeof(TDbContext));
         if (actions == null)
@@ -51,10 +67,15 @@ public class EfCoreDbContextOptions
         actions.Add(action);
     }
 
-    public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-        where TDbContext : DbContext
-    {
-        Check.NotNull(action, nameof(action));
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <typeparam name="TDbContext"></typeparam>
+        /// <param name="action"></param>
+        public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
+            where TDbContext : DbContext
+        {
+            Check.NotNull(action, nameof(action));
 
         ConfigureActions[typeof(TDbContext)] = action;
     }

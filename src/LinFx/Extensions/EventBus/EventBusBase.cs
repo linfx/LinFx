@@ -117,6 +117,13 @@ namespace LinFx.Extensions.EventBus
 
         protected abstract void AddToUnitOfWork(IUnitOfWork unitOfWork, UnitOfWorkEventRecord eventRecord);
 
+        /// <summary>
+        /// 触发
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="eventData"></param>
+        /// <param name="onErrorAction"></param>
+        /// <returns></returns>
         public virtual async Task TriggerHandlersAsync(Type eventType, object eventData, Action<EventExecutionErrorContext> onErrorAction = null)
         {
             var exceptions = new List<Exception>();
@@ -131,19 +138,32 @@ namespace LinFx.Extensions.EventBus
             }
         }
 
+        /// <summary>
+        /// 触发
+        /// </summary>
+        /// <param name="eventType"></param>
+        /// <param name="eventData"></param>
+        /// <param name="exceptions"></param>
+        /// <returns></returns>
         protected virtual async Task TriggerHandlersAsync(Type eventType, object eventData, List<Exception> exceptions)
         {
+            // 针对于这个的作用，等同于 ConfigureAwait(false) 。
+            // 具体可以参考 https://blogs.msdn.microsoft.com/benwilli/2017/02/09/an-alternative-to-configureawaitfalse-everywhere/。
             await new SynchronizationContextRemover();
 
+            // 根据事件的类型，得到它的所有事件处理器工厂。
             foreach (var handlerFactories in GetHandlerFactories(eventType))
             {
+                // 遍历所有的事件处理器工厂，通过 Factory 获得事件处理器，调用 Handler 的 HandleEventAsync 方法。
                 foreach (var handlerFactory in handlerFactories.EventHandlerFactories)
                 {
                     await TriggerHandlerAsync(handlerFactory, handlerFactories.EventType, eventData, exceptions);
                 }
             }
 
-            //Implements generic argument inheritance. See IEventDataWithInheritableGenericArgument
+            // 如果类型继承了 IEventDataWithInheritableGenericArgument 接口，那么会检测泛型参数是否有父类。
+            // 如果有父类，则会使用当前的事件数据，为其父类发布一个事件。
+            // Implements generic argument inheritance. See IEventDataWithInheritableGenericArgument
             if (eventType.GetTypeInfo().IsGenericType &&
                 eventType.GetGenericArguments().Length == 1 &&
                 typeof(IEventDataWithInheritableGenericArgument).IsAssignableFrom(eventType))
@@ -152,6 +172,7 @@ namespace LinFx.Extensions.EventBus
                 var baseArg = genericArg.GetTypeInfo().BaseType;
                 if (baseArg != null)
                 {
+                    // 构造基类的事件类型，使用当前一样的泛型定义，只是泛型参数使用基类。
                     var baseEventType = eventType.GetGenericTypeDefinition().MakeGenericType(baseArg);
                     var constructorArgs = ((IEventDataWithInheritableGenericArgument)eventData).GetConstructorArgs();
                     var baseEventData = Activator.CreateInstance(baseEventType, constructorArgs);
@@ -183,52 +204,65 @@ namespace LinFx.Extensions.EventBus
 
         protected abstract IEnumerable<EventTypeWithEventHandlerFactories> GetHandlerFactories(Type eventType);
 
+        /// <summary>
+        /// 触发
+        /// </summary>
+        /// <param name="asyncHandlerFactory"></param>
+        /// <param name="eventType"></param>
+        /// <param name="eventData"></param>
+        /// <param name="exceptions"></param>
+        /// <returns></returns>
         protected virtual async Task TriggerHandlerAsync(IEventHandlerFactory asyncHandlerFactory, Type eventType, object eventData, List<Exception> exceptions)
         {
-            using (var eventHandlerWrapper = asyncHandlerFactory.GetHandler())
+            using var eventHandlerWrapper = asyncHandlerFactory.GetHandler();
+            try
             {
-                try
+                // 获得事件处理器的类型。
+                var handlerType = eventHandlerWrapper.EventHandler.GetType();
+
+                using (CurrentTenant.Change(GetEventDataTenantId(eventData)))
                 {
-                    var handlerType = eventHandlerWrapper.EventHandler.GetType();
-
-                    using (CurrentTenant.Change(GetEventDataTenantId(eventData)))
+                    // 判断事件处理器是本地事件还是分布式事件。
+                    if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(ILocalEventHandler<>)))
                     {
-                        if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(ILocalEventHandler<>)))
-                        {
-                            var method = typeof(ILocalEventHandler<>)
-                                .MakeGenericType(eventType)
-                                .GetMethod(
-                                    nameof(ILocalEventHandler<object>.HandleEventAsync),
-                                    new[] { eventType }
-                                );
+                        // 获得方法定义。
+                        var method = typeof(ILocalEventHandler<>)
+                            .MakeGenericType(eventType)
+                            .GetMethod(
+                                nameof(ILocalEventHandler<object>.HandleEventAsync),
+                                new[] { eventType }
+                            );
 
-                            await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });
-                        }
-                        else if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(IDistributedEventHandler<>)))
-                        {
-                            var method = typeof(IDistributedEventHandler<>)
-                                .MakeGenericType(eventType)
-                                .GetMethod(
-                                    nameof(IDistributedEventHandler<object>.HandleEventAsync),
-                                    new[] { eventType }
-                                );
+                        // 使用工厂创建的实例调用方法。
+                        await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });
+                    }
+                    else if (ReflectionHelper.IsAssignableToGenericType(handlerType, typeof(IDistributedEventHandler<>)))
+                    {
+                        // 获得方法定义。
+                        var method = typeof(IDistributedEventHandler<>)
+                            .MakeGenericType(eventType)
+                            .GetMethod(
+                                nameof(IDistributedEventHandler<object>.HandleEventAsync),
+                                new[] { eventType }
+                            );
 
-                            await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });
-                        }
-                        else
-                        {
-                            throw new Exception("The object instance is not an event handler. Object type: " + handlerType.AssemblyQualifiedName);
-                        }
+                        // 使用工厂创建的实例调用方法。
+                        await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });
+                    }
+                    else
+                    {
+                        // 如果都不是，则说明类型不正确，抛出异常。
+                        throw new Exception("The object instance is not an event handler. Object type: " + handlerType.AssemblyQualifiedName);
                     }
                 }
-                catch (TargetInvocationException ex)
-                {
-                    exceptions.Add(ex.InnerException);
-                }
-                catch (Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
+            }
+            catch (TargetInvocationException ex)
+            {
+                exceptions.Add(ex.InnerException);
+            }
+            catch (Exception ex)
+            {
+                exceptions.Add(ex);
             }
         }
 

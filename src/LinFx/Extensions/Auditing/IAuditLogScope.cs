@@ -8,7 +8,7 @@ namespace LinFx.Extensions.Auditing;
 public interface IAuditLogScope
 {
     /// <summary>
-    /// 日志信息
+    /// 审计信息
     /// </summary>
     [NotNull]
     AuditLogInfo Log { get; }
