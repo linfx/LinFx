@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Dtos
+namespace LinFx.Application.Dtos;
+
+/// <summary>
+/// Simply implements <see cref="IPagedResultRequest"/>.
+/// </summary>
+public class PagedResultRequest : LimitedResultRequest, IPagedResultRequest
 {
     /// <summary>
-    /// Simply implements <see cref="IPagedResultRequest"/>.
+    /// 当前页
     /// </summary>
-    public class PagedResultRequest : LimitedResultRequest, IPagedResultRequest
-    {
-        /// <summary>
-        /// 当前页
-        /// </summary>
-        [Range(1, int.MaxValue)]
-        public virtual int Page { get; set; } = 1;
-    }
+    [Range(1, int.MaxValue)]
+    public virtual int Page { get; set; } = 1;
 }

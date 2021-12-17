@@ -4,34 +4,33 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 
-namespace LinFx.Collections
+namespace LinFx.Collections;
+
+public static class IReadableStringCollectionExtensions
 {
-    public static class IReadableStringCollectionExtensions
+    [DebuggerStepThrough]
+    public static NameValueCollection AsNameValueCollection(this IEnumerable<KeyValuePair<string, StringValues>> collection)
     {
-        [DebuggerStepThrough]
-        public static NameValueCollection AsNameValueCollection(this IEnumerable<KeyValuePair<string, StringValues>> collection)
+        var nv = new NameValueCollection();
+
+        foreach (var field in collection)
         {
-            var nv = new NameValueCollection();
-
-            foreach (var field in collection)
-            {
-                nv.Add(field.Key, field.Value.First());
-            }
-
-            return nv;
+            nv.Add(field.Key, field.Value.First());
         }
 
-        [DebuggerStepThrough]
-        public static NameValueCollection AsNameValueCollection(this IDictionary<string, StringValues> collection)
+        return nv;
+    }
+
+    [DebuggerStepThrough]
+    public static NameValueCollection AsNameValueCollection(this IDictionary<string, StringValues> collection)
+    {
+        var nv = new NameValueCollection();
+
+        foreach (var field in collection)
         {
-            var nv = new NameValueCollection();
-
-            foreach (var field in collection)
-            {
-                nv.Add(field.Key, field.Value.First());
-            }
-
-            return nv;
+            nv.Add(field.Key, field.Value.First());
         }
+
+        return nv;
     }
 }

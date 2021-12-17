@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Application.Dtos
+namespace LinFx.Application.Dtos;
+
+public class LimitedResultRequest
 {
-    public class LimitedResultRequest
-    {
-        /// <summary>
-        /// 页大小
-        /// </summary>
-        [Range(1, int.MaxValue)]
-        public virtual int PageSize { get; set; } = 15;
-    }
+    /// <summary>
+    /// 页大小
+    /// </summary>
+    [Range(1, int.MaxValue)]
+    public virtual int PageSize { get; set; } = 15;
 }

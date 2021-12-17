@@ -1,13 +1,12 @@
-﻿namespace LinFx.Application.Dtos
+﻿namespace LinFx.Application.Dtos;
+
+/// <summary>
+/// Simply implements <see cref="IPagedAndSortedResultRequest"/>.
+/// </summary>
+public class PagedAndSortedResultRequest : PagedResultRequest, IPagedAndSortedResultRequest
 {
     /// <summary>
-    /// Simply implements <see cref="IPagedAndSortedResultRequest"/>.
+    /// 排序
     /// </summary>
-    public class PagedAndSortedResultRequest : PagedResultRequest, IPagedAndSortedResultRequest
-    {
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public virtual string Sorting { get; set; }
-    }
+    public virtual string Sorting { get; set; }
 }

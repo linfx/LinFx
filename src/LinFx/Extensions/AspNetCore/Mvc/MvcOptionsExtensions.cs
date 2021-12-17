@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.AspNetCore.Mvc.Auditing;
+using LinFx.Extensions.AspNetCore.Mvc.ExceptionHandling;
 using LinFx.Extensions.AspNetCore.Mvc.Uow;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ internal static class MvcOptionsExtensions
         //options.Filters.AddService(typeof(AbpFeatureActionFilter));
         //options.Filters.AddService(typeof(AbpValidationActionFilter));
         options.Filters.AddService(typeof(UowActionFilter));
-        //options.Filters.AddService(typeof(AbpExceptionFilter));
+        options.Filters.AddService(typeof(ExceptionFilter));
     }
 
     private static void AddModelBinders(MvcOptions options)

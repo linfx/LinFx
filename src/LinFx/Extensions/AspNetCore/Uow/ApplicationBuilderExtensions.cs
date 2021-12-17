@@ -12,7 +12,7 @@ public static partial class ApplicationBuilderExtensions
     public static IApplicationBuilder UseUnitOfWork(this IApplicationBuilder app)
     {
         return app
-            //.UseExceptionHandling()
+            .UseExceptionHandling()
             .UseMiddleware<UnitOfWorkMiddleware>();
     }
 }
