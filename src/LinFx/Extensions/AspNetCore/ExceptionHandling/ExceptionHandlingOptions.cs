@@ -1,5 +1,8 @@
-﻿namespace LinFx.Extensions.Exceptions;
+﻿namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
+/// <summary>
+/// 异常处理选项
+/// </summary>
 public class ExceptionHandlingOptions
 {
     public bool SendExceptionsDetailsToClients { get; set; } = false;

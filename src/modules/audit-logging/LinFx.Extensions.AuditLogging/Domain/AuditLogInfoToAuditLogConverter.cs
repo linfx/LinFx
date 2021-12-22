@@ -1,6 +1,6 @@
-﻿using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.AspNetCore.ExceptionHandling;
+using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Exceptions;
 using LinFx.Extensions.Http;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;

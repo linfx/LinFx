@@ -1,6 +1,5 @@
 using LinFx.Extensions.AspNetCore.ExceptionHandling;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Exceptions;
 using LinFx.Extensions.Http;
 using LinFx.Security.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -60,11 +59,11 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
 
         var exceptionHandlingOptions = context.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
         var exceptionToErrorInfoConverter = context.GetRequiredService<IExceptionToErrorInfoConverter>();
-        // var remoteServiceErrorInfo = exceptionToErrorInfoConverter.Convert(context.Exception, options =>
-        //{
-        //    options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
-        //    options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
-        //});
+       // var remoteServiceErrorInfo = exceptionToErrorInfoConverter.Convert(context.Exception, options =>
+       //{
+       //    options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
+       //    options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
+       //});
 
         var logLevel = context.Exception.GetLogLevel();
 

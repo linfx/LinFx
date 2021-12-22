@@ -1,7 +1,7 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Exceptions;
+using LinFx.Extensions.ExceptionHandling;
 using LinFx.Security.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

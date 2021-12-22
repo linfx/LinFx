@@ -67,6 +67,8 @@ namespace LinFx.Extensions.Authorization.Permissions
         protected virtual Dictionary<string, PermissionGroupDefinition> CreatePermissionGroupDefinitions()
         {
             using var scope = _serviceProvider.CreateScope();
+
+            //  创建一个权限定义上下文。
             var context = new PermissionDefinitionContext();
             
             Options
@@ -75,6 +77,7 @@ namespace LinFx.Extensions.Authorization.Permissions
                 .ToList()
                 .ForEach(item => item.Define(context));
 
+            // 返回权限组名称 - 权限组定义的字典。
             return context.Groups;
         }
 

@@ -4,7 +4,7 @@ using System;
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>
-/// 审计日志动作
+/// 执行的动作
 /// </summary>
 [Serializable]
 public class AuditLogActionInfo : IHasExtraProperties

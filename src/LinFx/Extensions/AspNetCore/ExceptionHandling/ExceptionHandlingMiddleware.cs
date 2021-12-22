@@ -3,12 +3,16 @@ using LinFx.Security.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
+/// <summary>
+/// 异常中间件
+/// </summary>
 public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
 {
     private readonly ILogger _logger;
@@ -49,6 +53,12 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
         }
     }
 
+    /// <summary>
+    /// 异常处理
+    /// </summary>
+    /// <param name="httpContext"></param>
+    /// <param name="exception"></param>
+    /// <returns></returns>
     private async Task HandleAndWrapException(HttpContext httpContext, Exception exception)
     {
         _logger.LogException(exception);
@@ -66,14 +76,14 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
         }
         else
         {
-            //var errorInfoConverter = httpContext.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
-            //var statusCodeFinder = httpContext.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
+            var errorInfoConverter = httpContext.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
+            var statusCodeFinder = httpContext.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
             //var jsonSerializer = httpContext.RequestServices.GetRequiredService<IJsonSerializer>();
-            //var exceptionHandlingOptions = httpContext.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
+            var exceptionHandlingOptions = httpContext.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
 
-            //httpContext.Response.Clear();
-            //httpContext.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(httpContext, exception);
-            //httpContext.Response.OnStarting(_clearCacheHeadersDelegate, httpContext.Response);
+            httpContext.Response.Clear();
+            httpContext.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(httpContext, exception);
+            httpContext.Response.OnStarting(_clearCacheHeadersDelegate, httpContext.Response);
             //httpContext.Response.Headers.Add(AbpHttpConsts.AbpErrorFormat, "true");
 
             //await httpContext.Response.WriteAsync(

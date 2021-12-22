@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.Exceptions.Localization;
+namespace LinFx.Extensions.ExceptionHandling.Localization;
 
 public class ExceptionLocalizationOptions
 {

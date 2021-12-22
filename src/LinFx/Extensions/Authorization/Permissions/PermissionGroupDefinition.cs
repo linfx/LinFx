@@ -69,6 +69,10 @@ namespace LinFx.Extensions.Authorization.Permissions
             return permission;
         }
 
+        /// <summary>
+        /// 递归构建权限集合，因为定义的某个权限内部还拥有子权限。
+        /// </summary>
+        /// <returns></returns>
         public virtual List<PermissionDefinition> GetPermissionsWithChildren()
         {
             var permissions = new List<PermissionDefinition>();
@@ -81,6 +85,7 @@ namespace LinFx.Extensions.Authorization.Permissions
             return permissions;
         }
 
+        // 递归构建方法。
         private void AddPermissionToListRecursively(List<PermissionDefinition> permissions, PermissionDefinition permission)
         {
             permissions.Add(permission);

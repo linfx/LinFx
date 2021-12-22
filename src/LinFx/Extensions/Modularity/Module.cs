@@ -58,6 +58,10 @@ public abstract class Module :
     {
     }
 
+    /// <summary>
+    /// 应用程序初始化
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -65,6 +69,10 @@ public abstract class Module :
         Configure(app, env);
     }
 
+    /// <summary>
+    /// 应用程序关闭
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnApplicationShutdown(ApplicationShutdownContext context)
     {
     }

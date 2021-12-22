@@ -8,7 +8,6 @@ namespace LinFx.Extensions.Authorization
 {
     /// <summary>
     /// 授权策略提供者
-    /// The default implementation of a policy provider,
     /// which provides a <see cref="AuthorizationPolicy"/> for a particular name.
     /// </summary>
     public class DefaultAuthorizationPolicyProvider : Microsoft.AspNetCore.Authorization.DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider
@@ -42,5 +41,18 @@ namespace LinFx.Extensions.Authorization
 
             return null;
         }
+
+        //public Task<List<string>> GetPoliciesNamesAsync()
+        //{
+        //    return Task.FromResult(
+        //        _options.GetPoliciesNames()
+        //            .Union(
+        //                _permissionDefinitionManager
+        //                    .GetPermissions()
+        //                    .Select(p => p.Name)
+        //            )
+        //            .ToList()
+        //    );
+        //}
     }
 }

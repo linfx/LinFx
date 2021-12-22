@@ -23,13 +23,13 @@ namespace LinFx.Extensions.Authorization
         public DefaultAuthorizationService(
             IAuthorizationPolicyProvider policyProvider,
             IAuthorizationHandlerProvider handlers,
-            ILogger<Microsoft.AspNetCore.Authorization.DefaultAuthorizationService> logger,
+            ILogger<DefaultAuthorizationService> logger,
             IAuthorizationHandlerContextFactory contextFactory,
             IAuthorizationEvaluator evaluator,
-            IOptions<Microsoft.AspNetCore.Authorization.AuthorizationOptions> options,
+            IOptions<AuthorizationOptions> options,
             ICurrentPrincipalAccessor currentPrincipalAccessor,
             IServiceProvider serviceProvider)
-                : base(policyProvider, handlers, logger, contextFactory, evaluator, options)
+            : base(policyProvider, handlers, logger, contextFactory, evaluator, options)
         {
             _currentPrincipalAccessor = currentPrincipalAccessor;
             ServiceProvider = serviceProvider;

@@ -1,7 +1,8 @@
 using LinFx.Domain.Entities;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Exceptions.Localization;
+using LinFx.Extensions.ExceptionHandling;
+using LinFx.Extensions.ExceptionHandling.Localization;
 using LinFx.Extensions.Http;
 using LinFx.Extensions.Http.Client;
 using LinFx.Extensions.Validation;
@@ -13,10 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace LinFx.Extensions.Exceptions;
+namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
-[Service]
-public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter
+public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter, ITransientDependency
 {
     protected ExceptionLocalizationOptions LocalizationOptions { get; }
     protected IStringLocalizerFactory StringLocalizerFactory { get; }
@@ -95,7 +95,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         if (exception is UserFriendlyException || exception is RemoteCallException)
         {
             errorInfo.Message = exception.Message;
-            //errorInfo.Details = (exception as IHasErrorDetails)?.Details;
+            errorInfo.Details = (exception as IHasErrorDetails)?.Details;
         }
 
         if (exception is IHasValidationErrors)
@@ -200,7 +200,8 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
             if (aggException.InnerException is ValidationException ||
                 aggException.InnerException is AuthorizationException ||
-                aggException.InnerException is EntityNotFoundException)
+                aggException.InnerException is EntityNotFoundException ||
+                aggException.InnerException is IBusinessException)
             {
                 return aggException.InnerException;
             }

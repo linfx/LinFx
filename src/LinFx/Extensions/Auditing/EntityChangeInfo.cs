@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace LinFx.Extensions.Auditing;
 
+/// <summary>
+/// 实体的变化
+/// </summary>
 [Serializable]
 public class EntityChangeInfo : IHasExtraProperties
 {

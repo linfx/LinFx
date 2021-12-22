@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 
 namespace LinFx.Extensions.Authorization.Permissions
 {
@@ -13,6 +13,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        [NotNull]
         PermissionDefinition Get([NotNull] string name);
 
         /// <summary>
@@ -20,6 +21,7 @@ namespace LinFx.Extensions.Authorization.Permissions
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
+        [CanBeNull]
         PermissionDefinition GetOrNull([NotNull] string name);
 
         /// <summary>

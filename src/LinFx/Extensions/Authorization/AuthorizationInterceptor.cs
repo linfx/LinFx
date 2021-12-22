@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.DynamicProxy;
+﻿using LinFx.Extensions.DynamicProxy;
 using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization
@@ -7,7 +6,6 @@ namespace LinFx.Extensions.Authorization
     /// <summary>
     /// 授权拦截器
     /// </summary>
-    [Service]
     public class AuthorizationInterceptor : Interceptor
     {
         private readonly IMethodInvocationAuthorizationService _methodInvocationAuthorizationService;
