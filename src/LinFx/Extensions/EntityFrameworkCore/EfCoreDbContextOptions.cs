@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace LinFx.Extensions.EntityFrameworkCore;
 
 /// <summary>
-/// 数据库上下文配置
+/// 数据库上下文选项
 /// </summary>
 public class EfCoreDbContextOptions
 {

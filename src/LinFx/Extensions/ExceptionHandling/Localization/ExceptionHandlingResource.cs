@@ -3,5 +3,4 @@
 //[LocalizationResourceName("ExceptionHandling")]
 public class ExceptionHandlingResource
 {
-
 }

@@ -3,11 +3,15 @@ using LinFx.Extensions.AspNetCore.Auditing;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.AspNetCore;
 
+/// <summary>
+/// AspNetCore 模块
+/// </summary>
 [DependsOn(
     typeof(AuditingModule),
     //typeof(SecurityModule),

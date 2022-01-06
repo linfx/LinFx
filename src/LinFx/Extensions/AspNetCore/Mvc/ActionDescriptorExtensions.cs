@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using LinFx;
+using LinFx.Extensions.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Reflection;
 
@@ -10,7 +13,7 @@ public static class ActionDescriptorExtensions
     {
         if (!actionDescriptor.IsControllerAction())
         {
-            throw new Exception($"{nameof(actionDescriptor)} should be type of {typeof(ControllerActionDescriptor).AssemblyQualifiedName}");
+            throw new LinFxException($"{nameof(actionDescriptor)} should be type of {typeof(ControllerActionDescriptor).AssemblyQualifiedName}");
         }
 
         return actionDescriptor as ControllerActionDescriptor;
@@ -26,18 +29,18 @@ public static class ActionDescriptorExtensions
         return actionDescriptor.GetMethodInfo().ReturnType;
     }
 
-    //public static bool HasObjectResult(this ActionDescriptor actionDescriptor)
-    //{
-    //    return ActionResultHelper.IsObjectResult(actionDescriptor.GetReturnType());
-    //}
+    public static bool HasObjectResult(this ActionDescriptor actionDescriptor)
+    {
+        return ActionResultHelper.IsObjectResult(actionDescriptor.GetReturnType());
+    }
 
     public static bool IsControllerAction(this ActionDescriptor actionDescriptor)
     {
         return actionDescriptor is ControllerActionDescriptor;
     }
 
-    //public static bool IsPageAction(this ActionDescriptor actionDescriptor)
-    //{
-    //    return actionDescriptor is PageActionDescriptor;
-    //}
+    public static bool IsPageAction(this ActionDescriptor actionDescriptor)
+    {
+        return actionDescriptor is PageActionDescriptor;
+    }
 }

@@ -67,10 +67,10 @@ public class DefaultHttpExceptionStatusCodeFinder : IHttpExceptionStatusCodeFind
             return HttpStatusCode.NotImplemented;
         }
 
-        //if (exception is IBusinessException)
-        //{
-        //    return HttpStatusCode.Forbidden;
-        //}
+        if (exception is IBusinessException)
+        {
+            return HttpStatusCode.Forbidden;
+        }
 
         return HttpStatusCode.InternalServerError;
     }
