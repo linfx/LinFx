@@ -5,9 +5,15 @@ namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore
 {
     public class PermissionManagementDbContext : EfCoreDbContext, IPermissionManagementDbContext
     {
+        public DbSet<PermissionGrant> PermissionGrants { get; set; }
+
         public PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options)
             : base(options) { }
 
-        public DbSet<PermissionGrant> PermissionGrants { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //builder.ConfigurePermissionManagement();
+        }
     }
 }

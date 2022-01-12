@@ -1,27 +1,26 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using System.Collections.Generic;
 
-namespace LinFx.Extensions.PermissionManagement
+namespace LinFx.Extensions.PermissionManagement;
+
+public class MultiplePermissionValueProviderGrantInfo
 {
-    public class MultiplePermissionValueProviderGrantInfo
+    public Dictionary<string, PermissionValueProviderGrantInfo> Result { get; }
+
+    public MultiplePermissionValueProviderGrantInfo()
     {
-        public Dictionary<string, PermissionValueProviderGrantInfo> Result { get; }
+        Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
+    }
 
-        public MultiplePermissionValueProviderGrantInfo()
+    public MultiplePermissionValueProviderGrantInfo(string[] names)
+    {
+        Check.NotNull(names, nameof(names));
+
+        Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
+
+        foreach (var name in names)
         {
-            Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
-        }
-
-        public MultiplePermissionValueProviderGrantInfo(string[] names)
-        {
-            Check.NotNull(names, nameof(names));
-
-            Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
-
-            foreach (var name in names)
-            {
-                Result.Add(name, PermissionValueProviderGrantInfo.NonGranted);
-            }
+            Result.Add(name, PermissionValueProviderGrantInfo.NonGranted);
         }
     }
 }
