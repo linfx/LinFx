@@ -1,21 +1,23 @@
 using System;
 
-namespace LinFx.Domain.Entities.Events
+namespace LinFx.Domain.Entities.Events;
+
+/// <summary>
+/// ¡Ï”Ú ¬º˛
+/// </summary>
+[Serializable]
+public class DomainEventEntry
 {
-    [Serializable]
-    public class DomainEventEntry
+    public object SourceEntity { get; }
+
+    public object EventData { get; }
+
+    public long EventOrder { get; }
+
+    public DomainEventEntry(object sourceEntity, object eventData, long eventOrder)
     {
-        public object SourceEntity { get; }
-
-        public object EventData { get; }
-
-        public long EventOrder { get; }
-
-        public DomainEventEntry(object sourceEntity, object eventData, long eventOrder)
-        {
-            SourceEntity = sourceEntity;
-            EventData = eventData;
-            EventOrder = eventOrder;
-        }
+        SourceEntity = sourceEntity;
+        EventData = eventData;
+        EventOrder = eventOrder;
     }
 }

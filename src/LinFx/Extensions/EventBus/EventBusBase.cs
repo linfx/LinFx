@@ -228,10 +228,7 @@ public abstract class EventBusBase : IEventBus
                     // 获得方法定义。
                     var method = typeof(ILocalEventHandler<>)
                         .MakeGenericType(eventType)
-                        .GetMethod(
-                            nameof(ILocalEventHandler<object>.HandleEventAsync),
-                            new[] { eventType }
-                        );
+                        .GetMethod(nameof(ILocalEventHandler<object>.HandleEventAsync), new[] { eventType });
 
                     // 使用工厂创建的实例调用方法。
                     await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });
@@ -241,10 +238,7 @@ public abstract class EventBusBase : IEventBus
                     // 获得方法定义。
                     var method = typeof(IDistributedEventHandler<>)
                         .MakeGenericType(eventType)
-                        .GetMethod(
-                            nameof(IDistributedEventHandler<object>.HandleEventAsync),
-                            new[] { eventType }
-                        );
+                        .GetMethod(nameof(IDistributedEventHandler<object>.HandleEventAsync), new[] { eventType });
 
                     // 使用工厂创建的实例调用方法。
                     await (Task)method.Invoke(eventHandlerWrapper.EventHandler, new[] { eventData });

@@ -40,7 +40,15 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     public string ReservationName { get; set; }
 
     protected List<Func<Task>> CompletedHandlers { get; } = new List<Func<Task>>();
+
+    /// <summary>
+    /// 分步式事件
+    /// </summary>
     protected List<UnitOfWorkEventRecord> DistributedEvents { get; } = new List<UnitOfWorkEventRecord>();
+
+    /// <summary>
+    /// 本地事件
+    /// </summary>
     protected List<UnitOfWorkEventRecord> LocalEvents { get; } = new List<UnitOfWorkEventRecord>();
 
     public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
@@ -48,6 +56,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
 
     public IServiceProvider ServiceProvider { get; }
 
+    /// <summary>
+    /// 领域事件发布器
+    /// </summary>
     protected IUnitOfWorkEventPublisher UnitOfWorkEventPublisher { get; }
 
     [NotNull]
@@ -139,6 +150,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
 
             while (LocalEvents.Any() || DistributedEvents.Any())
             {
+                // 发布本地事件
                 if (LocalEvents.Any())
                 {
                     var localEventsToBePublished = LocalEvents.OrderBy(e => e.EventOrder).ToArray();
@@ -146,6 +158,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
                     await UnitOfWorkEventPublisher.PublishLocalEventsAsync(localEventsToBePublished);
                 }
 
+                // 发布分布式事件
                 if (DistributedEvents.Any())
                 {
                     var distributedEventsToBePublished = DistributedEvents.OrderBy(e => e.EventOrder).ToArray();

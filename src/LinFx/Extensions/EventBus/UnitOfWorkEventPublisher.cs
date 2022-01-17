@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.EventBus.Distributed;
+﻿using LinFx.Extensions.EventBus.Distributed;
 using LinFx.Extensions.EventBus.Local;
 using LinFx.Extensions.Uow;
 using System.Collections.Generic;

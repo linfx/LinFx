@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities.Events.Distributed
+namespace LinFx.Domain.Entities.Events.Distributed;
+
+public class AutoEntityDistributedEventSelectorList : List<NamedTypeSelector>, IAutoEntityDistributedEventSelectorList
 {
-    public class AutoEntityDistributedEventSelectorList : List<NamedTypeSelector>, IAutoEntityDistributedEventSelectorList
-    {
-    }
 }

@@ -330,10 +330,10 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         // 遍历所有的实体变更事件。
         foreach (var entry in ChangeTracker.Entries().ToList())
         {
-            var generatesDomainEventsEntity = entry.Entity as IGeneratesDomainEvents;
-            if (generatesDomainEventsEntity == null)
+            if (entry.Entity is not IGeneratesDomainEvents generatesDomainEventsEntity)
                 continue;
 
+            // 本地事件
             var localEvents = generatesDomainEventsEntity.GetLocalEvents()?.ToArray();
             if (localEvents != null && localEvents.Any())
             {

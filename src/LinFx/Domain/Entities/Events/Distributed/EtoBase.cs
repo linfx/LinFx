@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LinFx.Domain.Entities.Events.Distributed
-{
-    [Serializable]
-    public abstract class EtoBase
-    {
-        public Dictionary<string, string> Properties { get; set; }
+namespace LinFx.Domain.Entities.Events.Distributed;
 
-        protected EtoBase()
-        {
-            Properties = new Dictionary<string, string>();
-        }
+[Serializable]
+public abstract class EtoBase
+{
+    public Dictionary<string, string> Properties { get; set; }
+
+    protected EtoBase()
+    {
+        Properties = new Dictionary<string, string>();
     }
 }

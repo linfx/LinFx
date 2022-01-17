@@ -1,5 +1,4 @@
 ﻿using LinFx.Collections;
-using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EventBus.Local;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -15,7 +14,7 @@ namespace LinFx.Extensions.EventBus.Distributed
 
         protected IServiceScopeFactory ServiceScopeFactory { get; }
 
-        protected DistributedEventBusOptions AbpDistributedEventBusOptions { get; }
+        protected DistributedEventBusOptions DistributedEventBusOptions { get; }
 
         public LocalDistributedEventBus(
             ILocalEventBus localEventBus,
@@ -24,10 +23,14 @@ namespace LinFx.Extensions.EventBus.Distributed
         {
             _localEventBus = localEventBus;
             ServiceScopeFactory = serviceScopeFactory;
-            AbpDistributedEventBusOptions = distributedEventBusOptions.Value;
+            DistributedEventBusOptions = distributedEventBusOptions.Value;
             Subscribe(distributedEventBusOptions.Value.Handlers);
         }
 
+        /// <summary>
+        /// 订阅
+        /// </summary>
+        /// <param name="handlers"></param>
         public virtual void Subscribe(ITypeList<IEventHandler> handlers)
         {
             foreach (var handler in handlers)
@@ -36,9 +39,7 @@ namespace LinFx.Extensions.EventBus.Distributed
                 foreach (var @interface in interfaces)
                 {
                     if (!typeof(IEventHandler).GetTypeInfo().IsAssignableFrom(@interface))
-                    {
                         continue;
-                    }
 
                     var genericArgs = @interface.GetGenericArguments();
                     if (genericArgs.Length == 1)
