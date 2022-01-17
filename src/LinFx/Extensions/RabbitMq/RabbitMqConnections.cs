@@ -2,31 +2,33 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LinFx.Extensions.RabbitMq
+namespace LinFx.Extensions.RabbitMq;
+
+/// <summary>
+/// 连接
+/// </summary>
+public class RabbitMqConnections : Dictionary<string, ConnectionFactory>
 {
-    public class RabbitMqConnections : Dictionary<string, ConnectionFactory>
+    public const string DefaultConnectionName = "Default";
+
+    [NotNull]
+    public ConnectionFactory Default
     {
-        public const string DefaultConnectionName = "Default";
+        get => this[DefaultConnectionName];
+        set => this[DefaultConnectionName] = Check.NotNull(value, nameof(value));
+    }
 
-        [NotNull]
-        public ConnectionFactory Default
-        {
-            get => this[DefaultConnectionName];
-            set => this[DefaultConnectionName] = Check.NotNull(value, nameof(value));
-        }
+    public RabbitMqConnections()
+    {
+        Default = new ConnectionFactory();
+    }
 
-        public RabbitMqConnections()
+    public ConnectionFactory GetOrDefault(string connectionName)
+    {
+        if (TryGetValue(connectionName, out var connectionFactory))
         {
-            Default = new ConnectionFactory();
+            return connectionFactory;
         }
-
-        public ConnectionFactory GetOrDefault(string connectionName)
-        {
-            if (TryGetValue(connectionName, out var connectionFactory))
-            {
-                return connectionFactory;
-            }
-            return Default;
-        }
+        return Default;
     }
 }

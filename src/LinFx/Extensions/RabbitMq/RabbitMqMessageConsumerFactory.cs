@@ -1,27 +1,29 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace LinFx.Extensions.RabbitMq
+namespace LinFx.Extensions.RabbitMq;
+
+/// <summary>
+/// 消费者工厂
+/// </summary>
+public class RabbitMqMessageConsumerFactory : IRabbitMqMessageConsumerFactory, IDisposable
 {
-    public class RabbitMqMessageConsumerFactory : IRabbitMqMessageConsumerFactory, IDisposable
+    protected IServiceScope ServiceScope { get; }
+
+    public RabbitMqMessageConsumerFactory(IServiceScopeFactory serviceScopeFactory)
     {
-        protected IServiceScope ServiceScope { get; }
+        ServiceScope = serviceScopeFactory.CreateScope();
+    }
 
-        public RabbitMqMessageConsumerFactory(IServiceScopeFactory serviceScopeFactory)
-        {
-            ServiceScope = serviceScopeFactory.CreateScope();
-        }
+    public IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = default)
+    {
+        var consumer = ServiceScope.ServiceProvider.GetRequiredService<RabbitMqMessageConsumer>();
+        consumer.Initialize(exchange, queue, connectionName);
+        return consumer;
+    }
 
-        public IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = default)
-        {
-            var consumer = ServiceScope.ServiceProvider.GetRequiredService<RabbitMqMessageConsumer>();
-            consumer.Initialize(exchange, queue, connectionName);
-            return consumer;
-        }
-
-        public void Dispose()
-        {
-            ServiceScope?.Dispose();
-        }
+    public void Dispose()
+    {
+        ServiceScope?.Dispose();
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace LinFx.Extensions.RabbitMq
-{
-    public static class RabbitMqConsts
-    {
-        public static class DeliveryModes
-        {
-            public const int NonPersistent = 1;
+﻿namespace LinFx.Extensions.RabbitMq;
 
-            public const int Persistent = 2;
-        }
+public static class RabbitMqConsts
+{
+    public static class DeliveryModes
+    {
+        public const int NonPersistent = 1;
+
+        public const int Persistent = 2;
     }
 }
