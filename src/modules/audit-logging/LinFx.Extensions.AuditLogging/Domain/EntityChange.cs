@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace LinFx.Extensions.AuditLogging;
 
+/// <summary>
+/// 实体变化
+/// </summary>
 [DisableAuditing]
 public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
 {

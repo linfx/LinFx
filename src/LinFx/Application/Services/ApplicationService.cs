@@ -107,6 +107,9 @@ public abstract class ApplicationService :
     //}
     //private Type _localizationResource = typeof(DefaultResource);
 
+    /// <summary>
+    /// 当前工作单元
+    /// </summary>
     protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);

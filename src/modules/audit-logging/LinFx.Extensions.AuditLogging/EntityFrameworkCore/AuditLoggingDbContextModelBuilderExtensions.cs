@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using LinFx.Extensions.AuditLogging.Domain;
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -5,7 +5,7 @@ namespace Microsoft.EntityFrameworkCore;
 public static class ModelBuilderExtensions
 {
     private const string ModelDatabaseProviderAnnotationKey = "_DatabaseProvider";
-    private const string ModelMultiTenancySideAnnotationKey = "_MultiTenancySide";
+    //private const string ModelMultiTenancySideAnnotationKey = "_MultiTenancySide";
 
     #region MultiTenancySide
 

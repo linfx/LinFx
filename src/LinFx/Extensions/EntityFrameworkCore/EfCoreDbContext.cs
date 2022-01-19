@@ -42,10 +42,19 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 {
     public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
+    /// <summary>
+    /// 当前租户ID
+    /// </summary>
     protected virtual string CurrentTenantId => CurrentTenant?.Id;
 
+    /// <summary>
+    /// 是否启用租户过滤
+    /// </summary>
     protected virtual bool IsMultiTenantFilterEnabled => DataFilter?.IsEnabled<IMultiTenant>() ?? false;
 
+    /// <summary>
+    /// 是否启用软件删除过滤
+    /// </summary>
     protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
 
     /// <summary>
@@ -120,41 +129,40 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         }
     }
 
+    /// <summary>
+    /// 设置数据库提供者
+    /// </summary>
+    /// <param name="modelBuilder"></param>
     protected virtual void TrySetDatabaseProvider(ModelBuilder modelBuilder)
     {
         var provider = GetDatabaseProviderOrNull(modelBuilder);
         if (provider != null)
-        {
             modelBuilder.SetDatabaseProvider(provider.Value);
-        }
     }
 
     protected virtual EfCoreDatabaseProvider? GetDatabaseProviderOrNull(ModelBuilder modelBuilder)
     {
-        switch (Database.ProviderName)
+        return Database.ProviderName switch
         {
-            case "Microsoft.EntityFrameworkCore.SqlServer":
-                return EfCoreDatabaseProvider.SqlServer;
-            case "Npgsql.EntityFrameworkCore.PostgreSQL":
-                return EfCoreDatabaseProvider.PostgreSql;
-            case "Pomelo.EntityFrameworkCore.MySql":
-                return EfCoreDatabaseProvider.MySql;
-            case "Oracle.EntityFrameworkCore":
-            case "Devart.Data.Oracle.Entity.EFCore":
-                return EfCoreDatabaseProvider.Oracle;
-            case "Microsoft.EntityFrameworkCore.Sqlite":
-                return EfCoreDatabaseProvider.Sqlite;
-            case "Microsoft.EntityFrameworkCore.InMemory":
-                return EfCoreDatabaseProvider.InMemory;
-            case "FirebirdSql.EntityFrameworkCore.Firebird":
-                return EfCoreDatabaseProvider.Firebird;
-            case "Microsoft.EntityFrameworkCore.Cosmos":
-                return EfCoreDatabaseProvider.Cosmos;
-            default:
-                return null;
-        }
+            "Microsoft.EntityFrameworkCore.SqlServer" => EfCoreDatabaseProvider.SqlServer,
+            "Npgsql.EntityFrameworkCore.PostgreSQL" => EfCoreDatabaseProvider.PostgreSql,
+            "Pomelo.EntityFrameworkCore.MySql" => EfCoreDatabaseProvider.MySql,
+            "Oracle.EntityFrameworkCore" or "Devart.Data.Oracle.Entity.EFCore" => EfCoreDatabaseProvider.Oracle,
+            "Microsoft.EntityFrameworkCore.Sqlite" => EfCoreDatabaseProvider.Sqlite,
+            "Microsoft.EntityFrameworkCore.InMemory" => EfCoreDatabaseProvider.InMemory,
+            "FirebirdSql.EntityFrameworkCore.Firebird" => EfCoreDatabaseProvider.Firebird,
+            "Microsoft.EntityFrameworkCore.Cosmos" => EfCoreDatabaseProvider.Cosmos,
+            _ => null,
+        };
     }
 
+    /// <summary>
+    /// 保存
+    /// </summary>
+    /// <param name="acceptAllChangesOnSuccess"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="DbConcurrencyException"></exception>
     public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         try
@@ -547,6 +555,12 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         AuditPropertySetter?.SetDeletionProperties(entry.Entity);
     }
 
+    /// <summary>
+    /// 配置基础属性
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="modelBuilder"></param>
+    /// <param name="mutableEntityType"></param>
     protected virtual void ConfigureBaseProperties<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType) where TEntity : class
     {
         if (mutableEntityType.IsOwned())
@@ -560,6 +574,12 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         ConfigureGlobalFilters<TEntity>(modelBuilder, mutableEntityType);
     }
 
+    /// <summary>
+    /// 配置全局过滤器
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="modelBuilder"></param>
+    /// <param name="mutableEntityType"></param>
     protected virtual void ConfigureGlobalFilters<TEntity>(ModelBuilder modelBuilder, IMutableEntityType mutableEntityType) where TEntity : class
     {
         if (mutableEntityType.BaseType == null && ShouldFilterEntity<TEntity>(mutableEntityType))
@@ -611,33 +631,55 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         idPropertyBuilder.ValueGeneratedNever();
     }
 
+    /// <summary>
+    /// 是否过滤
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <param name="entityType"></param>
+    /// <returns></returns>
     protected virtual bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType) where TEntity : class
     {
+        // 多租户
         if (typeof(IMultiTenant).IsAssignableFrom(typeof(TEntity)))
             return true;
 
+        // 软件删除
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
             return true;
 
         return false;
     }
 
+    /// <summary>
+    /// 创建过滤表达式
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    /// <returns></returns>
     protected virtual Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>() where TEntity : class
     {
         Expression<Func<TEntity, bool>> expression = null;
 
+        // 软删除
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
-            expression = e => !IsSoftDeleteFilterEnabled || !EF.Property<bool>(e, "IsDeleted");
+            expression = e => !IsSoftDeleteFilterEnabled || !EF.Property<bool>(e, nameof(ISoftDelete.IsDeleted));
 
+        // 多租户
         if (typeof(IMultiTenant).IsAssignableFrom(typeof(TEntity)))
         {
-            Expression<Func<TEntity, bool>> multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, "TenantId") == CurrentTenantId;
+            Expression<Func<TEntity, bool>> multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, nameof(IMultiTenant.TenantId)) == CurrentTenantId;
             expression = expression == null ? multiTenantFilter : CombineExpressions(expression, multiTenantFilter);
         }
 
         return expression;
     }
 
+    /// <summary>
+    /// 合并表达式
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression1"></param>
+    /// <param name="expression2"></param>
+    /// <returns></returns>
     protected virtual Expression<Func<T, bool>> CombineExpressions<T>(Expression<Func<T, bool>> expression1, Expression<Func<T, bool>> expression2)
     {
         var parameter = Expression.Parameter(typeof(T));
