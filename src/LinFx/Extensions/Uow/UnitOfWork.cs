@@ -26,6 +26,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
 
     public IUnitOfWorkOptions Options { get; private set; }
 
+    /// <summary>
+    /// 外部工作单元
+    /// </summary>
     public IUnitOfWork Outer { get; private set; }
 
     /// <summary>
@@ -85,14 +88,17 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         _transactionApis = new Dictionary<string, ITransactionApi>();
     }
 
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <param name="options"></param>
+    /// <exception cref="Exception"></exception>
     public virtual void Initialize(UnitOfWorkOptions options)
     {
         Check.NotNull(options, nameof(options));
 
         if (Options != null)
-        {
             throw new Exception("This unit of work is already initialized before!");
-        }
 
         Options = _defaultOptions.Normalize(options.Clone());
         IsReserved = false;
@@ -106,11 +112,20 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         IsReserved = true;
     }
 
+    /// <summary>
+    /// 设置外部工作单元
+    /// </summary>
+    /// <param name="outer"></param>
     public virtual void SetOuter(IUnitOfWork outer)
     {
         Outer = outer;
     }
 
+    /// <summary>
+    /// 保存
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public virtual async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         if (_isRolledback)
@@ -183,6 +198,11 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         }
     }
 
+    /// <summary>
+    /// 回滚
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     public virtual async Task RollbackAsync(CancellationToken cancellationToken = default)
     {
         if (_isRolledback)
@@ -275,13 +295,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         {
             var foundIndex = eventRecords.FindIndex(replacementSelector);
             if (foundIndex < 0)
-            {
                 eventRecords.Add(eventRecord);
-            }
             else
-            {
                 eventRecords[foundIndex] = eventRecord;
-            }
         }
     }
 
@@ -335,9 +351,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     private void PreventMultipleComplete()
     {
         if (IsCompleted || _isCompleting)
-        {
             throw new Exception("Complete is called before!");
-        }
     }
 
     protected virtual async Task RollbackAllAsync(CancellationToken cancellationToken)

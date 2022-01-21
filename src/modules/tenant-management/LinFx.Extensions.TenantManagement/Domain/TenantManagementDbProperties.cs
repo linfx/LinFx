@@ -8,5 +8,5 @@ public static class TenantManagementDbProperties
 
     public static string DbSchema { get; set; } = CommonDbProperties.DbSchema;
 
-    public const string ConnectionStringName = "TenantManagement";
+    public const string ConnectionStringName = "Default";
 }

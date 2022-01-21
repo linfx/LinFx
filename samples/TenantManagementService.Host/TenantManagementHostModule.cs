@@ -18,8 +18,8 @@ namespace TenantManagementService.Host;
 
 [DependsOn(
     typeof(AspNetCoreMvcModule),
-    typeof(PermissionManagementModule),
     typeof(AuditLoggingModule),
+    typeof(PermissionManagementModule),
     typeof(TenantManagementModule)
 )]
 public class TenantManagementHostModule : Module

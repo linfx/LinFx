@@ -87,8 +87,14 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
 
     public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
 
+    /// <summary>
+    /// 分步式事件总线
+    /// </summary>
     public IDistributedEventBus DistributedEventBus => LazyServiceProvider.LazyGetRequiredService<IDistributedEventBus>();
 
+    /// <summary>
+    /// 本地事件总线
+    /// </summary>
     public ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
     public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
@@ -167,12 +173,10 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
     {
         try
         {
-            var auditLog = AuditingManager?.Current?.Log;
             List<EntityChangeInfo> entityChangeList = null;
+            var auditLog = AuditingManager?.Current?.Log;
             if (auditLog != null)
-            {
                 entityChangeList = EntityHistoryHelper.CreateChangeList(ChangeTracker.Entries().ToList());
-            }
 
             ApplyConcepts();
 
@@ -209,11 +213,13 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
     /// <param name="changeReport"></param>
     private void PublishEntityEvents(EntityEventReport changeReport)
     {
+        // 本地事件
         foreach (var localEvent in changeReport.DomainEvents)
         {
             UnitOfWorkManager.Current?.AddOrReplaceLocalEvent(new UnitOfWorkEventRecord(localEvent.EventData.GetType(), localEvent.EventData, localEvent.EventOrder));
         }
 
+        // 分步式事件
         foreach (var distributedEvent in changeReport.DistributedEvents)
         {
             UnitOfWorkManager.Current?.AddOrReplaceDistributedEvent(new UnitOfWorkEventRecord(distributedEvent.EventData.GetType(), distributedEvent.EventData, distributedEvent.EventOrder));
@@ -228,6 +234,10 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
         return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
     }
 
+    /// <summary>
+    /// 初始化
+    /// </summary>
+    /// <param name="initializationContext"></param>
     public virtual void Initialize(EfCoreDbContextInitializationContext initializationContext)
     {
         LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
@@ -374,7 +384,6 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
                 ApplyConceptsForDeletedEntity(entry);
                 break;
         }
-
         HandleExtraPropertiesOnSave(entry);
     }
 
