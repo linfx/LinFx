@@ -9,8 +9,14 @@ namespace LinFx.Domain.Entities;
 /// </summary>
 public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
 {
+    /// <summary>
+    /// 扩展属性
+    /// </summary>
     public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
+    /// <summary>
+    /// 同步标记
+    /// </summary>
     [DisableAuditing]
     public virtual string ConcurrencyStamp { get; set; }
 
@@ -35,8 +41,14 @@ public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
 /// </summary>
 public abstract class AggregateRoot<TKey> : BasicAggregateRoot<TKey>, IHasExtraProperties
 {
+    /// <summary>
+    /// 扩展属性
+    /// </summary>
     public virtual ExtraPropertyDictionary ExtraProperties { get; protected set; }
 
+    /// <summary>
+    /// 同步标记
+    /// </summary>
     [DisableAuditing]
     public virtual string ConcurrencyStamp { get; set; }
 
