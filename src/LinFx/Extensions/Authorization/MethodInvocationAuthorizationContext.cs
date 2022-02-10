@@ -1,14 +1,13 @@
 ﻿using System.Reflection;
 
-namespace LinFx.Extensions.Authorization
-{
-    public class MethodInvocationAuthorizationContext
-    {
-        public MethodInfo Method { get; }
+namespace LinFx.Extensions.Authorization;
 
-        public MethodInvocationAuthorizationContext(MethodInfo method)
-        {
-            Method = method;
-        }
+public class MethodInvocationAuthorizationContext
+{
+    public MethodInfo Method { get; }
+
+    public MethodInvocationAuthorizationContext(MethodInfo method)
+    {
+        Method = method;
     }
 }

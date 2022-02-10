@@ -2,21 +2,20 @@
 using LinFx.Extensions.DynamicProxy;
 using System;
 
-namespace LinFx.Extensions.DependencyInjection
+namespace LinFx.Extensions.DependencyInjection;
+
+/// <summary>
+/// 拦截器注册上下文
+/// </summary>
+public interface IOnServiceRegistredContext
 {
     /// <summary>
-    /// 拦截器注册上下文
+    /// 拦截器
     /// </summary>
-    public interface IOnServiceRegistredContext
-    {
-        /// <summary>
-        /// 拦截器
-        /// </summary>
-        ITypeList<IInterceptor> Interceptors { get; }
+    ITypeList<IInterceptor> Interceptors { get; }
 
-        /// <summary>
-        /// 类型
-        /// </summary>
-        Type ImplementationType { get; }
-    }
+    /// <summary>
+    /// 类型
+    /// </summary>
+    Type ImplementationType { get; }
 }
