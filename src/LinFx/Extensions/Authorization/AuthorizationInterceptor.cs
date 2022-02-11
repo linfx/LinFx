@@ -18,6 +18,7 @@ public class AuthorizationInterceptor : Interceptor, ITransientDependency
 
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {
+        // 将被调用的方法传入，验证是否允许访问。
         await AuthorizeAsync(invocation);
         await invocation.ProceedAsync();
     }

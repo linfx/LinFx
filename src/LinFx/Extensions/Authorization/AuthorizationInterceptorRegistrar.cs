@@ -8,7 +8,7 @@ using System.Reflection;
 namespace LinFx.Extensions.Authorization;
 
 /// <summary>
-/// 权限验证拦截器注册
+/// 授权拦截器注册
 /// </summary>
 public static class AuthorizationInterceptorRegistrar
 {
