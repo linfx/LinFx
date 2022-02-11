@@ -28,7 +28,8 @@ public abstract class ApplicationService :
     //IGlobalFeatureCheckingEnabled
     ITransientDependency
 {
-    public ILazyServiceProvider LazyServiceProvider { get; private set; }
+    [Autowired]
+    public ILazyServiceProvider LazyServiceProvider { get; set; }
 
     public static string[] CommonPostfixes { get; set; } = { "ApplicationService", "Service" };
 

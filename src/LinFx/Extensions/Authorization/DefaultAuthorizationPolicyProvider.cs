@@ -34,7 +34,10 @@ public class DefaultAuthorizationPolicyProvider : Microsoft.AspNetCore.Authoriza
         if (permission != null)
         {
             //TODO: Optimize & Cache!
+            // 通过 Builder 构建一个策略。
             var policyBuilder = new AuthorizationPolicyBuilder(Array.Empty<string>());
+
+            // 创建一个 PermissionRequirement 对象添加到限定条件组中。
             policyBuilder.Requirements.Add(new PermissionRequirement(policyName));
             return policyBuilder.Build();
         }

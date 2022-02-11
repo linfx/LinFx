@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace LinFx
+namespace LinFx.Extensions.DependencyInjection;
+
+/// <summary>
+/// @Autowired
+/// </summary>
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+public class AutowiredAttribute : Attribute
 {
-    /// <summary>
-    /// @Autowired
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class AutowiredAttribute : Attribute
-    {
-    }
 }

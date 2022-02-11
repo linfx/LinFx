@@ -12,9 +12,9 @@ namespace LinFx.Extensions.Authorization;
 /// 授权模块
 /// </summary>
 [DependsOn(
-//typeof(AbpAuthorizationAbstractionsModule),
-//typeof(AbpSecurityModule),
-//typeof(AbpLocalizationModule)
+//typeof(AuthorizationAbstractionsModule),
+//typeof(SecurityModule),
+//typeof(LocalizationModule)
 )]
 public class AuthorizationModule : Module
 {
@@ -31,8 +31,6 @@ public class AuthorizationModule : Module
 
         // 替换掉 ASP.NET Core 提供的权限处理器。
         context.Services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-        //context.Services.AddSingleton<IAuthorizationHandler, PermissionsRequirementHandler>();
-
         context.Services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
 
         // 添加内置的一些权限值检查。
