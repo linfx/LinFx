@@ -22,10 +22,10 @@ public class TenantManagementModule : Module
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.Configure<PermissionOptions>(options =>
-        {
-            options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
-        });
+        //context.Services.Configure<PermissionOptions>(options =>
+        //{
+        //    options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
+        //});
 
         context.Services.AddDbContext<TenantManagementDbContext>(options =>
         {

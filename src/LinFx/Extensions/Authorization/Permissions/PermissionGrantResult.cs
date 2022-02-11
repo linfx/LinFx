@@ -1,9 +1,8 @@
-﻿namespace LinFx.Extensions.Authorization.Permissions
+﻿namespace LinFx.Extensions.Authorization.Permissions;
+
+public enum PermissionGrantResult
 {
-    public enum PermissionGrantResult
-    {
-        Undefined,
-        Granted,
-        Prohibited
-    }
+    Undefined,
+    Granted,
+    Prohibited
 }

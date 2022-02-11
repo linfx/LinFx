@@ -1,11 +1,8 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace LinFx.Extensions.TenantManagement;
 
-[Service(ServiceLifetime.Singleton)]
 public class TenantManagementPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public TenantManagementPermissionDefinitionProvider(

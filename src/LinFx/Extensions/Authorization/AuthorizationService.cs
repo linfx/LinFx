@@ -12,18 +12,18 @@ namespace LinFx.Extensions.Authorization;
 /// The default implementation of an  <see cref="IAuthorizationService"/> .
 /// </summary>
 [Service(ReplaceServices = true)]
-public class DefaultAuthorizationService : Microsoft.AspNetCore.Authorization.DefaultAuthorizationService, IAuthorizationService
+public class AuthorizationService : DefaultAuthorizationService, IAuthorizationService
 {
-    private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
-
     public IServiceProvider ServiceProvider { get; }
 
     public ClaimsPrincipal CurrentPrincipal => _currentPrincipalAccessor.Principal;
 
-    public DefaultAuthorizationService(
+    private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
+
+    public AuthorizationService(
         IAuthorizationPolicyProvider policyProvider,
         IAuthorizationHandlerProvider handlers,
-        ILogger<DefaultAuthorizationService> logger,
+        ILogger<AuthorizationService> logger,
         IAuthorizationHandlerContextFactory contextFactory,
         IAuthorizationEvaluator evaluator,
         IOptions<AuthorizationOptions> options,

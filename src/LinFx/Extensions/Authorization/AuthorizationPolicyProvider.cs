@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using System;
@@ -10,12 +11,12 @@ namespace LinFx.Extensions.Authorization;
 /// 授权策略提供者
 /// which provides a <see cref="AuthorizationPolicy"/> for a particular name.
 /// </summary>
-public class DefaultAuthorizationPolicyProvider : Microsoft.AspNetCore.Authorization.DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider
+public class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider, ITransientDependency
 {
     private readonly AuthorizationOptions _options;
     private readonly IPermissionDefinitionManager _permissionDefinitionManager;
 
-    public DefaultAuthorizationPolicyProvider(
+    public AuthorizationPolicyProvider(
         IOptions<AuthorizationOptions> options,
         IPermissionDefinitionManager permissionDefinitionManager)
         : base(options)
