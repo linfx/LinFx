@@ -5,40 +5,44 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace LinFx.Extensions.Authorization
+namespace LinFx.Extensions.Authorization;
+
+/// <summary>
+/// 权限验证拦截器注册
+/// </summary>
+public static class AuthorizationInterceptorRegistrar
 {
     /// <summary>
-    /// 权限验证拦截器注册
+    /// 注册
     /// </summary>
-    public static class AuthorizationInterceptorRegistrar
+    /// <param name="context">拦截器注册上下文</param>
+    public static void RegisterIfNeeded(IOnServiceRegistredContext context)
     {
-        /// <summary>
-        /// 注册
-        /// </summary>
-        /// <param name="context"></param>
-        public static void RegisterIfNeeded(IOnServiceRegistredContext context)
+        if (ShouldIntercept(context.ImplementationType))
         {
-            if (ShouldIntercept(context.ImplementationType))
-            {
-                context.Interceptors.TryAdd<AuthorizationInterceptor>();
-            }
+            context.Interceptors.TryAdd<AuthorizationInterceptor>();
         }
+    }
 
-        private static bool ShouldIntercept(Type type)
-        {
-            return !DynamicProxyIgnoreTypes.Contains(type) && (type.IsDefined(typeof(AuthorizeAttribute), true) || AnyMethodHasAuthorizeAttribute(type));
-        }
+    /// <summary>
+    /// 是否拦截
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private static bool ShouldIntercept(Type type)
+    {
+        return !DynamicProxyIgnoreTypes.Contains(type) && (type.IsDefined(typeof(AuthorizeAttribute), true) || AnyMethodHasAuthorizeAttribute(type));
+    }
 
-        private static bool AnyMethodHasAuthorizeAttribute(Type implementationType)
-        {
-            return implementationType
-                .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Any(HasAuthorizeAttribute);
-        }
+    private static bool AnyMethodHasAuthorizeAttribute(Type implementationType)
+    {
+        return implementationType
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+            .Any(HasAuthorizeAttribute);
+    }
 
-        private static bool HasAuthorizeAttribute(MemberInfo methodInfo)
-        {
-            return methodInfo.IsDefined(typeof(AuthorizeAttribute), true);
-        }
+    private static bool HasAuthorizeAttribute(MemberInfo methodInfo)
+    {
+        return methodInfo.IsDefined(typeof(AuthorizeAttribute), true);
     }
 }
