@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TenantManagementService.Host.Migrations.PermissionManagementDb
+namespace TenantManagementService.Migrations.PermissionManagementDb
 {
     public partial class Initial : Migration
     {

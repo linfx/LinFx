@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TenantManagementService.Host.Migrations.PermissionManagementDb
+namespace TenantManagementService.Migrations.PermissionManagementDb
 {
     [DbContext(typeof(PermissionManagementDbContext))]
     partial class PermissionManagementDbContextModelSnapshot : ModelSnapshot

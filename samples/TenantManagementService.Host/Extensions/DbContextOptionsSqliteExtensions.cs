@@ -4,7 +4,7 @@ using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace TenantManagementService.Host.Extensions;
+namespace TenantManagementService.Extensions;
 
 public static class DbContextOptionsSqliteExtensions
 {

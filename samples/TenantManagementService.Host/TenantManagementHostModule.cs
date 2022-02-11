@@ -1,26 +1,26 @@
-﻿using LinFx.Extensions.AspNetCore.Mvc;
-using LinFx.Extensions.AuditLogging;
+﻿using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
+using LinFx.Extensions.Autofac;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+using LinFx.Extensions.TenantManagement.HttpApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TenantManagementService.Host.Extensions;
+using TenantManagementService.Extensions;
 
-namespace TenantManagementService.Host;
+namespace TenantManagementService;
 
 [DependsOn(
-    typeof(AspNetCoreMvcModule),
+    typeof(AutofacModule),
     typeof(AuditLoggingModule),
     typeof(PermissionManagementModule),
-    typeof(TenantManagementModule)
+    typeof(TenantManagementHttpApiModule)
 )]
 public class TenantManagementHostModule : Module
 {

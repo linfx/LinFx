@@ -6,10 +6,11 @@ namespace LinFx.Extensions.DynamicProxy;
 /// 异步拦截器
 /// </summary>
 /// <typeparam name="TInterceptor"></typeparam>
-public class AsyncDeterminationInterceptor<TInterceptor> : AsyncDeterminationInterceptor where TInterceptor : IInterceptor
+public class AsyncDeterminationInterceptor<TInterceptor> : AsyncDeterminationInterceptor 
+    where TInterceptor : IInterceptor
 {
-    public AsyncDeterminationInterceptor(TInterceptor abpInterceptor)
-        : base(new CastleAsyncInterceptorAdapter<TInterceptor>(abpInterceptor))
+    public AsyncDeterminationInterceptor(TInterceptor anterceptor)
+        : base(new CastleAsyncInterceptorAdapter<TInterceptor>(anterceptor))
     {
     }
 }

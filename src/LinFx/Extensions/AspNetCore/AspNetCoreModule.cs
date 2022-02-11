@@ -17,7 +17,7 @@ namespace LinFx.Extensions.AspNetCore;
     //typeof(SecurityModule),
     //typeof(AbpVirtualFileSystemModule),
     typeof(UnitOfWorkModule),
-    //typeof(AbpHttpModule),
+    //typeof(HttpModule),
     typeof(AuthorizationModule)
     //typeof(AbpValidationModule),
     //typeof(AbpExceptionHandlingModule)
