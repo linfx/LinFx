@@ -25,17 +25,13 @@ public class DefaultHttpExceptionStatusCodeFinder : IHttpExceptionStatusCodeFind
     {
         if (exception is IHasHttpStatusCode exceptionWithHttpStatusCode &&
             exceptionWithHttpStatusCode.HttpStatusCode > 0)
-        {
             return (HttpStatusCode)exceptionWithHttpStatusCode.HttpStatusCode;
-        }
 
         if (exception is IHasErrorCode exceptionWithErrorCode &&
             !exceptionWithErrorCode.Code.IsNullOrWhiteSpace())
         {
             if (Options.ErrorCodeToHttpStatusCodeMappings.TryGetValue(exceptionWithErrorCode.Code, out var status))
-            {
                 return status;
-            }
         }
 
         if (exception is AuthorizationException)
@@ -48,29 +44,19 @@ public class DefaultHttpExceptionStatusCodeFinder : IHttpExceptionStatusCodeFind
         //TODO: Handle SecurityException..?
 
         if (exception is ValidationException)
-        {
             return HttpStatusCode.BadRequest;
-        }
 
         if (exception is EntityNotFoundException)
-        {
             return HttpStatusCode.NotFound;
-        }
 
         if (exception is DbConcurrencyException)
-        {
             return HttpStatusCode.Conflict;
-        }
 
         if (exception is NotImplementedException)
-        {
             return HttpStatusCode.NotImplemented;
-        }
 
         if (exception is IBusinessException)
-        {
             return HttpStatusCode.Forbidden;
-        }
 
         return HttpStatusCode.InternalServerError;
     }

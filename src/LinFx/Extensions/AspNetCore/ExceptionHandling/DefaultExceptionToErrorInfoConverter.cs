@@ -44,9 +44,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         var errorInfo = CreateErrorInfoWithoutCode(exception, exceptionHandlingOptions);
 
         if (exception is IHasErrorCode hasErrorCodeException)
-        {
             errorInfo.Code = hasErrorCodeException.Code;
-        }
 
         return errorInfo;
     }
@@ -59,9 +57,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         var errorInfo = CreateErrorInfoWithoutCode(exception, exceptionHandlingOptions);
 
         if (exception is IHasErrorCode hasErrorCodeException)
-        {
             errorInfo.Code = hasErrorCodeException.Code;
-        }
 
         return errorInfo;
     }
@@ -69,26 +65,18 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
     protected virtual RemoteServiceErrorInfo CreateErrorInfoWithoutCode(Exception exception, ExceptionHandlingOptions options)
     {
         if (options.SendExceptionsDetailsToClients)
-        {
             return CreateDetailedErrorInfoFromException(exception, options.SendStackTraceToClients);
-        }
 
         exception = TryToGetActualException(exception);
 
         if (exception is RemoteCallException remoteCallException && remoteCallException.Error != null)
-        {
             return remoteCallException.Error;
-        }
 
         if (exception is DbConcurrencyException)
-        {
             return new RemoteServiceErrorInfo(L["DbConcurrencyErrorMessage"]);
-        }
 
         if (exception is EntityNotFoundException)
-        {
             return CreateEntityNotFoundError(exception as EntityNotFoundException);
-        }
 
         var errorInfo = new RemoteServiceErrorInfo();
 
@@ -101,14 +89,10 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         if (exception is IHasValidationErrors)
         {
             if (errorInfo.Message.IsNullOrEmpty())
-            {
                 errorInfo.Message = L["ValidationErrorMessage"];
-            }
 
             if (errorInfo.Details.IsNullOrEmpty())
-            {
                 errorInfo.Details = GetValidationErrorNarrative(exception as IHasValidationErrors);
-            }
 
             errorInfo.ValidationErrors = GetValidationErrorInfos(exception as IHasValidationErrors);
         }
@@ -116,9 +100,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         TryToLocalizeExceptionMessage(exception, errorInfo);
 
         if (errorInfo.Message.IsNullOrEmpty())
-        {
             errorInfo.Message = L["InternalServerErrorMessage"];
-        }
 
         errorInfo.Data = exception.Data;
 
@@ -138,30 +120,22 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         //}
 
         if (!(exception is IHasErrorCode exceptionWithErrorCode))
-        {
             return;
-        }
 
         if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() ||
             !exceptionWithErrorCode.Code.Contains(":"))
-        {
             return;
-        }
 
         var codeNamespace = exceptionWithErrorCode.Code.Split(':')[0];
 
         var localizationResourceType = LocalizationOptions.ErrorCodeNamespaceMappings.GetOrDefault(codeNamespace);
         if (localizationResourceType == null)
-        {
             return;
-        }
 
         var stringLocalizer = StringLocalizerFactory.Create(localizationResourceType);
         var localizedString = stringLocalizer[exceptionWithErrorCode.Code];
         if (localizedString.ResourceNotFound)
-        {
             return;
-        }
 
         var localizedValue = localizedString.Value;
 
@@ -219,9 +193,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         var errorInfo = new RemoteServiceErrorInfo(exception.Message, detailBuilder.ToString());
 
         if (exception is ValidationException)
-        {
             errorInfo.ValidationErrors = GetValidationErrorInfos(exception as ValidationException);
-        }
 
         return errorInfo;
     }
@@ -269,9 +241,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         {
             var aggException = exception as AggregateException;
             if (aggException.InnerExceptions.IsNullOrEmpty())
-            {
                 return;
-            }
 
             foreach (var innerException in aggException.InnerExceptions)
             {
