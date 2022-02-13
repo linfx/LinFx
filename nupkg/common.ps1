@@ -4,17 +4,16 @@ $rootFolder = Join-Path $packFolder "../"
 
 # List of solutions
 $solutions = (
-    "src/LinFx",
-    "src/modules/account"
+    "src/LinFx"
+    # "src/modules/audit-logging"
 )
 
 # List of projects
 $projects = (
 
     # linfx
-    "src/LinFx",
+    "src/LinFx"
 
-    # modules/account
-    "src/modules/account/LinFx.Extensions.Account",
-    "src/modules/account/LinFx.Extensions.Account.HttpApi"
+    # modules/audit-logging
+    # "src/modules/audit-logging/LinFx.Extensions.Auditing"
 )
