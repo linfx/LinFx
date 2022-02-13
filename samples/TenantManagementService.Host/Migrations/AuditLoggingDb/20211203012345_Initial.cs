@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TenantManagementService.Host.Migrations.AuditLoggingDb
+namespace TenantManagementService.Migrations.AuditLoggingDb
 {
     public partial class Initial : Migration
     {

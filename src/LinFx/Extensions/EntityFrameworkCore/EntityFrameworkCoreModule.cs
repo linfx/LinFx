@@ -5,8 +5,8 @@ using LinFx.Extensions.EventBus;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
+using LinFx.Extensions.Uow;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace LinFx.Extensions.EntityFrameworkCore;

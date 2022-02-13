@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限管理模块(RBAC)
+/// </summary>
 [DependsOn(
     typeof(DataModule),
     typeof(CachingModule),

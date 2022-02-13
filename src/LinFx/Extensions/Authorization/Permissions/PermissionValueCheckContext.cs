@@ -1,26 +1,25 @@
 ﻿using System.Security.Claims;
 
-namespace LinFx.Extensions.Authorization.Permissions
+namespace LinFx.Extensions.Authorization.Permissions;
+
+/// <summary>
+/// 权限值检查上下文
+/// </summary>
+public class PermissionValueCheckContext
 {
     /// <summary>
-    /// 权限值检查上下文
+    /// 权限
     /// </summary>
-    public class PermissionValueCheckContext
+    public PermissionDefinition Permission { get; }
+
+    /// <summary>
+    /// 身份信息
+    /// </summary>
+    public ClaimsPrincipal Principal { get; }
+
+    public PermissionValueCheckContext(PermissionDefinition permission, ClaimsPrincipal principal)
     {
-        /// <summary>
-        /// 权限
-        /// </summary>
-        public PermissionDefinition Permission { get; }
-
-        /// <summary>
-        /// 身份信息
-        /// </summary>
-        public ClaimsPrincipal Principal { get; }
-
-        public PermissionValueCheckContext(PermissionDefinition permission, ClaimsPrincipal principal)
-        {
-            Permission = permission ?? throw new System.ArgumentNullException(nameof(permission));
-            Principal = principal;
-        }
+        Permission = permission ?? throw new System.ArgumentNullException(nameof(permission));
+        Principal = principal;
     }
 }

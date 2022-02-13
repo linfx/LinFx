@@ -7,168 +7,167 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
-namespace LinFx.Extensions.RabbitMq
+namespace LinFx.Extensions.RabbitMq;
+
+public class ChannelPool : IChannelPool
 {
-    public class ChannelPool : IChannelPool
+    protected IConnectionPool ConnectionPool { get; }
+
+    protected ConcurrentDictionary<string, ChannelPoolItem> Channels { get; }
+
+    protected bool IsDisposed { get; private set; }
+
+    protected TimeSpan TotalDisposeWaitDuration { get; set; } = TimeSpan.FromSeconds(10);
+
+    public ILogger<ChannelPool> Logger { get; set; }
+
+    public ChannelPool(IConnectionPool connectionPool)
     {
-        protected IConnectionPool ConnectionPool { get; }
+        Logger = NullLogger<ChannelPool>.Instance;
+        Channels = new ConcurrentDictionary<string, ChannelPoolItem>();
+        ConnectionPool = connectionPool;
+    }
 
-        protected ConcurrentDictionary<string, ChannelPoolItem> Channels { get; }
+    public virtual IChannelAccessor Acquire(string channelName = default, string connectionName = default)
+    {
+        CheckDisposed();
+        channelName ??= "";
+        var poolItem = Channels.GetOrAdd(channelName, _ => new ChannelPoolItem(CreateChannel(channelName, connectionName)));
+        poolItem.Acquire();
+        return new ChannelAccessor(poolItem.Channel, channelName, () => poolItem.Release());
+    }
 
-        protected bool IsDisposed { get; private set; }
+    protected virtual IModel CreateChannel(string channelName, string connectionName)
+    {
+        return ConnectionPool.Get(connectionName).CreateModel();
+    }
 
-        protected TimeSpan TotalDisposeWaitDuration { get; set; } = TimeSpan.FromSeconds(10);
+    protected void CheckDisposed()
+    {
+        if (IsDisposed)
+            throw new ObjectDisposedException(nameof(ChannelPool));
+    }
 
-        public ILogger<ChannelPool> Logger { get; set; }
+    public void Dispose()
+    {
+        if (IsDisposed)
+            return;
 
-        public ChannelPool(IConnectionPool connectionPool)
+        IsDisposed = true;
+
+        if (!Channels.Any())
         {
-            Logger = NullLogger<ChannelPool>.Instance;
-            Channels = new ConcurrentDictionary<string, ChannelPoolItem>();
-            ConnectionPool = connectionPool;
+            Logger.LogDebug($"Disposed channel pool with no channels in the pool.");
+            return;
         }
 
-        public virtual IChannelAccessor Acquire(string channelName = default, string connectionName = default)
+        var poolDisposeStopwatch = Stopwatch.StartNew();
+
+        Logger.LogInformation($"Disposing channel pool ({Channels.Count} channels).");
+
+        var remainingWaitDuration = TotalDisposeWaitDuration;
+
+        foreach (var poolItem in Channels.Values)
         {
-            CheckDisposed();
-            channelName ??= "";
-            var poolItem = Channels.GetOrAdd(channelName, _ => new ChannelPoolItem(CreateChannel(channelName, connectionName)));
-            poolItem.Acquire();
-            return new ChannelAccessor(poolItem.Channel, channelName, () => poolItem.Release());
+            var poolItemDisposeStopwatch = Stopwatch.StartNew();
+
+            try
+            {
+                poolItem.WaitIfInUse(remainingWaitDuration);
+                poolItem.Dispose();
+            }
+            catch
+            { }
+
+            poolItemDisposeStopwatch.Stop();
+
+            remainingWaitDuration = remainingWaitDuration > poolItemDisposeStopwatch.Elapsed
+                ? remainingWaitDuration.Subtract(poolItemDisposeStopwatch.Elapsed)
+                : TimeSpan.Zero;
         }
 
-        protected virtual IModel CreateChannel(string channelName, string connectionName)
+        poolDisposeStopwatch.Stop();
+
+        Logger.LogInformation($"Disposed RabbitMQ Channel Pool ({Channels.Count} channels in {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms).");
+
+        if (poolDisposeStopwatch.Elapsed.TotalSeconds > 5.0)
+            Logger.LogWarning($"Disposing RabbitMQ Channel Pool got time greather than expected: {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms.");
+
+        Channels.Clear();
+    }
+
+    protected class ChannelPoolItem : IDisposable
+    {
+        public IModel Channel { get; }
+
+        public ChannelPoolItem(IModel channel)
         {
-            return ConnectionPool.Get(connectionName).CreateModel();
+            Channel = channel;
         }
 
-        protected void CheckDisposed()
+        private volatile bool _isInUse;
+
+        public bool IsInUse
         {
-            if (IsDisposed)
-                throw new ObjectDisposedException(nameof(ChannelPool));
+            get => _isInUse;
+            private set => _isInUse = value;
+        }
+
+        public void Acquire()
+        {
+            lock (this)
+            {
+                while (IsInUse)
+                    Monitor.Wait(this);
+
+                IsInUse = true;
+            }
+        }
+
+        public void WaitIfInUse(TimeSpan timeout)
+        {
+            lock (this)
+            {
+                if (!IsInUse)
+                    return;
+
+                Monitor.Wait(this, timeout);
+            }
+        }
+
+        public void Release()
+        {
+            lock (this)
+            {
+                IsInUse = false;
+                Monitor.PulseAll(this);
+            }
         }
 
         public void Dispose()
         {
-            if (IsDisposed)
-                return;
+            Channel.Dispose();
+        }
+    }
 
-            IsDisposed = true;
+    protected class ChannelAccessor : IChannelAccessor
+    {
+        public IModel Channel { get; }
 
-            if (!Channels.Any())
-            {
-                Logger.LogDebug($"Disposed channel pool with no channels in the pool.");
-                return;
-            }
+        public string Name { get; }
 
-            var poolDisposeStopwatch = Stopwatch.StartNew();
+        private readonly Action _disposeAction;
 
-            Logger.LogInformation($"Disposing channel pool ({Channels.Count} channels).");
-
-            var remainingWaitDuration = TotalDisposeWaitDuration;
-
-            foreach (var poolItem in Channels.Values)
-            {
-                var poolItemDisposeStopwatch = Stopwatch.StartNew();
-
-                try
-                {
-                    poolItem.WaitIfInUse(remainingWaitDuration);
-                    poolItem.Dispose();
-                }
-                catch
-                { }
-
-                poolItemDisposeStopwatch.Stop();
-
-                remainingWaitDuration = remainingWaitDuration > poolItemDisposeStopwatch.Elapsed
-                    ? remainingWaitDuration.Subtract(poolItemDisposeStopwatch.Elapsed)
-                    : TimeSpan.Zero;
-            }
-
-            poolDisposeStopwatch.Stop();
-
-            Logger.LogInformation($"Disposed RabbitMQ Channel Pool ({Channels.Count} channels in {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms).");
-
-            if (poolDisposeStopwatch.Elapsed.TotalSeconds > 5.0)
-                Logger.LogWarning($"Disposing RabbitMQ Channel Pool got time greather than expected: {poolDisposeStopwatch.Elapsed.TotalMilliseconds:0.00} ms.");
-
-            Channels.Clear();
+        public ChannelAccessor(IModel channel, string name, Action disposeAction)
+        {
+            Name = name;
+            Channel = channel;
+            _disposeAction = disposeAction;
         }
 
-        protected class ChannelPoolItem : IDisposable
+        public void Dispose()
         {
-            public IModel Channel { get; }
-
-            public ChannelPoolItem(IModel channel)
-            {
-                Channel = channel;
-            }
-
-            private volatile bool _isInUse;
-
-            public bool IsInUse
-            {
-                get => _isInUse;
-                private set => _isInUse = value;
-            }
-
-            public void Acquire()
-            {
-                lock (this)
-                {
-                    while (IsInUse)
-                        Monitor.Wait(this);
-
-                    IsInUse = true;
-                }
-            }
-
-            public void WaitIfInUse(TimeSpan timeout)
-            {
-                lock (this)
-                {
-                    if (!IsInUse)
-                        return;
-
-                    Monitor.Wait(this, timeout);
-                }
-            }
-
-            public void Release()
-            {
-                lock (this)
-                {
-                    IsInUse = false;
-                    Monitor.PulseAll(this);
-                }
-            }
-
-            public void Dispose()
-            {
-                Channel.Dispose();
-            }
-        }
-
-        protected class ChannelAccessor : IChannelAccessor
-        {
-            public IModel Channel { get; }
-
-            public string Name { get; }
-
-            private readonly Action _disposeAction;
-
-            public ChannelAccessor(IModel channel, string name, Action disposeAction)
-            {
-                Name = name;
-                Channel = channel;
-                _disposeAction = disposeAction;
-            }
-
-            public void Dispose()
-            {
-                _disposeAction.Invoke();
-            }
+            _disposeAction.Invoke();
         }
     }
 }

@@ -8,79 +8,78 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Authorization.Permissions
+namespace LinFx.Extensions.Authorization.Permissions;
+
+/// <summary>
+/// 权限检查器
+/// </summary>
+[Service(ServiceLifetime.Singleton)]
+public class PermissionChecker : IPermissionChecker
 {
+    private readonly Lazy<List<IPermissionValueProvider>> _lazyProviders;
+
     /// <summary>
-    /// 权限检查器
+    /// 权限管理器
     /// </summary>
-    [Service(ServiceLifetime.Singleton)]
-    public class PermissionChecker : IPermissionChecker
+    protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
+
+    /// <summary>
+    /// 权限值提供者
+    /// </summary>
+    protected IReadOnlyList<IPermissionValueProvider> ValueProviders => _lazyProviders.Value;
+
+    protected ICurrentPrincipalAccessor PrincipalAccessor { get; }
+
+    protected PermissionOptions Options { get; }
+
+    public PermissionChecker(
+        IOptions<PermissionOptions> options,
+        IServiceProvider serviceProvider,
+        ICurrentPrincipalAccessor principalAccessor,
+        IPermissionDefinitionManager permissionDefinitionManager)
     {
-        private readonly Lazy<List<IPermissionValueProvider>> _lazyProviders;
+        PrincipalAccessor = principalAccessor;
+        PermissionDefinitionManager = permissionDefinitionManager;
+        Options = options.Value;
 
-        /// <summary>
-        /// 权限管理器
-        /// </summary>
-        protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
+        _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options.ValueProviders
+            .Select(c => serviceProvider.GetRequiredService(c) as IPermissionValueProvider)
+            .ToList(), true);
+    }
 
-        /// <summary>
-        /// 权限值提供者
-        /// </summary>
-        protected IReadOnlyList<IPermissionValueProvider> ValueProviders => _lazyProviders.Value;
+    /// <summary>
+    /// 检查权限
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public virtual Task<PermissionGrantInfo> IsGrantedAsync(string name)
+    {
+        return IsGrantedAsync(PrincipalAccessor.Principal, name);
+    }
 
-        protected ICurrentPrincipalAccessor PrincipalAccessor { get; }
+    /// <summary>
+    /// 检查权限
+    /// </summary>
+    /// <param name="claimsPrincipal"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public virtual async Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
+    {
+        if (name is null)
+            throw new ArgumentNullException(nameof(name));
 
-        protected PermissionOptions Options { get; }
+        var context = new PermissionValueCheckContext(PermissionDefinitionManager.Get(name), claimsPrincipal);
 
-        public PermissionChecker(
-            IOptions<PermissionOptions> options,
-            IServiceProvider serviceProvider,
-            ICurrentPrincipalAccessor principalAccessor,
-            IPermissionDefinitionManager permissionDefinitionManager)
+        foreach (var provider in ValueProviders)
         {
-            PrincipalAccessor = principalAccessor;
-            PermissionDefinitionManager = permissionDefinitionManager;
-            Options = options.Value;
+            if (context.Permission.Providers.Any() && !context.Permission.Providers.Contains(provider.Name))
+                continue;
 
-            _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options.ValueProviders
-                .Select(c => serviceProvider.GetRequiredService(c) as IPermissionValueProvider)
-                .ToList(), true);
+            var result = await provider.CheckAsync(context);
+            //if (result == PermissionGrantResult.Granted)
+            //    return new PermissionGrantInfo(context.Permission.Name, true, provider.Name, result.ProviderKey);
         }
 
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public virtual Task<PermissionGrantInfo> IsGrantedAsync(string name)
-        {
-            return IsGrantedAsync(PrincipalAccessor.Principal, name);
-        }
-
-        /// <summary>
-        /// 检查权限
-        /// </summary>
-        /// <param name="claimsPrincipal"></param>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public virtual async Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
-        {
-            if (name is null)
-                throw new ArgumentNullException(nameof(name));
-
-            var context = new PermissionValueCheckContext(PermissionDefinitionManager.Get(name), claimsPrincipal);
-
-            foreach (var provider in ValueProviders)
-            {
-                if (context.Permission.Providers.Any() && !context.Permission.Providers.Contains(provider.Name))
-                    continue;
-
-                var result = await provider.CheckAsync(context);
-                //if (result == PermissionGrantResult.Granted)
-                //    return new PermissionGrantInfo(context.Permission.Name, true, provider.Name, result.ProviderKey);
-            }
-
-            return new PermissionGrantInfo(context.Permission.Name, false);
-        }
+        return new PermissionGrantInfo(context.Permission.Name, false);
     }
 }

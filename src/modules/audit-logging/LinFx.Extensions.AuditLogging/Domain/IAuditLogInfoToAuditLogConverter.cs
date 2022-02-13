@@ -1,10 +1,9 @@
 ﻿using LinFx.Extensions.Auditing;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.AuditLogging
+namespace LinFx.Extensions.AuditLogging;
+
+public interface IAuditLogInfoToAuditLogConverter
 {
-    public interface IAuditLogInfoToAuditLogConverter
-    {
-        Task<AuditLog> ConvertAsync(AuditLogInfo auditLogInfo);
-    }
+    Task<AuditLog> ConvertAsync(AuditLogInfo auditLogInfo);
 }

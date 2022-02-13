@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TenantManagementService.Host.Controllers
+namespace TenantManagementService.Controllers
 {
     public class HomeController : Controller
     {

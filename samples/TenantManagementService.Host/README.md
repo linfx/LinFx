@@ -5,8 +5,8 @@ dotnet tool install -g dotnet-ef
 dotnet tool update -g dotnet-ef
 
 # 数据迁移
-dotnet ef migrations add Initial
-dotnet ef database update
+dotnet ef migrations add -c TenantManagementDbContext Initial
+dotnet ef database update -c TenantManagementDbContext
 
 
 dotnet ef migrations add -c AuditLoggingDbContext Initial

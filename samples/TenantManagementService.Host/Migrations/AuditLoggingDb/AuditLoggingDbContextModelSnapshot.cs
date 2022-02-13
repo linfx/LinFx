@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TenantManagementService.Host.Migrations.AuditLoggingDb
+namespace TenantManagementService.Migrations.AuditLoggingDb
 {
     [DbContext(typeof(AuditLoggingDbContext))]
     partial class AuditLoggingDbContextModelSnapshot : ModelSnapshot

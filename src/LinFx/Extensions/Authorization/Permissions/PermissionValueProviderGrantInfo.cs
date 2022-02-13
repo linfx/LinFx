@@ -1,17 +1,16 @@
-﻿namespace LinFx.Extensions.Authorization.Permissions
+﻿namespace LinFx.Extensions.Authorization.Permissions;
+
+public class PermissionValueProviderGrantInfo
 {
-    public class PermissionValueProviderGrantInfo
+    public static PermissionValueProviderGrantInfo NonGranted { get; } = new PermissionValueProviderGrantInfo(false);
+
+    public virtual bool IsGranted { get; }
+
+    public virtual string ProviderKey { get; }
+
+    public PermissionValueProviderGrantInfo(bool isGranted, string providerKey = default)
     {
-        public static PermissionValueProviderGrantInfo NonGranted { get; } = new PermissionValueProviderGrantInfo(false);
-
-        public virtual bool IsGranted { get; }
-
-        public virtual string ProviderKey { get; }
-
-        public PermissionValueProviderGrantInfo(bool isGranted, string providerKey = default)
-        {
-            IsGranted = isGranted;
-            ProviderKey = providerKey;
-        }
+        IsGranted = isGranted;
+        ProviderKey = providerKey;
     }
 }

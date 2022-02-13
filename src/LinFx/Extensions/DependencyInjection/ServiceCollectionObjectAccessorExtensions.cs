@@ -24,6 +24,14 @@ public static class ServiceCollectionObjectAccessorExtensions
         return services.AddObjectAccessor(new ObjectAccessor<T>(obj));
     }
 
+    /// <summary>
+    /// 对象访问器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="accessor"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services, ObjectAccessor<T> accessor)
     {
         // 判断某个特定泛型的对象访问器是否被注册，如果被注册直接抛出异常，没有则继续。

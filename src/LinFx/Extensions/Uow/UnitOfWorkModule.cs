@@ -1,13 +1,15 @@
 ﻿using LinFx.Extensions.Modularity;
-using LinFx.Extensions.Uow;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace LinFx.Extensions.Uow;
+
+/// <summary>
+/// 工作单元模块
+/// </summary>
+public class UnitOfWorkModule : Module
 {
-    public class UnitOfWorkModule : Module
+    public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        public override void ConfigureServices(ServiceConfigurationContext context)
-        {
-            context.Services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
-        }
+        context.Services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
     }
 }

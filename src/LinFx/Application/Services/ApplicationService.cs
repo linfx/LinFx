@@ -28,7 +28,8 @@ public abstract class ApplicationService :
     //IGlobalFeatureCheckingEnabled
     ITransientDependency
 {
-    public ILazyServiceProvider LazyServiceProvider { get; private set; }
+    [Autowired]
+    public ILazyServiceProvider LazyServiceProvider { get; set; }
 
     public static string[] CommonPostfixes { get; set; } = { "ApplicationService", "Service" };
 
@@ -78,6 +79,9 @@ public abstract class ApplicationService :
 
     protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
 
+    public ApplicationService() { }
+
+    [Obsolete]
     protected ApplicationService(IServiceProvider serviceProvider)
     {
         LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
@@ -107,6 +111,9 @@ public abstract class ApplicationService :
     //}
     //private Type _localizationResource = typeof(DefaultResource);
 
+    /// <summary>
+    /// 当前工作单元
+    /// </summary>
     protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);

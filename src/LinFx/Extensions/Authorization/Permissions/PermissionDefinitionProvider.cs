@@ -1,28 +1,33 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using LinFx.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 
-namespace LinFx.Extensions.Authorization.Permissions
+namespace LinFx.Extensions.Authorization.Permissions;
+
+/// <summary>
+/// 权限定义提供者
+/// </summary>
+public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvider, ITransientDependency
 {
-    /// <summary>
-    /// 权限定义提供者
-    /// </summary>
-    public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvider
+    public IStringLocalizer Localizer { get; }
+
+    public PermissionDefinitionProvider() { }
+
+    public PermissionDefinitionProvider(IStringLocalizer localizer)
     {
-        protected IStringLocalizer _localizer;
+        Localizer = localizer;
+    }
 
-        protected PermissionDefinitionProvider(IStringLocalizer localizer)
-        {
-            _localizer = localizer;
-        }
+    /// <summary>
+    /// 定义
+    /// </summary>
+    /// <param name="context"></param>
+    public abstract void Define(IPermissionDefinitionContext context);
 
-        /// <summary>
-        /// 定义
-        /// </summary>
-        /// <param name="context"></param>
-        public abstract void Define(IPermissionDefinitionContext context);
+    protected virtual LocalizedString L(string name)
+    {
+        if (Localizer == null)
+            return new LocalizedString(name, name);
 
-        protected virtual LocalizedString L(string name)
-        {
-            return _localizer[name];
-        }
+        return Localizer[name];
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TenantManagementService.Host.Migrations.AuditLoggingDb
+namespace TenantManagementService.Migrations.AuditLoggingDb
 {
     [DbContext(typeof(AuditLoggingDbContext))]
     [Migration("20211203012345_Initial")]

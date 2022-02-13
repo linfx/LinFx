@@ -13,32 +13,56 @@ namespace LinFx.Extensions.AuditLogging;
 [DisableAuditing]
 public class AuditLog : AggregateRoot<string>, IMultiTenant
 {
+    /// <summary>
+    /// 应用名称
+    /// </summary>
     public virtual string ApplicationName { get; set; }
 
+    /// <summary>
+    /// 用户ID
+    /// </summary>
     public virtual string UserId { get; protected set; }
 
+    /// <summary>
+    /// 用户账号
+    /// </summary>
     public virtual string UserName { get; protected set; }
 
+    /// <summary>
+    /// 租户ID
+    /// </summary>
     public virtual string TenantId { get; protected set; }
 
+    /// <summary>
+    /// 租户名称
+    /// </summary>
     public virtual string TenantName { get; protected set; }
 
     public virtual string ImpersonatorUserId { get; protected set; }
 
     public virtual string ImpersonatorTenantId { get; protected set; }
 
+    /// <summary>
+    /// 执行时间
+    /// </summary>
     public virtual DateTime ExecutionTime { get; protected set; }
 
     public virtual int ExecutionDuration { get; protected set; }
 
     public virtual string ClientIpAddress { get; protected set; }
 
+    /// <summary>
+    /// 客户端名称
+    /// </summary>
     public virtual string ClientName { get; protected set; }
 
     public virtual string ClientId { get; set; }
 
     public virtual string CorrelationId { get; set; }
 
+    /// <summary>
+    /// 浏览器信息
+    /// </summary>
     public virtual string BrowserInfo { get; protected set; }
 
     public virtual string HttpMethod { get; protected set; }
@@ -51,8 +75,14 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
 
     public virtual int? HttpStatusCode { get; set; }
 
+    /// <summary>
+    /// 实体变化
+    /// </summary>
     public virtual ICollection<EntityChange> EntityChanges { get; protected set; }
 
+    /// <summary>
+    /// 审计日志动作
+    /// </summary>
     public virtual ICollection<AuditLogAction> Actions { get; protected set; }
 
     protected AuditLog() { }

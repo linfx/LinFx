@@ -7,8 +7,7 @@ namespace LinFx.Extensions.Timing;
 /// <summary>
 /// 时钟
 /// </summary>
-[Service]
-public class Clock : IClock
+public class Clock : IClock, ITransientDependency
 {
     protected ClockOptions Options { get; }
 

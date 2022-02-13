@@ -1,4 +1,3 @@
-using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
@@ -52,15 +51,13 @@ namespace LinFx.Extensions.EventBus.Local
         /// <inheritdoc/>
         public override IDisposable Subscribe(Type eventType, IEventHandlerFactory factory)
         {
-            GetOrCreateHandlerFactories(eventType)
-                .Locking(factories =>
-                    {
-                        if (!factory.IsInFactories(factories))
-                        {
-                            factories.Add(factory);
-                        }
-                    }
-                );
+            GetOrCreateHandlerFactories(eventType).Locking(factories =>
+            {
+                if (!factory.IsInFactories(factories))
+                {
+                    factories.Add(factory);
+                }
+            });
 
             return new EventHandlerFactoryUnregistrar(this, eventType, factory);
         }
@@ -70,27 +67,19 @@ namespace LinFx.Extensions.EventBus.Local
         {
             Check.NotNull(action, nameof(action));
 
-            GetOrCreateHandlerFactories(typeof(TEvent))
-                .Locking(factories =>
+            GetOrCreateHandlerFactories(typeof(TEvent)).Locking(factories =>
+            {
+                factories.RemoveAll(factory =>
                 {
-                    factories.RemoveAll(
-                        factory =>
-                        {
-                            var singleInstanceFactory = factory as SingleInstanceHandlerFactory;
-                            if (singleInstanceFactory == null)
-                            {
-                                return false;
-                            }
+                    if (factory is not SingleInstanceHandlerFactory singleInstanceFactory)
+                        return false;
 
-                            var actionHandler = singleInstanceFactory.HandlerInstance as ActionEventHandler<TEvent>;
-                            if (actionHandler == null)
-                            {
-                                return false;
-                            }
+                    if (singleInstanceFactory.HandlerInstance is not ActionEventHandler<TEvent> actionHandler)
+                        return false;
 
-                            return actionHandler.Action == action;
-                        });
+                    return actionHandler.Action == action;
                 });
+            });
         }
 
         /// <inheritdoc/>

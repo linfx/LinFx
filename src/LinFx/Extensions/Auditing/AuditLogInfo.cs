@@ -88,12 +88,21 @@ public class AuditLogInfo : IHasExtraProperties
 
     public string Url { get; set; }
 
+    /// <summary>
+    /// 执行的动作 (控制器操作和应用服务方法调用及其参数).
+    /// </summary>
     public List<AuditLogActionInfo> Actions { get; set; }
 
+    /// <summary>
+    /// 异常信息
+    /// </summary>
     public List<Exception> Exceptions { get; }
 
     public ExtraPropertyDictionary ExtraProperties { get; }
 
+    /// <summary>
+    /// 实体的变化 (在Web请求中).
+    /// </summary>
     public List<EntityChangeInfo> EntityChanges { get; }
 
     public List<string> Comments { get; set; }

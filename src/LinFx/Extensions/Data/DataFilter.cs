@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace LinFx.Extensions.Data;
 
+/// <summary>
+/// 数据过滤
+/// </summary>
 public class DataFilter : IDataFilter, ISingletonDependency
 {
     private readonly ConcurrentDictionary<Type, object> _filters = new();
@@ -50,6 +53,15 @@ public class DataFilter : IDataFilter, ISingletonDependency
 public class DataFilter<TFilter> : IDataFilter<TFilter>
     where TFilter : class
 {
+    private readonly DataFilterOptions _options;
+    private readonly AsyncLocal<DataFilterState> _filter;
+
+    public DataFilter(IOptions<DataFilterOptions> options)
+    {
+        _options = options.Value;
+        _filter = new AsyncLocal<DataFilterState>();
+    }
+
     public bool IsEnabled
     {
         get
@@ -57,16 +69,6 @@ public class DataFilter<TFilter> : IDataFilter<TFilter>
             EnsureInitialized();
             return _filter.Value.IsEnabled;
         }
-    }
-
-    private readonly DataFilterOptions _options;
-
-    private readonly AsyncLocal<DataFilterState> _filter;
-
-    public DataFilter(IOptions<DataFilterOptions> options)
-    {
-        _options = options.Value;
-        _filter = new AsyncLocal<DataFilterState>();
     }
 
     public IDisposable Enable()

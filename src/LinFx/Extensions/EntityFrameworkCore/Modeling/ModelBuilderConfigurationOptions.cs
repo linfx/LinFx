@@ -5,15 +5,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Modeling;
 public class ModelBuilderConfigurationOptions
 {
     [NotNull]
-    public string TablePrefix
-    {
-        get => _tablePrefix;
-        set
-        {
-            _tablePrefix = value;
-        }
-    }
-    private string _tablePrefix;
+    public string TablePrefix { get; set; }
 
     [CanBeNull]
     public string Schema { get; set; }

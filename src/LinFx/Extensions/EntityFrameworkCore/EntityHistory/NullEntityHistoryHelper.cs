@@ -2,23 +2,18 @@
 using LinFx.Extensions.Auditing;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace LinFx.Extensions.EntityFrameworkCore.EntityHistory
+namespace LinFx.Extensions.EntityFrameworkCore.EntityHistory;
+
+public class NullEntityHistoryHelper : IEntityHistoryHelper
 {
-    public class NullEntityHistoryHelper : IEntityHistoryHelper
+    public static NullEntityHistoryHelper Instance { get; } = new NullEntityHistoryHelper();
+
+    public List<EntityChangeInfo> CreateChangeList(ICollection<EntityEntry> entityEntries)
     {
-        public static NullEntityHistoryHelper Instance { get; } = new NullEntityHistoryHelper();
+        return new List<EntityChangeInfo>();
+    }
 
-        private NullEntityHistoryHelper()
-        {
-        }
-
-        public List<EntityChangeInfo> CreateChangeList(ICollection<EntityEntry> entityEntries)
-        {
-            return new List<EntityChangeInfo>();
-        }
-
-        public void UpdateChangeList(List<EntityChangeInfo> entityChanges)
-        {
-        }
+    public void UpdateChangeList(List<EntityChangeInfo> entityChanges)
+    {
     }
 }

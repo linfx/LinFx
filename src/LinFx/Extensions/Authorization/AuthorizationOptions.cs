@@ -1,19 +1,18 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
 
-namespace LinFx.Extensions.Authorization
+namespace LinFx.Extensions.Authorization;
+
+/// <summary>
+/// Provides programmatic configuration used by <see cref="IAuthorizationService"/> and <see cref="IAuthorizationPolicyProvider"/>.
+/// </summary>
+public class AuthorizationOptions : Microsoft.AspNetCore.Authorization.AuthorizationOptions
 {
     /// <summary>
-    /// Provides programmatic configuration used by <see cref="IAuthorizationService"/> and <see cref="IAuthorizationPolicyProvider"/>.
+    /// Gets or sets the <see cref="PermissionOptions"/> for the authorization  system.
     /// </summary>
-    public class AuthorizationOptions : Microsoft.AspNetCore.Authorization.AuthorizationOptions
-    {
-        /// <summary>
-        /// Gets or sets the <see cref="PermissionOptions"/> for the authorization  system.
-        /// </summary>
-        /// <value>
-        /// The <see cref="PermissionOptions"/> for the authorization system.
-        /// </value>
-        public PermissionOptions Permissions { get; set; } = new PermissionOptions();
-    }
+    /// <value>
+    /// The <see cref="PermissionOptions"/> for the authorization system.
+    /// </value>
+    public PermissionOptions Permissions { get; set; } = new PermissionOptions();
 }

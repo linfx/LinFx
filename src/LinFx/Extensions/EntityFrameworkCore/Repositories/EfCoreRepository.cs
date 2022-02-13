@@ -15,6 +15,11 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 
+/// <summary>
+/// Ef 仓储
+/// </summary>
+/// <typeparam name="TDbContext"></typeparam>
+/// <typeparam name="TEntity"></typeparam>
 public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfCoreRepository<TEntity>
     where TDbContext : IEfCoreDbContext
     where TEntity : class, IEntity
@@ -36,6 +41,10 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
         return await GetDbContextAsync() as DbContext;
     }
 
+    /// <summary>
+    /// 获取数据库上下文
+    /// </summary>
+    /// <returns></returns>
     protected virtual Task<TDbContext> GetDbContextAsync()
     {
         // Multi-tenancy unaware entities should always use the host connection string
@@ -60,7 +69,7 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
         return (await GetDbContextAsync()).Set<TEntity>();
     }
 
-    protected virtual EntityOptions<TEntity> AbpEntityOptions => _entityOptionsLazy.Value;
+    protected virtual EntityOptions<TEntity> EntityOptions => _entityOptionsLazy.Value;
 
     private readonly IDbContextProvider<TDbContext> _dbContextProvider;
     private readonly Lazy<EntityOptions<TEntity>> _entityOptionsLazy;
@@ -286,10 +295,10 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
 
     public override async Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken token)
     {
-        if (AbpEntityOptions.DefaultWithDetailsFunc == null)
+        if (EntityOptions.DefaultWithDetailsFunc == null)
             return await base.WithDetailsAsync(token);
 
-        return AbpEntityOptions.DefaultWithDetailsFunc(await GetQueryableAsync());
+        return EntityOptions.DefaultWithDetailsFunc(await GetQueryableAsync());
     }
 
     public override async Task<IQueryable<TEntity>> WithDetailsAsync(params Expression<Func<TEntity, object>>[] propertySelectors)

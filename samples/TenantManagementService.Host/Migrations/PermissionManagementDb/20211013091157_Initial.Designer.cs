@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace TenantManagementService.Host.Migrations.PermissionManagementDb
+namespace TenantManagementService.Migrations.PermissionManagementDb
 {
     [DbContext(typeof(PermissionManagementDbContext))]
     [Migration("20211013091157_Initial")]

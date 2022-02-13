@@ -1,5 +1,4 @@
-﻿using LinFx.Domain.Entities.Auditing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -7,7 +6,7 @@ using System.Linq.Expressions;
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>
-/// 审计日志配置
+/// 审计日志选项
 /// </summary>
 public class AuditingOptions
 {

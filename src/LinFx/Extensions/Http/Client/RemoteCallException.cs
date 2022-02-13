@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Exceptions;
+﻿using LinFx.Extensions.ExceptionHandling;
 using System;
 using System.Runtime.Serialization;
 

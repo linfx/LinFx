@@ -23,9 +23,8 @@ public class TenantStore : ITenantStore
         {
             var tenant = await _context.Tenants.FindAsync(tenantIdOrName);
             if (tenant == null)
-            {
                 return null;
-            }
+
             return new TenantInfo(tenant.Id, tenant.Name);
         }
     }

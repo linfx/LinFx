@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Exceptions;
+﻿using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.Logging;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,8 +1,13 @@
-﻿using LinFx.Extensions.EntityFrameworkCore;
+﻿using LinFx.Extensions.Data;
+using LinFx.Extensions.EntityFrameworkCore;
+using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.TenantManagement.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
+[IgnoreMultiTenancy]
+[ConnectionStringName(TenantManagementDbProperties.ConnectionStringName)]
 public class TenantManagementDbContext : EfCoreDbContext
 {
     public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
@@ -13,13 +18,6 @@ public class TenantManagementDbContext : EfCoreDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<Tenant>(b =>
-        {
-            b.HasKey(p => p.Id);
-            b.Property(p => p.Id).HasMaxLength(32);
-            b.Property(p => p.Name)
-                .IsRequired()
-                .HasMaxLength(64);
-        });
+        builder.ConfigureTenantManagement();
     }
 }

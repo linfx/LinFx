@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.Data;
+﻿using LinFx.Extensions.AuditLogging.Domain;
+using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
