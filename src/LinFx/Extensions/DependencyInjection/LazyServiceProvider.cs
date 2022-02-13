@@ -4,8 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.DependencyInjection;
 
-[Service]
-public class LazyServiceProvider : ILazyServiceProvider
+public class LazyServiceProvider : ILazyServiceProvider, ITransientDependency
 {
     protected IDictionary<Type, object> CachedServices { get; set; }
 

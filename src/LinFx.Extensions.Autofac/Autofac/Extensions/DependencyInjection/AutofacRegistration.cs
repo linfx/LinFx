@@ -89,9 +89,7 @@ public static class AutofacRegistration
         object lifetimeScopeTagForSingletons)
     {
         if (services == null)
-        {
             throw new ArgumentNullException(nameof(services));
-        }
 
         builder.RegisterType<AutofacServiceProvider>().As<IServiceProvider>().ExternallyOwned();
         var autofacServiceScopeFactory = typeof(AutofacServiceProvider).Assembly.GetType("Autofac.Extensions.DependencyInjection.AutofacServiceScopeFactory");
@@ -130,13 +128,9 @@ public static class AutofacRegistration
         {
             case ServiceLifetime.Singleton:
                 if (lifetimeScopeTagForSingleton == null)
-                {
                     registrationBuilder.SingleInstance();
-                }
                 else
-                {
                     registrationBuilder.InstancePerMatchingLifetimeScope(lifetimeScopeTagForSingleton);
-                }
 
                 break;
             case ServiceLifetime.Scoped:
@@ -172,6 +166,8 @@ public static class AutofacRegistration
         object lifetimeScopeTagForSingletons)
     {
         var moduleContainer = services.GetSingletonInstance<IModuleContainer>();
+
+        // 获取之前添加的上下文集合，即审计日志拦截器在预加载方法添加的 Action 集合。
         var registrationActionList = services.GetRegistrationActionList();
 
         foreach (var descriptor in services)
@@ -186,7 +182,7 @@ public static class AutofacRegistration
                         .RegisterGeneric(descriptor.ImplementationType)
                         .As(descriptor.ServiceType)
                         .ConfigureLifecycle(descriptor.Lifetime, lifetimeScopeTagForSingletons)
-                        .ConfigureAbpConventions(moduleContainer, registrationActionList);
+                        .ConfigureConventions(moduleContainer, registrationActionList);
                 }
                 else
                 {
@@ -194,19 +190,19 @@ public static class AutofacRegistration
                         .RegisterType(descriptor.ImplementationType)
                         .As(descriptor.ServiceType)
                         .ConfigureLifecycle(descriptor.Lifetime, lifetimeScopeTagForSingletons)
-                        .ConfigureAbpConventions(moduleContainer, registrationActionList);
+                        .ConfigureConventions(moduleContainer, registrationActionList);
                 }
             }
             else if (descriptor.ImplementationFactory != null)
             {
                 var registration = RegistrationBuilder.ForDelegate(descriptor.ServiceType, (context, parameters) =>
-                    {
-                        var serviceProvider = context.Resolve<IServiceProvider>();
-                        return descriptor.ImplementationFactory(serviceProvider);
-                    })
-                    .ConfigureLifecycle(descriptor.Lifetime, lifetimeScopeTagForSingletons)
-                    .CreateRegistration();
-                //TODO: ConfigureAbpConventions ?
+                {
+                    var serviceProvider = context.Resolve<IServiceProvider>();
+                    return descriptor.ImplementationFactory(serviceProvider);
+                })
+                .ConfigureLifecycle(descriptor.Lifetime, lifetimeScopeTagForSingletons)
+                .CreateRegistration();
+                //TODO: ConfigureConventions ?
 
                 builder.RegisterComponent(registration);
             }

@@ -9,6 +9,7 @@ public class DefaultConventionalRegistrar : ConventionalRegistrarBase
 {
     public override void AddType(IServiceCollection services, Type type)
     {
+        // 判断类型是否标注了 DisableConventionalRegistration 特性，如果有标注，则跳过。
         if (IsConventionalRegistrationDisabled(type))
             return;
 
@@ -33,14 +34,17 @@ public class DefaultConventionalRegistrar : ConventionalRegistrarBase
 
             if (serviceAttribute?.ReplaceServices == true)
             {
+                // 替换服务。
                 services.Replace(serviceDescriptor);
             }
             else if (serviceAttribute?.TryRegister == true)
             {
+                // 注册服务。
                 services.TryAdd(serviceDescriptor);
             }
             else
             {
+                // 注册服务。
                 services.Add(serviceDescriptor);
             }
         }

@@ -79,6 +79,8 @@ public abstract class ApplicationService :
 
     protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
 
+    public ApplicationService() { }
+
     protected ApplicationService(IServiceProvider serviceProvider)
     {
         LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
