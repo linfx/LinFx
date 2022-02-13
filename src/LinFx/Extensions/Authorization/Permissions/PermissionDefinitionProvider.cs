@@ -8,11 +8,13 @@ namespace LinFx.Extensions.Authorization.Permissions;
 /// </summary>
 public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvider, ITransientDependency
 {
-    protected IStringLocalizer _localizer;
+    public IStringLocalizer Localizer { get; }
 
-    protected PermissionDefinitionProvider(IStringLocalizer localizer)
+    public PermissionDefinitionProvider() { }
+
+    public PermissionDefinitionProvider(IStringLocalizer localizer)
     {
-        _localizer = localizer;
+        Localizer = localizer;
     }
 
     /// <summary>
@@ -23,6 +25,9 @@ public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvid
 
     protected virtual LocalizedString L(string name)
     {
-        return _localizer[name];
+        if (Localizer == null)
+            return new LocalizedString(name, name);
+
+        return Localizer[name];
     }
 }

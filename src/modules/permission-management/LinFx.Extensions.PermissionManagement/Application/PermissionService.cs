@@ -1,7 +1,6 @@
 ﻿using LinFx.Application.Services;
 using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.Extensions.Options;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +14,9 @@ public class PermissionService : ApplicationService, IPermissionService
     protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
     public PermissionService(
-        IServiceProvider serviceProvider,
         IPermissionManager permissionManager,
         IPermissionDefinitionManager permissionDefinitionManager,
-        IOptions<PermissionManagementOptions> options) : base(serviceProvider)
+        IOptions<PermissionManagementOptions> options)
     {
         Options = options.Value;
         PermissionManager = permissionManager;
