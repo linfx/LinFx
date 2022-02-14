@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 
 [ConnectionStringName(AuditLoggingDbProperties.ConnectionStringName)]
-public interface IAuditLoggingDbContext : IEfCoreDbContext
+public interface IAuditLoggingDbContext : IEfDbContext
 {
     DbSet<AuditLog> AuditLogs { get; }
 }

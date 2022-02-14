@@ -9,7 +9,7 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// <summary>
 /// 数据库上下文选项
 /// </summary>
-public class EfCoreDbContextOptions
+public class EfDbContextOptions
 {
     internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
 

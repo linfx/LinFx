@@ -30,7 +30,7 @@ public class EntityFrameworkCoreModule : Module
     {
         // 调用 DbContextOptions 的预配置方法，为了解决下面的问题。
         // https://stackoverflow.com/questions/55369146/eager-loading-include-with-using-uselazyloadingproxies
-        Configure<EfCoreDbContextOptions>(options =>
+        Configure<EfDbContextOptions>(options =>
         {
             options.PreConfigure(dbContextConfigurationContext =>
             {

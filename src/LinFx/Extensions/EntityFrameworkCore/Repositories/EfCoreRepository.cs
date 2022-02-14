@@ -21,7 +21,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 /// <typeparam name="TDbContext"></typeparam>
 /// <typeparam name="TEntity"></typeparam>
 public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfCoreRepository<TEntity>
-    where TDbContext : IEfCoreDbContext
+    where TDbContext : IEfDbContext
     where TEntity : class, IEntity
 {
     public EfCoreRepository(
@@ -342,7 +342,7 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
 }
 
 public class EfCoreRepository<TDbContext, TEntity, TKey> : EfCoreRepository<TDbContext, TEntity>, IEfCoreRepository<TEntity, TKey>, ISupportsExplicitLoading<TEntity, TKey>
-    where TDbContext : IEfCoreDbContext
+    where TDbContext : IEfDbContext
     where TEntity : class, IEntity<TKey>
 {
     public EfCoreRepository(IServiceProvider serviceProvider, IDbContextProvider<TDbContext> dbContextProvider)

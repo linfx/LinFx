@@ -1,6 +1,6 @@
 ﻿namespace LinFx.Extensions.EntityFrameworkCore;
 
-public enum EfCoreDatabaseProvider
+public enum EfDatabaseProvider
 {
     SqlServer,
     MySql,

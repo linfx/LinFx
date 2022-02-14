@@ -3,8 +3,9 @@ using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
+using TenantManagementService.EntityFrameworkCore.Extensions;
 
-namespace TenantManagementService.Extensions;
+namespace TenantManagementService.EntityFrameworkCore.Extensions;
 
 public static class DbContextConfigurationContextSqliteExtensions
 {

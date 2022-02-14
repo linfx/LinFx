@@ -12,20 +12,20 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 public class EfCoreTransactionApi : ITransactionApi, ISupportsRollback
 {
     public IDbContextTransaction DbContextTransaction { get; }
-    public IEfCoreDbContext StarterDbContext { get; }
-    public List<IEfCoreDbContext> AttendedDbContexts { get; }
+    public IEfDbContext StarterDbContext { get; }
+    public List<IEfDbContext> AttendedDbContexts { get; }
 
     protected ICancellationTokenProvider CancellationTokenProvider { get; }
 
     public EfCoreTransactionApi(
         IDbContextTransaction dbContextTransaction,
-        IEfCoreDbContext starterDbContext,
+        IEfDbContext starterDbContext,
         ICancellationTokenProvider cancellationTokenProvider)
     {
         DbContextTransaction = dbContextTransaction;
         StarterDbContext = starterDbContext;
         CancellationTokenProvider = cancellationTokenProvider;
-        AttendedDbContexts = new List<IEfCoreDbContext>();
+        AttendedDbContexts = new List<IEfDbContext>();
     }
 
     public async Task CommitAsync()

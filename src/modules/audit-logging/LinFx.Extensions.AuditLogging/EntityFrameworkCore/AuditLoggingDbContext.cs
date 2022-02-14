@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 
 [ConnectionStringName(AuditLoggingDbProperties.ConnectionStringName)]
-public class AuditLoggingDbContext : EfCoreDbContext, IAuditLoggingDbContext
+public class AuditLoggingDbContext : EfDbContext, IAuditLoggingDbContext
 {
     /// <summary>
     /// 审计日志

@@ -13,9 +13,9 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// <summary>
 /// 数据库上下文
 /// </summary>
-public interface IEfCoreDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
+public interface IEfDbContext : IDisposable, IInfrastructure<IServiceProvider>, IDbContextDependencies, IDbSetCache, IDbContextPoolable
 {
-    void Initialize(EfCoreDbContextInitializationContext initializationContext);
+    void Initialize(EfDbContextInitializationContext initializationContext);
 
     EntityEntry<TEntity> Attach<TEntity>([NotNull] TEntity entity) where TEntity : class;
 

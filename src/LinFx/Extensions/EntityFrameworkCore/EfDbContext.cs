@@ -38,7 +38,7 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// <summary>
 /// 数据库上下文
 /// </summary>
-public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientDependency
+public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependency
 {
     public ILazyServiceProvider LazyServiceProvider { get; private set; }
 
@@ -97,18 +97,18 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
     /// </summary>
     public ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
-    public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfCoreDbContext>>(NullLogger<EfCoreDbContext>.Instance);
+    public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfDbContext>>(NullLogger<EfDbContext>.Instance);
 
-    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfCoreDbContext)
+    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfCoreDbContext)
+    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfCoreDbContext)
+    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    protected EfCoreDbContext(DbContextOptions options)
+    protected EfDbContext(DbContextOptions options)
         : base(options)
     {
     }
@@ -146,18 +146,18 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
             modelBuilder.SetDatabaseProvider(provider.Value);
     }
 
-    protected virtual EfCoreDatabaseProvider? GetDatabaseProviderOrNull(ModelBuilder modelBuilder)
+    protected virtual EfDatabaseProvider? GetDatabaseProviderOrNull(ModelBuilder modelBuilder)
     {
         return Database.ProviderName switch
         {
-            "Microsoft.EntityFrameworkCore.SqlServer" => EfCoreDatabaseProvider.SqlServer,
-            "Npgsql.EntityFrameworkCore.PostgreSQL" => EfCoreDatabaseProvider.PostgreSql,
-            "Pomelo.EntityFrameworkCore.MySql" => EfCoreDatabaseProvider.MySql,
-            "Oracle.EntityFrameworkCore" or "Devart.Data.Oracle.Entity.EFCore" => EfCoreDatabaseProvider.Oracle,
-            "Microsoft.EntityFrameworkCore.Sqlite" => EfCoreDatabaseProvider.Sqlite,
-            "Microsoft.EntityFrameworkCore.InMemory" => EfCoreDatabaseProvider.InMemory,
-            "FirebirdSql.EntityFrameworkCore.Firebird" => EfCoreDatabaseProvider.Firebird,
-            "Microsoft.EntityFrameworkCore.Cosmos" => EfCoreDatabaseProvider.Cosmos,
+            "Microsoft.EntityFrameworkCore.SqlServer" => EfDatabaseProvider.SqlServer,
+            "Npgsql.EntityFrameworkCore.PostgreSQL" => EfDatabaseProvider.PostgreSql,
+            "Pomelo.EntityFrameworkCore.MySql" => EfDatabaseProvider.MySql,
+            "Oracle.EntityFrameworkCore" or "Devart.Data.Oracle.Entity.EFCore" => EfDatabaseProvider.Oracle,
+            "Microsoft.EntityFrameworkCore.Sqlite" => EfDatabaseProvider.Sqlite,
+            "Microsoft.EntityFrameworkCore.InMemory" => EfDatabaseProvider.InMemory,
+            "FirebirdSql.EntityFrameworkCore.Firebird" => EfDatabaseProvider.Firebird,
+            "Microsoft.EntityFrameworkCore.Cosmos" => EfDatabaseProvider.Cosmos,
             _ => null,
         };
     }
@@ -238,7 +238,7 @@ public abstract class EfCoreDbContext : DbContext, IEfCoreDbContext, ITransientD
     /// 初始化
     /// </summary>
     /// <param name="initializationContext"></param>
-    public virtual void Initialize(EfCoreDbContextInitializationContext initializationContext)
+    public virtual void Initialize(EfDbContextInitializationContext initializationContext)
     {
         LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
 

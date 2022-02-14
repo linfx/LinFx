@@ -19,7 +19,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// 工作单元数据库上下文提供者
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext
+public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfDbContext
 {
     public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; }
 
@@ -27,14 +27,14 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
     private readonly IConnectionStringResolver _connectionStringResolver;
     private readonly ICancellationTokenProvider _cancellationTokenProvider;
     private readonly ICurrentTenant _currentTenant;
-    private readonly EfCoreDbContextOptions _options;
+    private readonly EfDbContextOptions _options;
 
     public UnitOfWorkDbContextProvider(
         IUnitOfWorkManager unitOfWorkManager,
         IConnectionStringResolver connectionStringResolver,
         ICancellationTokenProvider cancellationTokenProvider,
         ICurrentTenant currentTenant,
-        IOptions<EfCoreDbContextOptions> options)
+        IOptions<EfDbContextOptions> options)
     {
         _unitOfWorkManager = unitOfWorkManager;
         _connectionStringResolver = connectionStringResolver;
@@ -90,8 +90,8 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         {
             var dbContext = await CreateDbContextAsync(unitOfWork);
 
-            if (dbContext is IEfCoreDbContext efCoreDbContext)
-                efCoreDbContext.Initialize(new EfCoreDbContextInitializationContext(unitOfWork));
+            if (dbContext is IEfDbContext efCoreDbContext)
+                efCoreDbContext.Initialize(new EfDbContextInitializationContext(unitOfWork));
 
             return dbContext;
         }

@@ -13,7 +13,7 @@ public interface IEfCoreBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 
 
@@ -23,7 +23,7 @@ public interface IEfCoreBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 
 
@@ -33,6 +33,6 @@ public interface IEfCoreBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 }
