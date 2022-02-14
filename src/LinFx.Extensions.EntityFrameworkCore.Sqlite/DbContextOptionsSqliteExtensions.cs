@@ -1,10 +1,9 @@
-using System;
 using JetBrains.Annotations;
-using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System;
 
-namespace TenantManagementService.EntityFrameworkCore.Extensions;
+namespace LinFx.Extensions.EntityFrameworkCore;
 
 public static class DbContextOptionsSqliteExtensions
 {
