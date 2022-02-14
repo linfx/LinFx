@@ -2,11 +2,11 @@
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 
-public class EfCoreDbContextInitializationContext
+public class EfDbContextInitializationContext
 {
     public IUnitOfWork UnitOfWork { get; }
 
-    public EfCoreDbContextInitializationContext(IUnitOfWork unitOfWork)
+    public EfDbContextInitializationContext(IUnitOfWork unitOfWork)
     {
         UnitOfWork = unitOfWork;
     }

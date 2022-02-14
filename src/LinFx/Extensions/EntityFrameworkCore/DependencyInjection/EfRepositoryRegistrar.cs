@@ -8,9 +8,9 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 /// <summary>
 /// ²Ö´¢×¢²áÆ÷
 /// </summary>
-public class EfCoreRepositoryRegistrar : RepositoryRegistrarBase<DbContextRegistrationOptions>
+public class EfRepositoryRegistrar : RepositoryRegistrarBase<DbContextRegistrationOptions>
 {
-    public EfCoreRepositoryRegistrar(DbContextRegistrationOptions options)
+    public EfRepositoryRegistrar(DbContextRegistrationOptions options)
         : base(options)
     {
     }
@@ -22,11 +22,11 @@ public class EfCoreRepositoryRegistrar : RepositoryRegistrarBase<DbContextRegist
 
     protected override Type GetRepositoryType(Type dbContextType, Type entityType)
     {
-        return typeof(EfCoreRepository<,>).MakeGenericType(dbContextType, entityType);
+        return typeof(EfRepository<,>).MakeGenericType(dbContextType, entityType);
     }
 
     protected override Type GetRepositoryType(Type dbContextType, Type entityType, Type primaryKeyType)
     {
-        return typeof(EfCoreRepository<,,>).MakeGenericType(dbContextType, entityType, primaryKeyType);
+        return typeof(EfRepository<,,>).MakeGenericType(dbContextType, entityType, primaryKeyType);
     }
 }

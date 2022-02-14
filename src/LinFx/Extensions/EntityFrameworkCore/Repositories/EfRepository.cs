@@ -20,11 +20,11 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
 /// <typeparam name="TEntity"></typeparam>
-public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfCoreRepository<TEntity>
-    where TDbContext : IEfCoreDbContext
+public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRepository<TEntity>
+    where TDbContext : IEfDbContext
     where TEntity : class, IEntity
 {
-    public EfCoreRepository(
+    public EfRepository(
         IServiceProvider serviceProvider,
         IDbContextProvider<TDbContext> dbContextProvider) : base(serviceProvider)
     {
@@ -36,7 +36,7 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
         );
     }
 
-    async Task<DbContext> IEfCoreRepository<TEntity>.GetDbContextAsync()
+    async Task<DbContext> IEfRepository<TEntity>.GetDbContextAsync()
     {
         return await GetDbContextAsync() as DbContext;
     }
@@ -59,7 +59,7 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
         return _dbContextProvider.GetDbContextAsync();
     }
 
-    Task<DbSet<TEntity>> IEfCoreRepository<TEntity>.GetDbSetAsync()
+    Task<DbSet<TEntity>> IEfRepository<TEntity>.GetDbSetAsync()
     {
         return GetDbSetAsync();
     }
@@ -76,7 +76,7 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
 
     public virtual IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
-    public IEfCoreBulkOperationProvider BulkOperationProvider => LazyServiceProvider.LazyGetService<IEfCoreBulkOperationProvider>();
+    public IEfBulkOperationProvider BulkOperationProvider => LazyServiceProvider.LazyGetService<IEfBulkOperationProvider>();
 
     public override async Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
     {
@@ -341,11 +341,11 @@ public class EfCoreRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IE
     }
 }
 
-public class EfCoreRepository<TDbContext, TEntity, TKey> : EfCoreRepository<TDbContext, TEntity>, IEfCoreRepository<TEntity, TKey>, ISupportsExplicitLoading<TEntity, TKey>
-    where TDbContext : IEfCoreDbContext
+public class EfRepository<TDbContext, TEntity, TKey> : EfRepository<TDbContext, TEntity>, IEfRepository<TEntity, TKey>, ISupportsExplicitLoading<TEntity, TKey>
+    where TDbContext : IEfDbContext
     where TEntity : class, IEntity<TKey>
 {
-    public EfCoreRepository(IServiceProvider serviceProvider, IDbContextProvider<TDbContext> dbContextProvider)
+    public EfRepository(IServiceProvider serviceProvider, IDbContextProvider<TDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)
     {
     }

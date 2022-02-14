@@ -23,9 +23,7 @@ public class DefaultAuthorizationExceptionHandler : IAuthorizationExceptionHandl
         {
             scheme = await authenticationSchemeProvider.GetSchemeAsync(handlerOptions.AuthenticationScheme);
             if (scheme == null)
-            {
                 throw new Exception($"No authentication scheme named {handlerOptions.AuthenticationScheme} was found.");
-            }
         }
         else
         {
@@ -33,34 +31,24 @@ public class DefaultAuthorizationExceptionHandler : IAuthorizationExceptionHandl
             {
                 scheme = await authenticationSchemeProvider.GetDefaultForbidSchemeAsync();
                 if (scheme == null)
-                {
                     throw new LinFxException($"There was no DefaultForbidScheme found.");
-                }
             }
             else
             {
                 scheme = await authenticationSchemeProvider.GetDefaultChallengeSchemeAsync();
                 if (scheme == null)
-                {
                     throw new LinFxException($"There was no DefaultChallengeScheme found.");
-                }
             }
         }
 
         var handlers = httpContext.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
         var handler = await handlers.GetHandlerAsync(httpContext, scheme.Name);
         if (handler == null)
-        {
             throw new LinFxException($"No handler of {scheme.Name} was found.");
-        }
 
         if (isAuthenticated)
-        {
             await handler.ForbidAsync(null);
-        }
         else
-        {
             await handler.ChallengeAsync(null);
-        }
     }
 }

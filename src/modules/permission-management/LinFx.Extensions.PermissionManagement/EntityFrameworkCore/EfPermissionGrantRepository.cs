@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
 [Service]
-public class EfCorePermissionGrantRepository : EfCoreRepository<PermissionManagementDbContext, PermissionGrant, long>, IPermissionGrantRepository
+public class EfPermissionGrantRepository : EfRepository<PermissionManagementDbContext, PermissionGrant, long>, IPermissionGrantRepository
 {
-    public EfCorePermissionGrantRepository(
+    public EfPermissionGrantRepository(
         IServiceProvider serviceProvider,
         IDbContextProvider<PermissionManagementDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)

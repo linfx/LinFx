@@ -19,7 +19,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// 工作单元数据库上下文提供者
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext
+public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfDbContext
 {
     public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; }
 
@@ -27,14 +27,14 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
     private readonly IConnectionStringResolver _connectionStringResolver;
     private readonly ICancellationTokenProvider _cancellationTokenProvider;
     private readonly ICurrentTenant _currentTenant;
-    private readonly EfCoreDbContextOptions _options;
+    private readonly EfDbContextOptions _options;
 
     public UnitOfWorkDbContextProvider(
         IUnitOfWorkManager unitOfWorkManager,
         IConnectionStringResolver connectionStringResolver,
         ICancellationTokenProvider cancellationTokenProvider,
         ICurrentTenant currentTenant,
-        IOptions<EfCoreDbContextOptions> options)
+        IOptions<EfDbContextOptions> options)
     {
         _unitOfWorkManager = unitOfWorkManager;
         _connectionStringResolver = connectionStringResolver;
@@ -69,11 +69,11 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
         if (databaseApi == null)
         {
-            databaseApi = new EfCoreDatabaseApi(await CreateDbContextAsync(unitOfWork, connectionStringName, connectionString));
+            databaseApi = new EfDatabaseApi(await CreateDbContextAsync(unitOfWork, connectionStringName, connectionString));
             unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
         }
 
-        return (TDbContext)((EfCoreDatabaseApi)databaseApi).DbContext;
+        return (TDbContext)((EfDatabaseApi)databaseApi).DbContext;
     }
 
     /// <summary>
@@ -90,8 +90,8 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         {
             var dbContext = await CreateDbContextAsync(unitOfWork);
 
-            if (dbContext is IEfCoreDbContext efCoreDbContext)
-                efCoreDbContext.Initialize(new EfCoreDbContextInitializationContext(unitOfWork));
+            if (dbContext is IEfDbContext efDbContext)
+                efDbContext.Initialize(new EfDbContextInitializationContext(unitOfWork));
 
             return dbContext;
         }
@@ -119,7 +119,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
     private async Task<TDbContext> CreateDbContextWithTransactionAsync(IUnitOfWork unitOfWork)
     {
         var transactionApiKey = $"EntityFrameworkCore_{DbContextCreationContext.Current.ConnectionString}";
-        var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as EfCoreTransactionApi;
+        var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as EfTransactionApi;
 
         if (activeTransaction == null)
         {
@@ -131,7 +131,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
 
             unitOfWork.AddTransactionApi(
                 transactionApiKey,
-                new EfCoreTransactionApi(
+                new EfTransactionApi(
                     dbTransaction,
                     dbContext,
                     _cancellationTokenProvider

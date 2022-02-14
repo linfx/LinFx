@@ -74,13 +74,13 @@ public static class EntityTypeBuilderExtensions
     {
         if (b.Metadata.ClrType.IsAssignableTo<IHasExtraProperties>())
         {
-            ObjectExtensionManager.Instance.ConfigureEfCoreEntity(b);
+            ObjectExtensionManager.Instance.ConfigureEfEntity(b);
         }
     }
 
     public static void ApplyObjectExtensionMappings(this EntityTypeBuilder b)
     {
-        ObjectExtensionManager.Instance.ConfigureEfCoreEntity(b);
+        ObjectExtensionManager.Instance.ConfigureEfEntity(b);
     }
 
     public static void ConfigureSoftDelete<T>(this EntityTypeBuilder<T> b)

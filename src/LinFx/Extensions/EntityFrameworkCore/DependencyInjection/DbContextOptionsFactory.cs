@@ -43,7 +43,7 @@ public static class DbContextOptionsFactory
     }
 
     private static void PreConfigure<TDbContext>(
-        EfCoreDbContextOptions options,
+        EfDbContextOptions options,
         DbContextConfigurationContext<TDbContext> context)
         where TDbContext : DbContext
     {
@@ -63,7 +63,7 @@ public static class DbContextOptionsFactory
     }
 
     private static void Configure<TDbContext>(
-        EfCoreDbContextOptions options,
+        EfDbContextOptions options,
         DbContextConfigurationContext<TDbContext> context)
         where TDbContext : DbContext
     {
@@ -88,10 +88,10 @@ public static class DbContextOptionsFactory
     /// <typeparam name="TDbContext"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    private static EfCoreDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider)
+    private static EfDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider)
         where TDbContext : DbContext
     {
-        return serviceProvider.GetRequiredService<IOptions<EfCoreDbContextOptions>>().Value;
+        return serviceProvider.GetRequiredService<IOptions<EfDbContextOptions>>().Value;
     }
 
     private static DbContextCreationContext GetCreationContext<TDbContext>(IServiceProvider serviceProvider)

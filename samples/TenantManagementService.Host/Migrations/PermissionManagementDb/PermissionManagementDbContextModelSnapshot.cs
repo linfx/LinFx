@@ -14,7 +14,7 @@ namespace TenantManagementService.Migrations.PermissionManagementDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("_DatabaseProvider", EfCoreDatabaseProvider.Sqlite)
+                .HasAnnotation("_DatabaseProvider", EfDatabaseProvider.Sqlite)
                 .HasAnnotation("ProductVersion", "5.0.10");
 
             modelBuilder.Entity("LinFx.Extensions.PermissionManagement.PermissionGrant", b =>

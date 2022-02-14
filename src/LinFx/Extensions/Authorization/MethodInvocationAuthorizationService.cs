@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.Authorization;
 
 /// <summary>
-/// 授权服务
+/// 方法调用授权服务
 /// </summary>
 [Service]
 public class MethodInvocationAuthorizationService : IMethodInvocationAuthorizationService
 {
     private readonly IAuthorizationPolicyProvider _authorizationPolicyProvider;
-    private readonly IAuthorizationService _abpAuthorizationService;
+    private readonly IAuthorizationService _authorizationService;
 
     public MethodInvocationAuthorizationService(
         IAuthorizationPolicyProvider authorizationPolicyProvider,
-        IAuthorizationService abpAuthorizationService)
+        IAuthorizationService authorizationService)
     {
         _authorizationPolicyProvider = authorizationPolicyProvider;
-        _abpAuthorizationService = abpAuthorizationService;
+        _authorizationService = authorizationService;
     }
 
     public async Task CheckAsync(MethodInvocationAuthorizationContext context)
@@ -37,7 +37,7 @@ public class MethodInvocationAuthorizationService : IMethodInvocationAuthorizati
         if (authorizationPolicy == null)
             return;
 
-        //await _abpAuthorizationService.CheckAsync(authorizationPolicy);
+        //await _authorizationService.CheckAsync(authorizationPolicy);
     }
 
     protected virtual bool AllowAnonymous(MethodInvocationAuthorizationContext context)

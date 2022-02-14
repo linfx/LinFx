@@ -69,7 +69,7 @@ public static class ModelBuilderExtensions
 
     public static void SetDatabaseProvider(
         this ModelBuilder modelBuilder,
-        EfCoreDatabaseProvider databaseProvider)
+        EfDatabaseProvider databaseProvider)
     {
         modelBuilder.Model.SetAnnotation(ModelDatabaseProviderAnnotationKey, databaseProvider);
     }
@@ -80,77 +80,77 @@ public static class ModelBuilderExtensions
         modelBuilder.Model.RemoveAnnotation(ModelDatabaseProviderAnnotationKey);
     }
 
-    public static EfCoreDatabaseProvider? GetDatabaseProvider(
+    public static EfDatabaseProvider? GetDatabaseProvider(
         this ModelBuilder modelBuilder
     )
     {
-        return (EfCoreDatabaseProvider?)modelBuilder.Model[ModelDatabaseProviderAnnotationKey];
+        return (EfDatabaseProvider?)modelBuilder.Model[ModelDatabaseProviderAnnotationKey];
     }
 
     public static bool IsUsingMySQL(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.MySql;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.MySql;
     }
 
     public static bool IsUsingOracle(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.Oracle;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.Oracle;
     }
 
     public static bool IsUsingSqlServer(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.SqlServer;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.SqlServer;
     }
 
     public static bool IsUsingPostgreSql(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.PostgreSql;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.PostgreSql;
     }
 
     public static bool IsUsingSqlite(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.Sqlite;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.Sqlite;
     }
 
     public static void UseInMemory(
         this ModelBuilder modelBuilder)
     {
-        modelBuilder.SetDatabaseProvider(EfCoreDatabaseProvider.InMemory);
+        modelBuilder.SetDatabaseProvider(EfDatabaseProvider.InMemory);
     }
 
     public static bool IsUsingInMemory(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.InMemory;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.InMemory;
     }
 
     public static void UseCosmos(
         this ModelBuilder modelBuilder)
     {
-        modelBuilder.SetDatabaseProvider(EfCoreDatabaseProvider.Cosmos);
+        modelBuilder.SetDatabaseProvider(EfDatabaseProvider.Cosmos);
     }
 
     public static bool IsUsingCosmos(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.Cosmos;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.Cosmos;
     }
 
     public static void UseFirebird(
         this ModelBuilder modelBuilder)
     {
-        modelBuilder.SetDatabaseProvider(EfCoreDatabaseProvider.Firebird);
+        modelBuilder.SetDatabaseProvider(EfDatabaseProvider.Firebird);
     }
 
     public static bool IsUsingFirebird(
         this ModelBuilder modelBuilder)
     {
-        return modelBuilder.GetDatabaseProvider() == EfCoreDatabaseProvider.Firebird;
+        return modelBuilder.GetDatabaseProvider() == EfDatabaseProvider.Firebird;
     }
 
     #endregion

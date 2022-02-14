@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TenantManagementService.Extensions;
+using TenantManagementService.EntityFrameworkCore.Extensions;
 
 namespace TenantManagementService;
 
@@ -26,7 +26,7 @@ public class TenantManagementHostModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<EfCoreDbContextOptions>(options =>
+        Configure<EfDbContextOptions>(options =>
         {
             options.UseSqlite<AuditLoggingDbContext>();
             options.UseSqlite<PermissionManagementDbContext>();

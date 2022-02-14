@@ -28,7 +28,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.ValueConverters
                 {
                     foreach (var property in objectExtension.GetProperties())
                     {
-                        if (property.IsMappedToFieldForEfCore())
+                        if (property.IsMappedToFieldForEf())
                         {
                             copyDictionary.Remove(property.Name);
                         }

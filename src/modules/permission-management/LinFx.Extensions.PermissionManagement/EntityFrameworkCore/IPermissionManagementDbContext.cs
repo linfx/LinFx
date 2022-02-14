@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore
 {
-    public interface IPermissionManagementDbContext : IEfCoreDbContext
+    public interface IPermissionManagementDbContext : IEfDbContext
     {
         DbSet<PermissionGrant> PermissionGrants { get; }
     }

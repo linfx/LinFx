@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 
-public interface IEfCoreRepository<TEntity> : IRepository<TEntity>
+public interface IEfRepository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
 {
     Task<DbContext> GetDbContextAsync();
@@ -13,7 +13,7 @@ public interface IEfCoreRepository<TEntity> : IRepository<TEntity>
     Task<DbSet<TEntity>> GetDbSetAsync();
 }
 
-public interface IEfCoreRepository<TEntity, TKey> : IEfCoreRepository<TEntity>, IRepository<TEntity, TKey>
+public interface IEfRepository<TEntity, TKey> : IEfRepository<TEntity>, IRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
 {
 }

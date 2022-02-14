@@ -4,12 +4,12 @@ using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace TenantManagementService.Extensions;
+namespace TenantManagementService.EntityFrameworkCore.Extensions;
 
 public static class DbContextOptionsSqliteExtensions
 {
     public static void UseSqlite(
-        [NotNull] this EfCoreDbContextOptions options,
+        [NotNull] this EfDbContextOptions options,
         [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null)
     {
         options.Configure(context =>
@@ -19,7 +19,7 @@ public static class DbContextOptionsSqliteExtensions
     }
 
     public static void UseSqlite<TDbContext>(
-        [NotNull] this EfCoreDbContextOptions options,
+        [NotNull] this EfDbContextOptions options,
         [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null)
         where TDbContext : DbContext
     {

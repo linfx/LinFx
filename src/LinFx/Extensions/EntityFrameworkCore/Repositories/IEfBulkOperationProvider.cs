@@ -5,34 +5,34 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 
-public interface IEfCoreBulkOperationProvider
+public interface IEfBulkOperationProvider
 {
     Task InsertManyAsync<TDbContext, TEntity>(
-        IEfCoreRepository<TEntity> repository,
+        IEfRepository<TEntity> repository,
         IEnumerable<TEntity> entities,
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 
 
     Task UpdateManyAsync<TDbContext, TEntity>(
-        IEfCoreRepository<TEntity> repository,
+        IEfRepository<TEntity> repository,
         IEnumerable<TEntity> entities,
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 
 
     Task DeleteManyAsync<TDbContext, TEntity>(
-        IEfCoreRepository<TEntity> repository,
+        IEfRepository<TEntity> repository,
         IEnumerable<TEntity> entities,
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfCoreDbContext
+        where TDbContext : IEfDbContext
         where TEntity : class, IEntity;
 }

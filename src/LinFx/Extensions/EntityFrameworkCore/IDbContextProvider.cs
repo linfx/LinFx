@@ -6,7 +6,7 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// 数据库上下文提供者
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public interface IDbContextProvider<TDbContext> where TDbContext : IEfCoreDbContext
+public interface IDbContextProvider<TDbContext> where TDbContext : IEfDbContext
 {
     /// <summary>
     /// 获取数据库上下文
