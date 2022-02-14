@@ -15,7 +15,9 @@ namespace LinFx.Domain.Repositories;
 public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IRepository<TEntity>, IUnitOfWorkManagerAccessor
     where TEntity : class, IEntity
 {
-    protected RepositoryBase(IServiceProvider serviceProvider)
+    public RepositoryBase() { }
+
+    public RepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
     {
     }
@@ -68,6 +70,8 @@ public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IR
 public abstract class RepositoryBase<TEntity, TKey> : RepositoryBase<TEntity>, IRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
 {
+    public RepositoryBase() { }
+
     protected RepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
     {
