@@ -81,8 +81,7 @@ public abstract class ApplicationService :
 
     public ApplicationService() { }
 
-    [Obsolete]
-    protected ApplicationService(IServiceProvider serviceProvider)
+    public ApplicationService(IServiceProvider serviceProvider)
     {
         LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
     }

@@ -18,21 +18,37 @@ namespace LinFx.Domain.Repositories;
 public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, IServiceProviderAccessor
     where TEntity : class, IEntity
 {
-    public ILazyServiceProvider LazyServiceProvider { get; private set; }
+    [Autowired]
+    public ILazyServiceProvider LazyServiceProvider { get; set; }
 
+    [Autowired]
     public IServiceProvider ServiceProvider { get; set; }
 
+    /// <summary>
+    /// 数据过滤
+    /// </summary>
     public IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
 
+    /// <summary>
+    /// 当前租户
+    /// </summary>
     public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
+    /// <summary>
+    /// 异步查询
+    /// </summary>
     public IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
+    /// <summary>
+    /// 工作单元管理器
+    /// </summary>
     public IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
     public ICancellationTokenProvider CancellationTokenProvider => LazyServiceProvider.LazyGetService<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
 
-    protected BasicRepositoryBase(IServiceProvider serviceProvider)
+    public BasicRepositoryBase() { }
+
+    public BasicRepositoryBase(IServiceProvider serviceProvider)
     {
         ServiceProvider = serviceProvider;
         LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
@@ -110,6 +126,8 @@ public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, 
 public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<TEntity>, IBasicRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
 {
+    protected BasicRepositoryBase() { }
+
     protected BasicRepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
     {

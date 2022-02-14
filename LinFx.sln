@@ -57,7 +57,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Host", "sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TenantManagementService.Host", "samples\TenantManagementService.Host\TenantManagementService.Host.csproj", "{68DBD2C0-656A-4030-93B8-562E8E916358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.Autofac", "src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj", "{66C807DB-219D-4EF8-9BC9-767C6B9397CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Autofac", "src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj", "{66C807DB-219D-4EF8-9BC9-767C6B9397CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.EntityFrameworkCore.PostgreSql", "src\LinFx.Extensions.EntityFrameworkCore.PostgreSql\LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj", "{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.EntityFrameworkCore.Sqlite", "src\LinFx.Extensions.EntityFrameworkCore.Sqlite\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj", "{DECC59DC-18D2-4643-B753-04FD6AD0B44B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +129,14 @@ Global
 		{66C807DB-219D-4EF8-9BC9-767C6B9397CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66C807DB-219D-4EF8-9BC9-767C6B9397CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66C807DB-219D-4EF8-9BC9-767C6B9397CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DECC59DC-18D2-4643-B753-04FD6AD0B44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DECC59DC-18D2-4643-B753-04FD6AD0B44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DECC59DC-18D2-4643-B753-04FD6AD0B44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DECC59DC-18D2-4643-B753-04FD6AD0B44B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +163,8 @@ Global
 		{52CE1966-6E59-4255-822A-4988D48BA3B0} = {2811B54F-6B0C-4073-8DF3-048CCDA1202C}
 		{68DBD2C0-656A-4030-93B8-562E8E916358} = {2811B54F-6B0C-4073-8DF3-048CCDA1202C}
 		{66C807DB-219D-4EF8-9BC9-767C6B9397CE} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{DECC59DC-18D2-4643-B753-04FD6AD0B44B} = {19BCDCAB-8076-4D78-BDED-682974410439}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}
