@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 
 [Service]
-public class EfCoreAuditLogRepository : EfCoreRepository<IAuditLoggingDbContext, AuditLog, string>, IAuditLogRepository
+public class EfAuditLogRepository : EfRepository<IAuditLoggingDbContext, AuditLog, string>, IAuditLogRepository
 {
-    public EfCoreAuditLogRepository(IServiceProvider serviceProvider, IDbContextProvider<IAuditLoggingDbContext> dbContextProvider)
+    public EfAuditLogRepository(IServiceProvider serviceProvider, IDbContextProvider<IAuditLoggingDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)
     {
     }

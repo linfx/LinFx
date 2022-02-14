@@ -35,7 +35,7 @@ public class PermissionManagementModule : Module
         context.Services.AddDbContext<PermissionManagementDbContext>(options =>
         {
             options.AddDefaultRepositories<IPermissionManagementDbContext>();
-            options.AddRepository<PermissionGrant, EfCorePermissionGrantRepository>();
+            options.AddRepository<PermissionGrant, EfPermissionGrantRepository>();
         });
     }
 }

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
 [Service]
-public class EfCoreTenantRepository : EfCoreRepository<TenantManagementDbContext, Tenant, string>, ITenantRepository
+public class EfTenantRepository : EfRepository<TenantManagementDbContext, Tenant, string>, ITenantRepository
 {
-    public EfCoreTenantRepository(
+    public EfTenantRepository(
         IServiceProvider serviceProvider,
         IDbContextProvider<TenantManagementDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)

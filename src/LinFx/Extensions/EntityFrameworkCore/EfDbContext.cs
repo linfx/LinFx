@@ -283,7 +283,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
         foreach (var property in objectExtension.GetProperties())
         {
-            if (!property.IsMappedToFieldForEfCore())
+            if (!property.IsMappedToFieldForEf())
                 continue;
 
             /* Checking "currentValue != null" has a good advantage:
@@ -405,7 +405,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
         var efMappedProperties = ObjectExtensionManager.Instance
             .GetProperties(entityType)
-            .Where(p => p.IsMappedToFieldForEfCore());
+            .Where(p => p.IsMappedToFieldForEf());
 
         //foreach (var property in efMappedProperties)
         //{

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 {
-    public class ObjectExtensionPropertyInfoEfCoreMappingOptions
+    public class ObjectExtensionPropertyInfoEfMappingOptions
     {
         [NotNull]
         public ObjectExtensionPropertyInfo ExtensionProperty { get; }
@@ -20,13 +20,13 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
         [CanBeNull]
         public Action<EntityTypeBuilder, PropertyBuilder> EntityTypeAndPropertyBuildAction { get; set; }
 
-        public ObjectExtensionPropertyInfoEfCoreMappingOptions(
+        public ObjectExtensionPropertyInfoEfMappingOptions(
             [NotNull] ObjectExtensionPropertyInfo extensionProperty)
         {
             ExtensionProperty = Check.NotNull(extensionProperty, nameof(extensionProperty));
         }
 
-        public ObjectExtensionPropertyInfoEfCoreMappingOptions(
+        public ObjectExtensionPropertyInfoEfMappingOptions(
             [NotNull] ObjectExtensionPropertyInfo extensionProperty,
             [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
         {

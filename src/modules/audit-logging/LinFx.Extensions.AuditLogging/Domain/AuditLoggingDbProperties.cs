@@ -8,5 +8,5 @@ public static class AuditLoggingDbProperties
 
     public static string DbSchema { get; set; } = CommonDbProperties.DbSchema;
 
-    public const string ConnectionStringName = "AuditLogging";
+    public const string ConnectionStringName = "Default";
 }

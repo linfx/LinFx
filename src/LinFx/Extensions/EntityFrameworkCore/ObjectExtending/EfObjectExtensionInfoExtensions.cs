@@ -8,24 +8,24 @@ using System.Linq;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 {
-    public static class EfCoreObjectExtensionInfoExtensions
+    public static class EfObjectExtensionInfoExtensions
     {
-        public const string EfCoreDbContextConfigurationName = "EfCoreDbContextMapping";
-        public const string EfCoreEntityConfigurationName = "EfCoreEntityMapping";
+        public const string EfDbContextConfigurationName = "EfDbContextMapping";
+        public const string EfEntityConfigurationName = "EfEntityMapping";
 
-        public static ObjectExtensionInfo MapEfCoreProperty<TProperty>(
+        public static ObjectExtensionInfo MapEfProperty<TProperty>(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo,
             [NotNull] string propertyName,
             [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
         {
-            return objectExtensionInfo.MapEfCoreProperty(
+            return objectExtensionInfo.MapEfProperty(
                 typeof(TProperty),
                 propertyName,
                 entityTypeAndPropertyBuildAction
             );
         }
 
-        public static ObjectExtensionInfo MapEfCoreProperty(
+        public static ObjectExtensionInfo MapEfProperty(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo,
             [NotNull] Type propertyType,
             [NotNull] string propertyName,
@@ -38,70 +38,70 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 propertyName,
                 options =>
                 {
-                    options.MapEfCore(
+                    options.MapEf(
                         entityTypeAndPropertyBuildAction
                     );
                 }
             );
         }
 
-        public static ObjectExtensionInfo MapEfCoreEntity(
+        public static ObjectExtensionInfo MapEfEntity(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo,
             [NotNull] Action<EntityTypeBuilder> entityTypeBuildAction)
         {
             Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-            var mappingOptionList = new List<ObjectExtensionInfoEfCoreMappingOptions>
+            var mappingOptionList = new List<ObjectExtensionInfoEfMappingOptions>
             {
-                new ObjectExtensionInfoEfCoreMappingOptions(objectExtensionInfo, entityTypeBuildAction)
+                new ObjectExtensionInfoEfMappingOptions(objectExtensionInfo, entityTypeBuildAction)
             };
 
-            objectExtensionInfo.Configuration.AddOrUpdate(EfCoreEntityConfigurationName, mappingOptionList,
+            objectExtensionInfo.Configuration.AddOrUpdate(EfEntityConfigurationName, mappingOptionList,
                 (k, v) =>
                 {
-                    v.As<List<ObjectExtensionInfoEfCoreMappingOptions>>().Add(mappingOptionList.First());
+                    v.As<List<ObjectExtensionInfoEfMappingOptions>>().Add(mappingOptionList.First());
                     return v;
                 });
 
             return objectExtensionInfo;
         }
 
-        public static ObjectExtensionInfo MapEfCoreDbContext(
+        public static ObjectExtensionInfo MapEfeDbContext(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo,
             [NotNull] Action<ModelBuilder> modelBuildAction)
         {
             Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-            var mappingOptionList = new List<ObjectExtensionInfoEfCoreMappingOptions>
+            var mappingOptionList = new List<ObjectExtensionInfoEfMappingOptions>
             {
-                new ObjectExtensionInfoEfCoreMappingOptions(objectExtensionInfo, modelBuildAction)
+                new ObjectExtensionInfoEfMappingOptions(objectExtensionInfo, modelBuildAction)
             };
 
-            objectExtensionInfo.Configuration.AddOrUpdate(EfCoreDbContextConfigurationName, mappingOptionList, (k, v) =>
+            objectExtensionInfo.Configuration.AddOrUpdate(EfDbContextConfigurationName, mappingOptionList, (k, v) =>
             {
-                v.As<List<ObjectExtensionInfoEfCoreMappingOptions>>().Add(mappingOptionList.First());
+                v.As<List<ObjectExtensionInfoEfMappingOptions>>().Add(mappingOptionList.First());
                 return v;
             });
 
             return objectExtensionInfo;
         }
 
-        public static List<ObjectExtensionInfoEfCoreMappingOptions> GetEfCoreEntityMappings(
+        public static List<ObjectExtensionInfoEfMappingOptions> GetEfEntityMappings(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo)
         {
             Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-            return !objectExtensionInfo.Configuration.TryGetValue(EfCoreEntityConfigurationName, out var options) ?
-                new List<ObjectExtensionInfoEfCoreMappingOptions>() : options.As<List<ObjectExtensionInfoEfCoreMappingOptions>>();
+            return !objectExtensionInfo.Configuration.TryGetValue(EfEntityConfigurationName, out var options) ?
+                new List<ObjectExtensionInfoEfMappingOptions>() : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
         }
 
-        public static List<ObjectExtensionInfoEfCoreMappingOptions> GetEfCoreDbContextMappings(
+        public static List<ObjectExtensionInfoEfMappingOptions> GetEfDbContextMappings(
             [NotNull] this ObjectExtensionInfo objectExtensionInfo)
         {
             Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-            return !objectExtensionInfo.Configuration.TryGetValue(EfCoreDbContextConfigurationName, out var options) ?
-                new List<ObjectExtensionInfoEfCoreMappingOptions>() : options.As<List<ObjectExtensionInfoEfCoreMappingOptions>>();
+            return !objectExtensionInfo.Configuration.TryGetValue(EfDbContextConfigurationName, out var options) ?
+                new List<ObjectExtensionInfoEfMappingOptions>() : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
         }
     }
 }

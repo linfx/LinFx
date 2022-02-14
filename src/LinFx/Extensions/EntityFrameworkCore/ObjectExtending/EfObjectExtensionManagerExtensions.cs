@@ -7,9 +7,9 @@ using System;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 {
-    public static class EfCoreObjectExtensionManagerExtensions
+    public static class EfObjectExtensionManagerExtensions
     {
-        public static ObjectExtensionManager MapEfCoreDbContext<TDbContext>(
+        public static ObjectExtensionManager MapEfDbContext<TDbContext>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Action<ModelBuilder> modelBuilderAction)
             where TDbContext : DbContext
@@ -18,21 +18,21 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 typeof(TDbContext),
                 options =>
                 {
-                    options.MapEfCoreDbContext(modelBuilderAction);
+                    options.MapEfeDbContext(modelBuilderAction);
                 });
         }
 
-        public static ObjectExtensionManager MapEfCoreEntity<TEntity>(
+        public static ObjectExtensionManager MapEfEntity<TEntity>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Action<EntityTypeBuilder> entityTypeBuildAction)
             where TEntity : IEntity
         {
-            return objectExtensionManager.MapEfCoreEntity(
+            return objectExtensionManager.MapEfEntity(
                 typeof(TEntity),
                 entityTypeBuildAction);
         }
 
-        public static ObjectExtensionManager MapEfCoreEntity(
+        public static ObjectExtensionManager MapEfEntity(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type entityType,
             [NotNull] Action<EntityTypeBuilder> entityTypeBuildAction)
@@ -43,23 +43,23 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 entityType,
                 options =>
                 {
-                    options.MapEfCoreEntity(entityTypeBuildAction);
+                    options.MapEfEntity(entityTypeBuildAction);
                 });
         }
 
-        public static ObjectExtensionManager MapEfCoreProperty<TEntity, TProperty>(
+        public static ObjectExtensionManager MapEfProperty<TEntity, TProperty>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] string propertyName)
             where TEntity : IHasExtraProperties, IEntity
         {
-            return objectExtensionManager.MapEfCoreProperty(
+            return objectExtensionManager.MapEfProperty(
                 typeof(TEntity),
                 typeof(TProperty),
                 propertyName
             );
         }
 
-        public static ObjectExtensionManager MapEfCoreProperty(
+        public static ObjectExtensionManager MapEfProperty(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type entityType,
             [NotNull] Type propertyType,
@@ -71,17 +71,17 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 entityType,
                 propertyType,
                 propertyName,
-                options => { options.MapEfCore(); }
+                options => { options.MapEf(); }
             );
         }
 
-        public static ObjectExtensionManager MapEfCoreProperty<TEntity, TProperty>(
+        public static ObjectExtensionManager MapEfProperty<TEntity, TProperty>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] string propertyName,
             [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
             where TEntity : IHasExtraProperties, IEntity
         {
-            return objectExtensionManager.MapEfCoreProperty(
+            return objectExtensionManager.MapEfProperty(
                 typeof(TEntity),
                 typeof(TProperty),
                 propertyName,
@@ -89,7 +89,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
             );
         }
 
-        public static ObjectExtensionManager MapEfCoreProperty(
+        public static ObjectExtensionManager MapEfProperty(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type entityType,
             [NotNull] Type propertyType,
@@ -104,14 +104,14 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 propertyName,
                 options =>
                 {
-                    options.MapEfCore(
+                    options.MapEf(
                         entityTypeAndPropertyBuildAction
                     );
                 }
             );
         }
 
-        public static void ConfigureEfCoreEntity(
+        public static void ConfigureEfEntity(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] EntityTypeBuilder typeBuilder)
         {
@@ -124,17 +124,17 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 return;
             }
 
-            var efCoreEntityMappings = objectExtension.GetEfCoreEntityMappings();
+            var efEntityMappings = objectExtension.GetEfEntityMappings();
 
-            foreach (var efCoreEntityMapping in efCoreEntityMappings)
+            foreach (var efEntityMapping in efEntityMappings)
             {
-                efCoreEntityMapping.EntityTypeBuildAction?.Invoke(typeBuilder);
+                efEntityMapping.EntityTypeBuildAction?.Invoke(typeBuilder);
             }
 
             foreach (var property in objectExtension.GetProperties())
             {
-                var efCoreMapping = property.GetEfCoreMappingOrNull();
-                if (efCoreMapping == null)
+                var efMapping = property.GetEfMappingOrNull();
+                if (efMapping == null)
                 {
                     continue;
                 }
@@ -147,14 +147,14 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 
                 var propertyBuilder = typeBuilder.Property(property.Type, property.Name);
 
-                efCoreMapping.EntityTypeAndPropertyBuildAction?.Invoke(typeBuilder, propertyBuilder);
+                efMapping.EntityTypeAndPropertyBuildAction?.Invoke(typeBuilder, propertyBuilder);
 #pragma warning disable 618
-                efCoreMapping.PropertyBuildAction?.Invoke(propertyBuilder);
+                efMapping.PropertyBuildAction?.Invoke(propertyBuilder);
 #pragma warning restore 618
             }
         }
 
-        public static void ConfigureEfCoreDbContext<TDbContext>(
+        public static void ConfigureEfDbContext<TDbContext>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] ModelBuilder modelBuilder)
             where TDbContext : DbContext
@@ -168,11 +168,11 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
                 return;
             }
 
-            var efCoreDbContextMappings = objectExtension.GetEfCoreDbContextMappings();
+            var efDbContextMappings = objectExtension.GetEfDbContextMappings();
 
-            foreach (var efCoreDbContextMapping in efCoreDbContextMappings)
+            foreach (var efDbContextMapping in efDbContextMappings)
             {
-                efCoreDbContextMapping.ModelBuildAction?.Invoke(modelBuilder);
+                efDbContextMapping.ModelBuildAction?.Invoke(modelBuilder);
             }
         }
     }

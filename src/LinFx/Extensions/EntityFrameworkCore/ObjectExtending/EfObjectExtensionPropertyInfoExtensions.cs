@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 {
-    public static class EfCoreObjectExtensionPropertyInfoExtensions
+    public static class EfObjectExtensionPropertyInfoExtensions
     {
-        public const string EfCorePropertyConfigurationName = "EfCoreMapping";
+        public const string EfPropertyConfigurationName = "EfMapping";
 
         [NotNull]
-        public static ObjectExtensionPropertyInfo MapEfCore(
+        public static ObjectExtensionPropertyInfo MapEf(
             [NotNull] this ObjectExtensionPropertyInfo propertyExtension)
         {
             Check.NotNull(propertyExtension, nameof(propertyExtension));
 
-            propertyExtension.Configuration[EfCorePropertyConfigurationName] =
-                new ObjectExtensionPropertyInfoEfCoreMappingOptions(
+            propertyExtension.Configuration[EfPropertyConfigurationName] =
+                new ObjectExtensionPropertyInfoEfMappingOptions(
                     propertyExtension
                 );
 
@@ -25,14 +25,14 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
         }
 
         [NotNull]
-        public static ObjectExtensionPropertyInfo MapEfCore(
+        public static ObjectExtensionPropertyInfo MapEf(
             [NotNull] this ObjectExtensionPropertyInfo propertyExtension,
             [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
         {
             Check.NotNull(propertyExtension, nameof(propertyExtension));
 
-            propertyExtension.Configuration[EfCorePropertyConfigurationName] =
-                new ObjectExtensionPropertyInfoEfCoreMappingOptions(
+            propertyExtension.Configuration[EfPropertyConfigurationName] =
+                new ObjectExtensionPropertyInfoEfMappingOptions(
                     propertyExtension,
                     entityTypeAndPropertyBuildAction
                 );
@@ -41,25 +41,25 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
         }
 
         [CanBeNull]
-        public static ObjectExtensionPropertyInfoEfCoreMappingOptions GetEfCoreMappingOrNull(
+        public static ObjectExtensionPropertyInfoEfMappingOptions GetEfMappingOrNull(
             [NotNull] this ObjectExtensionPropertyInfo propertyExtension)
         {
             Check.NotNull(propertyExtension, nameof(propertyExtension));
 
             return propertyExtension
                     .Configuration
-                    .GetOrDefault(EfCorePropertyConfigurationName)
-                as ObjectExtensionPropertyInfoEfCoreMappingOptions;
+                    .GetOrDefault(EfPropertyConfigurationName)
+                as ObjectExtensionPropertyInfoEfMappingOptions;
         }
 
-        public static bool IsMappedToFieldForEfCore(
+        public static bool IsMappedToFieldForEf(
             [NotNull] this ObjectExtensionPropertyInfo propertyExtension)
         {
             Check.NotNull(propertyExtension, nameof(propertyExtension));
 
             return propertyExtension
                 .Configuration
-                .ContainsKey(EfCorePropertyConfigurationName);
+                .ContainsKey(EfPropertyConfigurationName);
         }
     }
 }

@@ -3,7 +3,7 @@
 public static class CommonDbProperties
 {
     /// <summary>
-    /// This table prefix is shared by most of the ABP modules.
+    /// This table prefix is shared by most of the modules.
     /// You can change it to set table prefix for all modules using this.
     /// 
     /// Default value: "".

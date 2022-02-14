@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 
-public class EfCoreTransactionApi : ITransactionApi, ISupportsRollback
+public class EfTransactionApi : ITransactionApi, ISupportsRollback
 {
     public IDbContextTransaction DbContextTransaction { get; }
     public IEfDbContext StarterDbContext { get; }
@@ -17,7 +17,7 @@ public class EfCoreTransactionApi : ITransactionApi, ISupportsRollback
 
     protected ICancellationTokenProvider CancellationTokenProvider { get; }
 
-    public EfCoreTransactionApi(
+    public EfTransactionApi(
         IDbContextTransaction dbContextTransaction,
         IEfDbContext starterDbContext,
         ICancellationTokenProvider cancellationTokenProvider)

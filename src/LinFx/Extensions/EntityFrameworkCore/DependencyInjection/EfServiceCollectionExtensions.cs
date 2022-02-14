@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class EfCoreServiceCollectionExtensions
+public static class EfServiceCollectionExtensions
 {
     public static IServiceCollection AddDbContext<TDbContext>(this IServiceCollection services, Action<IDbContextRegistrationOptionsBuilder> optionsBuilder = null)
         where TDbContext : DbContext
@@ -48,7 +48,7 @@ public static class EfCoreServiceCollectionExtensions
         }
 
         // 构造 EF Core 仓储注册器，并添加仓储
-        new EfCoreRepositoryRegistrar(options).AddRepositories();
+        new EfRepositoryRegistrar(options).AddRepositories();
 
         return services;
     }

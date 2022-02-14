@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 
-public class EfCoreDatabaseApi : IDatabaseApi, ISupportsSavingChanges
+public class EfDatabaseApi : IDatabaseApi, ISupportsSavingChanges
 {
     public IEfDbContext DbContext { get; }
 
-    public EfCoreDatabaseApi(IEfDbContext dbContext)
+    public EfDatabaseApi(IEfDbContext dbContext)
     {
         DbContext = dbContext;
     }

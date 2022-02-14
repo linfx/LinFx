@@ -69,11 +69,11 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         var databaseApi = unitOfWork.FindDatabaseApi(dbContextKey);
         if (databaseApi == null)
         {
-            databaseApi = new EfCoreDatabaseApi(await CreateDbContextAsync(unitOfWork, connectionStringName, connectionString));
+            databaseApi = new EfDatabaseApi(await CreateDbContextAsync(unitOfWork, connectionStringName, connectionString));
             unitOfWork.AddDatabaseApi(dbContextKey, databaseApi);
         }
 
-        return (TDbContext)((EfCoreDatabaseApi)databaseApi).DbContext;
+        return (TDbContext)((EfDatabaseApi)databaseApi).DbContext;
     }
 
     /// <summary>
@@ -90,8 +90,8 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         {
             var dbContext = await CreateDbContextAsync(unitOfWork);
 
-            if (dbContext is IEfDbContext efCoreDbContext)
-                efCoreDbContext.Initialize(new EfDbContextInitializationContext(unitOfWork));
+            if (dbContext is IEfDbContext efDbContext)
+                efDbContext.Initialize(new EfDbContextInitializationContext(unitOfWork));
 
             return dbContext;
         }
@@ -119,7 +119,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
     private async Task<TDbContext> CreateDbContextWithTransactionAsync(IUnitOfWork unitOfWork)
     {
         var transactionApiKey = $"EntityFrameworkCore_{DbContextCreationContext.Current.ConnectionString}";
-        var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as EfCoreTransactionApi;
+        var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as EfTransactionApi;
 
         if (activeTransaction == null)
         {
@@ -131,7 +131,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
 
             unitOfWork.AddTransactionApi(
                 transactionApiKey,
-                new EfCoreTransactionApi(
+                new EfTransactionApi(
                     dbTransaction,
                     dbContext,
                     _cancellationTokenProvider

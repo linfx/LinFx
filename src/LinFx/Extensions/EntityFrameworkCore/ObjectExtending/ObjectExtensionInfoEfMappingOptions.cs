@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
 {
-    public class ObjectExtensionInfoEfCoreMappingOptions
+    public class ObjectExtensionInfoEfMappingOptions
     {
         [NotNull]
         public ObjectExtensionInfo ObjectExtension { get; }
@@ -17,7 +17,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
         [CanBeNull]
         public Action<ModelBuilder> ModelBuildAction { get; set; }
 
-        public ObjectExtensionInfoEfCoreMappingOptions(
+        public ObjectExtensionInfoEfMappingOptions(
             [NotNull] ObjectExtensionInfo objectExtension,
             [NotNull] Action<EntityTypeBuilder> entityTypeBuildAction)
         {
@@ -27,7 +27,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending
             EntityTypeBuildAction = entityTypeBuildAction;
         }
 
-        public ObjectExtensionInfoEfCoreMappingOptions(
+        public ObjectExtensionInfoEfMappingOptions(
             [NotNull] ObjectExtensionInfo objectExtension,
             [NotNull] Action<ModelBuilder> modelBuildAction)
         {
