@@ -13,6 +13,8 @@ $projects = (
     # linfx
     "src/LinFx",
     "src/LinFx.Extensions.Autofac",
+    "src/LinFx.Extensions.EntityFrameworkCore.PostgreSql",
+    "src/LinFx.Extensions.EntityFrameworkCore.Sqlite",
 
     # modules
     "src/modules/audit-logging/LinFx.Extensions.Auditing",
