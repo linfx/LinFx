@@ -15,13 +15,13 @@ namespace LinFx.Extensions.AspNetCore;
 [DependsOn(
     typeof(AuditingModule),
     //typeof(SecurityModule),
-    //typeof(AbpVirtualFileSystemModule),
+    //typeof(VirtualFileSystemModule),
     typeof(UnitOfWorkModule),
     //typeof(HttpModule),
     typeof(AuthorizationModule)
-    //typeof(AbpValidationModule),
-    //typeof(AbpExceptionHandlingModule)
-    )]
+    //typeof(ValidationModule),
+    //typeof(ExceptionHandlingModule)
+)]
 public class AspNetCoreModule : Module
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
