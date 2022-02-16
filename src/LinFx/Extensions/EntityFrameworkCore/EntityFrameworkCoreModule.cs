@@ -15,14 +15,14 @@ namespace LinFx.Extensions.EntityFrameworkCore;
     typeof(AuditingModule),
     typeof(DataModule),
     typeof(EventBusModule),
-    //typeof(AbpGuidsModule),
+    //typeof(GuidsModule),
     typeof(MultiTenancyModule),
     typeof(ThreadingModule),
-    //typeof(AbpTimingModule),
+    //typeof(TimingModule),
     typeof(UnitOfWorkModule)
-    //typeof(AbpObjectMappingModule),
-    //typeof(AbpExceptionHandlingModule),
-    //typeof(AbpSpecificationsModule)
+    //typeof(ObjectMappingModule),
+    //typeof(ExceptionHandlingModule),
+    //typeof(SpecificationsModule)
 )]
 public class EntityFrameworkCoreModule : Module
 {

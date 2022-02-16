@@ -19,6 +19,9 @@ using System.Collections.Generic;
 
 namespace LinFx.Application.Services;
 
+/// <summary>
+/// 应用服务
+/// </summary>
 public abstract class ApplicationService :
     IApplicationService,
     //IAvoidDuplicateCrossCuttingConcerns,

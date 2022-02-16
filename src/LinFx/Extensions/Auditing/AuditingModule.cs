@@ -11,8 +11,8 @@ namespace LinFx.Extensions.Auditing;
 /// </summary>
 [DependsOn(
     typeof(DataModule),
-    //typeof(AbpTimingModule),
-    //typeof(AbpSecurityModule),
+    //typeof(TimingModule),
+    //typeof(SecurityModule),
     typeof(ThreadingModule),
     typeof(MultiTenancyModule)
     //typeof(AbpAuditingContractsModule)
