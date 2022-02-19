@@ -35,16 +35,23 @@ public class EncryptUtilsTests
     public void AESEncryptTest()
     {
         string pwd = "123456";
-        string key = "CJQmqeroXB6kg1Jr";
+        string key = "=[;.<LP_0okmNJI(8uhbVGa&";
+        string iv = "1qazXSW@3edcVFj$";
+
         var r = EncryptUtils.AESEncrypt(pwd, key);
+
+
+        var aa = EncryptUtils.AES.Encrypt(pwd, key, iv);
+
 
         // base64 编码
         var base64Pwd = r.ToBase64String();
+        var base64Pwd2 = "sq1LHC9TfvLDHivBG3qsMQ==";
 
         // base64 解码
         var base64Bytes = base64Pwd.ToBase64Bytes();
 
-        var r2 = EncryptUtils.AESDecrypt(base64Bytes, key);
+        var r2 = EncryptUtils.AES.Decrypt(base64Pwd2, key, iv).Trim('\0');
 
         Assert.Equal(pwd, r2);
     }
