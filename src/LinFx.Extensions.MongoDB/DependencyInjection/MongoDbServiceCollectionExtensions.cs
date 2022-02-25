@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class MongoDbServiceCollectionExtensions
 {
-    public static IServiceCollection AddMongoDbContext<TMongoDbContext>(this IServiceCollection services, Action<IMongoDbContextRegistrationOptionsBuilder> optionsBuilder = null) //Created overload instead of default parameter
+    public static IServiceCollection AddMongoDbContext<TMongoDbContext>(this IServiceCollection services, Action<IMongoDbContextRegistrationOptionsBuilder> optionsBuilder = default) //Created overload instead of default parameter
         where TMongoDbContext : MongoDbContext
     {
         var options = new MongoDbContextRegistrationOptions(typeof(TMongoDbContext), services);

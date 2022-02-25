@@ -16,9 +16,7 @@ using System.Linq.Expressions;
 
 namespace LinFx.Domain.Repositories.MongoDB;
 
-public class MongoDbRepository<TMongoDbContext, TEntity>
-    : RepositoryBase<TEntity>,
-    IMongoDbRepository<TEntity>
+public class MongoDbRepository<TMongoDbContext, TEntity> : RepositoryBase<TEntity>, IMongoDbRepository<TEntity>
     where TMongoDbContext : IMongoDbContext
     where TEntity : class, IEntity
 {
@@ -79,7 +77,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
     {
         cancellationToken = GetCancellationToken(cancellationToken);
 
-        await ApplyAbpConceptsForAddedEntityAsync(entity);
+        await ApplyConceptsForAddedEntityAsync(entity);
 
         var dbContext = await GetDbContextAsync(cancellationToken);
         var collection = dbContext.Collection<TEntity>();
@@ -111,7 +109,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
 
         foreach (var entity in entityArray)
         {
-            await ApplyAbpConceptsForAddedEntityAsync(entity);
+            await ApplyConceptsForAddedEntityAsync(entity);
         }
 
         var dbContext = await GetDbContextAsync(cancellationToken);
@@ -528,7 +526,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
       );
     }
 
-    protected virtual Task ApplyAbpConceptsForAddedEntityAsync(TEntity entity)
+    protected virtual Task ApplyConceptsForAddedEntityAsync(TEntity entity)
     {
         CheckAndSetId(entity);
         SetCreationAuditProperties(entity);
@@ -573,9 +571,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
     protected virtual void TrySetGuidId(IEntity<Guid> entity)
     {
         if (entity.Id != default)
-        {
             return;
-        }
 
         EntityHelper.TrySetId(
             entity,
@@ -601,11 +597,8 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
 
     protected virtual void TriggerDomainEvents(object entity)
     {
-        var generatesDomainEventsEntity = entity as IGeneratesDomainEvents;
-        if (generatesDomainEventsEntity == null)
-        {
+        if (entity is not IGeneratesDomainEvents generatesDomainEventsEntity)
             return;
-        }
 
         var localEvents = generatesDomainEventsEntity.GetLocalEvents()?.ToArray();
         if (localEvents != null && localEvents.Any())
@@ -649,10 +642,8 @@ public class MongoDbRepository<TMongoDbContext, TEntity>
     /// </summary>
     protected virtual string SetNewConcurrencyStamp(TEntity entity)
     {
-        if (!(entity is IHasConcurrencyStamp concurrencyStampEntity))
-        {
-            return null;
-        }
+        if (entity is not IHasConcurrencyStamp concurrencyStampEntity)
+            return string.Empty;
 
         var oldConcurrencyStamp = concurrencyStampEntity.ConcurrencyStamp;
         concurrencyStampEntity.ConcurrencyStamp = Guid.NewGuid().ToString("N");

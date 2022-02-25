@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.EntityFram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.MongoDB", "src\LinFx.Extensions.MongoDB\LinFx.Extensions.MongoDB.csproj", "{CDFAB5F1-6E70-433C-BE2F-674AAE161AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.Kafka", "src\LinFx.Extensions.Kafka\LinFx.Extensions.Kafka.csproj", "{87C17013-AC47-40AB-9166-B795D79DBEEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{CDFAB5F1-6E70-433C-BE2F-674AAE161AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDFAB5F1-6E70-433C-BE2F-674AAE161AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDFAB5F1-6E70-433C-BE2F-674AAE161AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C17013-AC47-40AB-9166-B795D79DBEEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C17013-AC47-40AB-9166-B795D79DBEEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C17013-AC47-40AB-9166-B795D79DBEEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C17013-AC47-40AB-9166-B795D79DBEEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{82F936A6-A3CF-4B9D-8DFB-F16D8B356D61} = {19BCDCAB-8076-4D78-BDED-682974410439}
 		{DECC59DC-18D2-4643-B753-04FD6AD0B44B} = {19BCDCAB-8076-4D78-BDED-682974410439}
 		{CDFAB5F1-6E70-433C-BE2F-674AAE161AEE} = {19BCDCAB-8076-4D78-BDED-682974410439}
+		{87C17013-AC47-40AB-9166-B795D79DBEEA} = {19BCDCAB-8076-4D78-BDED-682974410439}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {981224F0-3832-4B00-96EC-A2243EA34009}

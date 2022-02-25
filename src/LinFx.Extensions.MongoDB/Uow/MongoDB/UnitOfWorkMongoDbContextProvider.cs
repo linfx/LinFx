@@ -44,8 +44,7 @@ public class UnitOfWorkMongoDbContextProvider<TMongoDbContext> : IMongoDbContext
         var unitOfWork = _unitOfWorkManager.Current;
         if (unitOfWork == null)
         {
-            throw new Exception(
-                $"A {nameof(IMongoDatabase)} instance can only be created inside a unit of work!");
+            throw new Exception($"A {nameof(IMongoDatabase)} instance can only be created inside a unit of work!");
         }
 
         var targetDbContextType = _options.GetReplacedTypeOrSelf(typeof(TMongoDbContext));

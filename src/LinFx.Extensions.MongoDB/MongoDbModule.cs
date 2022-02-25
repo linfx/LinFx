@@ -1,7 +1,6 @@
 ﻿using LinFx.Domain.Repositories.MongoDB;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MongoDB.DependencyInjection;
-using LinFx.Extensions.MongoDB.DistributedEvents;
 using LinFx.Extensions.Uow.MongoDB;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
