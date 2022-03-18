@@ -16,7 +16,7 @@ public static class DbContextConfigurationContextExtensions
         {
             return context.DbContextOptions.UseNpgsql(context.ExistingConnection, optionsBuilder =>
             {
-                optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                //optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                 optionsAction?.Invoke(optionsBuilder);
             });
         }
@@ -24,7 +24,7 @@ public static class DbContextConfigurationContextExtensions
         {
             return context.DbContextOptions.UseNpgsql(context.ConnectionString, optionsBuilder =>
             {
-                optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                //optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                 optionsAction?.Invoke(optionsBuilder);
             });
         }
