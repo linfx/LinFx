@@ -9,8 +9,11 @@
 
   <ItemGroup>
     <Compile Remove="Extensions\Http\Client\DynamicProxying\**" />
+    <Compile Remove="Extensions\Kafka\**" />
     <EmbeddedResource Remove="Extensions\Http\Client\DynamicProxying\**" />
+    <EmbeddedResource Remove="Extensions\Kafka\**" />
     <None Remove="Extensions\Http\Client\DynamicProxying\**" />
+    <None Remove="Extensions\Kafka\**" />
   </ItemGroup>
   
   <ItemGroup>
@@ -38,10 +41,6 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="6.0.2" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Extensions\Kafka\" />
   </ItemGroup>
 
 </Project>

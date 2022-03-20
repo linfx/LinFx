@@ -13,6 +13,6 @@ public class PermissionManagementDbContext : EfDbContext, IPermissionManagementD
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        //builder.ConfigurePermissionManagement();
+        builder.ConfigurePermissionManagement();
     }
 }
