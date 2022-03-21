@@ -7,6 +7,7 @@ dotnet tool update -g dotnet-ef
 # 数据迁移
 dotnet ef migrations add -c TenantManagementMigrationsDbContext Initial
 dotnet ef migrations add -c AuditLoggingDbContext Initial
+dotnet ef migrations add -c PermissionManagementDbContext Initial
 
 dotnet ef database update -c TenantManagementMigrationsDbContext
 dotnet ef database update -c AuditLoggingDbContext

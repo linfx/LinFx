@@ -8,7 +8,7 @@ namespace TenantManagementService
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication<TenantManagementHostModule>();
+            services.AddApplication<TenantManagementServiceModule>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -7,7 +7,7 @@ namespace TenantManagementService.Migrations.PermissionManagementDb
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Core_PermissionGrant",
+                name: "PermissionGrants",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "INTEGER", nullable: false)
@@ -19,14 +19,20 @@ namespace TenantManagementService.Migrations.PermissionManagementDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Core_PermissionGrant", x => x.Id);
+                    table.PrimaryKey("PK_PermissionGrants", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PermissionGrants_TenantId_Name_ProviderName_ProviderKey",
+                table: "PermissionGrants",
+                columns: new[] { "TenantId", "Name", "ProviderName", "ProviderKey" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Core_PermissionGrant");
+                name: "PermissionGrants");
         }
     }
 }

@@ -14,7 +14,7 @@ public static class PermissionManagementDbContextModelBuilderExtensions
 
         builder.Entity<PermissionGrant>(b =>
         {
-            b.ToTable(PermissionManagementDbProperties.DbTablePrefix + "PermissionGrants");
+            b.ToTable(PermissionManagementDbProperties.DbTablePrefix + "PermissionGrants", PermissionManagementDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 

@@ -21,15 +21,15 @@ namespace TenantManagementService;
     typeof(PermissionManagementModule),
     typeof(TenantManagementHttpApiModule)
 )]
-public class TenantManagementHostModule : Module
+public class TenantManagementServiceModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
         Configure<EfDbContextOptions>(options =>
         {
-            options.UseSqlite<AuditLoggingDbContext>();
-            options.UseSqlite<PermissionManagementDbContext>();
             options.UseSqlite<TenantManagementDbContext>();
+            options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly("TenantManagementService.Host"));
+            options.UseSqlite<PermissionManagementDbContext>(options => options.MigrationsAssembly("TenantManagementService.Host"));
         });
 
         services.AddSwaggerGen(options =>

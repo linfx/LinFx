@@ -10,7 +10,7 @@ using TenantManagementService.EntityFrameworkCore;
 namespace TenantManagementService.Migrations
 {
     [DbContext(typeof(TenantManagementMigrationsDbContext))]
-    [Migration("20220214015930_Initial")]
+    [Migration("20220321053339_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace TenantManagementService.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_DatabaseProvider", EfDatabaseProvider.Sqlite)
-                .HasAnnotation("ProductVersion", "5.0.12");
+                .HasAnnotation("ProductVersion", "5.0.15");
 
             modelBuilder.Entity("LinFx.Extensions.TenantManagement.Tenant", b =>
                 {
