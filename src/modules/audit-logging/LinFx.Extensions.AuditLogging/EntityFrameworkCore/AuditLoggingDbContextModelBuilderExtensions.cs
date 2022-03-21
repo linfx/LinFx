@@ -2,24 +2,19 @@
 using LinFx.Extensions.AuditLogging.Domain;
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 
 public static class AuditLoggingDbContextModelBuilderExtensions
 {
     public static void ConfigureAuditLogging(
-        [NotNull] this ModelBuilder builder,
-        Action<AuditLoggingModelBuilderConfigurationOptions> optionsAction = null)
+        [NotNull] this ModelBuilder builder)
     {
         Check.NotNull(builder, nameof(builder));
 
-        var options = new AuditLoggingModelBuilderConfigurationOptions(AuditLoggingDbProperties.DbTablePrefix, AuditLoggingDbProperties.DbSchema);
-        optionsAction?.Invoke(options);
-
         builder.Entity<AuditLog>(b =>
         {
-            b.ToTable(options.TablePrefix + "AuditLogs");
+            b.ToTable(AuditLoggingDbProperties.DbTablePrefix + "AuditLogs", AuditLoggingDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 
@@ -52,7 +47,7 @@ public static class AuditLoggingDbContextModelBuilderExtensions
 
         builder.Entity<AuditLogAction>(b =>
         {
-            b.ToTable(options.TablePrefix + "AuditLogActions");
+            b.ToTable(AuditLoggingDbProperties.DbTablePrefix + "AuditLogActions", AuditLoggingDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 
@@ -71,7 +66,7 @@ public static class AuditLoggingDbContextModelBuilderExtensions
 
         builder.Entity<EntityChange>(b =>
         {
-            b.ToTable(options.TablePrefix + "EntityChanges");
+            b.ToTable(AuditLoggingDbProperties.DbTablePrefix + "EntityChanges", AuditLoggingDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 
@@ -92,7 +87,7 @@ public static class AuditLoggingDbContextModelBuilderExtensions
 
         builder.Entity<EntityPropertyChange>(b =>
         {
-            b.ToTable(options.TablePrefix + "EntityPropertyChanges");
+            b.ToTable(AuditLoggingDbProperties.DbTablePrefix + "EntityPropertyChanges", AuditLoggingDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 

@@ -1,6 +1,5 @@
-﻿namespace LinFx.Extensions.Uow
+﻿namespace LinFx.Extensions.Uow;
+
+public interface IUnitOfWorkEnabled
 {
-    public interface IUnitOfWorkEnabled
-    {
-    }
 }

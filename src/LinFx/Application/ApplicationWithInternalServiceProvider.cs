@@ -10,22 +10,14 @@ internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplic
 
     public ApplicationWithInternalServiceProvider(
         [NotNull] Type startupModuleType,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction
-        ) : this(
-        startupModuleType,
-        new ServiceCollection(),
-        optionsAction)
-    {
-    }
+        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        : this(startupModuleType, new ServiceCollection(), optionsAction) { }
 
     private ApplicationWithInternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction
-        ) : base(
-            startupModuleType,
-            services,
-            optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        : base(startupModuleType, services, optionsAction)
     {
         // 注入自己到 IoC 当中。
         Services.AddSingleton<IApplicationWithInternalServiceProvider>(this);
@@ -34,9 +26,7 @@ internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplic
     public IServiceProvider CreateServiceProvider()
     {
         if (ServiceProvider != null)
-        {
             return ServiceProvider;
-        }
 
         ServiceScope = Services.BuildServiceProviderFromFactory().CreateScope();
         SetServiceProvider(ServiceScope.ServiceProvider);

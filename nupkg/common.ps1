@@ -17,7 +17,7 @@ $projects = (
     "src/LinFx.Extensions.EntityFrameworkCore.Sqlite",
 
     # modules
-    "src/modules/audit-logging/LinFx.Extensions.Auditing",
+    "src/modules/audit-logging/LinFx.Extensions.AuditLogging",
     "src/modules/permission-management/LinFx.Extensions.PermissionManagement",
     "src/modules/tenant-management/LinFx.Extensions.TenantManagement"
 )

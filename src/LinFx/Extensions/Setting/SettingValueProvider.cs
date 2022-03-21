@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Setting
 {
-    [Service]
     public abstract class SettingValueProvider : ISettingValueProvider
     {
         public abstract string Name { get; }

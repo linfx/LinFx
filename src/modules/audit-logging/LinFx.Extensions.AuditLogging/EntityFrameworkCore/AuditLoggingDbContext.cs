@@ -14,9 +14,7 @@ public class AuditLoggingDbContext : EfDbContext, IAuditLoggingDbContext
     public DbSet<AuditLog> AuditLogs { get; set; }
 
     public AuditLoggingDbContext(DbContextOptions<AuditLoggingDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

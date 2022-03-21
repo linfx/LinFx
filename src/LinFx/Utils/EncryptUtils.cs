@@ -264,11 +264,57 @@ namespace LinFx.Utils
                 Key = key,
                 Mode = CipherMode.ECB,
                 Padding = PaddingMode.PKCS7,
-                BlockSize = 128,
             };
             ICryptoTransform cTransform = rm.CreateDecryptor();
             byte[] resultArray = cTransform.TransformFinalBlock(input, 0, input.Length);
             return Encoding.UTF8.GetString(resultArray);
+        }
+
+        public static class AES
+        {
+            /// <summary>
+            /// Encrypts the specified to encrypt.
+            /// </summary>
+            /// <param name="message">To encrypt.</param>
+            /// <param name="key">The key.</param>
+            /// <param name="iv">The iv.</param>
+            /// <returns>System.String.</returns>
+            public static string Encrypt(string message, string key, string iv)
+            {
+                byte[] toEncryptArray = Encoding.Default.GetBytes(message);
+                RijndaelManaged rDel = new()
+                {
+                    Key = Encoding.UTF8.GetBytes(key),
+                    IV = Encoding.UTF8.GetBytes(iv),
+                    Mode = CipherMode.CBC,
+                    Padding = PaddingMode.Zeros
+                };
+                ICryptoTransform cTransform = rDel.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            }
+
+            /// <summary>
+            /// Decrypts the specified to decrypt.
+            /// </summary>
+            /// <param name="message">To decrypt.</param>
+            /// <param name="key">The key.</param>
+            /// <param name="iv">The iv.</param>
+            /// <returns>System.String.</returns>
+            public static string Decrypt(string message, string key, string iv)
+            {
+                byte[] toEncryptArray = Convert.FromBase64String(message);
+                RijndaelManaged rDel = new()
+                {
+                    Key = Encoding.UTF8.GetBytes(key),
+                    IV = Encoding.UTF8.GetBytes(iv),
+                    Mode = CipherMode.CBC,
+                    Padding = PaddingMode.Zeros
+                };
+                ICryptoTransform cTransform = rDel.CreateDecryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return Encoding.UTF8.GetString(resultArray);
+            }
         }
 
         #endregion

@@ -24,6 +24,16 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
     where TDbContext : IEfDbContext
     where TEntity : class, IEntity
 {
+    public EfRepository(IDbContextProvider<TDbContext> dbContextProvider)
+    {
+        _dbContextProvider = dbContextProvider;
+        _entityOptionsLazy = new Lazy<EntityOptions<TEntity>>(() => ServiceProvider
+                      .GetRequiredService<IOptions<EntityOptions>>()
+                      .Value
+                      .GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty
+        );
+    }
+
     public EfRepository(
         IServiceProvider serviceProvider,
         IDbContextProvider<TDbContext> dbContextProvider) : base(serviceProvider)

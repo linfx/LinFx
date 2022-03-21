@@ -16,7 +16,7 @@ namespace TenantManagementService.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_DatabaseProvider", EfDatabaseProvider.Sqlite)
-                .HasAnnotation("ProductVersion", "5.0.12");
+                .HasAnnotation("ProductVersion", "5.0.15");
 
             modelBuilder.Entity("LinFx.Extensions.TenantManagement.Tenant", b =>
                 {

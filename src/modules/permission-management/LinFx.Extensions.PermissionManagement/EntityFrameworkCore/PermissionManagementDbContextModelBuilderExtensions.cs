@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
+using LinFx.Extensions.PermissionManagement.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
@@ -13,7 +14,7 @@ public static class PermissionManagementDbContextModelBuilderExtensions
 
         builder.Entity<PermissionGrant>(b =>
         {
-            //b.ToTable(AbpPermissionManagementDbProperties.DbTablePrefix + "PermissionGrants", AbpPermissionManagementDbProperties.DbSchema);
+            b.ToTable(PermissionManagementDbProperties.DbTablePrefix + "PermissionGrants", PermissionManagementDbProperties.DbSchema);
 
             b.ConfigureByConvention();
 
