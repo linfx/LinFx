@@ -10,7 +10,5 @@ public class AsyncDeterminationInterceptor<TInterceptor> : AsyncDeterminationInt
     where TInterceptor : IInterceptor
 {
     public AsyncDeterminationInterceptor(TInterceptor anterceptor)
-        : base(new CastleAsyncInterceptorAdapter<TInterceptor>(anterceptor))
-    {
-    }
+        : base(new CastleAsyncInterceptorAdapter<TInterceptor>(anterceptor)) { }
 }

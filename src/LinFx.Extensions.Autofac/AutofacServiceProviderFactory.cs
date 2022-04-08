@@ -11,7 +11,7 @@ namespace LinFx.Extensions.Autofac;
 public class AutofacServiceProviderFactory : IServiceProviderFactory<ContainerBuilder>
 {
     private readonly ContainerBuilder _builder;
-    private IServiceCollection _services;
+    //private IServiceCollection _services;
 
     public AutofacServiceProviderFactory(ContainerBuilder builder)
     {
@@ -25,7 +25,7 @@ public class AutofacServiceProviderFactory : IServiceProviderFactory<ContainerBu
     /// <returns>A container builder that can be used to create an <see cref="T:System.IServiceProvider" />.</returns>
     public ContainerBuilder CreateBuilder(IServiceCollection services)
     {
-        _services = services;
+        //_services = services;
         _builder.Populate(services);
         return _builder;
     }

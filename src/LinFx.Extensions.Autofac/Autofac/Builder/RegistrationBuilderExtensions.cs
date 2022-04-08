@@ -61,11 +61,7 @@ public static class RegistrationBuilderExtensions
         // 这里的 Interceptors 实际上就是 AuditingInterceptorRegistrar.RegisterIfNeeded 内部添加的拦截器。
         if (serviceRegistredArgs.Interceptors.Any())
         {
-            registrationBuilder = registrationBuilder.AddInterceptors(
-                registrationActionList,
-                serviceType,
-                serviceRegistredArgs.Interceptors
-            );
+            registrationBuilder = registrationBuilder.AddInterceptors(registrationActionList, serviceType, serviceRegistredArgs.Interceptors);
         }
 
         return registrationBuilder;
@@ -94,6 +90,17 @@ public static class RegistrationBuilderExtensions
         return registrationBuilder;
     }
 
+    /// <summary>
+    /// 增加拦截器
+    /// </summary>
+    /// <typeparam name="TLimit"></typeparam>
+    /// <typeparam name="TActivatorData"></typeparam>
+    /// <typeparam name="TRegistrationStyle"></typeparam>
+    /// <param name="registrationBuilder"></param>
+    /// <param name="serviceRegistrationActionList"></param>
+    /// <param name="serviceType"></param>
+    /// <param name="interceptors"></param>
+    /// <returns></returns>
     private static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> AddInterceptors<TLimit, TActivatorData, TRegistrationStyle>(
             this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> registrationBuilder,
             ServiceRegistrationActionList serviceRegistrationActionList,
@@ -115,9 +122,7 @@ public static class RegistrationBuilderExtensions
 
         foreach (var interceptor in interceptors)
         {
-            registrationBuilder.InterceptedBy(
-                typeof(AsyncDeterminationInterceptor<>).MakeGenericType(interceptor)
-            );
+            registrationBuilder.InterceptedBy(typeof(AsyncDeterminationInterceptor<>).MakeGenericType(interceptor));
         }
 
         return registrationBuilder;

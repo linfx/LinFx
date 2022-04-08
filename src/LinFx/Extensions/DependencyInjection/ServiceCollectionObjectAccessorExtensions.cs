@@ -6,6 +6,12 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionObjectAccessorExtensions
 {
+    /// <summary>
+    /// 注册对象访问器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <returns></returns>
     public static ObjectAccessor<T> TryAddObjectAccessor<T>(this IServiceCollection services)
     {
         if (services.Any(s => s.ServiceType == typeof(ObjectAccessor<T>)))
@@ -14,18 +20,31 @@ public static class ServiceCollectionObjectAccessorExtensions
         return services.AddObjectAccessor<T>();
     }
 
+    /// <summary>
+    /// 注册对象访问器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <returns></returns>
     public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services)
     {
         return services.AddObjectAccessor(new ObjectAccessor<T>());
     }
 
+    /// <summary>
+    /// 注册对象访问器
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="obj"></param>
+    /// <returns></returns>
     public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services, T obj)
     {
         return services.AddObjectAccessor(new ObjectAccessor<T>(obj));
     }
 
     /// <summary>
-    /// 对象访问器
+    /// 注册对象访问器
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="services"></param>

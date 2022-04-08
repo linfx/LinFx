@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Data;
+using LinFx.Extensions.DynamicProxy;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
@@ -29,6 +30,7 @@ public class AuditingModule : Module
         services
             .AddSingleton<IAuditingStore, SimpleLogAuditingStore>()
             .AddTransient<IAuditingFactory, AuditingFactory>()
-            .AddTransient<IAuditingManager, AuditingManager>();
+            .AddTransient<IAuditingManager, AuditingManager>()
+            .AddTransient<IInterceptor, AuditingInterceptor>();
     }
 }

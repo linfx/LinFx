@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.DynamicProxy;
+﻿using LinFx.Extensions.DynamicProxy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,7 +12,6 @@ namespace LinFx.Extensions.Auditing;
 /// <summary>
 /// 审计日志拦截器
 /// </summary>
-[Service]
 public class AuditingInterceptor : Interceptor
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
@@ -59,9 +57,7 @@ public class AuditingInterceptor : Interceptor
     /// <param name="options"></param>
     /// <param name="auditingHelper"></param>
     /// <returns></returns>
-    protected virtual bool ShouldIntercept(IMethodInvocation invocation,
-        AuditingOptions options,
-        IAuditingFactory auditingHelper)
+    protected virtual bool ShouldIntercept(IMethodInvocation invocation, AuditingOptions options, IAuditingFactory auditingHelper)
     {
         if (!options.IsEnabled)
             return false;
@@ -77,10 +73,7 @@ public class AuditingInterceptor : Interceptor
         return true;
     }
 
-    private static async Task ProceedByLoggingAsync(
-        IMethodInvocation invocation,
-        IAuditingFactory auditingHelper,
-        IAuditLogScope auditLogScope)
+    private static async Task ProceedByLoggingAsync(IMethodInvocation invocation, IAuditingFactory auditingHelper, IAuditLogScope auditLogScope)
     {
         var auditLog = auditLogScope.Log;
         var auditLogAction = auditingHelper.CreateAuditLogAction(
@@ -109,12 +102,7 @@ public class AuditingInterceptor : Interceptor
         }
     }
 
-    private async Task ProcessWithNewAuditingScopeAsync(
-        IMethodInvocation invocation,
-        AuditingOptions options,
-        ICurrentUser currentUser,
-        IAuditingManager auditingManager,
-        IAuditingFactory auditingHelper)
+    private async Task ProcessWithNewAuditingScopeAsync(IMethodInvocation invocation, AuditingOptions options, ICurrentUser currentUser, IAuditingManager auditingManager, IAuditingFactory auditingHelper)
     {
         var hasError = false;
         using var saveHandle = auditingManager.BeginScope();
@@ -138,11 +126,7 @@ public class AuditingInterceptor : Interceptor
         }
     }
 
-    private bool ShouldWriteAuditLog(
-        IMethodInvocation invocation,
-        AuditingOptions options,
-        ICurrentUser currentUser,
-        bool hasError)
+    private bool ShouldWriteAuditLog(IMethodInvocation invocation, AuditingOptions options, ICurrentUser currentUser, bool hasError)
     {
         if (options.AlwaysLogOnException && hasError)
             return true;
