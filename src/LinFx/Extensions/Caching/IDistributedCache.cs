@@ -13,8 +13,7 @@ namespace LinFx.Extensions.Caching
     /// <typeparam name="TCacheItem">The type of cache item being cached.</typeparam>
     public interface IDistributedCache<TCacheItem> : IDistributedCache<TCacheItem, string>
         where TCacheItem : class
-    {
-    }
+    { }
 
     /// <summary>
     /// Represents a distributed cache of <typeparamref name="TCacheItem" /> type.
@@ -32,11 +31,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <returns>The cache item, or null.</returns>
-        TCacheItem Get(
-            TCacheKey key,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        TCacheItem Get(TCacheKey key, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Gets multiple cache items with the given keys.
@@ -49,11 +44,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <returns>List of cache items.</returns>
-        KeyValuePair<TCacheKey, TCacheItem>[] GetMany(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        KeyValuePair<TCacheKey, TCacheItem>[] GetMany(IEnumerable<TCacheKey> keys, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Gets multiple cache items with the given keys.
@@ -68,12 +59,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>List of cache items.</returns>
-        Task<KeyValuePair<TCacheKey, TCacheItem>[]> GetManyAsync(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task<KeyValuePair<TCacheKey, TCacheItem>[]> GetManyAsync(IEnumerable<TCacheKey> keys, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Gets a cache item with the given key. If no cache item is found for the given key then returns null.
@@ -83,12 +69,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The cache item, or null.</returns>
-        Task<TCacheItem> GetAsync(
-            [NotNull] TCacheKey key,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task<TCacheItem> GetAsync([NotNull] TCacheKey key, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Gets or Adds a cache item with the given key. If no cache item is found for the given key then adds a cache item
@@ -100,13 +81,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <returns>The cache item.</returns>
-        TCacheItem GetOrAdd(
-            TCacheKey key,
-            Func<TCacheItem> factory,
-            Func<DistributedCacheEntryOptions> optionsFactory = null,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        TCacheItem GetOrAdd(TCacheKey key, Func<TCacheItem> factory, Func<DistributedCacheEntryOptions> optionsFactory = null, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Gets or Adds a cache item with the given key. If no cache item is found for the given key then adds a cache item
@@ -119,14 +94,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The cache item.</returns>
-        Task<TCacheItem> GetOrAddAsync(
-            [NotNull] TCacheKey key,
-            Func<Task<TCacheItem>> factory,
-            Func<DistributedCacheEntryOptions> optionsFactory = null,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task<TCacheItem> GetOrAddAsync([NotNull] TCacheKey key, Func<Task<TCacheItem>> factory, Func<DistributedCacheEntryOptions> optionsFactory = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Gets or Adds multiple cache items with the given keys. If any cache items not found for the given keys then adds cache items
@@ -138,13 +106,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <returns>The cache items.</returns>
-        KeyValuePair<TCacheKey, TCacheItem>[] GetOrAddMany(
-            IEnumerable<TCacheKey> keys,
-            Func<IEnumerable<TCacheKey>, List<KeyValuePair<TCacheKey, TCacheItem>>> factory,
-            Func<DistributedCacheEntryOptions> optionsFactory = null,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        KeyValuePair<TCacheKey, TCacheItem>[] GetOrAddMany(IEnumerable<TCacheKey> keys, Func<IEnumerable<TCacheKey>, List<KeyValuePair<TCacheKey, TCacheItem>>> factory, Func<DistributedCacheEntryOptions> optionsFactory = null, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Gets or Adds multiple cache items with the given keys. If any cache items not found for the given keys then adds cache items
@@ -157,14 +119,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The cache items.</returns>
-        Task<KeyValuePair<TCacheKey, TCacheItem>[]> GetOrAddManyAsync(
-            IEnumerable<TCacheKey> keys,
-            Func<IEnumerable<TCacheKey>, Task<List<KeyValuePair<TCacheKey, TCacheItem>>>> factory,
-            Func<DistributedCacheEntryOptions> optionsFactory = null,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task<KeyValuePair<TCacheKey, TCacheItem>[]> GetOrAddManyAsync(IEnumerable<TCacheKey> keys, Func<IEnumerable<TCacheKey>, Task<List<KeyValuePair<TCacheKey, TCacheItem>>>> factory, Func<DistributedCacheEntryOptions> optionsFactory = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Sets the cache item value for the provided key.
@@ -174,13 +129,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="options">The cache options for the value.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
-        void Set(
-            TCacheKey key,
-            TCacheItem value,
-            DistributedCacheEntryOptions options = null,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        void Set(TCacheKey key, TCacheItem value, DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Sets the cache item value for the provided key.
@@ -192,14 +141,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task SetAsync(
-            [NotNull] TCacheKey key,
-            [NotNull] TCacheItem value,
-            [CanBeNull] DistributedCacheEntryOptions options = null,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task SetAsync([NotNull] TCacheKey key, [NotNull] TCacheItem value, [CanBeNull] DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Sets multiple cache items.
@@ -209,12 +151,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="options">The cache options for the value.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
-        void SetMany(
-            IEnumerable<KeyValuePair<TCacheKey, TCacheItem>> items,
-            DistributedCacheEntryOptions options = null,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        void SetMany(IEnumerable<KeyValuePair<TCacheKey, TCacheItem>> items, DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Sets multiple cache items.
@@ -226,23 +163,14 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task SetManyAsync(
-            IEnumerable<KeyValuePair<TCacheKey, TCacheItem>> items,
-            DistributedCacheEntryOptions options = null,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task SetManyAsync(IEnumerable<KeyValuePair<TCacheKey, TCacheItem>> items, DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Refreshes the cache value of the given key, and resets its sliding expiration timeout.
         /// </summary>
         /// <param name="key">The key of cached item to be retrieved from the cache.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
-        void Refresh(
-            TCacheKey key,
-            bool? hideErrors = null
-        );
+        void Refresh(TCacheKey key, bool? hideErrors = null);
 
         /// <summary>
         /// Refreshes the cache value of the given key, and resets its sliding expiration timeout.
@@ -251,11 +179,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task RefreshAsync(
-            TCacheKey key,
-            bool? hideErrors = null,
-            CancellationToken token = default
-        );
+        Task RefreshAsync(TCacheKey key, bool? hideErrors = null, CancellationToken token = default);
 
         /// <summary>
         /// Refreshes the cache value of the given keys, and resets their sliding expiration timeout.
@@ -263,9 +187,7 @@ namespace LinFx.Extensions.Caching
         /// </summary>
         /// <param name="keys">The keys of cached items to be retrieved from the cache.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
-        void RefreshMany(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null);
+        void RefreshMany(IEnumerable<TCacheKey> keys, bool? hideErrors = null);
 
         /// <summary>
         /// Refreshes the cache value of the given keys, and resets their sliding expiration timeout.
@@ -275,10 +197,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task RefreshManyAsync(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null,
-            CancellationToken token = default);
+        Task RefreshManyAsync(IEnumerable<TCacheKey> keys, bool? hideErrors = null, CancellationToken token = default);
 
         /// <summary>
         /// Removes the cache item for given key from cache.
@@ -286,11 +205,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="key">The key of cached item to be retrieved from the cache.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
-        void Remove(
-            TCacheKey key,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        void Remove(TCacheKey key, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Removes the cache item for given key from cache.
@@ -300,12 +215,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task RemoveAsync(
-            TCacheKey key,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task RemoveAsync(TCacheKey key, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
         /// <summary>
         /// Removes the cache items for given keys from cache.
@@ -313,11 +223,7 @@ namespace LinFx.Extensions.Caching
         /// <param name="keys">The keys of cached items to be retrieved from the cache.</param>
         /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
-        void RemoveMany(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null,
-            bool considerUow = false
-        );
+        void RemoveMany(IEnumerable<TCacheKey> keys, bool? hideErrors = null, bool considerUow = false);
 
         /// <summary>
         /// Removes the cache items for given keys from cache.
@@ -327,11 +233,6 @@ namespace LinFx.Extensions.Caching
         /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
         /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
         /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-        Task RemoveManyAsync(
-            IEnumerable<TCacheKey> keys,
-            bool? hideErrors = null,
-            bool considerUow = false,
-            CancellationToken token = default
-        );
+        Task RemoveManyAsync(IEnumerable<TCacheKey> keys, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
     }
 }
