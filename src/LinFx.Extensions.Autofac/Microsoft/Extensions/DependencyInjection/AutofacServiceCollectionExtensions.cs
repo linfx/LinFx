@@ -15,14 +15,12 @@ public static class AutofacServiceCollectionExtensions
 
         var builder = services.GetObjectOrNull<ContainerBuilder>();
         if (builder == null)
-        {
             throw new Exception($"Could not find ContainerBuilder. Be sure that you have called {nameof(AutofacApplicationCreationOptionsExtensions.UseAutofac)} method before!");
-        }
 
         return builder;
     }
 
-    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder> builderAction = null)
+    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder>? builderAction = default)
     {
         return services.BuildServiceProviderFromFactory(builderAction);
     }

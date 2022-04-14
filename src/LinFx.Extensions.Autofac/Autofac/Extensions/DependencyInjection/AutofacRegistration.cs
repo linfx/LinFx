@@ -160,10 +160,7 @@ public static class AutofacRegistration
     /// instead of using <see cref="IRegistrationBuilder{TLimit,TActivatorData,TRegistrationStyle}.SingleInstance"/>.
     /// </param>
     [SuppressMessage("CA2000", "CA2000", Justification = "Registrations created here are disposed when the built container is disposed.")]
-    private static void Register(
-        ContainerBuilder builder,
-        IServiceCollection services,
-        object lifetimeScopeTagForSingletons)
+    private static void Register(ContainerBuilder builder, IServiceCollection services, object lifetimeScopeTagForSingletons)
     {
         var moduleContainer = services.GetSingletonInstance<IModuleContainer>();
 

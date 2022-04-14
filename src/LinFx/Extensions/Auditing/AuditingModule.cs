@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Data;
+using LinFx.Extensions.DynamicProxy;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
@@ -15,7 +16,6 @@ namespace LinFx.Extensions.Auditing;
     //typeof(SecurityModule),
     typeof(ThreadingModule),
     typeof(MultiTenancyModule)
-    //typeof(AbpAuditingContractsModule)
 )]
 public class AuditingModule : Module
 {

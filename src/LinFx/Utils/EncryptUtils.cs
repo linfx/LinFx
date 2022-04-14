@@ -106,20 +106,18 @@ namespace LinFx.Utils
             //RSAParameters p = new RSAParameters();
             //p.Modulus = Convert.FromBase64String()
 
-            using (var rsa = RSA.Create())
+            using var rsa = RSA.Create();
+            //rsa.FromLvccXmlString(publickey);
+
+            RSAParameters p = new()
             {
-                //rsa.FromLvccXmlString(publickey);
+                Exponent = Encoding.UTF8.GetBytes("1234567890123456"),
+                Modulus = Convert.FromBase64String(publickey)
+            };
+            rsa.ImportParameters(p);
 
-                RSAParameters p = new RSAParameters
-                {
-                    Exponent = Encoding.UTF8.GetBytes("1234567890123456"),
-                    Modulus = Convert.FromBase64String(publickey)
-                };
-                rsa.ImportParameters(p);
-
-                var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.Pkcs1);
-                return Convert.ToBase64String(buffer);
-            }
+            var buffer = rsa.Encrypt(Encoding.UTF8.GetBytes(input), RSAEncryptionPadding.Pkcs1);
+            return Convert.ToBase64String(buffer);
         }
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
-using LinFx.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
@@ -19,8 +18,7 @@ public class TenantService : ApplicationService, ITenantService
 
     public TenantService(
         ITenantRepository tenantRepository,
-        ITenantManager tenantManager
-        )
+        ITenantManager tenantManager)
     {
         TenantRepository = tenantRepository;
         TenantManager = tenantManager;
