@@ -9,7 +9,7 @@ public static class DbContextOptionsExtensions
 {
     public static void UseNpgsql(
         [NotNull] this EfDbContextOptions options,
-        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction = null)
+        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction)
     {
         options.Configure(context =>
         {
@@ -19,7 +19,7 @@ public static class DbContextOptionsExtensions
 
     public static void UseNpgsql<TDbContext>(
         [NotNull] this EfDbContextOptions options,
-        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction = null)
+        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction)
         where TDbContext : DbContext
     {
         options.Configure<TDbContext>(context =>
