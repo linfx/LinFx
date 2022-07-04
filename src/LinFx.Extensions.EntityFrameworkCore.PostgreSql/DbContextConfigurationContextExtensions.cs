@@ -10,12 +10,13 @@ public static class DbContextConfigurationContextExtensions
 {
     public static DbContextOptionsBuilder UseNpgsql(
         [NotNull] this DbContextConfigurationContext context,
-        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction = null)
+        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder>? optionsAction = null)
     {
         if (context.ExistingConnection != null)
         {
             return context.DbContextOptions.UseNpgsql(context.ExistingConnection, optionsBuilder =>
             {
+                // 拆分查询
                 //optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                 optionsAction?.Invoke(optionsBuilder);
             });
@@ -24,6 +25,7 @@ public static class DbContextConfigurationContextExtensions
         {
             return context.DbContextOptions.UseNpgsql(context.ConnectionString, optionsBuilder =>
             {
+                // 拆分查询
                 //optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
                 optionsAction?.Invoke(optionsBuilder);
             });
