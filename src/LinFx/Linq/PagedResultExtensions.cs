@@ -16,7 +16,7 @@ namespace System.Linq
         /// <param name="page">当前页</param>
         /// <param name="limit">页大小</param>
         /// <returns></returns>
-        public static async Task<PagedResult<TEntity>> ToPageResultAsync<TEntity>([NotNull] this IQueryable<TEntity> query, int page, int limit)
+        public static async ValueTask<PagedResult<TEntity>> ToPageResultAsync<TEntity>([NotNull] this IQueryable<TEntity> query, int page, int limit)
         {
             var total = query.LongCount();
             var items = query.PageBy(page, limit);
@@ -30,7 +30,7 @@ namespace System.Linq
         /// <param name="query"></param>
         /// <param name="request">分页请求</param>
         /// <returns></returns>
-        public static async Task<PagedResult<TEntity>> ToPageResultAsync<TEntity>([NotNull] this IQueryable<TEntity> query, [NotNull] IPagedResultRequest request)
+        public static async ValueTask<PagedResult<TEntity>> ToPageResultAsync<TEntity>([NotNull] this IQueryable<TEntity> query, [NotNull] IPagedResultRequest request)
         {
             Check.NotNull(request, nameof(request));
 
@@ -47,7 +47,7 @@ namespace System.Linq
         /// <param name="query"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public static async Task<PagedResult<TModel>> ToPageResultAsync<TEntity, TModel>([NotNull] this IQueryable<TEntity> query, [NotNull] IPagedResultRequest request) where TModel : class
+        public static async ValueTask<PagedResult<TModel>> ToPageResultAsync<TEntity, TModel>([NotNull] this IQueryable<TEntity> query, [NotNull] IPagedResultRequest request) where TModel : class
         {
             Check.NotNull(request, nameof(request));
 
