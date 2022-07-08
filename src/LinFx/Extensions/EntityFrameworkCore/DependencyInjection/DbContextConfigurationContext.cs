@@ -21,10 +21,10 @@ public class DbContextConfigurationContext : IServiceProviderAccessor
 
     public DbConnection ExistingConnection { get; }
 
-        /// <summary>
-        /// 数据库上下文配置
-        /// </summary>
-        public DbContextOptionsBuilder DbContextOptions { get; protected set; }
+    /// <summary>
+    /// 数据库上下文配置
+    /// </summary>
+    public DbContextOptionsBuilder DbContextOptions { get; protected set; }
 
     public DbContextConfigurationContext(
         [NotNull] string connectionString,

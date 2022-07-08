@@ -269,7 +269,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         if (entityType == null)
             return;
 
-        if (!(e.Entry.Entity is IHasExtraProperties entity))
+        if (e.Entry.Entity is not IHasExtraProperties entity)
             return;
 
         if (!e.FromQuery)

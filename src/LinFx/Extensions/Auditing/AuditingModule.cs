@@ -16,7 +16,6 @@ namespace LinFx.Extensions.Auditing;
     //typeof(SecurityModule),
     typeof(ThreadingModule),
     typeof(MultiTenancyModule)
-    //typeof(AbpAuditingContractsModule)
 )]
 public class AuditingModule : Module
 {
@@ -30,7 +29,6 @@ public class AuditingModule : Module
         services
             .AddSingleton<IAuditingStore, SimpleLogAuditingStore>()
             .AddTransient<IAuditingFactory, AuditingFactory>()
-            .AddTransient<IAuditingManager, AuditingManager>()
-            .AddTransient<IInterceptor, AuditingInterceptor>();
+            .AddTransient<IAuditingManager, AuditingManager>();
     }
 }

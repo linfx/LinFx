@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.DynamicProxy;
+﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.DynamicProxy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -12,6 +13,7 @@ namespace LinFx.Extensions.Auditing;
 /// <summary>
 /// 审计日志拦截器
 /// </summary>
+[Service]
 public class AuditingInterceptor : Interceptor
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;

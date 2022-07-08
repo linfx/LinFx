@@ -10,7 +10,7 @@ public static class DbContextConfigurationContextSqliteExtensions
 {
     public static DbContextOptionsBuilder UseSqlite(
         [NotNull] this DbContextConfigurationContext context,
-        [CanBeNull] Action<SqliteDbContextOptionsBuilder> sqliteOptionsAction = null)
+        [CanBeNull] Action<SqliteDbContextOptionsBuilder>? sqliteOptionsAction = default)
     {
         if (context.ExistingConnection != null)
         {
