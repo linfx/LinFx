@@ -67,9 +67,7 @@ public static class ModelBuilderExtensions
 
     #region DatabaseProvider
 
-    public static void SetDatabaseProvider(
-        this ModelBuilder modelBuilder,
-        EfDatabaseProvider databaseProvider)
+    public static void SetDatabaseProvider(this ModelBuilder modelBuilder, EfDatabaseProvider databaseProvider)
     {
         modelBuilder.Model.SetAnnotation(ModelDatabaseProviderAnnotationKey, databaseProvider);
     }

@@ -47,7 +47,7 @@ public abstract class ApplicationBase : IApplication
         // 添加日志等基础设施组件。
         // 添加核心服务，主要是模块系统相关组件。
         services.AddCoreServices();                   
-        services.AddLinFxCoreServices(this, options); 
+        services.AddCoreLinFxServices(this, options); 
 
         Modules = LoadModules(services, options);
         ConfigureServices();

@@ -40,7 +40,7 @@ public static class LinFxServiceCollectionExtensions
             .AddLocalization();
     }
 
-    internal static void AddLinFxCoreServices(this IServiceCollection services, IApplication application, ApplicationCreationOptions applicationCreationOptions)
+    internal static void AddCoreLinFxServices(this IServiceCollection services, IApplication application, ApplicationCreationOptions applicationCreationOptions)
     {
         var moduleLoader = new ModuleLoader();
         var assemblyFinder = new AssemblyFinder(application);

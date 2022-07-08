@@ -109,9 +109,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
     protected EfDbContext(DbContextOptions options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
