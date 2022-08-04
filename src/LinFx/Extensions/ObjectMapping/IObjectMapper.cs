@@ -34,7 +34,6 @@
     /// </summary>
     public interface IObjectMapper<TContext> : IObjectMapper
     {
-
     }
 
     /// <summary>

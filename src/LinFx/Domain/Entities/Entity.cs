@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LinFx.Domain.Entities;
+﻿namespace LinFx.Domain.Entities;
 
 /// <summary>
 /// 实体
@@ -10,10 +7,7 @@ namespace LinFx.Domain.Entities;
 public abstract class Entity : IEntity
 {
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"[ENTITY: {GetType().Name}] Keys = {GetKeys().JoinAsString(", ")}";
-    }
+    public override string ToString() => $"[ENTITY: {GetType().Name}] Keys = {GetKeys().JoinAsString(", ")}";
 
     public abstract object[] GetKeys();
 }
@@ -30,19 +24,10 @@ public abstract class Entity<TKey> : Entity, IEntity<TKey>
 
     protected Entity() { }
 
-    protected Entity(TKey id)
-    {
-        Id = id;
-    }
+    protected Entity(TKey id) => Id = id;
 
-    public override object[] GetKeys()
-    {
-        return new object[] { Id };
-    }
+    public override object[] GetKeys() => new object[] { Id };
 
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"[ENTITY: {GetType().Name}] Id = {Id}";
-    }
+    public override string ToString() => $"[ENTITY: {GetType().Name}] Id = {Id}";
 }

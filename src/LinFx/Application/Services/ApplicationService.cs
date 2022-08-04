@@ -44,6 +44,7 @@ public abstract class ApplicationService :
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
     protected Type ObjectMapperContext { get; set; }
+
     protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
             ? provider.GetRequiredService<IObjectMapper>()
             : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
@@ -116,6 +117,9 @@ public abstract class ApplicationService :
     /// </summary>
     protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
+    /// <summary>
+    /// »’÷æ
+    /// </summary>
     protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
 
     ///// <summary>
