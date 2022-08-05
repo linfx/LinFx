@@ -6,12 +6,7 @@ using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 
@@ -60,7 +55,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
         // Multi-tenancy unaware entities should always use the host connection string
         if (!EntityHelper.IsMultiTenant<TEntity>())
         {
-            using (CurrentTenant.Change(null))
+            using (CurrentTenant.Change(default))
             {
                 return _dbContextProvider.GetDbContextAsync();
             }
@@ -69,15 +64,9 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
         return _dbContextProvider.GetDbContextAsync();
     }
 
-    Task<DbSet<TEntity>> IEfRepository<TEntity>.GetDbSetAsync()
-    {
-        return GetDbSetAsync();
-    }
+    Task<DbSet<TEntity>> IEfRepository<TEntity>.GetDbSetAsync() => GetDbSetAsync();
 
-    protected async Task<DbSet<TEntity>> GetDbSetAsync()
-    {
-        return (await GetDbContextAsync()).Set<TEntity>();
-    }
+    protected async Task<DbSet<TEntity>> GetDbSetAsync() => (await GetDbContextAsync()).Set<TEntity>();
 
     protected virtual EntityOptions<TEntity> EntityOptions => _entityOptionsLazy.Value;
 

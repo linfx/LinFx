@@ -3,11 +3,9 @@ using LinFx.Extensions.Auditing;
 using LinFx.Extensions.EntityFrameworkCore.ObjectExtending;
 using LinFx.Extensions.EntityFrameworkCore.ValueComparers;
 using LinFx.Extensions.EntityFrameworkCore.ValueConverters;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Modeling;
 

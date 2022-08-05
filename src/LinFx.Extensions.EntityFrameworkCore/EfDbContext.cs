@@ -23,15 +23,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 
@@ -40,12 +35,13 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// </summary>
 public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependency
 {
-    public ILazyServiceProvider LazyServiceProvider { get; private set; }
+    [Autowired]
+    public ILazyServiceProvider LazyServiceProvider { get; set; }
 
     /// <summary>
     /// 当前租户ID
     /// </summary>
-    protected virtual string CurrentTenantId => CurrentTenant?.Id;
+    protected virtual string? CurrentTenantId => CurrentTenant?.Id;
 
     /// <summary>
     /// 是否启用租户过滤
@@ -60,7 +56,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// <summary>
     /// 当前租户
     /// </summary>
-    public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
+    public ICurrentTenant? CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
     public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
@@ -85,6 +81,9 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// </summary>
     public IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
+    /// <summary>
+    /// 系统时钟
+    /// </summary>
     public IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
 
     /// <summary>
@@ -97,15 +96,18 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// </summary>
     public ILocalEventBus LocalEventBus => LazyServiceProvider.LazyGetRequiredService<ILocalEventBus>();
 
+    /// <summary>
+    /// 日志
+    /// </summary>
     public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfDbContext>>(NullLogger<EfDbContext>.Instance);
 
-    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo? ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo? ConfigureValueConverterMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo? ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
     protected EfDbContext(DbContextOptions options)
@@ -119,15 +121,15 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            ConfigureBasePropertiesMethodInfo
+            ConfigureBasePropertiesMethodInfo?
                 .MakeGenericMethod(entityType.ClrType)
                 .Invoke(this, new object[] { modelBuilder, entityType });
 
-            ConfigureValueConverterMethodInfo
+            ConfigureValueConverterMethodInfo?
                 .MakeGenericMethod(entityType.ClrType)
                 .Invoke(this, new object[] { modelBuilder, entityType });
 
-            ConfigureValueGeneratedMethodInfo
+            ConfigureValueGeneratedMethodInfo?
                 .MakeGenericMethod(entityType.ClrType)
                 .Invoke(this, new object[] { modelBuilder, entityType });
         }
@@ -171,12 +173,12 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     {
         try
         {
-            List<EntityChangeInfo> entityChangeList = null;
+            List<EntityChangeInfo>? entityChangeList = null;
             var auditLog = AuditingManager?.Current?.Log;
             if (auditLog != null)
                 entityChangeList = EntityHistoryHelper.CreateChangeList(ChangeTracker.Entries().ToList());
 
-            ApplyConcepts();
+            HandlePropertiesBeforeSave();
 
             // 创建领域事件
             var eventReport = CreateEventReport();
@@ -189,7 +191,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             if (entityChangeList != null)
             {
                 EntityHistoryHelper.UpdateChangeList(entityChangeList);
-                auditLog.EntityChanges.AddRange(entityChangeList);
+                auditLog?.EntityChanges.AddRange(entityChangeList);
                 Logger.LogDebug($"Added {entityChangeList.Count} entity changes to the current audit log");
             }
 
@@ -238,7 +240,8 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// <param name="initializationContext"></param>
     public virtual void Initialize(EfDbContextInitializationContext initializationContext)
     {
-        LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
+        if(LazyServiceProvider == null)
+            LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
 
         if (initializationContext.UnitOfWork.Options.Timeout.HasValue &&
             Database.IsRelational() &&
@@ -252,13 +255,13 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         ChangeTracker.StateChanged += ChangeTracker_StateChanged;
     }
 
-    protected virtual void ChangeTracker_Tracked(object sender, EntityTrackedEventArgs e)
+    protected virtual void ChangeTracker_Tracked(object? sender, EntityTrackedEventArgs e)
     {
         FillExtraPropertiesForTrackedEntities(e);
         PublishEventsForTrackedEntity(e.Entry);
     }
 
-    protected virtual void ChangeTracker_StateChanged(object sender, EntityStateChangedEventArgs e)
+    protected virtual void ChangeTracker_StateChanged(object? sender, EntityStateChangedEventArgs e)
     {
         PublishEventsForTrackedEntity(e.Entry);
     }
@@ -327,11 +330,16 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         }
     }
 
-    protected virtual void ApplyConcepts()
+    protected virtual void HandlePropertiesBeforeSave()
     {
         foreach (var entry in ChangeTracker.Entries().ToList())
         {
-            ApplyConcepts(entry);
+            HandleExtraPropertiesOnSave(entry);
+
+            if (entry.State.IsIn(EntityState.Modified, EntityState.Deleted))
+            {
+                UpdateConcurrencyStamp(entry);
+            }
         }
     }
 
@@ -366,23 +374,6 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         }
 
         return eventReport;
-    }
-
-    protected virtual void ApplyConcepts(EntityEntry entry)
-    {
-        switch (entry.State)
-        {
-            case EntityState.Added:
-                ApplyConceptsForAddedEntity(entry);
-                break;
-            case EntityState.Modified:
-                ApplyConceptsForModifiedEntity(entry);
-                break;
-            case EntityState.Deleted:
-                ApplyConceptsForDeletedEntity(entry);
-                break;
-        }
-        HandleExtraPropertiesOnSave(entry);
     }
 
     protected virtual void HandleExtraPropertiesOnSave(EntityEntry entry)
@@ -662,9 +653,9 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <returns></returns>
-    protected virtual Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>() where TEntity : class
+    protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>() where TEntity : class
     {
-        Expression<Func<TEntity, bool>> expression = null;
+        Expression<Func<TEntity, bool>>? expression = null;
 
         // 软删除
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
@@ -673,7 +664,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         // 多租户
         if (typeof(IMultiTenant).IsAssignableFrom(typeof(TEntity)))
         {
-            Expression<Func<TEntity, bool>> multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, nameof(IMultiTenant.TenantId)) == CurrentTenantId;
+            Expression<Func<TEntity, bool>>? multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, nameof(IMultiTenant.TenantId)) == CurrentTenantId;
             expression = expression == null ? multiTenantFilter : CombineExpressions(expression, multiTenantFilter);
         }
 
@@ -711,7 +702,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             _newValue = newValue;
         }
 
-        public override Expression Visit(Expression node)
+        public override Expression? Visit(Expression? node)
         {
             if (node == _oldValue)
                 return _newValue;

@@ -1,8 +1,6 @@
 ﻿using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Linq;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -43,8 +41,8 @@ public static class EfServiceCollectionExtensions
 
             services.Configure<DbContextOptions>(opts =>
             {
-                    //opts.DbContextReplacements[originalDbContextType] = targetDbContextType;
-                });
+                //opts.DbContextReplacements[originalDbContextType] = targetDbContextType;
+            });
         }
 
         // 构造 EF Core 仓储注册器，并添加仓储

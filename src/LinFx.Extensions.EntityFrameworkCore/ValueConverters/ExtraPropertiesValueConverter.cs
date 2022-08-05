@@ -1,8 +1,6 @@
 ﻿using LinFx.Extensions.EntityFrameworkCore.ObjectExtending;
 using LinFx.Extensions.ObjectExtending;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ValueConverters
@@ -13,9 +11,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.ValueConverters
             : base(
                 d => SerializeObject(d, entityType),
                 s => DeserializeObject(s, entityType))
-        {
-
-        }
+        { }
 
         private static string SerializeObject(ExtraPropertyDictionary extraProperties, Type entityType)
         {

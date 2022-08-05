@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Auditing;
-using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;

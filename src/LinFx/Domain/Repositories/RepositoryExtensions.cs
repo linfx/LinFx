@@ -1,9 +1,4 @@
-﻿using JetBrains.Annotations;
-using LinFx.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
-using System;
-using System.Linq;
+﻿using LinFx.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace LinFx.Domain.Repositories
@@ -22,11 +17,11 @@ namespace LinFx.Domain.Repositories
             return queryable.Select(selector);
         }
 
-        public static IIncludableQueryable<TEntity, TProperty> Include<TEntity, TProperty>([NotNull] this IReadOnlyRepository<TEntity> source, [NotNull] Expression<Func<TEntity, TProperty>> navigationPropertyPath)
-            where TEntity : class, IEntity
-        {
-            var queryable = source.GetQueryableAsync().Result;
-            return queryable.Include(navigationPropertyPath);
-        }
+        //public static IIncludableQueryable<TEntity, TProperty> Include<TEntity, TProperty>([NotNull] this IReadOnlyRepository<TEntity> source, [NotNull] Expression<Func<TEntity, TProperty>> navigationPropertyPath)
+        //    where TEntity : class, IEntity
+        //{
+        //    var queryable = source.GetQueryableAsync().Result;
+        //    return queryable.Include(navigationPropertyPath);
+        //}
     }
 }

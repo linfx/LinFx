@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LinFx;
 
@@ -9,46 +7,40 @@ namespace LinFx;
 /// </summary>
 public class Result
 {
-    protected int _code = 400;
-
     public Result() { }
 
-    protected Result(bool success, string message)
+    protected Result(string message)
+     : this(200, message) 
+    { }
+
+    protected Result(int code, string message)
     {
-        Succeeded = success;
+        Code = code;
         Message = message;
     }
 
     /// <summary>
     /// Code
     /// </summary>
-    public int Code
-    {
-        get
-        {
-            if (Succeeded && _code != 200)
-                _code = 200;
-            return _code;
-        }
-        set { _code = value; }
-    }
+    public int Code { get; set; } = 200;
 
     /// <summary>
     /// Message
     /// </summary>
-    public string Message { get; protected set; }
-
-    /// <summary>
-    /// Flag indicating whether if the operation succeeded or not.
-    /// </summary>
-    /// <value>True if the operation succeeded, otherwise false.</value>
-    public bool Succeeded { get; protected set; }
+    public string? Message { get; protected set; }
 
     /// <summary>
     /// 操作成功
     /// </summary>
     /// <returns></returns>
-    public static Result Ok() => new Result(true, "操作成功");
+    public static Result Ok(string message = "操作成功!") => new(message);
+
+    /// <summary>
+    /// 操作失败
+    /// </summary>
+    /// <param name="error"></param>
+    /// <returns></returns>
+    public static Result Failed(string error) => new(400, error);
 
     /// <summary>
     /// 操作成功
@@ -56,7 +48,7 @@ public class Result
     /// <typeparam name="T"></typeparam>
     /// <param name="data"></param>
     /// <returns></returns>
-    public static Result<T> Ok<T>(T data) => new Result<T>(data);
+    public static Result<T> Ok<T>(T data) => new(data);
 
     /// <summary>
     /// 操作成功
@@ -65,22 +57,7 @@ public class Result
     /// <param name="value"></param>
     /// <param name="message"></param>
     /// <returns></returns>
-    public static Result<TValue> Ok<TValue>(TValue value, string message) => new Result<TValue>(value, true, message);
-
-    /// <summary>
-    /// 操作失败
-    /// </summary>
-    /// <param name="error"></param>
-    /// <returns></returns>
-    public static Result Failed(string error) => new Result(false, error);
-
-    /// <summary>
-    /// 操作失败
-    /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="error"></param>
-    /// <returns></returns>
-    public static Result<TValue> Failed<TValue>(string error) => new Result<TValue>(default, false, error);
+    public static Result<TValue> Ok<TValue>(TValue value, string message) => new(value, message);
 
     /// <summary>
     /// 操作失败
@@ -89,7 +66,7 @@ public class Result
     /// <param name="value"></param>
     /// <param name="error"></param>
     /// <returns></returns>
-    public static Result Failed<TValue>(TValue value, string error) => new Result<TValue>(value, false, error);
+    public static Result Failed<TValue>(TValue value, string error) => new Result<TValue>(value, error);
 
     /// <summary>
     /// 操作失败
@@ -98,28 +75,26 @@ public class Result
     /// <returns></returns>
     public static Result Failed(ModelStateDictionary modelStates)
     {
-        IEnumerable<string> errors = null;
+        IEnumerable<string>? errors = null;
         if (modelStates != null && !modelStates.IsValid)
         {
             errors = from modelState in modelStates.Values
                      from error in modelState?.Errors
                      select error.ErrorMessage;
         }
-        return new Result(false, errors != null ? string.Join("\r\n", errors) : null);
+        return new Result(400, errors != null ? string.Join("\r\n", errors) : null);
     }
 
     /// <summary>
     /// NotFound
     /// </summary>
     /// <returns></returns>
-    public static Result NotFound(string message = default)
+    public static Result NotFound(string? message = default)
     {
-        var result = new Result
-        {
-            Code = 404,
-            Succeeded = false,
-            Message = message,
-        };
+        if (message is null)
+            message = "Not Found!";
+
+        var result = new Result(404, message);
         return result;
     }
 }
@@ -128,16 +103,16 @@ public class Result<TValue> : Result
 {
     public TValue Data { get; set; }
 
-    protected internal Result(TValue data)
-    {
-        _code = 200;
-        Succeeded = true;
-        Data = data;
-        Message = "操作成功";
-    }
+    protected internal Result(TValue value)
+        : this(value, 200, string.Empty)
+    { }
 
-    protected internal Result(TValue value, bool success, string message)
-        : base(success, message)
+    protected internal Result(TValue value, string message)
+        : this(value, 200, message)
+    { }
+
+    protected internal Result(TValue value, int code, string message)
+        : base(code, message)
     {
         Data = value;
     }
