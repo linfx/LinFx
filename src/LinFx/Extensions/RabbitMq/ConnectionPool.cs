@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.RabbitMq;
 
@@ -20,7 +18,7 @@ public class ConnectionPool : IConnectionPool
         Connections = new ConcurrentDictionary<string, Lazy<IConnection>>();
     }
 
-    public virtual IConnection Get(string connectionName = null)
+    public virtual IConnection Get(string? connectionName = default)
     {
         connectionName ??= RabbitMqConnections.DefaultConnectionName;
 

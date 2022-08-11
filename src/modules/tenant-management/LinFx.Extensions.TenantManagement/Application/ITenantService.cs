@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Dtos;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement;
 
@@ -13,21 +12,21 @@ public interface ITenantService
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    Task<PagedResult<TenantDto>> GetListAsync(TenantRequest input);
+    ValueTask<PagedResult<TenantDto>> GetListAsync(TenantRequest input);
 
     /// <summary>
     /// 获取租户
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<TenantDto> GetAsync(string id);
+    ValueTask<TenantDto> GetAsync(string id);
 
     /// <summary>
     /// 创建租户
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    Task<TenantDto> CreateAsync(TenantEditInput input);
+    ValueTask<TenantDto> CreateAsync(TenantEditInput input);
 
     /// <summary>
     /// 更新租户
@@ -35,12 +34,12 @@ public interface ITenantService
     /// <param name="id"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    Task<TenantDto> UpdateAsync(string id, TenantEditInput input);
+    ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input);
 
     /// <summary>
     /// 删除租户
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task DeleteAsync(string id);
+    ValueTask DeleteAsync(string id);
 }

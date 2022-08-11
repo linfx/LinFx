@@ -1,5 +1,4 @@
-﻿using System;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 
 namespace LinFx.Extensions.RabbitMq;
 
@@ -13,5 +12,5 @@ public interface IConnectionPool : IDisposable
     /// </summary>
     /// <param name="connectionName"></param>
     /// <returns></returns>
-    IConnection Get(string connectionName = default);
+    IConnection Get(string? connectionName = default);
 }

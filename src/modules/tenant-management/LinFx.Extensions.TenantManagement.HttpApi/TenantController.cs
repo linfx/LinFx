@@ -1,7 +1,6 @@
 ﻿using LinFx.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement.HttpApi
 {
@@ -25,7 +24,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="id">租户Id</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public virtual Task<TenantDto> GetAsync(string id)
+        public virtual ValueTask<TenantDto> GetAsync(string id)
         {
             return TenantService.GetAsync(id);
         }
@@ -36,7 +35,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet("/api/multi-tenancy/tenants")]
-        public virtual Task<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input)
+        public virtual ValueTask<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input)
         {
             return TenantService.GetListAsync(input);
         }
@@ -47,7 +46,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual Task<TenantDto> CreateAsync(TenantEditInput input)
+        public virtual ValueTask<TenantDto> CreateAsync(TenantEditInput input)
         {
             return TenantService.CreateAsync(input);
         }
@@ -60,7 +59,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize(TenantManagementPermissions.Tenants.Update)]
-        public virtual Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
+        public virtual ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input)
         {
             return TenantService.UpdateAsync(id, input);
         }
@@ -71,7 +70,7 @@ namespace LinFx.Extensions.TenantManagement.HttpApi
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public virtual Task DeleteAsync(string id)
+        public virtual ValueTask DeleteAsync(string id)
         {
             return TenantService.DeleteAsync(id);
         }

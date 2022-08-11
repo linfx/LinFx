@@ -1,9 +1,6 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
 using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.TenantManagement;
 
@@ -29,7 +26,7 @@ public class TenantService : ApplicationService, ITenantService
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public virtual async Task<TenantDto> GetAsync(string id)
+    public virtual async ValueTask<TenantDto> GetAsync(string id)
     {
         var tenant = await TenantRepository.GetAsync(id);
         return tenant.MapTo<TenantDto>();
@@ -40,7 +37,7 @@ public class TenantService : ApplicationService, ITenantService
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public virtual async Task<PagedResult<TenantDto>> GetListAsync(TenantRequest input)
+    public virtual async ValueTask<PagedResult<TenantDto>> GetListAsync(TenantRequest input)
     {
         if (input.Sorting.IsNullOrWhiteSpace())
         {
@@ -59,7 +56,7 @@ public class TenantService : ApplicationService, ITenantService
     /// <param name="input"></param>
     /// <returns></returns>
     [Authorize(TenantManagementPermissions.Tenants.Create)]
-    public virtual async Task<TenantDto> CreateAsync(TenantEditInput input)
+    public virtual async ValueTask<TenantDto> CreateAsync(TenantEditInput input)
     {
         var tenant = await TenantManager.CreateAsync(input.Name);
         tenant = await TenantRepository.InsertAsync(tenant);
@@ -74,7 +71,7 @@ public class TenantService : ApplicationService, ITenantService
     /// <param name="input"></param>
     /// <returns></returns>
     [Authorize(TenantManagementPermissions.Tenants.Update)]
-    public virtual async Task<TenantDto> UpdateAsync(string id, TenantEditInput input)
+    public virtual async ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input)
     {
         var tenant = await TenantRepository.GetAsync(id);
         await TenantManager.ChangeNameAsync(tenant, input.Name);
@@ -89,7 +86,7 @@ public class TenantService : ApplicationService, ITenantService
     /// <param name="id"></param>
     /// <returns></returns>
     [Authorize(TenantManagementPermissions.Tenants.Delete)]
-    public virtual async Task DeleteAsync(string id)
+    public virtual async ValueTask DeleteAsync(string id)
     {
         var tenant = await TenantRepository.FindAsync(id);
         if (tenant == null)

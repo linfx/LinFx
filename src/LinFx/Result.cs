@@ -5,7 +5,7 @@ namespace LinFx;
 /// <summary>
 /// Represents the result of an operation.
 /// </summary>
-public class Result
+public partial class Result
 {
     public Result() { }
 
@@ -28,7 +28,29 @@ public class Result
     /// Message
     /// </summary>
     public string? Message { get; protected set; }
+}
 
+public class Result<TValue> : Result
+{
+    public TValue Data { get; set; }
+
+    protected internal Result(TValue value)
+        : this(value, 200, string.Empty)
+    { }
+
+    protected internal Result(TValue value, string message)
+        : this(value, 200, message)
+    { }
+
+    protected internal Result(TValue value, int code, string message)
+        : base(code, message)
+    {
+        Data = value;
+    }
+}
+
+public partial class Result
+{
     /// <summary>
     /// 操作成功
     /// </summary>
@@ -99,21 +121,25 @@ public class Result
     }
 }
 
-public class Result<TValue> : Result
+public partial class Result
 {
-    public TValue Data { get; set; }
-
-    protected internal Result(TValue value)
-        : this(value, 200, string.Empty)
-    { }
-
-    protected internal Result(TValue value, string message)
-        : this(value, 200, message)
-    { }
-
-    protected internal Result(TValue value, int code, string message)
-        : base(code, message)
+    public static bool operator ==(Result result1, Result result2)
     {
-        Data = value;
+        return result1.Code == result2.Code;
+    }
+
+    public static bool operator !=(Result result1, Result result2)
+    {
+        return result1.Code != result2.Code;
+    }
+
+    public static bool operator true(Result result)
+    {
+        return result.Code == 200;
+    }
+
+    public static bool operator false(Result result)
+    {
+        return result.Code != 200;
     }
 }

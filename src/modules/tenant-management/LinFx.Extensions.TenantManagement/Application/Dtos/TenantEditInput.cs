@@ -9,6 +9,6 @@ namespace LinFx.Extensions.TenantManagement
         /// </summary>
         [Required(ErrorMessage = "名称不能为空")]
         [StringLength(64)]
-        public virtual string Name { get; set; }
+        public virtual string Name { get; set; } = string.Empty;
     }
 }
