@@ -9,7 +9,7 @@ namespace Microsoft.AspNetCore.Builder;
 
 public static partial class ApplicationBuilderExtensions
 {
-    public static void InitializeApplication([NotNull] this IApplicationBuilder app)
+    public async static Task InitializeApplicationAsync([NotNull] this IApplicationBuilder app)
     {
         Check.NotNull(app, nameof(app));
 
@@ -19,7 +19,7 @@ public static partial class ApplicationBuilderExtensions
 
         applicationLifetime.ApplicationStopping.Register(() =>
         {
-            //application.Shutdown();
+            //AsyncHelper.RunSync(() => application.ShutdownAsync());
         });
 
         applicationLifetime.ApplicationStopped.Register(() =>
@@ -27,6 +27,6 @@ public static partial class ApplicationBuilderExtensions
             //application.Dispose();
         });
 
-        application.Initialize(app.ApplicationServices);
+        await application.InitializeAsync(app.ApplicationServices);
     }
 }

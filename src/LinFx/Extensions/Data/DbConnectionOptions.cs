@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LinFx.Extensions.Data;
+﻿namespace LinFx.Extensions.Data;
 
 public class DbConnectionOptions
 {

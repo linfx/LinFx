@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Application;
@@ -9,7 +8,7 @@ internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplic
     public ApplicationWithExternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction
         ) : base(
             startupModuleType,
             services,
@@ -25,9 +24,7 @@ internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplic
         if (ServiceProvider != null)
         {
             if (ServiceProvider != serviceProvider)
-            {
                 throw new LinFxException("Service provider was already set before to another service provider instance.");
-            }
 
             return;
         }
@@ -35,13 +32,13 @@ internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplic
         SetServiceProvider(serviceProvider);
     }
 
-    public void Initialize([NotNull] IServiceProvider serviceProvider)
+    public async Task InitializeAsync(IServiceProvider serviceProvider)
     {
         Check.NotNull(serviceProvider, nameof(serviceProvider));
 
         SetServiceProvider(serviceProvider);
 
-        InitializeModules();
+        await InitializeModulesAsync();
     }
 
     public override void Dispose()

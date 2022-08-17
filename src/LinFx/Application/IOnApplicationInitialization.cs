@@ -4,5 +4,5 @@ namespace LinFx.Application;
 
 public interface IOnApplicationInitialization
 {
-    void OnApplicationInitialization([NotNull] ApplicationInitializationContext context);
+    Task OnApplicationInitializationAsync([NotNull] ApplicationInitializationContext context);
 }

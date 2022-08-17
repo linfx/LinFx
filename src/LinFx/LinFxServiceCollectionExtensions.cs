@@ -3,7 +3,6 @@ using LinFx.Extensions.Modularity;
 using LinFx.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

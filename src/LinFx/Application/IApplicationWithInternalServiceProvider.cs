@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Application;
+﻿namespace LinFx.Application;
 
 public interface IApplicationWithInternalServiceProvider
 {

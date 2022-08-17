@@ -3,9 +3,6 @@ using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Assembly = System.Reflection.Assembly;
 
 namespace LinFx.Application;
@@ -24,7 +21,7 @@ public abstract class ApplicationBase : IApplication
     internal ApplicationBase(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
     {
         Check.NotNull(startupModuleType, nameof(startupModuleType));
         Check.NotNull(services, nameof(services));
@@ -46,8 +43,8 @@ public abstract class ApplicationBase : IApplication
 
         // 添加日志等基础设施组件。
         // 添加核心服务，主要是模块系统相关组件。
-        services.AddCoreServices();                   
-        services.AddCoreLinFxServices(this, options); 
+        services.AddCoreServices();
+        services.AddCoreLinFxServices(this, options);
 
         Modules = LoadModules(services, options);
         ConfigureServices();
@@ -62,13 +59,14 @@ public abstract class ApplicationBase : IApplication
     /// <summary>
     /// 初始化模块
     /// </summary>
-    protected virtual void InitializeModules()
+    /// <returns></returns>
+    protected virtual async Task InitializeModulesAsync()
     {
         using var scope = ServiceProvider.CreateScope();
         WriteInitLogs(scope.ServiceProvider);
-        scope.ServiceProvider
+        await scope.ServiceProvider
             .GetRequiredService<IModuleManager>()
-            .InitializeModules(new ApplicationInitializationContext(scope.ServiceProvider));
+            .InitializeModulesAsync(new ApplicationInitializationContext(scope.ServiceProvider));
     }
 
     protected virtual void WriteInitLogs(IServiceProvider serviceProvider)
@@ -98,7 +96,7 @@ public abstract class ApplicationBase : IApplication
     }
 
     //TODO: We can extract a new class for this
-    protected virtual void ConfigureServices()
+    public virtual void ConfigureServices()
     {
         var context = new ServiceConfigurationContext(Services);
         Services.AddSingleton(context);
@@ -174,11 +172,15 @@ public abstract class ApplicationBase : IApplication
         }
     }
 
-    public virtual void Dispose()
+    public virtual async Task ShutdownAsync()
     {
+        using var scope = ServiceProvider.CreateScope();
+        await scope.ServiceProvider
+            .GetRequiredService<IModuleManager>()
+            .ShutdownModulesAsync(new ApplicationShutdownContext(scope.ServiceProvider));
     }
 
-    public virtual void Shutdown()
+    public virtual void Dispose()
     {
     }
 }

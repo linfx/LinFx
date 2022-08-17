@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,17 +5,17 @@ namespace LinFx.Application;
 
 internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplicationWithInternalServiceProvider
 {
-    public IServiceScope ServiceScope { get; private set; }
+    public IServiceScope? ServiceScope { get; private set; }
 
     public ApplicationWithInternalServiceProvider(
         [NotNull] Type startupModuleType,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
         : this(startupModuleType, new ServiceCollection(), optionsAction) { }
 
     private ApplicationWithInternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
         : base(startupModuleType, services, optionsAction)
     {
         // 注入自己到 IoC 当中。
@@ -38,12 +37,12 @@ internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplic
     public void Initialize()
     {
         CreateServiceProvider();
-        InitializeModules();
+        //InitializeModules();
     }
 
     public override void Dispose()
     {
         base.Dispose();
-        ServiceScope.Dispose();
+        ServiceScope?.Dispose();
     }
 }

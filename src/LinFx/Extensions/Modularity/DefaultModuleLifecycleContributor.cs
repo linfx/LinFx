@@ -4,32 +4,30 @@ namespace LinFx.Extensions.Modularity;
 
 public class OnApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
 {
-    public override void Initialize(ApplicationInitializationContext context, IModule module)
+    public async override Task InitializeAsync(ApplicationInitializationContext context, IModule module)
     {
-        (module as IOnApplicationInitialization)?.OnApplicationInitialization(context);
+        if (module is IOnApplicationInitialization onApplicationInitialization)
+        {
+            await onApplicationInitialization.OnApplicationInitializationAsync(context);
+        }
     }
 }
 
 public class OnApplicationShutdownModuleLifecycleContributor : ModuleLifecycleContributorBase
 {
-    public override void Shutdown(ApplicationShutdownContext context, IModule module)
+    public async override Task ShutdownAsync(ApplicationShutdownContext context, IModule module)
     {
-        (module as IOnApplicationShutdown)?.OnApplicationShutdown(context);
+        if (module is IOnApplicationShutdown onApplicationShutdown)
+        {
+            await onApplicationShutdown.OnApplicationShutdownAsync(context);
+        }
     }
 }
 
 public class OnPreApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
 {
-    public override void Initialize(ApplicationInitializationContext context, IModule module)
-    {
-        //(module as IOnPreApplicationInitialization)?.OnPreApplicationInitialization(context);
-    }
 }
 
 public class OnPostApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
 {
-    public override void Initialize(ApplicationInitializationContext context, IModule module)
-    {
-        //(module as IOnPostApplicationInitialization)?.OnPostApplicationInitialization(context);
-    }
 }

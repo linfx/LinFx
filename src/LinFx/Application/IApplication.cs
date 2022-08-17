@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Application;
 
@@ -26,5 +25,5 @@ public interface IApplication : IModuleContainer, IDisposable
     /// <summary>
     /// Used to gracefully shutdown the application and all modules.
     /// </summary>
-    void Shutdown();
+    Task ShutdownAsync();
 }

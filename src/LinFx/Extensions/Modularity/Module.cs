@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace LinFx.Extensions.Modularity;
 
 /// <summary>
 /// 模块
 /// </summary>
-public abstract class Module : 
-    IModuleInitializer, 
+public abstract class Module :
+    IModuleInitializer,
     IModule,
     //IOnPreApplicationInitialization,
     IOnApplicationInitialization,
@@ -21,11 +20,11 @@ public abstract class Module :
     IPreConfigureServices,
     IPostConfigureServices
 {
-    private ServiceConfigurationContext _serviceConfigurationContext;
+    private ServiceConfigurationContext? _serviceConfigurationContext;
 
     protected internal bool SkipAutoServiceRegistration { get; protected set; }
 
-    protected internal ServiceConfigurationContext ServiceConfigurationContext
+    protected internal ServiceConfigurationContext? ServiceConfigurationContext
     {
         get
         {
@@ -62,6 +61,12 @@ public abstract class Module :
     /// 应用程序初始化
     /// </summary>
     /// <param name="context"></param>
+    public virtual Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        OnApplicationInitialization(context);
+        return Task.CompletedTask;
+    }
+
     public virtual void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();
@@ -73,37 +78,38 @@ public abstract class Module :
     /// 应用程序关闭
     /// </summary>
     /// <param name="context"></param>
-    public virtual void OnApplicationShutdown(ApplicationShutdownContext context)
+    public virtual Task OnApplicationShutdownAsync(ApplicationShutdownContext context)
     {
+        return Task.CompletedTask;
     }
 
     protected void Configure<TOptions>(Action<TOptions> configureOptions)
         where TOptions : class
     {
-        ServiceConfigurationContext.Services.Configure(configureOptions);
+        ServiceConfigurationContext?.Services.Configure(configureOptions);
     }
 
     protected void Configure<TOptions>(string name, Action<TOptions> configureOptions)
         where TOptions : class
     {
-        ServiceConfigurationContext.Services.Configure(name, configureOptions);
+        ServiceConfigurationContext?.Services.Configure(name, configureOptions);
     }
 
     protected void Configure<TOptions>(IConfiguration configuration)
         where TOptions : class
     {
-        ServiceConfigurationContext.Services.Configure<TOptions>(configuration);
+        ServiceConfigurationContext?.Services.Configure<TOptions>(configuration);
     }
 
     protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder)
         where TOptions : class
     {
-        ServiceConfigurationContext.Services.Configure<TOptions>(configuration, configureBinder);
+        ServiceConfigurationContext?.Services.Configure<TOptions>(configuration, configureBinder);
     }
 
     protected void Configure<TOptions>(string name, IConfiguration configuration)
         where TOptions : class
     {
-        ServiceConfigurationContext.Services.Configure<TOptions>(name, configuration);
+        ServiceConfigurationContext?.Services.Configure<TOptions>(name, configuration);
     }
 }

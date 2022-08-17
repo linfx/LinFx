@@ -3,28 +3,23 @@ using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LinFx.Extensions.Modularity;
 
-[Service(ServiceLifetime.Singleton)]
-public class ModuleManager : IModuleManager
+public class ModuleManager : IModuleManager, ISingletonDependency
 {
+    private readonly ILogger _logger;
     private readonly IModuleContainer _moduleContainer;
     private readonly IEnumerable<IModuleLifecycleContributor> _lifecycleContributors;
-    private readonly ILogger _logger;
 
     public ModuleManager(
-         IModuleContainer moduleContainer,
          ILogger<ModuleManager> logger,
          IOptions<ModuleLifecycleOptions> options,
+         IModuleContainer moduleContainer,
          IServiceProvider serviceProvider)
     {
-        _moduleContainer = moduleContainer;
         _logger = logger;
-
+        _moduleContainer = moduleContainer;
         _lifecycleContributors = options.Value
             .Contributors
             .Select(serviceProvider.GetRequiredService)
@@ -37,7 +32,7 @@ public class ModuleManager : IModuleManager
     /// </summary>
     /// <param name="context"></param>
     /// <exception cref="LinFxException"></exception>
-    public void InitializeModules(ApplicationInitializationContext context)
+    public virtual async Task InitializeModulesAsync(ApplicationInitializationContext context)
     {
         foreach (var contributor in _lifecycleContributors)
         {
@@ -45,7 +40,7 @@ public class ModuleManager : IModuleManager
             {
                 try
                 {
-                    contributor.Initialize(context, module.Instance);
+                    await contributor.InitializeAsync(context, module.Instance);
                 }
                 catch (Exception ex)
                 {
@@ -54,26 +49,26 @@ public class ModuleManager : IModuleManager
             }
         }
 
-        _logger.LogInformation("Initialized all modules.");
+        _logger.LogInformation("Initialized all ABP modules.");
     }
 
-    public void ShutdownModules(ApplicationShutdownContext context)
+    public virtual async Task ShutdownModulesAsync(ApplicationShutdownContext context)
     {
-        //var modules = _moduleContainer.Modules.Reverse().ToList();
+        var modules = _moduleContainer.Modules.Reverse().ToList();
 
-        //foreach (var contributor in _lifecycleContributors)
-        //{
-        //    foreach (var module in modules)
-        //    {
-        //        try
-        //        {
-        //            contributor.Shutdown(context, module.Instance);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            throw new AbpShutdownException($"An error occurred during the shutdown {contributor.GetType().FullName} phase of the module {module.Type.AssemblyQualifiedName}: {ex.Message}. See the inner exception for details.", ex);
-        //        }
-        //    }
-        //}
+        foreach (var contributor in _lifecycleContributors)
+        {
+            foreach (var module in modules)
+            {
+                try
+                {
+                    await contributor.ShutdownAsync(context, module.Instance);
+                }
+                catch (Exception ex)
+                {
+                    throw new LinFxException($"An error occurred during the shutdown {contributor.GetType().FullName} phase of the module {module.Type.AssemblyQualifiedName}: {ex.Message}. See the inner exception for details.", ex);
+                }
+            }
+        }
     }
 }

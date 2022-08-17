@@ -6,7 +6,7 @@ namespace LinFx.Extensions.Modularity;
 
 public interface IModuleLifecycleContributor : ITransientDependency
 {
-    void Initialize([NotNull] ApplicationInitializationContext context, [NotNull] IModule module);
+    Task InitializeAsync([NotNull] ApplicationInitializationContext context, [NotNull] IModule module);
 
-    void Shutdown([NotNull] ApplicationShutdownContext context, [NotNull] IModule module);
+    Task ShutdownAsync([NotNull] ApplicationShutdownContext context, [NotNull] IModule module);
 }

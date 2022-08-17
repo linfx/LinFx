@@ -12,11 +12,13 @@ public interface IModuleManager
     /// 初始化模块
     /// </summary>
     /// <param name="context"></param>
-    void InitializeModules([NotNull] ApplicationInitializationContext context);
+    /// <returns></returns>
+    Task InitializeModulesAsync([NotNull] ApplicationInitializationContext context);
 
     /// <summary>
     /// 关闭模块
     /// </summary>
     /// <param name="context"></param>
-    void ShutdownModules([NotNull] ApplicationShutdownContext context);
+    /// <returns></returns>
+    Task ShutdownModulesAsync([NotNull] ApplicationShutdownContext context);
 }
