@@ -2,18 +2,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TenantManagementService
-{
-    public class Startup
-    {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddApplication<TenantManagementServiceModule>();
-        }
+namespace TenantManagementService;
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.InitializeApplication();
-        }
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddApplication<TenantManagementServiceModule>();
+    }
+
+    public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        await app.InitializeApplicationAsync();
     }
 }
