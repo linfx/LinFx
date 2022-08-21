@@ -16,9 +16,8 @@ public static class ServiceCollectionConfigurationExtensions
         var hostBuilderContext = services.GetSingletonInstanceOrNull<HostBuilderContext>();
         if (hostBuilderContext?.Configuration != null)
         {
-            return hostBuilderContext.Configuration as IConfigurationRoot;
+            return (IConfigurationRoot)hostBuilderContext.Configuration;
         }
-
         return services.GetSingletonInstance<IConfiguration>();
     }
 }

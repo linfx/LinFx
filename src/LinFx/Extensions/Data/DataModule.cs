@@ -1,8 +1,6 @@
 ﻿using LinFx.Extensions.Modularity;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.Data;
 
@@ -21,9 +19,7 @@ public class DataModule : Module
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        //context.Services.BuildServiceProvider();
         var configuration = context.Services.GetConfiguration();
-
         Configure<DbConnectionOptions>(configuration);
 
         context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
