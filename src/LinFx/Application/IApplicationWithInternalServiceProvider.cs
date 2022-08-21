@@ -1,6 +1,6 @@
 ﻿namespace LinFx.Application;
 
-public interface IApplicationWithInternalServiceProvider
+public interface IApplicationWithInternalServiceProvider : IApplication
 {
     /// <summary>
     /// Creates the service provider, but not initializes the modules.
@@ -13,5 +13,5 @@ public interface IApplicationWithInternalServiceProvider
     /// If <see cref="CreateServiceProvider"/> method was called before,
     /// it does not re-create it, but uses the previous one.
     /// </summary>
-    void Initialize();
+    Task InitializeAsync();
 }

@@ -34,10 +34,10 @@ internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplic
     }
 
     // 执行框架初始化操作，主要工作是加载模块并执行其初始化方法。
-    public void Initialize()
+    public async Task InitializeAsync()
     {
         CreateServiceProvider();
-        //InitializeModules();
+        await InitializeModulesAsync();
     }
 
     public override void Dispose()
