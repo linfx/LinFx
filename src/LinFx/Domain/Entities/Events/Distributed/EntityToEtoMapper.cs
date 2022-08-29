@@ -3,8 +3,6 @@ using LinFx.Extensions.ObjectMapping;
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Domain.Entities.Events.Distributed;
 
@@ -23,7 +21,7 @@ public class EntityToEtoMapper : IEntityToEtoMapper
         Options = options.Value;
     }
 
-    public object Map(object entityObj)
+    public object? Map(object entityObj)
     {
         Check.NotNull(entityObj, nameof(entityObj));
 
@@ -38,15 +36,12 @@ public class EntityToEtoMapper : IEntityToEtoMapper
             return new EntityEto(entityType.FullName, keys);
         }
 
-        using (var scope = HybridServiceScopeFactory.CreateScope())
-        {
-            var objectMapperType = etoMappingItem.ObjectMappingContextType == null
-                ? typeof(IObjectMapper)
-                : typeof(IObjectMapper<>).MakeGenericType(etoMappingItem.ObjectMappingContextType);
+        using var scope = HybridServiceScopeFactory.CreateScope();
+        var objectMapperType = etoMappingItem.ObjectMappingContextType == null
+            ? typeof(IObjectMapper)
+            : typeof(IObjectMapper<>).MakeGenericType(etoMappingItem.ObjectMappingContextType);
 
-            var objectMapper = (IObjectMapper)scope.ServiceProvider.GetRequiredService(objectMapperType);
-
-            return objectMapper.Map(entityType, etoMappingItem.EtoType, entityObj);
-        }
+        var objectMapper = (IObjectMapper)scope.ServiceProvider.GetRequiredService(objectMapperType);
+        return objectMapper.Map(entityType, etoMappingItem.EtoType, entityObj);
     }
 }

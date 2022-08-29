@@ -5,5 +5,5 @@ namespace LinFx.Domain.Entities.Events.Distributed;
 public interface IEntityToEtoMapper
 {
     [CanBeNull]
-    object Map(object entityObj);
+    object? Map(object entityObj);
 }

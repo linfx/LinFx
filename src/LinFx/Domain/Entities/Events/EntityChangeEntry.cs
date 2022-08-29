@@ -1,5 +1,4 @@
 using LinFx.Extensions.Auditing;
-using System;
 
 namespace LinFx.Domain.Entities.Events;
 

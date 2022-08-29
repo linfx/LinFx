@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Domain.Entities.Events;
 
 /// <summary>
@@ -15,6 +13,5 @@ public class EntityDeletedEventData<TEntity> : EntityChangedEventData<TEntity>
     /// <param name="entity">The entity which is deleted</param>
     public EntityDeletedEventData(TEntity entity)
         : base(entity)
-    {
-    }
+    { }
 }

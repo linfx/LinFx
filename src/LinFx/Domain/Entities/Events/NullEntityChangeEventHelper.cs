@@ -12,27 +12,15 @@ public class NullEntityChangeEventHelper : IEntityChangeEventHelper
 
     private NullEntityChangeEventHelper() { }
 
-    public void PublishEntityCreatingEvent(object entity)
-    {
-    }
+    public void PublishEntityCreatingEvent(object entity) { }
 
-    public void PublishEntityCreatedEvent(object entity)
-    {
-    }
+    public void PublishEntityCreatedEvent(object entity) { }
 
-    public void PublishEntityUpdatingEvent(object entity)
-    {
-    }
+    public void PublishEntityUpdatingEvent(object entity) { }
 
-    public void PublishEntityUpdatedEvent(object entity)
-    {
-    }
+    public void PublishEntityUpdatedEvent(object entity) { }
 
-    public void PublishEntityDeletingEvent(object entity)
-    {
-    }
+    public void PublishEntityDeletingEvent(object entity) { }
 
-    public void PublishEntityDeletedEvent(object entity)
-    {
-    }
+    public void PublishEntityDeletedEvent(object entity) { }
 }

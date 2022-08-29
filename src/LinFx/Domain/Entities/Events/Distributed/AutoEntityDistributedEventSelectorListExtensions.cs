@@ -1,6 +1,4 @@
 ﻿using JetBrains.Annotations;
-using System;
-using System.Linq;
 
 namespace LinFx.Domain.Entities.Events.Distributed;
 
@@ -14,16 +12,9 @@ public static class AutoEntityDistributedEventSelectorListExtensions
 
         var selectorName = "Namespace:" + namespaceName;
         if (selectors.Any(s => s.Name == selectorName))
-        {
             return;
-        }
 
-        selectors.Add(
-            new NamedTypeSelector(
-                selectorName,
-                t => t.FullName?.StartsWith(namespaceName) ?? false
-            )
-        );
+        selectors.Add(new NamedTypeSelector(selectorName, t => t.FullName?.StartsWith(namespaceName) ?? false));
     }
 
     /// <summary>
@@ -37,16 +28,9 @@ public static class AutoEntityDistributedEventSelectorListExtensions
 
         var selectorName = "Entity:" + typeof(TEntity).FullName;
         if (selectors.Any(s => s.Name == selectorName))
-        {
             return;
-        }
 
-        selectors.Add(
-            new NamedTypeSelector(
-                selectorName,
-                t => typeof(TEntity).IsAssignableFrom(t)
-            )
-        );
+        selectors.Add(new NamedTypeSelector(selectorName, t => typeof(TEntity).IsAssignableFrom(t)));
     }
 
     /// <summary>
