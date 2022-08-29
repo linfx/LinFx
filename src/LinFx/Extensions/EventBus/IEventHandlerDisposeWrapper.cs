@@ -1,9 +1,6 @@
-using System;
+namespace LinFx.Extensions.EventBus;
 
-namespace LinFx.Extensions.EventBus
+public interface IEventHandlerDisposeWrapper : IDisposable
 {
-    public interface IEventHandlerDisposeWrapper : IDisposable
-    {
-        IEventHandler EventHandler { get; }
-    }
+    IEventHandler EventHandler { get; }
 }

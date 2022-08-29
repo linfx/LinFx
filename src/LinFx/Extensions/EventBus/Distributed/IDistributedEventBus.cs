@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.EventBus.Distributed;
+﻿namespace LinFx.Extensions.EventBus.Distributed;
 
 /// <summary>
 /// 分布式事件总线

@@ -5,13 +5,8 @@ using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Uow;
 using LinFx.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EventBus;
 
@@ -37,68 +32,34 @@ public abstract class EventBusBase : IEventBus
         ErrorHandler = errorHandler;
     }
 
-    /// <inheritdoc/>
-    public virtual IDisposable Subscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class
-    {
-        return Subscribe(typeof(TEvent), new ActionEventHandler<TEvent>(action));
-    }
+    public virtual IDisposable Subscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class => Subscribe(typeof(TEvent), new ActionEventHandler<TEvent>(action));
 
-    /// <inheritdoc/>
     public virtual IDisposable Subscribe<TEvent, THandler>()
         where TEvent : class
-        where THandler : IEventHandler, new()
-    {
-        return Subscribe(typeof(TEvent), new TransientEventHandlerFactory<THandler>());
-    }
+        where THandler : IEventHandler, new() => Subscribe(typeof(TEvent), new TransientEventHandlerFactory<THandler>());
 
-    /// <inheritdoc/>
-    public virtual IDisposable Subscribe(Type eventType, IEventHandler handler)
-    {
-        return Subscribe(eventType, new SingleInstanceHandlerFactory(handler));
-    }
+    public virtual IDisposable Subscribe(Type eventType, IEventHandler handler) => Subscribe(eventType, new SingleInstanceHandlerFactory(handler));
 
-    /// <inheritdoc/>
-    public virtual IDisposable Subscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class
-    {
-        return Subscribe(typeof(TEvent), factory);
-    }
+    public virtual IDisposable Subscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class => Subscribe(typeof(TEvent), factory);
 
     public abstract IDisposable Subscribe(Type eventType, IEventHandlerFactory factory);
 
     public abstract void Unsubscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class;
 
-    /// <inheritdoc/>
-    public virtual void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class
-    {
-        Unsubscribe(typeof(TEvent), handler);
-    }
+    public virtual void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class => Unsubscribe(typeof(TEvent), handler);
 
     public abstract void Unsubscribe(Type eventType, IEventHandler handler);
 
-    /// <inheritdoc/>
-    public virtual void Unsubscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class
-    {
-        Unsubscribe(typeof(TEvent), factory);
-    }
+    public virtual void Unsubscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class => Unsubscribe(typeof(TEvent), factory);
 
     public abstract void Unsubscribe(Type eventType, IEventHandlerFactory factory);
 
-    /// <inheritdoc/>
-    public virtual void UnsubscribeAll<TEvent>() where TEvent : class
-    {
-        UnsubscribeAll(typeof(TEvent));
-    }
+    public virtual void UnsubscribeAll<TEvent>() where TEvent : class => UnsubscribeAll(typeof(TEvent));
 
-    /// <inheritdoc/>
     public abstract void UnsubscribeAll(Type eventType);
 
-    /// <inheritdoc/>
-    public Task PublishAsync<TEvent>(TEvent eventData, bool onUnitOfWorkComplete = true) where TEvent : class
-    {
-        return PublishAsync(typeof(TEvent), eventData, onUnitOfWorkComplete);
-    }
+    public Task PublishAsync<TEvent>(TEvent eventData, bool onUnitOfWorkComplete = true) where TEvent : class => PublishAsync(typeof(TEvent), eventData, onUnitOfWorkComplete);
 
-    /// <inheritdoc/>
     public async Task PublishAsync(Type eventType, object eventData, bool onUnitOfWorkComplete = true)
     {
         if (onUnitOfWorkComplete && UnitOfWorkManager.Current != null)
@@ -287,10 +248,7 @@ public abstract class EventBusBase : IEventBus
     // https://blogs.msdn.microsoft.com/benwilli/2017/02/09/an-alternative-to-configureawaitfalse-everywhere/
     protected struct SynchronizationContextRemover : INotifyCompletion
     {
-        public bool IsCompleted
-        {
-            get { return SynchronizationContext.Current == null; }
-        }
+        public bool IsCompleted { get { return SynchronizationContext.Current == null; } }
 
         public void OnCompleted(Action continuation)
         {
@@ -306,13 +264,8 @@ public abstract class EventBusBase : IEventBus
             }
         }
 
-        public SynchronizationContextRemover GetAwaiter()
-        {
-            return this;
-        }
+        public SynchronizationContextRemover GetAwaiter() => this;
 
-        public void GetResult()
-        {
-        }
+        public void GetResult() { }
     }
 }

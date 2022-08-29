@@ -38,9 +38,5 @@
     <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="6.0.5" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Extensions\RabbitMq\" />
-  </ItemGroup>
 
 </Project>

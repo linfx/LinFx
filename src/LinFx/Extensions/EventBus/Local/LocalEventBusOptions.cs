@@ -1,14 +1,13 @@
 using LinFx.Collections;
 
-namespace LinFx.Extensions.EventBus.Local
-{
-    public class LocalEventBusOptions
-    {
-        public ITypeList<IEventHandler> Handlers { get; }
+namespace LinFx.Extensions.EventBus.Local;
 
-        public LocalEventBusOptions()
-        {
-            Handlers = new TypeList<IEventHandler>();
-        }
+public class LocalEventBusOptions
+{
+    public ITypeList<IEventHandler> Handlers { get; }
+
+    public LocalEventBusOptions()
+    {
+        Handlers = new TypeList<IEventHandler>();
     }
 }

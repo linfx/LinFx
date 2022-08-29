@@ -13,7 +13,7 @@ public abstract class FullAuditedEntity : AuditedEntity, IFullAuditedObject
 
     /// <inheritdoc />
     [StringLength(50)]
-    public virtual string DeleterId { get; set; }
+    public virtual string? DeleterId { get; set; }
 
     /// <inheritdoc />
     public virtual DateTimeOffset? DeletionTime { get; set; }
@@ -30,7 +30,7 @@ public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAudite
 
     /// <inheritdoc />
     [StringLength(50)]
-    public virtual string DeleterId { get; set; }
+    public virtual string? DeleterId { get; set; }
 
     /// <inheritdoc />
     public virtual DateTimeOffset? DeletionTime { get; set; }

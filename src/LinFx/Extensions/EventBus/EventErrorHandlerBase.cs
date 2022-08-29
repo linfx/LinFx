@@ -1,76 +1,73 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 
-namespace LinFx.Extensions.EventBus
+namespace LinFx.Extensions.EventBus;
+
+public abstract class EventErrorHandlerBase : IEventErrorHandler
 {
-    public abstract class EventErrorHandlerBase : IEventErrorHandler
+    public const string HeadersKey = "headers";
+    public const string RetryAttemptKey = "retryAttempt";
+
+    protected EventBusOptions Options { get; }
+
+    protected EventErrorHandlerBase(IOptions<EventBusOptions> options)
     {
-        public const string HeadersKey = "headers";
-        public const string RetryAttemptKey = "retryAttempt";
+        Options = options.Value;
+    }
 
-        protected EventBusOptions Options { get; }
-
-        protected EventErrorHandlerBase(IOptions<EventBusOptions> options)
+    public virtual async Task HandleAsync(EventExecutionErrorContext context)
+    {
+        if (!await ShouldHandleAsync(context))
         {
-            Options = options.Value;
+            ThrowOriginalExceptions(context);
         }
 
-        public virtual async Task HandleAsync(EventExecutionErrorContext context)
+        if (await ShouldRetryAsync(context))
         {
-            if (!await ShouldHandleAsync(context))
-            {
-                ThrowOriginalExceptions(context);
-            }
-
-            if (await ShouldRetryAsync(context))
-            {
-                await RetryAsync(context);
-                return;
-            }
-
-            await MoveToDeadLetterAsync(context);
+            await RetryAsync(context);
+            return;
         }
 
-        protected abstract Task RetryAsync(EventExecutionErrorContext context);
+        await MoveToDeadLetterAsync(context);
+    }
 
-        protected abstract Task MoveToDeadLetterAsync(EventExecutionErrorContext context);
+    protected abstract Task RetryAsync(EventExecutionErrorContext context);
 
-        protected virtual Task<bool> ShouldHandleAsync(EventExecutionErrorContext context)
+    protected abstract Task MoveToDeadLetterAsync(EventExecutionErrorContext context);
+
+    protected virtual Task<bool> ShouldHandleAsync(EventExecutionErrorContext context)
+    {
+        if (!Options.EnabledErrorHandle)
         {
-            if (!Options.EnabledErrorHandle)
-            {
-                return Task.FromResult(false);
-            }
-
-            return Task.FromResult(Options.ErrorHandleSelector == null || Options.ErrorHandleSelector.Invoke(context.EventType));
+            return Task.FromResult(false);
         }
 
-        protected virtual Task<bool> ShouldRetryAsync(EventExecutionErrorContext context)
+        return Task.FromResult(Options.ErrorHandleSelector == null || Options.ErrorHandleSelector.Invoke(context.EventType));
+    }
+
+    protected virtual Task<bool> ShouldRetryAsync(EventExecutionErrorContext context)
+    {
+        if (Options.RetryStrategyOptions == null)
         {
-            if (Options.RetryStrategyOptions == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            if (!context.TryGetRetryAttempt(out var retryAttempt))
-            {
-                return Task.FromResult(false);
-            }
-
-            return Task.FromResult(Options.RetryStrategyOptions.MaxRetryAttempts > retryAttempt);
+            return Task.FromResult(false);
         }
 
-        protected virtual void ThrowOriginalExceptions(EventExecutionErrorContext context)
+        if (!context.TryGetRetryAttempt(out var retryAttempt))
         {
-            if (context.Exceptions.Count == 1)
-            {
-                context.Exceptions[0].ReThrow();
-            }
-
-            throw new AggregateException(
-                "More than one error has occurred while triggering the event: " + context.EventType,
-                context.Exceptions);
+            return Task.FromResult(false);
         }
+
+        return Task.FromResult(Options.RetryStrategyOptions.MaxRetryAttempts > retryAttempt);
+    }
+
+    protected virtual void ThrowOriginalExceptions(EventExecutionErrorContext context)
+    {
+        if (context.Exceptions.Count == 1)
+        {
+            context.Exceptions[0].ReThrow();
+        }
+
+        throw new AggregateException(
+            "More than one error has occurred while triggering the event: " + context.EventType,
+            context.Exceptions);
     }
 }
