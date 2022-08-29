@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.MultiTenancy
 {
@@ -13,7 +12,6 @@ namespace LinFx.Extensions.MultiTenancy
             TenantResolvers = new List<ITenantResolveContributor>
             {
                 new CurrentUserTenantResolveContributor(),
-                new HeaderTenantResolveContributor()
             };
         }
     }

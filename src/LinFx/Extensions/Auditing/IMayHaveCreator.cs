@@ -8,7 +8,7 @@ public interface IMayHaveCreator
     /// <summary>
     /// Id of the creator.
     /// </summary>
-    string CreatorId { get; set; }
+    string? CreatorId { get; set; }
 }
 
 public interface IMayHaveCreator<TCreator>

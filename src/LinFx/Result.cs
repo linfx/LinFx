@@ -10,7 +10,7 @@ public partial class Result
     public Result() { }
 
     protected Result(string message)
-     : this(200, message) 
+     : this(200, message)
     { }
 
     protected Result(int code, string message)

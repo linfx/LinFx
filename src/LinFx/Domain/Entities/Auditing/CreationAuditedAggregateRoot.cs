@@ -13,7 +13,7 @@ public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAud
 
     /// <inheritdoc />
     [StringLength(32)]
-    public virtual string CreatorId { get; set; }
+    public virtual string? CreatorId { get; set; }
 }
 
 /// <summary>
@@ -27,5 +27,5 @@ public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, 
 
     /// <inheritdoc />
     [StringLength(32)]
-    public virtual string CreatorId { get; set; }
+    public virtual string? CreatorId { get; set; }
 }

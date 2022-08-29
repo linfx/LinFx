@@ -36,26 +36,15 @@ public abstract class Module :
         internal set => _serviceConfigurationContext = value;
     }
 
-    public virtual void ConfigureServices(IServiceCollection services)
-    {
-    }
+    public virtual void ConfigureServices(IServiceCollection services) { }
 
-    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env)
-    {
-    }
+    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
 
-    public virtual void PreConfigureServices(ServiceConfigurationContext context)
-    {
-    }
+    public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
 
-    public virtual void ConfigureServices(ServiceConfigurationContext context)
-    {
-        ConfigureServices(context.Services);
-    }
+    public virtual void ConfigureServices(ServiceConfigurationContext context) => ConfigureServices(context.Services);
 
-    public virtual void PostConfigureServices(ServiceConfigurationContext context)
-    {
-    }
+    public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
 
     /// <summary>
     /// 应用程序初始化

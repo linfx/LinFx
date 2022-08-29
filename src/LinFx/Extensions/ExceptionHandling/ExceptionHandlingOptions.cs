@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
+﻿namespace LinFx.Extensions.ExceptionHandling;
 
 /// <summary>
 /// 异常处理选项

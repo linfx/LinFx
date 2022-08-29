@@ -24,7 +24,7 @@ namespace LinFx.Extensions.AspNetCore;
 )]
 public class AspNetCoreModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
         Configure<AuditingOptions>(options =>
         {
@@ -36,14 +36,11 @@ public class AspNetCoreModule : Module
         //    options.ContentTypeProvider = context.Services.GetRequiredService<AbpFileExtensionContentTypeProvider>();
         //});
 
-        AddAspNetServices(context.Services);
-        context.Services.AddObjectAccessor<IApplicationBuilder>();
-        //context.Services.AddAbpDynamicOptions<RequestLocalizationOptions, AbpRequestLocalizationOptionsManager>();
-    }
+        services
+            .AddHttpContextAccessor()
+            .AddObjectAccessor<IApplicationBuilder>();
 
-    private static void AddAspNetServices(IServiceCollection services)
-    {
-        services.AddHttpContextAccessor();
+        //context.Services.AddAbpDynamicOptions<RequestLocalizationOptions, AbpRequestLocalizationOptionsManager>();
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

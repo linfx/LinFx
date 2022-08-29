@@ -1,20 +1,17 @@
 ﻿using LinFx.Extensions.DependencyInjection;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionRegistrationActionExtensions
 {
-    // OnRegistred
-    public static void OnRegistred(this IServiceCollection services, Action<IOnServiceRegistredContext> registrationAction)
-    {
-        GetOrCreateRegistrationActionList(services).Add(registrationAction);
-    }
+    /// <summary>
+    /// 注册
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="registrationAction"></param>
+    public static void OnRegistred(this IServiceCollection services, Action<IOnServiceRegistredContext> registrationAction) => GetOrCreateRegistrationActionList(services).Add(registrationAction);
 
-    public static ServiceRegistrationActionList GetRegistrationActionList(this IServiceCollection services)
-    {
-        return GetOrCreateRegistrationActionList(services);
-    }
+    public static ServiceRegistrationActionList GetRegistrationActionList(this IServiceCollection services) => GetOrCreateRegistrationActionList(services);
 
     private static ServiceRegistrationActionList GetOrCreateRegistrationActionList(IServiceCollection services)
     {
@@ -33,10 +30,7 @@ public static class ServiceCollectionRegistrationActionExtensions
         GetOrCreateExposingList(services).Add(exposeAction);
     }
 
-    public static ServiceExposingActionList GetExposingActionList(this IServiceCollection services)
-    {
-        return GetOrCreateExposingList(services);
-    }
+    public static ServiceExposingActionList GetExposingActionList(this IServiceCollection services) => GetOrCreateExposingList(services);
 
     private static ServiceExposingActionList GetOrCreateExposingList(IServiceCollection services)
     {

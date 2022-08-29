@@ -8,8 +8,5 @@ namespace LinFx.Extensions.AspNetCore;
 public static class ServiceProviderAccessorExtensions
 {
     [CanBeNull]
-    public static HttpContext GetHttpContext(this IServiceProviderAccessor serviceProviderAccessor)
-    {
-        return serviceProviderAccessor.ServiceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
-    }
+    public static HttpContext GetHttpContext(this IServiceProviderAccessor serviceProviderAccessor) => serviceProviderAccessor.ServiceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
 }

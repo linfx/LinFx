@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.AuditLogging;
+﻿using LinFx.Extensions.AspNetCore;
+using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.EntityFrameworkCore;
@@ -18,10 +19,11 @@ namespace TenantManagementService;
 [DependsOn(
     typeof(AutofacModule),
     typeof(AuditLoggingModule),
+    typeof(AspNetCoreModule),
     typeof(PermissionManagementModule),
     typeof(TenantManagementHttpApiModule)
 )]
-public class TenantManagementServiceModule : Module
+public class Application : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {

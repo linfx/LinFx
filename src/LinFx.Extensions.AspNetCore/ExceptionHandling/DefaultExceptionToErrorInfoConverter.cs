@@ -9,9 +9,6 @@ using LinFx.Extensions.Validation;
 using LinFx.Security.Authorization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
@@ -35,21 +32,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         LocalizationOptions = localizationOptions.Value;
     }
 
-    public RemoteServiceErrorInfo Convert(Exception exception, bool includeSensitiveDetails)
-    {
-        var exceptionHandlingOptions = CreateDefaultOptions();
-        exceptionHandlingOptions.SendExceptionsDetailsToClients = includeSensitiveDetails;
-        exceptionHandlingOptions.SendStackTraceToClients = includeSensitiveDetails;
-
-        var errorInfo = CreateErrorInfoWithoutCode(exception, exceptionHandlingOptions);
-
-        if (exception is IHasErrorCode hasErrorCodeException)
-            errorInfo.Code = hasErrorCodeException.Code;
-
-        return errorInfo;
-    }
-
-    public RemoteServiceErrorInfo Convert(Exception exception, Action<ExceptionHandlingOptions> options = null)
+    public RemoteServiceErrorInfo Convert(Exception exception, Action<ExceptionHandlingOptions>? options = null)
     {
         var exceptionHandlingOptions = CreateDefaultOptions();
         options?.Invoke(exceptionHandlingOptions);

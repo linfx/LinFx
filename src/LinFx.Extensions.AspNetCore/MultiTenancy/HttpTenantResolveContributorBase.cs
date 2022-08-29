@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy
@@ -38,6 +37,6 @@ namespace LinFx.Extensions.AspNetCore.MultiTenancy
             }
         }
 
-        protected abstract string GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext);
+        protected abstract string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext);
     }
 }

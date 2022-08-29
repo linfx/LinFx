@@ -3,9 +3,6 @@ using Autofac.Extras.DynamicProxy;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using LinFx.Extensions.Modularity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Autofac.Builder;
 

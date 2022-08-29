@@ -3,9 +3,7 @@ using LinFx.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.Mvc.Auditing;
 
@@ -36,13 +34,13 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
             // 产生异常之后，将其异常信息存放在审计信息之中
             if (result.Exception != null && !result.ExceptionHandled)
             {
-                auditLog.Exceptions.Add(result.Exception);
+                auditLog?.Exceptions.Add(result.Exception);
             }
         }
         catch (Exception ex)
         {
             // 产生异常之后，将其异常信息存放在审计信息之中
-            auditLog.Exceptions.Add(ex);
+            auditLog?.Exceptions.Add(ex);
             throw;
         }
         finally
@@ -50,7 +48,7 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
             // 停止计数，并且存储审计信息
             stopwatch.Stop();
             auditLogAction.ExecutionDuration = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
-            auditLog.Actions.Add(auditLogAction);
+            auditLog?.Actions.Add(auditLogAction);
         }
     }
 
@@ -61,7 +59,7 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
     /// <param name="auditLog"></param>
     /// <param name="auditLogAction"></param>
     /// <returns></returns>
-    private bool ShouldSaveAudit(ActionExecutingContext context, out AuditLogInfo auditLog, out AuditLogActionInfo auditLogAction)
+    private bool ShouldSaveAudit(ActionExecutingContext context, out AuditLogInfo? auditLog, out AuditLogActionInfo? auditLogAction)
     {
         auditLog = null;
         auditLogAction = null;

@@ -47,15 +47,13 @@ public static class LinFxServiceCollectionExtensions
 
         if (!services.IsAdded<IConfiguration>())
         {
-            //services.ReplaceConfiguration(ConfigurationHelper.BuildConfiguration(applicationCreationOptions.Configuration));
+            services.ReplaceConfiguration(ConfigurationHelper.BuildConfiguration(applicationCreationOptions.Configuration));
         }
 
         services.TryAddSingleton<IModuleLoader>(moduleLoader);
         services.TryAddSingleton<IAssemblyFinder>(assemblyFinder);
         services.TryAddSingleton<ITypeFinder>(typeFinder);
-
         services.AddAssemblyOf<IApplication>();
-
         //services.AddTransient(typeof(ISimpleStateCheckerManager<>), typeof(SimpleStateCheckerManager<>));
 
         services.Configure<ModuleLifecycleOptions>(options =>

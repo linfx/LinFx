@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Application;
 

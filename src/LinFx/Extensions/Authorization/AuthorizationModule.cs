@@ -3,8 +3,6 @@ using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.Authorization;
 
@@ -24,19 +22,19 @@ public class AuthorizationModule : Module
         AutoAddDefinitionProviders(context.Services);
     }
 
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
         // 注册认证授权服务。
-        context.Services.AddAuthorizationCore();
+        services.AddAuthorizationCore();
 
         // 替换掉 ASP.NET Core 提供的权限处理器。
-        context.Services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
+        services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
         //context.Services.AddSingleton<IAuthorizationHandler, PermissionsRequirementHandler>();
 
-        context.Services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
+        services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
 
         // 添加内置的一些权限值检查。
-        context.Services.Configure<PermissionOptions>(options =>
+        services.Configure<PermissionOptions>(options =>
         {
             options.ValueProviders.Add<UserPermissionValueProvider>();
             options.ValueProviders.Add<RolePermissionValueProvider>();

@@ -370,8 +370,8 @@ namespace LinFx.Utils
         /// <param name="xmlString">RSA的Key序列化XML字符串</param>
         public static void FromLvccXmlString(this RSA rsa, string xmlString)
         {
-            RSAParameters parameters = new RSAParameters();
-            XmlDocument xmlDoc = new XmlDocument();
+            RSAParameters parameters = new();
+            XmlDocument xmlDoc = new();
             xmlDoc.LoadXml(xmlString);
             if (xmlDoc.DocumentElement.Name.Equals("RSAKeyValue"))
             {

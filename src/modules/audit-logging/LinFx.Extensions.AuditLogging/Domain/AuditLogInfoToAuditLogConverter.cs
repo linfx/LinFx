@@ -1,14 +1,10 @@
-﻿using LinFx.Extensions.AspNetCore.ExceptionHandling;
-using LinFx.Extensions.Auditing;
+﻿using LinFx.Extensions.Auditing;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.Http;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging;
 
@@ -45,9 +41,7 @@ public class AuditLogInfoToAuditLogConverter : IAuditLogInfoToAuditLogConverter
                           .Select(auditLogActionInfo => new AuditLogAction(IDUtils.NewIdString(), auditLogId, auditLogActionInfo, tenantId: auditLogInfo.TenantId))
                           .ToList() ?? new List<AuditLogAction>();
 
-        var remoteServiceErrorInfos = auditLogInfo.Exceptions?.Select(exception => ExceptionToErrorInfoConverter.Convert(exception, true))
-                                      ?? new List<RemoteServiceErrorInfo>();
-
+        var remoteServiceErrorInfos = auditLogInfo.Exceptions?.Select(exception => ExceptionToErrorInfoConverter.Convert(exception)) ?? new List<RemoteServiceErrorInfo>();
         var exceptions = remoteServiceErrorInfos.Any()
             ? JsonSerializer.Serialize(remoteServiceErrorInfos)
             : null;

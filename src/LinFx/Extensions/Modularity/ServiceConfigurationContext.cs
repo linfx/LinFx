@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.Modularity;
 

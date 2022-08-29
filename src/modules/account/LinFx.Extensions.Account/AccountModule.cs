@@ -1,8 +1,9 @@
 ﻿using LinFx.Extensions.Account;
+using LinFx.Extensions.Account.Application;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class AccountServiceCollectionExtensions
+    public static class AccountModule
     {
         /// <summary>
         /// 账号模块

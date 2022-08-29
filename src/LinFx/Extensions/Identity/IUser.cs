@@ -1,6 +1,5 @@
-﻿namespace LinFx.Extensions.Identity
+﻿namespace LinFx.Extensions.Identity;
+
+public interface IUser
 {
-    public interface IUser
-    {
-    }
 }

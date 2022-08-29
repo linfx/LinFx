@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Primitives;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Linq;
 
 namespace LinFx.Collections;
 

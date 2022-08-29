@@ -2,7 +2,6 @@
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
-using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;

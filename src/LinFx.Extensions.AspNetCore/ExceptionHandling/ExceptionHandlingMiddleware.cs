@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.ExceptionHandling;
 using LinFx.Security.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

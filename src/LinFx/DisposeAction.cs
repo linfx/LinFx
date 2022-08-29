@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace LinFx;
+﻿namespace LinFx;
 
 /// <summary>
 /// This class can be used to provide an action when
@@ -9,14 +6,14 @@ namespace LinFx;
 /// </summary>
 public class DisposeAction : IDisposable
 {
-    private Action _action;
-    public static readonly DisposeAction Empty = new DisposeAction(null);
+    private Action? _action;
+    public static readonly DisposeAction Empty = new(default);
 
     /// <summary>
     /// Creates a new <see cref="DisposeAction"/> object.
     /// </summary>
     /// <param name="action">Action to be executed when this object is disposed.</param>
-    public DisposeAction(Action action) => _action = action;
+    public DisposeAction(Action? action) => _action = action;
 
     public void Dispose()
     {

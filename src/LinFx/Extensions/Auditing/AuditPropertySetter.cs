@@ -1,7 +1,6 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Security.Users;
-using System;
 
 namespace LinFx.Extensions.Auditing;
 
@@ -46,7 +45,7 @@ public class AuditPropertySetter : IAuditPropertySetter
     /// 设置创建时间
     /// </summary>
     /// <param name="targetObject"></param>
-    private void SetCreationTime(object targetObject)
+    void SetCreationTime(object targetObject)
     {
         if (targetObject is not IHasCreationTime objectWithCreationTime)
             return;
@@ -55,7 +54,11 @@ public class AuditPropertySetter : IAuditPropertySetter
             objectWithCreationTime.CreationTime = DateTimeOffset.UtcNow;
     }
 
-    private void SetCreatorId(object targetObject)
+    /// <summary>
+    /// 设备创建者
+    /// </summary>
+    /// <param name="targetObject"></param>
+    void SetCreatorId(object targetObject)
     {
         if (string.IsNullOrEmpty(CurrentUser?.Id))
             return;
@@ -71,14 +74,14 @@ public class AuditPropertySetter : IAuditPropertySetter
             if (!string.IsNullOrEmpty(mayHaveCreatorObject.CreatorId))
                 return;
 
-            mayHaveCreatorObject.CreatorId = CurrentUser?.Id;
+            mayHaveCreatorObject.CreatorId = CurrentUser.Id;
         }
         else if (targetObject is IMustHaveCreator mustHaveCreatorObject)
         {
-            if (mustHaveCreatorObject.CreatorId != default)
+            if (!string.IsNullOrEmpty(mustHaveCreatorObject.CreatorId))
                 return;
 
-            mustHaveCreatorObject.CreatorId = CurrentUser?.Id;
+            mustHaveCreatorObject.CreatorId = CurrentUser.Id;
         }
     }
 
@@ -86,7 +89,7 @@ public class AuditPropertySetter : IAuditPropertySetter
     /// 设置最后修改时间
     /// </summary>
     /// <param name="targetObject"></param>
-    private void SetLastModificationTime(object targetObject)
+    void SetLastModificationTime(object targetObject)
     {
         if (targetObject is IHasModificationTime objectWithModificationTime)
             objectWithModificationTime.LastModificationTime = DateTimeOffset.UtcNow;
@@ -96,7 +99,7 @@ public class AuditPropertySetter : IAuditPropertySetter
     /// 设备最后修改者Id
     /// </summary>
     /// <param name="targetObject"></param>
-    private void SetLastModifierId(object targetObject)
+    void SetLastModifierId(object targetObject)
     {
         if (targetObject is not IModificationAuditedObject modificationAuditedObject)
             return;
@@ -123,7 +126,7 @@ public class AuditPropertySetter : IAuditPropertySetter
     /// 设置删除时间
     /// </summary>
     /// <param name="targetObject"></param>
-    private void SetDeletionTime(object targetObject)
+    void SetDeletionTime(object targetObject)
     {
         if (targetObject is IHasDeletionTime objectWithDeletionTime)
         {
@@ -136,7 +139,7 @@ public class AuditPropertySetter : IAuditPropertySetter
     /// 设置删除者Id
     /// </summary>
     /// <param name="targetObject"></param>
-    private void SetDeleterId(object targetObject)
+    void SetDeleterId(object targetObject)
     {
         if (targetObject is not IDeletionAuditedObject deletionAuditedObject)
             return;
@@ -146,7 +149,7 @@ public class AuditPropertySetter : IAuditPropertySetter
 
         if (string.IsNullOrEmpty(CurrentUser?.Id))
         {
-            deletionAuditedObject.DeleterId = null;
+            deletionAuditedObject.DeleterId = default;
             return;
         }
 
@@ -159,6 +162,6 @@ public class AuditPropertySetter : IAuditPropertySetter
             }
         }
 
-        deletionAuditedObject.DeleterId = CurrentUser?.Id;
+        deletionAuditedObject.DeleterId = CurrentUser.Id;
     }
 }

@@ -8,7 +8,7 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddApplication<TenantManagementServiceModule>();
+        services.AddApplication<Application>();
     }
 
     public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -69,9 +69,9 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
 
     public virtual string Url { get; protected set; }
 
-    public virtual string Exceptions { get; protected set; }
+    public virtual string? Exceptions { get; protected set; }
 
-    public virtual string Comments { get; protected set; }
+    public virtual string? Comments { get; protected set; }
 
     public virtual int? HttpStatusCode { get; set; }
 
@@ -109,8 +109,8 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
         ExtraPropertyDictionary extraPropertyDictionary,
         List<EntityChange> entityChanges,
         List<AuditLogAction> actions,
-        string exceptions,
-        string comments)
+        string? exceptions,
+        string? comments)
         : base(id)
     {
         ApplicationName = applicationName.Truncate(AuditLogConsts.MaxApplicationNameLength);
@@ -135,6 +135,6 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
         EntityChanges = entityChanges;
         Actions = actions;
         Exceptions = exceptions;
-        Comments = comments.Truncate(AuditLogConsts.MaxCommentsLength);
+        Comments = comments?.Truncate(AuditLogConsts.MaxCommentsLength);
     }
 }

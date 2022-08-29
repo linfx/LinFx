@@ -1,7 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

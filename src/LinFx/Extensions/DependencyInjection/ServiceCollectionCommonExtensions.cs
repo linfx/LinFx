@@ -62,15 +62,13 @@ namespace Microsoft.Extensions.DependencyInjection
             return services.BuildServiceProvider();
         }
 
-        public static IServiceProvider BuildServiceProviderFromFactory<TContainerBuilder>([NotNull] this IServiceCollection services, Action<TContainerBuilder> builderAction = null)
+        public static IServiceProvider BuildServiceProviderFromFactory<TContainerBuilder>([NotNull] this IServiceCollection services, Action<TContainerBuilder>? builderAction = null)
         {
             Check.NotNull(services, nameof(services));
 
             var serviceProviderFactory = services.GetSingletonInstanceOrNull<IServiceProviderFactory<TContainerBuilder>>();
             if (serviceProviderFactory == null)
-            {
                 throw new LinFxException($"Could not find {typeof(IServiceProviderFactory<TContainerBuilder>).FullName} in {services}.");
-            }
 
             var builder = serviceProviderFactory.CreateBuilder(services);
             builderAction?.Invoke(builder);

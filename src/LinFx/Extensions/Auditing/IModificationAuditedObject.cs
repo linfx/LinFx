@@ -8,7 +8,7 @@ public interface IModificationAuditedObject : IHasModificationTime
     /// <summary>
     /// Last modifier user for this entity.
     /// </summary>
-    string LastModifierId { get; set; }
+    string? LastModifierId { get; set; }
 }
 
 /// <summary>

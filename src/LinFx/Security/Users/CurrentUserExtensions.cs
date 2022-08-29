@@ -1,11 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace LinFx.Security.Users;
 
 public static class CurrentUserExtensions
 {
-    public static string FindClaimValue(this ICurrentUser currentUser, string claimType)
+    public static string? FindClaimValue(this ICurrentUser currentUser, string claimType)
     {
         return currentUser.FindClaim(claimType)?.Value;
     }
