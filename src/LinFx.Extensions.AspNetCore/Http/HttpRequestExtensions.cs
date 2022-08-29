@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx;
 using Microsoft.Net.Http.Headers;
-using System;
 
 namespace Microsoft.AspNetCore.Http;
 

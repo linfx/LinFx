@@ -1,9 +1,8 @@
-﻿namespace LinFx.Extensions.ObjectMapping
-{
-    public interface IMapTo<TDestination>
-    {
-        TDestination MapTo();
+﻿namespace LinFx.Extensions.ObjectMapping;
 
-        void MapTo(TDestination destination);
-    }
+public interface IMapTo<TDestination>
+{
+    TDestination MapTo();
+
+    void MapTo(TDestination destination);
 }

@@ -30,7 +30,6 @@ public class AuditingMiddleware : IMiddleware, ITransientDependency
         IUnitOfWorkManager unitOfWorkManager)
     {
         _auditingManager = auditingManager;
-
         CurrentUser = currentUser;
         UnitOfWorkManager = unitOfWorkManager;
         AuditingOptions = auditingOptions.Value;

@@ -1,19 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
 public class ExceptionHttpStatusCodeOptions
 {
-    public IDictionary<string, HttpStatusCode> ErrorCodeToHttpStatusCodeMappings { get; }
+    public IDictionary<string, HttpStatusCode> ErrorCodeToHttpStatusCodeMappings { get; } = new Dictionary<string, HttpStatusCode>();
 
-    public ExceptionHttpStatusCodeOptions()
-    {
-        ErrorCodeToHttpStatusCodeMappings = new Dictionary<string, HttpStatusCode>();
-    }
-
-    public void Map(string errorCode, HttpStatusCode httpStatusCode)
-    {
-        ErrorCodeToHttpStatusCodeMappings[errorCode] = httpStatusCode;
-    }
+    public void Map(string errorCode, HttpStatusCode httpStatusCode) => ErrorCodeToHttpStatusCodeMappings[errorCode] = httpStatusCode;
 }
