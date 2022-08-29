@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.RabbitMq;
+﻿namespace LinFx.Extensions.RabbitMq;
 
 public interface IChannelPool : IDisposable
 {
@@ -10,5 +8,5 @@ public interface IChannelPool : IDisposable
     /// <param name="channelName"></param>
     /// <param name="connectionName"></param>
     /// <returns></returns>
-    IChannelAccessor Acquire(string channelName = default, string connectionName = default);
+    IChannelAccessor Acquire(string? channelName = default, string? connectionName = default);
 }

@@ -1,6 +1,5 @@
 ﻿using LinFx;
 using LinFx.Extensions.RabbitMq;
-using System;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

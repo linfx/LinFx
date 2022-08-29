@@ -50,7 +50,7 @@ public class RabbitMqMessageConsumer : IRabbitMqMessageConsumer, IDisposable
     public void Initialize(
         [NotNull] ExchangeDeclareConfiguration exchange,
         [NotNull] QueueDeclareConfiguration queue,
-        string connectionName = null)
+        string connectionName)
     {
         Exchange = Check.NotNull(exchange, nameof(exchange));
         Queue = Check.NotNull(queue, nameof(queue));

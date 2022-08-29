@@ -1,5 +1,4 @@
 ﻿using RabbitMQ.Client;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.RabbitMq;

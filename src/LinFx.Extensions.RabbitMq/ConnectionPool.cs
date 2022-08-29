@@ -39,7 +39,7 @@ public class ConnectionPool : IConnectionPool
         }
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         if (_isDisposed)
             return;

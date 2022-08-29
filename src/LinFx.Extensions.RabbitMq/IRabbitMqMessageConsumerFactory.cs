@@ -11,5 +11,5 @@ public interface IRabbitMqMessageConsumerFactory
     /// <param name="queue"></param>
     /// <param name="connectionName"></param>
     /// <returns></returns>
-    IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = null);
+    IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName);
 }

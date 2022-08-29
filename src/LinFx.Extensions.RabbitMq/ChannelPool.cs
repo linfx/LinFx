@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RabbitMQ.Client;
-using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 
 namespace LinFx.Extensions.RabbitMq;
 
@@ -28,7 +25,7 @@ public class ChannelPool : IChannelPool
         ConnectionPool = connectionPool;
     }
 
-    public virtual IChannelAccessor Acquire(string channelName = default, string connectionName = default)
+    public virtual IChannelAccessor Acquire(string? channelName = default, string? connectionName = default)
     {
         CheckDisposed();
         channelName ??= "";
@@ -37,10 +34,7 @@ public class ChannelPool : IChannelPool
         return new ChannelAccessor(poolItem.Channel, channelName, () => poolItem.Release());
     }
 
-    protected virtual IModel CreateChannel(string channelName, string connectionName)
-    {
-        return ConnectionPool.Get(connectionName).CreateModel();
-    }
+    protected virtual IModel CreateChannel(string channelName, string? connectionName) => ConnectionPool.Get(connectionName).CreateModel();
 
     protected void CheckDisposed()
     {

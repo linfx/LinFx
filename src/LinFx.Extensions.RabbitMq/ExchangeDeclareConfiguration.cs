@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Extensions.RabbitMq;
+﻿namespace LinFx.Extensions.RabbitMq;
 
 public class ExchangeDeclareConfiguration
 {

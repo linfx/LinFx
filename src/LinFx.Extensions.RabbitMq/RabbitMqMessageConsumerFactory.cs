@@ -15,7 +15,7 @@ public class RabbitMqMessageConsumerFactory : IRabbitMqMessageConsumerFactory, I
         ServiceScope = serviceScopeFactory.CreateScope();
     }
 
-    public IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName = default)
+    public IRabbitMqMessageConsumer Create(ExchangeDeclareConfiguration exchange, QueueDeclareConfiguration queue, string connectionName)
     {
         var consumer = ServiceScope.ServiceProvider.GetRequiredService<RabbitMqMessageConsumer>();
         consumer.Initialize(exchange, queue, connectionName);
