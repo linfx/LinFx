@@ -3,7 +3,6 @@ using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 
@@ -25,6 +24,7 @@ public class LocalEventBus : EventBusBase, ILocalEventBus
 
     public LocalEventBus(
         IOptions<LocalEventBusOptions> options,
+        ILoggerFactory loggerFactory,
         IServiceScopeFactory serviceScopeFactory,
         ICurrentTenant currentTenant,
         IUnitOfWorkManager unitOfWorkManager,
@@ -32,15 +32,13 @@ public class LocalEventBus : EventBusBase, ILocalEventBus
         : base(serviceScopeFactory, currentTenant, unitOfWorkManager, errorHandler)
     {
         Options = options.Value;
-        Logger = NullLogger<LocalEventBus>.Instance;
+        Logger = loggerFactory.CreateLogger(GetType().Name);
         HandlerFactories = new ConcurrentDictionary<Type, List<IEventHandlerFactory>>();
         SubscribeHandlers(Options.Handlers);
     }
 
-    /// <inheritdoc/>
     public virtual IDisposable Subscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class => Subscribe(typeof(TEvent), handler);
 
-    /// <inheritdoc/>
     public override IDisposable Subscribe(Type eventType, IEventHandlerFactory factory)
     {
         GetOrCreateHandlerFactories(eventType).Locking(factories =>
@@ -54,7 +52,6 @@ public class LocalEventBus : EventBusBase, ILocalEventBus
         return new EventHandlerFactoryUnregistrar(this, eventType, factory);
     }
 
-    /// <inheritdoc/>
     public override void Unsubscribe<TEvent>(Func<TEvent, Task> action)
     {
         Check.NotNull(action, nameof(action));
@@ -74,16 +71,13 @@ public class LocalEventBus : EventBusBase, ILocalEventBus
         });
     }
 
-    /// <inheritdoc/>
     public override void Unsubscribe(Type eventType, IEventHandler handler) => GetOrCreateHandlerFactories(eventType).Locking(factories =>
     {
         factories.RemoveAll(factory => factory is SingleInstanceHandlerFactory && ((SingleInstanceHandlerFactory)factory).HandlerInstance == handler);
     });
 
-    /// <inheritdoc/>
     public override void Unsubscribe(Type eventType, IEventHandlerFactory factory) => GetOrCreateHandlerFactories(eventType).Locking(factories => factories.Remove(factory));
 
-    /// <inheritdoc/>
     public override void UnsubscribeAll(Type eventType) => GetOrCreateHandlerFactories(eventType).Locking(factories => factories.Clear());
 
     protected override async Task PublishToEventBusAsync(Type eventType, object eventData) => await PublishAsync(new LocalEventMessage(Guid.NewGuid(), eventData, eventType));

@@ -64,10 +64,7 @@ public abstract class EventBusBase : IEventBus
     {
         if (onUnitOfWorkComplete && UnitOfWorkManager.Current != null)
         {
-            AddToUnitOfWork(
-                UnitOfWorkManager.Current,
-                new UnitOfWorkEventRecord(eventType, eventData, EventOrderGenerator.GetNext())
-            );
+            AddToUnitOfWork(UnitOfWorkManager.Current, new UnitOfWorkEventRecord(eventType, eventData, EventOrderGenerator.GetNext()));
             return;
         }
 

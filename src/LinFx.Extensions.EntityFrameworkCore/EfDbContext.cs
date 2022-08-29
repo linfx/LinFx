@@ -181,11 +181,13 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             if (auditLog != null)
                 entityChangeList = EntityHistoryHelper.CreateChangeList(ChangeTracker.Entries().ToList());
 
+            // 保存前属性处理
             HandlePropertiesBeforeSave();
 
             // 创建领域事件
             var eventReport = CreateEventReport();
 
+            // 保存
             var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
             // 发布领域事件
@@ -333,6 +335,9 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         }
     }
 
+    /// <summary>
+    /// 保存前属性处理
+    /// </summary>
     protected virtual void HandlePropertiesBeforeSave()
     {
         foreach (var entry in ChangeTracker.Entries().ToList())
@@ -340,9 +345,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             HandleExtraPropertiesOnSave(entry);
 
             if (entry.State.IsIn(EntityState.Modified, EntityState.Deleted))
-            {
                 UpdateConcurrencyStamp(entry);
-            }
         }
     }
 
