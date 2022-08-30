@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Identity
+﻿namespace LinFx.Extensions.Identity
 {
     public interface IUserRoleFinder
     {

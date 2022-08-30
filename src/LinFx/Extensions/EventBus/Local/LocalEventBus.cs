@@ -28,8 +28,8 @@ public class LocalEventBus : EventBusBase, ILocalEventBus
         IServiceScopeFactory serviceScopeFactory,
         ICurrentTenant currentTenant,
         IUnitOfWorkManager unitOfWorkManager,
-        IEventErrorHandler errorHandler)
-        : base(serviceScopeFactory, currentTenant, unitOfWorkManager, errorHandler)
+        IEventHandlerInvoker eventHandlerInvoker)
+        : base(serviceScopeFactory, currentTenant, unitOfWorkManager, eventHandlerInvoker)
     {
         Options = options.Value;
         Logger = loggerFactory.CreateLogger(GetType().Name);
