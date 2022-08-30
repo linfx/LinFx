@@ -17,20 +17,9 @@ public class MongoDbModule : Module
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.TryAddTransient(
-            typeof(IMongoDbContextProvider<>),
-            typeof(UnitOfWorkMongoDbContextProvider<>)
-        );
-
-        context.Services.TryAddTransient(
-            typeof(IMongoDbRepositoryFilterer<>),
-            typeof(MongoDbRepositoryFilterer<>)
-        );
-
-        context.Services.TryAddTransient(
-            typeof(IMongoDbRepositoryFilterer<,>),
-            typeof(MongoDbRepositoryFilterer<,>)
-        );
+        context.Services.TryAddTransient(typeof(IMongoDbContextProvider<>), typeof(UnitOfWorkMongoDbContextProvider<>));
+        context.Services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<>), typeof(MongoDbRepositoryFilterer<>));
+        context.Services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<,>), typeof(MongoDbRepositoryFilterer<,>));
 
         //context.Services.AddTransient(
         //    typeof(IMongoDbContextEventOutbox<>),

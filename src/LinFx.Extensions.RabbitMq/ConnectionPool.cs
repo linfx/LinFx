@@ -2,7 +2,7 @@
 using RabbitMQ.Client;
 using System.Collections.Concurrent;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 public class ConnectionPool : IConnectionPool
 {

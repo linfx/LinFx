@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 /// <summary>
 /// 消费者工厂

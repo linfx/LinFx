@@ -1,6 +1,6 @@
 ﻿using RabbitMQ.Client;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 /// <summary>
 /// channel accessor

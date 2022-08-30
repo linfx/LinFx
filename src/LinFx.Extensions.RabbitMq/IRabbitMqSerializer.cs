@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.RabbitMq;
+﻿namespace LinFx.Extensions.RabbitMQ;
 
 /// <summary>
 /// 序列化

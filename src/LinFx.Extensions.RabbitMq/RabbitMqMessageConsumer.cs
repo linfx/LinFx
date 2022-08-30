@@ -3,12 +3,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 /// <summary>
 /// 消费者

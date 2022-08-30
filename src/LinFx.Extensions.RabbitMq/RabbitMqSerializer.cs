@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 public class RabbitMqSerializer : IRabbitMqSerializer
 {

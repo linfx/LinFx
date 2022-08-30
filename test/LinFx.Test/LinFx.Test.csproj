@@ -55,7 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LinFx.Extensions.RabbitMq\LinFx.Extensions.RabbitMq.csproj" />
     <ProjectReference Include="..\..\src\LinFx\LinFx.csproj" />
   </ItemGroup>
 

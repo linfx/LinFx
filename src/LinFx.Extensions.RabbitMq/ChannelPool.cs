@@ -4,7 +4,7 @@ using RabbitMQ.Client;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 public class ChannelPool : IChannelPool
 {
@@ -42,7 +42,7 @@ public class ChannelPool : IChannelPool
             throw new ObjectDisposedException(nameof(ChannelPool));
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         if (IsDisposed)
             return;

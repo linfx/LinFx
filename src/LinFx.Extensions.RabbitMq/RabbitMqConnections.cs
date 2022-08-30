@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LinFx.Extensions.RabbitMq;
+namespace LinFx.Extensions.RabbitMQ;
 
 /// <summary>
 /// 连接
