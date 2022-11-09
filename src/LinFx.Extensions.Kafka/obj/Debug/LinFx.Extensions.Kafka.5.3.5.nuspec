@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.Kafka</id>
+    <version>5.3.5</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Confluent.Kafka" version="1.9.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net6.0\LinFx.Extensions.Kafka.dll" target="lib\net6.0\LinFx.Extensions.Kafka.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net6.0\LinFx.Extensions.Kafka.xml" target="lib\net6.0\LinFx.Extensions.Kafka.xml" />
+  </files>
+</package>

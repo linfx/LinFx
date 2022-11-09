@@ -1,0 +1,14 @@
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.xml
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.deps.json
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.dll
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.pdb
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.dll
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.pdb
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\bin\Release\netstandard2.1\ShopFx.xml
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.csprojAssemblyReference.cache
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.AssemblyInfoInputs.cache
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.AssemblyInfo.cs
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.csproj.CoreCompileInputs.cache
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.csproj.CopyComplete
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.dll
+D:\github\linfx\shopfx\src\Modules\ShopFx.Module.Core.Abstractions\obj\Release\netstandard2.1\ShopFx.Module.Core.Abstractions.pdb

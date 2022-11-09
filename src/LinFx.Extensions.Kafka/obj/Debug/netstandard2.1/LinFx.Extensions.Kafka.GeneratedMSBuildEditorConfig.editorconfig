@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = LinFx.Extensions.Kafka
+build_property.ProjectDir = D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\

@@ -1,0 +1,13 @@
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.PermissionManagement.deps.json
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.PermissionManagement.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.PermissionManagement.pdb
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\bin\Debug\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.csproj.CopyComplete
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.PermissionManagement\obj\Debug\netstandard2.1\LinFx.PermissionManagement.pdb

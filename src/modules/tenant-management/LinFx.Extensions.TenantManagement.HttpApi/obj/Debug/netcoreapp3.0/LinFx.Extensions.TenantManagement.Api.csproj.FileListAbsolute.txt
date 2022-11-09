@@ -1,0 +1,17 @@
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.deps.json
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.EmitMapper.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.xml
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\bin\Debug\netcoreapp3.0\LinFx.Extensions.EmitMapper.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.csproj.CopyComplete
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.Api\obj\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.Api.pdb

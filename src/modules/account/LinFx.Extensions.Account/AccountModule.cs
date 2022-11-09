@@ -1,24 +1,20 @@
 ﻿using LinFx.Extensions.Account;
 using LinFx.Extensions.Account.Application;
+using LinFx.Extensions.Modularity;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Microsoft.Extensions.DependencyInjection;
+
+/// <summary>
+/// 账户模块
+/// </summary>
+public class AccountModule : Module
 {
-    public static class AccountModule
+    public override void ConfigureServices(IServiceCollection services)
     {
-        /// <summary>
-        /// 账号模块
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static LinFxBuilder AddAccountExtensions(this LinFxBuilder services)
-        {
-            services.Services
-                .AddDistributedMemoryCache()
-                .AddSingleton<AuthenticationOptions>()
-                .AddTransient<ITokenService, TokenService>()
-                .AddTransient<IAccountService, AccountService>();
-
-            return services;
-        }
+        services
+            .AddDistributedMemoryCache()
+            .AddSingleton<AuthenticationOptions>()
+            .AddTransient<ITokenService, TokenService>()
+            .AddTransient<IAccountService, AccountService>();
     }
 }

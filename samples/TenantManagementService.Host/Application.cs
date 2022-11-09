@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.AspNetCore;
+﻿using LinFx.Extensions.Account.HttpApi;
+using LinFx.Extensions.AspNetCore;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
@@ -20,6 +21,7 @@ namespace TenantManagementService;
     typeof(AutofacModule),
     typeof(AuditLoggingModule),
     typeof(AspNetCoreModule),
+    typeof(AccountHttpApiModule),
     typeof(PermissionManagementModule),
     typeof(TenantManagementHttpApiModule)
 )]
@@ -30,8 +32,8 @@ public class Application : Module
         Configure<EfDbContextOptions>(options =>
         {
             options.UseSqlite<TenantManagementDbContext>();
-            options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly("TenantManagementService.Host"));
-            options.UseSqlite<PermissionManagementDbContext>(options => options.MigrationsAssembly("TenantManagementService.Host"));
+            options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            options.UseSqlite<PermissionManagementDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         });
 
         services.AddSwaggerGen(options =>

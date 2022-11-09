@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace LinFx.Extensions.Mediator.Idempotency
+namespace LinFx.Extensions.MediatR.Idempotency
 {
     public class IdentifiedCommand<TCommand, TResponse> : IRequest<TResponse> where TCommand : IRequest<TResponse>
     {

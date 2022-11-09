@@ -1,0 +1,9 @@
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.0\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.0\LinFx.deps.json
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.0\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.0\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.0\LinFx.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.0\LinFx.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.0\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.0\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.0\LinFx.csprojAssemblyReference.cache

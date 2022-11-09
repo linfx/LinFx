@@ -1,0 +1,17 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.deps.json
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Release\net6.0\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.csproj.CopyComplete
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\refint\LinFx.Extensions.EntityFrameworkCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\obj\Release\net6.0\ref\LinFx.Extensions.EntityFrameworkCore.dll

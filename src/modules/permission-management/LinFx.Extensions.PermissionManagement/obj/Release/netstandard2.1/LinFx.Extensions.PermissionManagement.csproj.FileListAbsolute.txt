@@ -1,0 +1,15 @@
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.deps.json
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.dll
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.pdb
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.csproj.CopyComplete
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.dll
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.pdb
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.xml
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\obj\Release\netstandard2.1\LinFx.Extensions.PermissionManagement.GeneratedMSBuildEditorConfig.editorconfig

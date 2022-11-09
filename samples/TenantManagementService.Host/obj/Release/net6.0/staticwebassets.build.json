@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "6SjWU8QnEJ1Mme0xBBAGIy2rE22b/l/RUC+xkjRrlPI=",
+  "Source": "TenantManagementService.Host",
+  "BasePath": "_content/TenantManagementService.Host",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

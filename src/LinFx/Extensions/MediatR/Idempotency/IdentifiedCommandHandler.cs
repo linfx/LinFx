@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Mediator.Idempotency
+namespace LinFx.Extensions.MediatR.Idempotency
 {
     /// <summary>
     /// Provides a base implementation for handling duplicate request and ensuring idempotent updates, in the cases where

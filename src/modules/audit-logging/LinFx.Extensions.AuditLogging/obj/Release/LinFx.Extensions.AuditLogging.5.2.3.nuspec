@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.AuditLogging</id>
+    <version>5.2.3</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="LinFx" version="5.2.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.dll" target="lib\netstandard2.1\LinFx.Extensions.AuditLogging.dll" />
+    <file src="D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.xml" target="lib\netstandard2.1\LinFx.Extensions.AuditLogging.xml" />
+  </files>
+</package>

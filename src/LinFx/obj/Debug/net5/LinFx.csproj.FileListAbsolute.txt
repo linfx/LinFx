@@ -1,0 +1,12 @@
+D:\github\linfx\LinFx\src\LinFx\bin\Debug\net5\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx\bin\Debug\net5\LinFx.deps.json
+D:\github\linfx\LinFx\src\LinFx\bin\Debug\net5\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\bin\Debug\net5\ref\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\bin\Debug\net5\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\ref\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\obj\Debug\net5\LinFx.pdb

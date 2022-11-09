@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.TenantManagement</id>
+    <version>5.2.2</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="LinFx" version="5.2.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\modules\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\zh-CN\LinFx.Extensions.TenantManagement.resources.dll" target="lib\netstandard2.1\zh-CN\LinFx.Extensions.TenantManagement.resources.dll" />
+    <file src="D:\github\linfx\LinFx\src\modules\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.Extensions.TenantManagement.dll" target="lib\netstandard2.1\LinFx.Extensions.TenantManagement.dll" />
+    <file src="D:\github\linfx\LinFx\src\modules\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.Extensions.TenantManagement.xml" target="lib\netstandard2.1\LinFx.Extensions.TenantManagement.xml" />
+  </files>
+</package>

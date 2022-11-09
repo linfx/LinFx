@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace LinFx.Extensions.Mediator.Idempotency
+namespace LinFx.Extensions.MediatR.Idempotency
 {
     public class RequestManager : IRequestManager
     {

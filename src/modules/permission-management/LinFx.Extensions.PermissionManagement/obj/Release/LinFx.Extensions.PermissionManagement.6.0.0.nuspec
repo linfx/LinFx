@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.PermissionManagement</id>
+    <version>6.0.0</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="LinFx.Extensions.EntityFrameworkCore" version="6.0.0" exclude="Build,Analyzers" />
+        <dependency id="LinFx" version="6.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net6.0\LinFx.Extensions.PermissionManagement.dll" target="lib\net6.0\LinFx.Extensions.PermissionManagement.dll" />
+    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net6.0\LinFx.Extensions.PermissionManagement.xml" target="lib\net6.0\LinFx.Extensions.PermissionManagement.xml" />
+  </files>
+</package>

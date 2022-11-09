@@ -1,0 +1,15 @@
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.xml
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.deps.json
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.dll
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.Extensions.AuditLogging.pdb
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\bin\Release\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.csproj.CopyComplete
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.dll
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.pdb
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\modules\audit-logging\LinFx.Extensions.AuditLogging\obj\Release\netstandard2.1\LinFx.Extensions.AuditLogging.GeneratedMSBuildEditorConfig.editorconfig

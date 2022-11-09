@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.Account.UI</id>
+    <version>0.1.10</version>
+    <authors>LinFx.Extensions.Account.UI</authors>
+    <owners>LinFx.Extensions.Account.UI</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/linfx/LinFx_Modules</projectUrl>
+    <description>Package Description</description>
+    <repository type="git" url="https://github.com/linfx/LinFx_Modules" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="LinFx.Extensions.Identity" version="0.1.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx_Modules\src\account\LinFx.Extensions.Account.UI\bin\Debug\netstandard2.0\LinFx.Extensions.Account.UI.Views.dll" target="lib\netstandard2.0\LinFx.Extensions.Account.UI.Views.dll" />
+    <file src="D:\github\linfx\LinFx_Modules\src\account\LinFx.Extensions.Account.UI\bin\Debug\netstandard2.0\LinFx.Extensions.Account.UI.dll" target="lib\netstandard2.0\LinFx.Extensions.Account.UI.dll" />
+    <file src="D:\github\linfx\LinFx_Modules\src\account\LinFx.Extensions.Account.UI\bin\Debug\netstandard2.0\LinFx.Extensions.Account.UI.xml" target="lib\netstandard2.0\LinFx.Extensions.Account.UI.xml" />
+  </files>
+</package>

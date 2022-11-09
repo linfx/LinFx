@@ -1,0 +1,13 @@
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.deps.json
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.pdb
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.xml
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.pdb
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\bin\Debug\netstandard2.0\LinFx.xml
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.csproj.CopyComplete
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.dll
+D:\github\linfx\LinFx_Modules\src\permission-management\LinFx.Extensions.PermissionManagement\obj\Debug\netstandard2.0\LinFx.Extensions.PermissionManagement.pdb

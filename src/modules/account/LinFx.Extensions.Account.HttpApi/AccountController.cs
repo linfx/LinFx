@@ -30,10 +30,7 @@ public class AccountController : ControllerBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost("login")]
-    public virtual ValueTask<Result> LoginAsync(LoginInput input)
-    {
-        return _accountService.LoginAsync(input);
-    }
+    public virtual ValueTask<Result> LoginAsync(LoginInput input) => _accountService.LoginAsync(input);
 
     /// <summary>
     /// 注册
@@ -42,10 +39,7 @@ public class AccountController : ControllerBase
     /// <returns></returns>
     [AllowAnonymous]
     [HttpPost("register")]
-    public virtual ValueTask<Result> RegisterAsync(RegisterInput input)
-    {
-        return _accountService.RegisterAsync(input);
-    }
+    public virtual ValueTask<Result> RegisterAsync(RegisterInput input) => _accountService.RegisterAsync(input);
 
     /// <summary>
     /// 获取当前用户

@@ -1,0 +1,9 @@
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Release\netstandard2.0\LinFx.Extensions.TenantManagement.deps.json
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Release\netstandard2.0\LinFx.Extensions.TenantManagement.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Release\netstandard2.0\LinFx.Extensions.TenantManagement.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Release\netstandard2.0\LinFx.Extensions.TenantManagement.xml
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Release\netstandard2.0\LinFx.Extensions.TenantManagement.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Release\netstandard2.0\LinFx.Extensions.TenantManagement.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Release\netstandard2.0\LinFx.Extensions.TenantManagement.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Release\netstandard2.0\LinFx.Extensions.TenantManagement.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Release\netstandard2.0\LinFx.Extensions.TenantManagement.csprojAssemblyReference.cache

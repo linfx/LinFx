@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.TenantManagement.HttpApi</id>
+    <version>0.2.0</version>
+    <authors>LinFx.Extensions.TenantManagement.HttpApi</authors>
+    <owners>LinFx.Extensions.TenantManagement.HttpApi</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/linfx/LinFx_Modules</projectUrl>
+    <description>Package Description</description>
+    <repository type="git" url="https://github.com/linfx/LinFx_Modules" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="LinFx.Extensions.TenantManagement" version="0.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.HttpApi\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.HttpApi.dll" target="lib\netcoreapp3.0\LinFx.Extensions.TenantManagement.HttpApi.dll" />
+    <file src="D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement.HttpApi\bin\Debug\netcoreapp3.0\LinFx.Extensions.TenantManagement.HttpApi.xml" target="lib\netcoreapp3.0\LinFx.Extensions.TenantManagement.HttpApi.xml" />
+  </files>
+</package>

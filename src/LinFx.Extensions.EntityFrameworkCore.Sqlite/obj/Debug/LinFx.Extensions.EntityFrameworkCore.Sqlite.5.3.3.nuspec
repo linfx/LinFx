@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.EntityFrameworkCore.Sqlite</id>
+    <version>5.3.3</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="LinFx" version="5.3.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="5.0.15" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Debug\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Debug\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" />
+  </files>
+</package>

@@ -1,0 +1,275 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj": {}
+  },
+  "projects": {
+    "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj": {
+      "version": "6.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj",
+        "projectName": "LinFx.Extensions.EventBus.RabbitMQ",
+        "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj",
+        "packagesPath": "C:\\Users\\AAA\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\AAA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj": {
+                "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj": {
+      "version": "6.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj",
+        "projectName": "LinFx.Extensions.RabbitMQ",
+        "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj",
+        "packagesPath": "C:\\Users\\AAA\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\AAA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
+                "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
+      "version": "6.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
+        "projectName": "LinFx",
+        "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
+        "packagesPath": "C:\\Users\\AAA\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\linfx\\LinFx\\src\\LinFx\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\AAA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "BouncyCastle.NetCore": {
+              "target": "Package",
+              "version": "[1.9.0, )"
+            },
+            "Castle.Core.AsyncInterceptor": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "EmitMapper.Core": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "JetBrains.Annotations": {
+              "target": "Package",
+              "version": "[2022.1.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Caching.Redis": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.Extensions.Localization": {
+              "target": "Package",
+              "version": "[6.0.9, )"
+            },
+            "Microsoft.Extensions.Options.ConfigurationExtensions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Nito.AsyncEx": {
+              "target": "Package",
+              "version": "[5.1.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.23.1, )"
+            },
+            "System.Runtime.Loader": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Security.Cryptography.Cng": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

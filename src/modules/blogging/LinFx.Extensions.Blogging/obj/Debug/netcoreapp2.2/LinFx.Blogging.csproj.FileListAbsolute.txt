@@ -1,0 +1,15 @@
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.Blogging.deps.json
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.Blogging.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.Blogging.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.Identity.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.xml
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netcoreapp2.2\LinFx.Identity.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.csproj.CopyComplete
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Blogging.pdb

@@ -1,0 +1,10 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\netstandard2.1\LinFx.Extensions.Kafka.deps.json
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\netstandard2.1\LinFx.Extensions.Kafka.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\netstandard2.1\LinFx.Extensions.Kafka.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\netstandard2.1\LinFx.Extensions.Kafka.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\obj\Debug\netstandard2.1\LinFx.Extensions.Kafka.pdb

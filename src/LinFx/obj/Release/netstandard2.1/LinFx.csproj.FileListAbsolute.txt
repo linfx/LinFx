@@ -1,0 +1,11 @@
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.1\LinFx.deps.json
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\bin\Release\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx\obj\Release\netstandard2.1\LinFx.csproj.AssemblyReference.cache

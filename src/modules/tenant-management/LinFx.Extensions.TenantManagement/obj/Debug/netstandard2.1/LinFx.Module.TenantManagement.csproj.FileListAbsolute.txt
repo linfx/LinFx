@@ -1,0 +1,13 @@
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.Module.TenantManagement.deps.json
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.Module.TenantManagement.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.Module.TenantManagement.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\bin\Debug\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.csproj.CopyComplete
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.dll
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.pdb
+D:\github\linfx\LinFx_Modules\src\tenant-management\LinFx.Extensions.TenantManagement\obj\Debug\netstandard2.1\LinFx.Module.TenantManagement.csproj.CoreCompileInputs.cache

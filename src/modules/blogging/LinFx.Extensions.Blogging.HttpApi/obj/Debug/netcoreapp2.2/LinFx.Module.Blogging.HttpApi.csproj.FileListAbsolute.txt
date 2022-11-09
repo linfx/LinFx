@@ -1,0 +1,15 @@
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.deps.json
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.runtimeconfig.json
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.runtimeconfig.dev.json
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.AssemblyInfo.cs
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.genruntimeconfig.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.dll
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\bin\Debug\netcoreapp2.2\LinFx.Module.Blogging.pdb
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Extensions.Blogging.HttpApi\obj\Debug\netcoreapp2.2\LinFx.Module.Blogging.HttpApi.csproj.CopyComplete

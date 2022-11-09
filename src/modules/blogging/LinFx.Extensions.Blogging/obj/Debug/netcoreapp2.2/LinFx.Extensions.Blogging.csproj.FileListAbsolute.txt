@@ -1,0 +1,4 @@
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Extensions.Blogging.csprojAssemblyReference.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Extensions.Blogging.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Extensions.Blogging.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netcoreapp2.2\LinFx.Extensions.Blogging.AssemblyInfo.cs

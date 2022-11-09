@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LinFx.Extensions.Mediator.Behaviors;
+using LinFx.Extensions.MediatR.Behaviors;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

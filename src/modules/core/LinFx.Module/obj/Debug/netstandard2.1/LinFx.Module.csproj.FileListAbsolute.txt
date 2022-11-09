@@ -1,0 +1,8 @@
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\obj\Debug\netstandard2.1\LinFx.Module.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\obj\Debug\netstandard2.1\LinFx.Module.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\obj\Debug\netstandard2.1\LinFx.Module.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\bin\Debug\netstandard2.1\LinFx.Module.deps.json
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\bin\Debug\netstandard2.1\LinFx.Module.dll
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\bin\Debug\netstandard2.1\LinFx.Module.pdb
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\obj\Debug\netstandard2.1\LinFx.Module.dll
+D:\github\linfx\LinFx\src\modules\core\LinFx.Module\obj\Debug\netstandard2.1\LinFx.Module.pdb

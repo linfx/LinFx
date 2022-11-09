@@ -1,0 +1,15 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.Extensions.MongoDB.deps.json
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.Extensions.MongoDB.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.Extensions.MongoDB.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.Extensions.MongoDB.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\bin\Debug\netstandard2.1\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.csproj.CopyComplete
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.MongoDB\obj\Debug\netstandard2.1\LinFx.Extensions.MongoDB.pdb

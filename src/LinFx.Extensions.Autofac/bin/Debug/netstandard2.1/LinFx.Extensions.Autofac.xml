@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinFx.Extensions.Autofac</name>
+    </assembly>
+    <members>
+        <member name="T:LinFx.Extensions.Autofac.AutofacServiceProviderFactory">
+            <summary>
+            A factory for creating a <see cref="T:Autofac.ContainerBuilder" /> and an <see cref="T:System.IServiceProvider" />.
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.Autofac.AutofacServiceProviderFactory.CreateBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Creates a container builder from an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services">The collection of services</param>
+            <returns>A container builder that can be used to create an <see cref="T:System.IServiceProvider" />.</returns>
+        </member>
+        <member name="T:Autofac.Core.AutowiredPropertySelector">
+            <summary>
+            属性注入选择器
+            </summary>
+        </member>
+        <member name="M:Autofac.Core.AutowiredPropertySelector.InjectProperty(System.Reflection.PropertyInfo,System.Object)">
+            <summary>
+            属性注入
+            </summary>
+            <param name="propertyInfo"></param>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Autofac.Builder.RegistrationBuilderExtensions.InvokeRegistrationActions``3(Autofac.Builder.IRegistrationBuilder{``0,``1,``2},LinFx.Extensions.DependencyInjection.ServiceRegistrationActionList,System.Type,System.Type)">
+            <summary>
+            调用传入 Action
+            </summary>
+            <typeparam name="TLimit"></typeparam>
+            <typeparam name="TActivatorData"></typeparam>
+            <typeparam name="TRegistrationStyle"></typeparam>
+            <param name="registrationBuilder"></param>
+            <param name="registrationActionList"></param>
+            <param name="serviceType"></param>
+            <param name="implementationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Autofac.Builder.RegistrationBuilderExtensions.EnablePropertyInjection``3(Autofac.Builder.IRegistrationBuilder{``0,``1,``2},LinFx.Extensions.Modularity.IModuleContainer,System.Type)">
+            <summary>
+            属性注入
+            </summary>
+            <typeparam name="TLimit"></typeparam>
+            <typeparam name="TActivatorData"></typeparam>
+            <typeparam name="TRegistrationStyle"></typeparam>
+            <param name="registrationBuilder"></param>
+            <param name="moduleContainer"></param>
+            <param name="implementationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Autofac.Builder.RegistrationBuilderExtensions.AddInterceptors``3(Autofac.Builder.IRegistrationBuilder{``0,``1,``2},LinFx.Extensions.DependencyInjection.ServiceRegistrationActionList,System.Type,System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            增加拦截器
+            </summary>
+            <typeparam name="TLimit"></typeparam>
+            <typeparam name="TActivatorData"></typeparam>
+            <typeparam name="TRegistrationStyle"></typeparam>
+            <param name="registrationBuilder"></param>
+            <param name="serviceRegistrationActionList"></param>
+            <param name="serviceType"></param>
+            <param name="interceptors"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Autofac.Extensions.DependencyInjection.AutofacRegistration">
+            <summary>
+            Extension methods for registering ASP.NET Core dependencies with Autofac.
+            </summary>
+        </member>
+        <member name="M:Autofac.Extensions.DependencyInjection.AutofacRegistration.Populate(Autofac.ContainerBuilder,Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
+            <summary>
+            Populates the Autofac container builder with the set of registered service descriptors
+            and makes <see cref="T:System.IServiceProvider"/> and <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"/>
+            available in the container. Using this overload is incompatible with the ASP.NET Core
+            support for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory`1"/>.
+            </summary>
+            <param name="builder">
+            The <see cref="T:Autofac.ContainerBuilder"/> into which the registrations should be made.
+            </param>
+            <param name="services">
+            A container builder that can be used to create an <see cref="T:System.IServiceProvider" />.
+            </param>
+            <param name="lifetimeScopeTagForSingletons">
+            If provided and not <see langword="null"/> then all registrations with lifetime <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton" /> are registered
+            using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.InstancePerMatchingLifetimeScope(System.Object[])" />
+            with provided <paramref name="lifetimeScopeTagForSingletons"/>
+            instead of using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.SingleInstance"/>.
+            </param>
+            <remarks>
+            <para>
+            Specifying a <paramref name="lifetimeScopeTagForSingletons"/> addresses a specific case where you have
+            an application that uses Autofac but where you need to isolate a set of services in a child scope. For example,
+            if you have a large application that self-hosts ASP.NET Core items, you may want to isolate the ASP.NET
+            Core registrations in a child lifetime scope so they don't show up for the rest of the application.
+            This overload allows that. Note it is the developer's responsibility to execute this and create an
+            <see cref="T:Autofac.Extensions.DependencyInjection.AutofacServiceProvider"/> using the child lifetime scope.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Autofac.Extensions.DependencyInjection.AutofacRegistration.ConfigureLifecycle``2(Autofac.Builder.IRegistrationBuilder{System.Object,``0,``1},Microsoft.Extensions.DependencyInjection.ServiceLifetime,System.Object)">
+            <summary>
+            Configures the lifecycle on a service registration.
+            </summary>
+            <typeparam name="TActivatorData">The activator data type.</typeparam>
+            <typeparam name="TRegistrationStyle">The object registration style.</typeparam>
+            <param name="registrationBuilder">The registration being built.</param>
+            <param name="lifecycleKind">The lifecycle specified on the service registration.</param>
+            <param name="lifetimeScopeTagForSingleton">
+            If not <see langword="null"/> then all registrations with lifetime <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton" /> are registered
+            using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.InstancePerMatchingLifetimeScope(System.Object[])" />
+            with provided <paramref name="lifetimeScopeTagForSingleton"/>
+            instead of using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.SingleInstance"/>.
+            </param>
+            <returns>
+            The <paramref name="registrationBuilder" />, configured with the proper lifetime scope,
+            and available for additional configuration.
+            </returns>
+        </member>
+        <member name="M:Autofac.Extensions.DependencyInjection.AutofacRegistration.Register(Autofac.ContainerBuilder,Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
+            <summary>
+            Populates the Autofac container builder with the set of registered service descriptors.
+            </summary>
+            <param name="builder">
+            The <see cref="T:Autofac.ContainerBuilder"/> into which the registrations should be made.
+            </param>
+            <param name="services">
+            A container builder that can be used to create an <see cref="T:System.IServiceProvider" />.
+            </param>
+            <param name="lifetimeScopeTagForSingletons">
+            If not <see langword="null"/> then all registrations with lifetime <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton" /> are registered
+            using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.InstancePerMatchingLifetimeScope(System.Object[])" />
+            with provided <paramref name="lifetimeScopeTagForSingletons"/>
+            instead of using <see cref="M:Autofac.Builder.IRegistrationBuilder`3.SingleInstance"/>.
+            </param>
+        </member>
+    </members>
+</doc>

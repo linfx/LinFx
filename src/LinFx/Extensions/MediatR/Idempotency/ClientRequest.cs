@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LinFx.Extensions.Mediator.Idempotency
+namespace LinFx.Extensions.MediatR.Idempotency
 {
     public class ClientRequest
     {
