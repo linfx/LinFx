@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xCvqNJxnMZ5T1w7TqpdQ7gKXtvMmJhGstdjXGIyy7hB+YCZqkAce3T5XgZLe00dT48kM13yi+j/dAbt9jg9UQw==",
+  "dgSpecHash": "HCi1R4jNtI5jwBQrQ9xYsjGLY9fyIXQBDdnHhZ3B8cyoiJQVYXy8Hy+PtOCNO6pZ7SxCy0/xv2JA9vrLCae/WQ==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj",
   "expectedPackageFiles": [

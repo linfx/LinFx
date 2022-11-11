@@ -18,7 +18,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// <typeparam name="TDbContext"></typeparam>
 public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfDbContext
 {
-    public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; }
+    public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; } = NullLogger<UnitOfWorkDbContextProvider<TDbContext>>.Instance;
 
     private readonly IUnitOfWorkManager _unitOfWorkManager;
     private readonly IConnectionStringResolver _connectionStringResolver;
@@ -38,8 +38,6 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         _cancellationTokenProvider = cancellationTokenProvider;
         _currentTenant = currentTenant;
         _options = options.Value;
-
-        Logger = NullLogger<UnitOfWorkDbContextProvider<TDbContext>>.Instance;
     }
 
     /// <summary>
@@ -202,8 +200,5 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         return await _connectionStringResolver.ResolveAsync(connectionStringName);
     }
 
-    protected virtual CancellationToken GetCancellationToken(CancellationToken preferredValue = default)
-    {
-        return _cancellationTokenProvider.FallbackToProvider(preferredValue);
-    }
+    protected virtual CancellationToken GetCancellationToken(CancellationToken preferredValue = default) => _cancellationTokenProvider.FallbackToProvider(preferredValue);
 }

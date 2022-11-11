@@ -1,7 +1,4 @@
 ﻿using LinFx.Domain.Entities;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 

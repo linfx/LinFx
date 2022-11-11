@@ -30,9 +30,7 @@ public abstract class Enumeration : IComparable
 
     public override bool Equals(object obj)
     {
-        var otherValue = obj as Enumeration;
-
-        if (otherValue == null)
+        if (obj is not Enumeration otherValue)
             return false;
 
         var typeMatches = GetType().Equals(obj.GetType());

@@ -1,8 +1,5 @@
-﻿using System;
+﻿namespace LinFx.Domain.Entities;
 
-namespace LinFx.Domain.Entities
+public class DisableIdGenerationAttribute : Attribute
 {
-    public class DisableIdGenerationAttribute : Attribute
-    {
-    }
 }

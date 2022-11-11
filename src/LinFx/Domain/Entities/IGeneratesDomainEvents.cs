@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Domain.Entities;
-
-//TODO: Re-consider this interface
+﻿namespace LinFx.Domain.Entities;
 
 public interface IGeneratesDomainEvents
 {

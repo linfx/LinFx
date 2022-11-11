@@ -1,10 +1,6 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿namespace LinFx.Extensions.Uow;
 
-namespace LinFx.Extensions.Uow
+public interface ISupportsSavingChanges
 {
-    public interface ISupportsSavingChanges
-    {
-        Task SaveChangesAsync(CancellationToken cancellationToken = default);
-    }
+    Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

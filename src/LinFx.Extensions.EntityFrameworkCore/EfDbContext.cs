@@ -149,21 +149,18 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             modelBuilder.SetDatabaseProvider(provider.Value);
     }
 
-    protected virtual EfDatabaseProvider? GetDatabaseProviderOrNull(ModelBuilder modelBuilder)
+    protected virtual EfDatabaseProvider? GetDatabaseProviderOrNull(ModelBuilder modelBuilder) => Database.ProviderName switch
     {
-        return Database.ProviderName switch
-        {
-            "Microsoft.EntityFrameworkCore.SqlServer" => EfDatabaseProvider.SqlServer,
-            "Npgsql.EntityFrameworkCore.PostgreSQL" => EfDatabaseProvider.PostgreSql,
-            "Pomelo.EntityFrameworkCore.MySql" => EfDatabaseProvider.MySql,
-            "Oracle.EntityFrameworkCore" or "Devart.Data.Oracle.Entity.EFCore" => EfDatabaseProvider.Oracle,
-            "Microsoft.EntityFrameworkCore.Sqlite" => EfDatabaseProvider.Sqlite,
-            "Microsoft.EntityFrameworkCore.InMemory" => EfDatabaseProvider.InMemory,
-            "FirebirdSql.EntityFrameworkCore.Firebird" => EfDatabaseProvider.Firebird,
-            "Microsoft.EntityFrameworkCore.Cosmos" => EfDatabaseProvider.Cosmos,
-            _ => null,
-        };
-    }
+        "Microsoft.EntityFrameworkCore.SqlServer" => EfDatabaseProvider.SqlServer,
+        "Npgsql.EntityFrameworkCore.PostgreSQL" => EfDatabaseProvider.PostgreSql,
+        "Pomelo.EntityFrameworkCore.MySql" => EfDatabaseProvider.MySql,
+        "Oracle.EntityFrameworkCore" or "Devart.Data.Oracle.Entity.EFCore" => EfDatabaseProvider.Oracle,
+        "Microsoft.EntityFrameworkCore.Sqlite" => EfDatabaseProvider.Sqlite,
+        "Microsoft.EntityFrameworkCore.InMemory" => EfDatabaseProvider.InMemory,
+        "FirebirdSql.EntityFrameworkCore.Firebird" => EfDatabaseProvider.Firebird,
+        "Microsoft.EntityFrameworkCore.Cosmos" => EfDatabaseProvider.Cosmos,
+        _ => null,
+    };
 
     /// <summary>
     /// 保存
@@ -234,10 +231,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// <summary>
     /// This method will call the DbContext <see cref="SaveChangesAsync(bool, CancellationToken)"/> method directly of EF Core, which doesn't apply concepts of abp.
     /// </summary>
-    public virtual Task<int> SaveChangesOnDbContextAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
-    {
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-    }
+    public virtual Task<int> SaveChangesOnDbContextAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default) => base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
     /// <summary>
     /// 初始化
@@ -245,15 +239,10 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// <param name="initializationContext"></param>
     public virtual void Initialize(EfDbContextInitializationContext initializationContext)
     {
-        if(LazyServiceProvider == null)
-            LazyServiceProvider = initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
+        LazyServiceProvider ??= initializationContext.UnitOfWork.ServiceProvider.GetRequiredService<ILazyServiceProvider>();
 
-        if (initializationContext.UnitOfWork.Options.Timeout.HasValue &&
-            Database.IsRelational() &&
-            !Database.GetCommandTimeout().HasValue)
-        {
+        if (initializationContext.UnitOfWork.Options.Timeout.HasValue && Database.IsRelational() && !Database.GetCommandTimeout().HasValue)
             Database.SetCommandTimeout(TimeSpan.FromMilliseconds(initializationContext.UnitOfWork.Options.Timeout.Value));
-        }
 
         ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
         ChangeTracker.Tracked += ChangeTracker_Tracked;
@@ -266,10 +255,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         PublishEventsForTrackedEntity(e.Entry);
     }
 
-    protected virtual void ChangeTracker_StateChanged(object? sender, EntityStateChangedEventArgs e)
-    {
-        PublishEventsForTrackedEntity(e.Entry);
-    }
+    protected virtual void ChangeTracker_StateChanged(object? sender, EntityStateChangedEventArgs e) => PublishEventsForTrackedEntity(e.Entry);
 
     protected virtual void FillExtraPropertiesForTrackedEntities(EntityTrackedEventArgs e)
     {
@@ -463,9 +449,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             SetModificationAuditProperties(entry);
 
             if (entry.Entity is ISoftDelete && entry.Entity.As<ISoftDelete>().IsDeleted)
-            {
                 SetDeletionAuditProperties(entry);
-            }
         }
     }
 
@@ -480,8 +464,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
     protected virtual bool IsHardDeleted(EntityEntry entry)
     {
-        var hardDeletedEntities = UnitOfWorkManager?.Current?.Items.GetOrDefault(UnitOfWorkItemNames.HardDeletedEntities) as HashSet<IEntity>;
-        if (hardDeletedEntities == null)
+        if (UnitOfWorkManager?.Current?.Items.GetOrDefault(UnitOfWorkItemNames.HardDeletedEntities) is not HashSet<IEntity> hardDeletedEntities)
             return false;
 
         return hardDeletedEntities.Contains(entry.Entity);
@@ -489,8 +472,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
     protected virtual void UpdateConcurrencyStamp(EntityEntry entry)
     {
-        var entity = entry.Entity as IHasConcurrencyStamp;
-        if (entity == null)
+        if (entry.Entity is not IHasConcurrencyStamp entity)
             return;
 
         Entry(entity).Property(x => x.ConcurrencyStamp).OriginalValue = entity.ConcurrencyStamp;
@@ -499,8 +481,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
     protected virtual void SetConcurrencyStampIfNull(EntityEntry entry)
     {
-        var entity = entry.Entity as IHasConcurrencyStamp;
-        if (entity == null)
+        if (entry.Entity is not IHasConcurrencyStamp entity)
             return;
 
         if (entity.ConcurrencyStamp != null)
@@ -544,20 +525,11 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         EntityHelper.TrySetId(entity, IDUtils.NewIdString(), true);
     }
 
-    protected virtual void SetCreationAuditProperties(EntityEntry entry)
-    {
-        AuditPropertySetter?.SetCreationProperties(entry.Entity);
-    }
+    protected virtual void SetCreationAuditProperties(EntityEntry entry) => AuditPropertySetter?.SetCreationProperties(entry.Entity);
 
-    protected virtual void SetModificationAuditProperties(EntityEntry entry)
-    {
-        AuditPropertySetter?.SetModificationProperties(entry.Entity);
-    }
+    protected virtual void SetModificationAuditProperties(EntityEntry entry) => AuditPropertySetter?.SetModificationProperties(entry.Entity);
 
-    protected virtual void SetDeletionAuditProperties(EntityEntry entry)
-    {
-        AuditPropertySetter?.SetDeletionProperties(entry.Entity);
-    }
+    protected virtual void SetDeletionAuditProperties(EntityEntry entry) => AuditPropertySetter?.SetDeletionProperties(entry.Entity);
 
     /// <summary>
     /// 配置基础属性

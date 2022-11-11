@@ -1,0 +1,5 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\obj\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\obj\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\obj\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\obj\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\obj\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.csproj.CoreCompileInputs.cache

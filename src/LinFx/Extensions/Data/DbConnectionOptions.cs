@@ -12,10 +12,7 @@ public class DbConnectionOptions
         Databases = new DatabaseInfoDictionary();
     }
 
-    public string GetConnectionStringOrNull(
-        string connectionStringName,
-        bool fallbackToDatabaseMappings = true,
-        bool fallbackToDefault = true)
+    public string? GetConnectionStringOrNull(string connectionStringName, bool fallbackToDatabaseMappings = true, bool fallbackToDefault = true)
     {
         var connectionString = ConnectionStrings.GetOrDefault(connectionStringName);
         if (!connectionString.IsNullOrEmpty())

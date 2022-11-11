@@ -1,8 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 
@@ -13,7 +11,7 @@ public class EfDbContextOptions
 {
     internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
 
-    internal Action<DbContextConfigurationContext> DefaultConfigureAction { get; set; }
+    internal Action<DbContextConfigurationContext>? DefaultConfigureAction { get; set; }
 
     internal Dictionary<Type, List<object>> PreConfigureActions { get; } = new Dictionary<Type, List<object>>();
 
@@ -41,11 +39,6 @@ public class EfDbContextOptions
         Check.NotNull(action, nameof(action));
 
         DefaultConfigureAction = action;
-    }
-
-    public bool IsConfiguredDefault()
-    {
-        return DefaultConfigureAction != null;
     }
 
     /// <summary>
@@ -80,15 +73,11 @@ public class EfDbContextOptions
         ConfigureActions[typeof(TDbContext)] = action;
     }
 
-    public bool IsConfigured<TDbContext>()
-    {
-        return IsConfigured(typeof(TDbContext));
-    }
+    public bool IsConfiguredDefault() => DefaultConfigureAction != null;
 
-    public bool IsConfigured(Type dbContextType)
-    {
-        return ConfigureActions.ContainsKey(dbContextType);
-    }
+    public bool IsConfigured<TDbContext>() => IsConfigured(typeof(TDbContext));
+
+    public bool IsConfigured(Type dbContextType) => ConfigureActions.ContainsKey(dbContextType);
 
     internal Type GetReplacedTypeOrSelf(Type dbContextType)
     {
@@ -103,9 +92,7 @@ public class EfDbContextOptions
                 replacementType = foundType;
             }
             else
-            {
                 return replacementType;
-            }
         }
     }
 }

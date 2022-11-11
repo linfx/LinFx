@@ -17,10 +17,6 @@ public interface IEfDbContext : IDisposable, IInfrastructure<IServiceProvider>, 
 
     EntityEntry Attach([NotNull] object entity);
 
-    int SaveChanges();
-
-    int SaveChanges(bool acceptAllChangesOnSuccess);
-
     Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
@@ -30,8 +26,7 @@ public interface IEfDbContext : IDisposable, IInfrastructure<IServiceProvider>, 
     /// </summary>
     Task<int> SaveChangesOnDbContextAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
 
-    DbSet<T> Set<T>()
-        where T : class;
+    DbSet<T> Set<T>() where T : class;
 
     DatabaseFacade Database { get; }
 

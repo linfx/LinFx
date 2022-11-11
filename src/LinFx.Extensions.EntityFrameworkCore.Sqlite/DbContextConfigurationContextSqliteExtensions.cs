@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 

@@ -1,7 +1,5 @@
 using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Data;
 
@@ -12,27 +10,23 @@ public class DefaultConnectionStringResolver : IConnectionStringResolver, ITrans
 {
     protected DbConnectionOptions Options { get; }
 
-    public DefaultConnectionStringResolver(
-        IOptionsSnapshot<DbConnectionOptions> options)
+    public DefaultConnectionStringResolver(IOptionsSnapshot<DbConnectionOptions> options)
     {
         Options = options.Value;
     }
 
-    public virtual Task<string> ResolveAsync(string connectionStringName = null)
-    {
-        return Task.FromResult(ResolveInternal(connectionStringName));
-    }
+    public virtual Task<string> ResolveAsync(string? connectionStringName = null) => Task.FromResult(ResolveInternal(connectionStringName));
 
-    private string ResolveInternal(string connectionStringName)
+    private string ResolveInternal(string? connectionStringName)
     {
         if (connectionStringName == null)
             return Options.ConnectionStrings.Default;
 
         var connectionString = Options.GetConnectionStringOrNull(connectionStringName);
 
-        if (!connectionString.IsNullOrEmpty())
+        if (!string.IsNullOrEmpty(connectionString))
             return connectionString;
 
-        return null;
+        throw new ArgumentNullException("ConnectionString");
     }
 }

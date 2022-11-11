@@ -2541,6 +2541,13 @@
             Default value: null.
             </summary>
         </member>
+        <member name="M:LinFx.Extensions.Data.ConnectionStringNameAttribute.GetConnStringName(System.Type)">
+            <summary>
+            获取链接字符串
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="P:LinFx.Extensions.Data.DatabaseInfo.MappedConnections">
             <summary>
             List of connection names mapped to this database.

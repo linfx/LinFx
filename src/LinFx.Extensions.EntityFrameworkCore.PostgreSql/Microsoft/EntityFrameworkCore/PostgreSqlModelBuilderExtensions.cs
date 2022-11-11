@@ -4,9 +4,5 @@ namespace Microsoft.EntityFrameworkCore;
 
 public static class PostgreSqlModelBuilderExtensions
 {
-    public static void UsePostgreSql(
-        this ModelBuilder modelBuilder)
-    {
-        modelBuilder.SetDatabaseProvider(EfDatabaseProvider.PostgreSql);
-    }
+    public static void UsePostgreSql(this ModelBuilder modelBuilder) => modelBuilder.SetDatabaseProvider(EfDatabaseProvider.PostgreSql);
 }

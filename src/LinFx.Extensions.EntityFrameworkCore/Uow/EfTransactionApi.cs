@@ -2,17 +2,15 @@ using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 
 public class EfTransactionApi : ITransactionApi, ISupportsRollback
 {
     public IDbContextTransaction DbContextTransaction { get; }
+
     public IEfDbContext StarterDbContext { get; }
+
     public List<IEfDbContext> AttendedDbContexts { get; }
 
     protected ICancellationTokenProvider CancellationTokenProvider { get; }
@@ -32,11 +30,8 @@ public class EfTransactionApi : ITransactionApi, ISupportsRollback
     {
         foreach (var dbContext in AttendedDbContexts)
         {
-            if (dbContext.As<DbContext>().HasRelationalTransactionManager() &&
-                dbContext.Database.GetDbConnection() == DbContextTransaction.GetDbTransaction().Connection)
-            {
+            if (dbContext.As<DbContext>().HasRelationalTransactionManager() && dbContext.Database.GetDbConnection() == DbContextTransaction.GetDbTransaction().Connection)
                 continue; //Relational databases use the shared transaction if they are using the same connection
-            }
 
             await dbContext.Database.CommitTransactionAsync(CancellationTokenProvider.Token);
         }
@@ -44,10 +39,7 @@ public class EfTransactionApi : ITransactionApi, ISupportsRollback
         await DbContextTransaction.CommitAsync(CancellationTokenProvider.Token);
     }
 
-    public void Dispose()
-    {
-        DbContextTransaction.Dispose();
-    }
+    public void Dispose() => DbContextTransaction.Dispose();
 
     public async Task RollbackAsync(CancellationToken cancellationToken)
     {

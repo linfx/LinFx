@@ -1,4 +1,5 @@
 ﻿using Confluent.Kafka;
+using System.Text;
 
 namespace LinFx.Extensions.EventBus.Kafka;
 
@@ -9,7 +10,7 @@ public static class MessageExtensions
         string? messageId = null;
 
         if (message.Headers.TryGetLastBytes("messageId", out var messageIdBytes))
-            messageId = System.Text.Encoding.UTF8.GetString(messageIdBytes);
+            messageId = Encoding.UTF8.GetString(messageIdBytes);
 
         return messageId;
     }

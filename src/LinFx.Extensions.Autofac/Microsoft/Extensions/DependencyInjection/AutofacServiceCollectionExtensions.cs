@@ -19,8 +19,5 @@ public static class AutofacServiceCollectionExtensions
         return builder;
     }
 
-    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder>? builderAction = default)
-    {
-        return services.BuildServiceProviderFromFactory(builderAction);
-    }
+    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder>? builderAction = default) => services.BuildServiceProviderFromFactory(builderAction);
 }
