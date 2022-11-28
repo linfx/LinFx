@@ -14,18 +14,18 @@
         <dependency id="EmitMapper.Core" version="1.0.2" exclude="Build,Analyzers" />
         <dependency id="FluentValidation.DependencyInjectionExtensions" version="11.2.2" exclude="Build,Analyzers" />
         <dependency id="JetBrains.Annotations" version="2022.1.0" exclude="Build,Analyzers" />
-        <dependency id="MediatR.Extensions.Microsoft.DependencyInjection" version="10.0.1" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.AspNetCore.Authorization" version="6.0.9" exclude="Build,Analyzers" />
+        <dependency id="MediatR.Extensions.Microsoft.DependencyInjection" version="11.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Authorization" version="6.0.10" exclude="Build,Analyzers" />
         <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Caching.Memory" version="6.0.1" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Caching.Redis" version="2.2.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Hosting" version="6.0.1" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Hosting.Abstractions" version="6.0.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.Http.Polly" version="6.0.9" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.Extensions.Localization" version="6.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Http.Polly" version="6.0.10" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Localization" version="6.0.10" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Extensions.Options.ConfigurationExtensions" version="6.0.0" exclude="Build,Analyzers" />
         <dependency id="Nito.AsyncEx" version="5.1.2" exclude="Build,Analyzers" />
-        <dependency id="System.IdentityModel.Tokens.Jwt" version="6.23.1" exclude="Build,Analyzers" />
+        <dependency id="System.IdentityModel.Tokens.Jwt" version="6.25.0" exclude="Build,Analyzers" />
         <dependency id="System.Runtime.Loader" version="4.3.0" exclude="Build,Analyzers" />
         <dependency id="System.Security.Cryptography.Cng" version="5.0.0" exclude="Build,Analyzers" />
         <dependency id="System.Text.Json" version="6.0.6" exclude="Build,Analyzers" />

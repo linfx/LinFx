@@ -8,6 +8,9 @@ using System.Diagnostics;
 
 namespace LinFx.Extensions.Kafka;
 
+/// <summary>
+/// 消费者池
+/// </summary>
 public class ConsumerPool : IConsumerPool, ISingletonDependency
 {
     protected KafkaOptions Options { get; }
@@ -27,7 +30,7 @@ public class ConsumerPool : IConsumerPool, ISingletonDependency
         Logger = new NullLogger<ConsumerPool>();
     }
 
-    public virtual IConsumer<string, byte[]> Get(string groupId, string? connectionName = null)
+    public virtual IConsumer<string, byte[]> Get(string groupId, string connectionName = null)
     {
         connectionName ??= KafkaConnections.DefaultConnectionName;
 
@@ -46,9 +49,7 @@ public class ConsumerPool : IConsumerPool, ISingletonDependency
     public void Dispose()
     {
         if (_isDisposed)
-        {
             return;
-        }
 
         _isDisposed = true;
 

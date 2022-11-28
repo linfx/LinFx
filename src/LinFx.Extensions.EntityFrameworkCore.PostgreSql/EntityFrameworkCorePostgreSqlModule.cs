@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Modularity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.EntityFrameworkCore.PostgreSql;
 
@@ -7,8 +8,10 @@ namespace LinFx.Extensions.EntityFrameworkCore.PostgreSql;
 )]
 public class EntityFrameworkCorePostgreSqlModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         //Configure<AbpSequentialGuidGeneratorOptions>(options =>
         //{
         //    if (options.DefaultSequentialGuidType == null)

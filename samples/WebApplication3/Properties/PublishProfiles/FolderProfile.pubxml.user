@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\github\linfx\LinFx\samples\WebApplication3\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-11-18T06:19:02.7779090Z;True|2022-11-18T14:14:22.9191708+08:00;True|2022-11-18T14:12:09.1718854+08:00;True|2022-11-18T14:11:18.4444525+08:00;True|2022-11-18T09:34:48.6851383+08:00;True|2022-11-18T09:33:52.5228092+08:00;True|2022-11-18T09:32:17.0774121+08:00;False|2022-11-18T09:31:37.6606419+08:00;False|2022-11-18T09:31:05.7745325+08:00;False|2022-11-18T09:30:41.4242744+08:00;True|2022-11-18T09:29:47.2764512+08:00;True|2022-11-18T09:17:37.5629065+08:00;True|2022-11-18T09:11:23.5369515+08:00;True|2022-11-18T09:05:51.6278868+08:00;True|2022-11-17T17:23:53.6638561+08:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

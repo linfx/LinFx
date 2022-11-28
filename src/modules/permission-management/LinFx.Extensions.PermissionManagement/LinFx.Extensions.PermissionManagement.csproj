@@ -2,10 +2,6 @@
 
   <Import Project="..\..\..\..\common.props" />
 
-  <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\LinFx.Extensions.EntityFrameworkCore\LinFx.Extensions.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\LinFx\LinFx.csproj" />

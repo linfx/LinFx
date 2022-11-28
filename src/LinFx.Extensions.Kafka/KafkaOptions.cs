@@ -7,9 +7,9 @@ public class KafkaOptions
 {
     public KafkaConnections Connections { get; } = new KafkaConnections();
 
-    public Action<ProducerConfig>? ConfigureProducer { get; set; }
+    public Action<ProducerConfig> ConfigureProducer { get; set; }
 
-    public Action<ConsumerConfig>? ConfigureConsumer { get; set; }
+    public Action<ConsumerConfig> ConfigureConsumer { get; set; }
 
-    public Action<TopicSpecification>? ConfigureTopic { get; set; }
+    public Action<TopicSpecification> ConfigureTopic { get; set; }
 }

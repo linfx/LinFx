@@ -1,24 +1,21 @@
-﻿using System;
-using System.IO;
-
-namespace Microsoft.Extensions.Configuration;
+﻿namespace Microsoft.Extensions.Configuration;
 
 public static class ConfigurationHelper
 {
-    public static IConfigurationRoot BuildConfiguration(ConfigurationBuilderOptions options = null, Action<IConfigurationBuilder> builderAction = null)
+    public static IConfigurationRoot BuildConfiguration(ConfigurationBuilderOptions? options = null, Action<IConfigurationBuilder>? builderAction = null)
     {
         options ??= new ConfigurationBuilderOptions();
 
-        if (options.BasePath.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(options.BasePath))
         {
             options.BasePath = Directory.GetCurrentDirectory();
         }
 
         var builder = new ConfigurationBuilder()
             .SetBasePath(options.BasePath);
-            //.AddJsonFile(options.FileName + ".json", optional: true, reloadOnChange: true);
+        //.AddJsonFile(options.FileName + ".json", optional: true, reloadOnChange: true);
 
-        if (!options.EnvironmentName.IsNullOrEmpty())
+        if (!string.IsNullOrEmpty(options.EnvironmentName))
         {
             //builder = builder.AddJsonFile($"{options.FileName}.{options.EnvironmentName}.json", optional: true, reloadOnChange: true);
         }

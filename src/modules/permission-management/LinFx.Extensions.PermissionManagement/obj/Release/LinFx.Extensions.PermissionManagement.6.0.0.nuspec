@@ -8,14 +8,14 @@
     <description>Package Description</description>
     <copyright>Copyright (c) 2020 LinFx</copyright>
     <dependencies>
-      <group targetFramework="net6.0">
+      <group targetFramework="net7.0">
         <dependency id="LinFx.Extensions.EntityFrameworkCore" version="6.0.0" exclude="Build,Analyzers" />
         <dependency id="LinFx" version="6.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net6.0\LinFx.Extensions.PermissionManagement.dll" target="lib\net6.0\LinFx.Extensions.PermissionManagement.dll" />
-    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net6.0\LinFx.Extensions.PermissionManagement.xml" target="lib\net6.0\LinFx.Extensions.PermissionManagement.xml" />
+    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net7.0\LinFx.Extensions.PermissionManagement.dll" target="lib\net7.0\LinFx.Extensions.PermissionManagement.dll" />
+    <file src="D:\github\linfx\LinFx\src\modules\permission-management\LinFx.Extensions.PermissionManagement\bin\Release\net7.0\LinFx.Extensions.PermissionManagement.xml" target="lib\net7.0\LinFx.Extensions.PermissionManagement.xml" />
   </files>
 </package>

@@ -11,10 +11,7 @@ public class AutofacServiceProviderFactory : IServiceProviderFactory<ContainerBu
 {
     private readonly ContainerBuilder _builder;
 
-    public AutofacServiceProviderFactory(ContainerBuilder builder)
-    {
-        _builder = builder;
-    }
+    public AutofacServiceProviderFactory(ContainerBuilder builder) => _builder = builder;
 
     /// <summary>
     /// Creates a container builder from an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.

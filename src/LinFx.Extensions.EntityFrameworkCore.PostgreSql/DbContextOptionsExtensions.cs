@@ -1,15 +1,12 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
-using System;
 
 namespace LinFx.Extensions.EntityFrameworkCore;
 
 public static class DbContextOptionsExtensions
 {
-    public static void UseNpgsql(
-        [NotNull] this EfDbContextOptions options,
-        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction)
+    public static void UseNpgsql([NotNull] this EfDbContextOptions options, [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction)
     {
         options.Configure(context =>
         {
@@ -17,10 +14,7 @@ public static class DbContextOptionsExtensions
         });
     }
 
-    public static void UseNpgsql<TDbContext>(
-        [NotNull] this EfDbContextOptions options,
-        [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction)
-        where TDbContext : DbContext
+    public static void UseNpgsql<TDbContext>([NotNull] this EfDbContextOptions options, [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction) where TDbContext : DbContext
     {
         options.Configure<TDbContext>(context =>
         {

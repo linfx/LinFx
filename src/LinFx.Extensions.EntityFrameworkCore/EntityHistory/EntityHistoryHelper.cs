@@ -110,7 +110,7 @@ public class EntityHistoryHelper : IEntityHistoryHelper
 
     protected virtual string GetTenantId(object entity)
     {
-        if (!(entity is IMultiTenant multiTenantEntity))
+        if (entity is not IMultiTenant multiTenantEntity)
             return null;
 
         return multiTenantEntity.TenantId;

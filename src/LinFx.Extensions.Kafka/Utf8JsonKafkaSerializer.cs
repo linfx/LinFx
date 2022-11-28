@@ -1,29 +1,14 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using System.Text;
+using System.Text.Json;
 
 namespace LinFx.Extensions.Kafka;
 
 public class Utf8JsonKafkaSerializer : IKafkaSerializer, ITransientDependency
 {
-    private readonly IJsonSerializer _jsonSerializer;
+    public byte[] Serialize(object obj) => Encoding.UTF8.GetBytes(JsonSerializer.Serialize(obj));
 
-    public Utf8JsonKafkaSerializer(IJsonSerializer jsonSerializer)
-    {
-        _jsonSerializer = jsonSerializer;
-    }
+    public object Deserialize(byte[] value, Type type) => JsonSerializer.Deserialize(value, type);
 
-    public byte[] Serialize(object obj)
-    {
-        return Encoding.UTF8.GetBytes(_jsonSerializer.Serialize(obj));
-    }
-
-    public object Deserialize(byte[] value, Type type)
-    {
-        return _jsonSerializer.Deserialize(type, Encoding.UTF8.GetString(value));
-    }
-
-    public T Deserialize<T>(byte[] value)
-    {
-        return _jsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(value));
-    }
+    public T Deserialize<T>(byte[] value) => JsonSerializer.Deserialize<T>(value);
 }

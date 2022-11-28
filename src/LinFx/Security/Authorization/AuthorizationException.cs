@@ -1,7 +1,6 @@
 ﻿using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.Logging;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Runtime.Serialization;
 
 namespace LinFx.Security.Authorization;
@@ -21,7 +20,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Error code.
     /// </summary>
-    public string Code { get; }
+    public string Code { get; } = string.Empty;
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.

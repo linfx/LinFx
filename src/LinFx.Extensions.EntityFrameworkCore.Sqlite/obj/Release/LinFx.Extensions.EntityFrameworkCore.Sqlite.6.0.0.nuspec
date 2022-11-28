@@ -8,14 +8,14 @@
     <description>Package Description</description>
     <copyright>Copyright (c) 2020 LinFx</copyright>
     <dependencies>
-      <group targetFramework="net6.0">
+      <group targetFramework="net7.0">
         <dependency id="LinFx.Extensions.EntityFrameworkCore" version="6.0.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="6.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="6.0.10" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" />
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Release\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" target="lib\net7.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\bin\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" target="lib\net7.0\LinFx.Extensions.EntityFrameworkCore.Sqlite.xml" />
   </files>
 </package>

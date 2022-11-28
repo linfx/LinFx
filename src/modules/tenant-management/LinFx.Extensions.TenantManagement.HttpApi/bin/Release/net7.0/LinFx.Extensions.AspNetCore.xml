@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinFx.Extensions.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:LinFx.Extensions.AspNetCore.AspNetCoreModule">
+            <summary>
+            AspNetCore 模块
+            </summary>
+        </member>
+        <member name="P:LinFx.Extensions.AspNetCore.Auditing.AspNetCoreAuditingOptions.IgnoredUrls">
+            <summary>
+            This is used to disable the <see cref="T:LinFx.Extensions.AspNetCore.Auditing.AuditingMiddleware"/>,
+            app.UseAuditing(), for the specified URLs.
+            <see cref="T:LinFx.Extensions.AspNetCore.Auditing.AuditingMiddleware"/> will be disabled for URLs
+            starting with an ignored URL.  
+            </summary>
+        </member>
+        <member name="T:LinFx.Extensions.AspNetCore.Auditing.AuditingMiddleware">
+            <summary>
+            审计日志中间件
+            </summary>
+        </member>
+        <member name="T:LinFx.Extensions.AspNetCore.ExceptionHandling.ExceptionHandlingMiddleware">
+            <summary>
+            异常中间件
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.AspNetCore.ExceptionHandling.ExceptionHandlingMiddleware.HandleAndWrapException(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="httpContext"></param>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LinFx.Extensions.AspNetCore.Mvc.Auditing.AuditActionFilter">
+            <summary>
+            审计日志过滤器
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.AspNetCore.Mvc.Auditing.AuditActionFilter.ShouldSaveAudit(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,LinFx.Extensions.Auditing.AuditLogInfo@,LinFx.Extensions.Auditing.AuditLogActionInfo@)">
+            <summary>
+            判断是否写日志
+            </summary>
+            <param name="context"></param>
+            <param name="auditLog"></param>
+            <param name="auditLogAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LinFx.Extensions.AspNetCore.Mvc.ExceptionHandling.ExceptionFilter.HandleAndWrapException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            处理与包装异常
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LinFx.Extensions.AspNetCore.Mvc.MvcOptionsExtensions.AddActionFilters(Microsoft.AspNetCore.Mvc.MvcOptions)">
+            <summary>
+            注入过滤器
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="T:LinFx.Extensions.AspNetCore.Mvc.Uow.UowActionFilter">
+            <summary>
+            工作单元过滤器
+            </summary>
+        </member>
+        <member name="P:LinFx.Extensions.AspNetCore.Uow.AspNetCoreUnitOfWorkOptions.IgnoredUrls">
+            <summary>
+            This is used to disable the <see cref="T:LinFx.Extensions.AspNetCore.Uow.UnitOfWorkMiddleware"/>,
+            app.UseUnitOfWork(), for the specified URLs.
+            <see cref="T:LinFx.Extensions.AspNetCore.Uow.UnitOfWorkMiddleware"/> will be disabled for URLs
+            starting with an ignored URL.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions.UseAuditing(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds a <see cref="T:LinFx.Extensions.AspNetCore.Auditing.AuditingMiddleware"/> to the specified Microsoft.AspNetCore.Builder.IApplicationBuilder.
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions.UseUnitOfWork(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds a <see cref="T:LinFx.Extensions.AspNetCore.Uow.UnitOfWorkMiddleware"/> to the specified Microsoft.AspNetCore.Builder.IApplicationBuilder.
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -5,5 +5,5 @@ namespace LinFx.Extensions.Kafka;
 
 public interface IConsumerPool : IDisposable
 {
-    IConsumer<string, byte[]> Get(string groupId, string? connectionName = null);
+    IConsumer<string, byte[]> Get(string groupId, string connectionName = null);
 }

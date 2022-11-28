@@ -6,8 +6,9 @@ namespace TenantManagementService.EntityFrameworkCore;
 
 public class TenantManagementMigrationsDbContext : EfDbContext
 {
-    public TenantManagementMigrationsDbContext(DbContextOptions<TenantManagementMigrationsDbContext> options)
-        : base(options) { }
+    protected TenantManagementMigrationsDbContext() { }
+
+    public TenantManagementMigrationsDbContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

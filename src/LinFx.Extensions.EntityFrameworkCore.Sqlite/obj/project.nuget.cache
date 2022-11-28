@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "e1xalDGenhl9IQkAdB3MsLEGF5k3b2Shvk8ADlAMjmNaFWgVjIdgFWP/k8abCCwDkrsrEFYuVI7kxpzoyMdBXw==",
+  "dgSpecHash": "F0Z0EIMnurg5Dt7WYJ7+jRBLYZ6Y7wEB+64FEa7zmi/7kj+7ipULOLJgTeVJEa287bWxAHi6tgFAwplY+KwJ6Q==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.Sqlite\\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj",
   "expectedPackageFiles": [

@@ -53,7 +53,7 @@ public class KafkaMessageConsumer : IKafkaMessageConsumer, ITransientDependency,
         Logger = NullLogger<KafkaMessageConsumer>.Instance;
     }
 
-    public virtual void Initialize([NotNull] string topicName, [NotNull] string groupId, string? connectionName = null)
+    public virtual void Initialize([NotNull] string topicName, [NotNull] string groupId, string connectionName = null)
     {
         Check.NotNull(topicName, nameof(topicName));
         Check.NotNull(groupId, nameof(groupId));
@@ -63,10 +63,7 @@ public class KafkaMessageConsumer : IKafkaMessageConsumer, ITransientDependency,
         Timer.Start();
     }
 
-    public virtual void OnMessageReceived(Func<Message<string, byte[]>, Task> callback)
-    {
-        Callbacks.Add(callback);
-    }
+    public virtual void OnMessageReceived(Func<Message<string, byte[]>, Task> callback) => Callbacks.Add(callback);
 
     protected virtual async Task Timer_Elapsed(AsyncTimer timer)
     {
@@ -79,28 +76,24 @@ public class KafkaMessageConsumer : IKafkaMessageConsumer, ITransientDependency,
 
     protected virtual async Task CreateTopicAsync()
     {
-        using (var adminClient = new AdminClientBuilder(Options.Connections.GetOrDefault(ConnectionName)).Build())
+        using var adminClient = new AdminClientBuilder(Options.Connections.GetOrDefault(ConnectionName)).Build();
+        var topic = new TopicSpecification
         {
-            var topic = new TopicSpecification
-            {
-                Name = TopicName,
-                NumPartitions = 1,
-                ReplicationFactor = 1
-            };
+            Name = TopicName,
+            NumPartitions = 1,
+            ReplicationFactor = 1
+        };
 
-            Options.ConfigureTopic?.Invoke(topic);
+        Options.ConfigureTopic?.Invoke(topic);
 
-            try
-            {
-                await adminClient.CreateTopicsAsync(new[] { topic });
-            }
-            catch (CreateTopicsException e)
-            {
-                if (e.Results.Any(x => x.Error.Code != ErrorCode.TopicAlreadyExists))
-                {
-                    throw;
-                }
-            }
+        try
+        {
+            await adminClient.CreateTopicsAsync(new[] { topic });
+        }
+        catch (CreateTopicsException e)
+        {
+            if (e.Results.Any(x => x.Error.Code != ErrorCode.TopicAlreadyExists))
+                throw;
         }
     }
 
@@ -119,9 +112,7 @@ public class KafkaMessageConsumer : IKafkaMessageConsumer, ITransientDependency,
                     var consumeResult = Consumer.Consume();
 
                     if (consumeResult.IsPartitionEOF)
-                    {
                         continue;
-                    }
 
                     await HandleIncomingMessage(consumeResult);
                 }

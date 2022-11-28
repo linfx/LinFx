@@ -3992,45 +3992,6 @@
             <param name="value">临时值</param>
             <returns></returns>
         </member>
-        <member name="T:LinFx.Extensions.Threading.LockExtensions">
-            <summary>
-            Extension methods to make locking easier.
-            </summary>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking(System.Object,System.Action)">
-            <summary>
-            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
-            </summary>
-            <param name="source">Source object (to be locked)</param>
-            <param name="action">Action (to be executed)</param>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``1(``0,System.Action{``0})">
-            <summary>
-            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="T">Type of the object (to be locked)</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="action">Action (to be executed)</param>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``1(System.Object,System.Func{``0})">
-            <summary>
-            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="TResult">Return type</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="func">Function (to be executed)</param>
-            <returns>Return value of the <paramref name="func"/></returns>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``2(``0,System.Func{``0,``1})">
-            <summary>
-            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="T">Type of the object (to be locked)</typeparam>
-            <typeparam name="TResult">Return type</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="func">Function (to be executed)</param>
-            <returns>Return value of the <paramnref name="func"/></returns>
-        </member>
         <member name="T:LinFx.Extensions.Timing.Clock">
             <summary>
             时钟
@@ -6478,6 +6439,45 @@
             <summary>
             Copy extra properties defined for both of the source and destination classes.
             </summary>
+        </member>
+        <member name="T:LockExtensions">
+            <summary>
+            Extension methods to make locking easier.
+            </summary>
+        </member>
+        <member name="M:LockExtensions.Locking(System.Object,System.Action)">
+            <summary>
+            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
+            </summary>
+            <param name="source">Source object (to be locked)</param>
+            <param name="action">Action (to be executed)</param>
+        </member>
+        <member name="M:LockExtensions.Locking``1(``0,System.Action{``0})">
+            <summary>
+            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="T">Type of the object (to be locked)</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="action">Action (to be executed)</param>
+        </member>
+        <member name="M:LockExtensions.Locking``1(System.Object,System.Func{``0})">
+            <summary>
+            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="TResult">Return type</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="func">Function (to be executed)</param>
+            <returns>Return value of the <paramref name="func"/></returns>
+        </member>
+        <member name="M:LockExtensions.Locking``2(``0,System.Func{``0,``1})">
+            <summary>
+            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="T">Type of the object (to be locked)</typeparam>
+            <typeparam name="TResult">Return type</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="func">Function (to be executed)</param>
+            <returns>Return value of the <paramnref name="func"/></returns>
         </member>
     </members>
 </doc>

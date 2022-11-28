@@ -41,7 +41,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// <summary>
     /// 当前租户ID
     /// </summary>
-    protected virtual string? CurrentTenantId => CurrentTenant?.Id;
+    protected virtual string CurrentTenantId => CurrentTenant?.Id;
 
     /// <summary>
     /// 是否启用租户过滤
@@ -104,16 +104,18 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// </summary>
     public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfDbContext>>(NullLogger<EfDbContext>.Instance);
 
-    private static readonly MethodInfo? ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo? ConfigureValueConverterMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    private static readonly MethodInfo? ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
+    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
-    protected EfDbContext(DbContextOptions options)
+    protected EfDbContext() { }
+
+    public EfDbContext(DbContextOptions options) 
         : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -124,17 +126,9 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            ConfigureBasePropertiesMethodInfo?
-                .MakeGenericMethod(entityType.ClrType)
-                .Invoke(this, new object[] { modelBuilder, entityType });
-
-            ConfigureValueConverterMethodInfo?
-                .MakeGenericMethod(entityType.ClrType)
-                .Invoke(this, new object[] { modelBuilder, entityType });
-
-            ConfigureValueGeneratedMethodInfo?
-                .MakeGenericMethod(entityType.ClrType)
-                .Invoke(this, new object[] { modelBuilder, entityType });
+            ConfigureBasePropertiesMethodInfo?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder, entityType });
+            ConfigureValueConverterMethodInfo?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder, entityType });
+            ConfigureValueGeneratedMethodInfo?.MakeGenericMethod(entityType.ClrType).Invoke(this, new object[] { modelBuilder, entityType });
         }
     }
 
@@ -173,7 +167,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     {
         try
         {
-            List<EntityChangeInfo>? entityChangeList = null;
+            List<EntityChangeInfo> entityChangeList = null;
             var auditLog = AuditingManager?.Current?.Log;
             if (auditLog != null)
                 entityChangeList = EntityHistoryHelper.CreateChangeList(ChangeTracker.Entries().ToList());
@@ -631,9 +625,9 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <returns></returns>
-    protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>() where TEntity : class
+    protected virtual Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>() where TEntity : class
     {
-        Expression<Func<TEntity, bool>>? expression = null;
+        Expression<Func<TEntity, bool>> expression = null;
 
         // 软删除
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
@@ -642,7 +636,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
         // 多租户
         if (typeof(IMultiTenant).IsAssignableFrom(typeof(TEntity)))
         {
-            Expression<Func<TEntity, bool>>? multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, nameof(IMultiTenant.TenantId)) == CurrentTenantId;
+            Expression<Func<TEntity, bool>> multiTenantFilter = e => !IsMultiTenantFilterEnabled || EF.Property<string>(e, nameof(IMultiTenant.TenantId)) == CurrentTenantId;
             expression = expression == null ? multiTenantFilter : CombineExpressions(expression, multiTenantFilter);
         }
 

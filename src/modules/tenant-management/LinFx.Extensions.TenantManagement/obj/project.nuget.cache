@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wTSZiwBXnpLc91yot2sC48EPTWFzmrkRoLvyougJTrOlyzjjJNYu0mrkzT7Lly72wMGRrwLoSN2+BhWfT2NZ+A==",
+  "dgSpecHash": "MXGGus4LS89ecGcLfLQDtaTQjJ5ndDglBavIstgHroQprDrBfLlYFYqUuPk0+j4EOpRc9CWVmG7+eLnA5rFTNA==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement\\LinFx.Extensions.TenantManagement.csproj",
   "expectedPackageFiles": [

@@ -18,14 +18,12 @@ public abstract class DistributedEventBusBase : EventBusBase, IDistributedEventB
         ICurrentTenant currentTenant,
         IUnitOfWorkManager unitOfWorkManager,
         IOptions<DistributedEventBusOptions> abpDistributedEventBusOptions,
-        IClock clock,
         IGuidGenerator guidGenerator,
-        IEventHandlerInvoker eventHandlerInvoker
+        IClock clock
     ) : base(
         serviceScopeFactory,
         currentTenant,
-        unitOfWorkManager,
-        eventHandlerInvoker)
+        unitOfWorkManager)
     {
         Clock = clock;
         GuidGenerator = guidGenerator;

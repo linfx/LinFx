@@ -3,9 +3,6 @@ using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.Mvc.Uow;
 

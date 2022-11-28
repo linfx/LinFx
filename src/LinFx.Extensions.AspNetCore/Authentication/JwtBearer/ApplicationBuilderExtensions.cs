@@ -16,7 +16,6 @@ public static partial class ApplicationBuilderExtensions
                     ctx.User = result.Principal;
                 }
             }
-
             await next();
         });
     }

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net7.0": {
       "Autofac/6.4.0": {
         "type": "package",
         "dependencies": {
@@ -4771,7 +4771,7 @@
       },
       "LinFx.Extensions.Account/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
@@ -4786,7 +4786,7 @@
       },
       "LinFx.Extensions.Account.HttpApi/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx.Extensions.Account": "6.0.0"
         },
@@ -4799,7 +4799,7 @@
       },
       "LinFx.Extensions.AspNetCore/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0"
         },
@@ -4812,7 +4812,7 @@
       },
       "LinFx.Extensions.AuditLogging/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0",
           "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
@@ -4841,7 +4841,7 @@
       },
       "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.10",
@@ -4856,7 +4856,7 @@
       },
       "LinFx.Extensions.EntityFrameworkCore.Sqlite/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx.Extensions.EntityFrameworkCore": "6.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "6.0.10"
@@ -4870,7 +4870,7 @@
       },
       "LinFx.Extensions.PermissionManagement/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0",
           "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
@@ -4884,7 +4884,7 @@
       },
       "LinFx.Extensions.PermissionManagement.HttpApi/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx.Extensions.AspNetCore": "6.0.0",
           "LinFx.Extensions.PermissionManagement": "6.0.0"
@@ -4898,7 +4898,7 @@
       },
       "LinFx.Extensions.TenantManagement/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx": "6.0.0",
           "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
@@ -4912,7 +4912,7 @@
       },
       "LinFx.Extensions.TenantManagement.HttpApi/6.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "LinFx.Extensions.AspNetCore": "6.0.0",
           "LinFx.Extensions.TenantManagement": "6.0.0"
@@ -12645,7 +12645,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    "net7.0": [
       "LinFx.Extensions.Account.HttpApi >= 6.0.0",
       "LinFx.Extensions.AspNetCore >= 6.0.0",
       "LinFx.Extensions.AuditLogging >= 6.0.0",
@@ -12682,7 +12682,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net7.0"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -12690,8 +12690,8 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "projectReferences": {
             "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj": {
               "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj"
@@ -12724,8 +12724,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
+      "net7.0": {
+        "targetAlias": "net7.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -12761,7 +12761,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -29,7 +29,7 @@ public class Application : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<EfDbContextOptions>(options =>
+        services.Configure<EfDbContextOptions>(options =>
         {
             options.UseSqlite<TenantManagementDbContext>();
             options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));

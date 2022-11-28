@@ -4,10 +4,7 @@ using LinFx.Extensions.Uow;
 using LinFx.Security.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.Auditing;
 
@@ -76,10 +73,7 @@ public class AuditingMiddleware : IMiddleware, ITransientDependency
         }
     }
 
-    private bool IsIgnoredUrl(HttpContext context)
-    {
-        return context.Request.Path.Value != null && AspNetCoreAuditingOptions.IgnoredUrls.Any(x => context.Request.Path.Value.StartsWith(x));
-    }
+    private bool IsIgnoredUrl(HttpContext context) => context.Request.Path.Value != null && AspNetCoreAuditingOptions.IgnoredUrls.Any(x => context.Request.Path.Value.StartsWith(x));
 
     private bool ShouldWriteAuditLog(HttpContext httpContext, bool hasError)
     {

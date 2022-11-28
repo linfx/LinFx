@@ -12,6 +12,7 @@ public static partial class ApplicationBuilderExtensions
         //}
 
         //app.Properties[ExceptionHandlingMiddlewareMarker] = true;
+
         return app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
 }

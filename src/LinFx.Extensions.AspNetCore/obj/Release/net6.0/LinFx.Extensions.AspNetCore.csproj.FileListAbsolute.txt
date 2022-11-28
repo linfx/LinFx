@@ -1,0 +1,17 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.Extensions.AspNetCore.deps.json
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.Extensions.AspNetCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.Extensions.AspNetCore.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.Extensions.AspNetCore.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\bin\Release\net6.0\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.csproj.CopyComplete
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\refint\LinFx.Extensions.AspNetCore.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\LinFx.Extensions.AspNetCore.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.AspNetCore\obj\Release\net6.0\ref\LinFx.Extensions.AspNetCore.dll

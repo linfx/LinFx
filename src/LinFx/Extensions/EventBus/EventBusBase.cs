@@ -18,18 +18,14 @@ public abstract class EventBusBase : IEventBus
 
     protected IUnitOfWorkManager UnitOfWorkManager { get; }
 
-    protected IEventHandlerInvoker EventHandlerInvoker { get; }
-
     protected EventBusBase(
         IServiceScopeFactory serviceScopeFactory,
         ICurrentTenant currentTenant,
-        IUnitOfWorkManager unitOfWorkManager,
-        IEventHandlerInvoker eventHandlerInvoker)
+        IUnitOfWorkManager unitOfWorkManager)
     {
         ServiceScopeFactory = serviceScopeFactory;
         CurrentTenant = currentTenant;
         UnitOfWorkManager = unitOfWorkManager;
-        EventHandlerInvoker = eventHandlerInvoker;
     }
 
     public virtual IDisposable Subscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class => Subscribe(typeof(TEvent), new ActionEventHandler<TEvent>(action));

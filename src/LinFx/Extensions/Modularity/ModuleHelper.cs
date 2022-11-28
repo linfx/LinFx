@@ -3,12 +3,12 @@ using System.Reflection;
 
 namespace LinFx.Extensions.Modularity;
 
-internal class ModuleHelper
+class ModuleHelper
 {
     public static List<Type> FindAllModuleTypes(Type startupModuleType, ILogger logger)
     {
         var moduleTypes = new List<Type>();
-        //logger.Log(LogLevel.Information, "Loaded modules:");
+        logger.Log(LogLevel.Information, "Loaded modules:");
         AddModuleAndDependenciesRecursively(moduleTypes, startupModuleType, logger);
         return moduleTypes;
     }
@@ -34,11 +34,7 @@ internal class ModuleHelper
         return dependencies;
     }
 
-    private static void AddModuleAndDependenciesRecursively(
-        List<Type> moduleTypes,
-        Type moduleType,
-        ILogger logger,
-        int depth = 0)
+    private static void AddModuleAndDependenciesRecursively(List<Type> moduleTypes, Type moduleType, ILogger logger, int depth = 0)
     {
         //Module.CheckModuleType(moduleType);
 
@@ -46,19 +42,11 @@ internal class ModuleHelper
             return;
 
         moduleTypes.Add(moduleType);
-        //logger.Log(LogLevel.Information, $"{new string(' ', depth * 2)}- {moduleType.FullName}");
+        logger.Log(LogLevel.Information, $"{new string(' ', depth * 2)}- {moduleType.FullName}");
 
         foreach (var dependedModuleType in FindDependedModuleTypes(moduleType))
         {
             AddModuleAndDependenciesRecursively(moduleTypes, dependedModuleType, logger, depth + 1);
         }
-    }
-
-    [Obsolete]
-    public static List<Type> FindAllModuleTypes(Type startupModuleType)
-    {
-        var moduleTypes = new List<Type>();
-        //AddModuleAndDependenciesResursively(moduleTypes, startupModuleType);
-        return moduleTypes;
     }
 }

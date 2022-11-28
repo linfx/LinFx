@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "su6uAYDsZy+/TDlqd+k89d8FghicTJbVcVT2W2lshuE15BUMCtsvmAsXsHaLlaHXwxsEbDTr0NyxKjc22VdcMw==",
+  "dgSpecHash": "/cxfKOAdd3RT6GWnSQRCDHvOHFGMMOagEs4kDnI/lncBfYVBZVak2JGNkqVQmAhI12cH4TbmYyNcGfWTtyeWGA==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account.HttpApi\\LinFx.Extensions.Account.HttpApi.csproj",
   "expectedPackageFiles": [

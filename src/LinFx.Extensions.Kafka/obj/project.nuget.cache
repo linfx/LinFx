@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "saSVOvMC+aUdk1VIjTmfxdcgu+q6rDiqHRlNNqj/ti6oe1zvZbO3JyLVc/7/LrNvgTJoX2zSIWDIfPUKNH6Z0w==",
+  "dgSpecHash": "uTk1OXVe/mkxITk2wSZtMgArCDtRDkw9iDXey7enRvRkvM42BLa0i9Su1+mjurrtVS4Uf91x0ty0yOEADGxqZg==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Kafka\\LinFx.Extensions.Kafka.csproj",
   "expectedPackageFiles": [

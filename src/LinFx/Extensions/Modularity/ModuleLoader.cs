@@ -1,18 +1,12 @@
 ﻿using LinFx.Extensions.Modularity.PlugIns;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LinFx.Extensions.Modularity;
 
 public class ModuleLoader : IModuleLoader
 {
-    public IModuleDescriptor[] LoadModules(
-        IServiceCollection services,
-        Type startupModuleType,
-        PlugInSourceList plugInSources)
+    public IModuleDescriptor[] LoadModules(IServiceCollection services, Type startupModuleType, PlugInSourceList plugInSources)
     {
         Check.NotNull(services, nameof(services));
         Check.NotNull(startupModuleType, nameof(startupModuleType));
@@ -23,10 +17,7 @@ public class ModuleLoader : IModuleLoader
         return modules.ToArray();
     }
 
-    private List<IModuleDescriptor> GetDescriptors(
-        IServiceCollection services,
-        Type startupModuleType,
-        PlugInSourceList plugInSources)
+    private List<IModuleDescriptor> GetDescriptors(IServiceCollection services, Type startupModuleType, PlugInSourceList plugInSources)
     {
         var modules = new List<ModuleDescriptor>();
 
@@ -36,14 +27,9 @@ public class ModuleLoader : IModuleLoader
         return modules.Cast<IModuleDescriptor>().ToList();
     }
 
-    protected virtual void FillModules(
-        List<ModuleDescriptor> modules,
-        IServiceCollection services,
-        Type startupModuleType,
-        PlugInSourceList plugInSources)
+    protected virtual void FillModules(List<ModuleDescriptor> modules, IServiceCollection services, Type startupModuleType, PlugInSourceList plugInSources)
     {
-        //var logger = services.GetSingletonInstance<ILoggerFactory>().CreateLogger<ApplicationBase>();
-        ILogger logger = null;
+        var logger = new LoggerFactory().CreateLogger<ModuleLoader>();
 
         //All modules starting from the startup module
         foreach (var moduleType in ModuleHelper.FindAllModuleTypes(startupModuleType, logger))
@@ -76,10 +62,7 @@ public class ModuleLoader : IModuleLoader
         return sortedModules;
     }
 
-    protected virtual ModuleDescriptor CreateModuleDescriptor(IServiceCollection services, Type moduleType, bool isLoadedAsPlugIn = false)
-    {
-        return new ModuleDescriptor(moduleType, CreateAndRegisterModule(services, moduleType), isLoadedAsPlugIn);
-    }
+    protected virtual ModuleDescriptor CreateModuleDescriptor(IServiceCollection services, Type moduleType, bool isLoadedAsPlugIn = false) => new(moduleType, CreateAndRegisterModule(services, moduleType), isLoadedAsPlugIn);
 
     protected virtual IModule CreateAndRegisterModule(IServiceCollection services, Type moduleType)
     {
@@ -94,9 +77,7 @@ public class ModuleLoader : IModuleLoader
         {
             var dependedModule = modules.FirstOrDefault(m => m.Type == dependedModuleType);
             if (dependedModule == null)
-            {
                 throw new Exception("Could not find a depended module " + dependedModuleType.AssemblyQualifiedName + " for " + module.Type.AssemblyQualifiedName);
-            }
 
             module.AddDependency(dependedModule);
         }

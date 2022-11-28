@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinFx.Extensions.RabbitMQ</name>
+    </assembly>
+    <members>
+        <member name="T:LinFx.Extensions.RabbitMQ.IChannelAccessor">
+            <summary>
+            channel accessor
+            </summary>
+        </member>
+        <member name="P:LinFx.Extensions.RabbitMQ.IChannelAccessor.Name">
+            <summary>
+            Name of the channel.
+            </summary>
+        </member>
+        <member name="P:LinFx.Extensions.RabbitMQ.IChannelAccessor.Channel">
+            <summary>
+            Reference to the channel.
+            Never dispose the <see cref="P:LinFx.Extensions.RabbitMQ.IChannelAccessor.Channel"/> object.
+            Instead, dispose the <see cref="T:LinFx.Extensions.RabbitMQ.IChannelAccessor"/> after usage.
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.RabbitMQ.IChannelPool.Acquire(System.String,System.String)">
+            <summary>
+            获得
+            </summary>
+            <param name="channelName"></param>
+            <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.IConnectionPool">
+            <summary>
+            连接池
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.RabbitMQ.IConnectionPool.Get(System.String)">
+            <summary>
+            获取连接
+            </summary>
+            <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.IRabbitMqMessageConsumer">
+            <summary>
+            消费者
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.RabbitMQ.IRabbitMqMessageConsumerFactory.Create(LinFx.Extensions.RabbitMQ.ExchangeDeclareConfiguration,LinFx.Extensions.RabbitMQ.QueueDeclareConfiguration,System.String)">
+            <summary>
+            Creates a new <see cref="T:LinFx.Extensions.RabbitMQ.IRabbitMqMessageConsumer"/>.
+            Avoid to create too many consumers since they are
+            not disposed until end of the application.
+            </summary>
+            <param name="exchange"></param>
+            <param name="queue"></param>
+            <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.IRabbitMqSerializer">
+            <summary>
+            序列化
+            </summary>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.RabbitMqConnections">
+            <summary>
+            连接
+            </summary>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.RabbitMqMessageConsumer">
+            <summary>
+            消费者
+            </summary>
+        </member>
+        <member name="M:LinFx.Extensions.RabbitMQ.RabbitMqMessageConsumer.Initialize(LinFx.Extensions.RabbitMQ.ExchangeDeclareConfiguration,LinFx.Extensions.RabbitMQ.QueueDeclareConfiguration,System.String)">
+            <summary>
+            初始化
+            </summary>
+            <param name="exchange"></param>
+            <param name="queue"></param>
+            <param name="connectionName"></param>
+        </member>
+        <member name="T:LinFx.Extensions.RabbitMQ.RabbitMqMessageConsumerFactory">
+            <summary>
+            消费者工厂
+            </summary>
+        </member>
+    </members>
+</doc>

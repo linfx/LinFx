@@ -26,7 +26,7 @@ public class AspNetCoreModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<AuditingOptions>(options =>
+        services.Configure<AuditingOptions>(options =>
         {
             options.Contributors.Add(new AspNetCoreAuditLogContributor());
         });

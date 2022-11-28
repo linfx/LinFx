@@ -9,9 +9,5 @@ public static partial class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
-    public static IApplicationBuilder UseUnitOfWork(this IApplicationBuilder app)
-    {
-        return app
-            .UseMiddleware<UnitOfWorkMiddleware>();
-    }
+    public static IApplicationBuilder UseUnitOfWork(this IApplicationBuilder app) => app.UseMiddleware<UnitOfWorkMiddleware>();
 }

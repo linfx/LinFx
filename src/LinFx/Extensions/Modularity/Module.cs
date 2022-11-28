@@ -42,6 +42,7 @@ public abstract class Module :
 
     public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
 
+    [Obsolete]
     public virtual void ConfigureServices(ServiceConfigurationContext context) => ConfigureServices(context.Services);
 
     public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
@@ -67,38 +68,20 @@ public abstract class Module :
     /// 应用程序关闭
     /// </summary>
     /// <param name="context"></param>
-    public virtual Task OnApplicationShutdownAsync(ApplicationShutdownContext context)
-    {
-        return Task.CompletedTask;
-    }
+    public virtual Task OnApplicationShutdownAsync(ApplicationShutdownContext context) => Task.CompletedTask;
 
-    protected void Configure<TOptions>(Action<TOptions> configureOptions)
-        where TOptions : class
-    {
-        ServiceConfigurationContext?.Services.Configure(configureOptions);
-    }
+    [Obsolete]
+    protected void Configure<TOptions>(Action<TOptions> configureOptions) where TOptions : class => ServiceConfigurationContext?.Services.Configure(configureOptions);
 
-    protected void Configure<TOptions>(string name, Action<TOptions> configureOptions)
-        where TOptions : class
-    {
-        ServiceConfigurationContext?.Services.Configure(name, configureOptions);
-    }
+    [Obsolete]
+    protected void Configure<TOptions>(string name, Action<TOptions> configureOptions) where TOptions : class => ServiceConfigurationContext?.Services.Configure(name, configureOptions);
 
-    protected void Configure<TOptions>(IConfiguration configuration)
-        where TOptions : class
-    {
-        ServiceConfigurationContext?.Services.Configure<TOptions>(configuration);
-    }
+    [Obsolete]
+    protected void Configure<TOptions>(IConfiguration configuration) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(configuration);
 
-    protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder)
-        where TOptions : class
-    {
-        ServiceConfigurationContext?.Services.Configure<TOptions>(configuration, configureBinder);
-    }
+    [Obsolete]
+    protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(configuration, configureBinder);
 
-    protected void Configure<TOptions>(string name, IConfiguration configuration)
-        where TOptions : class
-    {
-        ServiceConfigurationContext?.Services.Configure<TOptions>(name, configuration);
-    }
+    [Obsolete]
+    protected void Configure<TOptions>(string name, IConfiguration configuration) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(name, configuration);
 }

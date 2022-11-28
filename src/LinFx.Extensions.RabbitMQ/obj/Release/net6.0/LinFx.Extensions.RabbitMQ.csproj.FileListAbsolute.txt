@@ -1,0 +1,17 @@
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.Extensions.RabbitMQ.deps.json
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.Extensions.RabbitMQ.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.Extensions.RabbitMQ.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.Extensions.RabbitMQ.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\bin\Release\net6.0\LinFx.xml
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.csproj.AssemblyReference.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.AssemblyInfoInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.AssemblyInfo.cs
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.csproj.CoreCompileInputs.cache
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.csproj.CopyComplete
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\refint\LinFx.Extensions.RabbitMQ.dll
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\LinFx.Extensions.RabbitMQ.pdb
+D:\github\linfx\LinFx\src\LinFx.Extensions.RabbitMQ\obj\Release\net6.0\ref\LinFx.Extensions.RabbitMQ.dll

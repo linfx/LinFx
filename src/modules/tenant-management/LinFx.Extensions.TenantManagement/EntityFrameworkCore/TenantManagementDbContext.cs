@@ -10,9 +10,6 @@ namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 [ConnectionStringName(TenantManagementDbProperties.ConnectionStringName)]
 public class TenantManagementDbContext : EfDbContext
 {
-    public TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options)
-        : base(options) { }
-
     public DbSet<Tenant> Tenants { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

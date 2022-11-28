@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "F6uDvq2YE6wm8J4a4iuPO7tuTRuARuZ+lq8afpsRslqiAHTWr295A3bvRJSiMgD9RKlUiIaz/K6eTt3UhL99bw==",
+  "dgSpecHash": "Q+fU777lFHUm+GNjHtBwpkIUf3iR1MTPVZfwmrNjwjxTdVFe1exjPaU9WByl2sbixZ01jmEpIZ3DxF4vellzfQ==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj",
   "expectedPackageFiles": [

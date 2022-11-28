@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AENj1qk+iuqkAG75wlSmOzsjRle3A1t5YDyMiaWxEvnbKx5mapGfORGJaZHOmdbzeNPu3eKxPcUeLJfpUJafEg==",
+  "dgSpecHash": "ryJt4M+8bZveBwfs+jlLDU8GcEPgclvtgOMTAFtxDTl/9pFzq7HA3dSTkLyqImFQDJzg58JDKJ77emwovvKoxw==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\audit-logging\\LinFx.Extensions.AuditLogging\\LinFx.Extensions.AuditLogging.csproj",
   "expectedPackageFiles": [

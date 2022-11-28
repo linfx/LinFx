@@ -2541,6 +2541,13 @@
             Default value: null.
             </summary>
         </member>
+        <member name="M:LinFx.Extensions.Data.ConnectionStringNameAttribute.GetConnStringName(System.Type)">
+            <summary>
+            获取链接字符串
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="P:LinFx.Extensions.Data.DatabaseInfo.MappedConnections">
             <summary>
             List of connection names mapped to this database.
@@ -3382,7 +3389,7 @@
             Log severity.
             </summary>
         </member>
-        <member name="T:LinFx.Extensions.Mediator.Idempotency.IdentifiedCommandHandler`2">
+        <member name="T:LinFx.Extensions.MediatR.Idempotency.IdentifiedCommandHandler`2">
             <summary>
             Provides a base implementation for handling duplicate request and ensuring idempotent updates, in the cases where
             a requestid sent by client is used to detect duplicate requests.
@@ -3390,13 +3397,13 @@
             <typeparam name="TCommand">Type of the command handler that performs the operation if request is not duplicated</typeparam>
             <typeparam name="TResponse">Return value of the inner command handler</typeparam>
         </member>
-        <member name="M:LinFx.Extensions.Mediator.Idempotency.IdentifiedCommandHandler`2.CreateResultForDuplicateRequest">
+        <member name="M:LinFx.Extensions.MediatR.Idempotency.IdentifiedCommandHandler`2.CreateResultForDuplicateRequest">
             <summary>
             Creates the result value to return if a previous request was found
             </summary>
             <returns></returns>
         </member>
-        <member name="M:LinFx.Extensions.Mediator.Idempotency.IdentifiedCommandHandler`2.Handle(LinFx.Extensions.Mediator.Idempotency.IdentifiedCommand{`0,`1},System.Threading.CancellationToken)">
+        <member name="M:LinFx.Extensions.MediatR.Idempotency.IdentifiedCommandHandler`2.Handle(LinFx.Extensions.MediatR.Idempotency.IdentifiedCommand{`0,`1},System.Threading.CancellationToken)">
             <summary>
             This method handles the command. It just ensures that no other request exists with the same ID, and if this is the case
             just enqueues the original inner command.
@@ -3984,45 +3991,6 @@
             <param name="contextKey">关键字</param>
             <param name="value">临时值</param>
             <returns></returns>
-        </member>
-        <member name="T:LinFx.Extensions.Threading.LockExtensions">
-            <summary>
-            Extension methods to make locking easier.
-            </summary>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking(System.Object,System.Action)">
-            <summary>
-            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
-            </summary>
-            <param name="source">Source object (to be locked)</param>
-            <param name="action">Action (to be executed)</param>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``1(``0,System.Action{``0})">
-            <summary>
-            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="T">Type of the object (to be locked)</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="action">Action (to be executed)</param>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``1(System.Object,System.Func{``0})">
-            <summary>
-            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="TResult">Return type</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="func">Function (to be executed)</param>
-            <returns>Return value of the <paramref name="func"/></returns>
-        </member>
-        <member name="M:LinFx.Extensions.Threading.LockExtensions.Locking``2(``0,System.Func{``0,``1})">
-            <summary>
-            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
-            </summary>
-            <typeparam name="T">Type of the object (to be locked)</typeparam>
-            <typeparam name="TResult">Return type</typeparam>
-            <param name="source">Source object (to be locked)</param>
-            <param name="func">Function (to be executed)</param>
-            <returns>Return value of the <paramnref name="func"/></returns>
         </member>
         <member name="T:LinFx.Extensions.Timing.Clock">
             <summary>
@@ -6471,6 +6439,45 @@
             <summary>
             Copy extra properties defined for both of the source and destination classes.
             </summary>
+        </member>
+        <member name="T:LockExtensions">
+            <summary>
+            Extension methods to make locking easier.
+            </summary>
+        </member>
+        <member name="M:LockExtensions.Locking(System.Object,System.Action)">
+            <summary>
+            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
+            </summary>
+            <param name="source">Source object (to be locked)</param>
+            <param name="action">Action (to be executed)</param>
+        </member>
+        <member name="M:LockExtensions.Locking``1(``0,System.Action{``0})">
+            <summary>
+            Executes given <paramref name="action"/> by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="T">Type of the object (to be locked)</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="action">Action (to be executed)</param>
+        </member>
+        <member name="M:LockExtensions.Locking``1(System.Object,System.Func{``0})">
+            <summary>
+            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="TResult">Return type</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="func">Function (to be executed)</param>
+            <returns>Return value of the <paramref name="func"/></returns>
+        </member>
+        <member name="M:LockExtensions.Locking``2(``0,System.Func{``0,``1})">
+            <summary>
+            Executes given <paramref name="func"/> and returns it's value by locking given <paramref name="source"/> object.
+            </summary>
+            <typeparam name="T">Type of the object (to be locked)</typeparam>
+            <typeparam name="TResult">Return type</typeparam>
+            <param name="source">Source object (to be locked)</param>
+            <param name="func">Function (to be executed)</param>
+            <returns>Return value of the <paramnref name="func"/></returns>
         </member>
     </members>
 </doc>

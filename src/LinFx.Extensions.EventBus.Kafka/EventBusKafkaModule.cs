@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.Kafka;
+﻿using LinFx.Application;
+using LinFx.Extensions.Kafka;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,14 +14,14 @@ public class EventBusKafkaModule : Module
     public override void ConfigureServices(IServiceCollection services)
     {
         var configuration = services.GetConfiguration();
-        Configure<KafkaEventBusOptions>(configuration.GetSection("Kafka:EventBus"));
+        services.Configure<KafkaEventBusOptions>(configuration.GetSection("Kafka:EventBus"));
     }
 
-    //public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    //{
-    //    context
-    //        .ServiceProvider
-    //        .GetRequiredService<KafkaDistributedEventBus>()
-    //        .Initialize();
-    //}
+    public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    {
+        context
+            .ServiceProvider
+            .GetRequiredService<KafkaDistributedEventBus>()
+            .Initialize();
+    }
 }

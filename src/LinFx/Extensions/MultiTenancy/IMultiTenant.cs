@@ -10,5 +10,5 @@ public interface IMultiTenant
     /// 租户Id
     /// </summary>
     [Column("tenant_id"), StringLength(64)]
-    string TenantId { get; }
+    string? TenantId { get; }
 }

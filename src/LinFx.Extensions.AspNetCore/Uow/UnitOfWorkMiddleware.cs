@@ -2,8 +2,6 @@
 using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.Uow;
 
@@ -28,16 +26,10 @@ public class UnitOfWorkMiddleware : IMiddleware, ITransientDependency
             return;
         }
 
-        using (var uow = _unitOfWorkManager.Reserve(UnitOfWork.UnitOfWorkReservationName))
-        {
-            await next(context);
-            await uow.CompleteAsync(context.RequestAborted);
-        }
+        using var uow = _unitOfWorkManager.Reserve(UnitOfWork.UnitOfWorkReservationName);
+        await next(context);
+        await uow.CompleteAsync(context.RequestAborted);
     }
 
-    private bool IsIgnoredUrl(HttpContext context)
-    {
-        return context.Request.Path.Value != null &&
-               _options.IgnoredUrls.Any(x => context.Request.Path.Value.StartsWith(x));
-    }
+    private bool IsIgnoredUrl(HttpContext context) => context.Request.Path.Value != null && _options.IgnoredUrls.Any(x => context.Request.Path.Value.StartsWith(x));
 }

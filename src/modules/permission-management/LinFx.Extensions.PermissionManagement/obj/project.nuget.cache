@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q4A5RV7oQfDSwkp+KiM/j2zgD91fm2pRsFQCLn9hkeV5hKA2/7CSkBHLqhrG/tBotUYSizXpgJ6meW0T4xskAw==",
+  "dgSpecHash": "nposjTW1Vg7FlfL6NJvUsM4TAllZpUiXmIdgWRG7hXoadkmBu+P7Gxxk8RD3ml2iDTiFrzRUXFAmtJq3IVzZdQ==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj",
   "expectedPackageFiles": [

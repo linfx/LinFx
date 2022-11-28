@@ -12,15 +12,12 @@ public class KafkaMessageConsumerFactory : IKafkaMessageConsumerFactory, ISingle
         ServiceScope = serviceScopeFactory.CreateScope();
     }
 
-    public IKafkaMessageConsumer Create(string topicName, string groupId, string? connectionName = null)
+    public IKafkaMessageConsumer Create(string topicName, string groupId, string connectionName = null)
     {
         var consumer = ServiceScope.ServiceProvider.GetRequiredService<KafkaMessageConsumer>();
         consumer.Initialize(topicName, groupId, connectionName);
         return consumer;
     }
 
-    public void Dispose()
-    {
-        ServiceScope?.Dispose();
-    }
+    public void Dispose() => ServiceScope?.Dispose();
 }
