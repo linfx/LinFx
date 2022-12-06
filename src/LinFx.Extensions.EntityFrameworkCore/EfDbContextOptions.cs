@@ -11,7 +11,7 @@ public class EfDbContextOptions
 {
     internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
 
-    internal Action<DbContextConfigurationContext>? DefaultConfigureAction { get; set; }
+    internal Action<DbContextConfigurationContext> DefaultConfigureAction { get; set; }
 
     internal Dictionary<Type, List<object>> PreConfigureActions { get; } = new Dictionary<Type, List<object>>();
 

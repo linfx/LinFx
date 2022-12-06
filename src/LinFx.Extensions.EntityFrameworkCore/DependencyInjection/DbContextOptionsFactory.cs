@@ -3,8 +3,6 @@ using LinFx.Extensions.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 
@@ -88,11 +86,8 @@ public static class DbContextOptionsFactory
     /// <typeparam name="TDbContext"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    private static EfDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider)
-        where TDbContext : DbContext
-    {
-        return serviceProvider.GetRequiredService<IOptions<EfDbContextOptions>>().Value;
-    }
+    private static EfDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider) where TDbContext : DbContext
+        => serviceProvider.GetRequiredService<IOptions<EfDbContextOptions>>().Value;
 
     private static DbContextCreationContext GetCreationContext<TDbContext>(IServiceProvider serviceProvider)
         where TDbContext : DbContext
@@ -131,6 +126,6 @@ public static class DbContextOptionsFactory
         }
 
         return connectionStringResolver.ResolveAsync(connectionStringName).Result;
-//#pragma warning restore 618
+        //#pragma warning restore 618
     }
 }

@@ -76,10 +76,7 @@ public static class EntityTypeBuilderExtensions
         }
     }
 
-    public static void ApplyObjectExtensionMappings(this EntityTypeBuilder b)
-    {
-        ObjectExtensionManager.Instance.ConfigureEfEntity(b);
-    }
+    public static void ApplyObjectExtensionMappings(this EntityTypeBuilder b) => ObjectExtensionManager.Instance.ConfigureEfEntity(b);
 
     public static void ConfigureSoftDelete<T>(this EntityTypeBuilder<T> b)
         where T : class, ISoftDelete
@@ -98,11 +95,7 @@ public static class EntityTypeBuilderExtensions
         }
     }
 
-    public static void ConfigureDeletionTime<T>(this EntityTypeBuilder<T> b)
-        where T : class, IHasDeletionTime
-    {
-        b.As<EntityTypeBuilder>().TryConfigureDeletionTime();
-    }
+    public static void ConfigureDeletionTime<T>(this EntityTypeBuilder<T> b) where T : class, IHasDeletionTime => b.As<EntityTypeBuilder>().TryConfigureDeletionTime();
 
     public static void TryConfigureDeletionTime(this EntityTypeBuilder b)
     {

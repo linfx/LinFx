@@ -33,8 +33,12 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// <summary>
 /// 数据库上下文
 /// </summary>
-public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependency
+public abstract class EfDbContext : DbContext, ITransientDependency
 {
+    protected EfDbContext() { }
+
+    public EfDbContext(DbContextOptions options) : base(options) { }
+
     [Autowired]
     public ILazyServiceProvider LazyServiceProvider { get; set; }
 
@@ -57,8 +61,6 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
     /// 当前租户
     /// </summary>
     public ICurrentTenant? CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
-
-    public IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
     /// <summary>
     /// 数据过滤
@@ -112,11 +114,6 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
 
     private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
         .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
-
-    protected EfDbContext() { }
-
-    public EfDbContext(DbContextOptions options) 
-        : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -674,7 +671,7 @@ public abstract class EfDbContext : DbContext, IEfDbContext, ITransientDependenc
             _newValue = newValue;
         }
 
-        public override Expression? Visit(Expression? node)
+        public override Expression Visit(Expression? node)
         {
             if (node == _oldValue)
                 return _newValue;

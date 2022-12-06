@@ -1,6 +1,5 @@
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 

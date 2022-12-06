@@ -10,7 +10,7 @@
     <dependencies>
       <group targetFramework="net7.0">
         <dependency id="LinFx.Extensions.EntityFrameworkCore" version="6.0.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="6.0.10" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.Sqlite" version="7.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

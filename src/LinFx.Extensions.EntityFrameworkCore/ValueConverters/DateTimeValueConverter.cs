@@ -7,9 +7,6 @@ namespace LinFx.Extensions.EntityFrameworkCore.ValueConverters;
 public class DateTimeValueConverter : ValueConverter<DateTime?, DateTime?>
 {
     public DateTimeValueConverter(IClock clock, [CanBeNull] ConverterMappingHints? mappingHints = default)
-        : base(
-            x => x.HasValue ? clock.Normalize(x.Value) : x,
-            x => x.HasValue ? clock.Normalize(x.Value) : x, 
-            mappingHints)
+        : base(x => x.HasValue ? clock.Normalize(x.Value) : x, x => x.HasValue ? clock.Normalize(x.Value) : x, mappingHints)
     { }
 }

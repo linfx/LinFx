@@ -143,3 +143,12 @@ D:\github\linfx\LinFx\samples\TenantManagementService.Host\obj\Release\net7.0\re
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\obj\Release\net7.0\TenantManagementService.Host.pdb
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\obj\Release\net7.0\TenantManagementService.Host.genruntimeconfig.cache
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\obj\Release\net7.0\ref\TenantManagementService.Host.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Mono.TextTemplating.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\System.CodeDom.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\alpine-arm\native\libe_sqlite3.so
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\alpine-arm64\native\libe_sqlite3.so
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\browser-wasm\nativeassets\net7.0\e_sqlite3.a
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib

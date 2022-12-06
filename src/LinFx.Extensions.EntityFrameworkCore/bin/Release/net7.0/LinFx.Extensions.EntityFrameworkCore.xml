@@ -286,16 +286,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:LinFx.Extensions.EntityFrameworkCore.IEfDbContext">
-            <summary>
-            数据库上下文
-            </summary>
-        </member>
-        <member name="M:LinFx.Extensions.EntityFrameworkCore.IEfDbContext.SaveChangesOnDbContextAsync(System.Boolean,System.Threading.CancellationToken)">
-            <summary>
-            This method will call the DbContext <see cref="M:LinFx.Extensions.EntityFrameworkCore.IEfDbContext.SaveChangesAsync(System.Boolean,System.Threading.CancellationToken)"/> method directly of EF Core, which doesn't apply concepts of abp.
-            </summary>
-        </member>
         <member name="T:LinFx.Extensions.EntityFrameworkCore.Repositories.EfRepository`2">
             <summary>
             Ef 仓储
@@ -334,6 +324,8 @@
         <member name="M:LinFx.Extensions.EntityFrameworkCore.Uow.UnitOfWorkDbContextProvider`1.CreateDbContextAsync(LinFx.Extensions.Uow.IUnitOfWork)">
             <summary>
             创建数据库上下文
+            如果是事务型的工作单元，则调用 CreateDbContextWithTransaction() 进行创建，
+            但不论如何都是通过工作单元提供的 IServiceProvider 解析出来 DbContext 的。
             </summary>
             <param name="unitOfWork"></param>
             <returns></returns>

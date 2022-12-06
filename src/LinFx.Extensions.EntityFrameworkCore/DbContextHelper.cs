@@ -1,9 +1,6 @@
 using LinFx.Domain.Entities;
 using LinFx.Reflection;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace LinFx.Extensions.EntityFrameworkCore;

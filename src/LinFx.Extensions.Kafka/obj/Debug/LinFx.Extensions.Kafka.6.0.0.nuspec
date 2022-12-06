@@ -8,14 +8,14 @@
     <description>Package Description</description>
     <copyright>Copyright (c) 2020 LinFx</copyright>
     <dependencies>
-      <group targetFramework="net6.0">
+      <group targetFramework="net7.0">
         <dependency id="LinFx" version="6.0.0" exclude="Build,Analyzers" />
         <dependency id="Confluent.Kafka" version="1.9.3" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net6.0\LinFx.Extensions.Kafka.dll" target="lib\net6.0\LinFx.Extensions.Kafka.dll" />
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net6.0\LinFx.Extensions.Kafka.xml" target="lib\net6.0\LinFx.Extensions.Kafka.xml" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net7.0\LinFx.Extensions.Kafka.dll" target="lib\net7.0\LinFx.Extensions.Kafka.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.Kafka\bin\Debug\net7.0\LinFx.Extensions.Kafka.xml" target="lib\net7.0\LinFx.Extensions.Kafka.xml" />
   </files>
 </package>

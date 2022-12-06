@@ -8,7 +8,7 @@
     <description>Package Description</description>
     <copyright>Copyright (c) 2020 LinFx</copyright>
     <dependencies>
-      <group targetFramework="net6.0">
+      <group targetFramework="net7.0">
         <dependency id="LinFx" version="6.0.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.EntityFrameworkCore" version="6.0.10" exclude="Build,Analyzers" />
         <dependency id="Microsoft.EntityFrameworkCore.Relational" version="6.0.10" exclude="Build,Analyzers" />
@@ -16,7 +16,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Debug\net6.0\LinFx.Extensions.EntityFrameworkCore.dll" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.dll" />
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Debug\net6.0\LinFx.Extensions.EntityFrameworkCore.xml" target="lib\net6.0\LinFx.Extensions.EntityFrameworkCore.xml" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Debug\net7.0\LinFx.Extensions.EntityFrameworkCore.dll" target="lib\net7.0\LinFx.Extensions.EntityFrameworkCore.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EntityFrameworkCore\bin\Debug\net7.0\LinFx.Extensions.EntityFrameworkCore.xml" target="lib\net7.0\LinFx.Extensions.EntityFrameworkCore.xml" />
   </files>
 </package>

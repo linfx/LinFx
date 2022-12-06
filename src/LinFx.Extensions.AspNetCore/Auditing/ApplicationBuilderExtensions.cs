@@ -9,8 +9,5 @@ public static partial class ApplicationBuilderExtensions
     /// </summary>
     /// <param name="app"></param>
     /// <returns></returns>
-    public static IApplicationBuilder UseAuditing(this IApplicationBuilder app)
-    {
-        return app.UseMiddleware<AuditingMiddleware>();
-    }
+    public static IApplicationBuilder UseAuditing(this IApplicationBuilder app) => app.UseMiddleware<AuditingMiddleware>();
 }

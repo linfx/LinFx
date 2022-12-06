@@ -16,7 +16,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// 工作单元数据库上下文提供者
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : IEfDbContext
+public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : DbContext
 {
     public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; } = NullLogger<UnitOfWorkDbContextProvider<TDbContext>>.Instance;
 
@@ -85,7 +85,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
         {
             var dbContext = await CreateDbContextAsync(unitOfWork);
 
-            if (dbContext is IEfDbContext efDbContext)
+            if (dbContext is EfDbContext efDbContext)
                 efDbContext.Initialize(new EfDbContextInitializationContext(unitOfWork));
 
             return dbContext;
@@ -94,17 +94,14 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
 
     /// <summary>
     /// 创建数据库上下文
+    /// 如果是事务型的工作单元，则调用 CreateDbContextWithTransaction() 进行创建，
+    /// 但不论如何都是通过工作单元提供的 IServiceProvider 解析出来 DbContext 的。
     /// </summary>
     /// <param name="unitOfWork"></param>
     /// <returns></returns>
-    private async Task<TDbContext> CreateDbContextAsync(IUnitOfWork unitOfWork)
-    {
-        // 如果是事务型的工作单元，则调用 CreateDbContextWithTransaction() 进行创建，
-        // 但不论如何都是通过工作单元提供的 IServiceProvider 解析出来 DbContext 的。
-        return unitOfWork.Options.IsTransactional
+    private async Task<TDbContext> CreateDbContextAsync(IUnitOfWork unitOfWork) => unitOfWork.Options.IsTransactional
             ? await CreateDbContextWithTransactionAsync(unitOfWork)
             : unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
-    }
 
     /// <summary>
     /// 创建数据库上下文
@@ -114,9 +111,8 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
     private async Task<TDbContext> CreateDbContextWithTransactionAsync(IUnitOfWork unitOfWork)
     {
         var transactionApiKey = $"EntityFrameworkCore_{DbContextCreationContext.Current.ConnectionString}";
-        var activeTransaction = unitOfWork.FindTransactionApi(transactionApiKey) as EfTransactionApi;
 
-        if (activeTransaction == null)
+        if (unitOfWork.FindTransactionApi(transactionApiKey) is not EfTransactionApi activeTransaction)
         {
             var dbContext = unitOfWork.ServiceProvider.GetRequiredService<TDbContext>();
 
@@ -124,14 +120,7 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
                 ? await dbContext.Database.BeginTransactionAsync(unitOfWork.Options.IsolationLevel.Value, GetCancellationToken())
                 : await dbContext.Database.BeginTransactionAsync(GetCancellationToken());
 
-            unitOfWork.AddTransactionApi(
-                transactionApiKey,
-                new EfTransactionApi(
-                    dbTransaction,
-                    dbContext,
-                    _cancellationTokenProvider
-                )
-            );
+            unitOfWork.AddTransactionApi(transactionApiKey, new EfTransactionApi(dbTransaction, dbContext, _cancellationTokenProvider));
 
             return dbContext;
         }
@@ -154,16 +143,11 @@ public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbCon
                      * commit/rollback this transaction over the DbContext instance. */
                     if (unitOfWork.Options.IsolationLevel.HasValue)
                     {
-                        await dbContext.Database.BeginTransactionAsync(
-                            unitOfWork.Options.IsolationLevel.Value,
-                            GetCancellationToken()
-                        );
+                        await dbContext.Database.BeginTransactionAsync(unitOfWork.Options.IsolationLevel.Value, GetCancellationToken());
                     }
                     else
                     {
-                        await dbContext.Database.BeginTransactionAsync(
-                            GetCancellationToken()
-                        );
+                        await dbContext.Database.BeginTransactionAsync(GetCancellationToken());
                     }
                 }
             }

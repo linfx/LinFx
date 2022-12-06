@@ -7,7 +7,7 @@ public class TenantInfo
 {
     public TenantInfo() { }
 
-    public TenantInfo(string id, string name)
+    public TenantInfo(string? id, string? name)
     {
         Id = id;
         Name = name;
@@ -16,10 +16,10 @@ public class TenantInfo
     /// <summary>
     /// ID
     /// </summary>
-    public string Id { get; }
+    public string? Id { get; }
 
     /// <summary>
     /// 名称
     /// </summary>
-    public string Name { get; }
+    public string? Name { get; }
 }

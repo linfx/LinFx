@@ -16,7 +16,7 @@ namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 /// <typeparam name="TDbContext"></typeparam>
 /// <typeparam name="TEntity"></typeparam>
 public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRepository<TEntity>
-    where TDbContext : IEfDbContext
+    where TDbContext : DbContext
     where TEntity : class, IEntity
 {
     public EfRepository(IDbContextProvider<TDbContext> dbContextProvider)
@@ -37,7 +37,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
                       .GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty);
     }
 
-    async Task<DbContext> IEfRepository<TEntity>.GetDbContextAsync() => await GetDbContextAsync() as DbContext;
+    async Task<DbContext> IEfRepository<TEntity>.GetDbContextAsync() => await GetDbContextAsync();
 
     /// <summary>
     /// 获取数据库上下文
@@ -315,7 +315,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
 }
 
 public class EfRepository<TDbContext, TEntity, TKey> : EfRepository<TDbContext, TEntity>, IEfRepository<TEntity, TKey>, ISupportsExplicitLoading<TEntity, TKey>
-    where TDbContext : IEfDbContext
+    where TDbContext : DbContext
     where TEntity : class, IEntity<TKey>
 {
     public EfRepository(IServiceProvider serviceProvider, IDbContextProvider<TDbContext> dbContextProvider)

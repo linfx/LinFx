@@ -3,7 +3,6 @@ using LinFx.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Data.Common;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;

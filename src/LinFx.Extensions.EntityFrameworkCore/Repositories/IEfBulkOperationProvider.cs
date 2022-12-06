@@ -1,4 +1,5 @@
 ﻿using LinFx.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Repositories;
 
@@ -10,7 +11,7 @@ public interface IEfBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfDbContext
+        where TDbContext : DbContext
         where TEntity : class, IEntity;
 
 
@@ -20,7 +21,7 @@ public interface IEfBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfDbContext
+        where TDbContext : DbContext
         where TEntity : class, IEntity;
 
 
@@ -30,6 +31,6 @@ public interface IEfBulkOperationProvider
         bool autoSave,
         CancellationToken cancellationToken
     )
-        where TDbContext : IEfDbContext
+        where TDbContext : DbContext
         where TEntity : class, IEntity;
 }

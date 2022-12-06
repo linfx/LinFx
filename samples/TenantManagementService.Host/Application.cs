@@ -68,7 +68,7 @@ public class Application : Module
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
         });
-        app.UseAuditing();
+        //app.UseAuditing();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapDefaultControllerRoute();

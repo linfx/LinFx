@@ -135,11 +135,11 @@
             },
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
-              "version": "[11.2.2, )"
+              "version": "[11.4.0, )"
             },
             "JetBrains.Annotations": {
               "target": "Package",
-              "version": "[2022.1.0, )"
+              "version": "[2022.3.1, )"
             },
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -147,7 +147,7 @@
             },
             "Microsoft.AspNetCore.Authorization": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -155,7 +155,7 @@
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Caching.Redis": {
               "target": "Package",
@@ -163,23 +163,23 @@
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Hosting.Abstractions": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Http.Polly": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Localization": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Options.ConfigurationExtensions": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Nito.AsyncEx": {
               "target": "Package",
@@ -187,7 +187,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.25.0, )"
+              "version": "[6.25.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",
@@ -199,7 +199,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[7.0.0, )"
             }
           },
           "imports": [

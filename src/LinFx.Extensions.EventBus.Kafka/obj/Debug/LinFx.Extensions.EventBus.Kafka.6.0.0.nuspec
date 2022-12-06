@@ -8,13 +8,13 @@
     <description>Package Description</description>
     <copyright>Copyright (c) 2020 LinFx</copyright>
     <dependencies>
-      <group targetFramework="net6.0">
+      <group targetFramework="net7.0">
         <dependency id="LinFx.Extensions.Kafka" version="6.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.dll" target="lib\net6.0\LinFx.Extensions.EventBus.Kafka.dll" />
-    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Debug\net6.0\LinFx.Extensions.EventBus.Kafka.xml" target="lib\net6.0\LinFx.Extensions.EventBus.Kafka.xml" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Debug\net7.0\LinFx.Extensions.EventBus.Kafka.dll" target="lib\net7.0\LinFx.Extensions.EventBus.Kafka.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Debug\net7.0\LinFx.Extensions.EventBus.Kafka.xml" target="lib\net7.0\LinFx.Extensions.EventBus.Kafka.xml" />
   </files>
 </package>

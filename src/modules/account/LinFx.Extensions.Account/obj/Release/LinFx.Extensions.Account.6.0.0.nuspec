@@ -11,7 +11,7 @@
       <group targetFramework="net7.0">
         <dependency id="LinFx" version="6.0.0" exclude="Build,Analyzers" />
         <dependency id="Microsoft.AspNetCore.Identity" version="2.2.0" exclude="Build,Analyzers" />
-        <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="6.0.10" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="7.0.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

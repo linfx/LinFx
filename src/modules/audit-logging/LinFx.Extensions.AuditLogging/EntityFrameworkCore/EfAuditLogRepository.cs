@@ -4,22 +4,16 @@ using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 
 [Service]
-public class EfAuditLogRepository : EfRepository<IAuditLoggingDbContext, AuditLog, string>, IAuditLogRepository
+public class EfAuditLogRepository : EfRepository<AuditLoggingDbContext, AuditLog, string>, IAuditLogRepository
 {
-    public EfAuditLogRepository(IServiceProvider serviceProvider, IDbContextProvider<IAuditLoggingDbContext> dbContextProvider)
+    public EfAuditLogRepository(IServiceProvider serviceProvider, IDbContextProvider<AuditLoggingDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)
-    {
-    }
+    { }
 
     public virtual async Task<List<AuditLog>> GetListAsync(
         string sorting = null,

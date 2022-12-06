@@ -9,21 +9,21 @@ public class EfTransactionApi : ITransactionApi, ISupportsRollback
 {
     public IDbContextTransaction DbContextTransaction { get; }
 
-    public IEfDbContext StarterDbContext { get; }
+    public DbContext StarterDbContext { get; }
 
-    public List<IEfDbContext> AttendedDbContexts { get; }
+    public List<DbContext> AttendedDbContexts { get; }
 
     protected ICancellationTokenProvider CancellationTokenProvider { get; }
 
     public EfTransactionApi(
         IDbContextTransaction dbContextTransaction,
-        IEfDbContext starterDbContext,
+        DbContext starterDbContext,
         ICancellationTokenProvider cancellationTokenProvider)
     {
         DbContextTransaction = dbContextTransaction;
         StarterDbContext = starterDbContext;
         CancellationTokenProvider = cancellationTokenProvider;
-        AttendedDbContexts = new List<IEfDbContext>();
+        AttendedDbContexts = new List<DbContext>();
     }
 
     public async Task CommitAsync()

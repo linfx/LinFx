@@ -20,9 +20,9 @@ namespace LinFx.Extensions.PermissionManagement;
 )]
 public class PermissionManagementModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<PermissionManagementOptions>(options =>
+        services.Configure<PermissionManagementOptions>(options =>
         {
             options.ManagementProviders.Add<UserPermissionManagementProvider>();
             options.ManagementProviders.Add<RolePermissionManagementProvider>();
@@ -32,9 +32,9 @@ public class PermissionManagementModule : Module
             options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
         });
 
-        context.Services.AddDbContext<PermissionManagementDbContext>(options =>
+        services.AddDbContext<PermissionManagementDbContext>(options =>
         {
-            options.AddDefaultRepositories<IPermissionManagementDbContext>();
+            options.AddDefaultRepositories<PermissionManagementDbContext>();
             options.AddRepository<PermissionGrant, EfPermissionGrantRepository>();
         });
     }

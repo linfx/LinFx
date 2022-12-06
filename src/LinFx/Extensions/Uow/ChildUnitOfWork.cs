@@ -112,10 +112,7 @@ namespace LinFx.Extensions.Uow
             return _parent.GetOrAddDatabaseApi(key, factory);
         }
 
-        public ITransactionApi FindTransactionApi(string key)
-        {
-            return _parent.FindTransactionApi(key);
-        }
+        public ITransactionApi FindTransactionApi(string key) => _parent.FindTransactionApi(key);
 
         public void AddTransactionApi(string key, ITransactionApi api)
         {

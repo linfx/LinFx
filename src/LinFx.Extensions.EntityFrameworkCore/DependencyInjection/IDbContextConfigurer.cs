@@ -7,8 +7,7 @@ public interface IDbContextConfigurer
     void Configure(DbContextConfigurationContext context);
 }
 
-public interface IDbContextConfigurer<TDbContext>
-    where TDbContext : DbContext
+public interface IDbContextConfigurer<TDbContext> where TDbContext : DbContext
 {
     void Configure(DbContextConfigurationContext<TDbContext> context);
 }

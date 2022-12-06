@@ -1,9 +1,8 @@
-﻿using EfPostgresql;
-using EfPostgresql.Domain;
+﻿using EfPostgresql.Domain;
 using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class MyDbContext : EfDbContext
+public class MyDbContext : DbContext
 {
     public DbSet<SensorStat> Sensors { get; set; }
 

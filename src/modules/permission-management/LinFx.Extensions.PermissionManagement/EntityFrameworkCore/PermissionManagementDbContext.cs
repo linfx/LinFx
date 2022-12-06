@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
 [ConnectionStringName(PermissionManagementDbProperties.ConnectionStringName)]
-public class PermissionManagementDbContext : EfDbContext, IPermissionManagementDbContext
+public class PermissionManagementDbContext : EfDbContext
 {
     public PermissionManagementDbContext() { }
 

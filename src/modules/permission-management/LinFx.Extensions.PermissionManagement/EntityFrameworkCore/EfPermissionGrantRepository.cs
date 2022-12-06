@@ -2,11 +2,6 @@
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.EntityFrameworkCore.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
@@ -17,8 +12,8 @@ public class EfPermissionGrantRepository : EfRepository<PermissionManagementDbCo
         IServiceProvider serviceProvider,
         IDbContextProvider<PermissionManagementDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)
-    {
-    }
+    { }
+    
 
     public virtual async Task<PermissionGrant> FindAsync(
         string name,

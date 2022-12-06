@@ -6,8 +6,5 @@ public class EfDbContextInitializationContext
 {
     public IUnitOfWork UnitOfWork { get; }
 
-    public EfDbContextInitializationContext(IUnitOfWork unitOfWork)
-    {
-        UnitOfWork = unitOfWork;
-    }
+    public EfDbContextInitializationContext(IUnitOfWork unitOfWork) => UnitOfWork = unitOfWork;
 }
