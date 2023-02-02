@@ -168,8 +168,6 @@ D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win-x86\n
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\linux\native\libmongocrypt.so
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\osx\native\libmongocrypt.dylib
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\native\mongocrypt.dll
-D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
-D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\LinFx.dll
 D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\LinFx.Extensions.Autofac.dll
@@ -201,3 +199,5 @@ D:\github\linfx\LinFx\samples\EfPostgresql\obj\Release\net7.0\refint\EfPostgresq
 D:\github\linfx\LinFx\samples\EfPostgresql\obj\Release\net7.0\EfPostgresql.pdb
 D:\github\linfx\LinFx\samples\EfPostgresql\obj\Release\net7.0\EfPostgresql.genruntimeconfig.cache
 D:\github\linfx\LinFx\samples\EfPostgresql\obj\Release\net7.0\ref\EfPostgresql.dll
+D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\lib\net7.0\System.Diagnostics.EventLog.Messages.dll
+D:\github\linfx\LinFx\samples\EfPostgresql\bin\Release\net7.0\runtimes\win\lib\net7.0\System.Diagnostics.EventLog.dll

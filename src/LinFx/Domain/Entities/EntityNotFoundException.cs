@@ -18,25 +18,17 @@ public class EntityNotFoundException : Exception
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
-    public EntityNotFoundException()
-    {
-    }
+    public EntityNotFoundException() { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
-    public EntityNotFoundException(Type entityType)
-        : this(entityType, null, null)
-    {
-    }
+    public EntityNotFoundException(Type entityType) : this(entityType, null, null) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
-    public EntityNotFoundException(Type entityType, object id)
-        : this(entityType, id, null)
-    {
-    }
+    public EntityNotFoundException(Type entityType, object id) : this(entityType, id, null) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.

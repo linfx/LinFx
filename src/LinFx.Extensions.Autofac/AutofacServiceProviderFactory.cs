@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Autofac;

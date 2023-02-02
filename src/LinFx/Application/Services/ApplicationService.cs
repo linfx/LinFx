@@ -49,8 +49,6 @@ public abstract class ApplicationService :
             ? provider.GetRequiredService<IObjectMapper>()
             : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 
-    protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
-
     /// <summary>
     /// 日志厂工
     /// </summary>
@@ -71,8 +69,14 @@ public abstract class ApplicationService :
     /// </summary>
     protected ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
 
+    /// <summary>
+    /// 配置
+    /// </summary>
     protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
 
+    /// <summary>
+    /// 时钟
+    /// </summary>
     protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
 
     protected IAuthorizationService AuthorizationService => LazyServiceProvider.LazyGetRequiredService<IAuthorizationService>();
@@ -115,7 +119,7 @@ public abstract class ApplicationService :
     /// <summary>
     /// 当前工作单元
     /// </summary>
-    protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
+    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     /// <summary>
     /// 日志

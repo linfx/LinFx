@@ -282,6 +282,16 @@
             当前用户
             </summary>
         </member>
+        <member name="P:LinFx.Application.Services.ApplicationService.SettingProvider">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="P:LinFx.Application.Services.ApplicationService.Clock">
+            <summary>
+            时钟
+            </summary>
+        </member>
         <member name="P:LinFx.Application.Services.ApplicationService.CurrentUnitOfWork">
             <summary>
             当前工作单元

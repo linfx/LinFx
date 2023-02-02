@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using JetBrains.Annotations;
-using LinFx;
 using LinFx.Extensions.Autofac;
+using LinFx.Utils;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

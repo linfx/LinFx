@@ -1,4 +1,6 @@
-﻿namespace LinFx;
+﻿using LinFx.Utils;
+
+namespace LinFx;
 
 public static class NamedTypeSelectorListExtensions
 {

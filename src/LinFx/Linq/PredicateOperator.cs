@@ -36,13 +36,10 @@ public static class PredicateBuilder
     }
 
     /// <summary> Start an expression </summary>
-    public static ExpressionStarter<T> New<T>(Expression<Func<T, bool>>? expr = null) => new(expr);
+    public static ExpressionStarter<T> New<T>(Expression<Func<T, bool>> expr = null) => new(expr);
 
     /// <summary> Create an expression with a stub expression true or false to use when the expression is not yet started. </summary>
-    public static ExpressionStarter<T> New<T>(bool defaultExpression)
-    {
-        return new ExpressionStarter<T>(defaultExpression);
-    }
+    public static ExpressionStarter<T> New<T>(bool defaultExpression) => new(defaultExpression);
 
     /// <summary> OR </summary>
     public static Expression<Func<T, bool>> Or<T>([NotNull] this Expression<Func<T, bool>> expr1,
@@ -69,9 +66,7 @@ public static class PredicateBuilder
     /// <param name="operator">The Operator (can be "And" or "Or").</param>
     /// <returns>Expression{Func{T, bool}}</returns>
     public static Expression<Func<T, bool>> Extend<T>([NotNull] this Expression<Func<T, bool>> first, [NotNull] Expression<Func<T, bool>> second, PredicateOperator @operator = PredicateOperator.Or)
-    {
-        return @operator == PredicateOperator.Or ? first.Or(second) : first.And(second);
-    }
+        => @operator == PredicateOperator.Or ? first.Or(second) : first.And(second);
 
     /// <summary>
     /// Extends the specified source Predicate with another Predicate and the specified PredicateOperator.
@@ -81,11 +76,8 @@ public static class PredicateBuilder
     /// <param name="second">The second Predicate.</param>
     /// <param name="operator">The Operator (can be "And" or "Or").</param>
     /// <returns>Expression{Func{T, bool}}</returns>
-    public static Expression<Func<T, bool>> Extend<T>([NotNull] this ExpressionStarter<T> first,
-        [NotNull] Expression<Func<T, bool>> second, PredicateOperator @operator = PredicateOperator.Or)
-    {
-        return @operator == PredicateOperator.Or ? first.Or(second) : first.And(second);
-    }
+    public static Expression<Func<T, bool>> Extend<T>([NotNull] this ExpressionStarter<T> first, [NotNull] Expression<Func<T, bool>> second, PredicateOperator @operator = PredicateOperator.Or)
+        => @operator == PredicateOperator.Or ? first.Or(second) : first.And(second);
 }
 
 /// <summary>
@@ -100,7 +92,7 @@ public class ExpressionStarter<T>
 
     public ExpressionStarter(Expression<Func<T, bool>>? exp)
         : this(false)
-    { 
+    {
         _predicate = exp;
     }
 
@@ -147,10 +139,7 @@ public class ExpressionStarter<T>
     public Expression<Func<T, bool>> And([NotNull] Expression<Func<T, bool>> expr2) => (IsStarted) ? _predicate = Predicate.And(expr2) : Start(expr2);
 
     /// <summary> Show predicate string </summary>
-    public override string? ToString()
-    {
-        return Predicate?.ToString();
-    }
+    public override string ToString() => Predicate?.ToString();
 
     #region Implicit Operators
 
@@ -158,35 +147,27 @@ public class ExpressionStarter<T>
     /// Allows this object to be implicitely converted to an Expression{Func{T, bool}}.
     /// </summary>
     /// <param name="right"></param>
-    public static implicit operator Expression<Func<T, bool>>(ExpressionStarter<T> right)
-    {
-        return right?.Predicate;
-    }
+    public static implicit operator Expression<Func<T, bool>>(ExpressionStarter<T> right) => right?.Predicate;
 
     /// <summary>
     /// Allows this object to be implicitely converted to an Expression{Func{T, bool}}.
     /// </summary>
     /// <param name="right"></param>
     public static implicit operator Func<T, bool>(ExpressionStarter<T> right)
-    {
-        return right == null ? null : (right.IsStarted || right.UseDefaultExpression) ? right.Predicate.Compile() : null;
-    }
+        => right == null ? null : (right.IsStarted || right.UseDefaultExpression) ? right.Predicate.Compile() : null;
 
     /// <summary>
     /// Allows this object to be implicitely converted to an Expression{Func{T, bool}}.
     /// </summary>
     /// <param name="right"></param>
-    public static implicit operator ExpressionStarter<T>(Expression<Func<T, bool>> right)
-    {
-        return right == null ? null : new ExpressionStarter<T>(right);
-    }
+    public static implicit operator ExpressionStarter<T>(Expression<Func<T, bool>> right) 
+        => right == null ? null : new ExpressionStarter<T>(right);
 
     #endregion
 
     #region Implement Expression<TDelagate> methods and properties
 
 #if !(NET35)
-
     /// <summary></summary>
     public Func<T, bool> Compile()
     {

@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Domain.Entities;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 

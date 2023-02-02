@@ -1,4 +1,4 @@
-﻿namespace LinFx;
+﻿namespace LinFx.Utils;
 
 /// <summary>
 /// Checks

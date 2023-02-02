@@ -3,6 +3,7 @@ using Confluent.Kafka.Admin;
 using JetBrains.Annotations;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Threading;
+using LinFx.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;

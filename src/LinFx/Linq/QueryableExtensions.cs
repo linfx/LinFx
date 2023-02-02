@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using LinFx;
+using LinFx.Utils;
 using System.Linq.Expressions;
 using System.Reflection;
 

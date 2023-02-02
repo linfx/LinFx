@@ -1,6 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 using LinFx.Extensions.ObjectExtending;
+using LinFx.Utils;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinFx.Extensions.EntityFrameworkCore.ObjectExtending

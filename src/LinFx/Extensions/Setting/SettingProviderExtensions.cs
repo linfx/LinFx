@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.Setting
 {

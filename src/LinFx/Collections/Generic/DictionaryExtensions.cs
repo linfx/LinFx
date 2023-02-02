@@ -34,10 +34,7 @@ public static class DictionaryExtensions
     /// <typeparam name="TKey">Type of the key</typeparam>
     /// <typeparam name="TValue">Type of the value</typeparam>
     /// <returns>Value if found, default if can not found.</returns>
-    public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-    {
-        return dictionary.TryGetValue(key, out TValue obj) ? obj : default;
-    }
+    public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) => dictionary.TryGetValue(key, out TValue obj) ? obj : default;
 
     /// <summary>
     /// Gets a value from the dictionary with given key. Returns default value if can not find.
@@ -67,8 +64,5 @@ public static class DictionaryExtensions
     /// <typeparam name="TKey">Type of the key</typeparam>
     /// <typeparam name="TValue">Type of the value</typeparam>
     /// <returns>Value if found, default if can not found.</returns>
-    public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> factory)
-    {
-        return dictionary.GetOrAdd(key, k => factory());
-    }
+    public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> factory) => dictionary.GetOrAdd(key, k => factory());
 }

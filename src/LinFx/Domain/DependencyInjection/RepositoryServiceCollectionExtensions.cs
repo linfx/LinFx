@@ -6,11 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class RepositoryServiceCollectionExtensions
 {
-    public static IServiceCollection AddDefaultRepository(
-        this IServiceCollection services,
-        Type entityType,
-        Type repositoryImplementationType,
-        bool replaceExisting = false)
+    public static IServiceCollection AddDefaultRepository(this IServiceCollection services, Type entityType, Type repositoryImplementationType, bool replaceExisting = false)
     {
         //IReadOnlyBasicRepository<TEntity>
         var readOnlyBasicRepositoryInterface = typeof(IReadOnlyBasicRepository<>).MakeGenericType(entityType);
@@ -75,19 +71,11 @@ public static class RepositoryServiceCollectionExtensions
         return services;
     }
 
-    private static void RegisterService(
-        IServiceCollection services,
-        Type serviceType,
-        Type implementationType,
-        bool replaceExisting)
+    private static void RegisterService(IServiceCollection services, Type serviceType, Type implementationType, bool replaceExisting)
     {
         if (replaceExisting)
-        {
             services.Replace(ServiceDescriptor.Transient(serviceType, implementationType));
-        }
         else
-        {
             services.TryAddTransient(serviceType, implementationType);
-        }
     }
 }

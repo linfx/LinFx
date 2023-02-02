@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.Uow
 {
