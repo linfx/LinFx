@@ -14,11 +14,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinFx")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright (c) 2020 LinFx")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("6.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("6.0.0")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("7.0.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("7.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinFx")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinFx.Extensions.EntityFrameworkCore.PostgreSql")]
-[assembly: System.Reflection.AssemblyVersionAttribute("6.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("7.0.0.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

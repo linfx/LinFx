@@ -4270,7 +4270,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4302,11 +4302,11 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.Account/6.0.0": {
+      "LinFx.Extensions.Account/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.0"
         },
@@ -11449,12 +11449,12 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../../../LinFx/LinFx.csproj",
       "msbuildProject": "../../../LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.Account/6.0.0": {
+    "LinFx.Extensions.Account/7.0.0": {
       "type": "project",
       "path": "../LinFx.Extensions.Account/LinFx.Extensions.Account.csproj",
       "msbuildProject": "../LinFx.Extensions.Account/LinFx.Extensions.Account.csproj"
@@ -11462,7 +11462,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.Account >= 6.0.0"
+      "LinFx.Extensions.Account >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -11471,7 +11471,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account.HttpApi\\LinFx.Extensions.Account.HttpApi.csproj",
       "projectName": "LinFx.Extensions.Account.HttpApi",

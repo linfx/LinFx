@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore",
@@ -80,7 +80,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -223,7 +223,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\audit-logging\\LinFx.Extensions.AuditLogging\\LinFx.Extensions.AuditLogging.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\audit-logging\\LinFx.Extensions.AuditLogging\\LinFx.Extensions.AuditLogging.csproj",
         "projectName": "LinFx.Extensions.AuditLogging",

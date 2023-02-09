@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.MongoDB\\LinFx.Extensions.MongoDB.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.MongoDB\\LinFx.Extensions.MongoDB.csproj",
         "projectName": "LinFx.Extensions.MongoDB",
@@ -76,7 +76,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",

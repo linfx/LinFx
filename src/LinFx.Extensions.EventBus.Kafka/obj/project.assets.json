@@ -4216,7 +4216,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4248,12 +4248,12 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.Kafka/6.0.0": {
+      "LinFx.Extensions.Kafka/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Confluent.Kafka": "1.9.3",
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Kafka.dll": {}
@@ -11326,12 +11326,12 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../LinFx/LinFx.csproj",
       "msbuildProject": "../LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.Kafka/6.0.0": {
+    "LinFx.Extensions.Kafka/7.0.0": {
       "type": "project",
       "path": "../LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj",
       "msbuildProject": "../LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj"
@@ -11339,7 +11339,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.Kafka >= 6.0.0"
+      "LinFx.Extensions.Kafka >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -11348,7 +11348,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj",
       "projectName": "LinFx.Extensions.EventBus.Kafka",

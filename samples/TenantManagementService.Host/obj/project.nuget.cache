@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "s88ewFb3Zz/QbjQsiQuGm7sQHVI8NKyJ8MdyAfc0vCDjeSpQt5wG5/vZn00O5U2G3aORIWTOzucZs6cY5OXkKQ==",
+  "dgSpecHash": "LVuYk3Y1fVJeLH+1lf7eopQj9XOjqe8JrEwyOPHuY/hnYXuakwemmthYvLnlePRNmRgb6gd64Raj9bTF2m7Jrg==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\samples\\TenantManagementService.Host\\TenantManagementService.Host.csproj",
   "expectedPackageFiles": [
@@ -266,10 +266,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx.extensions.autofac\\6.0.0\\linfx.extensions.autofac.6.0.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx.extensions.entityframeworkcore\\6.0.0\\linfx.extensions.entityframeworkcore.6.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

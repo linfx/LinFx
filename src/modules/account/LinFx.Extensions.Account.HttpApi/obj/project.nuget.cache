@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Z0VE69C6+OHRkorrkFhLILZtApwhCZ/E1EhMF3ObOu/MLgfrCHlxwByfe+TufeWWv8Q7rQxPYZzs8iUkc+/OZw==",
+  "dgSpecHash": "NqLbfH2gIauA9lWfE7uiRHX8hCNbACz9891PGUF9ERd9cmdwy7sfKR7IUM4Ht5nqJl0nDhl2lRbNyfi83yVzew==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account.HttpApi\\LinFx.Extensions.Account.HttpApi.csproj",
   "expectedPackageFiles": [
@@ -237,8 +237,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

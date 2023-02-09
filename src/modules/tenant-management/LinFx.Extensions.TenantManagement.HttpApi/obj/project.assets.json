@@ -4144,7 +4144,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4176,11 +4176,11 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.AspNetCore/6.0.0": {
+      "LinFx.Extensions.AspNetCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.AspNetCore.dll": {}
@@ -4189,11 +4189,11 @@
           "bin/placeholder/LinFx.Extensions.AspNetCore.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.0"
         },
@@ -4204,12 +4204,12 @@
           "bin/placeholder/LinFx.Extensions.EntityFrameworkCore.dll": {}
         }
       },
-      "LinFx.Extensions.TenantManagement/6.0.0": {
+      "LinFx.Extensions.TenantManagement/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
+          "LinFx": "7.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.TenantManagement.dll": {}
@@ -11233,22 +11233,22 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../../../LinFx/LinFx.csproj",
       "msbuildProject": "../../../LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.AspNetCore/6.0.0": {
+    "LinFx.Extensions.AspNetCore/7.0.0": {
       "type": "project",
       "path": "../../../LinFx.Extensions.AspNetCore/LinFx.Extensions.AspNetCore.csproj",
       "msbuildProject": "../../../LinFx.Extensions.AspNetCore/LinFx.Extensions.AspNetCore.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
       "type": "project",
       "path": "../../../LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj",
       "msbuildProject": "../../../LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj"
     },
-    "LinFx.Extensions.TenantManagement/6.0.0": {
+    "LinFx.Extensions.TenantManagement/7.0.0": {
       "type": "project",
       "path": "../LinFx.Extensions.TenantManagement/LinFx.Extensions.TenantManagement.csproj",
       "msbuildProject": "../LinFx.Extensions.TenantManagement/LinFx.Extensions.TenantManagement.csproj"
@@ -11256,8 +11256,8 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.AspNetCore >= 6.0.0",
-      "LinFx.Extensions.TenantManagement >= 6.0.0"
+      "LinFx.Extensions.AspNetCore >= 7.0.0",
+      "LinFx.Extensions.TenantManagement >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -11266,7 +11266,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement.HttpApi\\LinFx.Extensions.TenantManagement.HttpApi.csproj",
       "projectName": "LinFx.Extensions.TenantManagement.HttpApi",

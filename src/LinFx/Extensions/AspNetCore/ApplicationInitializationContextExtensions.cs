@@ -16,7 +16,7 @@ public static class ApplicationInitializationContextExtensions
     public static IHostEnvironment GetEnvironment(this ApplicationInitializationContext context) => context.ServiceProvider.GetRequiredService<IHostEnvironment>();
 
     [CanBeNull]
-    public static IHostEnvironment? GetEnvironmentOrNull(this ApplicationInitializationContext context) => context.ServiceProvider.GetService<IHostEnvironment>();
+    public static IHostEnvironment GetEnvironmentOrNull(this ApplicationInitializationContext context) => context.ServiceProvider.GetService<IHostEnvironment>();
 
     public static IConfiguration GetConfiguration(this ApplicationInitializationContext context) => context.ServiceProvider.GetRequiredService<IConfiguration>();
 

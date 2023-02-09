@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t1LPVAcyC49JhpCwIemmsub7r/xo8j2jiaFqvZvM+tDV/WdgnVpB4Ho0+66hKh79v6/b5ptcxKrIqcpBFctcyg==",
+  "dgSpecHash": "ZXXp0hEeud+Mqci9id0ddWXNXn9sJqHIj9fbJxHL1cKPc5V1J+Hrh7lB5y6/vP/OmKqnB5NQ4UaFS5fibisqdA==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj",
   "expectedPackageFiles": [
@@ -230,9 +230,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx.extensions.entityframeworkcore\\6.0.0\\linfx.extensions.entityframeworkcore.6.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

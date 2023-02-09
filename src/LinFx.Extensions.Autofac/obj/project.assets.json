@@ -4133,7 +4133,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -11291,7 +11291,7 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../LinFx/LinFx.csproj",
       "msbuildProject": "../LinFx/LinFx.csproj"
@@ -11301,7 +11301,7 @@
     ".NETStandard,Version=v2.1": [
       "Autofac.Extensions.DependencyInjection >= 8.0.0",
       "Autofac.Extras.DynamicProxy >= 6.0.1",
-      "LinFx >= 6.0.0"
+      "LinFx >= 7.0.0"
     ]
   },
   "packageFolders": {
@@ -11310,7 +11310,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Autofac\\LinFx.Extensions.Autofac.csproj",
       "projectName": "LinFx.Extensions.Autofac",

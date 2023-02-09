@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "j4BFnDLaoZiaLMb/C4Ob3IjCiKXHSICmVbIxZY+gmV0F9W3oAGE9U3xo0kiTmIOknqnnDoc8QPgRjFrhjiiKGQ==",
+  "dgSpecHash": "NqGukR6NToaKRl4OYx+W+jfeeaCtNbBQG4259SEKcBPWDlqCXrj0N217wVuJkUY2sIP4/Kuduj2DPVAXwg+qLQ==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj",
   "expectedPackageFiles": [
@@ -229,8 +229,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

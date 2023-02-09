@@ -4196,7 +4196,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4228,11 +4228,11 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.0"
         },
@@ -11325,12 +11325,12 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../LinFx/LinFx.csproj",
       "msbuildProject": "../LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
       "type": "project",
       "path": "../LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj",
       "msbuildProject": "../LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj"
@@ -11338,7 +11338,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.EntityFrameworkCore >= 6.0.0",
+      "LinFx.Extensions.EntityFrameworkCore >= 7.0.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.0"
     ]
   },
@@ -11348,7 +11348,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "6.0.0",
+    "version": "7.0.0",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.PostgreSql\\LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj",
       "projectName": "LinFx.Extensions.EntityFrameworkCore.PostgreSql",

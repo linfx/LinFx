@@ -4804,7 +4804,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4836,11 +4836,11 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.Account/6.0.0": {
+      "LinFx.Extensions.Account/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.0"
         },
@@ -4851,11 +4851,11 @@
           "bin/placeholder/LinFx.Extensions.Account.dll": {}
         }
       },
-      "LinFx.Extensions.Account.HttpApi/6.0.0": {
+      "LinFx.Extensions.Account.HttpApi/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.Account": "6.0.0"
+          "LinFx.Extensions.Account": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Account.HttpApi.dll": {}
@@ -4864,11 +4864,11 @@
           "bin/placeholder/LinFx.Extensions.Account.HttpApi.dll": {}
         }
       },
-      "LinFx.Extensions.AspNetCore/6.0.0": {
+      "LinFx.Extensions.AspNetCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.AspNetCore.dll": {}
@@ -4877,12 +4877,12 @@
           "bin/placeholder/LinFx.Extensions.AspNetCore.dll": {}
         }
       },
-      "LinFx.Extensions.AuditLogging/6.0.0": {
+      "LinFx.Extensions.AuditLogging/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
+          "LinFx": "7.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.AuditLogging.dll": {}
@@ -4891,13 +4891,13 @@
           "bin/placeholder/LinFx.Extensions.AuditLogging.dll": {}
         }
       },
-      "LinFx.Extensions.Autofac/6.0.0": {
+      "LinFx.Extensions.Autofac/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Autofac.Extensions.DependencyInjection": "8.0.0",
           "Autofac.Extras.DynamicProxy": "6.0.1",
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Autofac.dll": {}
@@ -4906,11 +4906,11 @@
           "bin/placeholder/LinFx.Extensions.Autofac.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.0"
         },
@@ -4921,11 +4921,11 @@
           "bin/placeholder/LinFx.Extensions.EntityFrameworkCore.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore.Sqlite/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore.Sqlite/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.0"
         },
         "compile": {
@@ -4935,12 +4935,12 @@
           "bin/placeholder/LinFx.Extensions.EntityFrameworkCore.Sqlite.dll": {}
         }
       },
-      "LinFx.Extensions.PermissionManagement/6.0.0": {
+      "LinFx.Extensions.PermissionManagement/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
+          "LinFx": "7.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.PermissionManagement.dll": {}
@@ -4949,12 +4949,12 @@
           "bin/placeholder/LinFx.Extensions.PermissionManagement.dll": {}
         }
       },
-      "LinFx.Extensions.PermissionManagement.HttpApi/6.0.0": {
+      "LinFx.Extensions.PermissionManagement.HttpApi/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.AspNetCore": "6.0.0",
-          "LinFx.Extensions.PermissionManagement": "6.0.0"
+          "LinFx.Extensions.AspNetCore": "7.0.0",
+          "LinFx.Extensions.PermissionManagement": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.PermissionManagement.HttpApi.dll": {}
@@ -4963,12 +4963,12 @@
           "bin/placeholder/LinFx.Extensions.PermissionManagement.HttpApi.dll": {}
         }
       },
-      "LinFx.Extensions.TenantManagement/6.0.0": {
+      "LinFx.Extensions.TenantManagement/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0"
+          "LinFx": "7.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.TenantManagement.dll": {}
@@ -4977,12 +4977,12 @@
           "bin/placeholder/LinFx.Extensions.TenantManagement.dll": {}
         }
       },
-      "LinFx.Extensions.TenantManagement.HttpApi/6.0.0": {
+      "LinFx.Extensions.TenantManagement.HttpApi/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.AspNetCore": "6.0.0",
-          "LinFx.Extensions.TenantManagement": "6.0.0"
+          "LinFx.Extensions.AspNetCore": "7.0.0",
+          "LinFx.Extensions.TenantManagement": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.TenantManagement.HttpApi.dll": {}
@@ -12905,62 +12905,62 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx/LinFx.csproj",
       "msbuildProject": "../../src/LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.Account/6.0.0": {
+    "LinFx.Extensions.Account/7.0.0": {
       "type": "project",
       "path": "../../src/modules/account/LinFx.Extensions.Account/LinFx.Extensions.Account.csproj",
       "msbuildProject": "../../src/modules/account/LinFx.Extensions.Account/LinFx.Extensions.Account.csproj"
     },
-    "LinFx.Extensions.Account.HttpApi/6.0.0": {
+    "LinFx.Extensions.Account.HttpApi/7.0.0": {
       "type": "project",
       "path": "../../src/modules/account/LinFx.Extensions.Account.HttpApi/LinFx.Extensions.Account.HttpApi.csproj",
       "msbuildProject": "../../src/modules/account/LinFx.Extensions.Account.HttpApi/LinFx.Extensions.Account.HttpApi.csproj"
     },
-    "LinFx.Extensions.AspNetCore/6.0.0": {
+    "LinFx.Extensions.AspNetCore/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.AspNetCore/LinFx.Extensions.AspNetCore.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.AspNetCore/LinFx.Extensions.AspNetCore.csproj"
     },
-    "LinFx.Extensions.AuditLogging/6.0.0": {
+    "LinFx.Extensions.AuditLogging/7.0.0": {
       "type": "project",
       "path": "../../src/modules/audit-logging/LinFx.Extensions.AuditLogging/LinFx.Extensions.AuditLogging.csproj",
       "msbuildProject": "../../src/modules/audit-logging/LinFx.Extensions.AuditLogging/LinFx.Extensions.AuditLogging.csproj"
     },
-    "LinFx.Extensions.Autofac/6.0.0": {
+    "LinFx.Extensions.Autofac/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.Autofac/LinFx.Extensions.Autofac.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.Autofac/LinFx.Extensions.Autofac.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore.Sqlite/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore.Sqlite/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.EntityFrameworkCore.Sqlite/LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.EntityFrameworkCore.Sqlite/LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj"
     },
-    "LinFx.Extensions.PermissionManagement/6.0.0": {
+    "LinFx.Extensions.PermissionManagement/7.0.0": {
       "type": "project",
       "path": "../../src/modules/permission-management/LinFx.Extensions.PermissionManagement/LinFx.Extensions.PermissionManagement.csproj",
       "msbuildProject": "../../src/modules/permission-management/LinFx.Extensions.PermissionManagement/LinFx.Extensions.PermissionManagement.csproj"
     },
-    "LinFx.Extensions.PermissionManagement.HttpApi/6.0.0": {
+    "LinFx.Extensions.PermissionManagement.HttpApi/7.0.0": {
       "type": "project",
       "path": "../../src/modules/permission-management/LinFx.Extensions.PermissionManagement.HttpApi/LinFx.Extensions.PermissionManagement.HttpApi.csproj",
       "msbuildProject": "../../src/modules/permission-management/LinFx.Extensions.PermissionManagement.HttpApi/LinFx.Extensions.PermissionManagement.HttpApi.csproj"
     },
-    "LinFx.Extensions.TenantManagement/6.0.0": {
+    "LinFx.Extensions.TenantManagement/7.0.0": {
       "type": "project",
       "path": "../../src/modules/tenant-management/LinFx.Extensions.TenantManagement/LinFx.Extensions.TenantManagement.csproj",
       "msbuildProject": "../../src/modules/tenant-management/LinFx.Extensions.TenantManagement/LinFx.Extensions.TenantManagement.csproj"
     },
-    "LinFx.Extensions.TenantManagement.HttpApi/6.0.0": {
+    "LinFx.Extensions.TenantManagement.HttpApi/7.0.0": {
       "type": "project",
       "path": "../../src/modules/tenant-management/LinFx.Extensions.TenantManagement.HttpApi/LinFx.Extensions.TenantManagement.HttpApi.csproj",
       "msbuildProject": "../../src/modules/tenant-management/LinFx.Extensions.TenantManagement.HttpApi/LinFx.Extensions.TenantManagement.HttpApi.csproj"
@@ -12968,13 +12968,13 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.Account.HttpApi >= 6.0.0",
-      "LinFx.Extensions.AspNetCore >= 6.0.0",
-      "LinFx.Extensions.AuditLogging >= 6.0.0",
-      "LinFx.Extensions.Autofac >= 6.0.0",
-      "LinFx.Extensions.EntityFrameworkCore.Sqlite >= 6.0.0",
-      "LinFx.Extensions.PermissionManagement.HttpApi >= 6.0.0",
-      "LinFx.Extensions.TenantManagement.HttpApi >= 6.0.0",
+      "LinFx.Extensions.Account.HttpApi >= 7.0.0",
+      "LinFx.Extensions.AspNetCore >= 7.0.0",
+      "LinFx.Extensions.AuditLogging >= 7.0.0",
+      "LinFx.Extensions.Autofac >= 7.0.0",
+      "LinFx.Extensions.EntityFrameworkCore.Sqlite >= 7.0.0",
+      "LinFx.Extensions.PermissionManagement.HttpApi >= 7.0.0",
+      "LinFx.Extensions.TenantManagement.HttpApi >= 7.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "Serilog.AspNetCore >= 6.1.0",
       "Swashbuckle.AspNetCore >= 6.4.0"

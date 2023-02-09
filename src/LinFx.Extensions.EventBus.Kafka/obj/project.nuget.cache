@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kM2T0FIa6EfzokyB7/3IAQbb/icZiP4/PNggaKJ9dfrSod2V+7FpjFSW4T1hMg+rHnOMzbOXxYq4L1xwhVXw+g==",
+  "dgSpecHash": "8s0Rb4JFQS9D5Pd6D9RK5syzZCnGb7rBj3+IzQppJKeZqWVnOA9pWwvJQDp2fayRehEEBMyH1Y2qhLl+Bynfhw==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj",
   "expectedPackageFiles": [
@@ -229,8 +229,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

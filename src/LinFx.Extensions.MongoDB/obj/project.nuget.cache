@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CXh6+H0IWSGMa5EtogNMxt1Bi7epS5OOLCjkTF/ks09/6OJM01ovzph9un8sKNoESjXobhXSJQGB/TTAxrUbog==",
+  "dgSpecHash": "Zh58tNcsgzwlc2doSf4NL2EAC0Of+SX2nuzLLDflbwwwVuMZuiyzJJl6Qs3WTNk4s5kSinhZpao43co5/W3E5Q==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.MongoDB\\LinFx.Extensions.MongoDB.csproj",
   "expectedPackageFiles": [
@@ -235,8 +235,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\zstdsharp.port\\0.6.2\\zstdsharp.port.0.6.2.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512"
+    "C:\\Users\\AAA\\.nuget\\packages\\zstdsharp.port\\0.6.2\\zstdsharp.port.0.6.2.nupkg.sha512"
   ],
   "logs": []
 }

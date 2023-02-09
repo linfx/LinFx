@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "I4VDDvOeBj7WM8Kw6W0R3DQtUl06vPAkpnzeb3q2w1INOTitdJxBqehU2bybnBG1f8kWFcmg65Mcz7JNdXO/7w==",
+  "dgSpecHash": "RYmGtFfRKZXw2GqgsSmr3+9OIc1HjI17o/JUmtbqNrKHcAuIFaM1fTN9ssaaxhSz8uwmcLzuTM6gbTULYBm1Qg==",
   "success": true,
   "projectFilePath": "D:\\github\\linfx\\LinFx\\samples\\EfPostgresql\\EfPostgresql.csproj",
   "expectedPackageFiles": [
@@ -254,10 +254,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\zstdsharp.port\\0.6.2\\zstdsharp.port.0.6.2.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx\\6.0.0\\linfx.6.0.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx.extensions.autofac\\6.0.0\\linfx.extensions.autofac.6.0.0.nupkg.sha512",
-    "C:\\Users\\AAA\\.nuget\\packages\\linfx.extensions.entityframeworkcore\\6.0.0\\linfx.extensions.entityframeworkcore.6.0.0.nupkg.sha512"
+    "C:\\Users\\AAA\\.nuget\\packages\\zstdsharp.port\\0.6.2\\zstdsharp.port.0.6.2.nupkg.sha512"
   ],
   "logs": []
 }

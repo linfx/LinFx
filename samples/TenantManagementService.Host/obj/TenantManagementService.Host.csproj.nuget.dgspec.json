@@ -107,7 +107,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj",
         "projectName": "LinFx.Extensions.AspNetCore",
@@ -172,7 +172,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Autofac\\LinFx.Extensions.Autofac.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Autofac\\LinFx.Extensions.Autofac.csproj",
         "projectName": "LinFx.Extensions.Autofac",
@@ -247,7 +247,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.Sqlite\\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.Sqlite\\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore.Sqlite",
@@ -318,7 +318,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore",
@@ -393,7 +393,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -536,7 +536,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account.HttpApi\\LinFx.Extensions.Account.HttpApi.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account.HttpApi\\LinFx.Extensions.Account.HttpApi.csproj",
         "projectName": "LinFx.Extensions.Account.HttpApi",
@@ -601,7 +601,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account\\LinFx.Extensions.Account.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account\\LinFx.Extensions.Account.csproj",
         "projectName": "LinFx.Extensions.Account",
@@ -676,7 +676,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\audit-logging\\LinFx.Extensions.AuditLogging\\LinFx.Extensions.AuditLogging.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\audit-logging\\LinFx.Extensions.AuditLogging\\LinFx.Extensions.AuditLogging.csproj",
         "projectName": "LinFx.Extensions.AuditLogging",
@@ -744,7 +744,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement.HttpApi\\LinFx.Extensions.PermissionManagement.HttpApi.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement.HttpApi\\LinFx.Extensions.PermissionManagement.HttpApi.csproj",
         "projectName": "LinFx.Extensions.PermissionManagement.HttpApi",
@@ -812,7 +812,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj",
         "projectName": "LinFx.Extensions.PermissionManagement",
@@ -880,7 +880,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement.HttpApi\\LinFx.Extensions.TenantManagement.HttpApi.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement.HttpApi\\LinFx.Extensions.TenantManagement.HttpApi.csproj",
         "projectName": "LinFx.Extensions.TenantManagement.HttpApi",
@@ -948,7 +948,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement\\LinFx.Extensions.TenantManagement.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\tenant-management\\LinFx.Extensions.TenantManagement\\LinFx.Extensions.TenantManagement.csproj",
         "projectName": "LinFx.Extensions.TenantManagement",

@@ -4630,7 +4630,7 @@
           "lib/net6.0/ZstdSharp.dll": {}
         }
       },
-      "LinFx/6.0.0": {
+      "LinFx/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4662,13 +4662,13 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.Autofac/6.0.0": {
+      "LinFx.Extensions.Autofac/7.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "Autofac.Extensions.DependencyInjection": "8.0.0",
           "Autofac.Extras.DynamicProxy": "6.0.1",
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Autofac.dll": {}
@@ -4677,11 +4677,11 @@
           "bin/placeholder/LinFx.Extensions.Autofac.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx": "6.0.0",
+          "LinFx": "7.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.0"
         },
@@ -4692,11 +4692,11 @@
           "bin/placeholder/LinFx.Extensions.EntityFrameworkCore.dll": {}
         }
       },
-      "LinFx.Extensions.EntityFrameworkCore.PostgreSql/6.0.0": {
+      "LinFx.Extensions.EntityFrameworkCore.PostgreSql/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.EntityFrameworkCore": "6.0.0",
+          "LinFx.Extensions.EntityFrameworkCore": "7.0.0",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.0"
         },
         "compile": {
@@ -4706,11 +4706,11 @@
           "bin/placeholder/LinFx.Extensions.EntityFrameworkCore.PostgreSql.dll": {}
         }
       },
-      "LinFx.Extensions.EventBus.Kafka/6.0.0": {
+      "LinFx.Extensions.EventBus.Kafka/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "LinFx.Extensions.Kafka": "6.0.0"
+          "LinFx.Extensions.Kafka": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.EventBus.Kafka.dll": {}
@@ -4719,12 +4719,12 @@
           "bin/placeholder/LinFx.Extensions.EventBus.Kafka.dll": {}
         }
       },
-      "LinFx.Extensions.Kafka/6.0.0": {
+      "LinFx.Extensions.Kafka/7.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Confluent.Kafka": "1.9.3",
-          "LinFx": "6.0.0"
+          "LinFx": "7.0.0"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Kafka.dll": {}
@@ -12278,32 +12278,32 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "LinFx/6.0.0": {
+    "LinFx/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx/LinFx.csproj",
       "msbuildProject": "../../src/LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.Autofac/6.0.0": {
+    "LinFx.Extensions.Autofac/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.Autofac/LinFx.Extensions.Autofac.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.Autofac/LinFx.Extensions.Autofac.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.EntityFrameworkCore/LinFx.Extensions.EntityFrameworkCore.csproj"
     },
-    "LinFx.Extensions.EntityFrameworkCore.PostgreSql/6.0.0": {
+    "LinFx.Extensions.EntityFrameworkCore.PostgreSql/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.EntityFrameworkCore.PostgreSql/LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.EntityFrameworkCore.PostgreSql/LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj"
     },
-    "LinFx.Extensions.EventBus.Kafka/6.0.0": {
+    "LinFx.Extensions.EventBus.Kafka/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.EventBus.Kafka/LinFx.Extensions.EventBus.Kafka.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.EventBus.Kafka/LinFx.Extensions.EventBus.Kafka.csproj"
     },
-    "LinFx.Extensions.Kafka/6.0.0": {
+    "LinFx.Extensions.Kafka/7.0.0": {
       "type": "project",
       "path": "../../src/LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj",
       "msbuildProject": "../../src/LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj"
@@ -12311,9 +12311,9 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.Autofac >= 6.0.0",
-      "LinFx.Extensions.EntityFrameworkCore.PostgreSql >= 6.0.0",
-      "LinFx.Extensions.EventBus.Kafka >= 6.0.0",
+      "LinFx.Extensions.Autofac >= 7.0.0",
+      "LinFx.Extensions.EntityFrameworkCore.PostgreSql >= 7.0.0",
+      "LinFx.Extensions.EventBus.Kafka >= 7.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.0",
       "MongoDB.Driver >= 2.18.0",
       "Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite >= 7.0.0"

@@ -1,8 +1,6 @@
 ﻿using LinFx.Security.Claims;
 using LinFx.Utils;
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using ClaimTypes = LinFx.Security.Claims.ClaimTypes;

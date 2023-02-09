@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinFx.Extensions.EventBus.Kafka</id>
+    <version>7.0.0</version>
+    <authors>LinFx</authors>
+    <projectUrl>https://github.com/linfx/LinFx</projectUrl>
+    <description>Package Description</description>
+    <copyright>Copyright (c) 2020 LinFx</copyright>
+    <dependencies>
+      <group targetFramework="net7.0">
+        <dependency id="LinFx.Extensions.Kafka" version="7.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Release\net7.0\LinFx.Extensions.EventBus.Kafka.dll" target="lib\net7.0\LinFx.Extensions.EventBus.Kafka.dll" />
+    <file src="D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.Kafka\bin\Release\net7.0\LinFx.Extensions.EventBus.Kafka.xml" target="lib\net7.0\LinFx.Extensions.EventBus.Kafka.xml" />
+  </files>
+</package>

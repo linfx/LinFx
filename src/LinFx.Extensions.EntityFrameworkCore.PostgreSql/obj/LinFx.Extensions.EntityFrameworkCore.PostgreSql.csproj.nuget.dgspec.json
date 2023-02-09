@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.PostgreSql\\LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.PostgreSql\\LinFx.Extensions.EntityFrameworkCore.PostgreSql.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore.PostgreSql",
@@ -76,7 +76,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore",
@@ -151,7 +151,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.0",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
