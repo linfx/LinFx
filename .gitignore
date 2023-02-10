@@ -1,0 +1,6 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/samples/EfPostgresql/bin/Release/net7.0
+/samples/TenantManagementService.Host/bin/Release/net7.0
