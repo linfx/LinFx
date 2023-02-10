@@ -10,6 +10,9 @@ using System.Runtime.CompilerServices;
 
 namespace LinFx.Extensions.EventBus;
 
+/// <summary>
+/// 事件总线
+/// </summary>
 public abstract class EventBusBase : IEventBus
 {
     protected IServiceScopeFactory ServiceScopeFactory { get; }

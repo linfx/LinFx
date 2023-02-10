@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj",
         "projectName": "LinFx.Extensions.EventBus.Kafka",
@@ -70,7 +70,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Kafka\\LinFx.Extensions.Kafka.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.Kafka\\LinFx.Extensions.Kafka.csproj",
         "projectName": "LinFx.Extensions.Kafka",
@@ -117,7 +117,7 @@
           "dependencies": {
             "Confluent.Kafka": {
               "target": "Package",
-              "version": "[1.9.3, )"
+              "version": "[2.0.2, )"
             }
           },
           "imports": [
@@ -141,7 +141,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -248,7 +248,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.26.0, )"
+              "version": "[6.26.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",

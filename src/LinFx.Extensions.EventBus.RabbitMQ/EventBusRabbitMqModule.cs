@@ -10,11 +10,10 @@ namespace LinFx.Extensions.EventBus.RabbitMQ;
     typeof(RabbitMqModule))]
 public class EventBusRabbitMqModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        var configuration = context.Services.GetConfiguration();
-
-        Configure<RabbitMqEventBusOptions>(configuration.GetSection("RabbitMQ:EventBus"));
+        var configuration = services.GetConfiguration();
+        services.Configure<RabbitMqEventBusOptions>(configuration.GetSection("RabbitMQ:EventBus"));
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

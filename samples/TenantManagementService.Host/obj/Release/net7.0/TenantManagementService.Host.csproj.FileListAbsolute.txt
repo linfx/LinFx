@@ -152,3 +152,11 @@ D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\ru
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib
 D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.AspNetCore.Authorization.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.AspNetCore.Metadata.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.Extensions.Identity.Core.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.Extensions.Identity.Stores.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.Extensions.Localization.dll
+D:\github\linfx\LinFx\samples\TenantManagementService.Host\bin\Release\net7.0\Microsoft.Extensions.Localization.Abstractions.dll

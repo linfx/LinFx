@@ -13,6 +13,7 @@ $projects = (
     # linfx
     "src/LinFx",
     "src/LinFx.Extensions.Autofac",
+    "src/LinFx.Extensions.AspNetCore",
     "src/LinFx.Extensions.EntityFrameworkCore",
     "src/LinFx.Extensions.EntityFrameworkCore.PostgreSql",
     "src/LinFx.Extensions.EntityFrameworkCore.Sqlite",

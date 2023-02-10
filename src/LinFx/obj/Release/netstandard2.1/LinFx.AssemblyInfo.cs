@@ -16,11 +16,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright (c) 2020 LinFx")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("一个基于 netstandard2.1 开发的简单易用的快速开发框架，遵循领域驱动设计（DDD）规范约束，提供实现事件驱动、事件回溯、响应式等特性的基础设施。让开" +
     "发者享受到正真意义的面向对象设计模式来带的美感。")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("7.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("7.0.0")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("7.0.1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("7.0.1")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinFx")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinFx")]
-[assembly: System.Reflection.AssemblyVersionAttribute("7.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("7.0.1.0")]
 
 // 由 MSBuild WriteCodeFragment 类生成。
 

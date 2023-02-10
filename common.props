@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<Version>7.0.0</Version>
+		<Version>7.0.1</Version>
 		<NoWarn>1701;1702;1591</NoWarn>
 		<LangVersion>10.0</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>

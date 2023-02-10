@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -112,7 +112,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.26.0, )"
+              "version": "[6.26.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",
@@ -148,7 +148,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account\\LinFx.Extensions.Account.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\account\\LinFx.Extensions.Account\\LinFx.Extensions.Account.csproj",
         "projectName": "LinFx.Extensions.Account",
@@ -199,7 +199,7 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [

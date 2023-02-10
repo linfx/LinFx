@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.RabbitMQ\\LinFx.Extensions.EventBus.RabbitMQ.csproj",
         "projectName": "LinFx.Extensions.EventBus.RabbitMQ",
@@ -23,7 +23,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -31,8 +31,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
               "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj": {
                 "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj"
@@ -47,8 +47,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
@@ -65,12 +65,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.RabbitMQ\\LinFx.Extensions.RabbitMQ.csproj",
         "projectName": "LinFx.Extensions.RabbitMQ",
@@ -88,7 +88,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -96,8 +96,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
               "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
                 "projectPath": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj"
@@ -112,8 +112,8 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "RabbitMQ.Client": {
               "target": "Package",
@@ -136,12 +136,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "6.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -196,11 +196,11 @@
             },
             "FluentValidation.DependencyInjectionExtensions": {
               "target": "Package",
-              "version": "[11.2.2, )"
+              "version": "[11.4.0, )"
             },
             "JetBrains.Annotations": {
               "target": "Package",
-              "version": "[2022.1.0, )"
+              "version": "[2022.3.1, )"
             },
             "MediatR.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
@@ -208,7 +208,7 @@
             },
             "Microsoft.AspNetCore.Authorization": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
@@ -216,7 +216,7 @@
             },
             "Microsoft.Extensions.Caching.Memory": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Caching.Redis": {
               "target": "Package",
@@ -224,23 +224,23 @@
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[6.0.1, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Hosting.Abstractions": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Microsoft.Extensions.Http.Polly": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.Extensions.Localization": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.Extensions.Options.ConfigurationExtensions": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[7.0.0, )"
             },
             "Nito.AsyncEx": {
               "target": "Package",
@@ -248,7 +248,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.25.0, )"
+              "version": "[6.26.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",
@@ -260,7 +260,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[7.0.1, )"
             }
           },
           "imports": [
@@ -279,7 +279,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

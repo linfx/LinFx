@@ -7,6 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.EventBus.Distributed;
 
+/// <summary>
+/// 分步式事件总线
+/// </summary>
 public abstract class DistributedEventBusBase : EventBusBase, IDistributedEventBus
 {
     protected IGuidGenerator GuidGenerator { get; }

@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.Sqlite\\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore.Sqlite\\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore.Sqlite",
@@ -52,7 +52,7 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -76,7 +76,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore",
@@ -123,11 +123,11 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -151,7 +151,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -258,7 +258,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.26.0, )"
+              "version": "[6.26.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",

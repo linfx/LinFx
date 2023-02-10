@@ -32,7 +32,7 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
 		<PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.26.1" />
 		<PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
 		<PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
 		<PackageReference Include="System.Text.Json" Version="7.0.1" />

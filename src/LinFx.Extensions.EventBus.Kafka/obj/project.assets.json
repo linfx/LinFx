@@ -56,11 +56,11 @@
           }
         }
       },
-      "Confluent.Kafka/1.9.3": {
+      "Confluent.Kafka/2.0.2": {
         "type": "package",
         "dependencies": {
           "System.Memory": "4.5.0",
-          "librdkafka.redist": "1.9.2"
+          "librdkafka.redist": "2.0.2"
         },
         "compile": {
           "lib/net6.0/Confluent.Kafka.dll": {
@@ -128,7 +128,7 @@
           }
         }
       },
-      "librdkafka.redist/1.9.2": {
+      "librdkafka.redist/2.0.2": {
         "type": "package",
         "build": {
           "build/_._": {}
@@ -162,7 +162,7 @@
             "assetType": "native",
             "rid": "osx-x64"
           },
-          "runtimes/win-x64/native/libcrypto-1_1-x64.dll": {
+          "runtimes/win-x64/native/libcrypto-3-x64.dll": {
             "assetType": "native",
             "rid": "win-x64"
           },
@@ -178,7 +178,7 @@
             "assetType": "native",
             "rid": "win-x64"
           },
-          "runtimes/win-x64/native/libssl-1_1-x64.dll": {
+          "runtimes/win-x64/native/libssl-3-x64.dll": {
             "assetType": "native",
             "rid": "win-x64"
           },
@@ -198,7 +198,7 @@
             "assetType": "native",
             "rid": "win-x64"
           },
-          "runtimes/win-x86/native/libcrypto-1_1.dll": {
+          "runtimes/win-x86/native/libcrypto-3.dll": {
             "assetType": "native",
             "rid": "win-x86"
           },
@@ -214,7 +214,7 @@
             "assetType": "native",
             "rid": "win-x86"
           },
-          "runtimes/win-x86/native/libssl-1_1.dll": {
+          "runtimes/win-x86/native/libssl-3.dll": {
             "assetType": "native",
             "rid": "win-x86"
           },
@@ -1862,7 +1862,7 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Abstractions/6.26.0": {
+      "Microsoft.IdentityModel.Abstractions/6.26.1": {
         "type": "package",
         "compile": {
           "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
@@ -1875,10 +1875,10 @@
           }
         }
       },
-      "Microsoft.IdentityModel.JsonWebTokens/6.26.0": {
+      "Microsoft.IdentityModel.JsonWebTokens/6.26.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "6.26.0",
+          "Microsoft.IdentityModel.Tokens": "6.26.1",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encodings.Web": "4.7.2",
           "System.Text.Json": "4.7.2"
@@ -1894,10 +1894,10 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Logging/6.26.0": {
+      "Microsoft.IdentityModel.Logging/6.26.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.26.0"
+          "Microsoft.IdentityModel.Abstractions": "6.26.1"
         },
         "compile": {
           "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
@@ -1910,11 +1910,11 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Tokens/6.26.0": {
+      "Microsoft.IdentityModel.Tokens/6.26.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Microsoft.IdentityModel.Logging": "6.26.0",
+          "Microsoft.IdentityModel.Logging": "6.26.1",
           "System.Security.Cryptography.Cng": "4.5.0"
         },
         "compile": {
@@ -2907,11 +2907,11 @@
           }
         }
       },
-      "System.IdentityModel.Tokens.Jwt/6.26.0": {
+      "System.IdentityModel.Tokens.Jwt/6.26.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.JsonWebTokens": "6.26.0",
-          "Microsoft.IdentityModel.Tokens": "6.26.0"
+          "Microsoft.IdentityModel.JsonWebTokens": "6.26.1",
+          "Microsoft.IdentityModel.Tokens": "6.26.1"
         },
         "compile": {
           "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
@@ -4216,7 +4216,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "LinFx/7.0.0": {
+      "LinFx/7.0.1": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
@@ -4236,7 +4236,7 @@
           "Microsoft.Extensions.Localization": "7.0.2",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "7.0.0",
           "Nito.AsyncEx": "5.1.2",
-          "System.IdentityModel.Tokens.Jwt": "6.26.0",
+          "System.IdentityModel.Tokens.Jwt": "6.26.1",
           "System.Runtime.Loader": "4.3.0",
           "System.Security.Cryptography.Cng": "5.0.0",
           "System.Text.Json": "7.0.1"
@@ -4248,12 +4248,12 @@
           "bin/placeholder/LinFx.dll": {}
         }
       },
-      "LinFx.Extensions.Kafka/7.0.0": {
+      "LinFx.Extensions.Kafka/7.0.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Confluent.Kafka": "1.9.3",
-          "LinFx": "7.0.0"
+          "Confluent.Kafka": "2.0.2",
+          "LinFx": "7.0.1"
         },
         "compile": {
           "bin/placeholder/LinFx.Extensions.Kafka.dll": {}
@@ -4325,14 +4325,14 @@
         "lib/netstandard2.0/Castle.Core.AsyncInterceptor.xml"
       ]
     },
-    "Confluent.Kafka/1.9.3": {
-      "sha512": "xdol/eagNz6hdldqcm7ctjRuRGENJyctFyNmNAX+lgqJ7xXIVQa9c0L9jPaYWeMYg0gSMihtaH950HzDPKnmbg==",
+    "Confluent.Kafka/2.0.2": {
+      "sha512": "q/AdIIa7eV9GnyA5ADRH3g1JG1VknwIhFAg4tOuXRtmNwMCLY+5D+CEZpPs0A0FSsNNyYn248EwE+wO303a/jQ==",
       "type": "package",
-      "path": "confluent.kafka/1.9.3",
+      "path": "confluent.kafka/2.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "confluent.kafka.1.9.3.nupkg.sha512",
+        "confluent.kafka.2.0.2.nupkg.sha512",
         "confluent.kafka.nuspec",
         "lib/net462/Confluent.Kafka.dll",
         "lib/net462/Confluent.Kafka.xml",
@@ -4418,10 +4418,10 @@
         "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
       ]
     },
-    "librdkafka.redist/1.9.2": {
-      "sha512": "ljLtyamiEq7Ky36LAv8gAz69YfpLBw2P/y1eDuqwAm9RiDINtWrkg/hqIBTK2Gc7ydJaKlySa1BxMG7RHVD26A==",
+    "librdkafka.redist/2.0.2": {
+      "sha512": "II4aTnYQuFB1kmU6BjdgFxosN6XddgpaSPmAIhV1dOjaws8CsBHNN+4a9nJoiiB6+yvAGIfqA3U2nIUF+ytZBg==",
       "type": "package",
-      "path": "librdkafka.redist/1.9.2",
+      "path": "librdkafka.redist/2.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4437,7 +4437,7 @@
         "build/native/lib/win/x86/win-x86-Release/v142/librdkafka.lib",
         "build/native/lib/win/x86/win-x86-Release/v142/librdkafkacpp.lib",
         "build/native/librdkafka.redist.targets",
-        "librdkafka.redist.1.9.2.nupkg.sha512",
+        "librdkafka.redist.2.0.2.nupkg.sha512",
         "librdkafka.redist.nuspec",
         "runtimes/linux-arm64/native/librdkafka.so",
         "runtimes/linux-x64/native/alpine-librdkafka.so",
@@ -4446,20 +4446,20 @@
         "runtimes/linux-x64/native/librdkafka.so",
         "runtimes/osx-arm64/native/librdkafka.dylib",
         "runtimes/osx-x64/native/librdkafka.dylib",
-        "runtimes/win-x64/native/libcrypto-1_1-x64.dll",
+        "runtimes/win-x64/native/libcrypto-3-x64.dll",
         "runtimes/win-x64/native/libcurl.dll",
         "runtimes/win-x64/native/librdkafka.dll",
         "runtimes/win-x64/native/librdkafkacpp.dll",
-        "runtimes/win-x64/native/libssl-1_1-x64.dll",
+        "runtimes/win-x64/native/libssl-3-x64.dll",
         "runtimes/win-x64/native/msvcp140.dll",
         "runtimes/win-x64/native/vcruntime140.dll",
         "runtimes/win-x64/native/zlib1.dll",
         "runtimes/win-x64/native/zstd.dll",
-        "runtimes/win-x86/native/libcrypto-1_1.dll",
+        "runtimes/win-x86/native/libcrypto-3.dll",
         "runtimes/win-x86/native/libcurl.dll",
         "runtimes/win-x86/native/librdkafka.dll",
         "runtimes/win-x86/native/librdkafkacpp.dll",
-        "runtimes/win-x86/native/libssl-1_1.dll",
+        "runtimes/win-x86/native/libssl-3.dll",
         "runtimes/win-x86/native/msvcp140.dll",
         "runtimes/win-x86/native/vcruntime140.dll",
         "runtimes/win-x86/native/zlib1.dll",
@@ -6168,10 +6168,10 @@
         "microsoft.extensions.webencoders.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Abstractions/6.26.0": {
-      "sha512": "NHEnDBvLYqP81YWqKk1pJt0qSUmqobvFsRL/SR/H6x1jmQh2D1EcuHHhmfIzDnzaOlQJL9GeBDHykqHp0JGNCw==",
+    "Microsoft.IdentityModel.Abstractions/6.26.1": {
+      "sha512": "YE6pc6/TG1axQU5U1zGmgpcV4vKhEl4t0MTjqxdnnrorrozeBPkTECyZk9djysKTLfd8moBe7VHVpuf+jvmlkA==",
       "type": "package",
-      "path": "microsoft.identitymodel.abstractions/6.26.0",
+      "path": "microsoft.identitymodel.abstractions/6.26.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6185,14 +6185,14 @@
         "lib/net6.0/Microsoft.IdentityModel.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.xml",
-        "microsoft.identitymodel.abstractions.6.26.0.nupkg.sha512",
+        "microsoft.identitymodel.abstractions.6.26.1.nupkg.sha512",
         "microsoft.identitymodel.abstractions.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.JsonWebTokens/6.26.0": {
-      "sha512": "5S993Y51C6p3pQGcvJvUU4Bxq5H5tXGyAzvmXXZkELv8pSWVgbgVsQakGupjx6WLFRN+Y6clp9chVytynWYn5A==",
+    "Microsoft.IdentityModel.JsonWebTokens/6.26.1": {
+      "sha512": "3n+Pdetj8JukY3hSTLiLhZHpxq9m9dai0k3OK0UrNIhaAP+N8ea5gYoFSu2gdOJELbirc5OW4oyjaTvQaefF0w==",
       "type": "package",
-      "path": "microsoft.identitymodel.jsonwebtokens/6.26.0",
+      "path": "microsoft.identitymodel.jsonwebtokens/6.26.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6206,14 +6206,14 @@
         "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.JsonWebTokens.xml",
-        "microsoft.identitymodel.jsonwebtokens.6.26.0.nupkg.sha512",
+        "microsoft.identitymodel.jsonwebtokens.6.26.1.nupkg.sha512",
         "microsoft.identitymodel.jsonwebtokens.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Logging/6.26.0": {
-      "sha512": "Svec5ltH4zz5ylAmFiHrUETLalw3d8siPbQ7+0H9GNGbZrVf5u7TaHpmDuJyb3EUiITfisD3vM83spsO/l1igA==",
+    "Microsoft.IdentityModel.Logging/6.26.1": {
+      "sha512": "ujS5+a2L3uquqeWa3i9uNjXAfEFuDzIfKlDqZ09aKTR2M6eLqQcc0BBhh0FtJkTmsfa8GJjKDEYVcbgVzNARfQ==",
       "type": "package",
-      "path": "microsoft.identitymodel.logging/6.26.0",
+      "path": "microsoft.identitymodel.logging/6.26.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6227,14 +6227,14 @@
         "lib/net6.0/Microsoft.IdentityModel.Logging.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.xml",
-        "microsoft.identitymodel.logging.6.26.0.nupkg.sha512",
+        "microsoft.identitymodel.logging.6.26.1.nupkg.sha512",
         "microsoft.identitymodel.logging.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Tokens/6.26.0": {
-      "sha512": "mFNbROC89eap6GTqoYcInCiYsaV8sLxPsgCurQnJDcJoLBk7XoAJpBJae6rkj2VEzWqfErd4jlzaqqRI7wjGOQ==",
+    "Microsoft.IdentityModel.Tokens/6.26.1": {
+      "sha512": "dhUE+4uhO/JhGYYRWZynO42tZ5H2p2GeVFjCwa7gLzCWBeKowO2OEtFHG3Mq/DhBR+mp6+LzUdRkKR2kI3I+TQ==",
       "type": "package",
-      "path": "microsoft.identitymodel.tokens/6.26.0",
+      "path": "microsoft.identitymodel.tokens/6.26.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6248,7 +6248,7 @@
         "lib/net6.0/Microsoft.IdentityModel.Tokens.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.xml",
-        "microsoft.identitymodel.tokens.6.26.0.nupkg.sha512",
+        "microsoft.identitymodel.tokens.6.26.1.nupkg.sha512",
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
@@ -8092,10 +8092,10 @@
         "system.globalization.extensions.nuspec"
       ]
     },
-    "System.IdentityModel.Tokens.Jwt/6.26.0": {
-      "sha512": "GT6imbntzCpoGHTRFUa98TPCF9PTnzV1v5KiTj9sT5ZmeYZErNA5ks5VDvYBaOC59y3dQ78IsMzEJm+XrxDk6w==",
+    "System.IdentityModel.Tokens.Jwt/6.26.1": {
+      "sha512": "SWdMY1W8z/7XmYXrAGSH8yZKGWIpPZ1yICdfkbKh+mctb2flxzZzaSheD8XzRQhu2dtdYcKL5mnJIvZIaYBYUQ==",
       "type": "package",
-      "path": "system.identitymodel.tokens.jwt/6.26.0",
+      "path": "system.identitymodel.tokens.jwt/6.26.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8109,7 +8109,7 @@
         "lib/net6.0/System.IdentityModel.Tokens.Jwt.xml",
         "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.dll",
         "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.xml",
-        "system.identitymodel.tokens.jwt.6.26.0.nupkg.sha512",
+        "system.identitymodel.tokens.jwt.6.26.1.nupkg.sha512",
         "system.identitymodel.tokens.jwt.nuspec"
       ]
     },
@@ -11326,12 +11326,12 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "LinFx/7.0.0": {
+    "LinFx/7.0.1": {
       "type": "project",
       "path": "../LinFx/LinFx.csproj",
       "msbuildProject": "../LinFx/LinFx.csproj"
     },
-    "LinFx.Extensions.Kafka/7.0.0": {
+    "LinFx.Extensions.Kafka/7.0.1": {
       "type": "project",
       "path": "../LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj",
       "msbuildProject": "../LinFx.Extensions.Kafka/LinFx.Extensions.Kafka.csproj"
@@ -11339,7 +11339,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "LinFx.Extensions.Kafka >= 7.0.0"
+      "LinFx.Extensions.Kafka >= 7.0.1"
     ]
   },
   "packageFolders": {
@@ -11348,7 +11348,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
-    "version": "7.0.0",
+    "version": "7.0.1",
     "restore": {
       "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EventBus.Kafka\\LinFx.Extensions.EventBus.Kafka.csproj",
       "projectName": "LinFx.Extensions.EventBus.Kafka",

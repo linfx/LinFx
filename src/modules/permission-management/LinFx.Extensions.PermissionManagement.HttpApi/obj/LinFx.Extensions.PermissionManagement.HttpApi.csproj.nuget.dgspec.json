@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.AspNetCore\\LinFx.Extensions.AspNetCore.csproj",
         "projectName": "LinFx.Extensions.AspNetCore",
@@ -70,7 +70,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx.Extensions.EntityFrameworkCore\\LinFx.Extensions.EntityFrameworkCore.csproj",
         "projectName": "LinFx.Extensions.EntityFrameworkCore",
@@ -117,11 +117,11 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -145,7 +145,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\LinFx\\LinFx.csproj",
         "projectName": "LinFx",
@@ -252,7 +252,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.26.0, )"
+              "version": "[6.26.1, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",
@@ -288,7 +288,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement.HttpApi\\LinFx.Extensions.PermissionManagement.HttpApi.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement.HttpApi\\LinFx.Extensions.PermissionManagement.HttpApi.csproj",
         "projectName": "LinFx.Extensions.PermissionManagement.HttpApi",
@@ -356,7 +356,7 @@
       }
     },
     "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj": {
-      "version": "7.0.0",
+      "version": "7.0.1",
       "restore": {
         "projectUniqueName": "D:\\github\\linfx\\LinFx\\src\\modules\\permission-management\\LinFx.Extensions.PermissionManagement\\LinFx.Extensions.PermissionManagement.csproj",
         "projectName": "LinFx.Extensions.PermissionManagement",

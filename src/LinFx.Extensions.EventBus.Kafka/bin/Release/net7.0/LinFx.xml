@@ -2763,6 +2763,11 @@
             类型
             </summary>
         </member>
+        <member name="T:LinFx.Extensions.DependencyInjection.ISingletonDependency">
+            <summary>
+            单例模式
+            </summary>
+        </member>
         <member name="T:LinFx.Extensions.DependencyInjection.ObjectAccessor`1">
             <summary>
             对象访问器
@@ -2902,6 +2907,11 @@
             </summary>
             <param name="eventData"></param>
         </member>
+        <member name="T:LinFx.Extensions.EventBus.Distributed.DistributedEventBusBase">
+            <summary>
+            分步式事件总线
+            </summary>
+        </member>
         <member name="T:LinFx.Extensions.EventBus.Distributed.IDistributedEventBus">
             <summary>
             分布式事件总线
@@ -2926,6 +2936,11 @@
             订阅
             </summary>
             <param name="handlers"></param>
+        </member>
+        <member name="T:LinFx.Extensions.EventBus.EventBusBase">
+            <summary>
+            事件总线
+            </summary>
         </member>
         <member name="M:LinFx.Extensions.EventBus.EventBusBase.TriggerHandlersAsync(System.Type,System.Object,System.Action{LinFx.Extensions.EventBus.EventExecutionErrorContext})">
             <summary>
