@@ -5,9 +5,9 @@ namespace LinFx.Extensions.Threading;
 
 public class ThreadingModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.AddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
-        context.Services.AddSingleton(typeof(IAmbientScopeProvider<>), typeof(AmbientDataContextAmbientScopeProvider<>));
+        services.AddSingleton<ICancellationTokenProvider>(NullCancellationTokenProvider.Instance);
+        services.AddSingleton(typeof(IAmbientScopeProvider<>), typeof(AmbientDataContextAmbientScopeProvider<>));
     }
 }

@@ -12,7 +12,7 @@ public class AspNetCoreMultiTenancyModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<TenantResolveOptions>(options =>
+        services.Configure<TenantResolveOptions>(options =>
         {
             //options.TenantResolvers.Add(new QueryStringTenantResolveContributor());
             //options.TenantResolvers.Add(new FormTenantResolveContributor());

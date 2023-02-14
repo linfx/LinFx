@@ -9,11 +9,11 @@ namespace LinFx.Extensions.RabbitMQ;
 )]
 public class RabbitMqModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        var configuration = context.Services.GetConfiguration();
-        Configure<RabbitMqOptions>(configuration.GetSection("RabbitMQ"));
-        Configure<RabbitMqOptions>(options =>
+        var configuration = services.GetConfiguration();
+        services.Configure<RabbitMqOptions>(configuration.GetSection("RabbitMQ"));
+        services.Configure<RabbitMqOptions>(options =>
         {
             foreach (var connectionFactory in options.Connections.Values)
             {

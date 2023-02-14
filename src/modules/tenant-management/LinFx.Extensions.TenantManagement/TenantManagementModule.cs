@@ -19,14 +19,14 @@ namespace LinFx.Extensions.TenantManagement;
 )]
 public class TenantManagementModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
         //context.Services.Configure<PermissionOptions>(options =>
         //{
         //    options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
         //});
 
-        context.Services.AddDbContext<TenantManagementDbContext>(options =>
+        services.AddDbContext<TenantManagementDbContext>(options =>
         {
             options.AddDefaultRepositories();
         });

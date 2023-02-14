@@ -5,8 +5,8 @@ namespace LinFx.Extensions.DynamicProxy;
 
 public class CastleCoreModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.AddTransient(typeof(AsyncDeterminationInterceptor<>));
+        services.AddTransient(typeof(AsyncDeterminationInterceptor<>));
     }
 }

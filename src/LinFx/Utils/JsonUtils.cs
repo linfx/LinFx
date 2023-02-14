@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace LinFx.Utils;
 
-public static partial class JsonUtils
+public static class JsonUtils
 {
     public static object ToObject(byte[] value, bool camelCase = false, bool indented = false) => ToObject<object>(value, camelCase, indented);
 
@@ -15,11 +15,11 @@ public static partial class JsonUtils
 
     public static byte[] ToBytes(object value, bool camelCase = false, bool indented = false)
     {
-        var s = ToJson(value, camelCase, indented);
+        var s = ToJsonString(value, camelCase, indented);
         return Encoding.UTF8.GetBytes(s);
     }
 
-    public static string ToJson(object value, bool camelCase = false, bool indented = false)
+    public static string ToJsonString(object value, bool camelCase = false, bool indented = false)
     {
         var options = new JsonSerializerOptions();
 
@@ -103,7 +103,7 @@ public static partial class JsonUtils
     public static object DeserializeObject(string value, Type type) => JsonSerializer.Deserialize(value, type);
 }
 
-public static class JsonUtilsExtensions
+public static class JsonExtensions
 {
     /// <summary>
     /// Converts given object to JSON string.
@@ -112,7 +112,17 @@ public static class JsonUtilsExtensions
     /// <param name="camelCase"></param>
     /// <param name="indented"></param>
     /// <returns></returns>
-    public static string ToJson(this object value, bool camelCase = true, bool indented = false) => JsonUtils.ToJson(value, camelCase, indented);
+    [Obsolete]
+    public static string ToJson(this object value, bool camelCase = true, bool indented = false) => JsonUtils.ToJsonString(value, camelCase, indented);
+
+    /// <summary>
+    /// Converts given object to JSON string.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="camelCase"></param>
+    /// <param name="indented"></param>
+    /// <returns></returns>
+    public static string ToJsonString(this object value, bool camelCase = true, bool indented = false) => JsonUtils.ToJsonString(value, camelCase, indented);
 
     public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false) => JsonUtils.ToBytes(value, camelCase, indented);
 

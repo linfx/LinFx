@@ -8,8 +8,8 @@ namespace LinFx.Extensions.Uow;
 /// </summary>
 public class UnitOfWorkModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
+        services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
     }
 }

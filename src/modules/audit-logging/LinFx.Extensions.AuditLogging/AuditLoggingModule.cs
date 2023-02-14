@@ -19,9 +19,9 @@ namespace LinFx.Extensions.AuditLogging;
 )]
 public class AuditLoggingModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.AddDbContext<AuditLoggingDbContext>(options =>
+        services.AddDbContext<AuditLoggingDbContext>(options =>
         {
             options.AddRepository<AuditLog, EfAuditLogRepository>();
         });

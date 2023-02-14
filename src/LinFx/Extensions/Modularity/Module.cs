@@ -20,11 +20,11 @@ public abstract class Module :
     IPreConfigureServices,
     IPostConfigureServices
 {
-    private ServiceConfigurationContext? _serviceConfigurationContext;
+    private ServiceConfigurationContext _serviceConfigurationContext;
 
     protected internal bool SkipAutoServiceRegistration { get; protected set; }
 
-    protected internal ServiceConfigurationContext? ServiceConfigurationContext
+    protected internal ServiceConfigurationContext ServiceConfigurationContext
     {
         get
         {
@@ -41,9 +41,6 @@ public abstract class Module :
     public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
 
     public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
-
-    [Obsolete]
-    public virtual void ConfigureServices(ServiceConfigurationContext context) => ConfigureServices(context.Services);
 
     public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
 
@@ -69,19 +66,4 @@ public abstract class Module :
     /// </summary>
     /// <param name="context"></param>
     public virtual Task OnApplicationShutdownAsync(ApplicationShutdownContext context) => Task.CompletedTask;
-
-    [Obsolete]
-    protected void Configure<TOptions>(Action<TOptions> configureOptions) where TOptions : class => ServiceConfigurationContext?.Services.Configure(configureOptions);
-
-    [Obsolete]
-    protected void Configure<TOptions>(string name, Action<TOptions> configureOptions) where TOptions : class => ServiceConfigurationContext?.Services.Configure(name, configureOptions);
-
-    [Obsolete]
-    protected void Configure<TOptions>(IConfiguration configuration) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(configuration);
-
-    [Obsolete]
-    protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(configuration, configureBinder);
-
-    [Obsolete]
-    protected void Configure<TOptions>(string name, IConfiguration configuration) where TOptions : class => ServiceConfigurationContext?.Services.Configure<TOptions>(name, configuration);
 }

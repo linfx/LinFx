@@ -17,12 +17,11 @@ public class DataModule : Module
         AutoAddDataSeedContributors(context.Services);
     }
 
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        var configuration = context.Services.GetConfiguration();
-        Configure<DbConnectionOptions>(configuration);
-
-        context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
+        var configuration = services.GetConfiguration();
+        services.Configure<DbConnectionOptions>(configuration);
+        services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
     }
 
     public override void PostConfigureServices(ServiceConfigurationContext context)

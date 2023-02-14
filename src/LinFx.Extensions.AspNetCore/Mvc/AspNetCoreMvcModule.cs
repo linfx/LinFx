@@ -25,7 +25,7 @@ public class AspNetCoreMvcModule : Module
     //    context.Services.AddConventionalRegistrar(new AbpAspNetCoreMvcConventionalRegistrar());
     //}
 
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
         //Configure<AbpApiDescriptionModelOptions>(options =>
         //{
@@ -79,7 +79,7 @@ public class AspNetCoreMvcModule : Module
         //        )
         //    );
 
-        var mvcBuilder = context.Services.AddMvc();
+        var mvcBuilder = services.AddMvc();
         //.AddRazorRuntimeCompilation()
         //.AddDataAnnotationsLocalization(options =>
         //{
@@ -136,9 +136,9 @@ public class AspNetCoreMvcModule : Module
         //context.Services.Replace(ServiceDescriptor.Singleton<IValidationAttributeAdapterProvider, AbpValidationAttributeAdapterProvider>());
         //context.Services.AddSingleton<ValidationAttributeAdapterProvider>();
 
-        Configure<MvcOptions>(mvcOptions =>
+        services.Configure<MvcOptions>(mvcOptions =>
         {
-            mvcOptions.AddOptions(context.Services);
+            mvcOptions.AddOptions(services);
         });
 
         //Configure<AbpEndpointRouterOptions>(options =>

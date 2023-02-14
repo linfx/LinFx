@@ -12,9 +12,9 @@ namespace LinFx.Extensions.MultiTenancy;
 )]
 public class MultiTenancyModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.AddTransient<ICurrentTenant, CurrentTenant>();
-        context.Services.AddSingleton<ICurrentTenantAccessor>(AsyncLocalCurrentTenantAccessor.Instance);
+        services.AddTransient<ICurrentTenant, CurrentTenant>();
+        services.AddSingleton<ICurrentTenantAccessor>(AsyncLocalCurrentTenantAccessor.Instance);
     }
 }

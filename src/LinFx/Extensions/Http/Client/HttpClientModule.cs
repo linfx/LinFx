@@ -13,12 +13,12 @@ namespace LinFx.Extensions.Http.Client;
     typeof(MultiTenancyModule)
     //typeof(ValidationModule),
     //typeof(ExceptionHandlingModule)
-    )]
+)]
 public class HttpClientModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        var configuration = context.Services.GetConfiguration();
+        var configuration = services.GetConfiguration();
         //Configure<RemoteServiceOptions>(configuration);
 
         //context.Services.AddTransient(typeof(DynamicHttpProxyInterceptorClientProxy<>));

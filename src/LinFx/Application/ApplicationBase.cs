@@ -143,7 +143,7 @@ public abstract class ApplicationBase : IApplication
 
             try
             {
-                module.Instance.ConfigureServices(context);
+                module.Instance.ConfigureServices(context.Services);
             }
             catch (Exception ex)
             {
