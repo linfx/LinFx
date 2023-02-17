@@ -1,9 +1,0 @@
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\bin\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.deps.json
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\bin\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.dll
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\bin\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.pdb
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.csprojAssemblyReference.cache
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.AssemblyInfo.cs
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.csproj.CoreCompileInputs.cache
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.dll
-D:\github\linfx\LinFx\src\modules\setting-management\LinFx.Extensions.SettingManagement\obj\Debug\netstandard2.0\LinFx.Extensions.SettingManagement.pdb

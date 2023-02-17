@@ -1,7 +1,0 @@
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.csproj.AssemblyReference.cache
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.GeneratedMSBuildEditorConfig.editorconfig
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.AssemblyInfo.cs
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.csproj.CoreCompileInputs.cache
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.MvcApplicationPartsAssemblyInfo.cs
-D:\github\linfx\LinFx\samples\IdentityService.Host\obj\Debug\net6.0\IdentityService.Host.MvcApplicationPartsAssemblyInfo.cache

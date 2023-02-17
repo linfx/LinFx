@@ -1,5 +1,0 @@
-D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.RabbitMQ\obj\Debug\net6.0\LinFx.Extensions.EventBus.RabbitMQ.csproj.AssemblyReference.cache
-D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.RabbitMQ\obj\Debug\net6.0\LinFx.Extensions.EventBus.RabbitMQ.GeneratedMSBuildEditorConfig.editorconfig
-D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.RabbitMQ\obj\Debug\net6.0\LinFx.Extensions.EventBus.RabbitMQ.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.RabbitMQ\obj\Debug\net6.0\LinFx.Extensions.EventBus.RabbitMQ.AssemblyInfo.cs
-D:\github\linfx\LinFx\src\LinFx.Extensions.EventBus.RabbitMQ\obj\Debug\net6.0\LinFx.Extensions.EventBus.RabbitMQ.csproj.CoreCompileInputs.cache

@@ -1,5 +1,0 @@
-D:\github\linfx\LinFx\test\LinFx.Test\obj\Release\net7.0\LinFx.Test.csproj.AssemblyReference.cache
-D:\github\linfx\LinFx\test\LinFx.Test\obj\Release\net7.0\LinFx.Test.GeneratedMSBuildEditorConfig.editorconfig
-D:\github\linfx\LinFx\test\LinFx.Test\obj\Release\net7.0\LinFx.Test.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx\test\LinFx.Test\obj\Release\net7.0\LinFx.Test.AssemblyInfo.cs
-D:\github\linfx\LinFx\test\LinFx.Test\obj\Release\net7.0\LinFx.Test.csproj.CoreCompileInputs.cache

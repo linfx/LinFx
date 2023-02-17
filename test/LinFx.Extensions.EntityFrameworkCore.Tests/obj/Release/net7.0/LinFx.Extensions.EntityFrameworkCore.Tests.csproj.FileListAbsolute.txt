@@ -1,6 +1,0 @@
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\bin\Release\net7.0\CoverletSourceRootsMapping
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\obj\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Tests.csproj.AssemblyReference.cache
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\obj\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Tests.GeneratedMSBuildEditorConfig.editorconfig
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\obj\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Tests.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\obj\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Tests.AssemblyInfo.cs
-D:\github\linfx\LinFx\test\LinFx.Extensions.EntityFrameworkCore.Tests\obj\Release\net7.0\LinFx.Extensions.EntityFrameworkCore.Tests.csproj.CoreCompileInputs.cache

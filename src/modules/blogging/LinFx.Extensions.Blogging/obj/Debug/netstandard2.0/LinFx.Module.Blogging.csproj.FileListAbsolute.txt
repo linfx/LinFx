@@ -1,9 +1,0 @@
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netstandard2.0\LinFx.Module.Blogging.deps.json
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netstandard2.0\LinFx.Module.Blogging.dll
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\bin\Debug\netstandard2.0\LinFx.Module.Blogging.pdb
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.csprojAssemblyReference.cache
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.AssemblyInfoInputs.cache
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.AssemblyInfo.cs
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.dll
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.pdb
-D:\github\linfx\LinFx_Modules\src\blogging\LinFx.Blogging\obj\Debug\netstandard2.0\LinFx.Module.Blogging.csproj.CoreCompileInputs.cache
