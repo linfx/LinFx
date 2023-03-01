@@ -60,11 +60,11 @@ public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, 
 
     void AddOrReplaceLocalEvent(
         UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord>? replacementSelector = null
+        Predicate<UnitOfWorkEventRecord> replacementSelector = null
     );
 
     void AddOrReplaceDistributedEvent(
         UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord>? replacementSelector = null
+        Predicate<UnitOfWorkEventRecord> replacementSelector = null
     );
 }

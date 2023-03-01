@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Utils;
 
-namespace LinFx.Application;
+namespace LinFx;
 
 public class ApplicationShutdownContext
 {

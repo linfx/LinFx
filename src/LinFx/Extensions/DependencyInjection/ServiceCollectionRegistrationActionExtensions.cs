@@ -25,10 +25,7 @@ public static class ServiceCollectionRegistrationActionExtensions
     }
 
     // OnExposing
-    public static void OnExposing(this IServiceCollection services, Action<IOnServiceExposingContext> exposeAction)
-    {
-        GetOrCreateExposingList(services).Add(exposeAction);
-    }
+    public static void OnExposing(this IServiceCollection services, Action<IOnServiceExposingContext> exposeAction) => GetOrCreateExposingList(services).Add(exposeAction);
 
     public static ServiceExposingActionList GetExposingActionList(this IServiceCollection services) => GetOrCreateExposingList(services);
 

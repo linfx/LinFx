@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using LinFx.Application;
+using LinFx;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Threading;
 using LinFx.Utils;

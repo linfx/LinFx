@@ -1,5 +1,4 @@
-﻿using LinFx.Application;
-using LinFx.Extensions.Modularity;
+﻿using LinFx.Extensions.Modularity;
 using LinFx.Extensions.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 

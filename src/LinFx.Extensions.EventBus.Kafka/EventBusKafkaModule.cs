@@ -1,5 +1,4 @@
-﻿using LinFx.Application;
-using LinFx.Extensions.Kafka;
+﻿using LinFx.Extensions.Kafka;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 

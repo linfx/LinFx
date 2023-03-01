@@ -1,14 +1,8 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Uow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories;
 
@@ -19,18 +13,11 @@ public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IR
 
     public RepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
-    {
-    }
+    { }
 
-    public virtual Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken cancellationToken = default)
-    {
-        return GetQueryableAsync(cancellationToken);
-    }
+    public virtual Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken cancellationToken = default) => GetQueryableAsync(cancellationToken);
 
-    public virtual Task<IQueryable<TEntity>> WithDetailsAsync(params Expression<Func<TEntity, object>>[] propertySelectors)
-    {
-        return GetQueryableAsync();
-    }
+    public virtual Task<IQueryable<TEntity>> WithDetailsAsync(params Expression<Func<TEntity, object>>[] propertySelectors) => GetQueryableAsync();
 
     public abstract Task<IQueryable<TEntity>> GetQueryableAsync(CancellationToken cancellationToken = default);
 

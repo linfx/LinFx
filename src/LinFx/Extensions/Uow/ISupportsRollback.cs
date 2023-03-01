@@ -1,10 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿namespace LinFx.Extensions.Uow;
 
-namespace LinFx.Extensions.Uow
+public interface ISupportsRollback
 {
-    public interface ISupportsRollback
-    {
-        Task RollbackAsync(CancellationToken cancellationToken);
-    }
+    /// <summary>
+    /// 回滚
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task RollbackAsync(CancellationToken cancellationToken);
 }

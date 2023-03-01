@@ -3,7 +3,7 @@ using LinFx.Extensions.Modularity.PlugIns;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Application;
+namespace LinFx;
 
 public class ApplicationCreationOptions
 {

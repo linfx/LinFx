@@ -1,5 +1,8 @@
 namespace LinFx.Domain.Entities;
 
+/// <summary>
+/// 领域事件记录
+/// </summary>
 public class DomainEventRecord
 {
     public object EventData { get; }

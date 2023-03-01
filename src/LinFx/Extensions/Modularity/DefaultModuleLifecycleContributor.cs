@@ -1,6 +1,4 @@
-﻿using LinFx.Application;
-
-namespace LinFx.Extensions.Modularity;
+﻿namespace LinFx.Extensions.Modularity;
 
 public class OnApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
 {

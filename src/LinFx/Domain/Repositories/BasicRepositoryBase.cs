@@ -115,8 +115,7 @@ public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<T
 
     protected BasicRepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
-    {
-    }
+    { }
 
     public virtual async Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
     {

@@ -2,14 +2,14 @@
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Application;
+namespace LinFx;
 
 internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplicationWithExternalServiceProvider
 {
     public ApplicationWithExternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction
+        [CanBeNull] Action<ApplicationCreationOptions> optionsAction
         ) : base(
             startupModuleType,
             services,

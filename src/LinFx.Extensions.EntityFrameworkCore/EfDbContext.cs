@@ -60,13 +60,16 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// <summary>
     /// 当前租户
     /// </summary>
-    public ICurrentTenant? CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
+    public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
     /// <summary>
     /// 数据过滤
     /// </summary>
     public IDataFilter DataFilter => LazyServiceProvider.LazyGetRequiredService<IDataFilter>();
 
+    /// <summary>
+    /// 领域事件
+    /// </summary>
     public IEntityChangeEventHelper EntityChangeEventHelper => LazyServiceProvider.LazyGetService<IEntityChangeEventHelper>(NullEntityChangeEventHelper.Instance);
 
     /// <summary>
@@ -74,6 +77,9 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// </summary>
     public IAuditPropertySetter AuditPropertySetter => LazyServiceProvider.LazyGetRequiredService<IAuditPropertySetter>();
 
+    /// <summary>
+    /// 领域历史
+    /// </summary>
     public IEntityHistoryHelper EntityHistoryHelper => LazyServiceProvider.LazyGetService<IEntityHistoryHelper>(NullEntityHistoryHelper.Instance);
 
     /// <summary>

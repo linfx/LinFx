@@ -1,7 +1,5 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
-using System;
-using System.Linq;
 
 namespace LinFx.Extensions.Auditing;
 

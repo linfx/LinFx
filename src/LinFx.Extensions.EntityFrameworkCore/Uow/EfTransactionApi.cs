@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 
+/// <summary>
+/// 数据库事务
+/// </summary>
 public class EfTransactionApi : ITransactionApi, ISupportsRollback
 {
     public IDbContextTransaction DbContextTransaction { get; }

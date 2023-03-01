@@ -1,4 +1,3 @@
-using LinFx.Application;
 using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;

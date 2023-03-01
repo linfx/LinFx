@@ -2,7 +2,7 @@
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Utils;
 
-namespace LinFx.Application;
+namespace LinFx;
 
 /// <summary>
 /// 应用初始化上下文

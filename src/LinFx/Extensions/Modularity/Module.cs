@@ -1,7 +1,5 @@
-﻿using LinFx.Application;
-using LinFx.Extensions.AspNetCore;
+﻿using LinFx.Extensions.AspNetCore;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -54,6 +52,10 @@ public abstract class Module :
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 应用程序初始化
+    /// </summary>
+    /// <param name="context"></param>
     public virtual void OnApplicationInitialization(ApplicationInitializationContext context)
     {
         var app = context.GetApplicationBuilder();

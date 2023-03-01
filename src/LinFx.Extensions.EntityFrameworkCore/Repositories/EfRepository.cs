@@ -32,9 +32,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
         IDbContextProvider<TDbContext> dbContextProvider) : base(serviceProvider)
     {
         _dbContextProvider = dbContextProvider;
-        _entityOptionsLazy = new Lazy<EntityOptions<TEntity>>(() => ServiceProvider
-                      .GetRequiredService<IOptions<EntityOptions>>().Value
-                      .GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty);
+        _entityOptionsLazy = new Lazy<EntityOptions<TEntity>>(() => ServiceProvider.GetRequiredService<IOptions<EntityOptions>>().Value.GetOrNull<TEntity>() ?? EntityOptions<TEntity>.Empty);
     }
 
     async Task<DbContext> IEfRepository<TEntity>.GetDbContextAsync() => await GetDbContextAsync();
@@ -64,6 +62,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
     protected virtual EntityOptions<TEntity> EntityOptions => _entityOptionsLazy.Value;
 
     private readonly IDbContextProvider<TDbContext> _dbContextProvider;
+
     private readonly Lazy<EntityOptions<TEntity>> _entityOptionsLazy;
 
     public virtual IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);

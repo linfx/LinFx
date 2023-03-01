@@ -1,4 +1,4 @@
-﻿namespace LinFx.Application;
+﻿namespace LinFx;
 
 public interface IApplicationWithInternalServiceProvider : IApplication
 {

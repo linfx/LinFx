@@ -21,9 +21,9 @@ namespace LinFx.Extensions.EntityFrameworkCore;
     typeof(ThreadingModule),
     //typeof(TimingModule),
     typeof(UnitOfWorkModule)
-//typeof(ObjectMappingModule),
-//typeof(ExceptionHandlingModule),
-//typeof(SpecificationsModule)
+    //typeof(ObjectMappingModule),
+    //typeof(ExceptionHandlingModule),
+    //typeof(SpecificationsModule)
 )]
 public class EntityFrameworkCoreModule : Module
 {

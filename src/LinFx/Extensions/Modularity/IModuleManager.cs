@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using LinFx.Application;
+using LinFx;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

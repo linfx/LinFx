@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace LinFx.Application;
+namespace LinFx;
 
 public interface IOnApplicationShutdown
 {

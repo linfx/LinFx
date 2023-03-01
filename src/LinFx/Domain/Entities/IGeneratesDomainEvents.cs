@@ -1,5 +1,8 @@
 ﻿namespace LinFx.Domain.Entities;
 
+/// <summary>
+/// 领域事件
+/// </summary>
 public interface IGeneratesDomainEvents
 {
     /// <summary>
@@ -14,7 +17,13 @@ public interface IGeneratesDomainEvents
     /// <returns></returns>
     IEnumerable<DomainEventRecord> GetDistributedEvents();
 
+    /// <summary>
+    /// 清除本地领域事件
+    /// </summary>
     void ClearLocalEvents();
 
+    /// <summary>
+    /// 清除分步式领域事件
+    /// </summary>
     void ClearDistributedEvents();
 }

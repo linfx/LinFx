@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Extensions.Caching;
 
