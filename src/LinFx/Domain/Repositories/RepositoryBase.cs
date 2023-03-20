@@ -19,14 +19,14 @@ public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IR
 
     public virtual Task<IQueryable<TEntity>> WithDetailsAsync(params Expression<Func<TEntity, object>>[] propertySelectors) => GetQueryableAsync();
 
+    [Obsolete]
     public abstract Task<IQueryable<TEntity>> GetQueryableAsync(CancellationToken cancellationToken = default);
 
-    public abstract Task<TEntity> FindAsync(
-        Expression<Func<TEntity, bool>> predicate,
-        bool includeDetails = true,
-        CancellationToken cancellationToken = default);
+    public abstract IQueryable<TEntity> Queryable { get; }
 
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
+    public abstract ValueTask<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default);
+
+    public async ValueTask<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default)
     {
         var entity = await FindAsync(predicate, includeDetails, cancellationToken);
         if (entity == null)
@@ -61,12 +61,11 @@ public abstract class RepositoryBase<TEntity, TKey> : RepositoryBase<TEntity>, I
 
     protected RepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
-    {
-    }
+    { }
 
-    public abstract Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
+    public abstract ValueTask<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
 
-    public abstract Task<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
+    public abstract ValueTask<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
 
     public virtual async Task DeleteAsync(TKey id, bool autoSave = false, CancellationToken cancellationToken = default)
     {

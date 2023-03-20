@@ -1,5 +1,4 @@
 ﻿using LinFx.Domain.Entities;
-using LinFx.Domain.Repositories;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
