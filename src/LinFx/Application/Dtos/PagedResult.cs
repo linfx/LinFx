@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Application.Dtos;
+﻿namespace LinFx.Application.Dtos;
 
 /// <summary>
 /// Implements <see cref="IPagedResult{T}"/>.
 /// </summary>
 /// <typeparam name="T">Type of the items in the <see cref="ListResult{T}.Items"/> list</typeparam>
+[Serializable]
 public class PagedResult<T> : ListResult<T>, IPagedResult<T>
 {
     /// <summary>

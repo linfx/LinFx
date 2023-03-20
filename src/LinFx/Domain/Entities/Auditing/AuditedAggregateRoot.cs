@@ -13,7 +13,7 @@ public abstract class AuditedAggregateRoot : CreationAuditedAggregateRoot, IAudi
 
     /// <inheritdoc />
     [StringLength(32)]
-    public virtual string? LastModifierId { get; set; }
+    public virtual string LastModifierId { get; set; }
 }
 
 /// <summary>
@@ -27,5 +27,5 @@ public abstract class AuditedAggregateRoot<TKey> : CreationAuditedAggregateRoot<
 
     /// <inheritdoc />
     [StringLength(32)]
-    public virtual string? LastModifierId { get; set; }
+    public virtual string LastModifierId { get; set; }
 }

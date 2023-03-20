@@ -12,8 +12,7 @@ public class EfTenantRepository : EfRepository<TenantManagementDbContext, Tenant
         IServiceProvider serviceProvider,
         IDbContextProvider<TenantManagementDbContext> dbContextProvider)
         : base(serviceProvider, dbContextProvider)
-    {
-    }
+    { }
 
     public virtual async Task<Tenant> FindByNameAsync(string name, bool includeDetails = true, CancellationToken cancellationToken = default)
     {

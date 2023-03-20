@@ -65,9 +65,7 @@ public abstract class ApplicationBase : IApplication
     {
         using var scope = ServiceProvider.CreateScope();
         WriteInitLogs(scope.ServiceProvider);
-        await scope.ServiceProvider
-            .GetRequiredService<IModuleManager>()
-            .InitializeModulesAsync(new ApplicationInitializationContext(scope.ServiceProvider));
+        await scope.ServiceProvider.GetRequiredService<IModuleManager>().InitializeModulesAsync(new ApplicationInitializationContext(scope.ServiceProvider));
     }
 
     protected virtual void WriteInitLogs(IServiceProvider serviceProvider)

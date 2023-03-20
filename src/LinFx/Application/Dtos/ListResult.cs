@@ -4,6 +4,7 @@
 /// Implements <see cref="IListResult{T}"/>.
 /// </summary>
 /// <typeparam name="T">Type of the items in the <see cref="Items"/> list</typeparam>
+[Serializable]
 public class ListResult<T> : IListResult<T>
 {
     /// <inheritdoc />

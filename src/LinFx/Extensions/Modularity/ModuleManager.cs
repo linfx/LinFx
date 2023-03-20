@@ -19,11 +19,7 @@ public class ModuleManager : IModuleManager, ISingletonDependency
     {
         _logger = logger;
         _moduleContainer = moduleContainer;
-        _lifecycleContributors = options.Value
-            .Contributors
-            .Select(serviceProvider.GetRequiredService)
-            .Cast<IModuleLifecycleContributor>()
-            .ToArray();
+        _lifecycleContributors = options.Value.Contributors.Select(serviceProvider.GetRequiredService).Cast<IModuleLifecycleContributor>().ToArray();
     }
 
     /// <summary>

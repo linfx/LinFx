@@ -11,7 +11,7 @@ public abstract class FullAuditedAggregateRoot : AuditedAggregateRoot, IFullAudi
     public virtual bool IsDeleted { get; set; }
 
     [StringLength(32)]
-    public virtual string? DeleterId { get; set; }
+    public virtual string DeleterId { get; set; }
 
     public virtual DateTimeOffset? DeletionTime { get; set; }
 }
@@ -25,7 +25,7 @@ public abstract class FullAuditedAggregateRoot<TKey> : AuditedAggregateRoot<TKey
     public virtual bool IsDeleted { get; set; }
 
     [StringLength(32)]
-    public virtual string? DeleterId { get; set; }
+    public virtual string DeleterId { get; set; }
 
     public virtual DateTimeOffset? DeletionTime { get; set; }
 }

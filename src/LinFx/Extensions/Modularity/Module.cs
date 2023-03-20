@@ -34,23 +34,13 @@ public abstract class Module :
         internal set => _serviceConfigurationContext = value;
     }
 
-    public virtual void ConfigureServices(IServiceCollection services) { }
-
-    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
-
     public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
+
+    public virtual void ConfigureServices(IServiceCollection services) { }
 
     public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
 
-    /// <summary>
-    /// 应用程序初始化
-    /// </summary>
-    /// <param name="context"></param>
-    public virtual Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
-    {
-        OnApplicationInitialization(context);
-        return Task.CompletedTask;
-    }
+    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
 
     /// <summary>
     /// 应用程序初始化
@@ -61,6 +51,16 @@ public abstract class Module :
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
         Configure(app, env);
+    }
+
+    /// <summary>
+    /// 应用程序初始化
+    /// </summary>
+    /// <param name="context"></param>
+    public virtual Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        OnApplicationInitialization(context);
+        return Task.CompletedTask;
     }
 
     /// <summary>

@@ -27,27 +27,28 @@ public partial class Result
     /// <summary>
     /// Message
     /// </summary>
-    public string? Message { get; protected set; }
-}
+    public string Message { get; protected set; }
 
-public class Result<TValue> : Result
-{
-    public TValue Data { get; set; }
-
-    protected internal Result(TValue value)
-        : this(value, 200, string.Empty)
-    { }
-
-    protected internal Result(TValue value, string message)
-        : this(value, 200, message)
-    { }
-
-    protected internal Result(TValue value, int code, string message)
-        : base(code, message)
+    public override bool Equals(object obj)
     {
-        Data = value;
+        var other = obj as Result;
+        if (other == null) return false;
+        return other.Code == Code;
     }
+
+    public override int GetHashCode() => Code.GetHashCode();
+
+    public static bool operator ==(Result result1, Result result2) => result1.Code == result2.Code;
+
+    public static bool operator !=(Result result1, Result result2) => result1.Code != result2.Code;
+
+    public static bool operator true(Result result) => result.Code == 200;
+
+    public static bool operator false(Result result) => result.Code != 200;
+
+    public static bool operator !(Result result) => result.Code != 200;
 }
+
 
 public partial class Result
 {
@@ -97,7 +98,7 @@ public partial class Result
     /// <returns></returns>
     public static Result Failed(ModelStateDictionary modelStates)
     {
-        IEnumerable<string>? errors = null;
+        IEnumerable<string> errors = null;
         if (modelStates != null && !modelStates.IsValid)
         {
             errors = from modelState in modelStates.Values
@@ -111,35 +112,30 @@ public partial class Result
     /// NotFound
     /// </summary>
     /// <returns></returns>
-    public static Result NotFound(string? message = default)
+    public static Result NotFound(string message = default)
     {
-        if (message is null)
-            message = "Not Found!";
+        message ??= "Not Found!";
 
         var result = new Result(404, message);
         return result;
     }
 }
 
-public partial class Result
+public class Result<TValue> : Result
 {
-    public static bool operator ==(Result result1, Result result2)
-    {
-        return result1.Code == result2.Code;
-    }
+    public TValue Data { get; set; }
 
-    public static bool operator !=(Result result1, Result result2)
-    {
-        return result1.Code != result2.Code;
-    }
+    protected internal Result(TValue value)
+        : this(value, 200, string.Empty)
+    { }
 
-    public static bool operator true(Result result)
-    {
-        return result.Code == 200;
-    }
+    protected internal Result(TValue value, string message)
+        : this(value, 200, message)
+    { }
 
-    public static bool operator false(Result result)
+    protected internal Result(TValue value, int code, string message)
+        : base(code, message)
     {
-        return result.Code != 200;
+        Data = value;
     }
 }

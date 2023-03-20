@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.RabbitMq;
+﻿using LinFx.Extensions.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

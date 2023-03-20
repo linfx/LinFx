@@ -11,6 +11,17 @@ namespace LinFx.Test
             var services = new ServiceCollection();
             services.AddLinFx();
             var container = services.BuildServiceProvider();
+
+            var result = Result.Failed("222");
+
+            if(!result)
+            {
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class LinFxServiceCollectionExtensions
+public static class ServiceCollectionLinFxExtensions
 {
     /// <summary>
     /// AddLinFx Code
