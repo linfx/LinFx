@@ -50,10 +50,7 @@ public abstract class RepositoryRegistrarBase<TOptions> where TOptions : CommonD
         }
     }
 
-    protected virtual void RegisterDefaultRepository(Type entityType)
-    {
-        Options.Services.AddDefaultRepository(entityType, GetDefaultRepositoryImplementationType(entityType));
-    }
+    protected virtual void RegisterDefaultRepository(Type entityType) => Options.Services.AddDefaultRepository(entityType, GetDefaultRepositoryImplementationType(entityType));
 
     protected virtual Type GetDefaultRepositoryImplementationType(Type entityType)
     {

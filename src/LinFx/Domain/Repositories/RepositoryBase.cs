@@ -15,8 +15,10 @@ public abstract class RepositoryBase<TEntity> : BasicRepositoryBase<TEntity>, IR
         : base(serviceProvider)
     { }
 
+    [Obsolete]
     public virtual Task<IQueryable<TEntity>> WithDetailsAsync(CancellationToken cancellationToken = default) => GetQueryableAsync(cancellationToken);
 
+    [Obsolete]
     public virtual Task<IQueryable<TEntity>> WithDetailsAsync(params Expression<Func<TEntity, object>>[] propertySelectors) => GetQueryableAsync();
 
     [Obsolete]

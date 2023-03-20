@@ -69,10 +69,7 @@ public class MongoDbAsyncQueryableProvider : IAsyncQueryableProvider, ISingleton
         return GetMongoQueryable(queryable).FirstAsync(predicate, cancellationToken);
     }
 
-    public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default)
-    {
-        return GetMongoQueryable(queryable).FirstOrDefaultAsync(cancellationToken);
-    }
+    public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default) => GetMongoQueryable(queryable).FirstOrDefaultAsync(cancellationToken);
 
     public Task<T> FirstOrDefaultAsync<T>(IQueryable<T> queryable, Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
