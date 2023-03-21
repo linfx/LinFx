@@ -1,11 +1,9 @@
-﻿using LinFx.Security.Claims;
-using LinFx.Utils;
+﻿using LinFx.Utils;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Security.Principal;
-using ClaimTypes = LinFx.Security.Claims.ClaimTypes;
 
-namespace LinFx.Security.Principal;
+namespace LinFx.Security.Claims;
 
 public static class ClaimsIdentityExtensions
 {
@@ -46,11 +44,12 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string FindClientId([NotNull] this ClaimsPrincipal principal)
+    public static string FindTenantId([NotNull] this IIdentity identity)
     {
-        Check.NotNull(principal, nameof(principal));
+        Check.NotNull(identity, nameof(identity));
 
-        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.ClientId);
+        var claimsIdentity = identity as ClaimsIdentity;
+        var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.TenantId);
         if (claim == null || claim.Value.IsNullOrWhiteSpace())
         {
             return null;
@@ -58,12 +57,11 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string FindTenantId([NotNull] this IIdentity identity)
+    public static string FindClientId([NotNull] this ClaimsPrincipal principal)
     {
-        Check.NotNull(identity, nameof(identity));
+        Check.NotNull(principal, nameof(principal));
 
-        var claimsIdentity = identity as ClaimsIdentity;
-        var claim = claimsIdentity?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.TenantId);
+        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.ClientId);
         if (claim == null || claim.Value.IsNullOrWhiteSpace())
         {
             return null;

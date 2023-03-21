@@ -5,15 +5,15 @@
 /// </summary>
 public class CurrentTenant : ICurrentTenant
 {
+    private readonly ICurrentTenantAccessor _currentTenantIdAccessor;
+
+    public CurrentTenant(ICurrentTenantAccessor currentTenantIdAccessor) => _currentTenantIdAccessor = currentTenantIdAccessor;
+
     public virtual bool IsAvailable => !string.IsNullOrEmpty(Id);
 
     public virtual string Id => _currentTenantIdAccessor.Current?.Id;
 
     public string Name => _currentTenantIdAccessor.Current?.Name;
-
-    private readonly ICurrentTenantAccessor _currentTenantIdAccessor;
-
-    public CurrentTenant(ICurrentTenantAccessor currentTenantIdAccessor) => _currentTenantIdAccessor = currentTenantIdAccessor;
 
     public IDisposable Change(string id, string name) => SetCurrent(id, name);
 

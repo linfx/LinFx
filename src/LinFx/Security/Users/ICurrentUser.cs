@@ -29,6 +29,9 @@ public interface ICurrentUser
 
     bool PhoneNumberVerified { get; }
 
+    /// <summary>
+    /// 电子邮件
+    /// </summary>
     string Email { get; }
 
     bool EmailVerified { get; }

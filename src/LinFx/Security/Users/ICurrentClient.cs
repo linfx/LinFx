@@ -1,4 +1,4 @@
-﻿namespace LinFx.Security.Clients;
+﻿namespace LinFx.Security.Users;
 
 public interface ICurrentClient
 {

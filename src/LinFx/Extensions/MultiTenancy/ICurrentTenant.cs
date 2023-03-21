@@ -13,13 +13,13 @@ public interface ICurrentTenant
     /// 租户Id
     /// </summary>
     [CanBeNull]
-    string? Id { get; }
+    string Id { get; }
 
     /// <summary>
     /// 租户名称
     /// </summary>
     [CanBeNull]
-    string? Name { get; }
+    string Name { get; }
 
-    IDisposable Change(string? id, string? name = default);
+    IDisposable Change(string id, string name = default);
 }
