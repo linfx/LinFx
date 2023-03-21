@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Authorization.Permissions;
+﻿namespace LinFx.Extensions.Authorization.Permissions;
 
 /// <summary>
 /// 权限持久化存储

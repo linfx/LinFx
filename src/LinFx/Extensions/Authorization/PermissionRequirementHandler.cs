@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization;
 

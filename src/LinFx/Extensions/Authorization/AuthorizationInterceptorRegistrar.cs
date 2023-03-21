@@ -1,8 +1,6 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Linq;
 using System.Reflection;
 
 namespace LinFx.Extensions.Authorization;
@@ -29,20 +27,11 @@ public static class AuthorizationInterceptorRegistrar
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private static bool ShouldIntercept(Type type)
-    {
-        return !DynamicProxyIgnoreTypes.Contains(type) && (type.IsDefined(typeof(AuthorizeAttribute), true) || AnyMethodHasAuthorizeAttribute(type));
-    }
+    private static bool ShouldIntercept(Type type) => !DynamicProxyIgnoreTypes.Contains(type) && (type.IsDefined(typeof(AuthorizeAttribute), true) || AnyMethodHasAuthorizeAttribute(type));
 
-    private static bool AnyMethodHasAuthorizeAttribute(Type implementationType)
-    {
-        return implementationType
+    private static bool AnyMethodHasAuthorizeAttribute(Type implementationType) => implementationType
             .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
             .Any(HasAuthorizeAttribute);
-    }
 
-    private static bool HasAuthorizeAttribute(MemberInfo methodInfo)
-    {
-        return methodInfo.IsDefined(typeof(AuthorizeAttribute), true);
-    }
+    private static bool HasAuthorizeAttribute(MemberInfo methodInfo) => methodInfo.IsDefined(typeof(AuthorizeAttribute), true);
 }

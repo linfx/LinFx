@@ -2,8 +2,6 @@
 using LinFx.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization;
 
