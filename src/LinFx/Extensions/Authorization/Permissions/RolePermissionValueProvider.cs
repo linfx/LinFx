@@ -1,6 +1,4 @@
 ﻿using LinFx.Security.Claims;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 

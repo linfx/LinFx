@@ -32,10 +32,7 @@ public class PermissionStore : IPermissionStore
         Logger = NullLogger<PermissionStore>.Instance;
     }
 
-    public virtual async Task<bool> IsGrantedAsync(string name, string providerName, string providerKey)
-    {
-        return (await GetCacheItemAsync(name, providerName, providerKey)).IsGranted;
-    }
+    public virtual async Task<bool> IsGrantedAsync(string name, string providerName, string providerKey) => (await GetCacheItemAsync(name, providerName, providerKey)).IsGranted;
 
     protected virtual async Task<PermissionGrantCacheItem> GetCacheItemAsync(
         string name,

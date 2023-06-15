@@ -1,27 +1,24 @@
 ﻿using LinFx.Utils;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace LinFx.Extensions.PermissionManagement
+namespace LinFx.Extensions.PermissionManagement;
+
+public class PermissionDataSeeder
 {
-    public class PermissionDataSeeder
+    protected IPermissionGrantRepository PermissionGrantRepository { get; }
+
+    public PermissionDataSeeder(IPermissionGrantRepository permissionGrantRepository)
     {
-        protected IPermissionGrantRepository PermissionGrantRepository { get; }
+        PermissionGrantRepository = permissionGrantRepository;
+    }
 
-        public PermissionDataSeeder(IPermissionGrantRepository permissionGrantRepository)
+    public async Task SeedAsync(string providerName, string providerKey, IEnumerable<string> grantedPermissions, string tenantId = default)
+    {
+        foreach (var permissionName in grantedPermissions)
         {
-            PermissionGrantRepository = permissionGrantRepository;
-        }
+            if (await PermissionGrantRepository.FindAsync(permissionName, providerName, providerKey) != null)
+                continue;
 
-        public async Task SeedAsync(string providerName, string providerKey, IEnumerable<string> grantedPermissions, string tenantId = default)
-        {
-            foreach (var permissionName in grantedPermissions)
-            {
-                if (await PermissionGrantRepository.FindAsync(permissionName, providerName, providerKey) != null)
-                    continue;
-
-                await PermissionGrantRepository.InsertAsync(new PermissionGrant(IDUtils.NewId(), permissionName, providerName, providerKey, tenantId));
-            }
+            await PermissionGrantRepository.InsertAsync(new PermissionGrant(IDUtils.NewId(), permissionName, providerName, providerKey, tenantId));
         }
     }
 }

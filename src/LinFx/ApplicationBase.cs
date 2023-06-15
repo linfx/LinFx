@@ -10,6 +10,9 @@ namespace LinFx;
 
 public abstract class ApplicationBase : IApplication
 {
+    /// <summary>
+    /// 启动模块
+    /// </summary>
     [NotNull]
     public Type StartupModuleType { get; }
 
@@ -17,6 +20,9 @@ public abstract class ApplicationBase : IApplication
 
     public IServiceCollection Services { get; }
 
+    /// <summary>
+    /// 模块
+    /// </summary>
     public IReadOnlyList<IModuleDescriptor> Modules { get; }
 
     internal ApplicationBase(
@@ -108,7 +114,7 @@ public abstract class ApplicationBase : IApplication
             }
         }
 
-        //PreConfigureServices
+        // PreConfigureServices
         foreach (var module in Modules.Where(m => m.Instance is IPreConfigureServices))
         {
             try
@@ -123,7 +129,7 @@ public abstract class ApplicationBase : IApplication
 
         var assemblies = new HashSet<Assembly>();
 
-        //ConfigureServices
+        // ConfigureServices
         foreach (var module in Modules)
         {
             if (module.Instance is Module item)
@@ -149,7 +155,7 @@ public abstract class ApplicationBase : IApplication
             }
         }
 
-        //PostConfigureServices
+        // PostConfigureServices
         foreach (var module in Modules.Where(m => m.Instance is IPostConfigureServices))
         {
             try

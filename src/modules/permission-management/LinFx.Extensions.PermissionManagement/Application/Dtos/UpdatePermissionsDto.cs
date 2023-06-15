@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.PermissionManagement
+﻿namespace LinFx.Extensions.PermissionManagement;
+
+public class UpdatePermissionsDto
 {
-    public class UpdatePermissionsDto
-    {
-        public UpdatePermissionDto[] Permissions { get; set; }
-    }
+    public UpdatePermissionDto[] Permissions { get; set; }
 }

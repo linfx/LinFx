@@ -8,12 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	    <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
-	  <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
-	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="7.0.3" />
+	  <PackageReference Include="MongoDB.Driver" Version="2.19.2" />
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="7.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -9,11 +9,11 @@ public partial class Result
 {
     public Result() { }
 
-    protected Result(string message)
+    public Result(string message)
      : this(200, message)
     { }
 
-    protected Result(int code, string message)
+    public Result(int code, string message)
     {
         Code = code;
         Message = message;
@@ -27,7 +27,7 @@ public partial class Result
     /// <summary>
     /// Message
     /// </summary>
-    public string Message { get; protected set; }
+    public string Message { get; set; } = "succeeded";
 
     public override bool Equals(object obj)
     {
@@ -56,7 +56,7 @@ public partial class Result
     /// 操作成功
     /// </summary>
     /// <returns></returns>
-    public static Result Ok(string message = "操作成功!") => new(message);
+    public static Result Ok(string message = "succeeded!") => new(message);
 
     /// <summary>
     /// 操作失败
@@ -94,6 +94,14 @@ public partial class Result
     /// <summary>
     /// 操作失败
     /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="error"></param>
+    /// <returns></returns>
+    public static Result Failed<TValue>(string error) => new Result<TValue>(default, error);
+
+    /// <summary>
+    /// 操作失败
+    /// </summary>
     /// <param name="modelStates"></param>
     /// <returns></returns>
     public static Result Failed(ModelStateDictionary modelStates)
@@ -125,15 +133,15 @@ public class Result<TValue> : Result
 {
     public TValue Data { get; set; }
 
-    protected internal Result(TValue value)
+    public Result(TValue value)
         : this(value, 200, string.Empty)
     { }
 
-    protected internal Result(TValue value, string message)
+    public Result(TValue value, string message)
         : this(value, 200, message)
     { }
 
-    protected internal Result(TValue value, int code, string message)
+    public Result(TValue value, int code, string message)
         : base(code, message)
     {
         Data = value;

@@ -1,12 +1,12 @@
 ﻿using LinFx.Application.Services;
 using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限服务
+/// </summary>
 public class PermissionService : ApplicationService, IPermissionService
 {
     protected PermissionManagementOptions Options { get; }
@@ -23,6 +23,12 @@ public class PermissionService : ApplicationService, IPermissionService
         PermissionDefinitionManager = permissionDefinitionManager;
     }
 
+    /// <summary>
+    /// 获取权限
+    /// </summary>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
     public virtual async Task<PermissionListResultDto> GetAsync(string providerName, string providerKey)
     {
         await CheckProviderPolicy(providerName);
@@ -73,7 +79,6 @@ public class PermissionService : ApplicationService, IPermissionService
             foreach (var grantInfo in multipleGrantInfo.Result)
             {
                 var grantInfoDto = grantInfoDtos.First(x => x.Name == grantInfo.Name);
-
                 grantInfoDto.IsGranted = grantInfo.IsGranted;
 
                 foreach (var provider in grantInfo.Providers)

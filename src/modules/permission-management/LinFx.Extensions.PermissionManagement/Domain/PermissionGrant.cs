@@ -1,6 +1,4 @@
 ﻿using LinFx.Domain.Entities;
-using LinFx.Extensions.MultiTenancy;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,10 +23,16 @@ public class PermissionGrant : Entity<long>, IMultiTenant
     [StringLength(64)]
     public virtual string Name { get; protected set; }
 
+    /// <summary>
+    /// 权限提供器
+    /// </summary>
     [Required]
     [StringLength(64)]
     public virtual string ProviderName { get; protected set; }
 
+    /// <summary>
+    /// 关键值
+    /// </summary>
     [StringLength(64)]
     public virtual string ProviderKey { get; protected internal set; }
 

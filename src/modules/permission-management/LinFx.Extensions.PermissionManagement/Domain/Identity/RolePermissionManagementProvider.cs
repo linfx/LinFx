@@ -4,9 +4,6 @@ using LinFx.Extensions.Guids;
 using LinFx.Extensions.Identity;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement;
 
@@ -33,7 +30,6 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
     public override async Task<PermissionValueProviderGrantInfo> CheckAsync(string name, string providerName, string providerKey)
     {
         var multipleGrantInfo = await CheckAsync(new[] { name }, providerName, providerKey);
-
         return multipleGrantInfo.Result.Values.First();
     }
 
@@ -43,9 +39,7 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
         var permissionGrants = new List<PermissionGrant>();
 
         if (providerName == Name)
-        {
             permissionGrants.AddRange(await PermissionGrantRepository.GetListAsync(names, providerName, providerKey));
-        }
 
         if (providerName == UserPermissionValueProvider.ProviderName)
         {
@@ -59,17 +53,13 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
 
         permissionGrants = permissionGrants.Distinct().ToList();
         if (!permissionGrants.Any())
-        {
             return multiplePermissionValueProviderGrantInfo;
-        }
 
         foreach (var permissionName in names)
         {
             var permissionGrant = permissionGrants.FirstOrDefault(x => x.Name == permissionName);
             if (permissionGrant != null)
-            {
                 multiplePermissionValueProviderGrantInfo.Result[permissionName] = new PermissionValueProviderGrantInfo(true, permissionGrant.ProviderKey);
-            }
         }
 
         return multiplePermissionValueProviderGrantInfo;

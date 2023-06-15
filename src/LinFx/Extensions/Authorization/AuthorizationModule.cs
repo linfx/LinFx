@@ -29,7 +29,6 @@ public class AuthorizationModule : Module
 
         // 替换掉 ASP.NET Core 提供的权限处理器。
         services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-        //context.Services.AddSingleton<IAuthorizationHandler, PermissionsRequirementHandler>();
 
         services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
 
@@ -53,7 +52,7 @@ public class AuthorizationModule : Module
         //        .AddVirtualJson("/Volo/Abp/Authorization/Localization");
         //});
 
-        //Configure<AbpExceptionLocalizationOptions>(options =>
+        //Configure<ExceptionLocalizationOptions>(options =>
         //{
         //    options.MapCodeNamespace("Volo.Authorization", typeof(AbpAuthorizationResource));
         //});

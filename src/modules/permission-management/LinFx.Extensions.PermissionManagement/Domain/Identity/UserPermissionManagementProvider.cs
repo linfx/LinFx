@@ -19,6 +19,5 @@ public class UserPermissionManagementProvider : PermissionManagementProvider
             permissionGrantRepository,
             guidGenerator,
             currentTenant)
-    {
-    }
+    { }
 }

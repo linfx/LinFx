@@ -5,10 +5,6 @@ using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement;
 
@@ -74,9 +70,7 @@ public class PermissionManager : IPermissionManager
     public virtual async Task<List<PermissionWithGrantedProviders>> GetAllAsync(string providerName, string providerKey)
     {
         var permissionDefinitions = PermissionDefinitionManager.GetPermissions().ToArray();
-
         var multiplePermissionWithGrantedProviders = await GetInternalAsync(permissionDefinitions, providerName, providerKey);
-
         return multiplePermissionWithGrantedProviders.Result;
 
     }

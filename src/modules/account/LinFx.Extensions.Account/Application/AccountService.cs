@@ -4,7 +4,7 @@ using LinFx.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Extensions.Account.Application;
+namespace LinFx.Extensions.Account;
 
 /// <summary>
 /// 账户服务
@@ -78,7 +78,7 @@ public class AccountService : ApplicationService, IAccountService
     /// <returns></returns>
     public async ValueTask<Result> LoginAsync(LoginInput input)
     {
-        IdentityUser? user = null;
+        IdentityUser user = null;
         if (RegexUtils.VerifyPhone(input.UserName))
         {
             // 手机号验证
@@ -95,8 +95,7 @@ public class AccountService : ApplicationService, IAccountService
         }
 
         // 用户名登录验证
-        if (user == null)
-            user = await _userManager.FindByNameAsync(input.UserName);
+        user ??= await _userManager.FindByNameAsync(input.UserName);
 
         if (user == null)
             return Result.Failed("用户不存在");

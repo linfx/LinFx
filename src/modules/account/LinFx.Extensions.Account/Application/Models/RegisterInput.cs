@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Extensions.Account;
-
+    
 /// <summary>
 /// 注册
 /// </summary>

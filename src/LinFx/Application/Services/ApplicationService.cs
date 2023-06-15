@@ -1,7 +1,6 @@
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectMapping;
 using LinFx.Extensions.Setting;
@@ -119,7 +118,7 @@ public abstract class ApplicationService :
     /// <summary>
     /// 当前工作单元
     /// </summary>
-    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
+    protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     /// <summary>
     /// 日志

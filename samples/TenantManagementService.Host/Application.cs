@@ -9,11 +9,16 @@ using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.HttpApi;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
+using TenantManagementService.EntityFrameworkCore;
 
 namespace TenantManagementService;
 
@@ -46,6 +51,16 @@ public class Application : Module
             options.DocInclusionPredicate((docName, description) => true);
             options.CustomSchemaIds(type => type.FullName);
         });
+
+        services.AddRouting(options =>
+        {
+            options.LowercaseUrls = true;
+        });
+
+        services
+            .AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<TenantManagementMigrationsDbContext>()
+            .AddDefaultTokenProviders();
     }
 
     public override void Configure(IApplicationBuilder app, IHostEnvironment env)
