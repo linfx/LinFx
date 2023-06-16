@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.Modularity;
+﻿using LinFx.Extensions.Account.EntityFrameworkCore;
+using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +14,10 @@ public class AccountModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
+        services.AddDbContext<AccountDbContext>(options =>
+        {
+        });
+
         //services
         //    .AddDistributedMemoryCache()
         //    .AddSingleton<AuthenticationOptions>();
@@ -42,5 +47,10 @@ public class AccountModule : Module
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
             };
         });
+
+        services
+            .AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<AccountDbContext>()
+            .AddDefaultTokenProviders();
     }
 }

@@ -1,12 +1,10 @@
-﻿using IdentityService.Host.Models;
-using LinFx.Extensions.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace IdentityService.Host.Data
+namespace IdentityService.EntityFrameworkCore
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -16,7 +14,7 @@ namespace IdentityService.Host.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>().ToTable(TableConsts.Users);
+            builder.Entity<IdentityUser>().ToTable(TableConsts.Users);
             builder.Entity<IdentityRole>().ToTable(TableConsts.Roles);
             builder.Entity<IdentityRoleClaim<string>>().ToTable(TableConsts.RoleClaims);
             builder.Entity<IdentityUserClaim<string>>().ToTable(TableConsts.UserClaims);

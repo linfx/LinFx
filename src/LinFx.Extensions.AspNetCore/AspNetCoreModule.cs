@@ -40,6 +40,11 @@ public class AspNetCoreModule : Module
             .AddObjectAccessor<IApplicationBuilder>();
 
         //context.Services.AddAbpDynamicOptions<RequestLocalizationOptions, AbpRequestLocalizationOptionsManager>();
+
+        services.AddRouting(options =>
+        {
+            options.LowercaseUrls = true;
+        });
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

@@ -1,24 +1,26 @@
-﻿using LinFx.Extensions.AspNetCore;
+﻿using LinFx.Extensions.Account.HttpApi;
+using LinFx.Extensions.AspNetCore;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.HttpApi;
+using LinFx.Extensions.PermissionManagement;
+using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace TenantManagementService;
+namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
     typeof(AuditLoggingModule),
     typeof(AspNetCoreModule),
-    typeof(TenantManagementHttpApiModule)
+    typeof(AccountHttpApiModule),
+    typeof(PermissionManagementModule)
 )]
 public class Application : Module
 {
@@ -26,17 +28,13 @@ public class Application : Module
     {
         services.Configure<EfDbContextOptions>(options =>
         {
-            options.UseSqlite<TenantManagementDbContext>();
             options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            options.UseSqlite<PermissionManagementDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         });
 
         services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
-            //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.xml"), true);
-            //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.TenantManagement.HttpApi.xml"), true);
-            //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.xml"), true);
-            //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "LinFx.Extensions.PermissionManagement.HttpApi.xml"), true);
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
             options.DocInclusionPredicate((docName, description) => true);
             options.CustomSchemaIds(type => type.FullName);
         });
@@ -55,8 +53,8 @@ public class Application : Module
 
         app.UseHttpsRedirection();
         app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
+        //app.UseAuthentication();
+        //app.UseAuthorization();
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
