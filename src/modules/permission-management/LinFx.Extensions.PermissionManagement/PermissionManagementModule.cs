@@ -4,6 +4,7 @@ using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
+using LinFx.Extensions.PermissionManagement.Application;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

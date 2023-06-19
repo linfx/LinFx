@@ -1,5 +1,6 @@
 ﻿using LinFx.Application.Services;
 using LinFx.Extensions.Authorization.Permissions;
+using LinFx.Extensions.PermissionManagement.Application;
 using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.PermissionManagement;
@@ -127,5 +128,40 @@ public class PermissionService : ApplicationService
 
         //await AuthorizationService.CheckAsync(policyName);
         await Task.CompletedTask;
+    }
+
+    internal Task GetListAsync(string providerName, string providerKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal ValueTask<PermissionGrant[]> GetListAsync(string[] names, string providerName, string providerKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal ValueTask<PermissionGrant> FindAsync(string name1, string name2, string providerKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal Task InsertAsync(PermissionGrant permissionGrant)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal Task DeleteAsync(string providerName, string providerKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal Task DeleteAsync(string name, string providerName, string providerKey)
+    {
+        throw new NotImplementedException();
+    }
+
+    internal Task<PermissionGrant> UpdateAsync(PermissionGrant permissionGrant)
+    {
+        throw new NotImplementedException();
     }
 }

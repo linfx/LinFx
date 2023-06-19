@@ -5,7 +5,7 @@ using LinFx.Extensions.Identity;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Extensions.PermissionManagement;
+namespace LinFx.Extensions.PermissionManagement.Application;
 
 [Service(ServiceLifetime.Scoped)]
 public class RolePermissionManagementProvider : PermissionManagementProvider
@@ -15,7 +15,7 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
     protected IUserRoleFinder UserRoleFinder { get; }
 
     public RolePermissionManagementProvider(
-        IPermissionGrantRepository permissionGrantRepository,
+        PermissionService permissionGrantRepository,
         IGuidGenerator guidGenerator,
         ICurrentTenant currentTenant,
         IUserRoleFinder userRoleFinder)
@@ -39,7 +39,7 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
         var permissionGrants = new List<PermissionGrant>();
 
         if (providerName == Name)
-            permissionGrants.AddRange(await PermissionGrantRepository.GetListAsync(names, providerName, providerKey));
+            permissionGrants.AddRange(await PermissionService.GetListAsync(names, providerName, providerKey));
 
         if (providerName == UserPermissionValueProvider.ProviderName)
         {
@@ -47,7 +47,7 @@ public class RolePermissionManagementProvider : PermissionManagementProvider
 
             foreach (var roleName in roleNames)
             {
-                permissionGrants.AddRange(await PermissionGrantRepository.GetListAsync(names, Name, roleName));
+                permissionGrants.AddRange(await PermissionService.GetListAsync(names, Name, roleName));
             }
         }
 

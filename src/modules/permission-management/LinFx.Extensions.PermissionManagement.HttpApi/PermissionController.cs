@@ -11,9 +11,9 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi;
 [Route("api/permission-management/permission")]
 public class PermissionController : ControllerBase
 {
-    protected IPermissionService _permissionService;
+    protected PermissionService _permissionService;
 
-    public PermissionController(IPermissionService permissionService)
+    public PermissionController(PermissionService permissionService)
     {
         _permissionService = permissionService;
     }

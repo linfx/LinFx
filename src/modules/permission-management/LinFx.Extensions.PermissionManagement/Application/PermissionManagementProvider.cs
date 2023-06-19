@@ -3,24 +3,27 @@ using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
 
-namespace LinFx.Extensions.PermissionManagement;
+namespace LinFx.Extensions.PermissionManagement.Application;
 
 public abstract class PermissionManagementProvider : IPermissionManagementProvider
 {
+    /// <summary>
+    /// ProviderName
+    /// </summary>
     public abstract string Name { get; }
 
-    protected IPermissionGrantRepository PermissionGrantRepository { get; }
+    protected PermissionService PermissionService { get; }
 
     protected IGuidGenerator GuidGenerator { get; }
 
     protected ICurrentTenant CurrentTenant { get; }
 
     protected PermissionManagementProvider(
-        IPermissionGrantRepository permissionGrantRepository,
+        PermissionService permissionService,
         IGuidGenerator guidGenerator,
         ICurrentTenant currentTenant)
     {
-        PermissionGrantRepository = permissionGrantRepository;
+        PermissionService = permissionService;
         GuidGenerator = guidGenerator;
         CurrentTenant = currentTenant;
     }
@@ -37,7 +40,7 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
         if (providerName != Name)
             return multiplePermissionValueProviderGrantInfo;
 
-        var permissionGrants = await PermissionGrantRepository.GetListAsync(names, providerName, providerKey);
+        var permissionGrants = await PermissionService.GetListAsync(names, providerName, providerKey);
 
         foreach (var permissionName in names)
         {
@@ -58,11 +61,11 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
     /// <returns></returns>
     protected virtual async Task GrantAsync(string name, string providerKey)
     {
-        var permissionGrant = await PermissionGrantRepository.FindAsync(name, Name, providerKey);
-        if (permissionGrant != null)
+        var item = await PermissionService.FindAsync(name, Name, providerKey);
+        if (item != null)
             return;
 
-        await PermissionGrantRepository.InsertAsync(new PermissionGrant(IDUtils.NewId(), name, Name, providerKey, CurrentTenant.Id));
+        await PermissionService.InsertAsync(new PermissionGrant(IDUtils.NewId(), name, Name, providerKey, CurrentTenant.Id));
     }
 
     /// <summary>
@@ -73,9 +76,6 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
     /// <returns></returns>
     protected virtual async Task RevokeAsync(string name, string providerKey)
     {
-        if (await PermissionGrantRepository.FindAsync(name, Name, providerKey) == null)
-            return;
-
-        await PermissionGrantRepository.DeleteAsync(await PermissionGrantRepository.FindAsync(name, Name, providerKey));
+        await PermissionService.DeleteAsync(name, Name, providerKey);
     }
 }

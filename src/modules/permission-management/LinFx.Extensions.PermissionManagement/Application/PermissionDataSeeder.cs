@@ -4,9 +4,9 @@ namespace LinFx.Extensions.PermissionManagement;
 
 public class PermissionDataSeeder
 {
-    protected IPermissionGrantRepository PermissionGrantRepository { get; }
+    protected PermissionService PermissionGrantRepository { get; }
 
-    public PermissionDataSeeder(IPermissionGrantRepository permissionGrantRepository)
+    public PermissionDataSeeder(PermissionService permissionGrantRepository)
     {
         PermissionGrantRepository = permissionGrantRepository;
     }

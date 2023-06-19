@@ -2,7 +2,7 @@
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
-namespace LinFx.Extensions.TenantManagement;
+namespace LinFx.Extensions.TenantManagement.Application;
 
 [Service]
 public class TenantStore : ITenantStore

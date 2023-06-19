@@ -6,12 +6,12 @@ using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace LinFx.Extensions.PermissionManagement;
+namespace LinFx.Extensions.PermissionManagement.Application;
 
 [Service(ServiceLifetime.Scoped)]
 public class PermissionManager
 {
-    protected IPermissionGrantRepository PermissionGrantRepository { get; }
+    protected PermissionService PermissionService { get; }
 
     protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
@@ -32,7 +32,7 @@ public class PermissionManager
     public PermissionManager(
         IPermissionDefinitionManager permissionDefinitionManager,
         //ISimpleStateCheckerManager<PermissionDefinition> simpleStateCheckerManager,
-        IPermissionGrantRepository permissionGrantRepository,
+        PermissionService permissionGrantRepository,
         IServiceProvider serviceProvider,
         IGuidGenerator guidGenerator,
         IOptions<PermissionManagementOptions> options,
@@ -43,7 +43,7 @@ public class PermissionManager
         CurrentTenant = currentTenant;
         Cache = cache;
         //SimpleStateCheckerManager = simpleStateCheckerManager;
-        PermissionGrantRepository = permissionGrantRepository;
+        PermissionService = permissionGrantRepository;
         PermissionDefinitionManager = permissionDefinitionManager;
         Options = options.Value;
 
@@ -126,16 +126,12 @@ public class PermissionManager
         }
 
         permissionGrant.ProviderKey = providerKey;
-        return await PermissionGrantRepository.UpdateAsync(permissionGrant);
+        return await PermissionService.UpdateAsync(permissionGrant);
     }
 
     public virtual async Task DeleteAsync(string providerName, string providerKey)
     {
-        var permissionGrants = await PermissionGrantRepository.GetListAsync(providerName, providerKey);
-        foreach (var permissionGrant in permissionGrants)
-        {
-            await PermissionGrantRepository.DeleteAsync(permissionGrant);
-        }
+        await PermissionService.DeleteAsync(providerName, providerKey);
     }
 
     protected virtual async Task<PermissionWithGrantedProviders> GetInternalAsync(PermissionDefinition permission, string providerName, string providerKey)

@@ -10,17 +10,13 @@ namespace LinFx.Extensions.TenantManagement;
 /// 租户服务
 /// </summary>
 [Authorize(TenantManagementPermissions.Tenants.Default)]
-public class TenantService : ApplicationService, ITenantService
+public class TenantService : ApplicationService
 {
     protected TenantManagementDbContext Db { get; }
-    protected ITenantManager TenantManager { get; }
 
-    public TenantService(
-        TenantManagementDbContext tenantRepository,
-        ITenantManager tenantManager)
+    public TenantService(TenantManagementDbContext tenantRepository)
     {
         Db = tenantRepository;
-        TenantManager = tenantManager;
     }
 
     /// <summary>
@@ -60,7 +56,13 @@ public class TenantService : ApplicationService, ITenantService
     [Authorize(TenantManagementPermissions.Tenants.Create)]
     public virtual async ValueTask<TenantDto> CreateAsync(TenantEditInput input)
     {
-        var tenant = await TenantManager.CreateAsync(input.Name);
+        if (await Db.Tenants.AnyAsync(p => p.Name == input.Name))
+            throw new ArgumentException(nameof(input.Name));
+
+        var tenant = new Tenant
+        {
+            Name = input.Name
+        };
 
         Db.Tenants.Add(tenant);
         await Db.SaveChangesAsync();
@@ -78,7 +80,7 @@ public class TenantService : ApplicationService, ITenantService
     public virtual async ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input)
     {
         var item = await Db.Tenants.FindAsync(id);
-        await TenantManager.ChangeNameAsync(item, input.Name);
+        item.Name = input.Name;
         await Db.SaveChangesAsync();
 
         return item.MapTo<TenantDto>();
