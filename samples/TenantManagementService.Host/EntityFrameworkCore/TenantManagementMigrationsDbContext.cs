@@ -1,10 +1,9 @@
-﻿using LinFx.Extensions.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+﻿using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace TenantManagementService.EntityFrameworkCore;
 
-public class TenantManagementMigrationsDbContext : EfDbContext
+public class TenantManagementMigrationsDbContext : DbContext
 {
     protected TenantManagementMigrationsDbContext() { }
 

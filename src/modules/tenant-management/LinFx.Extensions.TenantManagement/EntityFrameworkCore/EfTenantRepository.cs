@@ -38,6 +38,6 @@ public class EfTenantRepository : EfRepository<TenantManagementDbContext, Tenant
             .ToListAsync(GetCancellationToken(cancellationToken));
     }
 
-    public virtual async Task<long> GetCountAsync(string? filter = null, CancellationToken cancellationToken = default)
+    public virtual async Task<long> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
         => await (await GetDbSetAsync()).WhereIf(!filter.IsNullOrWhiteSpace(), u => u.Name.Contains(filter)).CountAsync(cancellationToken: cancellationToken);
 }

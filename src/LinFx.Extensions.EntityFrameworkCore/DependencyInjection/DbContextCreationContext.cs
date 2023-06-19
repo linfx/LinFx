@@ -7,8 +7,9 @@ namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 /// </summary>
 public class DbContextCreationContext
 {
-    public static DbContextCreationContext? Current => _current.Value;
     private static readonly AsyncLocal<DbContextCreationContext> _current = new();
+
+    public static DbContextCreationContext Current => _current.Value;
 
     public string ConnectionStringName { get; }
 

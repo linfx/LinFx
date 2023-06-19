@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 namespace LinFx.Extensions.PermissionManagement;
 
 [Service(ServiceLifetime.Scoped)]
-public class PermissionManager : IPermissionManager
+public class PermissionManager
 {
     protected IPermissionGrantRepository PermissionGrantRepository { get; }
 

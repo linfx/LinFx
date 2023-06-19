@@ -1,12 +1,8 @@
-﻿using LinFx.Extensions.Data;
-using LinFx.Extensions.EntityFrameworkCore;
-using LinFx.Extensions.PermissionManagement.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
-[ConnectionStringName(PermissionManagementDbProperties.ConnectionStringName)]
-public class PermissionManagementDbContext : EfDbContext
+public class PermissionManagementDbContext : DbContext
 {
     public PermissionManagementDbContext() { }
 

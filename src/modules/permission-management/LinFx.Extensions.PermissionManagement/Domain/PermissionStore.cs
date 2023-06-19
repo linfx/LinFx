@@ -1,12 +1,10 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.PermissionManagement;
 
@@ -15,18 +13,18 @@ public class PermissionStore : IPermissionStore
 {
     public ILogger<PermissionStore> Logger { get; set; }
 
-    protected IPermissionGrantRepository PermissionGrantRepository { get; }
+    protected PermissionManagementDbContext Db { get; }
 
     protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
     protected IDistributedCache<PermissionGrantCacheItem> Cache { get; }
 
     public PermissionStore(
-        IPermissionGrantRepository permissionGrantRepository,
+        PermissionManagementDbContext db,
         IDistributedCache<PermissionGrantCacheItem> cache,
         IPermissionDefinitionManager permissionDefinitionManager)
     {
-        PermissionGrantRepository = permissionGrantRepository;
+        Db = db;
         Cache = cache;
         PermissionDefinitionManager = permissionDefinitionManager;
         Logger = NullLogger<PermissionStore>.Instance;
@@ -70,9 +68,7 @@ public class PermissionStore : IPermissionStore
 
         Logger.LogDebug($"Getting all granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
 
-        var grantedPermissionsHashSet = new HashSet<string>(
-            (await PermissionGrantRepository.GetListAsync(providerName, providerKey)).Select(p => p.Name)
-        );
+        var grantedPermissionsHashSet = new HashSet<string>(Db.PermissionGrants.Where(s => s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name));
 
         Logger.LogDebug($"Setting the cache items. Count: {permissions.Count}");
 
@@ -172,9 +168,10 @@ public class PermissionStore : IPermissionStore
 
         Logger.LogDebug($"Getting not cache granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
 
-        var grantedPermissionsHashSet = new HashSet<string>(
-            (await PermissionGrantRepository.GetListAsync(notCacheKeys.Select(GetPermissionNameFormCacheKeyOrNull).ToArray(), providerName, providerKey)).Select(p => p.Name)
-        );
+        var names = notCacheKeys.Select(GetPermissionNameFormCacheKeyOrNull).ToArray();
+        var collect = Db.PermissionGrants.Where(s => names.Contains(s.Name) && s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name);
+        var grantedPermissionsHashSet = new HashSet<string>(collect);
+
 
         Logger.LogDebug($"Setting the cache items. Count: {permissions.Count}");
 

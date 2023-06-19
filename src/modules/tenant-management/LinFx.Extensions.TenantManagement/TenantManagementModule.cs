@@ -1,4 +1,5 @@
 ﻿using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
@@ -21,11 +22,6 @@ public class TenantManagementModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        //context.Services.Configure<PermissionOptions>(options =>
-        //{
-        //    options.DefinitionProviders.Add(typeof(TenantManagementPermissionDefinitionProvider));
-        //});
-
         services.AddDbContext<TenantManagementDbContext>(options =>
         {
             options.AddDefaultRepositories();

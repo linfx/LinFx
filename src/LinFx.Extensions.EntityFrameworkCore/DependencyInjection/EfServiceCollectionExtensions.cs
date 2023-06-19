@@ -1,4 +1,5 @@
-﻿using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
+﻿using LinFx.Extensions.EntityFrameworkCore;
+using LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
@@ -39,9 +40,9 @@ public static class EfServiceCollectionExtensions
 
             services.Replace(ServiceDescriptor.Transient(originalDbContextType, sp => sp.GetRequiredService(targetDbContextType)));
 
-            services.Configure<DbContextOptions>(opts =>
+            services.Configure<EfDbContextOptions>(opts =>
             {
-                //opts.DbContextReplacements[originalDbContextType] = targetDbContextType;
+                opts.DbContextReplacements[originalDbContextType] = targetDbContextType;
             });
         }
 

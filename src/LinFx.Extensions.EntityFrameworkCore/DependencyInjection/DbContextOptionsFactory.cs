@@ -86,8 +86,7 @@ public static class DbContextOptionsFactory
     /// <typeparam name="TDbContext"></typeparam>
     /// <param name="serviceProvider"></param>
     /// <returns></returns>
-    private static EfDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider) where TDbContext : DbContext
-        => serviceProvider.GetRequiredService<IOptions<EfDbContextOptions>>().Value;
+    private static EfDbContextOptions GetDbContextOptions<TDbContext>(IServiceProvider serviceProvider) where TDbContext : DbContext => serviceProvider.GetRequiredService<IOptions<EfDbContextOptions>>().Value;
 
     private static DbContextCreationContext GetCreationContext<TDbContext>(IServiceProvider serviceProvider)
         where TDbContext : DbContext
@@ -103,10 +102,7 @@ public static class DbContextOptionsFactory
         var connectionString = ResolveConnectionString<TDbContext>(serviceProvider, connectionStringName);
 
         // 构造一个新的 DbContextCreationContext 对象。
-        return new DbContextCreationContext(
-            connectionStringName,
-            connectionString
-        );
+        return new DbContextCreationContext(connectionStringName, connectionString);
     }
 
     private static string ResolveConnectionString<TDbContext>(IServiceProvider serviceProvider, string connectionStringName)

@@ -16,10 +16,7 @@ public class DbContextConfigurerAction : IDbContextConfigurer
         Action = action;
     }
 
-    public void Configure(DbContextConfigurationContext context)
-    {
-        Action.Invoke(context);
-    }
+    public void Configure(DbContextConfigurationContext context) => Action.Invoke(context);
 }
 
 public class DbContextConfigurerAction<TDbContext> : DbContextConfigurerAction
@@ -27,6 +24,5 @@ public class DbContextConfigurerAction<TDbContext> : DbContextConfigurerAction
 {
     public DbContextConfigurerAction([NotNull] Action<DbContextConfigurationContext> action)
         : base(action)
-    {
-    }
+    { }
 }

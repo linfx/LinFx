@@ -24,11 +24,11 @@ public class Application : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<EfDbContextOptions>(options =>
-        {
-            options.UseSqlite<TenantManagementDbContext>();
-            options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
+        //services.Configure<EfDbContextOptions>(options =>
+        //{
+        //    options.UseSqlite<TenantManagementDbContext>();
+        //    options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
 
         services.AddSwaggerGen(options =>
         {

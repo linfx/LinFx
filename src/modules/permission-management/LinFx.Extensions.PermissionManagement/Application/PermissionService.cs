@@ -7,14 +7,14 @@ namespace LinFx.Extensions.PermissionManagement;
 /// <summary>
 /// 权限服务
 /// </summary>
-public class PermissionService : ApplicationService, IPermissionService
+public class PermissionService : ApplicationService
 {
     protected PermissionManagementOptions Options { get; }
-    protected IPermissionManager PermissionManager { get; }
+    protected PermissionManager PermissionManager { get; }
     protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
     public PermissionService(
-        IPermissionManager permissionManager,
+        PermissionManager permissionManager,
         IPermissionDefinitionManager permissionDefinitionManager,
         IOptions<PermissionManagementOptions> options)
     {
@@ -102,6 +102,13 @@ public class PermissionService : ApplicationService, IPermissionService
         return result;
     }
 
+    /// <summary>
+    /// 更新权限
+    /// </summary>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public virtual async Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input)
     {
         await CheckProviderPolicy(providerName);

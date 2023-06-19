@@ -1,7 +1,7 @@
-﻿using LinFx.Extensions.Account.EntityFrameworkCore;
-using LinFx.Extensions.Modularity;
+﻿using LinFx.Extensions.Modularity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -14,14 +14,6 @@ public class AccountModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<AccountDbContext>(options =>
-        {
-        });
-
-        //services
-        //    .AddDistributedMemoryCache()
-        //    .AddSingleton<AuthenticationOptions>();
-
         // 添加身份认证服务
         services.AddAuthentication(options =>
         {
@@ -50,7 +42,7 @@ public class AccountModule : Module
 
         services
             .AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<AccountDbContext>()
+            .AddEntityFrameworkStores<IdentityDbContext>()
             .AddDefaultTokenProviders();
     }
 }

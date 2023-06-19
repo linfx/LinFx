@@ -7,7 +7,6 @@ namespace LinFx.Extensions.PermissionManagement;
 /// <summary>
 /// 权限授权
 /// </summary>
-[Table("Core_PermissionGrant")]
 public class PermissionGrant : Entity<long>, IMultiTenant
 {
     /// <summary>

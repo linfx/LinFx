@@ -14,6 +14,9 @@ public class DbContextConfigurationContext : IServiceProviderAccessor
 {
     public IServiceProvider ServiceProvider { get; }
 
+    /// <summary>
+    /// 连接字符串
+    /// </summary>
     public string ConnectionString { get; }
 
     public string ConnectionStringName { get; }

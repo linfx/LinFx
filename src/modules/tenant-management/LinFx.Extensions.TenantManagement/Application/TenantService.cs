@@ -1,6 +1,8 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
+using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement;
 
@@ -10,14 +12,14 @@ namespace LinFx.Extensions.TenantManagement;
 [Authorize(TenantManagementPermissions.Tenants.Default)]
 public class TenantService : ApplicationService, ITenantService
 {
-    protected ITenantRepository TenantRepository { get; }
+    protected TenantManagementDbContext Db { get; }
     protected ITenantManager TenantManager { get; }
 
     public TenantService(
-        ITenantRepository tenantRepository,
+        TenantManagementDbContext tenantRepository,
         ITenantManager tenantManager)
     {
-        TenantRepository = tenantRepository;
+        Db = tenantRepository;
         TenantManager = tenantManager;
     }
 
@@ -28,8 +30,8 @@ public class TenantService : ApplicationService, ITenantService
     /// <returns></returns>
     public virtual async ValueTask<TenantDto> GetAsync(string id)
     {
-        var tenant = await TenantRepository.GetAsync(id);
-        return tenant.MapTo<TenantDto>();
+        var item = await Db.Tenants.FindAsync(id);
+        return item.MapTo<TenantDto>();
     }
 
     /// <summary>
@@ -44,8 +46,8 @@ public class TenantService : ApplicationService, ITenantService
             input.Sorting = nameof(Tenant.Name);
         }
 
-        var count = await TenantRepository.GetCountAsync(input.Filter);
-        var items = await TenantRepository.GetPagedListAsync(input.Page, input.PageSize, input.Sorting);
+        var count = await Db.Tenants.CountAsync();
+        var items = await Db.Tenants.ToListAsync();
 
         return new PagedResult<TenantDto>(count, items.MapTo<List<TenantDto>>());
     }
@@ -59,7 +61,9 @@ public class TenantService : ApplicationService, ITenantService
     public virtual async ValueTask<TenantDto> CreateAsync(TenantEditInput input)
     {
         var tenant = await TenantManager.CreateAsync(input.Name);
-        tenant = await TenantRepository.InsertAsync(tenant);
+
+        Db.Tenants.Add(tenant);
+        await Db.SaveChangesAsync();
 
         return tenant.MapTo<TenantDto>();
     }
@@ -73,11 +77,11 @@ public class TenantService : ApplicationService, ITenantService
     [Authorize(TenantManagementPermissions.Tenants.Update)]
     public virtual async ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input)
     {
-        var tenant = await TenantRepository.GetAsync(id);
-        await TenantManager.ChangeNameAsync(tenant, input.Name);
-        await TenantRepository.UpdateAsync(tenant);
+        var item = await Db.Tenants.FindAsync(id);
+        await TenantManager.ChangeNameAsync(item, input.Name);
+        await Db.SaveChangesAsync();
 
-        return tenant.MapTo<TenantDto>();
+        return item.MapTo<TenantDto>();
     }
 
     /// <summary>
@@ -88,10 +92,10 @@ public class TenantService : ApplicationService, ITenantService
     [Authorize(TenantManagementPermissions.Tenants.Delete)]
     public virtual async ValueTask DeleteAsync(string id)
     {
-        var tenant = await TenantRepository.FindAsync(id);
+        var tenant = await Db.Tenants.FindAsync(id);
         if (tenant == null)
             return;
 
-        await TenantRepository.DeleteAsync(tenant);
+        await Db.SaveChangesAsync();
     }
 }

@@ -10,7 +10,6 @@ using LinFx.Extensions.EntityFrameworkCore.ObjectExtending;
 using LinFx.Extensions.EntityFrameworkCore.ValueConverters;
 using LinFx.Extensions.EventBus.Distributed;
 using LinFx.Extensions.EventBus.Local;
-using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Extensions.Timing;
@@ -246,13 +245,13 @@ public abstract class EfDbContext : DbContext, ITransientDependency
         ChangeTracker.StateChanged += ChangeTracker_StateChanged;
     }
 
-    protected virtual void ChangeTracker_Tracked(object? sender, EntityTrackedEventArgs e)
+    protected virtual void ChangeTracker_Tracked(object sender, EntityTrackedEventArgs e)
     {
         FillExtraPropertiesForTrackedEntities(e);
         PublishEventsForTrackedEntity(e.Entry);
     }
 
-    protected virtual void ChangeTracker_StateChanged(object? sender, EntityStateChangedEventArgs e) => PublishEventsForTrackedEntity(e.Entry);
+    protected virtual void ChangeTracker_StateChanged(object sender, EntityStateChangedEventArgs e) => PublishEventsForTrackedEntity(e.Entry);
 
     protected virtual void FillExtraPropertiesForTrackedEntities(EntityTrackedEventArgs e)
     {
