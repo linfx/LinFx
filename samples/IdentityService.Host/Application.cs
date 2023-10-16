@@ -1,13 +1,14 @@
-﻿using LinFx.Extensions.Account.HttpApi;
+﻿using IdentityService.EntityFrameworkCore;
+using LinFx.Extensions.Account.HttpApi;
 using LinFx.Extensions.AspNetCore;
 using LinFx.Extensions.AuditLogging;
-using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
-using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
+using LinFx.Extensions.TenantManagement.HttpApi;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,24 +21,33 @@ namespace IdentityService;
     typeof(AuditLoggingModule),
     typeof(AspNetCoreModule),
     typeof(AccountHttpApiModule),
-    typeof(PermissionManagementModule)
+    typeof(PermissionManagementHttpApiModule)
 )]
 public class Application : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<EfDbContextOptions>(options =>
-        {
-            options.UseSqlite<AuditLoggingDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-            options.UseSqlite<PermissionManagementDbContext>(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
-
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
             options.DocInclusionPredicate((docName, description) => true);
             options.CustomSchemaIds(type => type.FullName);
         });
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        });
+
+        services.AddDbContext<PermissionManagementDbContext>(options =>
+        {
+            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        });
+
+        services
+            .AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
     }
 
     public override void Configure(IApplicationBuilder app, IHostEnvironment env)
@@ -58,7 +68,7 @@ public class Application : Module
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity Service Api");
         });
         //app.UseAuditing();
         app.UseEndpoints(endpoints =>

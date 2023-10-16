@@ -7,7 +7,7 @@ namespace LinFx.Extensions.Account.HttpApi;
 /// <summary>
 /// 账户Api接口
 /// </summary>
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/account")]
 public class AccountController : ControllerBase

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinFx.Extensions.PermissionManagement.HttpApi;
 
 /// <summary>
 /// 权限管理
 /// </summary>
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/permission-management/permission")]
 public class PermissionController : ControllerBase
@@ -26,7 +27,7 @@ public class PermissionController : ControllerBase
     /// <returns></returns>
     [HttpGet]
     [Route("/api/permission-management/permissions")]
-    public virtual Task<PermissionListResultDto> GetAsync(string providerName, string providerKey) => _permissionService.GetAsync(providerName, providerKey);
+    public virtual Task<PermissionListResultDto> GetAsync([Required] string providerName, [Required] string providerKey) => _permissionService.GetAsync(providerName, providerKey);
 
     /// <summary>
     /// 更新权限
@@ -36,5 +37,5 @@ public class PermissionController : ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public virtual Task UpdateAsync(string providerName, string providerKey, UpdatePermissionsDto input) => _permissionService.UpdateAsync(providerName, providerKey, input);
+    public virtual Task UpdateAsync([Required] string providerName, [Required] string providerKey, UpdatePermissionsDto input) => _permissionService.UpdateAsync(providerName, providerKey, input);
 }

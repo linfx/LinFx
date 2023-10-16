@@ -36,7 +36,7 @@ public class TokenService : ITokenService
     /// </summary>
     /// <param name="user">用户</param>
     /// <returns></returns>
-    public string CreateAccessToken(IUser user)
+    public string CreateAccessToken(IdentityUser user)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Jwt.Key));
         var minutes = _config.Jwt.AccessTokenDurationInMinutes;
@@ -171,7 +171,7 @@ public class TokenService : ITokenService
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    protected virtual IList<Claim> BuildClaims(IUser user)
+    protected virtual IList<Claim> BuildClaims(IdentityUser user)
     {
         var claims = new List<Claim>
         {

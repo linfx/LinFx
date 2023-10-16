@@ -3,7 +3,7 @@
 	<Import Project="..\..\common.props" />
 
 	<ItemGroup>
-		<PackageReference Include="MongoDB.Driver" Version="2.19.2" />
+		<PackageReference Include="MongoDB.Driver" Version="2.22.0" />
 	</ItemGroup>
 
 	<ItemGroup>

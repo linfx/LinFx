@@ -3,7 +3,7 @@
 	<Import Project="..\..\common.props" />
 
 	<ItemGroup>
-	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
 	</ItemGroup>
 
 	<ItemGroup>

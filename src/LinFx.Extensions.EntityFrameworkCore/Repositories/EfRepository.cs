@@ -131,13 +131,7 @@ public class EfRepository<TDbContext, TEntity> : RepositoryBase<TEntity>, IEfRep
 
         if (BulkOperationProvider != null)
         {
-            await BulkOperationProvider.UpdateManyAsync<TDbContext, TEntity>(
-                this,
-                entities,
-                autoSave,
-                GetCancellationToken(cancellationToken)
-                );
-
+            await BulkOperationProvider.UpdateManyAsync<TDbContext, TEntity>(this, entities, autoSave, GetCancellationToken(cancellationToken));
             return;
         }
 
@@ -325,10 +319,7 @@ public class EfRepository<TDbContext, TEntity, TKey> : EfRepository<TDbContext, 
     public virtual async ValueTask<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
     {
         var entity = await FindAsync(id, includeDetails, GetCancellationToken(cancellationToken));
-        if (entity == null)
-            throw new EntityNotFoundException(typeof(TEntity), id);
-
-        return entity;
+        return entity ?? throw new EntityNotFoundException(typeof(TEntity), id);
     }
 
     public virtual async ValueTask<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)

@@ -1,4 +1,4 @@
-﻿using LinFx.Extensions.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace LinFx.Extensions.Account;
@@ -13,7 +13,7 @@ public interface ITokenService
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
-    string CreateAccessToken(IUser user);
+    string CreateAccessToken(IdentityUser user);
 
     /// <summary>
     /// create refresh_token

@@ -13,13 +13,16 @@ public class AccountService : ApplicationService, IAccountService
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly ITokenService _tokenService;
 
     public AccountService(
         UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager)
+        SignInManager<IdentityUser> signInManager,
+        ITokenService tokenService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _tokenService = tokenService;
     }
 
     /// <summary>
@@ -138,15 +141,16 @@ public class AccountService : ApplicationService, IAccountService
         }
         else if (signInResult.Succeeded)
         {
-            //var token = await _tokenService.CreateAccessTokenAsync(user);
-            //var loginResult = new LoginResult
-            //{
-            //    AccessToken = token,
-            //    Avatar = user.AvatarUrl,
-            //    Email = user.Email,
-            //    Name = user.FullName,
-            //    Phone = user.PhoneNumber
-            //};
+            var token = _tokenService.CreateAccessToken(user);
+            var loginResult = new
+            {
+                Token = token,
+                Account = input.UserName,
+                //Avatar = user.AvatarUrl,
+                //user.Email,
+                //Name = user.FullName,
+                //Phone = user.PhoneNumber
+            };
             //if (includeRefreshToken)
             //{
             //    loginResult.RefreshToken = _tokenService.CreateRefreshToken();
@@ -157,7 +161,7 @@ public class AccountService : ApplicationService, IAccountService
             //{
             //    loginResult.Roles = await _userManager.GetRolesAsync(user);
             //}
-            //return Result.Ok(loginResult);
+            return Result.Ok(loginResult);
         }
         return Result.Failed("用户名或密码错误");
     }

@@ -52,9 +52,7 @@ public class PermissionStore : IPermissionStore
         Logger.LogDebug($"Not found in the cache: {cacheKey}");
 
         cacheItem = new PermissionGrantCacheItem(false);
-
         await SetCacheItemsAsync(providerName, providerKey, name, cacheItem);
-
         return cacheItem;
     }
 

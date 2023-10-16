@@ -74,8 +74,5 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
     /// <param name="name"></param>
     /// <param name="providerKey"></param>
     /// <returns></returns>
-    protected virtual async Task RevokeAsync(string name, string providerKey)
-    {
-        await PermissionService.DeleteAsync(name, Name, providerKey);
-    }
+    protected virtual async Task RevokeAsync(string name, string providerKey) => await PermissionService.DeleteAsync(name, Name, providerKey);
 }

@@ -111,14 +111,9 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// </summary>
     public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfDbContext>>(NullLogger<EfDbContext>.Instance);
 
-    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext)
-        .GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
-
-    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext)
-        .GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
-
-    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext)
-        .GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,8 +1,10 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 namespace LinFx.Extensions.TenantManagement;
 
@@ -35,17 +37,13 @@ public class TenantService : ApplicationService
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public virtual async ValueTask<PagedResult<TenantDto>> GetListAsync(TenantRequest input)
+    public virtual ValueTask<PagedResult<TenantDto>> GetListAsync(TenantRequest input)
     {
         if (input.Sorting.IsNullOrWhiteSpace())
         {
             input.Sorting = nameof(Tenant.Name);
         }
-
-        var count = await Db.Tenants.CountAsync();
-        var items = await Db.Tenants.ToListAsync();
-
-        return new PagedResult<TenantDto>(count, items.MapTo<List<TenantDto>>());
+        return Db.Tenants.ToPageResultAsync<Tenant, TenantDto>(input);
     }
 
     /// <summary>
