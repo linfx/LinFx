@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Domain.Entities.Events;
 
 /// <summary>

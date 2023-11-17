@@ -1,5 +1,8 @@
 ﻿namespace LinFx.Extensions.Auditing;
 
+/// <summary>
+/// 属性自动设置器
+/// </summary>
 public interface IAuditPropertySetter
 {
     /// <summary>

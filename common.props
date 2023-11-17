@@ -1,14 +1,16 @@
 <Project>
-  <PropertyGroup>
-    <Version>5.3.5</Version>
-    <NoWarn>1701;1702;1591</NoWarn>
-	<LangVersion>10.0</LangVersion>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Company>LinFx</Company>
-    <Authors>LinFx</Authors>
-    <Product>LinFx</Product>
-    <Copyright>Copyright (c) 2020 LinFx</Copyright>
-    <PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Version>8.0.0</Version>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<LangVersion>10.0</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Company>LinFx</Company>
+		<Authors>LinFx</Authors>
+		<Product>LinFx</Product>
+		<Copyright>Copyright (c) 2020 LinFx</Copyright>
+		<PackageProjectUrl>https://github.com/linfx/LinFx</PackageProjectUrl>
+	</PropertyGroup>
 </Project>

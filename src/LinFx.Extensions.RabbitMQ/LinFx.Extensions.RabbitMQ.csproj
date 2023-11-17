@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\..\common.props" />
+
+	<ItemGroup>
+		<PackageReference Include="RabbitMQ.Client" Version="6.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\LinFx\LinFx.csproj" />
+	</ItemGroup>
+
+</Project>

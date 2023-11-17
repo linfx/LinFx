@@ -1,11 +1,6 @@
 using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Linq;
 
@@ -14,15 +9,9 @@ public class AsyncQueryableExecuter : IAsyncQueryableExecuter
 {
     protected IEnumerable<IAsyncQueryableProvider> Providers { get; }
 
-    public AsyncQueryableExecuter(IEnumerable<IAsyncQueryableProvider> providers)
-    {
-        Providers = providers;
-    }
+    public AsyncQueryableExecuter(IEnumerable<IAsyncQueryableProvider> providers) => Providers = providers;
 
-    protected virtual IAsyncQueryableProvider FindProvider<T>(IQueryable<T> queryable)
-    {
-        return Providers.FirstOrDefault(p => p.CanExecute(queryable));
-    }
+    protected virtual IAsyncQueryableProvider FindProvider<T>(IQueryable<T> queryable) => Providers.FirstOrDefault(p => p.CanExecute(queryable));
 
     public Task<bool> ContainsAsync<T>(IQueryable<T> queryable, T item, CancellationToken cancellationToken = default)
     {

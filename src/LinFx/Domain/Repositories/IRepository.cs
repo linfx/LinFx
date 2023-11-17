@@ -1,9 +1,5 @@
-﻿using JetBrains.Annotations;
-using LinFx.Domain.Entities;
-using System;
+﻿using LinFx.Domain.Entities;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories;
 
@@ -25,11 +21,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity>, IBasicRepo
     /// <param name="predicate">A condition to find the entity</param>
     /// <param name="includeDetails">Set true to include all children of this entity</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-    Task<TEntity> FindAsync(
-        [NotNull] Expression<Func<TEntity, bool>> predicate,
-        bool includeDetails = true,
-        CancellationToken cancellationToken = default
-    );
+    ValueTask<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Get a single entity by the given <paramref name="predicate"/>.
@@ -40,11 +32,7 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity>, IBasicRepo
     /// <param name="predicate">A condition to filter entities</param>
     /// <param name="includeDetails">Set true to include all children of this entity</param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-    Task<TEntity> GetAsync(
-        [NotNull] Expression<Func<TEntity, bool>> predicate,
-        bool includeDetails = true,
-        CancellationToken cancellationToken = default
-    );
+    ValueTask<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = true, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes many entities by the given <paramref name="predicate"/>.
@@ -59,14 +47,9 @@ public interface IRepository<TEntity> : IReadOnlyRepository<TEntity>, IBasicRepo
     /// This is useful for ORMs / database APIs those only save changes with an explicit method call, but you need to immediately save changes to the database.
     /// </param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
-    Task DeleteAsync(
-        [NotNull] Expression<Func<TEntity, bool>> predicate,
-        bool autoSave = false,
-        CancellationToken cancellationToken = default
-    );
+    Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false, CancellationToken cancellationToken = default);
 }
 
 public interface IRepository<TEntity, TKey> : IRepository<TEntity>, IReadOnlyRepository<TEntity, TKey>, IBasicRepository<TEntity, TKey>
     where TEntity : class, IEntity<TKey>
-{
-}
+{ }

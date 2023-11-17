@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using LinFx.Utils;
 
 namespace LinFx.Extensions.PermissionManagement;
 

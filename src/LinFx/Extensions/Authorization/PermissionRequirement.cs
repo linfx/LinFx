@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Authorization;

@@ -1,7 +1,6 @@
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectMapping;
 using LinFx.Extensions.Setting;
@@ -14,8 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Application.Services;
 
@@ -46,11 +43,10 @@ public abstract class ApplicationService :
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
     protected Type ObjectMapperContext { get; set; }
+
     protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
             ? provider.GetRequiredService<IObjectMapper>()
             : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
-
-    protected IGuidGenerator GuidGenerator => LazyServiceProvider.LazyGetService<IGuidGenerator>(SimpleGuidGenerator.Instance);
 
     /// <summary>
     /// 日志厂工
@@ -72,8 +68,14 @@ public abstract class ApplicationService :
     /// </summary>
     protected ICurrentUser CurrentUser => LazyServiceProvider.LazyGetRequiredService<ICurrentUser>();
 
+    /// <summary>
+    /// 配置
+    /// </summary>
     protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
 
+    /// <summary>
+    /// 时钟
+    /// </summary>
     protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
 
     protected IAuthorizationService AuthorizationService => LazyServiceProvider.LazyGetRequiredService<IAuthorizationService>();
@@ -118,6 +120,9 @@ public abstract class ApplicationService :
     /// </summary>
     protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
+    /// <summary>
+    /// 日志
+    /// </summary>
     protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
 
     ///// <summary>

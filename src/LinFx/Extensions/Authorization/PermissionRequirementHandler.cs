@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization;
 
@@ -17,6 +16,12 @@ public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequi
         _permissionChecker = permissionChecker;
     }
 
+    /// <summary>
+    /// 处理授权逻辑
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="requirement"></param>
+    /// <returns></returns>
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
     {
         // 如果当前用户拥有某个权限，则通过 Contxt.Succeed() 通过授权验证。

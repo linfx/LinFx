@@ -1,10 +1,7 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
@@ -98,15 +95,9 @@ public class PermissionDefinitionManager : IPermissionDefinitionManager, ISingle
         return PermissionDefinitions.GetOrDefault(name);
     }
 
-    public virtual IReadOnlyList<PermissionDefinition> GetPermissions()
-    {
-        return PermissionDefinitions.Values.ToImmutableList();
-    }
+    public virtual IReadOnlyList<PermissionDefinition> GetPermissions() => PermissionDefinitions.Values.ToImmutableList();
 
-    public IReadOnlyList<PermissionGroupDefinition> GetGroups()
-    {
-        return PermissionGroupDefinitions.Values.ToImmutableList();
-    }
+    public IReadOnlyList<PermissionGroupDefinition> GetGroups() => PermissionGroupDefinitions.Values.ToImmutableList();
 
     protected virtual void AddPermissionToDictionaryRecursively(Dictionary<string, PermissionDefinition> permissions, PermissionDefinition permission)
     {

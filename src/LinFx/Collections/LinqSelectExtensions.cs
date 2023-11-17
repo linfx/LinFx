@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace System.Collections.Generic;
+﻿namespace System.Collections.Generic;
 
 public static class LinqSelectExtensions
 {
@@ -15,7 +13,7 @@ public static class LinqSelectExtensions
             }
             catch (Exception ex)
             {
-                returnedValue = new SelectTryResult<TSource, TResult>(element, default(TResult), ex);
+                returnedValue = new SelectTryResult<TSource, TResult>(element, default, ex);
             }
             yield return returnedValue;
         }
@@ -41,7 +39,9 @@ public static class LinqSelectExtensions
         }
 
         public TSource Source { get; private set; }
+
         public TResult Result { get; private set; }
+
         public Exception CaughtException { get; private set; }
     }
 }

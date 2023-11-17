@@ -1,10 +1,9 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.Data;
-using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
+using LinFx.Extensions.PermissionManagement.Application;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.PermissionManagement;
@@ -15,14 +14,13 @@ namespace LinFx.Extensions.PermissionManagement;
 [DependsOn(
     typeof(DataModule),
     typeof(CachingModule),
-    typeof(MultiTenancyModule),
-    typeof(EntityFrameworkCoreModule)
+    typeof(MultiTenancyModule)
 )]
 public class PermissionManagementModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        Configure<PermissionManagementOptions>(options =>
+        services.Configure<PermissionManagementOptions>(options =>
         {
             options.ManagementProviders.Add<UserPermissionManagementProvider>();
             options.ManagementProviders.Add<RolePermissionManagementProvider>();
@@ -32,10 +30,6 @@ public class PermissionManagementModule : Module
             options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
         });
 
-        context.Services.AddDbContext<PermissionManagementDbContext>(options =>
-        {
-            options.AddDefaultRepositories<IPermissionManagementDbContext>();
-            options.AddRepository<PermissionGrant, EfPermissionGrantRepository>();
-        });
+        services.AddDistributedMemoryCache();
     }
 }

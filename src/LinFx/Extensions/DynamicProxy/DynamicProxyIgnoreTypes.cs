@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace LinFx.Extensions.DynamicProxy;
+﻿namespace LinFx.Extensions.DynamicProxy;
 
 /// <summary>
 /// Castle's dynamic proxy class feature will have performance issues for some components, such as the controller of Asp net core MVC.

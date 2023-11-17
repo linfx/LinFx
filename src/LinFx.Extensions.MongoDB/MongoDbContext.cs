@@ -6,6 +6,7 @@ namespace LinFx.Extensions.MongoDB;
 
 public abstract class MongoDbContext : IMongoDbContext, ITransientDependency
 {
+    [Autowired]
     public ILazyServiceProvider LazyServiceProvider { get; set; }
 
     public IMongoModelSource ModelSource { get; set; }
@@ -16,9 +17,7 @@ public abstract class MongoDbContext : IMongoDbContext, ITransientDependency
 
     public IClientSessionHandle SessionHandle { get; private set; }
 
-    protected internal virtual void CreateModel(IMongoModelBuilder modelBuilder)
-    {
-    }
+    protected internal virtual void CreateModel(IMongoModelBuilder modelBuilder) { }
 
     public virtual void InitializeDatabase(IMongoDatabase database, IMongoClient client, IClientSessionHandle sessionHandle)
     {
@@ -27,10 +26,7 @@ public abstract class MongoDbContext : IMongoDbContext, ITransientDependency
         SessionHandle = sessionHandle;
     }
 
-    public virtual IMongoCollection<T> Collection<T>()
-    {
-        return Database.GetCollection<T>(GetCollectionName<T>());
-    }
+    public virtual IMongoCollection<T> Collection<T>() => Database.GetCollection<T>(GetCollectionName<T>());
 
     public virtual void InitializeCollections(IMongoDatabase database)
     {
@@ -38,10 +34,7 @@ public abstract class MongoDbContext : IMongoDbContext, ITransientDependency
         ModelSource.GetModel(this);
     }
 
-    protected virtual string GetCollectionName<T>()
-    {
-        return GetEntityModel<T>().CollectionName;
-    }
+    protected virtual string GetCollectionName<T>() => GetEntityModel<T>().CollectionName;
 
     protected virtual IMongoEntityModel GetEntityModel<TEntity>()
     {

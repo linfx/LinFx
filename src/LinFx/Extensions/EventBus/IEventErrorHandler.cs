@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.EventBus
+﻿namespace LinFx.Extensions.EventBus;
+
+public interface IEventErrorHandler
 {
-    public interface IEventErrorHandler
-    {
-        //Task HandleAsync(EventExecutionErrorContext context);
-    }
+    //Task HandleAsync(EventExecutionErrorContext context);
 }

@@ -1,8 +1,6 @@
-using LinFx;
 using LinFx.Domain.Entities;
 using LinFx.Domain.Repositories;
-using System;
-using System.Collections.Generic;
+using LinFx.Utils;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -43,17 +41,11 @@ public abstract class CommonDbContextRegistrationOptions : ICommonDbContextRegis
         SpecifiedDefaultRepositories = new List<Type>();
     }
 
-    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext<TOtherDbContext>()
-    {
-        return ReplaceDbContext(typeof(TOtherDbContext));
-    }
+    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext<TOtherDbContext>() => ReplaceDbContext(typeof(TOtherDbContext));
 
-    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext<TOtherDbContext, TTargetDbContext>()
-    {
-        return ReplaceDbContext(typeof(TOtherDbContext), typeof(TTargetDbContext));
-    }
+    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext<TOtherDbContext, TTargetDbContext>() => ReplaceDbContext(typeof(TOtherDbContext), typeof(TTargetDbContext));
 
-    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext(Type otherDbContextType, Type targetDbContextType = null)
+    public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext(Type otherDbContextType, Type? targetDbContextType = null)
     {
         if (!otherDbContextType.IsAssignableFrom(OriginalDbContextType))
             throw new Exception($"{OriginalDbContextType.AssemblyQualifiedName} should inherit/implement {otherDbContextType.AssemblyQualifiedName}!");
@@ -81,15 +73,9 @@ public abstract class CommonDbContextRegistrationOptions : ICommonDbContextRegis
         return AddDefaultRepositories(includeAllEntities);
     }
 
-    public ICommonDbContextRegistrationOptionsBuilder AddDefaultRepositories<TDefaultRepositoryDbContext>(bool includeAllEntities = false)
-    {
-        return AddDefaultRepositories(typeof(TDefaultRepositoryDbContext), includeAllEntities);
-    }
+    public ICommonDbContextRegistrationOptionsBuilder AddDefaultRepositories<TDefaultRepositoryDbContext>(bool includeAllEntities = false) => AddDefaultRepositories(typeof(TDefaultRepositoryDbContext), includeAllEntities);
 
-    public ICommonDbContextRegistrationOptionsBuilder AddDefaultRepository<TEntity>()
-    {
-        return AddDefaultRepository(typeof(TEntity));
-    }
+    public ICommonDbContextRegistrationOptionsBuilder AddDefaultRepository<TEntity>() => AddDefaultRepository(typeof(TEntity));
 
     public ICommonDbContextRegistrationOptionsBuilder AddDefaultRepository(Type entityType)
     {
@@ -107,10 +93,7 @@ public abstract class CommonDbContextRegistrationOptions : ICommonDbContextRegis
         return this;
     }
 
-    public ICommonDbContextRegistrationOptionsBuilder SetDefaultRepositoryClasses(
-        Type repositoryImplementationType,
-        Type repositoryImplementationTypeWithoutKey
-        )
+    public ICommonDbContextRegistrationOptionsBuilder SetDefaultRepositoryClasses(Type repositoryImplementationType, Type repositoryImplementationTypeWithoutKey)
     {
         Check.NotNull(repositoryImplementationType, nameof(repositoryImplementationType));
         Check.NotNull(repositoryImplementationTypeWithoutKey, nameof(repositoryImplementationTypeWithoutKey));

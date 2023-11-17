@@ -1,12 +1,11 @@
 ﻿using LinFx.Collections;
-using System.Collections.Generic;
+using LinFx.Extensions.PermissionManagement.Application;
 
-namespace LinFx.Extensions.PermissionManagement
+namespace LinFx.Extensions.PermissionManagement;
+
+public class PermissionManagementOptions
 {
-    public class PermissionManagementOptions
-    {
-        public ITypeList<IPermissionManagementProvider> ManagementProviders { get; } = new TypeList<IPermissionManagementProvider>();
+    public ITypeList<IPermissionManagementProvider> ManagementProviders { get; } = new TypeList<IPermissionManagementProvider>();
 
-        public Dictionary<string, string> ProviderPolicies { get; } = new Dictionary<string, string>();
-    }
+    public Dictionary<string, string> ProviderPolicies { get; } = new Dictionary<string, string>();
 }

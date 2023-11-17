@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.ObjectMapping
+﻿namespace LinFx.Extensions.ObjectMapping;
+
+public interface IMapFrom<in TSource>
 {
-    public interface IMapFrom<in TSource>
-    {
-        void MapFrom(TSource source);
-    }
+    void MapFrom(TSource source);
 }

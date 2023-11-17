@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx;
+﻿namespace LinFx;
 
 /// <summary>
 /// Can be used to store Name/Value (or Key/Value) pairs.
@@ -27,12 +25,12 @@ public class NameValue<T>
     /// <summary>
     /// Name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Value
     /// </summary>
-    public T Value { get; set; }
+    public T? Value { get; set; } = default;
 
     /// <summary>
     /// Creates a new <see cref="NameValue"/>.

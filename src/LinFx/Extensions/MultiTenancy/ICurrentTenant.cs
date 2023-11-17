@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using System;
 
 namespace LinFx.Extensions.MultiTenancy;
 
@@ -22,5 +21,5 @@ public interface ICurrentTenant
     [CanBeNull]
     string Name { get; }
 
-    IDisposable Change(string id, string name = null);
+    IDisposable Change(string id, string name = default);
 }

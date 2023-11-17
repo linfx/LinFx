@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <UserSecretsId>7a3526f0-11ca-4fa2-a83a-038b95123b5d</UserSecretsId>
-    <RootNamespace>TenantManagementService</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<UserSecretsId>7a3526f0-11ca-4fa2-a83a-038b95123b5d</UserSecretsId>
+		<RootNamespace>TenantManagementService</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj" />
-    <ProjectReference Include="..\..\src\LinFx.Extensions.EntityFrameworkCore.Sqlite\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj" />
-    <ProjectReference Include="..\..\src\modules\audit-logging\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj" />
-    <ProjectReference Include="..\..\src\modules\permission-management\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
-    <ProjectReference Include="..\..\src\modules\tenant-management\LinFx.Extensions.TenantManagement.HttpApi\LinFx.Extensions.TenantManagement.HttpApi.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
+		<ProjectReference Include="..\..\src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj" />
+		<ProjectReference Include="..\..\src\modules\audit-logging\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj" />
+		<ProjectReference Include="..\..\src\modules\tenant-management\LinFx.Extensions.TenantManagement.HttpApi\LinFx.Extensions.TenantManagement.HttpApi.csproj" />
+	</ItemGroup>
 
 </Project>

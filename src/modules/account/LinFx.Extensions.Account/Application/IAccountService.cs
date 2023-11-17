@@ -1,14 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿namespace LinFx.Extensions.Account;
 
-namespace LinFx.Extensions.Account
+/// <summary>
+/// 账户服务
+/// </summary>
+public interface IAccountService
 {
     /// <summary>
-    /// 账户服务
+    /// 登录
     /// </summary>
-    public interface IAccountService
-    {
-        Task<Result> LoginAsync(LoginInput input);
+    /// <param name="input"></param>
+    /// <returns></returns>
+    ValueTask<Result> LoginAsync(LoginInput input);
 
-        Task<Result> RegisterAsync(RegisterInput input);
-    }
+    /// <summary>
+    /// 注册
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    ValueTask<Result> RegisterAsync(RegisterInput input);
 }

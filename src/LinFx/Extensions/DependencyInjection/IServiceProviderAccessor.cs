@@ -1,9 +1,6 @@
-﻿using System;
+﻿namespace LinFx.Extensions.DependencyInjection;
 
-namespace LinFx.Extensions.DependencyInjection
+public interface IServiceProviderAccessor
 {
-    public interface IServiceProviderAccessor
-    {
-        IServiceProvider ServiceProvider { get; }
-    }
+    IServiceProvider ServiceProvider { get; }
 }

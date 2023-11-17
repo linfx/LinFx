@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Reflection;
 
 namespace LinFx.Collections;
@@ -55,10 +53,7 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
     }
 
     /// <inheritdoc/>
-    public void Add<T>() where T : TBaseType
-    {
-        _typeList.Add(typeof(T));
-    }
+    public void Add<T>() where T : TBaseType => _typeList.Add(typeof(T));
 
     public bool TryAdd<T>() where T : TBaseType
     {
@@ -86,63 +81,33 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
     }
 
     /// <inheritdoc/>
-    public int IndexOf(Type item)
-    {
-        return _typeList.IndexOf(item);
-    }
+    public int IndexOf(Type item) => _typeList.IndexOf(item);
 
     /// <inheritdoc/>
-    public bool Contains<T>() where T : TBaseType
-    {
-        return Contains(typeof(T));
-    }
+    public bool Contains<T>() where T : TBaseType => Contains(typeof(T));
 
     /// <inheritdoc/>
-    public bool Contains(Type item)
-    {
-        return _typeList.Contains(item);
-    }
+    public bool Contains(Type item) => _typeList.Contains(item);
 
     /// <inheritdoc/>
-    public void Remove<T>() where T : TBaseType
-    {
-        _typeList.Remove(typeof(T));
-    }
+    public void Remove<T>() where T : TBaseType => _typeList.Remove(typeof(T));
 
     /// <inheritdoc/>
-    public bool Remove(Type item)
-    {
-        return _typeList.Remove(item);
-    }
+    public bool Remove(Type item) => _typeList.Remove(item);
 
     /// <inheritdoc/>
-    public void RemoveAt(int index)
-    {
-        _typeList.RemoveAt(index);
-    }
+    public void RemoveAt(int index) => _typeList.RemoveAt(index);
 
     /// <inheritdoc/>
-    public void Clear()
-    {
-        _typeList.Clear();
-    }
+    public void Clear() => _typeList.Clear();
 
     /// <inheritdoc/>
-    public void CopyTo(Type[] array, int arrayIndex)
-    {
-        _typeList.CopyTo(array, arrayIndex);
-    }
+    public void CopyTo(Type[] array, int arrayIndex) => _typeList.CopyTo(array, arrayIndex);
 
     /// <inheritdoc/>
-    public IEnumerator<Type> GetEnumerator()
-    {
-        return _typeList.GetEnumerator();
-    }
+    public IEnumerator<Type> GetEnumerator() => _typeList.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return _typeList.GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => _typeList.GetEnumerator();
 
     private static void CheckType(Type item)
     {

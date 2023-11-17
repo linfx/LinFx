@@ -10,7 +10,7 @@ public class Tenant : FullAuditedAggregateRoot<string>
     /// <summary>
     /// 租户名称
     /// </summary>
-    public virtual string Name { get; set; }
+    public virtual string Name { get; set; } = string.Empty;
 
     public Tenant() { }
 
@@ -20,8 +20,5 @@ public class Tenant : FullAuditedAggregateRoot<string>
         SetName(name);
     }
 
-    protected internal virtual void SetName(string name)
-    {
-        Name = name;
-    }
+    protected internal virtual void SetName(string name) => Name = name;
 }

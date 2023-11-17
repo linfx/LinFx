@@ -8,5 +8,5 @@ public class PagedAndSortedResultRequest : PagedResultRequest, IPagedAndSortedRe
     /// <summary>
     /// 排序
     /// </summary>
-    public virtual string Sorting { get; set; }
+    public virtual string Sorting { get; set; } = string.Empty;
 }

@@ -8,13 +8,11 @@ public class TenantManagementPermissionDefinitionProvider : PermissionDefinition
     public TenantManagementPermissionDefinitionProvider(
         IStringLocalizer<TenantManagementPermissionDefinitionProvider> localizer)
         : base(localizer)
-    {
-    }
+    { }
 
     public override void Define(IPermissionDefinitionContext context)
     {
         var tenantManagementGroup = context.AddGroup(TenantManagementPermissions.GroupName, L("Permission:TenantManagement"));
-
         var tenantsPermission = tenantManagementGroup.AddPermission(TenantManagementPermissions.Tenants.Default, L("Permission:TenantManagement"));
         tenantsPermission.AddChild(TenantManagementPermissions.Tenants.Create, L("Permission:Create"));
         tenantsPermission.AddChild(TenantManagementPermissions.Tenants.Update, L("Permission:Edit"));

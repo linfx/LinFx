@@ -8,11 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Nito.AsyncEx;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Caching;
 
@@ -98,10 +93,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
         SetDefaultOptions();
     }
 
-    protected virtual string NormalizeKey(TCacheKey key)
-    {
-        return KeyNormalizer.NormalizeKey(new DistributedCacheKeyNormalizeArgs(key.ToString(), CacheName, IgnoreMultiTenancy));
-    }
+    protected virtual string NormalizeKey(TCacheKey key) => KeyNormalizer.NormalizeKey(new DistributedCacheKeyNormalizeArgs(key.ToString(), CacheName, IgnoreMultiTenancy));
 
     protected virtual DistributedCacheEntryOptions GetDefaultCacheEntryOptions()
     {
@@ -173,14 +165,9 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
     {
         var keyArray = keys.ToArray();
 
-        var cacheSupportsMultipleItems = Cache as ICacheSupportsMultipleItems;
-        if (cacheSupportsMultipleItems == null)
+        if (Cache is not ICacheSupportsMultipleItems cacheSupportsMultipleItems)
         {
-            return GetManyFallback(
-                keyArray,
-                hideErrors,
-                considerUow
-            );
+            return GetManyFallback(keyArray, hideErrors, considerUow);
         }
 
         var notCachedKeys = new List<TCacheKey>();
@@ -232,12 +219,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
 
         try
         {
-            return keys
-                .Select(key => new KeyValuePair<TCacheKey, TCacheItem>(
-                        key,
-                        Get(key, false, considerUow)
-                    )
-                ).ToArray();
+            return keys.Select(key => new KeyValuePair<TCacheKey, TCacheItem>(key, Get(key, false, considerUow))).ToArray();
         }
         catch (Exception ex)
         {
@@ -259,8 +241,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
     {
         var keyArray = keys.ToArray();
 
-        var cacheSupportsMultipleItems = Cache as ICacheSupportsMultipleItems;
-        if (cacheSupportsMultipleItems == null)
+        if (Cache is not ICacheSupportsMultipleItems cacheSupportsMultipleItems)
         {
             return await GetManyFallbackAsync(
                 keyArray,
@@ -1075,12 +1056,9 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
     /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
     /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
     /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-    public virtual async Task RefreshAsync(
-        TCacheKey key,
-        bool? hideErrors = null,
-        CancellationToken token = default)
+    public virtual async Task RefreshAsync(TCacheKey key, bool? hideErrors = null, CancellationToken token = default)
     {
-        hideErrors = hideErrors ?? _distributedCacheOption.HideErrors;
+        hideErrors ??= _distributedCacheOption.HideErrors;
 
         try
         {

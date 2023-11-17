@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
-using System.Collections.Generic;
+﻿using LinFx.Utils;
+using Microsoft.Extensions.Localization;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 

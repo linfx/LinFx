@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Auditing;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +15,7 @@ public abstract class AuditedEntity : CreationAuditedEntity, IAuditedObject
 
     /// <inheritdoc />
     [StringLength(50)]
-    public virtual string LastModifierId { get; set; }
+    public virtual string? LastModifierId { get; set; }
 }
 
 /// <summary>
@@ -31,5 +30,5 @@ public abstract class AuditedEntity<TKey> : CreationAuditedEntity<TKey>, IAudite
 
     /// <inheritdoc />
     [StringLength(50)]
-    public virtual string LastModifierId { get; set; }
+    public virtual string? LastModifierId { get; set; }
 }

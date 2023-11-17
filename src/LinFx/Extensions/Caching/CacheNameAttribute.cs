@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.Caching
 {

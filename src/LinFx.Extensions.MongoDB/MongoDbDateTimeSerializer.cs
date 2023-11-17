@@ -28,14 +28,8 @@ public class MongoDbDateTimeSerializer : DateTimeSerializer
         return DateTime.SpecifyKind(dateTime, DisableDateTimeNormalization ? DateTimeKind.Unspecified : DateTimeKind);
     }
 
-    private static long ToMillisecondsSinceEpoch(DateTime dateTime)
-    {
-        return (dateTime - BsonConstants.UnixEpoch).Ticks / 10000L;
-    }
+    private static long ToMillisecondsSinceEpoch(DateTime dateTime) => (dateTime - BsonConstants.UnixEpoch).Ticks / 10000L;
 
     // For unit testing.
-    internal void SetDateTimeKind(DateTimeKind dateTimeKind)
-    {
-        DateTimeKind = dateTimeKind;
-    }
+    internal void SetDateTimeKind(DateTimeKind dateTimeKind) => DateTimeKind = dateTimeKind;
 }

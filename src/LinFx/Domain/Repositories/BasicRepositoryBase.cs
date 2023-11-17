@@ -7,11 +7,7 @@ using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using LinFx.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories;
 
@@ -54,7 +50,7 @@ public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, 
         LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
     }
 
-    public abstract Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+    public abstract ValueTask<TEntity> InsertAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
 
     public virtual async Task InsertManyAsync(IEnumerable<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default)
     {
@@ -64,22 +60,18 @@ public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, 
         }
 
         if (autoSave)
-        {
             await SaveChangesAsync(cancellationToken);
-        }
     }
 
     protected virtual Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         if (UnitOfWorkManager?.Current != null)
-        {
             return UnitOfWorkManager.Current.SaveChangesAsync(cancellationToken);
-        }
 
         return Task.CompletedTask;
     }
 
-    public abstract Task<TEntity> UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+    public abstract ValueTask<TEntity> UpdateAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
 
     public virtual async Task UpdateManyAsync(IEnumerable<TEntity> entities, bool autoSave = false, CancellationToken cancellationToken = default)
     {
@@ -89,9 +81,7 @@ public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, 
         }
 
         if (autoSave)
-        {
             await SaveChangesAsync(cancellationToken);
-        }
     }
 
     public abstract Task DeleteAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
@@ -104,23 +94,18 @@ public abstract class BasicRepositoryBase<TEntity> : IBasicRepository<TEntity>, 
         }
 
         if (autoSave)
-        {
             await SaveChangesAsync(cancellationToken);
-        }
     }
 
-    public abstract Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default);
+    public abstract ValueTask<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default);
 
-    public abstract Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = false, CancellationToken cancellationToken = default);
+    public abstract ValueTask<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = false, CancellationToken cancellationToken = default);
 
-    public abstract Task<long> GetCountAsync(CancellationToken cancellationToken = default);
+    public abstract ValueTask<long> GetCountAsync(CancellationToken cancellationToken = default);
 
-    public abstract Task<List<TEntity>> GetPagedListAsync(int page, int limit, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default);
+    public abstract ValueTask<List<TEntity>> GetPagedListAsync(int page, int limit, string sorting, bool includeDetails = false, CancellationToken cancellationToken = default);
 
-    protected virtual CancellationToken GetCancellationToken(CancellationToken preferredValue = default)
-    {
-        return CancellationTokenProvider.FallbackToProvider(preferredValue);
-    }
+    protected virtual CancellationToken GetCancellationToken(CancellationToken preferredValue = default) => CancellationTokenProvider.FallbackToProvider(preferredValue);
 }
 
 public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<TEntity>, IBasicRepository<TEntity, TKey>
@@ -130,10 +115,9 @@ public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<T
 
     protected BasicRepositoryBase(IServiceProvider serviceProvider)
         : base(serviceProvider)
-    {
-    }
+    { }
 
-    public virtual async Task<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
+    public virtual async ValueTask<TEntity> GetAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default)
     {
         var entity = await FindAsync(id, includeDetails, cancellationToken);
         if (entity == null)
@@ -142,7 +126,7 @@ public abstract class BasicRepositoryBase<TEntity, TKey> : BasicRepositoryBase<T
         return entity;
     }
 
-    public abstract Task<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
+    public abstract ValueTask<TEntity> FindAsync(TKey id, bool includeDetails = true, CancellationToken cancellationToken = default);
 
     public virtual async Task DeleteAsync(TKey id, bool autoSave = false, CancellationToken cancellationToken = default)
     {

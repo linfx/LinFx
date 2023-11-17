@@ -15,22 +15,11 @@ public class MongoDbModule : Module
         context.Services.AddConventionalRegistrar(new MongoDbConventionalRegistrar());
     }
 
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.TryAddTransient(
-            typeof(IMongoDbContextProvider<>),
-            typeof(UnitOfWorkMongoDbContextProvider<>)
-        );
-
-        context.Services.TryAddTransient(
-            typeof(IMongoDbRepositoryFilterer<>),
-            typeof(MongoDbRepositoryFilterer<>)
-        );
-
-        context.Services.TryAddTransient(
-            typeof(IMongoDbRepositoryFilterer<,>),
-            typeof(MongoDbRepositoryFilterer<,>)
-        );
+        services.TryAddTransient(typeof(IMongoDbContextProvider<>), typeof(UnitOfWorkMongoDbContextProvider<>));
+        services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<>), typeof(MongoDbRepositoryFilterer<>));
+        services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<,>), typeof(MongoDbRepositoryFilterer<,>));
 
         //context.Services.AddTransient(
         //    typeof(IMongoDbContextEventOutbox<>),

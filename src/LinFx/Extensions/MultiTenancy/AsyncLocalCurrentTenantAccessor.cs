@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace LinFx.Extensions.MultiTenancy;
+﻿namespace LinFx.Extensions.MultiTenancy;
 
 public class AsyncLocalCurrentTenantAccessor : ICurrentTenantAccessor
 {

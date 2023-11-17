@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization;
 
@@ -28,8 +27,5 @@ public class AuthorizationInterceptor : Interceptor, ITransientDependency
     /// </summary>
     /// <param name="invocation"></param>
     /// <returns></returns>
-    protected virtual async Task AuthorizeAsync(IMethodInvocation invocation)
-    {
-        await _methodInvocationAuthorizationService.CheckAsync(new MethodInvocationAuthorizationContext(invocation.Method));
-    }
+    protected virtual Task AuthorizeAsync(IMethodInvocation invocation) => _methodInvocationAuthorizationService.CheckAsync(new MethodInvocationAuthorizationContext(invocation.Method));
 }

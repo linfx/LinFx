@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 

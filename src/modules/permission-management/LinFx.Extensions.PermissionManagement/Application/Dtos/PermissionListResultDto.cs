@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace LinFx.Extensions.PermissionManagement;
 
-namespace LinFx.Extensions.PermissionManagement
+public class PermissionListResultDto
 {
-    public class PermissionListResultDto
-    {
-        public string EntityDisplayName { get; set; }
+    public string EntityDisplayName { get; set; }
 
-        public List<PermissionGroupDto> Groups { get; set; }
-    }
+    public List<PermissionGroupDto> Groups { get; set; }
 }

@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.Setting;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.SettingManagement
 {

@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\..\common.props" />
+	
+  <ItemGroup>
+    <ProjectReference Include="..\LinFx.Extensions.Kafka\LinFx.Extensions.Kafka.csproj" />
+  </ItemGroup>
+
+</Project>

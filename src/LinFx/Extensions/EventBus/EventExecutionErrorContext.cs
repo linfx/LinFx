@@ -1,6 +1,4 @@
 ﻿using LinFx.Extensions.ObjectExtending;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.EventBus;
 
@@ -8,7 +6,7 @@ public class EventExecutionErrorContext : ExtensibleObject
 {
     public IReadOnlyList<Exception> Exceptions { get; }
 
-    public object EventData { get; set; }
+    public object? EventData { get; set; }
 
     public Type EventType { get; }
 

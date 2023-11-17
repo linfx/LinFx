@@ -1,39 +1,37 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 
-namespace LinFx.Extensions.Uow
+namespace LinFx.Extensions.Uow;
+
+[Service(ServiceLifetime.Singleton)]
+[ExposeServices(typeof(IAmbientUnitOfWork), typeof(IUnitOfWorkAccessor))]
+public class AmbientUnitOfWork : IAmbientUnitOfWork
 {
-    [Service(ServiceLifetime.Singleton)]
-    [ExposeServices(typeof(IAmbientUnitOfWork), typeof(IUnitOfWorkAccessor))]
-    public class AmbientUnitOfWork : IAmbientUnitOfWork
+    /// <inheritdoc/>
+    public IUnitOfWork UnitOfWork => _currentUow.Value;
+
+    private readonly AsyncLocal<IUnitOfWork> _currentUow;
+
+    public AmbientUnitOfWork()
     {
-        /// <inheritdoc/>
-        public IUnitOfWork UnitOfWork => _currentUow.Value;
+        _currentUow = new AsyncLocal<IUnitOfWork>();
+    }
 
-        private readonly AsyncLocal<IUnitOfWork> _currentUow;
+    public void SetUnitOfWork(IUnitOfWork unitOfWork)
+    {
+        _currentUow.Value = unitOfWork;
+    }
 
-        public AmbientUnitOfWork()
+    public IUnitOfWork GetCurrentByChecking()
+    {
+        var uow = UnitOfWork;
+
+        //Skip reserved unit of work
+        while (uow != null && (uow.IsReserved || uow.IsDisposed || uow.IsCompleted))
         {
-            _currentUow = new AsyncLocal<IUnitOfWork>();
+            uow = uow.Outer;
         }
 
-        public void SetUnitOfWork(IUnitOfWork unitOfWork)
-        {
-            _currentUow.Value = unitOfWork;
-        }
-
-        public IUnitOfWork GetCurrentByChecking()
-        {
-            var uow = UnitOfWork;
-
-            //Skip reserved unit of work
-            while (uow != null && (uow.IsReserved || uow.IsDisposed || uow.IsCompleted))
-            {
-                uow = uow.Outer;
-            }
-
-            return uow;
-        }
+        return uow;
     }
 }

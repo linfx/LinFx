@@ -1,6 +1,4 @@
 using LinFx.Extensions.EventBus;
-using LinFx.Extensions.MultiTenancy;
-using System;
 
 namespace LinFx.Domain.Entities.Events;
 
@@ -25,10 +23,7 @@ public class EntityEventData<TEntity> : IEventDataWithInheritableGenericArgument
         Entity = entity;
     }
 
-    public virtual object[] GetConstructorArgs()
-    {
-        return new object[] { Entity };
-    }
+    public virtual object[] GetConstructorArgs() => new object[] { Entity };
 
     public virtual bool IsMultiTenant(out string tenantId)
     {

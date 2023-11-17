@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinFx.Extensions.Validation
+namespace LinFx.Extensions.Validation;
+
+public interface IHasValidationErrors
 {
-    public interface IHasValidationErrors
-    {
-        IList<ValidationResult> ValidationErrors { get; }
-    }
+    IList<ValidationResult> ValidationErrors { get; }
 }

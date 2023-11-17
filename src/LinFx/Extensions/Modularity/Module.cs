@@ -1,18 +1,15 @@
-﻿using LinFx.Application;
-using LinFx.Extensions.AspNetCore;
+﻿using LinFx.Extensions.AspNetCore;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace LinFx.Extensions.Modularity;
 
 /// <summary>
 /// 模块
 /// </summary>
-public abstract class Module : 
-    IModuleInitializer, 
+public abstract class Module :
+    IModuleInitializer,
     IModule,
     //IOnPreApplicationInitialization,
     IOnApplicationInitialization,
@@ -37,26 +34,13 @@ public abstract class Module :
         internal set => _serviceConfigurationContext = value;
     }
 
-    public virtual void ConfigureServices(IServiceCollection services)
-    {
-    }
+    public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
 
-    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env)
-    {
-    }
+    public virtual void ConfigureServices(IServiceCollection services) { }
 
-    public virtual void PreConfigureServices(ServiceConfigurationContext context)
-    {
-    }
+    public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
 
-    public virtual void ConfigureServices(ServiceConfigurationContext context)
-    {
-        ConfigureServices(context.Services);
-    }
-
-    public virtual void PostConfigureServices(ServiceConfigurationContext context)
-    {
-    }
+    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
 
     /// <summary>
     /// 应用程序初始化
@@ -70,40 +54,18 @@ public abstract class Module :
     }
 
     /// <summary>
+    /// 应用程序初始化
+    /// </summary>
+    /// <param name="context"></param>
+    public virtual Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        OnApplicationInitialization(context);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// 应用程序关闭
     /// </summary>
     /// <param name="context"></param>
-    public virtual void OnApplicationShutdown(ApplicationShutdownContext context)
-    {
-    }
-
-    protected void Configure<TOptions>(Action<TOptions> configureOptions)
-        where TOptions : class
-    {
-        ServiceConfigurationContext.Services.Configure(configureOptions);
-    }
-
-    protected void Configure<TOptions>(string name, Action<TOptions> configureOptions)
-        where TOptions : class
-    {
-        ServiceConfigurationContext.Services.Configure(name, configureOptions);
-    }
-
-    protected void Configure<TOptions>(IConfiguration configuration)
-        where TOptions : class
-    {
-        ServiceConfigurationContext.Services.Configure<TOptions>(configuration);
-    }
-
-    protected void Configure<TOptions>(IConfiguration configuration, Action<BinderOptions> configureBinder)
-        where TOptions : class
-    {
-        ServiceConfigurationContext.Services.Configure<TOptions>(configuration, configureBinder);
-    }
-
-    protected void Configure<TOptions>(string name, IConfiguration configuration)
-        where TOptions : class
-    {
-        ServiceConfigurationContext.Services.Configure<TOptions>(name, configuration);
-    }
+    public virtual Task OnApplicationShutdownAsync(ApplicationShutdownContext context) => Task.CompletedTask;
 }

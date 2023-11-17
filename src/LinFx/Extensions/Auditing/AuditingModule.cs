@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Data;
-using LinFx.Extensions.DynamicProxy;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;

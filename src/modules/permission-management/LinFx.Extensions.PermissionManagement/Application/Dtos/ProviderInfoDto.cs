@@ -1,9 +1,8 @@
-﻿namespace LinFx.Extensions.PermissionManagement
-{
-    public class ProviderInfoDto
-    {
-        public string ProviderName { get; set; }
+﻿namespace LinFx.Extensions.PermissionManagement;
 
-        public string ProviderKey { get; set; }
-    }
+public class ProviderInfoDto
+{
+    public string ProviderName { get; set; }
+
+    public string ProviderKey { get; set; }
 }

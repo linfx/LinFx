@@ -1,10 +1,6 @@
 ﻿using LinFx.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories;
 
@@ -17,10 +13,7 @@ public static class RepositoryAsyncExtensions
         [NotNull] T item,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.ContainsAsync(queryable, item, cancellationToken);
-    }
+    => await repository.AsyncExecuter.ContainsAsync(repository.Queryable, item, cancellationToken);
 
     #endregion
 
@@ -30,30 +23,21 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AnyAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AnyAsync(repository.Queryable, cancellationToken);
 
     public static async Task<bool> AnyAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AnyAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AnyAsync(repository.Queryable, predicate, cancellationToken);
 
     public static async Task<bool> AllAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AllAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AllAsync(repository.Queryable, predicate, cancellationToken);
 
     #endregion
 
@@ -63,39 +47,25 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.CountAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.CountAsync(repository.Queryable, cancellationToken);
 
     public static async Task<int> CountAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
-        where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.CountAsync(queryable, predicate, cancellationToken);
-    }
+        where T : class, IEntity => await repository.AsyncExecuter.CountAsync(repository.Queryable, predicate, cancellationToken);
 
     public static async Task<long> LongCountAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
-        where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LongCountAsync(queryable, cancellationToken);
-    }
+        where T : class, IEntity => await repository.AsyncExecuter.LongCountAsync(repository.Queryable, cancellationToken);
 
     public static async Task<long> LongCountAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LongCountAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.LongCountAsync(repository.Queryable, predicate, cancellationToken);
 
     #endregion
 
@@ -104,40 +74,27 @@ public static class RepositoryAsyncExtensions
     public static async Task<T> FirstAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
-        where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.FirstAsync(queryable, cancellationToken);
-    }
+        where T : class, IEntity => await repository.AsyncExecuter.FirstAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> FirstAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.FirstAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.FirstAsync(repository.Queryable, predicate, cancellationToken);
 
     public static async Task<T> FirstOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.FirstOrDefaultAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.FirstOrDefaultAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> FirstOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.FirstOrDefaultAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.FirstOrDefaultAsync(repository.Queryable, predicate, cancellationToken);
 
     #endregion
 
@@ -147,39 +104,27 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LastAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.LastAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> LastAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LastAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.LastAsync(repository.Queryable, predicate, cancellationToken);
 
     public static async Task<T> LastOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LastOrDefaultAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.LastOrDefaultAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> LastOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.LastOrDefaultAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.LastOrDefaultAsync(repository.Queryable, predicate, cancellationToken);
 
     #endregion
 
@@ -189,39 +134,27 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SingleAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SingleAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> SingleAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SingleAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SingleAsync(repository.Queryable, predicate, cancellationToken);
 
     public static async Task<T> SingleOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SingleOrDefaultAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SingleOrDefaultAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T> SingleOrDefaultAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, bool>> predicate,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SingleOrDefaultAsync(queryable, predicate, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SingleOrDefaultAsync(repository.Queryable, predicate, cancellationToken);
 
     #endregion
 
@@ -231,20 +164,14 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.MinAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.MinAsync(repository.Queryable, cancellationToken);
 
     public static async Task<TResult> MinAsync<T, TResult>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, TResult>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.MinAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.MinAsync(repository.Queryable, selector, cancellationToken);
 
     #endregion
 
@@ -254,20 +181,14 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.MaxAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.MaxAsync(repository.Queryable, cancellationToken);
 
     public static async Task<TResult> MaxAsync<T, TResult>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, TResult>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.MaxAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.MaxAsync(repository.Queryable, selector, cancellationToken);
 
     #endregion
 
@@ -277,101 +198,70 @@ public static class RepositoryAsyncExtensions
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, decimal>> selector,
         CancellationToken cancellationToken = default)
-        where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+        where T : class, IEntity => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<decimal?> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, decimal?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<int> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, int>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<int?> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, int?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<long> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, long>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<long?> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, long?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, double>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double?> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, double?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<float> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, float>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<float?> SumAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, float?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.SumAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.SumAsync(repository.Queryable, selector, cancellationToken);
 
     #endregion
 
@@ -382,90 +272,63 @@ public static class RepositoryAsyncExtensions
         [NotNull] Expression<Func<T, decimal>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<decimal?> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, decimal?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, int>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double?> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, int?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, long>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double?> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, long?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, double>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<double?> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, double?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     public static async Task<float?> AverageAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         [NotNull] Expression<Func<T, float?>> selector,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.AverageAsync(queryable, selector, cancellationToken);
-    }
+    => await repository.AsyncExecuter.AverageAsync(repository.Queryable, selector, cancellationToken);
 
     #endregion
 
@@ -474,20 +337,13 @@ public static class RepositoryAsyncExtensions
     public static async Task<List<T>> ToListAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
-        where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.ToListAsync(queryable, cancellationToken);
-    }
+        where T : class, IEntity => await repository.AsyncExecuter.ToListAsync(repository.Queryable, cancellationToken);
 
     public static async Task<T[]> ToArrayAsync<T>(
         [NotNull] this IReadOnlyRepository<T> repository,
         CancellationToken cancellationToken = default)
         where T : class, IEntity
-    {
-        var queryable = await repository.GetQueryableAsync();
-        return await repository.AsyncExecuter.ToArrayAsync(queryable, cancellationToken);
-    }
+    => await repository.AsyncExecuter.ToArrayAsync(repository.Queryable, cancellationToken);
 
     #endregion
 }

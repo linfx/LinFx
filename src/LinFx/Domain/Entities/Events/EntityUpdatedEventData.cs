@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Domain.Entities.Events;
 
 /// <summary>
@@ -15,6 +13,5 @@ public class EntityUpdatedEventData<TEntity> : EntityChangedEventData<TEntity>
     /// <param name="entity">The entity which is updated</param>
     public EntityUpdatedEventData(TEntity entity)
         : base(entity)
-    {
-    }
+    { }
 }

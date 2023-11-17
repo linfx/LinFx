@@ -3,7 +3,6 @@ using LinFx.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 using System.Security.Claims;
 
 namespace LinFx.Extensions.Authorization;
@@ -14,10 +13,6 @@ namespace LinFx.Extensions.Authorization;
 [Service(ReplaceServices = true)]
 public class AuthorizationService : DefaultAuthorizationService, IAuthorizationService
 {
-    public IServiceProvider ServiceProvider { get; }
-
-    public ClaimsPrincipal CurrentPrincipal => _currentPrincipalAccessor.Principal;
-
     private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
 
     public AuthorizationService(
@@ -34,4 +29,8 @@ public class AuthorizationService : DefaultAuthorizationService, IAuthorizationS
         _currentPrincipalAccessor = currentPrincipalAccessor;
         ServiceProvider = serviceProvider;
     }
+
+    public IServiceProvider ServiceProvider { get; }
+
+    public ClaimsPrincipal CurrentPrincipal => _currentPrincipalAccessor.Principal;
 }

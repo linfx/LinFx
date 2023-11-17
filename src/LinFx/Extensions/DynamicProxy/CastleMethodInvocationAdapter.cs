@@ -1,6 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.DynamicProxy;
 
@@ -20,8 +18,5 @@ public class CastleMethodInvocationAdapter : CastleMethodInvocationAdapterBase, 
         Proceed = proceed;
     }
 
-    public override async Task ProceedAsync()
-    {
-        await Proceed(Invocation, ProceedInfo);
-    }
+    public override async Task ProceedAsync() => await Proceed(Invocation, ProceedInfo);
 }

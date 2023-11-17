@@ -26,7 +26,6 @@
 using Autofac.Builder;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
@@ -37,24 +36,6 @@ namespace Autofac.Extensions.DependencyInjection;
 /// </summary>
 public static class AutofacRegistration
 {
-    /// <summary>
-    /// Populates the Autofac container builder with the set of registered service descriptors
-    /// and makes <see cref="IServiceProvider"/> and <see cref="IServiceScopeFactory"/>
-    /// available in the container.
-    /// </summary>
-    /// <param name="builder">
-    /// The <see cref="ContainerBuilder"/> into which the registrations should be made.
-    /// </param>
-    /// <param name="services">
-    /// A container builder that can be used to create an <see cref="IServiceProvider" />.
-    /// </param>
-    public static void Populate(
-        this ContainerBuilder builder,
-        IServiceCollection services)
-    {
-        Populate(builder, services, null);
-    }
-
     /// <summary>
     /// Populates the Autofac container builder with the set of registered service descriptors
     /// and makes <see cref="IServiceProvider"/> and <see cref="IServiceScopeFactory"/>
@@ -83,10 +64,7 @@ public static class AutofacRegistration
     /// <see cref="AutofacServiceProvider"/> using the child lifetime scope.
     /// </para>
     /// </remarks>
-    public static void Populate(
-        this ContainerBuilder builder,
-        IServiceCollection services,
-        object lifetimeScopeTagForSingletons)
+    public static void Populate(this ContainerBuilder builder, IServiceCollection services, object? lifetimeScopeTagForSingletons = null)
     {
         if (services == null)
             throw new ArgumentNullException(nameof(services));
@@ -122,12 +100,12 @@ public static class AutofacRegistration
     private static IRegistrationBuilder<object, TActivatorData, TRegistrationStyle> ConfigureLifecycle<TActivatorData, TRegistrationStyle>(
         this IRegistrationBuilder<object, TActivatorData, TRegistrationStyle> registrationBuilder,
         ServiceLifetime lifecycleKind,
-        object lifetimeScopeTagForSingleton)
+        object? lifetimeScopeTagForSingleton)
     {
         switch (lifecycleKind)
         {
             case ServiceLifetime.Singleton:
-                if (lifetimeScopeTagForSingleton == null)
+                if (lifetimeScopeTagForSingleton is null)
                     registrationBuilder.SingleInstance();
                 else
                     registrationBuilder.InstancePerMatchingLifetimeScope(lifetimeScopeTagForSingleton);
@@ -160,7 +138,7 @@ public static class AutofacRegistration
     /// instead of using <see cref="IRegistrationBuilder{TLimit,TActivatorData,TRegistrationStyle}.SingleInstance"/>.
     /// </param>
     [SuppressMessage("CA2000", "CA2000", Justification = "Registrations created here are disposed when the built container is disposed.")]
-    private static void Register(ContainerBuilder builder, IServiceCollection services, object lifetimeScopeTagForSingletons)
+    private static void Register(ContainerBuilder builder, IServiceCollection services, object? lifetimeScopeTagForSingletons)
     {
         var moduleContainer = services.GetSingletonInstance<IModuleContainer>();
 

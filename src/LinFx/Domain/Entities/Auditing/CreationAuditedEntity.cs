@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Auditing;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +14,7 @@ public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
     public virtual DateTimeOffset CreationTime { get; set; }
 
     [StringLength(50)]
-    public virtual string CreatorId { get; set; }
+    public virtual string? CreatorId { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -29,5 +28,5 @@ public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAudit
     public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.UtcNow;
 
     [StringLength(50)]
-    public virtual string CreatorId { get; set; }
+    public virtual string? CreatorId { get; set; } = string.Empty;
 }

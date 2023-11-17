@@ -1,14 +1,14 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using LinFx.Extensions.PermissionManagement.Domain;
+using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
 public static class PermissionManagementDbContextModelBuilderExtensions
 {
-    public static void ConfigurePermissionManagement(
-        [NotNull] this ModelBuilder builder)
+    public static void ConfigurePermissionManagement([NotNull] this ModelBuilder builder)
     {
         Check.NotNull(builder, nameof(builder));
 

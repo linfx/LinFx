@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
 public class ReplaceDbContextAttribute : Attribute

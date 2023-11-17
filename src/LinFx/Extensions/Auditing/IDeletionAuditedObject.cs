@@ -8,7 +8,7 @@ public interface IDeletionAuditedObject : IHasDeletionTime
     /// <summary>
     /// Id of the deleter user.
     /// </summary>
-    string DeleterId { get; set; }
+    string? DeleterId { get; set; }
 }
 
 /// <summary>

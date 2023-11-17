@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Auditing;
 using LinFx.Extensions.ObjectExtending;
-using System;
 
 namespace LinFx.Domain.Entities;
 

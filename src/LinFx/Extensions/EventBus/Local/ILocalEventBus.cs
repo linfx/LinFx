@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.EventBus.Local;
 
 /// <summary>

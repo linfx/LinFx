@@ -1,8 +1,6 @@
 ﻿using LinFx.Extensions.Modularity;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.Data;
 
@@ -19,14 +17,11 @@ public class DataModule : Module
         AutoAddDataSeedContributors(context.Services);
     }
 
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        //context.Services.BuildServiceProvider();
-        var configuration = context.Services.GetConfiguration();
-
-        Configure<DbConnectionOptions>(configuration);
-
-        context.Services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
+        var configuration = services.GetConfiguration();
+        services.Configure<DbConnectionOptions>(configuration);
+        services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
     }
 
     public override void PostConfigureServices(ServiceConfigurationContext context)

@@ -1,5 +1,6 @@
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using LinFx.Extensions.TenantManagement.Domain;
+using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;

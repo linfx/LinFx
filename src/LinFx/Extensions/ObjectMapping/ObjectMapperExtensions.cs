@@ -1,7 +1,6 @@
 ﻿using EmitMapper;
 using EmitMapper.MappingConfiguration;
 using LinFx.Extensions.ObjectMapping;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace System;
@@ -51,12 +50,8 @@ public static class ObjectMapperExtensions
     }
 
     public static object Map(this IObjectMapper objectMapper, Type sourceType, Type destinationType, object source)
-    {
-        return MapToNewObjectMethod.MakeGenericMethod(sourceType, destinationType).Invoke(objectMapper, new[] { source });
-    }
+        => MapToNewObjectMethod.MakeGenericMethod(sourceType, destinationType).Invoke(objectMapper, new[] { source });
 
     public static object Map(this IObjectMapper objectMapper, Type sourceType, Type destinationType, object source, object destination)
-    {
-        return MapToExistingObjectMethod.MakeGenericMethod(sourceType, destinationType).Invoke(objectMapper, new[] { source, destination });
-    }
+        => MapToExistingObjectMethod.MakeGenericMethod(sourceType, destinationType).Invoke(objectMapper, new[] { source, destination });
 }

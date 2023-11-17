@@ -1,20 +1,19 @@
 ﻿using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Extensions.Caching;
 
 public class CachingModule : Module
 {
-    public override void ConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        context.Services.AddMemoryCache();
-        context.Services.AddDistributedMemoryCache();
+        services.AddMemoryCache();
+        services.AddDistributedMemoryCache();
 
-        context.Services.AddSingleton(typeof(IDistributedCache<>), typeof(DistributedCache<>));
-        context.Services.AddSingleton(typeof(IDistributedCache<,>), typeof(DistributedCache<,>));
+        services.AddSingleton(typeof(IDistributedCache<>), typeof(DistributedCache<>));
+        services.AddSingleton(typeof(IDistributedCache<,>), typeof(DistributedCache<,>));
 
-        context.Services.Configure<DistributedCacheOptions>(cacheOptions =>
+        services.Configure<DistributedCacheOptions>(cacheOptions =>
         {
             cacheOptions.GlobalCacheEntryOptions.SlidingExpiration = TimeSpan.FromMinutes(20);
         });

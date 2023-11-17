@@ -4,16 +4,15 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
+		<PackageReference Include="Autofac.Extras.DynamicProxy" Version="7.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LinFx\LinFx.csproj" />
+	  <ProjectReference Include="..\LinFx\LinFx.csproj" />
 	</ItemGroup>
 
 </Project>

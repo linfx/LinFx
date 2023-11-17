@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Application.Dtos;
+﻿namespace LinFx.Application.Dtos;
 
 /// <summary>
 /// Implements <see cref="IListResult{T}"/>.
 /// </summary>
 /// <typeparam name="T">Type of the items in the <see cref="Items"/> list</typeparam>
+[Serializable]
 public class ListResult<T> : IListResult<T>
 {
     /// <inheritdoc />
-    public IReadOnlyList<T> Items
-    {
-        get { return _items ??= new List<T>(); }
-        set { _items = value; }
-    }
-    private IReadOnlyList<T> _items;
+    public IReadOnlyList<T> Items { get; set; } = new List<T>();
 
     /// <summary>
     /// Creates a new <see cref="ListResult{T}"/> object.

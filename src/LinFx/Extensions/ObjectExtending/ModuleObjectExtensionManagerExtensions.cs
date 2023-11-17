@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.ObjectExtending.Modularity;
+using LinFx.Utils;
 
 namespace LinFx.Extensions.ObjectExtending
 {

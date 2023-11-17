@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
+﻿namespace LinFx.Extensions.PermissionManagement;
 
-namespace LinFx.Extensions.PermissionManagement
+public class PermissionGroupDto
 {
-    public class PermissionGroupDto
-    {
-        public string Name { get; set; }
+    /// <summary>
+    /// 权限组名称
+    /// </summary>
+    public string Name { get; set; }
 
-        public string DisplayName { get; set; }
+    /// <summary>
+    /// 权限组显示名称
+    /// </summary>
+    public string DisplayName { get; set; }
 
-        public List<PermissionGrantInfoDto> Permissions { get; set; }
-    }
+    /// <summary>
+    /// 权限
+    /// </summary>
+    public List<PermissionGrantInfoDto> Permissions { get; set; }
 }

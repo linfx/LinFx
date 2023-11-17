@@ -1,8 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.Threading;
-
-/// <summary>
+﻿/// <summary>
 /// Extension methods to make locking easier.
 /// </summary>
 public static class LockExtensions

@@ -3,9 +3,6 @@ using Autofac.Extras.DynamicProxy;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using LinFx.Extensions.Modularity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Autofac.Builder;
 
@@ -52,9 +49,9 @@ public static class RegistrationBuilderExtensions
         // 构造上下文，以便去调用之前传入的 Action。
         var serviceRegistredArgs = new OnServiceRegistredContext(serviceType, implementationType);
 
+        // 以审计日志拦截器为例，这里会调用在预加载方法传入的 AuditingInterceptorRegistrar.RegisterIfNeeded 方法。
         foreach (var registrationAction in registrationActionList)
         {
-            // 以审计日志拦截器为例，这里会调用在预加载方法传入的 AuditingInterceptorRegistrar.RegisterIfNeeded 方法。
             registrationAction.Invoke(serviceRegistredArgs);
         }
 

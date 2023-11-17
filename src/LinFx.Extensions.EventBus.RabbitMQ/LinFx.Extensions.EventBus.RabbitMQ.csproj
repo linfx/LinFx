@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\..\common.props" />
+
+	<ItemGroup>
+	  <ProjectReference Include="..\LinFx.Extensions.RabbitMQ\LinFx.Extensions.RabbitMQ.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
@@ -10,13 +9,7 @@ namespace LinFx.Extensions.Authorization.Permissions;
 /// </summary>
 public class AlwaysAllowPermissionChecker : IPermissionChecker
 {
-    public Task<PermissionGrantInfo> IsGrantedAsync(string name)
-    {
-        return Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
-    }
+    public Task<PermissionGrantInfo> IsGrantedAsync(string name) => Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
 
-    public Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name)
-    {
-        return Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
-    }
+    public Task<PermissionGrantInfo> IsGrantedAsync(ClaimsPrincipal claimsPrincipal, string name) => Task.FromResult(new PermissionGrantInfo(name, true, "AlwaysAllow"));
 }

@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\..\..\common.props" />
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LinFx.Extensions.TenantManagement\LinFx.Extensions.TenantManagement.csproj" />
-  </ItemGroup>
+	<Import Project="..\..\..\..\common.props" />
+	
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
+		<ProjectReference Include="..\LinFx.Extensions.TenantManagement\LinFx.Extensions.TenantManagement.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,87 +1,82 @@
-﻿namespace System.Collections.Generic
+﻿namespace System.Collections.Generic;
+
+/// <summary>
+/// Extension methods for <see cref="IList{T}"/>.
+/// </summary>
+public static class ListExtensions
 {
     /// <summary>
-    /// Extension methods for <see cref="IList{T}"/>.
+    /// Sort a list by a topological sorting, which consider their  dependencies
     /// </summary>
-    public static class ListExtensions
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="source">A list of objects to sort</param>
+    /// <param name="getDependencies">Function to resolve the dependencies</param>
+    /// <returns></returns>
+    public static List<T> SortByDependencies<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> getDependencies)
     {
-        /// <summary>
-        /// Sort a list by a topological sorting, which consider their  dependencies
-        /// </summary>
-        /// <typeparam name="T">The type of the members of values.</typeparam>
-        /// <param name="source">A list of objects to sort</param>
-        /// <param name="getDependencies">Function to resolve the dependencies</param>
-        /// <returns></returns>
-        public static List<T> SortByDependencies<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> getDependencies)
+        /* See: http://www.codeproject.com/Articles/869059/Topological-sorting-in-Csharp
+         *      http://en.wikipedia.org/wiki/Topological_sorting
+         */
+
+        var sorted = new List<T>();
+        var visited = new Dictionary<T, bool>();
+
+        foreach (var item in source)
         {
-            /* See: http://www.codeproject.com/Articles/869059/Topological-sorting-in-Csharp
-             *      http://en.wikipedia.org/wiki/Topological_sorting
-             */
-
-            var sorted = new List<T>();
-            var visited = new Dictionary<T, bool>();
-
-            foreach (var item in source)
-            {
-                SortByDependenciesVisit(item, getDependencies, sorted, visited);
-            }
-
-            return sorted;
+            SortByDependenciesVisit(item, getDependencies, sorted, visited);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T">The type of the members of values.</typeparam>
-        /// <param name="item">Item to resolve</param>
-        /// <param name="getDependencies">Function to resolve the dependencies</param>
-        /// <param name="sorted">List with the sortet items</param>
-        /// <param name="visited">Dictionary with the visited items</param>
-        private static void SortByDependenciesVisit<T>(T item, Func<T, IEnumerable<T>> getDependencies, List<T> sorted, Dictionary<T, bool> visited)
-        {
-            var alreadyVisited = visited.TryGetValue(item, out bool inProcess);
+        return sorted;
+    }
 
-            if (alreadyVisited)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T">The type of the members of values.</typeparam>
+    /// <param name="item">Item to resolve</param>
+    /// <param name="getDependencies">Function to resolve the dependencies</param>
+    /// <param name="sorted">List with the sortet items</param>
+    /// <param name="visited">Dictionary with the visited items</param>
+    private static void SortByDependenciesVisit<T>(T item, Func<T, IEnumerable<T>> getDependencies, List<T> sorted, Dictionary<T, bool> visited)
+    {
+        var alreadyVisited = visited.TryGetValue(item, out bool inProcess);
+
+        if (alreadyVisited)
+        {
+            if (inProcess)
             {
-                if (inProcess)
+                throw new ArgumentException("Cyclic dependency found! Item: " + item);
+            }
+        }
+        else
+        {
+            visited[item] = true;
+
+            var dependencies = getDependencies(item);
+            if (dependencies != null)
+            {
+                foreach (var dependency in dependencies)
                 {
-                    throw new ArgumentException("Cyclic dependency found! Item: " + item);
+                    SortByDependenciesVisit(dependency, getDependencies, sorted, visited);
                 }
             }
-            else
-            {
-                visited[item] = true;
 
-                var dependencies = getDependencies(item);
-                if (dependencies != null)
-                {
-                    foreach (var dependency in dependencies)
-                    {
-                        SortByDependenciesVisit(dependency, getDependencies, sorted, visited);
-                    }
-                }
-
-                visited[item] = false;
-                sorted.Add(item);
-            }
+            visited[item] = false;
+            sorted.Add(item);
         }
+    }
 
-        public static void MoveItem<T>(this List<T> source, Predicate<T> selector, int targetIndex)
-        {
-            if (!targetIndex.IsBetween(0, source.Count - 1))
-            {
-                throw new IndexOutOfRangeException("targetIndex should be between 0 and " + (source.Count - 1));
-            }
+    public static void MoveItem<T>(this List<T> source, Predicate<T> selector, int targetIndex)
+    {
+        if (!targetIndex.IsBetween(0, source.Count - 1))
+            throw new IndexOutOfRangeException("targetIndex should be between 0 and " + (source.Count - 1));
 
-            var currentIndex = source.FindIndex(0, selector);
-            if (currentIndex == targetIndex)
-            {
-                return;
-            }
+        var currentIndex = source.FindIndex(0, selector);
+        if (currentIndex == targetIndex)
+            return;
 
-            var item = source[currentIndex];
-            source.RemoveAt(currentIndex);
-            source.Insert(targetIndex, item);
-        }
+        var item = source[currentIndex];
+        source.RemoveAt(currentIndex);
+        source.Insert(targetIndex, item);
     }
 }

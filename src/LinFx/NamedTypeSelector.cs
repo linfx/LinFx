@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx;
+﻿namespace LinFx;
 
 /// <summary>
 /// Used to represent a named type selector.

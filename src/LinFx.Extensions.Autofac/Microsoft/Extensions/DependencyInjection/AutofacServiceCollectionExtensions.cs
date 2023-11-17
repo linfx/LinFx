@@ -1,8 +1,7 @@
 ﻿using Autofac;
 using JetBrains.Annotations;
-using LinFx;
 using LinFx.Extensions.Autofac;
-using System;
+using LinFx.Utils;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -20,8 +19,5 @@ public static class AutofacServiceCollectionExtensions
         return builder;
     }
 
-    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder>? builderAction = default)
-    {
-        return services.BuildServiceProviderFromFactory(builderAction);
-    }
+    public static IServiceProvider BuildAutofacServiceProvider([NotNull] this IServiceCollection services, Action<ContainerBuilder>? builderAction = default) => services.BuildServiceProviderFromFactory(builderAction);
 }

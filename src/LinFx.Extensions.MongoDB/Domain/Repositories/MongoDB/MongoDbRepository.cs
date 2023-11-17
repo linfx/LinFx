@@ -70,7 +70,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity> : RepositoryBase<TEntit
         DbContextProvider = dbContextProvider;
     }
 
-    public override async Task<TEntity> InsertAsync(
+    public override async ValueTask<TEntity> InsertAsync(
         TEntity entity,
         bool autoSave = false,
         CancellationToken cancellationToken = default)
@@ -136,7 +136,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity> : RepositoryBase<TEntit
         }
     }
 
-    public override async Task<TEntity> UpdateAsync(
+    public override async ValueTask<TEntity> UpdateAsync(
         TEntity entity,
         bool autoSave = false,
         CancellationToken cancellationToken = default)
@@ -402,25 +402,25 @@ public class MongoDbRepository<TMongoDbContext, TEntity> : RepositoryBase<TEntit
         }
     }
 
-    public override async Task<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)
+    public override async ValueTask<List<TEntity>> GetListAsync(bool includeDetails = false, CancellationToken cancellationToken = default)
     {
         cancellationToken = GetCancellationToken(cancellationToken);
         return await (await GetMongoQueryableAsync(cancellationToken)).ToListAsync(cancellationToken);
     }
 
-    public override async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = false, CancellationToken cancellationToken = default)
+    public override async ValueTask<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool includeDetails = false, CancellationToken cancellationToken = default)
     {
         cancellationToken = GetCancellationToken(cancellationToken);
         return await (await GetMongoQueryableAsync(cancellationToken)).Where(predicate).ToListAsync(cancellationToken);
     }
 
-    public override async Task<long> GetCountAsync(CancellationToken cancellationToken = default)
+    public override async ValueTask<long> GetCountAsync(CancellationToken cancellationToken = default)
     {
         cancellationToken = GetCancellationToken(cancellationToken);
         return await (await GetMongoQueryableAsync(cancellationToken)).LongCountAsync(cancellationToken);
     }
 
-    public override async Task<List<TEntity>> GetPagedListAsync(
+    public override async ValueTask<List<TEntity>> GetPagedListAsync(
         int skipCount,
         int maxResultCount,
         string sorting,
@@ -450,12 +450,12 @@ public class MongoDbRepository<TMongoDbContext, TEntity> : RepositoryBase<TEntit
         await DeleteManyAsync(entities, autoSave, cancellationToken);
     }
 
-    public override async Task<IQueryable<TEntity>> GetQueryableAsync(CancellationToken cancellationToken)
-    {
-        return await GetMongoQueryableAsync();
-    }
+    [Obsolete]
+    public override async Task<IQueryable<TEntity>> GetQueryableAsync(CancellationToken cancellationToken) => await GetMongoQueryableAsync(cancellationToken);
 
-    public override async Task<TEntity> FindAsync(
+    public override IQueryable<TEntity> Queryable => GetMongoQueryableAsync().Result;
+
+    public override async ValueTask<TEntity> FindAsync(
         Expression<Func<TEntity, bool>> predicate,
         bool includeDetails = true,
         CancellationToken cancellationToken = default)
@@ -686,7 +686,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity, TKey>
 
     }
 
-    public virtual async Task<TEntity> GetAsync(
+    public virtual async ValueTask<TEntity> GetAsync(
         TKey id,
         bool includeDetails = true,
         CancellationToken cancellationToken = default)
@@ -701,7 +701,7 @@ public class MongoDbRepository<TMongoDbContext, TEntity, TKey>
         return entity;
     }
 
-    public virtual async Task<TEntity> FindAsync(
+    public virtual async ValueTask<TEntity> FindAsync(
         TKey id,
         bool includeDetails = true,
         CancellationToken cancellationToken = default)

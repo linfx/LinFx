@@ -1,41 +1,34 @@
-using System.Collections.Generic;
-using System.Linq;
+namespace LinFx.Extensions.EventBus;
 
-namespace LinFx.Extensions.EventBus
+/// <summary>
+/// This <see cref="IEventHandlerFactory"/> implementation is used to handle events
+/// by a single instance object. 
+/// </summary>
+/// <remarks>
+/// This class always gets the same single instance of handler.
+/// </remarks>
+public class SingleInstanceHandlerFactory : IEventHandlerFactory
 {
     /// <summary>
-    /// This <see cref="IEventHandlerFactory"/> implementation is used to handle events
-    /// by a single instance object. 
+    /// The event handler instance.
     /// </summary>
-    /// <remarks>
-    /// This class always gets the same single instance of handler.
-    /// </remarks>
-    public class SingleInstanceHandlerFactory : IEventHandlerFactory
+    public IEventHandler HandlerInstance { get; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="handler"></param>
+    public SingleInstanceHandlerFactory(IEventHandler handler)
     {
-        /// <summary>
-        /// The event handler instance.
-        /// </summary>
-        public IEventHandler HandlerInstance { get; }
+        HandlerInstance = handler;
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="handler"></param>
-        public SingleInstanceHandlerFactory(IEventHandler handler)
-        {
-            HandlerInstance = handler;
-        }
+    public IEventHandlerDisposeWrapper GetHandler() => new EventHandlerDisposeWrapper(HandlerInstance);
 
-        public IEventHandlerDisposeWrapper GetHandler()
-        {
-            return new EventHandlerDisposeWrapper(HandlerInstance);
-        }
-
-        public bool IsInFactories(List<IEventHandlerFactory> handlerFactories)
-        {
-            return handlerFactories
-                .OfType<SingleInstanceHandlerFactory>()
-                .Any(f => f.HandlerInstance == HandlerInstance);
-        }
+    public bool IsInFactories(List<IEventHandlerFactory> handlerFactories)
+    {
+        return handlerFactories
+            .OfType<SingleInstanceHandlerFactory>()
+            .Any(f => f.HandlerInstance == HandlerInstance);
     }
 }

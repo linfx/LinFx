@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace LinFx.Extensions.Identity;
 
-namespace LinFx.Extensions.Identity
+public interface IUserRoleFinder
 {
-    public interface IUserRoleFinder
-    {
-        Task<string[]> GetRolesAsync(string userId);
-    }
+    Task<string[]> GetRolesAsync(string userId);
 }

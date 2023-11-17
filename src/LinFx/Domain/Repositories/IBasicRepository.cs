@@ -1,8 +1,5 @@
 ﻿using LinFx.Domain.Entities;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Domain.Repositories;
 
@@ -18,7 +15,7 @@ public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity>
     /// </param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <param name="entity">Inserted entity</param>
-    Task<TEntity> InsertAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+    ValueTask<TEntity> InsertAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Inserts multiple new entities.
@@ -41,7 +38,7 @@ public interface IBasicRepository<TEntity> : IReadOnlyBasicRepository<TEntity>
     /// </param>
     /// <param name="cancellationToken">A <see cref="T:System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <param name="entity">Entity</param>
-    Task<TEntity> UpdateAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
+    ValueTask<TEntity> UpdateAsync([NotNull] TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates multiple entities.
