@@ -48,18 +48,12 @@ public class EntityNotFoundException : Exception
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
-    public EntityNotFoundException(string message)
-        : base(message)
-    {
-    }
+    public EntityNotFoundException(string message) : base(message) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
     /// <param name="innerException">Inner exception</param>
-    public EntityNotFoundException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-    }
+    public EntityNotFoundException(string message, Exception innerException) : base(message, innerException) { }
 }

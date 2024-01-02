@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Threading;
+﻿namespace LinFx.Extensions.Threading;
 
 /// <summary>
 /// AsyncSemaphore should be used with a lot of care.
