@@ -16,14 +16,11 @@ namespace LinFx.Extensions.Authorization;
 )]
 public class AuthorizationModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
-        context.Services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
-        AutoAddDefinitionProviders(context.Services);
-    }
-
     public override void ConfigureServices(IServiceCollection services)
     {
+        services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+        AutoAddDefinitionProviders(services);
+
         // 注册认证授权服务。
         services.AddAuthorizationCore();
 

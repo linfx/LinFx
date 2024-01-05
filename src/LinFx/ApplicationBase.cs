@@ -103,30 +103,6 @@ public abstract class ApplicationBase : IApplication
     //TODO: We can extract a new class for this
     public virtual void ConfigureServices()
     {
-        var context = new ServiceConfigurationContext(Services);
-        Services.AddSingleton(context);
-
-        foreach (var module in Modules)
-        {
-            if (module.Instance is Module item)
-            {
-                item.ServiceConfigurationContext = context;
-            }
-        }
-
-        // PreConfigureServices
-        foreach (var module in Modules.Where(m => m.Instance is IPreConfigureServices))
-        {
-            try
-            {
-                ((IPreConfigureServices)module.Instance).PreConfigureServices(context);
-            }
-            catch (Exception ex)
-            {
-                throw new LinFxException($"An error occurred during {nameof(IPreConfigureServices.PreConfigureServices)} phase of the module {module.Type.AssemblyQualifiedName}. See the inner exception for details.", ex);
-            }
-        }
-
         var assemblies = new HashSet<Assembly>();
 
         // ConfigureServices
@@ -147,32 +123,11 @@ public abstract class ApplicationBase : IApplication
 
             try
             {
-                module.Instance.ConfigureServices(context.Services);
+                module.Instance.ConfigureServices(Services);
             }
             catch (Exception ex)
             {
                 throw new LinFxException($"An error occurred during {nameof(IModule.ConfigureServices)} phase of the module {module.Type.AssemblyQualifiedName}. See the inner exception for details.", ex);
-            }
-        }
-
-        // PostConfigureServices
-        foreach (var module in Modules.Where(m => m.Instance is IPostConfigureServices))
-        {
-            try
-            {
-                ((IPostConfigureServices)module.Instance).PostConfigureServices(context);
-            }
-            catch (Exception ex)
-            {
-                throw new LinFxException($"An error occurred during {nameof(IPostConfigureServices.PostConfigureServices)} phase of the module {module.Type.AssemblyQualifiedName}. See the inner exception for details.", ex);
-            }
-        }
-
-        foreach (var module in Modules)
-        {
-            if (module.Instance is Module item)
-            {
-                item.ServiceConfigurationContext = null;
             }
         }
     }

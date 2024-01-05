@@ -72,7 +72,7 @@ public static class JsonUtils
     /// </summary>
     public static string SerializeWithType(object obj, Type type)
     {
-        var serialized = obj.ToJson();
+        var serialized = obj.ToJsonString();
 
         return string.Format(
             "{0}{1}{2}",
@@ -105,16 +105,6 @@ public static class JsonUtils
 
 public static class JsonExtensions
 {
-    /// <summary>
-    /// Converts given object to JSON string.
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="camelCase"></param>
-    /// <param name="indented"></param>
-    /// <returns></returns>
-    [Obsolete]
-    public static string ToJson(this object value, bool camelCase = true, bool indented = false) => JsonUtils.ToJsonString(value, camelCase, indented);
-
     /// <summary>
     /// Converts given object to JSON string.
     /// </summary>

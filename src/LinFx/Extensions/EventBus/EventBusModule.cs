@@ -11,9 +11,9 @@ namespace LinFx.Extensions.EventBus;
 /// </summary>
 public class EventBusModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
+    public override void ConfigureServices(IServiceCollection services)
     {
-        AddEventHandlers(context.Services);
+        AddEventHandlers(services);
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

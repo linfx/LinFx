@@ -14,31 +14,29 @@ public abstract class Module :
     //IOnPreApplicationInitialization,
     IOnApplicationInitialization,
     //IOnPostApplicationInitialization,
-    IOnApplicationShutdown,
-    IPreConfigureServices,
-    IPostConfigureServices
+    IOnApplicationShutdown
 {
-    private ServiceConfigurationContext _serviceConfigurationContext;
+    //private ServiceConfigurationContext? _serviceConfigurationContext;
 
     protected internal bool SkipAutoServiceRegistration { get; protected set; }
 
-    protected internal ServiceConfigurationContext ServiceConfigurationContext
-    {
-        get
-        {
-            if (_serviceConfigurationContext == null)
-                throw new LinFxException($"{nameof(ServiceConfigurationContext)} is only available in the {nameof(ConfigureServices)}, {nameof(PreConfigureServices)} and {nameof(PostConfigureServices)} methods.");
+    //protected internal ServiceConfigurationContext ServiceConfigurationContext
+    //{
+    //    get
+    //    {
+    //        if (_serviceConfigurationContext == null)
+    //            throw new LinFxException($"{nameof(ServiceConfigurationContext)} is only available in the {nameof(ConfigureServices)}, {nameof(PreConfigureServices)} and {nameof(PostConfigureServices)} methods.");
 
-            return _serviceConfigurationContext;
-        }
-        internal set => _serviceConfigurationContext = value;
-    }
+    //        return _serviceConfigurationContext;
+    //    }
+    //    internal set => _serviceConfigurationContext = value;
+    //}
 
-    public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
+    //public virtual void PreConfigureServices(ServiceConfigurationContext context) { }
 
     public virtual void ConfigureServices(IServiceCollection services) { }
 
-    public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
+    //public virtual void PostConfigureServices(ServiceConfigurationContext context) { }
 
     public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
 

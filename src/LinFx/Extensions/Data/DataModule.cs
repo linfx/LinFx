@@ -12,41 +12,10 @@ namespace LinFx.Extensions.Data;
 )]
 public class DataModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
-        AutoAddDataSeedContributors(context.Services);
-    }
-
     public override void ConfigureServices(IServiceCollection services)
     {
         var configuration = services.GetConfiguration();
         services.Configure<DbConnectionOptions>(configuration);
         services.AddSingleton(typeof(IDataFilter<>), typeof(DataFilter<>));
-    }
-
-    public override void PostConfigureServices(ServiceConfigurationContext context)
-    {
-        //Configure<DbConnectionOptions>(options =>
-        //{
-        //    options.Databases.RefreshIndexes();
-        //});
-    }
-
-    private static void AutoAddDataSeedContributors(IServiceCollection services)
-    {
-        var contributors = new List<Type>();
-
-        services.OnRegistred(context =>
-        {
-            //if (typeof(IDataSeedContributor).IsAssignableFrom(context.ImplementationType))
-            //{
-            //    contributors.Add(context.ImplementationType);
-            //}
-        });
-
-        //services.Configure<DataSeedOptions>(options =>
-        //{
-        //    options.Contributors.AddIfNotContains(contributors);
-        //});
     }
 }

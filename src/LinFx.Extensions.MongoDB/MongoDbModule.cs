@@ -10,13 +10,10 @@ namespace LinFx.Extensions.MongoDB;
 //[DependsOn(typeof(DomainModule))]
 public class MongoDbModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
-        context.Services.AddConventionalRegistrar(new MongoDbConventionalRegistrar());
-    }
-
     public override void ConfigureServices(IServiceCollection services)
     {
+        services.AddConventionalRegistrar(new MongoDbConventionalRegistrar());
+
         services.TryAddTransient(typeof(IMongoDbContextProvider<>), typeof(UnitOfWorkMongoDbContextProvider<>));
         services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<>), typeof(MongoDbRepositoryFilterer<>));
         services.TryAddTransient(typeof(IMongoDbRepositoryFilterer<,>), typeof(MongoDbRepositoryFilterer<,>));
