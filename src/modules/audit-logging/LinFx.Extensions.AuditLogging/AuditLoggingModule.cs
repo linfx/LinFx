@@ -23,7 +23,6 @@ public class AuditLoggingModule : Module
     {
         services.AddDbContext<AuditLoggingDbContext>(options =>
         {
-            options.AddRepository<AuditLog, EfAuditLogRepository>();
         });
     }
 }

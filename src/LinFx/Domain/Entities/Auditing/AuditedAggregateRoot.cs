@@ -12,8 +12,8 @@ public abstract class AuditedAggregateRoot : CreationAuditedAggregateRoot, IAudi
     public virtual DateTimeOffset? LastModificationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(32)]
-    public virtual string LastModifierId { get; set; }
+    [StringLength(64)]
+    public virtual string? LastModifierId { get; set; }
 }
 
 /// <summary>
@@ -26,6 +26,6 @@ public abstract class AuditedAggregateRoot<TKey> : CreationAuditedAggregateRoot<
     public virtual DateTimeOffset? LastModificationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(32)]
-    public virtual string LastModifierId { get; set; }
+    [StringLength(64)]
+    public virtual string? LastModifierId { get; set; }
 }

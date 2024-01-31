@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Domain.Values;
+﻿namespace LinFx.Domain.Values;
 
 /// <summary>
 /// 值对象

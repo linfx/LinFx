@@ -46,9 +46,6 @@ public static class EfServiceCollectionExtensions
             });
         }
 
-        // 构造 EF Core 仓储注册器，并添加仓储
-        new EfRepositoryRegistrar(options).AddRepositories();
-
         return services;
     }
 }

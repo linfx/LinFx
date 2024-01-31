@@ -14,7 +14,7 @@ public abstract class AuditedEntity : CreationAuditedEntity, IAuditedObject
     public virtual DateTimeOffset? LastModificationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(50)]
+    [StringLength(64)]
     public virtual string? LastModifierId { get; set; }
 }
 
@@ -29,6 +29,6 @@ public abstract class AuditedEntity<TKey> : CreationAuditedEntity<TKey>, IAudite
     public virtual DateTimeOffset? LastModificationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(50)]
+    [StringLength(64)]
     public virtual string? LastModifierId { get; set; }
 }

@@ -12,7 +12,7 @@ public abstract class FullAuditedEntity : AuditedEntity, IFullAuditedObject
     public virtual bool IsDeleted { get; set; }
 
     /// <inheritdoc />
-    [StringLength(50)]
+    [StringLength(64)]
     public virtual string? DeleterId { get; set; }
 
     /// <inheritdoc />
@@ -29,7 +29,7 @@ public abstract class FullAuditedEntity<TKey> : AuditedEntity<TKey>, IFullAudite
     public virtual bool IsDeleted { get; set; }
 
     /// <inheritdoc />
-    [StringLength(50)]
+    [StringLength(64)]
     public virtual string? DeleterId { get; set; }
 
     /// <inheritdoc />

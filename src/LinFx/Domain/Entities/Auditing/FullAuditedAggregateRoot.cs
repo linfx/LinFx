@@ -8,11 +8,14 @@ namespace LinFx.Domain.Entities.Auditing;
 /// </summary>
 public abstract class FullAuditedAggregateRoot : AuditedAggregateRoot, IFullAuditedObject
 {
+    /// <inheritdoc />
     public virtual bool IsDeleted { get; set; }
 
-    [StringLength(32)]
-    public virtual string DeleterId { get; set; }
+    /// <inheritdoc />
+    [StringLength(64)]
+    public virtual string? DeleterId { get; set; }
 
+    /// <inheritdoc />
     public virtual DateTimeOffset? DeletionTime { get; set; }
 }
 
@@ -22,10 +25,13 @@ public abstract class FullAuditedAggregateRoot : AuditedAggregateRoot, IFullAudi
 /// <typeparam name="TKey">Type of the primary key of the entity</typeparam>
 public abstract class FullAuditedAggregateRoot<TKey> : AuditedAggregateRoot<TKey>, IFullAuditedObject
 {
+    /// <inheritdoc />
     public virtual bool IsDeleted { get; set; }
 
-    [StringLength(32)]
-    public virtual string DeleterId { get; set; }
+    /// <inheritdoc />
+    [StringLength(64)]
+    public virtual string? DeleterId { get; set; }
 
+    /// <inheritdoc />
     public virtual DateTimeOffset? DeletionTime { get; set; }
 }

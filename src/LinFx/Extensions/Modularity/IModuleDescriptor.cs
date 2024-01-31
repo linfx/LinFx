@@ -2,6 +2,9 @@
 
 namespace LinFx.Extensions.Modularity;
 
+/// <summary>
+/// 模块描述
+/// </summary>
 public interface IModuleDescriptor
 {
     Type Type { get; }
