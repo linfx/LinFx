@@ -34,7 +34,7 @@ internal static class MvcOptionsExtensions
     private static void AddActionFilters(MvcOptions options)
     {
         //options.Filters.AddService(typeof(GlobalFeatureActionFilter));
-        options.Filters.AddService(typeof(AuditActionFilter));            // 注入审计日志过滤器
+        options.Filters.AddService(typeof(AuditActionFilter));
         //options.Filters.AddService(typeof(AbpNoContentActionFilter));
         //options.Filters.AddService(typeof(AbpFeatureActionFilter));
         //options.Filters.AddService(typeof(AbpValidationActionFilter));

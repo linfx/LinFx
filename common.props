@@ -2,8 +2,9 @@
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
 		<Version>8.0.3</Version>
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<NoWarn>1701;1702;1591</NoWarn>
+		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>

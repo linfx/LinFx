@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 
 namespace LinFx.Extensions.Http;
 
@@ -34,9 +33,7 @@ public class RemoteServiceErrorInfo
     /// <summary>
     /// Creates a new instance of <see cref="RemoteServiceErrorInfo"/>.
     /// </summary>
-    public RemoteServiceErrorInfo()
-    {
-    }
+    public RemoteServiceErrorInfo() { }
 
     /// <summary>
     /// Creates a new instance of <see cref="RemoteServiceErrorInfo"/>.
@@ -44,7 +41,7 @@ public class RemoteServiceErrorInfo
     /// <param name="code">Error code</param>
     /// <param name="details">Error details</param>
     /// <param name="message">Error message</param>
-    public RemoteServiceErrorInfo(string message, string details = null, string code = null)
+    public RemoteServiceErrorInfo(string message, string details = default, string code = default)
     {
         Message = message;
         Details = details;

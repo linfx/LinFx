@@ -102,7 +102,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         //    return;
         //}
 
-        if (!(exception is IHasErrorCode exceptionWithErrorCode))
+        if (exception is not IHasErrorCode exceptionWithErrorCode)
             return;
 
         if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() ||

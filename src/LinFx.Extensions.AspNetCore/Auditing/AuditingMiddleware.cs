@@ -14,9 +14,13 @@ namespace LinFx.Extensions.AspNetCore.Auditing;
 public class AuditingMiddleware : IMiddleware, ITransientDependency
 {
     private readonly IAuditingManager _auditingManager;
+
     protected AuditingOptions AuditingOptions { get; }
+
     protected AspNetCoreAuditingOptions AspNetCoreAuditingOptions { get; }
+
     protected ICurrentUser CurrentUser { get; }
+
     protected IUnitOfWorkManager UnitOfWorkManager { get; }
 
     public AuditingMiddleware(
@@ -49,7 +53,7 @@ public class AuditingMiddleware : IMiddleware, ITransientDependency
         {
             await next(context);
 
-            if (_auditingManager.Current.Log.Exceptions.Any())
+            if (_auditingManager.Current.Log.Exceptions.Count != 0)
                 hasError = true;
         }
         catch (Exception ex)
