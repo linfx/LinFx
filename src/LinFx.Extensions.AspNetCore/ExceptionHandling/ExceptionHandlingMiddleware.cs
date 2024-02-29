@@ -12,17 +12,11 @@ namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 /// <summary>
 /// 异常中间件
 /// </summary>
-public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
+public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) : IMiddleware, ITransientDependency
 {
-    private readonly ILogger _logger;
+    private readonly ILogger _logger = logger;
 
-    private readonly Func<object, Task> _clearCacheHeadersDelegate;
-
-    public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
-    {
-        _logger = logger;
-        _clearCacheHeadersDelegate = ClearCacheHeaders;
-    }
+    private readonly Func<object, Task> _clearCacheHeadersDelegate = ClearCacheHeaders;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -41,7 +35,7 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
 
             if (context.Items["_ActionInfo"] is ActionInfoInHttpContext actionInfo)
             {
-                if (actionInfo.IsObjectResult) //TODO: Align with AbpExceptionFilter.ShouldHandleException!
+                if (actionInfo.IsObjectResult) //TODO: Align with ExceptionFilter.ShouldHandleException!
                 {
                     await HandleAndWrapException(context, ex);
                     return;
@@ -53,7 +47,7 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
     }
 
     /// <summary>
-    /// 异常处理
+    /// 异常包装
     /// </summary>
     /// <param name="httpContext"></param>
     /// <param name="exception"></param>
@@ -67,6 +61,7 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
         //    .GetRequiredService<IExceptionNotifier>()
         //    .NotifyAsync(new ExceptionNotificationContext(exception));
 
+        // 授权异常
         if (exception is AuthorizationException)
         {
             await httpContext.RequestServices
@@ -99,15 +94,13 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
         }
     }
 
-    private Task ClearCacheHeaders(object state)
+    static Task ClearCacheHeaders(object state)
     {
         var response = (HttpResponse)state;
-
         response.Headers[HeaderNames.CacheControl] = "no-cache";
         response.Headers[HeaderNames.Pragma] = "no-cache";
         response.Headers[HeaderNames.Expires] = "-1";
         response.Headers.Remove(HeaderNames.ETag);
-
         return Task.CompletedTask;
     }
 }

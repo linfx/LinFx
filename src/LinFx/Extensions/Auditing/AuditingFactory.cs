@@ -28,11 +28,6 @@ public class AuditingFactory : IAuditingFactory
     /// </summary>
     protected ICurrentTenant CurrentTenant { get; }
 
-    /// <summary>
-    /// 当前客户端
-    /// </summary>
-    protected ICurrentClient CurrentClient { get; }
-
     protected IClock Clock { get; }
     protected AuditingOptions Options;
     protected IServiceProvider ServiceProvider;

@@ -5,7 +5,7 @@ namespace LinFx.Application.Dtos;
 /// <summary>
 /// Simply implements <see cref="IPagedResultRequest"/>.
 /// </summary>
-public class PredicatePagedResultRequest<T> : PagedResultRequest
+public class PagedFilterResultRequest<T> : PagedResultRequest
 {
     /// <summary>
     /// 条件表达式

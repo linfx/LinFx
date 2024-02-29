@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.TenantManagement
 {
-    public class TenantRequest : PagedAndSortedFilterResultRequest
+    public class TenantRequest : PagedAndSortedResultRequest
     {
     }
 }

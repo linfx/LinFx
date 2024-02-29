@@ -31,9 +31,9 @@ public abstract class ApplicationService :
     [Autowired]
     public ILazyServiceProvider LazyServiceProvider { get; set; }
 
-    public static string[] CommonPostfixes { get; set; } = { "ApplicationService", "Service" };
+    public static string[] CommonPostfixes { get; set; } = ["ApplicationService", "Service"];
 
-    public List<string> AppliedCrossCuttingConcerns { get; } = new List<string>();
+    public List<string> AppliedCrossCuttingConcerns { get; } = [];
 
     /// <summary>
     /// 工作单元管理器
@@ -118,7 +118,7 @@ public abstract class ApplicationService :
     /// <summary>
     /// 当前工作单元
     /// </summary>
-    protected IUnitOfWork CurrentUnitOfWork => UnitOfWorkManager?.Current;
+    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     /// <summary>
     /// 日志

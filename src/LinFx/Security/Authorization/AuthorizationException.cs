@@ -15,7 +15,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// Severity of the exception.
     /// Default: Warn.
     /// </summary>
-    public LogLevel LogLevel { get; set; }
+    public LogLevel LogLevel { get; set; } = LogLevel.Warning;
 
     /// <summary>
     /// Error code.
@@ -25,18 +25,13 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
-    public AuthorizationException()
-    {
-        LogLevel = LogLevel.Warning;
-    }
+    public AuthorizationException() { }
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
     public AuthorizationException(SerializationInfo serializationInfo, StreamingContext context)
-        : base(serializationInfo, context)
-    {
-    }
+        : base(serializationInfo, context) { }
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.

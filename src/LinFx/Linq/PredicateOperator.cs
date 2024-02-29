@@ -87,8 +87,7 @@ public static class PredicateBuilder
 public class ExpressionStarter<T>
 {
     public ExpressionStarter()
-        : this(false)
-    { }
+        : this(false) { }
 
     public ExpressionStarter(Expression<Func<T, bool>>? exp)
         : this(false)
@@ -99,13 +98,9 @@ public class ExpressionStarter<T>
     public ExpressionStarter(bool defaultExpression)
     {
         if (defaultExpression)
-        {
             DefaultExpression = f => true;
-        }
         else
-        {
             DefaultExpression = f => false;
-        }
     }
 
     /// <summary>The actual Predicate. It can only be set by calling Start.</summary>

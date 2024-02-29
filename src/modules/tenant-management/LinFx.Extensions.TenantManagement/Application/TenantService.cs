@@ -4,7 +4,6 @@ using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 namespace LinFx.Extensions.TenantManagement;
 
@@ -12,14 +11,9 @@ namespace LinFx.Extensions.TenantManagement;
 /// 租户服务
 /// </summary>
 [Authorize(TenantManagementPermissions.Tenants.Default)]
-public class TenantService : ApplicationService
+public class TenantService(TenantManagementDbContext tenantRepository) : ApplicationService
 {
-    protected TenantManagementDbContext Db { get; }
-
-    public TenantService(TenantManagementDbContext tenantRepository)
-    {
-        Db = tenantRepository;
-    }
+    protected TenantManagementDbContext Db { get; } = tenantRepository;
 
     /// <summary>
     /// 获取租户
