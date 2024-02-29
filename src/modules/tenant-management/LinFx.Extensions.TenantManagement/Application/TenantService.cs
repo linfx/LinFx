@@ -22,8 +22,10 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
     /// <returns></returns>
     public virtual async ValueTask<TenantDto> GetAsync(string id)
     {
-        var item = await Db.Tenants.FindAsync(id);
-        return item.MapTo<TenantDto>();
+        throw new NotImplementedException();
+
+        //var item = await Db.Tenants.FindAsync(id);
+        //return item.MapTo<TenantDto>();
     }
 
     /// <summary>

@@ -1,21 +1,15 @@
-﻿using LinFx.Extensions.AspNetCore;
-using LinFx.Extensions.AuditLogging;
-using LinFx.Extensions.Autofac;
+﻿using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace TenantManagementService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(AuditLoggingModule),
-    typeof(AspNetCoreModule),
+    //typeof(AuditLoggingModule),
     typeof(TenantManagementHttpApiModule)
 )]
 public class Application : Module
@@ -46,6 +40,7 @@ public class Application : Module
             app.UseHsts();
         }
 
+        app.UseExceptionHandling();
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseAuthentication();

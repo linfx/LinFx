@@ -42,13 +42,9 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
         {
             var result = await next();
             if (Succeed(result))
-            {
                 await SaveChangesAsync(context, unitOfWorkManager);
-            }
             else
-            {
                 await RollbackAsync(context, unitOfWorkManager);
-            }
 
             return;
         }
@@ -57,17 +53,13 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
         {
             var result = await next();
             if (Succeed(result))
-            {
                 await uow.CompleteAsync(context.HttpContext.RequestAborted);
-            }
             else
-            {
                 await uow.RollbackAsync(context.HttpContext.RequestAborted);
-            }
         }
     }
 
-    private UnitOfWorkOptions CreateOptions(ActionExecutingContext context, UnitOfWorkAttribute unitOfWorkAttribute)
+    static UnitOfWorkOptions CreateOptions(ActionExecutingContext context, UnitOfWorkAttribute unitOfWorkAttribute)
     {
         var options = new UnitOfWorkOptions();
 
@@ -76,34 +68,25 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
         if (unitOfWorkAttribute?.IsTransactional == null)
         {
             var unitOfWorkDefaultOptions = context.GetRequiredService<IOptions<UnitOfWorkDefaultOptions>>().Value;
-            options.IsTransactional = unitOfWorkDefaultOptions.CalculateIsTransactional(
-                autoValue: !string.Equals(context.HttpContext.Request.Method, HttpMethod.Get.Method, StringComparison.OrdinalIgnoreCase)
-            );
+            options.IsTransactional = unitOfWorkDefaultOptions.CalculateIsTransactional(autoValue: !string.Equals(context.HttpContext.Request.Method, HttpMethod.Get.Method, StringComparison.OrdinalIgnoreCase));
         }
 
         return options;
     }
 
-    private async Task RollbackAsync(ActionExecutingContext context, IUnitOfWorkManager unitOfWorkManager)
+    static async Task RollbackAsync(ActionExecutingContext context, IUnitOfWorkManager unitOfWorkManager)
     {
         var currentUow = unitOfWorkManager.Current;
         if (currentUow != null)
-        {
             await currentUow.RollbackAsync(context.HttpContext.RequestAborted);
-        }
     }
 
-    private async Task SaveChangesAsync(ActionExecutingContext context, IUnitOfWorkManager unitOfWorkManager)
+    static async Task SaveChangesAsync(ActionExecutingContext context, IUnitOfWorkManager unitOfWorkManager)
     {
         var currentUow = unitOfWorkManager.Current;
         if (currentUow != null)
-        {
             await currentUow.SaveChangesAsync(context.HttpContext.RequestAborted);
-        }
     }
 
-    private static bool Succeed(ActionExecutedContext result)
-    {
-        return result.Exception == null || result.ExceptionHandled;
-    }
+    static bool Succeed(ActionExecutedContext result) => result.Exception == null || result.ExceptionHandled;
 }

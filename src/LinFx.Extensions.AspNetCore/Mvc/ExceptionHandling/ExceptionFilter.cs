@@ -31,11 +31,8 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
     {
         //TODO: Create DontWrap attribute to control wrapping..?
 
-        if (context.ActionDescriptor.IsControllerAction() &&
-            context.ActionDescriptor.HasObjectResult())
-        {
+        if (context.ActionDescriptor.IsControllerAction() && context.ActionDescriptor.HasObjectResult())
             return true;
-        }
 
         if (context.HttpContext.Request.CanAccept(MimeTypes.Application.Json))
             return true;
@@ -70,17 +67,14 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
         remoteServiceErrorInfoBuilder.AppendLine(JsonSerializer.Serialize(remoteServiceErrorInfo));
 
         var logger = context.GetService<ILogger<ExceptionFilter>>(NullLogger<ExceptionFilter>.Instance);
-        logger.Log(logLevel, remoteServiceErrorInfoBuilder.ToString());
-        logger.LogException(context.Exception, logLevel);
+        logger?.Log(logLevel, remoteServiceErrorInfoBuilder.ToString());
+        logger?.LogException(context.Exception, logLevel);
 
         //await context.GetRequiredService<IExceptionNotifier>().NotifyAsync(new ExceptionNotificationContext(context.Exception));
 
         if (context.Exception is AuthorizationException)
-        {
-            await context.HttpContext.RequestServices
-                .GetRequiredService<IAuthorizationExceptionHandler>()
+            await context.HttpContext.RequestServices.GetRequiredService<IAuthorizationExceptionHandler>()
                 .HandleAsync(context.Exception.As<AuthorizationException>(), context.HttpContext);
-        }
         else
         {
             //context.HttpContext.Response.Headers.Add(HttpConsts.ErrorFormat, "true");

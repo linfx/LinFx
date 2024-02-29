@@ -8,5 +8,11 @@ namespace TenantManagementService.Controllers
         {
             return Redirect("/swagger");
         }
+
+        [HttpGet]
+        public IActionResult Error()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

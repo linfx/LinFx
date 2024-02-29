@@ -11,15 +11,11 @@ namespace LinFx.Extensions.Uow
         {
             //Explicitly defined UnitOfWorkAttribute
             if (HasUnitOfWorkAttribute(implementationType) || AnyMethodHasUnitOfWorkAttribute(implementationType))
-            {
                 return true;
-            }
 
             //Conventional classes
             if (typeof(IUnitOfWorkEnabled).GetTypeInfo().IsAssignableFrom(implementationType))
-            {
                 return true;
-            }
 
             return false;
         }
@@ -67,29 +63,19 @@ namespace LinFx.Extensions.Uow
         {
             var attrs = methodInfo.GetCustomAttributes(true).OfType<UnitOfWorkAttribute>().ToArray();
             if (attrs.Length > 0)
-            {
                 return attrs[0];
-            }
 
             attrs = methodInfo.DeclaringType.GetTypeInfo().GetCustomAttributes(true).OfType<UnitOfWorkAttribute>().ToArray();
             if (attrs.Length > 0)
-            {
                 return attrs[0];
-            }
 
             return null;
         }
 
-        private static bool AnyMethodHasUnitOfWorkAttribute(TypeInfo implementationType)
-        {
-            return implementationType
+        private static bool AnyMethodHasUnitOfWorkAttribute(TypeInfo implementationType) => implementationType
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                 .Any(HasUnitOfWorkAttribute);
-        }
 
-        private static bool HasUnitOfWorkAttribute(MemberInfo methodInfo)
-        {
-            return methodInfo.IsDefined(typeof(UnitOfWorkAttribute), true);
-        }
+        private static bool HasUnitOfWorkAttribute(MemberInfo methodInfo) => methodInfo.IsDefined(typeof(UnitOfWorkAttribute), true);
     }
 }

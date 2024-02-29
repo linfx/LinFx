@@ -7,7 +7,6 @@ using LinFx.Extensions.Modularity;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.HttpApi;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +19,8 @@ namespace IdentityService;
     typeof(AutofacModule),
     typeof(AuditLoggingModule),
     typeof(AspNetCoreModule),
-    typeof(AccountHttpApiModule),
-    typeof(PermissionManagementHttpApiModule)
+    typeof(AccountHttpApiModule)
+    //typeof(PermissionManagementHttpApiModule)
 )]
 public class Application : Module
 {
@@ -39,10 +38,10 @@ public class Application : Module
             options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         });
 
-        services.AddDbContext<PermissionManagementDbContext>(options =>
-        {
-            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
+        //services.AddDbContext<PermissionManagementDbContext>(options =>
+        //{
+        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
 
         services
             .AddIdentity<IdentityUser, IdentityRole>()

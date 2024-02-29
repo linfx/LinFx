@@ -1,6 +1,8 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.ExceptionHandling;
+using LinFx.Extensions.Http;
 using LinFx.Security.Authorization;
+using LinFx.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -49,14 +51,14 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
     /// <summary>
     /// 异常包装
     /// </summary>
-    /// <param name="httpContext"></param>
+    /// <param name="context"></param>
     /// <param name="exception"></param>
     /// <returns></returns>
-    private async Task HandleAndWrapException(HttpContext httpContext, Exception exception)
+    private async Task HandleAndWrapException(HttpContext context, Exception exception)
     {
         _logger.LogException(exception);
 
-        //await httpContext
+        //await context
         //    .RequestServices
         //    .GetRequiredService<IExceptionNotifier>()
         //    .NotifyAsync(new ExceptionNotificationContext(exception));
@@ -64,33 +66,25 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         // 授权异常
         if (exception is AuthorizationException)
         {
-            await httpContext.RequestServices
+            await context.RequestServices
                 .GetRequiredService<IAuthorizationExceptionHandler>()
-                .HandleAsync(exception.As<AuthorizationException>(), httpContext);
+                .HandleAsync(exception.As<AuthorizationException>(), context);
         }
         else
         {
-            var errorInfoConverter = httpContext.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
-            var statusCodeFinder = httpContext.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
-            //var jsonSerializer = httpContext.RequestServices.GetRequiredService<IJsonSerializer>();
-            var exceptionHandlingOptions = httpContext.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
+            var errorInfoConverter = context.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
+            var statusCodeFinder = context.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
+            var exceptionHandlingOptions = context.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
 
-            httpContext.Response.Clear();
-            httpContext.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(httpContext, exception);
-            httpContext.Response.OnStarting(_clearCacheHeadersDelegate, httpContext.Response);
-            //httpContext.Response.Headers.Add(AbpHttpConsts.AbpErrorFormat, "true");
+            context.Response.Clear();
+            context.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(context, exception);
+            context.Response.OnStarting(_clearCacheHeadersDelegate, context.Response);
 
-            //await httpContext.Response.WriteAsync(
-            //    jsonSerializer.Serialize(
-            //        new RemoteServiceErrorResponse(
-            //            errorInfoConverter.Convert(exception, options =>
-            //            {
-            //                options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
-            //                options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
-            //            })
-            //        )
-            //    )
-            //);
+            await context.Response.WriteAsync(new RemoteServiceErrorResponse(errorInfoConverter.Convert(exception, options =>
+            {
+                options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
+                options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
+            })).ToJsonString());
         }
     }
 

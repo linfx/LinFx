@@ -17,11 +17,6 @@ internal static class MvcOptionsExtensions
         AddFormatters(options);
     }
 
-    private static void AddFormatters(MvcOptions options)
-    {
-        //options.OutputFormatters.Insert(0, new RemoteStreamContentOutputFormatter());
-    }
-
     private static void AddConventions(MvcOptions options, IServiceCollection services)
     {
         //options.Conventions.Add(new AbpServiceConventionWrapper(services));
@@ -59,5 +54,10 @@ internal static class MvcOptionsExtensions
         //options.ModelMetadataDetailsProviders.Add(new BindingSourceMetadataProvider(typeof(IEnumerable<RemoteStreamContent>), BindingSource.FormFile));
         //options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(IRemoteStreamContent)));
         //options.ModelMetadataDetailsProviders.Add(new SuppressChildValidationMetadataProvider(typeof(RemoteStreamContent)));
+    }
+
+    private static void AddFormatters(MvcOptions options)
+    {
+        //options.OutputFormatters.Insert(0, new RemoteStreamContentOutputFormatter());
     }
 }
