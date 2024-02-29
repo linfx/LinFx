@@ -2,12 +2,7 @@ using JetBrains.Annotations;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Utils;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow;
 
@@ -48,12 +43,12 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     /// <summary>
     /// 分步式事件
     /// </summary>
-    protected List<UnitOfWorkEventRecord> DistributedEvents { get; } = new List<UnitOfWorkEventRecord>();
+    protected List<UnitOfWorkEventRecord> DistributedEvents { get; } = [];
 
     /// <summary>
     /// 本地事件
     /// </summary>
-    protected List<UnitOfWorkEventRecord> LocalEvents { get; } = new List<UnitOfWorkEventRecord>();
+    protected List<UnitOfWorkEventRecord> LocalEvents { get; } = [];
 
     public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
     public event EventHandler<UnitOfWorkEventArgs> Disposed;
@@ -117,10 +112,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     /// 设置外部工作单元
     /// </summary>
     /// <param name="outer"></param>
-    public virtual void SetOuter(IUnitOfWork outer)
-    {
-        Outer = outer;
-    }
+    public virtual void SetOuter(IUnitOfWork outer) => Outer = outer;
 
     /// <summary>
     /// 保存
@@ -140,15 +132,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         }
     }
 
-    public virtual IReadOnlyList<IDatabaseApi> GetAllActiveDatabaseApis()
-    {
-        return _databaseApis.Values.ToImmutableList();
-    }
+    public virtual IReadOnlyList<IDatabaseApi> GetAllActiveDatabaseApis() => _databaseApis.Values.ToImmutableList();
 
-    public virtual IReadOnlyList<ITransactionApi> GetAllActiveTransactionApis()
-    {
-        return _transactionApis.Values.ToImmutableList();
-    }
+    public virtual IReadOnlyList<ITransactionApi> GetAllActiveTransactionApis() => _transactionApis.Values.ToImmutableList();
 
     public virtual async Task CompleteAsync(CancellationToken cancellationToken = default)
     {
@@ -214,10 +200,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         await RollbackAllAsync(cancellationToken);
     }
 
-    public virtual IDatabaseApi FindDatabaseApi(string key)
-    {
-        return _databaseApis.GetOrDefault(key);
-    }
+    public virtual IDatabaseApi FindDatabaseApi(string key) => _databaseApis.GetOrDefault(key);
 
     public virtual void AddDatabaseApi(string key, IDatabaseApi api)
     {
@@ -230,20 +213,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         _databaseApis.Add(key, api);
     }
 
-    public virtual IDatabaseApi GetOrAddDatabaseApi(string key, Func<IDatabaseApi> factory)
-    {
-        Check.NotNull(key, nameof(key));
-        Check.NotNull(factory, nameof(factory));
+    public virtual IDatabaseApi GetOrAddDatabaseApi(string key, Func<IDatabaseApi> factory) => _databaseApis.GetOrAdd(key, factory);
 
-        return _databaseApis.GetOrAdd(key, factory);
-    }
-
-    public virtual ITransactionApi FindTransactionApi(string key)
-    {
-        Check.NotNull(key, nameof(key));
-
-        return _transactionApis.GetOrDefault(key);
-    }
+    public virtual ITransactionApi FindTransactionApi(string key) => _transactionApis.GetOrDefault(key);
 
     public virtual void AddTransactionApi(string key, ITransactionApi api)
     {
@@ -256,32 +228,13 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         _transactionApis.Add(key, api);
     }
 
-    public virtual ITransactionApi GetOrAddTransactionApi(string key, Func<ITransactionApi> factory)
-    {
-        Check.NotNull(key, nameof(key));
-        Check.NotNull(factory, nameof(factory));
+    public virtual ITransactionApi GetOrAddTransactionApi(string key, Func<ITransactionApi> factory) => _transactionApis.GetOrAdd(key, factory);
 
-        return _transactionApis.GetOrAdd(key, factory);
-    }
+    public virtual void OnCompleted(Func<Task> handler) => CompletedHandlers.Add(handler);
 
-    public virtual void OnCompleted(Func<Task> handler)
-    {
-        CompletedHandlers.Add(handler);
-    }
+    public virtual void AddOrReplaceLocalEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null) => AddOrReplaceEvent(LocalEvents, eventRecord, replacementSelector);
 
-    public virtual void AddOrReplaceLocalEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null)
-    {
-        AddOrReplaceEvent(LocalEvents, eventRecord, replacementSelector);
-    }
-
-    public virtual void AddOrReplaceDistributedEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null)
-    {
-        AddOrReplaceEvent(DistributedEvents, eventRecord, replacementSelector);
-    }
+    public virtual void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null) => AddOrReplaceEvent(DistributedEvents, eventRecord, replacementSelector);
 
     public virtual void AddOrReplaceEvent(
         List<UnitOfWorkEventRecord> eventRecords,
@@ -310,15 +263,9 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         }
     }
 
-    protected virtual void OnFailed()
-    {
-        Failed.InvokeSafely(this, new UnitOfWorkFailedEventArgs(this, _exception, _isRolledback));
-    }
+    protected virtual void OnFailed() => Failed.InvokeSafely(this, new UnitOfWorkFailedEventArgs(this, _exception, _isRolledback));
 
-    protected virtual void OnDisposed()
-    {
-        Disposed.InvokeSafely(this, new UnitOfWorkEventArgs(this));
-    }
+    protected virtual void OnDisposed() => Disposed.InvokeSafely(this, new UnitOfWorkEventArgs(this));
 
     public virtual void Dispose()
     {
@@ -343,9 +290,7 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
             {
                 transactionApi.Dispose();
             }
-            catch
-            {
-            }
+            catch { }
         }
     }
 
@@ -390,8 +335,5 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
         }
     }
 
-    public override string ToString()
-    {
-        return $"[UnitOfWork {Id}]";
-    }
+    public override string ToString() => $"[UnitOfWork {Id}]";
 }

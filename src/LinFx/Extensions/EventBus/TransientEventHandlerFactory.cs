@@ -24,14 +24,9 @@ public class TransientEventHandlerFactory<THandler> : TransientEventHandlerFacto
 /// <remarks>
 /// This class always creates a new transient instance of the handler type.
 /// </remarks>
-public class TransientEventHandlerFactory : IEventHandlerFactory
+public class TransientEventHandlerFactory(Type handlerType) : IEventHandlerFactory
 {
-    public Type HandlerType { get; }
-
-    public TransientEventHandlerFactory(Type handlerType)
-    {
-        HandlerType = handlerType;
-    }
+    public Type HandlerType { get; } = handlerType;
 
     /// <summary>
     /// Creates a new instance of the handler object.
@@ -40,10 +35,7 @@ public class TransientEventHandlerFactory : IEventHandlerFactory
     public virtual IEventHandlerDisposeWrapper GetHandler()
     {
         var handler = CreateHandler();
-        return new EventHandlerDisposeWrapper(
-            handler,
-            () => (handler as IDisposable)?.Dispose()
-        );
+        return new EventHandlerDisposeWrapper(handler, () => (handler as IDisposable)?.Dispose());
     }
 
     public bool IsInFactories(List<IEventHandlerFactory> handlerFactories) => handlerFactories

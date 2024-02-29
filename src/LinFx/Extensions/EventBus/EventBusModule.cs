@@ -16,12 +16,6 @@ public class EventBusModule : Module
         AddEventHandlers(services);
     }
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        //context.AddBackgroundWorker<OutboxSenderManager>();
-        //context.AddBackgroundWorker<InboxProcessManager>();
-    }
-
     private static void AddEventHandlers(IServiceCollection services)
     {
         var localHandlers = new List<Type>();

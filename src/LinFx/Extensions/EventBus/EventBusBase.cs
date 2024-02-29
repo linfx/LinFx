@@ -217,27 +217,18 @@ public abstract class EventBusBase : IEventBus
         }
     }
 
-    protected virtual string GetEventDataTenantId(object eventData)
+    protected virtual string GetEventDataTenantId(object eventData) => eventData switch
     {
-        return eventData switch
-        {
-            IMultiTenant multiTenantEventData => multiTenantEventData.TenantId,
-            IEventDataMayHaveTenantId eventDataMayHaveTenantId when eventDataMayHaveTenantId.IsMultiTenant(out var tenantId) => tenantId,
-            _ => CurrentTenant.Id
-        };
-    }
+        IMultiTenant multiTenantEventData => multiTenantEventData.TenantId,
+        IEventDataMayHaveTenantId eventDataMayHaveTenantId when eventDataMayHaveTenantId.IsMultiTenant(out var tenantId) => tenantId,
+        _ => CurrentTenant.Id
+    };
 
-    protected class EventTypeWithEventHandlerFactories
+    protected class EventTypeWithEventHandlerFactories(Type eventType, List<IEventHandlerFactory> eventHandlerFactories)
     {
-        public Type EventType { get; }
+        public Type EventType { get; } = eventType;
 
-        public List<IEventHandlerFactory> EventHandlerFactories { get; }
-
-        public EventTypeWithEventHandlerFactories(Type eventType, List<IEventHandlerFactory> eventHandlerFactories)
-        {
-            EventType = eventType;
-            EventHandlerFactories = eventHandlerFactories;
-        }
+        public List<IEventHandlerFactory> EventHandlerFactories { get; } = eventHandlerFactories;
     }
 
     // Reference from
@@ -246,7 +237,7 @@ public abstract class EventBusBase : IEventBus
     {
         public bool IsCompleted { get { return SynchronizationContext.Current == null; } }
 
-        public void OnCompleted(Action continuation)
+        public readonly void OnCompleted(Action continuation)
         {
             var prevContext = SynchronizationContext.Current;
             try
@@ -262,6 +253,6 @@ public abstract class EventBusBase : IEventBus
 
         public SynchronizationContextRemover GetAwaiter() => this;
 
-        public void GetResult() { }
+        public readonly void GetResult() { }
     }
 }
