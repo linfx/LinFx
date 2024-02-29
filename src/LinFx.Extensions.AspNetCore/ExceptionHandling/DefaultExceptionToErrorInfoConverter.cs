@@ -13,24 +13,19 @@ using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
-public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter, ITransientDependency
+public class DefaultExceptionToErrorInfoConverter(
+    IOptions<ExceptionLocalizationOptions> localizationOptions,
+    IStringLocalizerFactory stringLocalizerFactory,
+    IStringLocalizer<ExceptionHandlingResource> stringLocalizer,
+    IServiceProvider serviceProvider) : IExceptionToErrorInfoConverter, ITransientDependency
 {
-    protected ExceptionLocalizationOptions LocalizationOptions { get; }
-    protected IStringLocalizerFactory StringLocalizerFactory { get; }
-    protected IStringLocalizer<ExceptionHandlingResource> L { get; }
-    protected IServiceProvider ServiceProvider { get; }
+    protected ExceptionLocalizationOptions LocalizationOptions { get; } = localizationOptions.Value;
 
-    public DefaultExceptionToErrorInfoConverter(
-        IOptions<ExceptionLocalizationOptions> localizationOptions,
-        IStringLocalizerFactory stringLocalizerFactory,
-        IStringLocalizer<ExceptionHandlingResource> stringLocalizer,
-        IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
-        StringLocalizerFactory = stringLocalizerFactory;
-        L = stringLocalizer;
-        LocalizationOptions = localizationOptions.Value;
-    }
+    protected IStringLocalizerFactory StringLocalizerFactory { get; } = stringLocalizerFactory;
+
+    protected IStringLocalizer<ExceptionHandlingResource> L { get; } = stringLocalizer;
+
+    protected IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     public RemoteServiceErrorInfo Convert(Exception exception, Action<ExceptionHandlingOptions>? options = null)
     {
@@ -249,7 +244,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
             validationErrorInfos.Add(validationError);
         }
 
-        return validationErrorInfos.ToArray();
+        return [.. validationErrorInfos];
     }
 
     protected virtual string GetValidationErrorNarrative(IHasValidationErrors validationException)
@@ -266,12 +261,9 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         return detailBuilder.ToString();
     }
 
-    protected virtual ExceptionHandlingOptions CreateDefaultOptions()
+    protected virtual ExceptionHandlingOptions CreateDefaultOptions() => new ExceptionHandlingOptions
     {
-        return new ExceptionHandlingOptions
-        {
-            SendExceptionsDetailsToClients = false,
-            SendStackTraceToClients = true
-        };
-    }
+        SendExceptionsDetailsToClients = false,
+        SendStackTraceToClients = true
+    };
 }

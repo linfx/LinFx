@@ -20,7 +20,7 @@ public class DefaultAuthorizationExceptionHandler : IAuthorizationExceptionHandl
 
         AuthenticationScheme scheme;
 
-        if (!handlerOptions.AuthenticationScheme.IsNullOrWhiteSpace())
+        if (!string.IsNullOrWhiteSpace(handlerOptions.AuthenticationScheme))
         {
             scheme = await authenticationSchemeProvider.GetSchemeAsync(handlerOptions.AuthenticationScheme);
             if (scheme == null)

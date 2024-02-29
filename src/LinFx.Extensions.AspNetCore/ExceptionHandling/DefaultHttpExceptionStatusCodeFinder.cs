@@ -16,23 +16,17 @@ public class DefaultHttpExceptionStatusCodeFinder(IOptions<ExceptionHttpStatusCo
 
     public virtual HttpStatusCode GetStatusCode(HttpContext httpContext, Exception exception)
     {
-        if (exception is IHasHttpStatusCode exceptionWithHttpStatusCode &&
-            exceptionWithHttpStatusCode.HttpStatusCode > 0)
+        if (exception is IHasHttpStatusCode exceptionWithHttpStatusCode && exceptionWithHttpStatusCode.HttpStatusCode > 0)
             return (HttpStatusCode)exceptionWithHttpStatusCode.HttpStatusCode;
 
-        if (exception is IHasErrorCode exceptionWithErrorCode &&
-            !exceptionWithErrorCode.Code.IsNullOrWhiteSpace())
-        {
+        if (exception is IHasErrorCode exceptionWithErrorCode && !exceptionWithErrorCode.Code.IsNullOrWhiteSpace())
             if (Options.ErrorCodeToHttpStatusCodeMappings.TryGetValue(exceptionWithErrorCode.Code, out var status))
                 return status;
-        }
 
         if (exception is AuthorizationException)
-        {
             return httpContext.User.Identity.IsAuthenticated
                 ? HttpStatusCode.Forbidden
                 : HttpStatusCode.Unauthorized;
-        }
 
         //TODO: Handle SecurityException..?
 

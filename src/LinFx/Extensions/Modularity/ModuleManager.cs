@@ -5,22 +5,15 @@ using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.Modularity;
 
-public class ModuleManager : IModuleManager, ISingletonDependency
+public class ModuleManager(
+     ILogger<ModuleManager> logger,
+     IOptions<ModuleLifecycleOptions> options,
+     IModuleContainer moduleContainer,
+     IServiceProvider serviceProvider) : IModuleManager, ISingletonDependency
 {
-    private readonly ILogger _logger;
-    private readonly IModuleContainer _moduleContainer;
-    private readonly IEnumerable<IModuleLifecycleContributor> _lifecycleContributors;
-
-    public ModuleManager(
-         ILogger<ModuleManager> logger,
-         IOptions<ModuleLifecycleOptions> options,
-         IModuleContainer moduleContainer,
-         IServiceProvider serviceProvider)
-    {
-        _logger = logger;
-        _moduleContainer = moduleContainer;
-        _lifecycleContributors = options.Value.Contributors.Select(serviceProvider.GetRequiredService).Cast<IModuleLifecycleContributor>().ToArray();
-    }
+    private readonly ILogger _logger = logger;
+    private readonly IModuleContainer _moduleContainer = moduleContainer;
+    private readonly IEnumerable<IModuleLifecycleContributor> _lifecycleContributors = options.Value.Contributors.Select(serviceProvider.GetRequiredService).Cast<IModuleLifecycleContributor>().ToArray();
 
     /// <summary>
     /// 初化始模块

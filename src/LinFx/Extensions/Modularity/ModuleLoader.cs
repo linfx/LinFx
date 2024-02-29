@@ -15,7 +15,7 @@ public class ModuleLoader : IModuleLoader
 
         var modules = GetDescriptors(services, startupModuleType, plugInSources);
         modules = SortByDependency(modules, startupModuleType);
-        return modules.ToArray();
+        return [.. modules];
     }
 
     private List<IModuleDescriptor> GetDescriptors(IServiceCollection services, Type startupModuleType, PlugInSourceList plugInSources)
@@ -30,7 +30,8 @@ public class ModuleLoader : IModuleLoader
 
     protected virtual void FillModules(List<ModuleDescriptor> modules, IServiceCollection services, Type startupModuleType, PlugInSourceList plugInSources)
     {
-        var logger = new LoggerFactory().CreateLogger<ModuleLoader>();
+        var logger = new LoggerFactory()
+            .CreateLogger<ModuleLoader>();
 
         //All modules starting from the startup module
         foreach (var moduleType in ModuleHelper.FindAllModuleTypes(startupModuleType, logger))
