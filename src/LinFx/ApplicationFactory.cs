@@ -9,7 +9,7 @@ namespace LinFx;
 /// </summary>
 public class ApplicationFactory
 {
-    public static IApplicationWithExternalServiceProvider Create<TStartupModule>([NotNull] IServiceCollection services, [CanBeNull] Action<ApplicationCreationOptions> optionsAction = null) where TStartupModule : IModule => Create(typeof(TStartupModule), services, optionsAction);
+    public static IApplicationWithExternalServiceProvider Create<TStartupModule>([NotNull] IServiceCollection services, [CanBeNull] Action<ApplicationCreationOptions>? optionsAction = default) where TStartupModule : IModule => Create(typeof(TStartupModule), services, optionsAction);
 
     public static IApplicationWithInternalServiceProvider Create<TStartupModule>([CanBeNull] Action<ApplicationCreationOptions>? optionsAction = default) where TStartupModule : IModule => Create(typeof(TStartupModule), optionsAction);
 

@@ -1,5 +1,4 @@
 using IdentityService;
-using LinFx;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serilog;
 using Serilog.Events;
@@ -20,9 +19,10 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Logging.ClearProviders();
-builder.Logging.AddSerilog();
 builder.Host.UseAutofac();
+builder.Logging
+    .ClearProviders()
+    .AddSerilog();
 
 // Add services to the container.
 builder.Services

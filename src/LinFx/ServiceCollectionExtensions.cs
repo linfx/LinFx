@@ -1,4 +1,5 @@
-﻿using LinFx;
+﻿using JetBrains.Annotations;
+using LinFx;
 using LinFx.Extensions.Modularity;
 using LinFx.Reflection;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ServiceCollectionLinFxExtensions
+public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// 核心服务
@@ -18,7 +19,6 @@ public static class ServiceCollectionLinFxExtensions
     {
         services
             .AddOptions()
-            .AddLogging()
             .AddLocalization();
 
         var moduleLoader = new ModuleLoader();
@@ -41,4 +41,13 @@ public static class ServiceCollectionLinFxExtensions
             options.Contributors.Add<OnApplicationShutdownModuleLifecycleContributor>();
         });
     }
+
+    /// <summary>
+    /// 增加应用
+    /// </summary>
+    /// <typeparam name="TStartupModule"></typeparam>
+    /// <param name="services"></param>
+    /// <param name="optionsAction"></param>
+    /// <returns></returns>
+    public static IApplicationWithExternalServiceProvider AddApplication<TStartupModule>([NotNull] this IServiceCollection services, [CanBeNull] Action<ApplicationCreationOptions>? optionsAction = null) where TStartupModule : IModule => ApplicationFactory.Create<TStartupModule>(services, optionsAction);
 }

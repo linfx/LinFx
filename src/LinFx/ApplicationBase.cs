@@ -27,7 +27,7 @@ public abstract class ApplicationBase : IApplication
     internal ApplicationBase(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions> optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
     {
         Check.NotNull(startupModuleType, nameof(startupModuleType));
         Check.NotNull(services, nameof(services));

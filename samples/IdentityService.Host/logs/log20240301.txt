@@ -79,3 +79,33 @@
 2024-03-01 16:00:07.881 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
 2024-03-01 16:00:08.054 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 178.1416ms
 2024-03-01 16:00:08.056 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 16:28:43.842 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 16:28:44.082 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 16:28:44.084 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 16:28:44.089 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 16:28:44.091 +08:00 [INF] Hosting environment: Development
+2024-03-01 16:28:44.093 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 16:28:44.352 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 16:28:44.520 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 175.339ms
+2024-03-01 16:28:44.523 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 16:29:47.893 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 16:29:48.134 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 16:29:48.137 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 16:29:48.141 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 16:29:48.143 +08:00 [INF] Hosting environment: Development
+2024-03-01 16:29:48.144 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 16:29:48.511 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 16:29:48.684 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 178.8293ms
+2024-03-01 16:29:48.686 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 16:35:56.215 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 16:35:56.440 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 16:35:56.440 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 16:35:56.442 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 16:35:56.442 +08:00 [INF] Hosting environment: Development
+2024-03-01 16:35:56.442 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 16:35:56.686 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 16:35:56.911 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 231.7811ms
+2024-03-01 16:35:56.912 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 16:36:09.985 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 16:36:09.991 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 6.5927ms
+2024-03-01 16:36:09.991 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
