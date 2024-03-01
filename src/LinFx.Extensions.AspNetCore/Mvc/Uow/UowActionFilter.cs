@@ -13,6 +13,7 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
+        // 是否控制器
         if (!context.ActionDescriptor.IsControllerAction())
         {
             await next();
@@ -22,10 +23,10 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
         var methodInfo = context.ActionDescriptor.GetMethodInfo();
         var unitOfWorkAttr = UnitOfWorkHelper.GetUnitOfWorkAttributeOrNull(methodInfo);
 
-        //context.HttpContext.Items["_ActionInfo"] = new ActionInfoInHttpContext
-        //{
-        //    IsObjectResult = context.ActionDescriptor.HasObjectResult()
-        //};
+        context.HttpContext.Items["_ActionInfo"] = new ActionInfoInHttpContext
+        {
+            IsObjectResult = context.ActionDescriptor.HasObjectResult()
+        };
 
         if (unitOfWorkAttr?.IsDisabled == true)
         {
@@ -59,10 +60,9 @@ public class UowActionFilter : IAsyncActionFilter, ITransientDependency
         }
     }
 
-    static UnitOfWorkOptions CreateOptions(ActionExecutingContext context, UnitOfWorkAttribute unitOfWorkAttribute)
+    static UnitOfWorkOptions CreateOptions(ActionExecutingContext context, UnitOfWorkAttribute? unitOfWorkAttribute)
     {
         var options = new UnitOfWorkOptions();
-
         unitOfWorkAttribute?.SetOptions(options);
 
         if (unitOfWorkAttribute?.IsTransactional == null)

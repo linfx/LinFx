@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.AspNetCore.Mvc;
 
+/// <summary>
+/// AspNetCoreMvcÄ£¿é
+/// </summary>
 [DependsOn(
     typeof(AspNetCoreModule)
     //typeof(LocalizationModule),
@@ -159,10 +162,10 @@ public class AspNetCoreMvcModule : Module
     //    );
     //}
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        //AddApplicationParts(context);
-    }
+    //public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    //{
+    //    AddApplicationParts(context);
+    //}
 
     //private static void AddApplicationParts(ApplicationInitializationContext context)
     //{

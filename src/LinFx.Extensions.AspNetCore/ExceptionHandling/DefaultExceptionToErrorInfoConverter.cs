@@ -100,8 +100,7 @@ public class DefaultExceptionToErrorInfoConverter(
         if (exception is not IHasErrorCode exceptionWithErrorCode)
             return;
 
-        if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() ||
-            !exceptionWithErrorCode.Code.Contains(":"))
+        if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() || !exceptionWithErrorCode.Code.Contains(':'))
             return;
 
         var codeNamespace = exceptionWithErrorCode.Code.Split(':')[0];
@@ -131,15 +130,7 @@ public class DefaultExceptionToErrorInfoConverter(
     protected virtual RemoteServiceErrorInfo CreateEntityNotFoundError(EntityNotFoundException exception)
     {
         if (exception.EntityType != null)
-        {
-            return new RemoteServiceErrorInfo(
-                string.Format(
-                    L["EntityNotFoundErrorMessage"],
-                    exception.EntityType.Name,
-                    exception.Id
-                )
-            );
-        }
+            return new RemoteServiceErrorInfo(string.Format(L["EntityNotFoundErrorMessage"], exception.EntityType.Name, exception.Id));
 
         return new RemoteServiceErrorInfo(exception.Message);
     }

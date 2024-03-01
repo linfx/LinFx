@@ -9,7 +9,6 @@ namespace TenantManagementService;
 
 [DependsOn(
     typeof(AutofacModule),
-    //typeof(AuditLoggingModule),
     typeof(TenantManagementHttpApiModule)
 )]
 public class Application : Module

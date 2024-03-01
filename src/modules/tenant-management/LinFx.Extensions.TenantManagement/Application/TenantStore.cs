@@ -5,16 +5,10 @@ using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 namespace LinFx.Extensions.TenantManagement.Application;
 
 [Service]
-public class TenantStore : ITenantStore
+public class TenantStore(ICurrentTenant currentTenant, TenantManagementDbContext context) : ITenantStore
 {
-    private readonly ICurrentTenant _currentTenant;
-    private readonly TenantManagementDbContext _context;
-
-    public TenantStore(ICurrentTenant currentTenant, TenantManagementDbContext context)
-    {
-        _currentTenant = currentTenant;
-        _context = context;
-    }
+    private readonly ICurrentTenant _currentTenant = currentTenant;
+    private readonly TenantManagementDbContext _context = context;
 
     public async Task<TenantInfo> FindAsync(string tenantIdOrName)
     {

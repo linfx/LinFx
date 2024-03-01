@@ -9,7 +9,10 @@ namespace LinFx.Extensions.Uow;
 /// <summary>
 /// 工作单元
 /// </summary>
-public class UnitOfWork : IUnitOfWork, ITransientDependency
+public class UnitOfWork(
+    IServiceProvider serviceProvider,
+    IUnitOfWorkEventPublisher unitOfWorkEventPublisher,
+    IOptions<UnitOfWorkDefaultOptions> options) : IUnitOfWork, ITransientDependency
 {
     /// <summary>
     /// Default: false.
@@ -27,6 +30,13 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     /// </summary>
     public IUnitOfWork Outer { get; private set; }
 
+    public IServiceProvider ServiceProvider { get; } = serviceProvider;
+
+    /// <summary>
+    /// 领域事件发布器
+    /// </summary>
+    protected IUnitOfWorkEventPublisher UnitOfWorkEventPublisher { get; } = unitOfWorkEventPublisher;
+
     /// <summary>
     /// 是否保留
     /// </summary>
@@ -38,51 +48,31 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
 
     public string ReservationName { get; set; }
 
-    protected List<Func<Task>> CompletedHandlers { get; } = new List<Func<Task>>();
+    public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
+    public event EventHandler<UnitOfWorkEventArgs> Disposed;
 
-    /// <summary>
-    /// 分步式事件
-    /// </summary>
-    protected List<UnitOfWorkEventRecord> DistributedEvents { get; } = [];
+    protected List<Func<Task>> CompletedHandlers { get; } = [];
 
     /// <summary>
     /// 本地事件
     /// </summary>
     protected List<UnitOfWorkEventRecord> LocalEvents { get; } = [];
 
-    public event EventHandler<UnitOfWorkFailedEventArgs> Failed;
-    public event EventHandler<UnitOfWorkEventArgs> Disposed;
-
-    public IServiceProvider ServiceProvider { get; }
-
     /// <summary>
-    /// 领域事件发布器
+    /// 分步式事件
     /// </summary>
-    protected IUnitOfWorkEventPublisher UnitOfWorkEventPublisher { get; }
+    protected List<UnitOfWorkEventRecord> DistributedEvents { get; } = [];
 
     [NotNull]
-    public Dictionary<string, object> Items { get; } = new Dictionary<string, object>();
+    public Dictionary<string, object> Items { get; } = [];
 
-    private readonly Dictionary<string, IDatabaseApi> _databaseApis;
-    private readonly Dictionary<string, ITransactionApi> _transactionApis;
-    private readonly UnitOfWorkDefaultOptions _defaultOptions;
+    private readonly Dictionary<string, IDatabaseApi> _databaseApis = [];
+    private readonly Dictionary<string, ITransactionApi> _transactionApis = [];
+    private readonly UnitOfWorkDefaultOptions _defaultOptions = options.Value;
 
     private Exception _exception;
     private bool _isCompleting;
     private bool _isRolledback;
-
-    public UnitOfWork(
-        IServiceProvider serviceProvider,
-        IUnitOfWorkEventPublisher unitOfWorkEventPublisher,
-        IOptions<UnitOfWorkDefaultOptions> options)
-    {
-        ServiceProvider = serviceProvider;
-        UnitOfWorkEventPublisher = unitOfWorkEventPublisher;
-        _defaultOptions = options.Value;
-
-        _databaseApis = new Dictionary<string, IDatabaseApi>();
-        _transactionApis = new Dictionary<string, ITransactionApi>();
-    }
 
     /// <summary>
     /// 初始化
@@ -91,8 +81,6 @@ public class UnitOfWork : IUnitOfWork, ITransientDependency
     /// <exception cref="Exception"></exception>
     public virtual void Initialize(UnitOfWorkOptions options)
     {
-        Check.NotNull(options, nameof(options));
-
         if (Options != null)
             throw new Exception("This unit of work is already initialized before!");
 

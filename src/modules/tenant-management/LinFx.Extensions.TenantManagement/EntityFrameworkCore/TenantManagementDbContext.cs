@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
 [IgnoreMultiTenancy]
-public class TenantManagementDbContext : EfDbContext
+public class TenantManagementDbContext(DbContextOptions options) : EfDbContext(options)
 {
-    public TenantManagementDbContext(DbContextOptions options) : base(options) { }
-
     public DbSet<Tenant> Tenants { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

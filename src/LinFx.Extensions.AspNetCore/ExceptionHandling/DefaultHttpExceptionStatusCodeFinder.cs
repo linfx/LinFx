@@ -24,9 +24,7 @@ public class DefaultHttpExceptionStatusCodeFinder(IOptions<ExceptionHttpStatusCo
                 return status;
 
         if (exception is AuthorizationException)
-            return httpContext.User.Identity.IsAuthenticated
-                ? HttpStatusCode.Forbidden
-                : HttpStatusCode.Unauthorized;
+            return httpContext.User.Identity.IsAuthenticated ? HttpStatusCode.Forbidden : HttpStatusCode.Unauthorized;
 
         //TODO: Handle SecurityException..?
 
