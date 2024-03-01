@@ -1,8 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
-using System;
 
 namespace LinFx.Extensions.AuditLogging;
 
@@ -12,7 +10,7 @@ namespace LinFx.Extensions.AuditLogging;
 [DisableAuditing]
 public class AuditLogAction : Entity<string>, IMultiTenant, IHasExtraProperties
 {
-    public virtual string TenantId { get; protected set; }
+    public virtual string? TenantId { get; protected set; }
 
     public virtual string AuditLogId { get; protected set; }
 
@@ -30,7 +28,7 @@ public class AuditLogAction : Entity<string>, IMultiTenant, IHasExtraProperties
 
     protected AuditLogAction() { }
 
-    public AuditLogAction(string id, string auditLogId, AuditLogActionInfo actionInfo, string tenantId = null)
+    public AuditLogAction(string id, string auditLogId, AuditLogActionInfo actionInfo, string? tenantId = null)
     {
         Id = id;
         TenantId = tenantId;

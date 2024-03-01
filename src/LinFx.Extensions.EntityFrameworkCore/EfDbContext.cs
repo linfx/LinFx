@@ -680,3 +680,13 @@ public abstract class EfDbContext : DbContext, ITransientDependency
         }
     }
 }
+
+/// <summary>
+/// 数据库上下文
+/// </summary>
+public class EfDbContext<TContext> : EfDbContext where TContext : DbContext
+{
+    protected EfDbContext() { }
+
+    public EfDbContext(DbContextOptions<TContext> options) : base(options) { }
+}

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Auditing;
+﻿namespace LinFx.Extensions.Auditing;
 
 /// <summary>
 /// 审计日志储存

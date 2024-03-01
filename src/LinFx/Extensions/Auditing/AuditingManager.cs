@@ -4,42 +4,28 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>
 /// 审计日志管理器
 /// </summary>
-public class AuditingManager : IAuditingManager
+public class AuditingManager(
+    IAmbientScopeProvider<IAuditLogScope> ambientScopeProvider,
+    IAuditingFactory auditingFactory,
+    IAuditingStore auditingStore,
+    IServiceProvider serviceProvider,
+    IOptions<AuditingOptions> options) : IAuditingManager
 {
     private const string AmbientContextKey = "Auditing.IAuditLogScope";
 
-    protected IServiceProvider ServiceProvider { get; }
-    protected AuditingOptions Options { get; }
-    protected ILogger<AuditingManager> Logger { get; set; }
-    private readonly IAmbientScopeProvider<IAuditLogScope> _ambientScopeProvider;
-    private readonly IAuditingFactory _auditingFactory;
-    private readonly IAuditingStore _auditingStore;
-
-    public AuditingManager(
-        IAmbientScopeProvider<IAuditLogScope> ambientScopeProvider,
-        IAuditingFactory auditingFactory,
-        IAuditingStore auditingStore,
-        IServiceProvider serviceProvider,
-        IOptions<AuditingOptions> options)
-    {
-        ServiceProvider = serviceProvider;
-        Options = options.Value;
-        Logger = NullLogger<AuditingManager>.Instance;
-
-        _ambientScopeProvider = ambientScopeProvider;
-        _auditingFactory = auditingFactory;
-        _auditingStore = auditingStore;
-    }
+    protected IServiceProvider ServiceProvider { get; } = serviceProvider;
+    protected AuditingOptions Options { get; } = options.Value;
+    protected ILogger<AuditingManager> Logger { get; set; } = NullLogger<AuditingManager>.Instance;
+    private readonly IAmbientScopeProvider<IAuditLogScope> _ambientScopeProvider = ambientScopeProvider;
+    private readonly IAuditingFactory _auditingFactory = auditingFactory;
+    private readonly IAuditingStore _auditingStore = auditingStore;
 
     /// <summary>
     /// 当前审计日志范围

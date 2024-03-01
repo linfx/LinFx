@@ -4,39 +4,38 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LinFx.Extensions.AspNetCore.MultiTenancy
+namespace LinFx.Extensions.AspNetCore.MultiTenancy;
+
+public abstract class HttpTenantResolveContributorBase : ITenantResolveContributor
 {
-    public abstract class HttpTenantResolveContributorBase : ITenantResolveContributor
+    public abstract string Name { get; }
+
+    public virtual void Resolve(ITenantResolveContext context)
     {
-        public abstract string Name { get; }
+        var httpContext = context.GetHttpContext();
+        if (httpContext == null)
+            return;
 
-        public virtual void Resolve(ITenantResolveContext context)
+        try
         {
-            var httpContext = context.GetHttpContext();
-            if (httpContext == null)
-                return;
-
-            try
-            {
-                ResolveFromHttpContext(context, httpContext);
-            }
-            catch (Exception e)
-            {
-                context.ServiceProvider
-                    .GetRequiredService<ILogger<HttpTenantResolveContributorBase>>()
-                    .LogWarning(e.ToString());
-            }
+            ResolveFromHttpContext(context, httpContext);
         }
-
-        protected virtual void ResolveFromHttpContext(ITenantResolveContext context, HttpContext httpContext)
+        catch (Exception e)
         {
-            var tenantIdOrName = GetTenantIdOrNameFromHttpContextOrNull(context, httpContext);
-            if (!string.IsNullOrEmpty(tenantIdOrName))
-            {
-                context.TenantIdOrName = tenantIdOrName;
-            }
+            context.ServiceProvider
+                .GetRequiredService<ILogger<HttpTenantResolveContributorBase>>()
+                .LogWarning(e.ToString());
         }
-
-        protected abstract string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext);
     }
+
+    protected virtual void ResolveFromHttpContext(ITenantResolveContext context, HttpContext httpContext)
+    {
+        var tenantIdOrName = GetTenantIdOrNameFromHttpContextOrNull(context, httpContext);
+        if (!string.IsNullOrEmpty(tenantIdOrName))
+        {
+            context.TenantIdOrName = tenantIdOrName;
+        }
+    }
+
+    protected abstract string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext);
 }

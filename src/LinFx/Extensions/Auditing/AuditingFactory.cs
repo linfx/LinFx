@@ -9,9 +9,17 @@ using System.Text.Json;
 
 namespace LinFx.Extensions.Auditing;
 
-public class AuditingFactory : IAuditingFactory
+public class AuditingFactory(
+    IOptions<AuditingOptions> options,
+    ICurrentUser currentUser,
+    ICurrentTenant currentTenant,
+    //ICurrentClient currentClient,
+    IClock clock,
+    //IAuditingStore auditingStore,
+    ILogger<AuditingFactory> logger,
+    IServiceProvider serviceProvider) : IAuditingFactory
 {
-    protected ILogger Logger { get; }
+    protected ILogger Logger { get; } = logger;
 
     /// <summary>
     /// 审计日志储存
@@ -21,41 +29,16 @@ public class AuditingFactory : IAuditingFactory
     /// <summary>
     /// 当前用户
     /// </summary>
-    protected ICurrentUser CurrentUser { get; }
+    protected ICurrentUser CurrentUser { get; } = currentUser;
 
     /// <summary>
     /// 当前租户
     /// </summary>
-    protected ICurrentTenant CurrentTenant { get; }
+    protected ICurrentTenant CurrentTenant { get; } = currentTenant;
 
-    protected IClock Clock { get; }
-    protected AuditingOptions Options;
-    protected IServiceProvider ServiceProvider;
-    //protected ICorrelationIdProvider CorrelationIdProvider { get; }
-
-    public AuditingFactory(
-        IOptions<AuditingOptions> options,
-        ICurrentUser currentUser,
-        ICurrentTenant currentTenant,
-        //ICurrentClient currentClient,
-        IClock clock,
-        //IAuditingStore auditingStore,
-        ILogger<AuditingFactory> logger,
-        IServiceProvider serviceProvider
-        //ICorrelationIdProvider correlationIdProvider
-        )
-    {
-        Options = options.Value;
-        CurrentUser = currentUser;
-        CurrentTenant = currentTenant;
-        //CurrentClient = currentClient;
-        Clock = clock;
-        //AuditingStore = auditingStore;
-
-        Logger = logger;
-        ServiceProvider = serviceProvider;
-        //CorrelationIdProvider = correlationIdProvider;
-    }
+    protected IClock Clock { get; } = clock;
+    protected AuditingOptions Options = options.Value;
+    protected IServiceProvider ServiceProvider = serviceProvider;
 
     public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
     {

@@ -1,11 +1,10 @@
 ﻿using LinFx.Extensions.Auditing;
+using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AuditLogging;
 
@@ -13,26 +12,21 @@ namespace LinFx.Extensions.AuditLogging;
 /// 审计日志储存
 /// </summary>
 [Service]
-public class AuditingStore : IAuditingStore
+public class AuditingStore(
+    AuditLoggingDbContext dbContext,
+    IUnitOfWorkManager unitOfWorkManager,
+    IOptions<AuditingOptions> options,
+    IAuditLogInfoToAuditLogConverter converter) : IAuditingStore
 {
-    public ILogger<AuditingStore> Logger { get; set; }
-    protected IAuditLogRepository AuditLogRepository { get; }
-    protected IUnitOfWorkManager UnitOfWorkManager { get; }
-    protected AuditingOptions Options { get; }
-    protected IAuditLogInfoToAuditLogConverter Converter { get; }
+    public ILogger<AuditingStore> Logger { get; set; } = NullLogger<AuditingStore>.Instance;
 
-    public AuditingStore(
-        IAuditLogRepository auditLogRepository,
-        IUnitOfWorkManager unitOfWorkManager,
-        IOptions<AuditingOptions> options,
-        IAuditLogInfoToAuditLogConverter converter)
-    {
-        AuditLogRepository = auditLogRepository;
-        UnitOfWorkManager = unitOfWorkManager;
-        Converter = converter;
-        Options = options.Value;
-        Logger = NullLogger<AuditingStore>.Instance;
-    }
+    protected AuditLoggingDbContext AuditLoggingDbContext { get; } = dbContext;
+
+    protected IUnitOfWorkManager UnitOfWorkManager { get; } = unitOfWorkManager;
+
+    protected AuditingOptions Options { get; } = options.Value;
+
+    protected IAuditLogInfoToAuditLogConverter Converter { get; } = converter;
 
     public virtual async Task SaveAsync(AuditLogInfo auditInfo)
     {
@@ -56,7 +50,7 @@ public class AuditingStore : IAuditingStore
     protected virtual async Task SaveLogAsync(AuditLogInfo auditInfo)
     {
         using var uow = UnitOfWorkManager.Begin(true);
-        await AuditLogRepository.InsertAsync(await Converter.ConvertAsync(auditInfo));
+        //await AuditLogRepository.Add(await Converter.ConvertAsync(auditInfo));
         await uow.CompleteAsync();
     }
 }

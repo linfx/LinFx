@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Auditing;
-using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
@@ -21,8 +20,5 @@ public class AuditLoggingModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<AuditLoggingDbContext>(options =>
-        {
-        });
     }
 }
