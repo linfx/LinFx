@@ -1,7 +1,4 @@
-﻿using LinFx.Extensions.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Modularity;
 
@@ -18,18 +15,11 @@ public abstract class Module :
 
     public virtual void ConfigureServices(IServiceCollection services) { }
 
-    public virtual void Configure(IApplicationBuilder app, IHostEnvironment env) { }
-
     /// <summary>
     /// 应用程序初始化
     /// </summary>
     /// <param name="context"></param>
-    public virtual void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        var app = context.GetApplicationBuilder();
-        var env = context.GetEnvironment();
-        Configure(app, env);
-    }
+    public virtual void OnApplicationInitialization(ApplicationInitializationContext context) { }
 
     /// <summary>
     /// 应用程序初始化

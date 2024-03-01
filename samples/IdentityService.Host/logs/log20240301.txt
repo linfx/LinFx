@@ -1,0 +1,81 @@
+2024-03-01 15:51:45.520 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 15:51:45.759 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 15:51:45.761 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 15:51:45.765 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 15:51:45.767 +08:00 [INF] Hosting environment: Development
+2024-03-01 15:51:45.768 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 15:51:49.998 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:50.202 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 209.8966ms
+2024-03-01 15:51:50.204 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:53.900 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:53.905 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 5.5233ms
+2024-03-01 15:51:53.906 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:54.789 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:54.792 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 3.3933ms
+2024-03-01 15:51:54.792 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:55.252 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:55.254 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.8018ms
+2024-03-01 15:51:55.255 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:55.460 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:55.462 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.5924ms
+2024-03-01 15:51:55.462 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:55.632 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:55.634 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 3.2571ms
+2024-03-01 15:51:55.635 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:55.815 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:55.818 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.7177ms
+2024-03-01 15:51:55.818 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:56.004 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:56.007 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 3.0493ms
+2024-03-01 15:51:56.008 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:51:56.199 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:51:56.202 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.7222ms
+2024-03-01 15:51:56.203 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:54:45.400 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 15:54:45.646 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 15:54:45.648 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 15:54:45.651 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 15:54:45.653 +08:00 [INF] Hosting environment: Development
+2024-03-01 15:54:45.654 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 15:54:46.026 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:54:46.226 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 206.739ms
+2024-03-01 15:54:46.228 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:21.638 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 15:58:21.862 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 15:58:21.862 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 15:58:21.864 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 15:58:21.864 +08:00 [INF] Hosting environment: Development
+2024-03-01 15:58:21.864 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 15:58:25.435 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:25.598 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 169.8524ms
+2024-03-01 15:58:25.600 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:29.941 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:29.947 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 6.0222ms
+2024-03-01 15:58:29.947 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:30.419 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:30.423 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 3.5902ms
+2024-03-01 15:58:30.423 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:30.623 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:30.626 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.8548ms
+2024-03-01 15:58:30.626 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:30.824 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:30.827 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 2.3947ms
+2024-03-01 15:58:30.827 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 15:58:55.178 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 15:58:55.405 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 15:58:55.406 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 15:58:55.411 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 15:58:55.413 +08:00 [INF] Hosting environment: Development
+2024-03-01 15:58:55.414 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 15:58:55.636 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 15:58:55.810 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 180.5725ms
+2024-03-01 15:58:55.811 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404
+2024-03-01 16:00:04.148 +08:00 [INF] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-03-01 16:00:04.377 +08:00 [INF] Now listening on: http://localhost:5000
+2024-03-01 16:00:04.379 +08:00 [INF] Now listening on: https://localhost:5001
+2024-03-01 16:00:04.383 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-03-01 16:00:04.385 +08:00 [INF] Hosting environment: Development
+2024-03-01 16:00:04.386 +08:00 [INF] Content root path: D:\github\linfx\LinFx\samples\IdentityService.Host
+2024-03-01 16:00:07.881 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2024-03-01 16:00:08.054 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 404 0 null 178.1416ms
+2024-03-01 16:00:08.056 +08:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/, Response status code: 404

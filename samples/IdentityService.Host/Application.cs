@@ -1,24 +1,19 @@
 ﻿using IdentityService.EntityFrameworkCore;
 using LinFx.Extensions.Account.HttpApi;
-using LinFx.Extensions.AspNetCore;
+using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
+    typeof(AspNetCoreMvcModule),
     typeof(AuditLoggingModule),
-    typeof(AspNetCoreModule),
     typeof(AccountHttpApiModule)
     //typeof(PermissionManagementHttpApiModule)
 )]
@@ -47,32 +42,5 @@ public class Application : Module
             .AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
-    }
-
-    public override void Configure(IApplicationBuilder app, IHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseHsts();
-        }
-
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        //app.UseAuthentication();
-        //app.UseAuthorization();
-        app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity Service Api");
-        });
-        //app.UseAuditing();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapDefaultControllerRoute();
-        });
     }
 }

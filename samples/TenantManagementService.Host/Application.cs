@@ -27,32 +27,4 @@ public class Application : Module
             options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         });
     }
-
-    public override void Configure(IApplicationBuilder app, IHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseHsts();
-        }
-
-        app.UseExceptionHandling();
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
-        });
-        //app.UseAuditing();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapDefaultControllerRoute();
-        });
-    }
 }

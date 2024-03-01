@@ -11,11 +11,4 @@ public static class ServiceCollectionApplicationExtensions
     {
         return ApplicationFactory.Create<TStartupModule>(services, optionsAction);
     }
-
-    public static LinFxBuilder AddApplicationAsync<TStartupModule>([NotNull] this LinFxBuilder builder, [CanBeNull] Action<ApplicationCreationOptions> optionsAction = null)
-        where TStartupModule : IModule
-    {
-        builder.Services.AddApplication<TStartupModule>(optionsAction);
-        return builder;
-    }
 }

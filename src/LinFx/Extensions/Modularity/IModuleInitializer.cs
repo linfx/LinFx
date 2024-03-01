@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Modularity;
 
@@ -10,6 +8,4 @@ namespace LinFx.Extensions.Modularity;
 public interface IModuleInitializer
 {
     void ConfigureServices(IServiceCollection services);
-
-    void Configure(IApplicationBuilder app, IHostEnvironment env);
 }

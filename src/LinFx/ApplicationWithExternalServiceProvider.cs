@@ -4,17 +4,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx;
 
+/// <summary>
+/// 应用程序提供者
+/// </summary>
 internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplicationWithExternalServiceProvider
 {
     public ApplicationWithExternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
         [CanBeNull] Action<ApplicationCreationOptions> optionsAction
-        ) : base(
-            startupModuleType,
-            services,
-            optionsAction)
+        ) : base(startupModuleType, services, optionsAction)
     {
+        // 注入自己到 IoC 当中。
         services.AddSingleton<IApplicationWithExternalServiceProvider>(this);
     }
 

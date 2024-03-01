@@ -3,7 +3,6 @@ using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Modularity;
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Assembly = System.Reflection.Assembly;
 
 namespace LinFx;
@@ -48,10 +47,8 @@ public abstract class ApplicationBase : IApplication
         services.AddSingleton<IApplication>(this);
         services.AddSingleton<IModuleContainer>(this);
 
-        // 添加日志等基础设施组件。
         // 添加核心服务，主要是模块系统相关组件。
-        services.AddCoreServices();
-        services.AddCoreLinFxServices(this, options);
+        services.AddCoreServices(this, options);
 
         Modules = LoadModules(services, options);
         ConfigureServices();
@@ -70,35 +67,15 @@ public abstract class ApplicationBase : IApplication
     protected virtual async Task InitializeModulesAsync()
     {
         using var scope = ServiceProvider.CreateScope();
-        WriteInitLogs(scope.ServiceProvider);
         await scope.ServiceProvider.GetRequiredService<IModuleManager>().InitializeModulesAsync(new ApplicationInitializationContext(scope.ServiceProvider));
-    }
-
-    protected virtual void WriteInitLogs(IServiceProvider serviceProvider)
-    {
-        var logger = serviceProvider.GetService<ILogger<ApplicationBase>>();
-        if (logger == null)
-            return;
-
-        //var initLogger = serviceProvider.GetRequiredService<IInitLoggerFactory>().Create<AbpApplicationBase>();
-
-        //foreach (var entry in initLogger.Entries)
-        //{
-        //    logger.Log(entry.LogLevel, entry.EventId, entry.State, entry.Exception, entry.Formatter);
-        //}
-
-        //initLogger.Entries.Clear();
     }
 
     /// <summary>
     /// 加载模块
     /// </summary>
-    protected virtual IReadOnlyList<IModuleDescriptor> LoadModules(IServiceCollection services, ApplicationCreationOptions options)
-    {
-        return services
+    protected virtual IReadOnlyList<IModuleDescriptor> LoadModules(IServiceCollection services, ApplicationCreationOptions options) => services
             .GetSingletonInstance<IModuleLoader>()
             .LoadModules(services, StartupModuleType, options.PlugInSources);
-    }
 
     //TODO: We can extract a new class for this
     public virtual void ConfigureServices()
@@ -140,7 +117,5 @@ public abstract class ApplicationBase : IApplication
             .ShutdownModulesAsync(new ApplicationShutdownContext(scope.ServiceProvider));
     }
 
-    public virtual void Dispose()
-    {
-    }
+    public virtual void Dispose() { }
 }
