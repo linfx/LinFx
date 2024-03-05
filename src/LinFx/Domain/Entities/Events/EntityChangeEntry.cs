@@ -3,15 +3,9 @@ using LinFx.Extensions.Auditing;
 namespace LinFx.Domain.Entities.Events;
 
 [Serializable]
-public class EntityChangeEntry
+public class EntityChangeEntry(object entity, EntityChangeType changeType)
 {
-    public object Entity { get; set; }
+    public object Entity { get; set; } = entity;
 
-    public EntityChangeType ChangeType { get; set; }
-
-    public EntityChangeEntry(object entity, EntityChangeType changeType)
-    {
-        Entity = entity;
-        ChangeType = changeType;
-    }
+    public EntityChangeType ChangeType { get; set; } = changeType;
 }

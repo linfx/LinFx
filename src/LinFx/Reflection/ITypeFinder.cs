@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LinFx.Reflection;
+﻿namespace LinFx.Reflection;
 
 /// <summary>
 /// Used to get types in the application.

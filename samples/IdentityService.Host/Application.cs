@@ -1,6 +1,6 @@
 ﻿using IdentityService.EntityFrameworkCore;
 using LinFx.Extensions.Account.HttpApi;
-using LinFx.Extensions.AspNetCore.Mvc;
+using LinFx.Extensions.AspNetCore;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
@@ -15,7 +15,7 @@ namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(AspNetCoreMvcModule),
+    typeof(AspNetCoreModule),
     typeof(AuditLoggingModule),
     typeof(AccountHttpApiModule),
     typeof(PermissionManagementHttpApiModule)

@@ -36,9 +36,9 @@ public abstract class CommonDbContextRegistrationOptions : ICommonDbContextRegis
         OriginalDbContextType = originalDbContextType;
         Services = services;
         DefaultRepositoryDbContextType = originalDbContextType;
-        CustomRepositories = new Dictionary<Type, Type>();
-        ReplacedDbContextTypes = new Dictionary<Type, Type>();
-        SpecifiedDefaultRepositories = new List<Type>();
+        CustomRepositories = [];
+        ReplacedDbContextTypes = [];
+        SpecifiedDefaultRepositories = [];
     }
 
     public ICommonDbContextRegistrationOptionsBuilder ReplaceDbContext<TOtherDbContext>() => ReplaceDbContext(typeof(TOtherDbContext));

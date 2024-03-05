@@ -51,7 +51,7 @@ public static class EfObjectExtensionInfoExtensions
 
         var mappingOptionList = new List<ObjectExtensionInfoEfMappingOptions>
         {
-            new ObjectExtensionInfoEfMappingOptions(objectExtensionInfo, entityTypeBuildAction)
+            new(objectExtensionInfo, entityTypeBuildAction)
         };
 
         objectExtensionInfo.Configuration.AddOrUpdate(EfEntityConfigurationName, mappingOptionList, (k, v) =>
@@ -71,7 +71,7 @@ public static class EfObjectExtensionInfoExtensions
 
         var mappingOptionList = new List<ObjectExtensionInfoEfMappingOptions>
         {
-            new ObjectExtensionInfoEfMappingOptions(objectExtensionInfo, modelBuildAction)
+            new(objectExtensionInfo, modelBuildAction)
         };
 
         objectExtensionInfo.Configuration.AddOrUpdate(EfDbContextConfigurationName, mappingOptionList, (k, v) =>
@@ -88,8 +88,7 @@ public static class EfObjectExtensionInfoExtensions
     {
         Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-        return !objectExtensionInfo.Configuration.TryGetValue(EfEntityConfigurationName, out var options) ?
-            new List<ObjectExtensionInfoEfMappingOptions>() : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
+        return !objectExtensionInfo.Configuration.TryGetValue(EfEntityConfigurationName, out var options) ? [] : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
     }
 
     public static List<ObjectExtensionInfoEfMappingOptions> GetEfDbContextMappings(
@@ -97,7 +96,6 @@ public static class EfObjectExtensionInfoExtensions
     {
         Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 
-        return !objectExtensionInfo.Configuration.TryGetValue(EfDbContextConfigurationName, out var options) ?
-            new List<ObjectExtensionInfoEfMappingOptions>() : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
+        return !objectExtensionInfo.Configuration.TryGetValue(EfDbContextConfigurationName, out var options) ? [] : options.As<List<ObjectExtensionInfoEfMappingOptions>>();
     }
 }

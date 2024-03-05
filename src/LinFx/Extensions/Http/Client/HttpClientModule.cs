@@ -18,7 +18,7 @@ public class HttpClientModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        var configuration = services.GetConfiguration();
+        //var configuration = services.GetConfiguration();
         //Configure<RemoteServiceOptions>(configuration);
 
         //context.Services.AddTransient(typeof(DynamicHttpProxyInterceptorClientProxy<>));

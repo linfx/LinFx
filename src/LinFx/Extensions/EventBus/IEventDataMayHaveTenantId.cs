@@ -21,5 +21,5 @@ public interface IEventDataMayHaveTenantId
     /// <param name="tenantId">
     /// The tenant id that is set if this method returns true.
     /// </param>
-    bool IsMultiTenant(out string tenantId);
+    bool IsMultiTenant(out string? tenantId);
 }

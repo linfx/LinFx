@@ -114,9 +114,7 @@ public static class EfObjectExtensionManagerExtensions
 
         var objectExtension = objectExtensionManager.GetOrNull(typeBuilder.Metadata.ClrType);
         if (objectExtension == null)
-        {
             return;
-        }
 
         var efEntityMappings = objectExtension.GetEfEntityMappings();
 
@@ -129,15 +127,11 @@ public static class EfObjectExtensionManagerExtensions
         {
             var efMapping = property.GetEfMappingOrNull();
             if (efMapping == null)
-            {
                 continue;
-            }
 
             /* Prevent multiple calls to the entityTypeBuilder.Property(...) method */
             if (typeBuilder.Metadata.FindProperty(property.Name) != null)
-            {
                 continue;
-            }
 
             var propertyBuilder = typeBuilder.Property(property.Type, property.Name);
 

@@ -42,12 +42,8 @@ public static class ListExtensions
         var alreadyVisited = visited.TryGetValue(item, out bool inProcess);
 
         if (alreadyVisited)
-        {
             if (inProcess)
-            {
                 throw new ArgumentException("Cyclic dependency found! Item: " + item);
-            }
-        }
         else
         {
             visited[item] = true;

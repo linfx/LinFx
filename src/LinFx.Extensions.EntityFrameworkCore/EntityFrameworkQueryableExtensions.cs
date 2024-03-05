@@ -10,6 +10,5 @@ public static class EntityFrameworkQueryableExtensions
     /// <param name="source">The source <see cref="IQueryable{T}"/> on which to call Include.</param>
     /// <param name="condition">A boolean value to determine to include <paramref name="path"/> or not.</param>
     /// <param name="path">The type of navigation property being included.</param>
-    public static IQueryable<T> IncludeIf<T, TProperty>(this IQueryable<T> source, bool condition, Expression<Func<T, TProperty>> path) where T : class
-        => condition ? source.Include(path) : source;
+    public static IQueryable<T> IncludeIf<T, TProperty>(this IQueryable<T> source, bool condition, Expression<Func<T, TProperty>> path) where T : class => condition ? source.Include(path) : source;
 }
