@@ -9,19 +9,12 @@ namespace LinFx.Extensions.Authorization;
 /// 授权策略提供者
 /// which provides a <see cref="AuthorizationPolicy"/> for a particular name.
 /// </summary>
-public class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider, IAuthorizationPolicyProvider, ITransientDependency
+public class AuthorizationPolicyProvider(
+    IOptions<AuthorizationOptions> options,
+    IPermissionDefinitionManager permissionDefinitionManager) : DefaultAuthorizationPolicyProvider(options), IAuthorizationPolicyProvider, ITransientDependency
 {
-    private readonly AuthorizationOptions _options;
-    private readonly IPermissionDefinitionManager _permissionDefinitionManager;
-
-    public AuthorizationPolicyProvider(
-        IOptions<AuthorizationOptions> options,
-        IPermissionDefinitionManager permissionDefinitionManager)
-        : base(options)
-    {
-        _options = options.Value;
-        _permissionDefinitionManager = permissionDefinitionManager;
-    }
+    private readonly AuthorizationOptions _options = options.Value;
+    private readonly IPermissionDefinitionManager _permissionDefinitionManager = permissionDefinitionManager;
 
     public override async Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
     {

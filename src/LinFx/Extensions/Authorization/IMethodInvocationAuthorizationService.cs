@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Authorization;
+﻿namespace LinFx.Extensions.Authorization;
 
 public interface IMethodInvocationAuthorizationService
 {

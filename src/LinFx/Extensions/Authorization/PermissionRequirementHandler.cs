@@ -6,15 +6,10 @@ namespace LinFx.Extensions.Authorization;
 /// <summary>
 /// 权限策略处理器
 /// </summary>
-public class PermissionRequirementHandler : AuthorizationHandler<PermissionRequirement>
+public class PermissionRequirementHandler(IPermissionChecker permissionChecker) : AuthorizationHandler<PermissionRequirement>
 {
     // 这里通过权限检查器来确定当前用户是否拥有某个权限。
-    private readonly IPermissionChecker _permissionChecker;
-
-    public PermissionRequirementHandler(IPermissionChecker permissionChecker)
-    {
-        _permissionChecker = permissionChecker;
-    }
+    private readonly IPermissionChecker _permissionChecker = permissionChecker;
 
     /// <summary>
     /// 处理授权逻辑
