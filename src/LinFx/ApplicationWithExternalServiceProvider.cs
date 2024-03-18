@@ -12,8 +12,7 @@ internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplic
     public ApplicationWithExternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction
-        ) : base(startupModuleType, services, optionsAction)
+        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction) : base(startupModuleType, services, optionsAction)
     {
         // 注入自己到 IoC 当中。
         services.AddSingleton<IApplicationWithExternalServiceProvider>(this);

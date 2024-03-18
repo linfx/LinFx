@@ -83,14 +83,13 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
 
         //  ⁄»®“Ï≥£
         if (context.Exception is AuthorizationException)
+        {
             await context.HttpContext.RequestServices.GetRequiredService<IAuthorizationExceptionHandler>().HandleAsync(context.Exception.As<AuthorizationException>(), context.HttpContext);
+        }
         else
         {
             //context.HttpContext.Response.Headers.Add(HttpConsts.ErrorFormat, "true");
-            context.HttpContext.Response.StatusCode = (int)context
-                .GetRequiredService<IHttpExceptionStatusCodeFinder>()
-                .GetStatusCode(context.HttpContext, context.Exception);
-
+            context.HttpContext.Response.StatusCode = (int)context.GetRequiredService<IHttpExceptionStatusCodeFinder>().GetStatusCode(context.HttpContext, context.Exception);
             context.Result = new ObjectResult(new RemoteServiceErrorResponse(remoteServiceErrorInfo));
         }
 

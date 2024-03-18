@@ -11,21 +11,9 @@ public class AspNetCoreModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        //services.Configure<AuditingOptions>(options =>
-        //{
-        //    options.Contributors.Add(new AspNetCoreAuditLogContributor());
-        //});
-
-        //Configure<StaticFileOptions>(options =>
-        //{
-        //    options.ContentTypeProvider = context.Services.GetRequiredService<AbpFileExtensionContentTypeProvider>();
-        //});
-
         services
             .AddHttpContextAccessor()
             .AddObjectAccessor<IApplicationBuilder>();
-
-        //context.Services.AddAbpDynamicOptions<RequestLocalizationOptions, AbpRequestLocalizationOptionsManager>();
 
         services.AddRouting(options =>
         {

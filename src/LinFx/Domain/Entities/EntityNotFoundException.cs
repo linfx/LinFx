@@ -8,12 +8,12 @@ public class EntityNotFoundException : Exception
     /// <summary>
     /// Type of the entity.
     /// </summary>
-    public Type EntityType { get; set; }
+    public Type? EntityType { get; set; }
 
     /// <summary>
     /// Id of the Entity.
     /// </summary>
-    public object Id { get; set; }
+    public object? Id { get; set; }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
@@ -23,12 +23,14 @@ public class EntityNotFoundException : Exception
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
-    public EntityNotFoundException(Type entityType) : this(entityType, null, null) { }
+    public EntityNotFoundException(Type entityType) 
+        : this(entityType, null, null) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
-    public EntityNotFoundException(Type entityType, object id) : this(entityType, id, null) { }
+    public EntityNotFoundException(Type entityType, object id) 
+        : this(entityType, id, null) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
@@ -48,12 +50,14 @@ public class EntityNotFoundException : Exception
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
-    public EntityNotFoundException(string message) : base(message) { }
+    public EntityNotFoundException(string message) 
+        : base(message) { }
 
     /// <summary>
     /// Creates a new <see cref="EntityNotFoundException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
     /// <param name="innerException">Inner exception</param>
-    public EntityNotFoundException(string message, Exception innerException) : base(message, innerException) { }
+    public EntityNotFoundException(string message, Exception innerException)
+        : base(message, innerException) { }
 }

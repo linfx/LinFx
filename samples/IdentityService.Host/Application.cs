@@ -1,24 +1,16 @@
-﻿using IdentityService.EntityFrameworkCore;
-using LinFx.Extensions.Account.HttpApi;
-using LinFx.Extensions.AspNetCore;
-using LinFx.Extensions.AuditLogging;
-using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
+﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(AspNetCoreModule),
-    typeof(AuditLoggingModule),
-    typeof(AccountHttpApiModule),
-    typeof(PermissionManagementHttpApiModule)
+    typeof(AspNetCoreMvcModule)
+//typeof(AuditLoggingModule),
+//typeof(AccountHttpApiModule),
+//typeof(PermissionManagementHttpApiModule)
 )]
 public class Application : Module
 {
@@ -31,29 +23,31 @@ public class Application : Module
             options.CustomSchemaIds(type => type.FullName);
         });
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
+        services.AddControllers();
 
-        services.AddDbContext<AuditLoggingDbContext>(options =>
-        {
-            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
+        //services.AddDbContext<ApplicationDbContext>(options =>
+        //{
+        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
+
+        //services.AddDbContext<AuditLoggingDbContext>(options =>
+        //{
+        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
 
         //services.Configure<DbContextOptions<AuditLoggingDbContext>>(options =>
         //{
         //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         //});
 
-        services.AddDbContext<PermissionManagementDbContext>(options =>
-        {
-            options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
+        //services.AddDbContext<PermissionManagementDbContext>(options =>
+        //{
+        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
 
-        services
-            .AddIdentity<IdentityUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+        //services
+        //    .AddIdentity<IdentityUser, IdentityRole>()
+        //    .AddEntityFrameworkStores<ApplicationDbContext>()
+        //    .AddDefaultTokenProviders();
     }
 }

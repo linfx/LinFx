@@ -12,9 +12,8 @@ public static class AutofacServiceCollectionExtensions
     {
         Check.NotNull(services, nameof(services));
 
-        var builder = services.GetObjectOrNull<ContainerBuilder>();
-        if (builder == null)
-            throw new Exception($"Could not find ContainerBuilder. Be sure that you have called {nameof(AutofacApplicationCreationOptionsExtensions.UseAutofac)} method before!");
+        var builder = services.GetObjectOrNull<ContainerBuilder>() 
+            ?? throw new Exception($"Could not find ContainerBuilder. Be sure that you have called {nameof(AutofacApplicationCreationOptionsExtensions.UseAutofac)} method before!");
 
         return builder;
     }

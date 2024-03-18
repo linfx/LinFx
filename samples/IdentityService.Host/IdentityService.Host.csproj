@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,7 +24,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
 		<ProjectReference Include="..\..\src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj" />
-		<ProjectReference Include="..\..\src\modules\account\LinFx.Extensions.Account.HttpApi\LinFx.Extensions.Account.HttpApi.csproj" />
 		<ProjectReference Include="..\..\src\modules\audit-logging\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj" />
 		<ProjectReference Include="..\..\src\modules\permission-management\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
 	</ItemGroup>

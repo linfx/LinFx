@@ -1,4 +1,5 @@
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,13 +9,14 @@ namespace LinFx.Extensions.AspNetCore.Mvc;
 /// AspNetCoreMvcÄ£¿é
 /// </summary>
 [DependsOn(
-    typeof(AspNetCoreModule)
-    //typeof(LocalizationModule),
-    //typeof(AbpApiVersioningAbstractionsModule),
-    //typeof(AbpAspNetCoreMvcContractsModule),
-    //typeof(AbpUiNavigationModule),
-    //typeof(AbpGlobalFeaturesModule),
-    //typeof(AbpDddApplicationModule)
+    typeof(AspNetCoreModule),
+    typeof(UnitOfWorkModule)
+//typeof(LocalizationModule),
+//typeof(AbpApiVersioningAbstractionsModule),
+//typeof(AbpAspNetCoreMvcContractsModule),
+//typeof(AbpUiNavigationModule),
+//typeof(AbpGlobalFeaturesModule),
+//typeof(AbpDddApplicationModule)
 )]
 public class AspNetCoreMvcModule : Module
 {

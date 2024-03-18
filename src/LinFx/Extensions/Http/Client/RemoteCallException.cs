@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace LinFx.Extensions.Http.Client;
 
+/// <summary>
+/// 远程调用异常
+/// </summary>
 [Serializable]
 public class RemoteCallException : Exception, IHasErrorCode, IHasHttpStatusCode
 {

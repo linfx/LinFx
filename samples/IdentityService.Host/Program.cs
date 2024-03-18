@@ -1,5 +1,4 @@
 using IdentityService;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serilog;
 using Serilog.Events;
 
@@ -24,7 +23,7 @@ builder.Logging.ClearProviders().AddSerilog();
 
 // Add services to the container.
 builder.Services
-    .ReplaceConfiguration(builder.Configuration)
+    //.ReplaceConfiguration(builder.Configuration)
     .AddApplication<Application>();
 
 var app = builder.Build();
@@ -36,7 +35,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
     app.UseSwaggerUI();
 }
 
-app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), config => config.UseJwtTokenMiddleware(JwtBearerDefaults.AuthenticationScheme));
+app.UseExceptionHandling();
+
+//app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), config => config.UseJwtTokenMiddleware(JwtBearerDefaults.AuthenticationScheme));
 //app.UseAuthentication();
 //app.UseAuthorization();
 app.MapControllers();

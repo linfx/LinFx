@@ -30,7 +30,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
-    public AuthorizationException(SerializationInfo serializationInfo, StreamingContext context)
+    public AuthorizationException(SerializationInfo serializationInfo, StreamingContext context) 
         : base(serializationInfo, context) { }
 
     /// <summary>

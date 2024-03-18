@@ -13,6 +13,13 @@ using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
+/// <summary>
+/// 默认异常转换
+/// </summary>
+/// <param name="localizationOptions"></param>
+/// <param name="stringLocalizerFactory"></param>
+/// <param name="stringLocalizer"></param>
+/// <param name="serviceProvider"></param>
 public class DefaultExceptionToErrorInfoConverter(
     IOptions<ExceptionLocalizationOptions> localizationOptions,
     IStringLocalizerFactory stringLocalizerFactory,
@@ -40,6 +47,12 @@ public class DefaultExceptionToErrorInfoConverter(
         return errorInfo;
     }
 
+    /// <summary>
+    /// 创建错误信息
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
     protected virtual RemoteServiceErrorInfo CreateErrorInfoWithoutCode(Exception exception, ExceptionHandlingOptions options)
     {
         if (options.SendExceptionsDetailsToClients)
@@ -47,21 +60,24 @@ public class DefaultExceptionToErrorInfoConverter(
 
         exception = TryToGetActualException(exception);
 
+        // 远程调用异常
         if (exception is RemoteCallException remoteCallException && remoteCallException.Error != null)
             return remoteCallException.Error;
 
+        // 数据库并发异常
         if (exception is DbConcurrencyException)
             return new RemoteServiceErrorInfo(L["DbConcurrencyErrorMessage"]);
 
+        // 实体找不到异常
         if (exception is EntityNotFoundException)
-            return CreateEntityNotFoundError(exception as EntityNotFoundException);
+            return CreateEntityNotFoundError((exception as EntityNotFoundException)!);
 
         var errorInfo = new RemoteServiceErrorInfo();
 
         if (exception is UserFriendlyException || exception is RemoteCallException)
         {
             errorInfo.Message = exception.Message;
-            errorInfo.Details = (exception as IHasErrorDetails)?.Details;
+            errorInfo.Details = (exception as IHasErrorDetails)?.Details!;
         }
 
         if (exception is IHasValidationErrors)
@@ -70,9 +86,9 @@ public class DefaultExceptionToErrorInfoConverter(
                 errorInfo.Message = L["ValidationErrorMessage"];
 
             if (errorInfo.Details.IsNullOrEmpty())
-                errorInfo.Details = GetValidationErrorNarrative(exception as IHasValidationErrors);
+                errorInfo.Details = GetValidationErrorNarrative((exception as IHasValidationErrors)!);
 
-            errorInfo.ValidationErrors = GetValidationErrorInfos(exception as IHasValidationErrors);
+            errorInfo.ValidationErrors = GetValidationErrorInfos((exception as IHasValidationErrors)!);
         }
 
         TryToLocalizeExceptionMessage(exception, errorInfo);
@@ -127,6 +143,11 @@ public class DefaultExceptionToErrorInfoConverter(
         errorInfo.Message = localizedValue;
     }
 
+    /// <summary>
+    /// 创建实体找不到错误信息
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns></returns>
     protected virtual RemoteServiceErrorInfo CreateEntityNotFoundError(EntityNotFoundException exception)
     {
         if (exception.EntityType != null)

@@ -5,6 +5,11 @@ using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.AspNetCore.Uow;
 
+/// <summary>
+/// 工作单元中间件
+/// </summary>
+/// <param name="unitOfWorkManager"></param>
+/// <param name="options"></param>
 public class UnitOfWorkMiddleware(IUnitOfWorkManager unitOfWorkManager, IOptions<AspNetCoreUnitOfWorkOptions> options) : IMiddleware, ITransientDependency
 {
     private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;

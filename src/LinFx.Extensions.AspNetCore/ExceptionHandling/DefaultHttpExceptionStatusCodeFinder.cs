@@ -10,6 +10,10 @@ using System.Net;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
+/// <summary>
+/// Http status 代码转换
+/// </summary>
+/// <param name="options"></param>
 public class DefaultHttpExceptionStatusCodeFinder(IOptions<ExceptionHttpStatusCodeOptions> options) : IHttpExceptionStatusCodeFinder, ITransientDependency
 {
     protected ExceptionHttpStatusCodeOptions Options { get; } = options.Value;
