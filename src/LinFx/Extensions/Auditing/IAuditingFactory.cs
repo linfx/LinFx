@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace LinFx.Extensions.Auditing;
@@ -31,12 +29,7 @@ public interface IAuditingFactory
     /// <param name="method"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
-    AuditLogActionInfo CreateAuditLogAction(
-        AuditLogInfo auditLog,
-        Type type,
-        MethodInfo method,
-        object[] arguments
-    );
+    AuditLogActionInfo CreateAuditLogAction(AuditLogInfo auditLog, Type type, MethodInfo method, object[] arguments);
 
     /// <summary>
     /// 创建审计动作
@@ -46,10 +39,5 @@ public interface IAuditingFactory
     /// <param name="method"></param>
     /// <param name="arguments"></param>
     /// <returns></returns>
-    AuditLogActionInfo CreateAuditLogAction(
-        AuditLogInfo auditLog,
-        Type type,
-        MethodInfo method,
-        IDictionary<string, object> arguments
-    );
+    AuditLogActionInfo CreateAuditLogAction(AuditLogInfo auditLog, Type type, MethodInfo method, IDictionary<string, object> arguments);
 }

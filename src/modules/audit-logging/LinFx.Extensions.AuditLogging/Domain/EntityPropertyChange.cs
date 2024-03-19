@@ -1,8 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
-using System;
 
 namespace LinFx.Extensions.AuditLogging;
 
@@ -23,10 +21,7 @@ public class EntityPropertyChange : Entity<string>, IMultiTenant
 
     protected EntityPropertyChange() { }
 
-    public EntityPropertyChange(
-        string entityChangeId,
-        EntityPropertyChangeInfo entityChangeInfo,
-        string tenantId = null)
+    public EntityPropertyChange(string entityChangeId, EntityPropertyChangeInfo entityChangeInfo, string tenantId = null)
     {
         Id = IDUtils.NewIdString();
         TenantId = tenantId;

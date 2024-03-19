@@ -224,10 +224,7 @@ public class UnitOfWork(
 
     public virtual void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null) => AddOrReplaceEvent(DistributedEvents, eventRecord, replacementSelector);
 
-    public virtual void AddOrReplaceEvent(
-        List<UnitOfWorkEventRecord> eventRecords,
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null)
+    public virtual void AddOrReplaceEvent(List<UnitOfWorkEventRecord> eventRecords, UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null)
     {
         if (replacementSelector == null)
         {

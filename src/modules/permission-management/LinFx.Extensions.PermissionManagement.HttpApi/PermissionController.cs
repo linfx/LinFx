@@ -7,7 +7,7 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi;
 /// <summary>
 /// 权限管理
 /// </summary>
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/permission-management/permission")]
 public class PermissionController(PermissionService permissionService) : ControllerBase

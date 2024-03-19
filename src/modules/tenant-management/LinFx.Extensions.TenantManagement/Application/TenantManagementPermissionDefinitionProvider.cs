@@ -3,6 +3,10 @@ using Microsoft.Extensions.Localization;
 
 namespace LinFx.Extensions.TenantManagement;
 
+/// <summary>
+/// 定义租户管理权限
+/// </summary>
+/// <param name="localizer"></param>
 public class TenantManagementPermissionDefinitionProvider(IStringLocalizer<TenantManagementPermissionDefinitionProvider> localizer) : PermissionDefinitionProvider(localizer)
 {
     public override void Define(IPermissionDefinitionContext context)

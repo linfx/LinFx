@@ -68,10 +68,7 @@ public static class StringExtensions
     /// <summary>
     /// Converts line endings in the string to <see cref="Environment.NewLine"/>.
     /// </summary>
-    public static string NormalizeLineEndings(this string str)
-    {
-        return str.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
-    }
+    public static string NormalizeLineEndings(this string str) => str.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
 
     /// <summary>
     /// Gets index of nth occurrence of a char in a string.

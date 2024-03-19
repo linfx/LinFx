@@ -1,7 +1,4 @@
 ﻿using LinFx.Extensions.ObjectExtending;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace LinFx.Extensions.Auditing;
@@ -86,6 +83,9 @@ public class AuditLogInfo : IHasExtraProperties
     /// </summary>
     public int? HttpStatusCode { get; set; }
 
+    /// <summary>
+    /// 请求Url
+    /// </summary>
     public string Url { get; set; }
 
     /// <summary>
@@ -109,11 +109,11 @@ public class AuditLogInfo : IHasExtraProperties
 
     public AuditLogInfo()
     {
-        Actions = new List<AuditLogActionInfo>();
-        Exceptions = new List<Exception>();
-        ExtraProperties = new ExtraPropertyDictionary();
-        EntityChanges = new List<EntityChangeInfo>();
-        Comments = new List<string>();
+        Actions = [];
+        Exceptions = [];
+        ExtraProperties = [];
+        EntityChanges = [];
+        Comments = [];
     }
 
     public override string ToString()

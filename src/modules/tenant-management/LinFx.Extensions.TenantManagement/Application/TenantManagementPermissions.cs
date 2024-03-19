@@ -1,5 +1,8 @@
 ﻿namespace LinFx.Extensions.TenantManagement;
 
+/// <summary>
+/// 租户管理权限
+/// </summary>
 public static class TenantManagementPermissions
 {
     public const string GroupName = "TenantManagement";

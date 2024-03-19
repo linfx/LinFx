@@ -5,14 +5,11 @@ namespace LinFx.Extensions.Authorization.Permissions;
 /// <summary>
 /// 角色授权提供者
 /// </summary>
-public class RolePermissionValueProvider : PermissionValueProvider
+public class RolePermissionValueProvider(IPermissionStore permissionStore) : PermissionValueProvider(permissionStore)
 {
     public const string ProviderName = "R";
 
     public override string Name => ProviderName;
-
-    public RolePermissionValueProvider(IPermissionStore permissionStore)
-        : base(permissionStore) { }
 
     public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
     {

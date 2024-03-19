@@ -4,7 +4,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\LinFx.Extensions.EntityFrameworkCore\LinFx.Extensions.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\..\..\LinFx\LinFx.csproj" />
   </ItemGroup>
 
 </Project>

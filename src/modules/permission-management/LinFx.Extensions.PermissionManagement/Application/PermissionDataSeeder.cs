@@ -2,14 +2,9 @@
 
 namespace LinFx.Extensions.PermissionManagement;
 
-public class PermissionDataSeeder
+public class PermissionDataSeeder(PermissionService permissionGrantRepository)
 {
-    protected PermissionService PermissionGrantRepository { get; }
-
-    public PermissionDataSeeder(PermissionService permissionGrantRepository)
-    {
-        PermissionGrantRepository = permissionGrantRepository;
-    }
+    protected PermissionService PermissionGrantRepository { get; } = permissionGrantRepository;
 
     public async Task SeedAsync(string providerName, string providerKey, IEnumerable<string> grantedPermissions, string tenantId = default)
     {

@@ -13,7 +13,7 @@ public interface IPermissionDefinitionContext
     /// </summary>
     /// <param name="name">名称</param>
     /// <returns></returns>
-    PermissionGroupDefinition GetGroupOrNull(string name);
+    PermissionGroupDefinition? GetGroupOrNull(string name);
 
     /// <summary>
     /// 添加权限组
@@ -21,5 +21,5 @@ public interface IPermissionDefinitionContext
     /// <param name="name">名称</param>
     /// <param name="displayName">显示名称</param>
     /// <returns></returns>
-    PermissionGroupDefinition AddGroup([NotNull] string name, LocalizedString displayName = null);
+    PermissionGroupDefinition AddGroup([NotNull] string name, LocalizedString? displayName = null);
 }

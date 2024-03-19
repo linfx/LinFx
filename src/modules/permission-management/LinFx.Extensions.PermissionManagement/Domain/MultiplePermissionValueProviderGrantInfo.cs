@@ -9,14 +9,14 @@ public class MultiplePermissionValueProviderGrantInfo
 
     public MultiplePermissionValueProviderGrantInfo()
     {
-        Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
+        Result = [];
     }
 
     public MultiplePermissionValueProviderGrantInfo(string[] names)
     {
         Check.NotNull(names, nameof(names));
 
-        Result = new Dictionary<string, PermissionValueProviderGrantInfo>();
+        Result = [];
 
         foreach (var name in names)
         {

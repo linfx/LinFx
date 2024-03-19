@@ -14,8 +14,7 @@ public static class ObjectExtensions
     /// <typeparam name="T">Type to be casted</typeparam>
     /// <param name="obj">Object to cast</param>
     /// <returns>Casted object</returns>
-    public static T As<T>(this object obj)
-        where T : class => (T)obj;
+    public static T As<T>(this object obj) where T : class => (T)obj;
 
     /// <summary>
     /// Converts given object to a value type using <see cref="Convert.ChangeType(object,System.Type)"/> method.
@@ -23,8 +22,7 @@ public static class ObjectExtensions
     /// <param name="obj">Object to be converted</param>
     /// <typeparam name="T">Type of the target object</typeparam>
     /// <returns>Converted object</returns>
-    public static T To<T>(this object obj)
-        where T : struct
+    public static T To<T>(this object obj) where T : struct
     {
         if (typeof(T) == typeof(Guid))
         {

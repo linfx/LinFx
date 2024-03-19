@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Localization;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace LinFx.Extensions.Authorization.Permissions;
@@ -25,7 +24,7 @@ public class PermissionGroupDefinition
     /// <summary>
     /// 本地化名称。
     /// </summary>
-    public LocalizedString DisplayName { get; set; }
+    public LocalizedString? DisplayName { get; set; }
 
     /// <summary>
     /// 权限组下面的所属权限。
@@ -43,17 +42,17 @@ public class PermissionGroupDefinition
     /// </returns>
     public object this[string name]
     {
-        get => Properties.GetOrDefault(name);
+        get => Properties.GetOrDefault(name)!;
         set => Properties[name] = value;
     }
 
-    protected internal PermissionGroupDefinition(string name, LocalizedString displayName = null)
+    protected internal PermissionGroupDefinition(string name, LocalizedString? displayName = null)
     {
         Name = name;
         DisplayName = displayName;
 
-        Properties = new Dictionary<string, object>();
-        _permissions = new List<PermissionDefinition>();
+        Properties = [];
+        _permissions = [];
     }
 
     /// <summary>
@@ -62,7 +61,7 @@ public class PermissionGroupDefinition
     /// <param name="name"></param>
     /// <param name="displayName"></param>
     /// <returns></returns>
-    public virtual PermissionDefinition AddPermission(string name, LocalizedString displayName = null)
+    public virtual PermissionDefinition AddPermission(string name, LocalizedString? displayName = null)
     {
         var permission = new PermissionDefinition(name, displayName);
         _permissions.Add(permission);
@@ -96,8 +95,5 @@ public class PermissionGroupDefinition
         }
     }
 
-    public override string ToString()
-    {
-        return $"[{nameof(PermissionGroupDefinition)} {Name}]";
-    }
+    public override string ToString() => $"[{nameof(PermissionGroupDefinition)} {Name}]";
 }

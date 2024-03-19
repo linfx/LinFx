@@ -3,7 +3,7 @@
 public interface IMethodInvocationAuthorizationService
 {
     /// <summary>
-    /// 校验
+    /// 权限校验
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>

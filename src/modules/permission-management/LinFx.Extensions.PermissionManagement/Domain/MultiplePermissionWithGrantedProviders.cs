@@ -8,14 +8,14 @@ public class MultiplePermissionWithGrantedProviders
 
     public MultiplePermissionWithGrantedProviders()
     {
-        Result = new List<PermissionWithGrantedProviders>();
+        Result = [];
     }
 
     public MultiplePermissionWithGrantedProviders(string[] names)
     {
         Check.NotNull(names, nameof(names));
 
-        Result = new List<PermissionWithGrantedProviders>();
+        Result = [];
 
         foreach (var name in names)
         {

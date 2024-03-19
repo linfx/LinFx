@@ -14,15 +14,12 @@ namespace LinFx.Extensions.AuditLogging;
 [Service]
 public class AuditingStore(
     AuditLoggingDbContext dbContext,
-    IUnitOfWorkManager unitOfWorkManager,
     IOptions<AuditingOptions> options,
     IAuditLogInfoToAuditLogConverter converter) : IAuditingStore
 {
     public ILogger<AuditingStore> Logger { get; set; } = NullLogger<AuditingStore>.Instance;
 
     protected AuditLoggingDbContext AuditLoggingDbContext { get; } = dbContext;
-
-    protected IUnitOfWorkManager UnitOfWorkManager { get; } = unitOfWorkManager;
 
     protected AuditingOptions Options { get; } = options.Value;
 
@@ -49,8 +46,7 @@ public class AuditingStore(
 
     protected virtual async Task SaveLogAsync(AuditLogInfo auditInfo)
     {
-        using var uow = UnitOfWorkManager.Begin(true);
-        //await AuditLogRepository.Add(await Converter.ConvertAsync(auditInfo));
-        await uow.CompleteAsync();
+        AuditLoggingDbContext.Add(await Converter.ConvertAsync(auditInfo));
+        await AuditLoggingDbContext.SaveChangesAsync();
     }
 }

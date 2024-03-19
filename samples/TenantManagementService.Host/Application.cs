@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.TenantManagement;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.HttpApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -9,7 +9,7 @@ namespace TenantManagementService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(TenantManagementHttpApiModule)
+    typeof(TenantManagementModule)
 )]
 public class Application : Module
 {

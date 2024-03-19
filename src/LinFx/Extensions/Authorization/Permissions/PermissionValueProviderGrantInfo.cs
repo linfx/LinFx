@@ -6,9 +6,9 @@ public class PermissionValueProviderGrantInfo
 
     public virtual bool IsGranted { get; }
 
-    public virtual string ProviderKey { get; }
+    public virtual string? ProviderKey { get; }
 
-    public PermissionValueProviderGrantInfo(bool isGranted, string providerKey = default)
+    public PermissionValueProviderGrantInfo(bool isGranted, string? providerKey = default)
     {
         IsGranted = isGranted;
         ProviderKey = providerKey;

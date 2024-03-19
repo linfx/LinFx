@@ -50,7 +50,10 @@ public abstract class ApplicationBase : IApplication
         // 添加核心服务，主要是模块系统相关组件。
         services.AddCoreServices(this, options);
 
+        // 加载模块
         Modules = LoadModules(services, options);
+
+        // 配置
         ConfigureServices();
     }
 

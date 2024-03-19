@@ -9,26 +9,18 @@ using Microsoft.Extensions.Logging.Abstractions;
 namespace LinFx.Extensions.PermissionManagement;
 
 [Service]
-public class PermissionStore : IPermissionStore
+public class PermissionStore(
+    PermissionManagementDbContext db,
+    IDistributedCache<PermissionGrantCacheItem> cache,
+    IPermissionDefinitionManager permissionDefinitionManager) : IPermissionStore
 {
-    public ILogger<PermissionStore> Logger { get; set; }
+    public ILogger<PermissionStore> Logger { get; set; } = NullLogger<PermissionStore>.Instance;
 
-    protected PermissionManagementDbContext Db { get; }
+    protected PermissionManagementDbContext Db { get; } = db;
 
-    protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
+    protected IPermissionDefinitionManager PermissionDefinitionManager { get; } = permissionDefinitionManager;
 
-    protected IDistributedCache<PermissionGrantCacheItem> Cache { get; }
-
-    public PermissionStore(
-        PermissionManagementDbContext db,
-        IDistributedCache<PermissionGrantCacheItem> cache,
-        IPermissionDefinitionManager permissionDefinitionManager)
-    {
-        Db = db;
-        Cache = cache;
-        PermissionDefinitionManager = permissionDefinitionManager;
-        Logger = NullLogger<PermissionStore>.Instance;
-    }
+    protected IDistributedCache<PermissionGrantCacheItem> Cache { get; } = cache;
 
     public virtual async Task<bool> IsGrantedAsync(string name, string providerName, string providerKey) => (await GetCacheItemAsync(name, providerName, providerKey)).IsGranted;
 

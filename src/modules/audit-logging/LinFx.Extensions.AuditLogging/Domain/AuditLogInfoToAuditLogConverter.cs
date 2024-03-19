@@ -70,7 +70,6 @@ public class AuditLogInfoToAuditLogConverter(IExceptionToErrorInfoConverter exce
             exceptions,
             comments
         );
-
         return Task.FromResult(auditLog);
     }
 }

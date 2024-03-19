@@ -10,17 +10,18 @@ namespace LinFx.Extensions.Authorization.Permissions;
 /// </summary>
 public class PermissionDefinitionManager : IPermissionDefinitionManager, ISingletonDependency
 {
+    private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
+    private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
+
     /// <summary>
     /// 权限
     /// </summary>
     protected IDictionary<string, PermissionDefinition> PermissionDefinitions => _lazyPermissionDefinitions.Value;
-    private readonly Lazy<Dictionary<string, PermissionDefinition>> _lazyPermissionDefinitions;
 
     /// <summary>
     /// 权限组
     /// </summary>
     protected IDictionary<string, PermissionGroupDefinition> PermissionGroupDefinitions => _lazyPermissionGroupDefinitions.Value;
-    private readonly Lazy<Dictionary<string, PermissionGroupDefinition>> _lazyPermissionGroupDefinitions;
 
     protected PermissionOptions Options { get; }
 
@@ -87,7 +88,7 @@ public class PermissionDefinitionManager : IPermissionDefinitionManager, ISingle
         return permission;
     }
 
-    public virtual PermissionDefinition GetOrNull(string name)
+    public virtual PermissionDefinition? GetOrNull(string name)
     {
         if (name is null)
             throw new ArgumentNullException(nameof(name));

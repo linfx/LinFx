@@ -33,14 +33,8 @@ public class MethodInvocationAuthorizationService(
     {
         var attributes = methodInfo.GetCustomAttributes(true).OfType<IAuthorizeData>();
         if (methodInfo.IsPublic && methodInfo.DeclaringType != null)
-        {
-            attributes = attributes
-                .Union(
-                    methodInfo.DeclaringType
-                        .GetCustomAttributes(true)
-                        .OfType<IAuthorizeData>()
-                );
-        }
+            attributes = attributes.Union(methodInfo.DeclaringType.GetCustomAttributes(true).OfType<IAuthorizeData>());
+
         return attributes;
     }
 }

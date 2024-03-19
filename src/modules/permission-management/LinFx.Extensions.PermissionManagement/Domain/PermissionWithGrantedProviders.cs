@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.PermissionManagement;
 
@@ -13,8 +12,8 @@ public class PermissionWithGrantedProviders
 
     public PermissionWithGrantedProviders([NotNull] string name, bool isGranted)
     {
-        Name = name ?? throw new System.ArgumentNullException(nameof(name));
+        Name = name ?? throw new ArgumentNullException(nameof(name));
         IsGranted = isGranted;
-        Providers = new List<PermissionValueProviderInfo>();
+        Providers = [];
     }
 }

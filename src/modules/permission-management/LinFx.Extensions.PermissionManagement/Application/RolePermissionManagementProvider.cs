@@ -8,24 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LinFx.Extensions.PermissionManagement.Application;
 
 [Service(ServiceLifetime.Scoped)]
-public class RolePermissionManagementProvider : PermissionManagementProvider
+public class RolePermissionManagementProvider(
+    PermissionService permissionGrantRepository,
+    IGuidGenerator guidGenerator,
+    ICurrentTenant currentTenant,
+    IUserRoleFinder userRoleFinder) : PermissionManagementProvider(permissionGrantRepository, guidGenerator, currentTenant)
 {
     public override string Name => RolePermissionValueProvider.ProviderName;
 
-    protected IUserRoleFinder UserRoleFinder { get; }
-
-    public RolePermissionManagementProvider(
-        PermissionService permissionGrantRepository,
-        IGuidGenerator guidGenerator,
-        ICurrentTenant currentTenant,
-        IUserRoleFinder userRoleFinder)
-        : base(
-            permissionGrantRepository,
-            guidGenerator,
-            currentTenant)
-    {
-        UserRoleFinder = userRoleFinder;
-    }
+    protected IUserRoleFinder UserRoleFinder { get; } = userRoleFinder;
 
     public override async Task<PermissionValueProviderGrantInfo> CheckAsync(string name, string providerName, string providerKey)
     {

@@ -7,17 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LinFx.Extensions.PermissionManagement.Application;
 
 [Service(ServiceLifetime.Scoped)]
-public class UserPermissionManagementProvider : PermissionManagementProvider
+public class UserPermissionManagementProvider(
+    PermissionService permissionGrantRepository,
+    IGuidGenerator guidGenerator,
+    ICurrentTenant currentTenant) : PermissionManagementProvider(permissionGrantRepository, guidGenerator, currentTenant)
 {
     public override string Name => UserPermissionValueProvider.ProviderName;
-
-    public UserPermissionManagementProvider(
-        PermissionService permissionGrantRepository,
-        IGuidGenerator guidGenerator,
-        ICurrentTenant currentTenant)
-        : base(
-            permissionGrantRepository,
-            guidGenerator,
-            currentTenant)
-    { }
 }

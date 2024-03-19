@@ -9,10 +9,7 @@ public abstract class PermissionValueProvider : IPermissionValueProvider
 
     protected IPermissionStore PermissionStore { get; }
 
-    protected PermissionValueProvider(IPermissionStore permissionStore)
-    {
-        PermissionStore = permissionStore;
-    }
+    protected PermissionValueProvider(IPermissionStore permissionStore) => PermissionStore = permissionStore;
 
     public abstract Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context);
 }

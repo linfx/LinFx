@@ -1,5 +1,6 @@
 ﻿using LinFx.Application.Dtos;
 using LinFx.Application.Services;
+using LinFx.Domain.Entities;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +24,9 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
     public virtual async ValueTask<TenantDto> GetAsync(string id)
     {
         var item = await Db.Tenants.FindAsync(id);
+        if (item == null)
+            throw new EntityNotFoundException(typeof(Tenant));
+
         return item.MapTo<TenantDto>();
     }
 
