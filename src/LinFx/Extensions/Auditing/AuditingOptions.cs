@@ -19,7 +19,7 @@ public class AuditingOptions
     /// <summary>
     /// 启用或禁用审计系统的总开关(默认值: true)
     /// </summary>
-    public bool IsEnabled { get; set; } = true;
+    public bool IsEnabled { get; set; } = false;
 
     /// <summary>
     /// 如果有多个应用程序保存审计日志到单一的数据库,使用此属性设置为你的应用程序名称区分不同的应用程序日志.

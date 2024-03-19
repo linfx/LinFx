@@ -22,8 +22,6 @@ public class PermissionService : ApplicationService
 
     protected IGuidGenerator GuidGenerator { get; }
 
-    protected ICurrentTenant CurrentTenant { get; }
-
     protected IDistributedCache<PermissionGrantCacheItem> Cache { get; }
 
     private readonly Lazy<List<IPermissionManagementProvider>> _lazyProviders;
@@ -100,7 +98,7 @@ public class PermissionService : ApplicationService
             {
                 Name = x.Name,
                 DisplayName = x.DisplayName,
-                ParentName = x.Parent?.Name,
+                ParentName = x.Parent?.Name!,
                 AllowedProviders = x.Providers,
                 GrantedProviders = new List<ProviderInfoDto>()
             }).ToList();

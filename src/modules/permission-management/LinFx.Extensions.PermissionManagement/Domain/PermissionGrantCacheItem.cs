@@ -2,6 +2,9 @@
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限缓存
+/// </summary>
 [Serializable]
 public class PermissionGrantCacheItem
 {
@@ -15,7 +18,7 @@ public class PermissionGrantCacheItem
 
     public static string CalculateCacheKey(string name, string providerName, string providerKey) => string.Format(CacheKeyFormat, providerName, providerKey, name);
 
-    public static string GetPermissionNameFormCacheKeyOrNull(string cacheKey)
+    public static string? GetPermissionNameFormCacheKeyOrNull(string cacheKey)
     {
         var result = FormattedStringValueExtracter.Extract(cacheKey, CacheKeyFormat, true);
         return result.IsMatch ? result.Matches.Last().Value : null;

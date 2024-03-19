@@ -5,7 +5,7 @@
 	<PropertyGroup>
 		<IsAspNetCoreApp>true</IsAspNetCoreApp>
 		<IsPackable>false</IsPackable>
-		<IsTrimmable>true</IsTrimmable>
+		<IsTrimmable>false</IsTrimmable>
 	</PropertyGroup>
 
 	<ItemGroup>

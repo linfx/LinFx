@@ -23,22 +23,25 @@ builder.Logging.ClearProviders().AddSerilog();
 
 // Add services to the container.
 builder.Services
-    //.ReplaceConfiguration(builder.Configuration)
     .AddApplication<Application>();
+
+//builder.Services
+//    .AddProblemDetails()
+//    .AddExceptionHandler<ExceptionHandler>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
+if (app.Environment.IsStaging() || app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandling();
-
+// 异常处理程序中间件
+//app.UseExceptionHandler();
 //app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), config => config.UseJwtTokenMiddleware(JwtBearerDefaults.AuthenticationScheme));
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();

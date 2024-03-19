@@ -1,16 +1,19 @@
 ﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.TenantManagement.HttpApi;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(AspNetCoreMvcModule)
-//typeof(AuditLoggingModule),
-//typeof(AccountHttpApiModule),
-//typeof(PermissionManagementHttpApiModule)
+    typeof(AspNetCoreMvcModule),
+    //typeof(AspNetCoreMvcModule)
+    //typeof(AuditLoggingModule),
+    //typeof(AccountHttpApiModule),
+    typeof(PermissionManagementHttpApiModule)
 )]
 public class Application : Module
 {
@@ -44,6 +47,10 @@ public class Application : Module
         //{
         //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         //});
+
+        services
+            .AddAuthentication()
+            .AddJwtBearer();
 
         //services
         //    .AddIdentity<IdentityUser, IdentityRole>()

@@ -1,7 +1,6 @@
 ﻿using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.Logging;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Runtime.Serialization;
 
 namespace LinFx;

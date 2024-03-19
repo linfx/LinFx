@@ -1,3 +1,4 @@
+using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,8 @@ namespace LinFx.Extensions.AspNetCore.Mvc;
 /// </summary>
 [DependsOn(
     typeof(AspNetCoreModule),
-    typeof(UnitOfWorkModule)
-//typeof(LocalizationModule),
-//typeof(AbpApiVersioningAbstractionsModule),
-//typeof(AbpAspNetCoreMvcContractsModule),
-//typeof(AbpUiNavigationModule),
-//typeof(AbpGlobalFeaturesModule),
-//typeof(AbpDddApplicationModule)
+    typeof(UnitOfWorkModule),
+    typeof(AuditingModule)
 )]
 public class AspNetCoreMvcModule : Module
 {

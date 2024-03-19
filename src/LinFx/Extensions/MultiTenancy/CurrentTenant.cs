@@ -11,9 +11,9 @@ public class CurrentTenant : ICurrentTenant
 
     public virtual bool IsAvailable => !string.IsNullOrEmpty(Id);
 
-    public virtual string Id => _currentTenantIdAccessor.Current?.Id;
+    public virtual string Id => _currentTenantIdAccessor.Current?.Id!;
 
-    public string Name => _currentTenantIdAccessor.Current?.Name;
+    public string Name => _currentTenantIdAccessor.Current?.Name!;
 
     public IDisposable Change(string id, string name) => SetCurrent(id, name);
 

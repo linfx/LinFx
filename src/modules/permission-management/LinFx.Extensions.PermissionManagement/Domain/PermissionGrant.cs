@@ -12,7 +12,7 @@ public class PermissionGrant : Entity<long>, IMultiTenant
     /// 租户Id
     /// </summary>
     [StringLength(36)]
-    public virtual string TenantId { get; protected set; }
+    public virtual string? TenantId { get; protected set; }
 
     /// <summary>
     /// 名称
@@ -36,7 +36,7 @@ public class PermissionGrant : Entity<long>, IMultiTenant
 
     protected PermissionGrant() { }
 
-    public PermissionGrant(long id, string name, string providerName, string providerKey, string tenantId = default)
+    public PermissionGrant(long id, string name, string providerName, string providerKey, string? tenantId = default)
     {
         Id = id;
         Name = name ?? throw new ArgumentNullException(nameof(name));

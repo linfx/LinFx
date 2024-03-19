@@ -96,3 +96,5 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         return Task.CompletedTask;
     }
 }
+
+

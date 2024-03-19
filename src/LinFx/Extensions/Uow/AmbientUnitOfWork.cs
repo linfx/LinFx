@@ -17,10 +17,7 @@ public class AmbientUnitOfWork : IAmbientUnitOfWork
         _currentUow = new AsyncLocal<IUnitOfWork>();
     }
 
-    public void SetUnitOfWork(IUnitOfWork unitOfWork)
-    {
-        _currentUow.Value = unitOfWork;
-    }
+    public void SetUnitOfWork(IUnitOfWork unitOfWork) => _currentUow.Value = unitOfWork;
 
     public IUnitOfWork GetCurrentByChecking()
     {
@@ -32,6 +29,6 @@ public class AmbientUnitOfWork : IAmbientUnitOfWork
             uow = uow.Outer;
         }
 
-        return uow;
+        return uow!;
     }
 }

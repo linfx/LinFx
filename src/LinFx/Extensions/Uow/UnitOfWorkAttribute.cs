@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 
 namespace LinFx.Extensions.Uow;
 
@@ -37,9 +36,8 @@ public class UnitOfWorkAttribute : Attribute
     /// </summary>
     public bool IsDisabled { get; set; }
 
-    public UnitOfWorkAttribute()
-    {
-    }
+    public UnitOfWorkAttribute() 
+    { }
 
     public UnitOfWorkAttribute(bool isTransactional)
     {

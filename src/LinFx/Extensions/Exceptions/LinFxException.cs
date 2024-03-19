@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx;
+﻿namespace LinFx;
 
 public class LinFxException : Exception
 {

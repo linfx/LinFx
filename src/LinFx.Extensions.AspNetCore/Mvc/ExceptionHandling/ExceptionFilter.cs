@@ -79,6 +79,7 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
         logger?.Log(logLevel, remoteServiceErrorInfoBuilder.ToString());
         logger?.LogException(context.Exception, logLevel);
 
+        // 异常通知
         //await context.GetRequiredService<IExceptionNotifier>().NotifyAsync(new ExceptionNotificationContext(context.Exception));
 
         // 授权异常
@@ -88,11 +89,11 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
         }
         else
         {
-            //context.HttpContext.Response.Headers.Add(HttpConsts.ErrorFormat, "true");
             context.HttpContext.Response.StatusCode = (int)context.GetRequiredService<IHttpExceptionStatusCodeFinder>().GetStatusCode(context.HttpContext, context.Exception);
             context.Result = new ObjectResult(new RemoteServiceErrorResponse(remoteServiceErrorInfo));
         }
 
-        context.Exception = null; //Handled!
+        // Handled!
+        context.Exception = null; 
     }
 }

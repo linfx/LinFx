@@ -3,16 +3,10 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LinFx.Extensions.AspNetCore.Mvc.ModelBinding;
 
-public class DateTimeModelBinder : IModelBinder
+public class DateTimeModelBinder(IClock clock, DateTimeModelBinder dateTimeModelBinder) : IModelBinder
 {
-    private readonly DateTimeModelBinder _dateTimeModelBinder;
-    private readonly IClock _clock;
-
-    public DateTimeModelBinder(IClock clock, DateTimeModelBinder dateTimeModelBinder)
-    {
-        _clock = clock;
-        _dateTimeModelBinder = dateTimeModelBinder;
-    }
+    private readonly IClock _clock = clock;
+    private readonly DateTimeModelBinder _dateTimeModelBinder = dateTimeModelBinder;
 
     public async Task BindModelAsync(ModelBindingContext bindingContext)
     {
