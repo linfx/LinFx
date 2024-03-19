@@ -2,16 +2,9 @@
 
 namespace LinFx.Extensions.EventBus.Local;
 
-public class LocalEventErrorHandler : EventErrorHandlerBase
+public class LocalEventErrorHandler(IOptions<EventBusOptions> options) : EventErrorHandlerBase(options)
 {
-    protected Dictionary<Guid, int> RetryTracking { get; }
-
-    public LocalEventErrorHandler(
-        IOptions<EventBusOptions> options)
-        : base(options)
-    {
-        RetryTracking = new Dictionary<Guid, int>();
-    }
+    protected Dictionary<Guid, int> RetryTracking { get; } = new Dictionary<Guid, int>();
 
     protected override async Task RetryAsync(EventExecutionErrorContext context)
     {

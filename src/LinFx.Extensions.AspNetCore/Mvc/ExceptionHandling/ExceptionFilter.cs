@@ -16,10 +16,14 @@ using System.Text.Json;
 
 namespace LinFx.Extensions.AspNetCore.Mvc.ExceptionHandling;
 
+/// <summary>
+/// 异常过滤器
+/// </summary>
 public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
 {
     public async Task OnExceptionAsync(ExceptionContext context)
     {
+        // 是否捕获
         if (!ShouldHandleException(context))
             return;
 
@@ -27,15 +31,17 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
         await HandleAndWrapException(context);
     }
 
+    /// <summary>
+    /// 是否捕获异常
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     protected virtual bool ShouldHandleException(ExceptionContext context)
     {
         //TODO: Create DontWrap attribute to control wrapping..?
 
-        if (context.ActionDescriptor.IsControllerAction() &&
-            context.ActionDescriptor.HasObjectResult())
-        {
+        if (context.ActionDescriptor.IsControllerAction() && context.ActionDescriptor.HasObjectResult())
             return true;
-        }
 
         if (context.HttpContext.Request.CanAccept(MimeTypes.Application.Json))
             return true;
@@ -70,27 +76,24 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
         remoteServiceErrorInfoBuilder.AppendLine(JsonSerializer.Serialize(remoteServiceErrorInfo));
 
         var logger = context.GetService<ILogger<ExceptionFilter>>(NullLogger<ExceptionFilter>.Instance);
-        logger.Log(logLevel, remoteServiceErrorInfoBuilder.ToString());
-        logger.LogException(context.Exception, logLevel);
+        logger?.Log(logLevel, remoteServiceErrorInfoBuilder.ToString());
+        logger?.LogException(context.Exception, logLevel);
 
+        // 异常通知
         //await context.GetRequiredService<IExceptionNotifier>().NotifyAsync(new ExceptionNotificationContext(context.Exception));
 
+        // 授权异常
         if (context.Exception is AuthorizationException)
         {
-            await context.HttpContext.RequestServices
-                .GetRequiredService<IAuthorizationExceptionHandler>()
-                .HandleAsync(context.Exception.As<AuthorizationException>(), context.HttpContext);
+            await context.HttpContext.RequestServices.GetRequiredService<IAuthorizationExceptionHandler>().HandleAsync(context.Exception.As<AuthorizationException>(), context.HttpContext);
         }
         else
         {
-            //context.HttpContext.Response.Headers.Add(HttpConsts.ErrorFormat, "true");
-            context.HttpContext.Response.StatusCode = (int)context
-                .GetRequiredService<IHttpExceptionStatusCodeFinder>()
-                .GetStatusCode(context.HttpContext, context.Exception);
-
+            context.HttpContext.Response.StatusCode = (int)context.GetRequiredService<IHttpExceptionStatusCodeFinder>().GetStatusCode(context.HttpContext, context.Exception);
             context.Result = new ObjectResult(new RemoteServiceErrorResponse(remoteServiceErrorInfo));
         }
 
-        context.Exception = null; //Handled!
+        // Handled!
+        context.Exception = null; 
     }
 }

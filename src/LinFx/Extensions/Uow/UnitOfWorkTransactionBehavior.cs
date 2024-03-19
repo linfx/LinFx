@@ -1,11 +1,8 @@
-﻿namespace LinFx.Extensions.Uow
+﻿namespace LinFx.Extensions.Uow;
+
+public enum UnitOfWorkTransactionBehavior
 {
-    public enum UnitOfWorkTransactionBehavior
-    {
-        Auto,
-
-        Enabled,
-
-        Disabled
-    }
+    Auto,
+    Enabled,
+    Disabled
 }

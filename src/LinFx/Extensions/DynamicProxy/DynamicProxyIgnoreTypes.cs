@@ -24,9 +24,7 @@ public static class DynamicProxyIgnoreTypes
     {
         lock (IgnoredTypes)
         {
-            return includeDerivedTypes
-                ? IgnoredTypes.Any(t => t.IsAssignableFrom(type))
-                : IgnoredTypes.Contains(type);
+            return includeDerivedTypes ? IgnoredTypes.Any(t => t.IsAssignableFrom(type)) : IgnoredTypes.Contains(type);
         }
     }
 }

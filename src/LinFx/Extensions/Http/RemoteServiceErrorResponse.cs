@@ -1,11 +1,6 @@
 ﻿namespace LinFx.Extensions.Http;
 
-public class RemoteServiceErrorResponse
+public class RemoteServiceErrorResponse(RemoteServiceErrorInfo error)
 {
-    public RemoteServiceErrorInfo Error { get; set; }
-
-    public RemoteServiceErrorResponse(RemoteServiceErrorInfo error)
-    {
-        Error = error;
-    }
+    public RemoteServiceErrorInfo Error { get; set; } = error;
 }

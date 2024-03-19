@@ -1,9 +1,8 @@
-﻿namespace LinFx.Extensions.MultiTenancy
-{
-    public interface ITenantResolveContributor
-    {
-        string Name { get; }
+﻿namespace LinFx.Extensions.MultiTenancy;
 
-        void Resolve(ITenantResolveContext context);
-    }
+public interface ITenantResolveContributor
+{
+    string Name { get; }
+
+    void Resolve(ITenantResolveContext context);
 }

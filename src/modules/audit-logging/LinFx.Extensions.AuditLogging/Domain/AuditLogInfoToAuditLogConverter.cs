@@ -9,14 +9,9 @@ using System.Text.Json;
 namespace LinFx.Extensions.AuditLogging;
 
 [Service]
-public class AuditLogInfoToAuditLogConverter : IAuditLogInfoToAuditLogConverter
+public class AuditLogInfoToAuditLogConverter(IExceptionToErrorInfoConverter exceptionToErrorInfoConverter) : IAuditLogInfoToAuditLogConverter
 {
-    protected IExceptionToErrorInfoConverter ExceptionToErrorInfoConverter { get; }
-
-    public AuditLogInfoToAuditLogConverter(IExceptionToErrorInfoConverter exceptionToErrorInfoConverter)
-    {
-        ExceptionToErrorInfoConverter = exceptionToErrorInfoConverter;
-    }
+    protected IExceptionToErrorInfoConverter ExceptionToErrorInfoConverter { get; } = exceptionToErrorInfoConverter;
 
     public virtual Task<AuditLog> ConvertAsync(AuditLogInfo auditLogInfo)
     {

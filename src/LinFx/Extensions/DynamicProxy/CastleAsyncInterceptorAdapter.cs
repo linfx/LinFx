@@ -6,11 +6,9 @@ namespace LinFx.Extensions.DynamicProxy;
 /// 泛型适配器
 /// </summary>
 /// <typeparam name="TInterceptor"></typeparam>
-public class CastleAsyncInterceptorAdapter<TInterceptor> : AsyncInterceptorBase where TInterceptor : IInterceptor
+public class CastleAsyncInterceptorAdapter<TInterceptor>(TInterceptor interceptor) : AsyncInterceptorBase where TInterceptor : IInterceptor
 {
-    private readonly TInterceptor _interceptor;
-
-    public CastleAsyncInterceptorAdapter(TInterceptor interceptor) => _interceptor = interceptor;
+    private readonly TInterceptor _interceptor = interceptor;
 
     protected override Task InterceptAsync(IInvocation invocation, IInvocationProceedInfo proceedInfo, Func<IInvocation, IInvocationProceedInfo, Task> proceed) => _interceptor.InterceptAsync(new CastleMethodInvocationAdapter(invocation, proceedInfo, proceed));
 

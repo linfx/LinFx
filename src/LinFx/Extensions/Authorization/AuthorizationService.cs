@@ -11,26 +11,19 @@ namespace LinFx.Extensions.Authorization;
 /// The default implementation of an  <see cref="IAuthorizationService"/> .
 /// </summary>
 [Service(ReplaceServices = true)]
-public class AuthorizationService : DefaultAuthorizationService, IAuthorizationService
+public class AuthorizationService(
+    IAuthorizationPolicyProvider policyProvider,
+    IAuthorizationHandlerProvider handlers,
+    ILogger<AuthorizationService> logger,
+    IAuthorizationHandlerContextFactory contextFactory,
+    IAuthorizationEvaluator evaluator,
+    IOptions<AuthorizationOptions> options,
+    ICurrentPrincipalAccessor currentPrincipalAccessor,
+    IServiceProvider serviceProvider) : DefaultAuthorizationService(policyProvider, handlers, logger, contextFactory, evaluator, options), IAuthorizationService
 {
-    private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
+    private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor = currentPrincipalAccessor;
 
-    public AuthorizationService(
-        IAuthorizationPolicyProvider policyProvider,
-        IAuthorizationHandlerProvider handlers,
-        ILogger<AuthorizationService> logger,
-        IAuthorizationHandlerContextFactory contextFactory,
-        IAuthorizationEvaluator evaluator,
-        IOptions<AuthorizationOptions> options,
-        ICurrentPrincipalAccessor currentPrincipalAccessor,
-        IServiceProvider serviceProvider)
-        : base(policyProvider, handlers, logger, contextFactory, evaluator, options)
-    {
-        _currentPrincipalAccessor = currentPrincipalAccessor;
-        ServiceProvider = serviceProvider;
-    }
-
-    public IServiceProvider ServiceProvider { get; }
+    public IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     public ClaimsPrincipal CurrentPrincipal => _currentPrincipalAccessor.Principal;
 }

@@ -16,29 +16,20 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// 工作单元数据库上下文提供者
 /// </summary>
 /// <typeparam name="TDbContext"></typeparam>
-public class UnitOfWorkDbContextProvider<TDbContext> : IDbContextProvider<TDbContext> where TDbContext : DbContext
+public class UnitOfWorkDbContextProvider<TDbContext>(
+    IUnitOfWorkManager unitOfWorkManager,
+    IConnectionStringResolver connectionStringResolver,
+    ICancellationTokenProvider cancellationTokenProvider,
+    ICurrentTenant currentTenant,
+    IOptions<EfDbContextOptions> options) : IDbContextProvider<TDbContext> where TDbContext : DbContext
 {
     public ILogger<UnitOfWorkDbContextProvider<TDbContext>> Logger { get; set; } = NullLogger<UnitOfWorkDbContextProvider<TDbContext>>.Instance;
 
-    private readonly IUnitOfWorkManager _unitOfWorkManager;
-    private readonly IConnectionStringResolver _connectionStringResolver;
-    private readonly ICancellationTokenProvider _cancellationTokenProvider;
-    private readonly ICurrentTenant _currentTenant;
-    private readonly EfDbContextOptions _options;
-
-    public UnitOfWorkDbContextProvider(
-        IUnitOfWorkManager unitOfWorkManager,
-        IConnectionStringResolver connectionStringResolver,
-        ICancellationTokenProvider cancellationTokenProvider,
-        ICurrentTenant currentTenant,
-        IOptions<EfDbContextOptions> options)
-    {
-        _unitOfWorkManager = unitOfWorkManager;
-        _connectionStringResolver = connectionStringResolver;
-        _cancellationTokenProvider = cancellationTokenProvider;
-        _currentTenant = currentTenant;
-        _options = options.Value;
-    }
+    private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
+    private readonly IConnectionStringResolver _connectionStringResolver = connectionStringResolver;
+    private readonly ICancellationTokenProvider _cancellationTokenProvider = cancellationTokenProvider;
+    private readonly ICurrentTenant _currentTenant = currentTenant;
+    private readonly EfDbContextOptions _options = options.Value;
 
     /// <summary>
     /// 获取数据库上下文

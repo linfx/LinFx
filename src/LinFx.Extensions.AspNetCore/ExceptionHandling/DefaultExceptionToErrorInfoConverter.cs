@@ -13,24 +13,26 @@ using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
-public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter, ITransientDependency
+/// <summary>
+/// 默认异常转换
+/// </summary>
+/// <param name="localizationOptions"></param>
+/// <param name="stringLocalizerFactory"></param>
+/// <param name="stringLocalizer"></param>
+/// <param name="serviceProvider"></param>
+public class DefaultExceptionToErrorInfoConverter(
+    IOptions<ExceptionLocalizationOptions> localizationOptions,
+    IStringLocalizerFactory stringLocalizerFactory,
+    IStringLocalizer<ExceptionHandlingResource> stringLocalizer,
+    IServiceProvider serviceProvider) : IExceptionToErrorInfoConverter, ITransientDependency
 {
-    protected ExceptionLocalizationOptions LocalizationOptions { get; }
-    protected IStringLocalizerFactory StringLocalizerFactory { get; }
-    protected IStringLocalizer<ExceptionHandlingResource> L { get; }
-    protected IServiceProvider ServiceProvider { get; }
+    protected ExceptionLocalizationOptions LocalizationOptions { get; } = localizationOptions.Value;
 
-    public DefaultExceptionToErrorInfoConverter(
-        IOptions<ExceptionLocalizationOptions> localizationOptions,
-        IStringLocalizerFactory stringLocalizerFactory,
-        IStringLocalizer<ExceptionHandlingResource> stringLocalizer,
-        IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
-        StringLocalizerFactory = stringLocalizerFactory;
-        L = stringLocalizer;
-        LocalizationOptions = localizationOptions.Value;
-    }
+    protected IStringLocalizerFactory StringLocalizerFactory { get; } = stringLocalizerFactory;
+
+    protected IStringLocalizer<ExceptionHandlingResource> L { get; } = stringLocalizer;
+
+    protected IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     public RemoteServiceErrorInfo Convert(Exception exception, Action<ExceptionHandlingOptions>? options = null)
     {
@@ -45,6 +47,12 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         return errorInfo;
     }
 
+    /// <summary>
+    /// 创建错误信息
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
     protected virtual RemoteServiceErrorInfo CreateErrorInfoWithoutCode(Exception exception, ExceptionHandlingOptions options)
     {
         if (options.SendExceptionsDetailsToClients)
@@ -52,21 +60,24 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
         exception = TryToGetActualException(exception);
 
+        // 远程调用异常
         if (exception is RemoteCallException remoteCallException && remoteCallException.Error != null)
             return remoteCallException.Error;
 
+        // 数据库并发异常
         if (exception is DbConcurrencyException)
             return new RemoteServiceErrorInfo(L["DbConcurrencyErrorMessage"]);
 
+        // 实体找不到异常
         if (exception is EntityNotFoundException)
-            return CreateEntityNotFoundError(exception as EntityNotFoundException);
+            return CreateEntityNotFoundError((exception as EntityNotFoundException)!);
 
         var errorInfo = new RemoteServiceErrorInfo();
 
         if (exception is UserFriendlyException || exception is RemoteCallException)
         {
             errorInfo.Message = exception.Message;
-            errorInfo.Details = (exception as IHasErrorDetails)?.Details;
+            errorInfo.Details = (exception as IHasErrorDetails)?.Details!;
         }
 
         if (exception is IHasValidationErrors)
@@ -75,9 +86,9 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
                 errorInfo.Message = L["ValidationErrorMessage"];
 
             if (errorInfo.Details.IsNullOrEmpty())
-                errorInfo.Details = GetValidationErrorNarrative(exception as IHasValidationErrors);
+                errorInfo.Details = GetValidationErrorNarrative((exception as IHasValidationErrors)!);
 
-            errorInfo.ValidationErrors = GetValidationErrorInfos(exception as IHasValidationErrors);
+            errorInfo.ValidationErrors = GetValidationErrorInfos((exception as IHasValidationErrors)!);
         }
 
         TryToLocalizeExceptionMessage(exception, errorInfo);
@@ -102,11 +113,10 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         //    return;
         //}
 
-        if (!(exception is IHasErrorCode exceptionWithErrorCode))
+        if (exception is not IHasErrorCode exceptionWithErrorCode)
             return;
 
-        if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() ||
-            !exceptionWithErrorCode.Code.Contains(":"))
+        if (exceptionWithErrorCode.Code.IsNullOrWhiteSpace() || !exceptionWithErrorCode.Code.Contains(':'))
             return;
 
         var codeNamespace = exceptionWithErrorCode.Code.Split(':')[0];
@@ -133,18 +143,15 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         errorInfo.Message = localizedValue;
     }
 
+    /// <summary>
+    /// 创建实体找不到错误信息
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns></returns>
     protected virtual RemoteServiceErrorInfo CreateEntityNotFoundError(EntityNotFoundException exception)
     {
         if (exception.EntityType != null)
-        {
-            return new RemoteServiceErrorInfo(
-                string.Format(
-                    L["EntityNotFoundErrorMessage"],
-                    exception.EntityType.Name,
-                    exception.Id
-                )
-            );
-        }
+            return new RemoteServiceErrorInfo(string.Format(L["EntityNotFoundErrorMessage"], exception.EntityType.Name, exception.Id));
 
         return new RemoteServiceErrorInfo(exception.Message);
     }
@@ -249,7 +256,7 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
             validationErrorInfos.Add(validationError);
         }
 
-        return validationErrorInfos.ToArray();
+        return [.. validationErrorInfos];
     }
 
     protected virtual string GetValidationErrorNarrative(IHasValidationErrors validationException)
@@ -266,12 +273,9 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         return detailBuilder.ToString();
     }
 
-    protected virtual ExceptionHandlingOptions CreateDefaultOptions()
+    protected virtual ExceptionHandlingOptions CreateDefaultOptions() => new ExceptionHandlingOptions
     {
-        return new ExceptionHandlingOptions
-        {
-            SendExceptionsDetailsToClients = false,
-            SendStackTraceToClients = true
-        };
-    }
+        SendExceptionsDetailsToClients = false,
+        SendStackTraceToClients = true
+    };
 }

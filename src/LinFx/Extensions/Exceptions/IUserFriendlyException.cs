@@ -5,5 +5,4 @@ namespace LinFx;
 /// </summary>
 public interface IUserFriendlyException : IBusinessException
 {
-
 }

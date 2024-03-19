@@ -6,9 +6,7 @@ namespace LinFx.Collections;
 /// <summary>
 /// A shortcut for <see cref="TypeList{TBaseType}"/> to use object as base type.
 /// </summary>
-public class TypeList : TypeList<object>, ITypeList
-{
-}
+public class TypeList : TypeList<object>, ITypeList { }
 
 /// <summary>
 /// Extends <see cref="List{Type}"/> to add restriction a specific base type.
@@ -49,7 +47,7 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
     /// </summary>
     public TypeList()
     {
-        _typeList = new List<Type>();
+        _typeList = [];
     }
 
     /// <inheritdoc/>
@@ -58,9 +56,7 @@ public class TypeList<TBaseType> : ITypeList<TBaseType>
     public bool TryAdd<T>() where T : TBaseType
     {
         if (Contains<T>())
-        {
             return false;
-        }
 
         Add<T>();
         return true;

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
 [Service(ReplaceServices = true)]
-public class HttpContextTenantResolveResultAccessor : ITenantResolveResultAccessor, ITransientDependency
+public class HttpContextTenantResolveResultAccessor(IHttpContextAccessor httpContextAccessor) : ITenantResolveResultAccessor, ITransientDependency
 {
     public const string HttpContextItemName = "TenantResolveResult";
 
@@ -21,10 +21,5 @@ public class HttpContextTenantResolveResultAccessor : ITenantResolveResultAccess
         }
     }
 
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public HttpContextTenantResolveResultAccessor(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 }

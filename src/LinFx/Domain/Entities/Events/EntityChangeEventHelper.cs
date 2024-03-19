@@ -41,10 +41,7 @@ public class EntityChangeEventHelper : IEntityChangeEventHelper
         Logger = NullLogger<EntityChangeEventHelper>.Instance;
     }
 
-    public virtual void PublishEntityCreatingEvent(object entity)
-    {
-        TriggerEventWithEntity(LocalEventBus, typeof(EntityCreatedEventData<>), entity, entity);
-    }
+    public virtual void PublishEntityCreatingEvent(object entity) => TriggerEventWithEntity(LocalEventBus, typeof(EntityCreatedEventData<>), entity, entity);
 
     public virtual void PublishEntityCreatedEvent(object entity)
     {
@@ -69,10 +66,7 @@ public class EntityChangeEventHelper : IEntityChangeEventHelper
             );
     }
 
-    public virtual void PublishEntityUpdatingEvent(object entity)
-    {
-        TriggerEventWithEntity(LocalEventBus, typeof(EntityUpdatedEventData<>), entity, entity);
-    }
+    public virtual void PublishEntityUpdatingEvent(object entity) => TriggerEventWithEntity(LocalEventBus, typeof(EntityUpdatedEventData<>), entity, entity);
 
     public virtual void PublishEntityUpdatedEvent(object entity)
     {
@@ -93,10 +87,7 @@ public class EntityChangeEventHelper : IEntityChangeEventHelper
         }
     }
 
-    public virtual void PublishEntityDeletingEvent(object entity)
-    {
-        TriggerEventWithEntity(LocalEventBus, typeof(EntityDeletedEventData<>), entity, entity);
-    }
+    public virtual void PublishEntityDeletingEvent(object entity) => TriggerEventWithEntity(LocalEventBus, typeof(EntityDeletedEventData<>), entity, entity);
 
     public virtual void PublishEntityDeletedEvent(object entity)
     {

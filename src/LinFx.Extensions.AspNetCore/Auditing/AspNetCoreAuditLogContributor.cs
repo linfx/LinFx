@@ -9,12 +9,7 @@ namespace LinFx.Extensions.AspNetCore.Auditing;
 
 public class AspNetCoreAuditLogContributor : AuditLogContributor, ITransientDependency
 {
-    public ILogger<AspNetCoreAuditLogContributor> Logger { get; set; }
-
-    public AspNetCoreAuditLogContributor()
-    {
-        Logger = NullLogger<AspNetCoreAuditLogContributor>.Instance;
-    }
+    public ILogger<AspNetCoreAuditLogContributor> Logger { get; set; } = NullLogger<AspNetCoreAuditLogContributor>.Instance;
 
     public override void PreContribute(AuditLogContributionContext context)
     {

@@ -3,13 +3,8 @@ using Microsoft.Extensions.Localization;
 
 namespace LinFx.Extensions.TenantManagement;
 
-public class TenantManagementPermissionDefinitionProvider : PermissionDefinitionProvider
+public class TenantManagementPermissionDefinitionProvider(IStringLocalizer<TenantManagementPermissionDefinitionProvider> localizer) : PermissionDefinitionProvider(localizer)
 {
-    public TenantManagementPermissionDefinitionProvider(
-        IStringLocalizer<TenantManagementPermissionDefinitionProvider> localizer)
-        : base(localizer)
-    { }
-
     public override void Define(IPermissionDefinitionContext context)
     {
         var tenantManagementGroup = context.AddGroup(TenantManagementPermissions.GroupName, L("Permission:TenantManagement"));

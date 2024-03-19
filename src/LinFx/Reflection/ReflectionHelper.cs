@@ -16,22 +16,16 @@ public static class ReflectionHelper
         var givenTypeInfo = givenType.GetTypeInfo();
 
         if (givenTypeInfo.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
-        {
             return true;
-        }
 
         foreach (var interfaceType in givenTypeInfo.GetInterfaces())
         {
             if (interfaceType.GetTypeInfo().IsGenericType && interfaceType.GetGenericTypeDefinition() == genericType)
-            {
                 return true;
-            }
         }
 
         if (givenTypeInfo.BaseType == null)
-        {
             return false;
-        }
 
         return IsAssignableToGenericType(givenTypeInfo.BaseType, genericType);
     }
@@ -49,22 +43,16 @@ public static class ReflectionHelper
         var givenTypeInfo = givenType.GetTypeInfo();
 
         if (givenTypeInfo.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
-        {
             result.AddIfNotContains(givenType);
-        }
 
         foreach (var interfaceType in givenTypeInfo.GetInterfaces())
         {
             if (interfaceType.GetTypeInfo().IsGenericType && interfaceType.GetGenericTypeDefinition() == genericType)
-            {
                 result.AddIfNotContains(interfaceType);
-            }
         }
 
         if (givenTypeInfo.BaseType == null)
-        {
             return;
-        }
 
         AddImplementedGenericTypes(result, givenTypeInfo.BaseType, genericType);
     }
@@ -82,9 +70,7 @@ public static class ReflectionHelper
     {
         //Get attribute on the member
         if (memberInfo.IsDefined(typeof(TAttribute), inherit))
-        {
             return memberInfo.GetCustomAttributes(typeof(TAttribute), inherit).Cast<TAttribute>().First();
-        }
 
         return defaultValue;
     }

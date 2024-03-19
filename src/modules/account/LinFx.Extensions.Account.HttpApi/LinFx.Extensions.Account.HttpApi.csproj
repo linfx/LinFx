@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<Import Project="..\..\..\..\common.props" />
-
-  <ItemGroup>
-    <ProjectReference Include="..\LinFx.Extensions.Account\LinFx.Extensions.Account.csproj" />
-  </ItemGroup>
-
-</Project>

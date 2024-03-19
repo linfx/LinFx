@@ -2,5 +2,8 @@
 
 public class AuthorizationExceptionHandlerOptions
 {
-    public string AuthenticationScheme { get; set; }
+    /// <summary>
+    /// 认证方案
+    /// </summary>
+    public string? AuthenticationScheme { get; set; }
 }

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "LinFx.Extensions.AspNetCore.Authentication.Wechat": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62161;http://localhost:62162"
+    }
+  }
+}

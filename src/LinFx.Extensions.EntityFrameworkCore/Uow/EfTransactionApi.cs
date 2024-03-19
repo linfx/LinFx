@@ -8,26 +8,18 @@ namespace LinFx.Extensions.EntityFrameworkCore.Uow;
 /// <summary>
 /// 数据库事务
 /// </summary>
-public class EfTransactionApi : ITransactionApi, ISupportsRollback
+public class EfTransactionApi(
+    IDbContextTransaction dbContextTransaction,
+    DbContext starterDbContext,
+    ICancellationTokenProvider cancellationTokenProvider) : ITransactionApi, ISupportsRollback
 {
-    public IDbContextTransaction DbContextTransaction { get; }
+    public IDbContextTransaction DbContextTransaction { get; } = dbContextTransaction;
 
-    public DbContext StarterDbContext { get; }
+    public DbContext StarterDbContext { get; } = starterDbContext;
 
-    public List<DbContext> AttendedDbContexts { get; }
+    public List<DbContext> AttendedDbContexts { get; } = new List<DbContext>();
 
-    protected ICancellationTokenProvider CancellationTokenProvider { get; }
-
-    public EfTransactionApi(
-        IDbContextTransaction dbContextTransaction,
-        DbContext starterDbContext,
-        ICancellationTokenProvider cancellationTokenProvider)
-    {
-        DbContextTransaction = dbContextTransaction;
-        StarterDbContext = starterDbContext;
-        CancellationTokenProvider = cancellationTokenProvider;
-        AttendedDbContexts = new List<DbContext>();
-    }
+    protected ICancellationTokenProvider CancellationTokenProvider { get; } = cancellationTokenProvider;
 
     public async Task CommitAsync()
     {

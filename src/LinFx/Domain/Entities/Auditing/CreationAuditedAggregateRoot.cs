@@ -12,8 +12,8 @@ public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAud
     public virtual DateTimeOffset CreationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(32)]
-    public virtual string CreatorId { get; set; }
+    [StringLength(64)]
+    public virtual string? CreatorId { get; set; }
 }
 
 /// <summary>
@@ -26,6 +26,6 @@ public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, 
     public virtual DateTimeOffset CreationTime { get; set; }
 
     /// <inheritdoc />
-    [StringLength(32)]
-    public virtual string CreatorId { get; set; }
+    [StringLength(64)]
+    public virtual string? CreatorId { get; set; }
 }

@@ -1,8 +1,5 @@
 using LinFx.Extensions.Threading;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LinFx.Extensions.AspNetCore.Mvc;
 
@@ -12,12 +9,12 @@ public static class ActionResultHelper
 
     static ActionResultHelper()
     {
-        ObjectResultTypes = new List<Type>
-        {
+        ObjectResultTypes =
+        [
             typeof(JsonResult),
             typeof(ObjectResult),
             typeof(NoContentResult)
-        };
+        ];
     }
 
     public static bool IsObjectResult(Type returnType, params Type[] excludeTypes)

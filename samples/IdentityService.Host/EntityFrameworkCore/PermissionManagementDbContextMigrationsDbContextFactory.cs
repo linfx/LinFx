@@ -1,10 +1,8 @@
-﻿using System.IO;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
+﻿using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
-namespace TenantManagementService.EntityFrameworkCore;
+namespace IdentityService.EntityFrameworkCore;
 
 public class PermissionManagementDbContextMigrationsDbContextFactory : IDesignTimeDbContextFactory<PermissionManagementDbContext>
 {

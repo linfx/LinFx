@@ -11,6 +11,5 @@ public interface ILocalEventBus : IEventBus
     /// </summary>
     /// <typeparam name="TEvent">Event type</typeparam>
     /// <param name="handler">Object to handle the event</param>
-    IDisposable Subscribe<TEvent>(ILocalEventHandler<TEvent> handler)
-        where TEvent : class;
+    IDisposable Subscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class;
 }

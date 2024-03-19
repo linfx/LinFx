@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.Http;
+﻿namespace LinFx.Extensions.Http;
 
 /// <summary>
 /// Used to store information about a validation error.
@@ -21,9 +19,7 @@ public class RemoteServiceValidationErrorInfo
     /// <summary>
     /// Creates a new instance of <see cref="RemoteServiceValidationErrorInfo"/>.
     /// </summary>
-    public RemoteServiceValidationErrorInfo()
-    {
-    }
+    public RemoteServiceValidationErrorInfo() { }
 
     /// <summary>
     /// Creates a new instance of <see cref="RemoteServiceValidationErrorInfo"/>.

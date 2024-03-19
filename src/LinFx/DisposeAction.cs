@@ -4,16 +4,14 @@
 /// This class can be used to provide an action when
 /// Dipose method is called.
 /// </summary>
-public class DisposeAction : IDisposable
+/// <remarks>
+/// Creates a new <see cref="DisposeAction"/> object.
+/// </remarks>
+/// <param name="action">Action to be executed when this object is disposed.</param>
+public class DisposeAction(Action? action) : IDisposable
 {
-    private Action? _action;
+    private Action? _action = action;
     public static readonly DisposeAction Empty = new(default);
-
-    /// <summary>
-    /// Creates a new <see cref="DisposeAction"/> object.
-    /// </summary>
-    /// <param name="action">Action to be executed when this object is disposed.</param>
-    public DisposeAction(Action? action) => _action = action;
 
     public void Dispose()
     {

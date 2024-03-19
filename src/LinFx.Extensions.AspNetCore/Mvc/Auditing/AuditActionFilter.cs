@@ -59,7 +59,7 @@ public class AuditActionFilter : IAsyncActionFilter, ITransientDependency
     /// <param name="auditLog"></param>
     /// <param name="auditLogAction"></param>
     /// <returns></returns>
-    private bool ShouldSaveAudit(ActionExecutingContext context, out AuditLogInfo? auditLog, out AuditLogActionInfo? auditLogAction)
+    private static bool ShouldSaveAudit(ActionExecutingContext context, out AuditLogInfo? auditLog, out AuditLogActionInfo? auditLogAction)
     {
         auditLog = null;
         auditLogAction = null;

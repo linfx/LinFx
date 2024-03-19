@@ -1,21 +1,14 @@
-﻿using LinFx.Extensions.AspNetCore;
-using LinFx.Extensions.AuditLogging;
-using LinFx.Extensions.Autofac;
+﻿using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace TenantManagementService;
 
 [DependsOn(
     typeof(AutofacModule),
-    typeof(AuditLoggingModule),
-    typeof(AspNetCoreModule),
     typeof(TenantManagementHttpApiModule)
 )]
 public class Application : Module
@@ -32,33 +25,6 @@ public class Application : Module
         services.AddDbContext<TenantManagementDbContext>(options =>
         {
             options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        });
-    }
-
-    public override void Configure(IApplicationBuilder app, IHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseHsts();
-        }
-
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.UseSwagger();
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenant Management Service Api");
-        });
-        //app.UseAuditing();
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapDefaultControllerRoute();
         });
     }
 }

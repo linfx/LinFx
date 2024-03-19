@@ -4,18 +4,15 @@ using LinFx.Extensions.Uow;
 
 namespace LinFx.Extensions.EventBus;
 
-public class UnitOfWorkEventPublisher : IUnitOfWorkEventPublisher
+/// <summary>
+/// 领域事件发布器
+/// </summary>
+/// <param name="localEventBus"></param>
+/// <param name="distributedEventBus"></param>
+public class UnitOfWorkEventPublisher(ILocalEventBus localEventBus, IDistributedEventBus distributedEventBus) : IUnitOfWorkEventPublisher
 {
-    private readonly ILocalEventBus _localEventBus;
-    private readonly IDistributedEventBus _distributedEventBus;
-
-    public UnitOfWorkEventPublisher(
-        ILocalEventBus localEventBus,
-        IDistributedEventBus distributedEventBus)
-    {
-        _localEventBus = localEventBus;
-        _distributedEventBus = distributedEventBus;
-    }
+    private readonly ILocalEventBus _localEventBus = localEventBus;
+    private readonly IDistributedEventBus _distributedEventBus = distributedEventBus;
 
     public async Task PublishLocalEventsAsync(IEnumerable<UnitOfWorkEventRecord> localEvents)
     {

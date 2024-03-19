@@ -1,9 +1,11 @@
 ﻿using LinFx.Extensions.ExceptionHandling;
-using System;
 using System.Runtime.Serialization;
 
 namespace LinFx.Extensions.Http.Client;
 
+/// <summary>
+/// 远程调用异常
+/// </summary>
 [Serializable]
 public class RemoteCallException : Exception, IHasErrorCode, IHasHttpStatusCode
 {
@@ -15,22 +17,13 @@ public class RemoteCallException : Exception, IHasErrorCode, IHasHttpStatusCode
 
     public RemoteServiceErrorInfo Error { get; set; }
 
-    public RemoteCallException()
-    {
-    }
+    public RemoteCallException() { }
 
-    public RemoteCallException(string message, Exception innerException = null)
-        : base(message, innerException)
-    {
-    }
+    public RemoteCallException(string message, Exception innerException = null) : base(message, innerException) { }
 
-    public RemoteCallException(SerializationInfo serializationInfo, StreamingContext context)
-        : base(serializationInfo, context)
-    {
-    }
+    public RemoteCallException(SerializationInfo serializationInfo, StreamingContext context) : base(serializationInfo, context) { }
 
-    public RemoteCallException(RemoteServiceErrorInfo error, Exception innerException = null)
-        : base(error.Message, innerException)
+    public RemoteCallException(RemoteServiceErrorInfo error, Exception innerException = null) : base(error.Message, innerException)
     {
         Error = error;
 

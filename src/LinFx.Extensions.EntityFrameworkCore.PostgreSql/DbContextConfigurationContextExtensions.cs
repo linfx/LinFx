@@ -7,7 +7,7 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 
 public static class DbContextConfigurationContextExtensions
 {
-    public static DbContextOptionsBuilder UseNpgsql([NotNull] this DbContextConfigurationContext context, [CanBeNull] Action<NpgsqlDbContextOptionsBuilder> optionsAction = null)
+    public static DbContextOptionsBuilder UseNpgsql([NotNull] this DbContextConfigurationContext context, [CanBeNull] Action<NpgsqlDbContextOptionsBuilder>? optionsAction = null)
     {
         if (context.ExistingConnection != null)
         {

@@ -5,18 +5,15 @@ using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.AspNetCore.Uow;
 
-public class UnitOfWorkMiddleware : IMiddleware, ITransientDependency
+/// <summary>
+/// 工作单元中间件
+/// </summary>
+/// <param name="unitOfWorkManager"></param>
+/// <param name="options"></param>
+public class UnitOfWorkMiddleware(IUnitOfWorkManager unitOfWorkManager, IOptions<AspNetCoreUnitOfWorkOptions> options) : IMiddleware, ITransientDependency
 {
-    private readonly IUnitOfWorkManager _unitOfWorkManager;
-    private readonly AspNetCoreUnitOfWorkOptions _options;
-
-    public UnitOfWorkMiddleware(
-        IUnitOfWorkManager unitOfWorkManager,
-        IOptions<AspNetCoreUnitOfWorkOptions> options)
-    {
-        _unitOfWorkManager = unitOfWorkManager;
-        _options = options.Value;
-    }
+    private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
+    private readonly AspNetCoreUnitOfWorkOptions _options = options.Value;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

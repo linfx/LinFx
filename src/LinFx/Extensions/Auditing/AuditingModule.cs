@@ -18,13 +18,10 @@ namespace LinFx.Extensions.Auditing;
 )]
 public class AuditingModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
-        context.Services.OnRegistred(AuditingInterceptorRegistrar.RegisterIfNeeded);
-    }
-
     public override void ConfigureServices(IServiceCollection services)
     {
+        services.OnRegistred(AuditingInterceptorRegistrar.RegisterIfNeeded);
+
         services
             .AddSingleton<IAuditingStore, SimpleLogAuditingStore>()
             .AddTransient<IAuditingFactory, AuditingFactory>()

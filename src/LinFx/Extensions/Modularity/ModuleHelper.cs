@@ -15,8 +15,6 @@ class ModuleHelper
 
     public static List<Type> FindDependedModuleTypes(Type moduleType)
     {
-        //Module.CheckAbpModuleType(moduleType);
-
         var dependencies = new List<Type>();
 
         var dependencyDescriptors = moduleType
@@ -36,8 +34,6 @@ class ModuleHelper
 
     private static void AddModuleAndDependenciesRecursively(List<Type> moduleTypes, Type moduleType, ILogger logger, int depth = 0)
     {
-        //Module.CheckModuleType(moduleType);
-
         if (moduleTypes.Contains(moduleType))
             return;
 

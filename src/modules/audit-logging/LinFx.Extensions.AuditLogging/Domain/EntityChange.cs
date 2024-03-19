@@ -1,11 +1,7 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LinFx.Extensions.AuditLogging;
 
@@ -35,7 +31,7 @@ public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
 
     protected EntityChange()
     {
-        ExtraProperties = new ExtraPropertyDictionary();
+        ExtraProperties = [];
     }
 
     public EntityChange(
@@ -54,10 +50,9 @@ public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
         PropertyChanges = entityChangeInfo
                               .PropertyChanges?
                               .Select(p => new EntityPropertyChange(Id, p, tenantId))
-                              .ToList()
-                          ?? new List<EntityPropertyChange>();
+                              .ToList() ?? [];
 
-        ExtraProperties = new ExtraPropertyDictionary();
+        ExtraProperties = [];
         if (entityChangeInfo.ExtraProperties != null)
         {
             foreach (var pair in entityChangeInfo.ExtraProperties)

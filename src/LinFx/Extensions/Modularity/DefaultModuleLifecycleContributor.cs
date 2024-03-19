@@ -22,10 +22,6 @@ public class OnApplicationShutdownModuleLifecycleContributor : ModuleLifecycleCo
     }
 }
 
-public class OnPreApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
-{
-}
+public class OnPreApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase { }
 
-public class OnPostApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase
-{
-}
+public class OnPostApplicationInitializationModuleLifecycleContributor : ModuleLifecycleContributorBase { }

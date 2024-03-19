@@ -31,9 +31,7 @@ public static class EnumerableExtensions
     /// <param name="condition">A boolean value</param>
     /// <param name="predicate">Predicate to filter the enumerable</param>
     /// <returns>Filtered or not filtered enumerable based on <paramref name="condition"/></returns>
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, bool> predicate) => condition
-            ? source.Where(predicate)
-            : source;
+    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, bool> predicate) => condition ? source.Where(predicate) : source;
 
     /// <summary>
     /// Filters a <see cref="IEnumerable{T}"/> by given predicate if given condition is true.
@@ -42,7 +40,5 @@ public static class EnumerableExtensions
     /// <param name="condition">A boolean value</param>
     /// <param name="predicate">Predicate to filter the enumerable</param>
     /// <returns>Filtered or not filtered enumerable based on <paramref name="condition"/></returns>
-    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, int, bool> predicate) => condition
-            ? source.Where(predicate)
-            : source;
+    public static IEnumerable<T> WhereIf<T>(this IEnumerable<T> source, bool condition, Func<T, int, bool> predicate) => condition ? source.Where(predicate) : source;
 }

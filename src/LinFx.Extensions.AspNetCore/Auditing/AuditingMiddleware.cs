@@ -11,27 +11,22 @@ namespace LinFx.Extensions.AspNetCore.Auditing;
 /// <summary>
 /// 审计日志中间件
 /// </summary>
-public class AuditingMiddleware : IMiddleware, ITransientDependency
+public class AuditingMiddleware(
+    IAuditingManager auditingManager,
+    ICurrentUser currentUser,
+    IOptions<AuditingOptions> auditingOptions,
+    IOptions<AspNetCoreAuditingOptions> aspNetCoreAuditingOptions,
+    IUnitOfWorkManager unitOfWorkManager) : IMiddleware, ITransientDependency
 {
-    private readonly IAuditingManager _auditingManager;
-    protected AuditingOptions AuditingOptions { get; }
-    protected AspNetCoreAuditingOptions AspNetCoreAuditingOptions { get; }
-    protected ICurrentUser CurrentUser { get; }
-    protected IUnitOfWorkManager UnitOfWorkManager { get; }
+    private readonly IAuditingManager _auditingManager = auditingManager;
 
-    public AuditingMiddleware(
-        IAuditingManager auditingManager,
-        ICurrentUser currentUser,
-        IOptions<AuditingOptions> auditingOptions,
-        IOptions<AspNetCoreAuditingOptions> aspNetCoreAuditingOptions,
-        IUnitOfWorkManager unitOfWorkManager)
-    {
-        _auditingManager = auditingManager;
-        CurrentUser = currentUser;
-        UnitOfWorkManager = unitOfWorkManager;
-        AuditingOptions = auditingOptions.Value;
-        AspNetCoreAuditingOptions = aspNetCoreAuditingOptions.Value;
-    }
+    protected AuditingOptions AuditingOptions { get; } = auditingOptions.Value;
+
+    protected AspNetCoreAuditingOptions AspNetCoreAuditingOptions { get; } = aspNetCoreAuditingOptions.Value;
+
+    protected ICurrentUser CurrentUser { get; } = currentUser;
+
+    protected IUnitOfWorkManager UnitOfWorkManager { get; } = unitOfWorkManager;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -49,7 +44,7 @@ public class AuditingMiddleware : IMiddleware, ITransientDependency
         {
             await next(context);
 
-            if (_auditingManager.Current.Log.Exceptions.Any())
+            if (_auditingManager.Current.Log.Exceptions.Count != 0)
                 hasError = true;
         }
         catch (Exception ex)

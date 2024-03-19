@@ -6,26 +6,21 @@ namespace LinFx.Domain.Entities.Events;
 /// Used to pass data for an event that is related to with an <see cref="IEntity"/> object.
 /// </summary>
 /// <typeparam name="TEntity">Entity type</typeparam>
+/// <remarks>
+/// Constructor.
+/// </remarks>
+/// <param name="entity">Related entity with this event</param>
 [Serializable]
-public class EntityEventData<TEntity> : IEventDataWithInheritableGenericArgument, IEventDataMayHaveTenantId
+public class EntityEventData<TEntity>(TEntity entity) : IEventDataWithInheritableGenericArgument, IEventDataMayHaveTenantId
 {
     /// <summary>
     /// Related entity with this event.
     /// </summary>
-    public TEntity Entity { get; }
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="entity">Related entity with this event</param>
-    public EntityEventData(TEntity entity)
-    {
-        Entity = entity;
-    }
+    public TEntity Entity { get; } = entity;
 
     public virtual object[] GetConstructorArgs() => new object[] { Entity };
 
-    public virtual bool IsMultiTenant(out string tenantId)
+    public virtual bool IsMultiTenant(out string? tenantId)
     {
         if (Entity is IMultiTenant multiTenantEntity)
         {
@@ -33,7 +28,7 @@ public class EntityEventData<TEntity> : IEventDataWithInheritableGenericArgument
             return true;
         }
 
-        tenantId = null;
+        tenantId = default;
         return false;
     }
 }

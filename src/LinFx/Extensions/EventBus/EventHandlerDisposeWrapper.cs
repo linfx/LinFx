@@ -1,16 +1,10 @@
 namespace LinFx.Extensions.EventBus;
 
-public class EventHandlerDisposeWrapper : IEventHandlerDisposeWrapper
+public class EventHandlerDisposeWrapper(IEventHandler eventHandler, Action? disposeAction = default) : IEventHandlerDisposeWrapper
 {
-    public IEventHandler EventHandler { get; }
+    public IEventHandler EventHandler { get; } = eventHandler;
 
-    private readonly Action _disposeAction;
-
-    public EventHandlerDisposeWrapper(IEventHandler eventHandler, Action disposeAction = null)
-    {
-        _disposeAction = disposeAction;
-        EventHandler = eventHandler;
-    }
+    private readonly Action? _disposeAction = disposeAction;
 
     public void Dispose()
     {

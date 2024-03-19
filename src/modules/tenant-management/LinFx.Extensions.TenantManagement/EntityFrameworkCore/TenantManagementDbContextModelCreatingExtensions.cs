@@ -1,17 +1,13 @@
 using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using LinFx.Extensions.TenantManagement.Domain;
-using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
 public static class TenantManagementDbContextModelCreatingExtensions
 {
-    public static void ConfigureTenantManagement(
-        this ModelBuilder builder)
+    public static void ConfigureTenantManagement(this ModelBuilder builder)
     {
-        Check.NotNull(builder, nameof(builder));
-
         //if (builder.IsTenantOnlyDatabase())
         //{
         //    return;

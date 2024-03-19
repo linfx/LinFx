@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Extensions.AspNetCore.Uow;
+﻿namespace LinFx.Extensions.AspNetCore.Uow;
 
 public class AspNetCoreUnitOfWorkOptions
 {
@@ -10,5 +8,5 @@ public class AspNetCoreUnitOfWorkOptions
     /// <see cref="UnitOfWorkMiddleware"/> will be disabled for URLs
     /// starting with an ignored URL.  
     /// </summary>
-    public List<string> IgnoredUrls { get; } = new List<string>();
+    public List<string> IgnoredUrls { get; } = [];
 }

@@ -5,12 +5,7 @@ namespace LinFx.Extensions.Auditing;
 
 public class SimpleLogAuditingStore : IAuditingStore
 {
-    public ILogger Logger { get; set; }
-
-    public SimpleLogAuditingStore()
-    {
-        Logger = NullLogger<SimpleLogAuditingStore>.Instance;
-    }
+    public ILogger Logger { get; set; } = NullLogger<SimpleLogAuditingStore>.Instance;
 
     public Task SaveAsync(AuditLogInfo auditInfo)
     {

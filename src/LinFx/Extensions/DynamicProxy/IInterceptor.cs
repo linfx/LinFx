@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.DynamicProxy;
+﻿namespace LinFx.Extensions.DynamicProxy;
 
 /// <summary>
 /// 拦截器接口

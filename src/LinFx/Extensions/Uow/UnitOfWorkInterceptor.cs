@@ -3,22 +3,15 @@ using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Uow;
 
 /// <summary>
 /// 工作单元拦截器
 /// </summary>
-public class UnitOfWorkInterceptor : Interceptor, ITransientDependency
+public class UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor, ITransientDependency
 {
-    private readonly IServiceScopeFactory _serviceScopeFactory;
-
-    public UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory)
-    {
-        _serviceScopeFactory = serviceScopeFactory;
-    }
+    private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
 
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {

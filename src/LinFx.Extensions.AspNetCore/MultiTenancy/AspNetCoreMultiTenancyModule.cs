@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
 [DependsOn(
-    typeof(MultiTenancyModule),
-    typeof(AspNetCoreModule)
+    typeof(AspNetCoreModule),
+    typeof(MultiTenancyModule)
 )]
 public class AspNetCoreMultiTenancyModule : Module
 {

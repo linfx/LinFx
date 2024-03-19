@@ -2,12 +2,7 @@
 
 namespace LinFx.Extensions.Authorization;
 
-public class MethodInvocationAuthorizationContext
+public class MethodInvocationAuthorizationContext(MethodInfo method)
 {
-    public MethodInfo Method { get; }
-
-    public MethodInvocationAuthorizationContext(MethodInfo method)
-    {
-        Method = method;
-    }
+    public MethodInfo Method { get; } = method;
 }

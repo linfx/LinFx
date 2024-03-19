@@ -29,9 +29,7 @@ public static class AuthorizationInterceptorRegistrar
     /// <returns></returns>
     private static bool ShouldIntercept(Type type) => !DynamicProxyIgnoreTypes.Contains(type) && (type.IsDefined(typeof(AuthorizeAttribute), true) || AnyMethodHasAuthorizeAttribute(type));
 
-    private static bool AnyMethodHasAuthorizeAttribute(Type implementationType) => implementationType
-            .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-            .Any(HasAuthorizeAttribute);
+    private static bool AnyMethodHasAuthorizeAttribute(Type implementationType) => implementationType.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Any(HasAuthorizeAttribute);
 
     private static bool HasAuthorizeAttribute(MemberInfo methodInfo) => methodInfo.IsDefined(typeof(AuthorizeAttribute), true);
 }

@@ -6,7 +6,7 @@ public interface IApplicationWithInternalServiceProvider : IApplication
     /// Creates the service provider, but not initializes the modules.
     /// Multiple calls returns the same service provider without creating again.
     /// </summary>
-    IServiceProvider CreateServiceProvider();
+    void CreateServiceProvider();
 
     /// <summary>
     /// Creates the service provider and initializes all the modules.

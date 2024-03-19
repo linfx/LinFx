@@ -8,8 +8,7 @@ public abstract class Enumeration : IComparable
 
     public string Name { get; private set; }
 
-    protected Enumeration()
-    { }
+    protected Enumeration() { }
 
     protected Enumeration(int id, string name)
     {

@@ -1,30 +1,23 @@
-﻿using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.AspNetCore.Http;
+using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.ExceptionHandling;
+using LinFx.Extensions.Http;
 using LinFx.Security.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using System;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 
 /// <summary>
 /// 异常中间件
 /// </summary>
-public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
+public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) : IMiddleware, ITransientDependency
 {
-    private readonly ILogger _logger;
-
-    private readonly Func<object, Task> _clearCacheHeadersDelegate;
-
-    public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
-    {
-        _logger = logger;
-        _clearCacheHeadersDelegate = ClearCacheHeaders;
-    }
+    private readonly ILogger _logger = logger;
+    private readonly Func<object, Task> _clearCacheHeadersDelegate = ClearCacheHeaders;
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
@@ -43,7 +36,8 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
 
             if (context.Items["_ActionInfo"] is ActionInfoInHttpContext actionInfo)
             {
-                if (actionInfo.IsObjectResult) //TODO: Align with AbpExceptionFilter.ShouldHandleException!
+                // 异常包装
+                if (actionInfo.IsObjectResult) //TODO: Align with ExceptionFilter.ShouldHandleException!
                 {
                     await HandleAndWrapException(context, ex);
                     return;
@@ -55,61 +49,52 @@ public class ExceptionHandlingMiddleware : IMiddleware, ITransientDependency
     }
 
     /// <summary>
-    /// 异常处理
+    /// 异常包装
     /// </summary>
-    /// <param name="httpContext"></param>
+    /// <param name="context"></param>
     /// <param name="exception"></param>
     /// <returns></returns>
-    private async Task HandleAndWrapException(HttpContext httpContext, Exception exception)
+    private async Task HandleAndWrapException(HttpContext context, Exception exception)
     {
         _logger.LogException(exception);
 
-        //await httpContext
+        //await context
         //    .RequestServices
         //    .GetRequiredService<IExceptionNotifier>()
         //    .NotifyAsync(new ExceptionNotificationContext(exception));
 
+        // 授权异常
         if (exception is AuthorizationException)
         {
-            await httpContext.RequestServices
-                .GetRequiredService<IAuthorizationExceptionHandler>()
-                .HandleAsync(exception.As<AuthorizationException>(), httpContext);
+            await context.RequestServices.GetRequiredService<IAuthorizationExceptionHandler>().HandleAsync(exception.As<AuthorizationException>(), context);
         }
         else
         {
-            var errorInfoConverter = httpContext.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
-            var statusCodeFinder = httpContext.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
-            //var jsonSerializer = httpContext.RequestServices.GetRequiredService<IJsonSerializer>();
-            var exceptionHandlingOptions = httpContext.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
+            var errorInfoConverter = context.RequestServices.GetRequiredService<IExceptionToErrorInfoConverter>();
+            var statusCodeFinder = context.RequestServices.GetRequiredService<IHttpExceptionStatusCodeFinder>();
+            var exceptionHandlingOptions = context.RequestServices.GetRequiredService<IOptions<ExceptionHandlingOptions>>().Value;
 
-            httpContext.Response.Clear();
-            httpContext.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(httpContext, exception);
-            httpContext.Response.OnStarting(_clearCacheHeadersDelegate, httpContext.Response);
-            //httpContext.Response.Headers.Add(AbpHttpConsts.AbpErrorFormat, "true");
+            context.Response.Clear();
+            context.Response.StatusCode = (int)statusCodeFinder.GetStatusCode(context, exception);
+            context.Response.OnStarting(_clearCacheHeadersDelegate, context.Response);
 
-            //await httpContext.Response.WriteAsync(
-            //    jsonSerializer.Serialize(
-            //        new RemoteServiceErrorResponse(
-            //            errorInfoConverter.Convert(exception, options =>
-            //            {
-            //                options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
-            //                options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
-            //            })
-            //        )
-            //    )
-            //);
+            await context.Response.WriteAsJsonAsync(new RemoteServiceErrorResponse(errorInfoConverter.Convert(exception, options =>
+            {
+                options.SendExceptionsDetailsToClients = exceptionHandlingOptions.SendExceptionsDetailsToClients;
+                options.SendStackTraceToClients = exceptionHandlingOptions.SendStackTraceToClients;
+            })));
         }
     }
 
-    private Task ClearCacheHeaders(object state)
+    static Task ClearCacheHeaders(object state)
     {
         var response = (HttpResponse)state;
-
         response.Headers[HeaderNames.CacheControl] = "no-cache";
         response.Headers[HeaderNames.Pragma] = "no-cache";
         response.Headers[HeaderNames.Expires] = "-1";
         response.Headers.Remove(HeaderNames.ETag);
-
         return Task.CompletedTask;
     }
 }
+
+

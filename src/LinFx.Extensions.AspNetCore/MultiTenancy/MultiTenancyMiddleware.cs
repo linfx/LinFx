@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
+/// <summary>
+/// 多租户中间件
+/// </summary>
 public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
 {
     private readonly RequestDelegate _next;

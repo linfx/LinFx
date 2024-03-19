@@ -9,9 +9,7 @@ public partial class Result
 {
     public Result() { }
 
-    public Result(string message)
-     : this(200, message)
-    { }
+    public Result(string message) : this(200, message) { }
 
     public Result(int code, string message)
     {
@@ -32,8 +30,7 @@ public partial class Result
     public override bool Equals(object obj)
     {
         var other = obj as Result;
-        if (other == null) return false;
-        return other.Code == Code;
+        return other != null && other.Code == Code;
     }
 
     public override int GetHashCode() => Code.GetHashCode();
@@ -106,7 +103,7 @@ public partial class Result
     /// <returns></returns>
     public static Result Failed(ModelStateDictionary modelStates)
     {
-        IEnumerable<string> errors = null;
+        IEnumerable<string>? errors = null;
         if (modelStates != null && !modelStates.IsValid)
         {
             errors = from modelState in modelStates.Values
@@ -120,30 +117,19 @@ public partial class Result
     /// NotFound
     /// </summary>
     /// <returns></returns>
-    public static Result NotFound(string message = default)
+    public static Result NotFound(string? message = default)
     {
         message ??= "Not Found!";
-
         var result = new Result(404, message);
         return result;
     }
 }
 
-public class Result<TValue> : Result
+public class Result<TValue>(TValue value, int code, string message) : Result(code, message)
 {
-    public TValue Data { get; set; }
+    public TValue Data { get; set; } = value;
 
-    public Result(TValue value)
-        : this(value, 200, string.Empty)
-    { }
+    public Result(TValue value) : this(value, 200, string.Empty) { }
 
-    public Result(TValue value, string message)
-        : this(value, 200, message)
-    { }
-
-    public Result(TValue value, int code, string message)
-        : base(code, message)
-    {
-        Data = value;
-    }
+    public Result(TValue value, string message) : this(value, 200, message) { }
 }

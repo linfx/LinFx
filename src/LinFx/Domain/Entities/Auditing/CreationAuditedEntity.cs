@@ -10,11 +10,13 @@ namespace LinFx.Domain.Entities.Auditing;
 [Serializable]
 public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
 {
+    /// <inheritdoc />
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public virtual DateTimeOffset CreationTime { get; set; }
 
-    [StringLength(50)]
-    public virtual string? CreatorId { get; set; } = string.Empty;
+    /// <inheritdoc />
+    [StringLength(64)]
+    public virtual string? CreatorId { get; set; }
 }
 
 /// <summary>
@@ -24,9 +26,11 @@ public abstract class CreationAuditedEntity : Entity, ICreationAuditedObject
 [Serializable]
 public abstract class CreationAuditedEntity<TKey> : Entity<TKey>, ICreationAuditedObject
 {
+    /// <inheritdoc />
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.UtcNow;
 
-    [StringLength(50)]
-    public virtual string? CreatorId { get; set; } = string.Empty;
+    /// <inheritdoc />
+    [StringLength(64)]
+    public virtual string? CreatorId { get; set; }
 }

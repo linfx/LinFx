@@ -10,20 +10,17 @@ namespace LinFx.Extensions.Authorization;
 /// 授权模块
 /// </summary>
 [DependsOn(
-//typeof(AuthorizationAbstractionsModule),
 //typeof(SecurityModule),
 //typeof(LocalizationModule)
 )]
 public class AuthorizationModule : Module
 {
-    public override void PreConfigureServices(ServiceConfigurationContext context)
-    {
-        context.Services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
-        AutoAddDefinitionProviders(context.Services);
-    }
-
     public override void ConfigureServices(IServiceCollection services)
     {
+        // 授权拦截器注册
+        services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+        AutoAddDefinitionProviders(services);
+
         // 注册认证授权服务。
         services.AddAuthorizationCore();
 

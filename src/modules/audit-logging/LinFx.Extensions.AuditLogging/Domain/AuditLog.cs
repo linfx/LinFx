@@ -1,9 +1,6 @@
 ﻿using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
-using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectExtending;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.AuditLogging;
 

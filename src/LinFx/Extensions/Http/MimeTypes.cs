@@ -1,7 +1,4 @@
-﻿using LinFx.Utils;
-using System;
-
-namespace LinFx.Extensions.Http;
+﻿namespace LinFx.Extensions.Http;
 
 public static class MimeTypes
 {

@@ -1,8 +1,6 @@
-﻿using System.IO;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+﻿using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
 namespace TenantManagementService.EntityFrameworkCore;
 

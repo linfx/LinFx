@@ -3,18 +3,11 @@
 /// <summary>
 /// 本地事件消息
 /// </summary>
-public class LocalEventMessage
+public class LocalEventMessage(Guid messageId, object eventData, Type eventType)
 {
-    public Guid MessageId { get; }
+    public Guid MessageId { get; } = messageId;
 
-    public object EventData { get; }
+    public object EventData { get; } = eventData;
 
-    public Type EventType { get; }
-
-    public LocalEventMessage(Guid messageId, object eventData, Type eventType)
-    {
-        MessageId = messageId;
-        EventData = eventData;
-        EventType = eventType;
-    }
+    public Type EventType { get; } = eventType;
 }

@@ -22,7 +22,7 @@ public abstract class AggregateRoot : BasicAggregateRoot, IHasExtraProperties
     protected AggregateRoot()
     {
         ConcurrencyStamp = Guid.NewGuid().ToString("N");
-        ExtraProperties = new ExtraPropertyDictionary();
+        ExtraProperties = [];
         //this.SetDefaultsForExtraProperties();
     }
 

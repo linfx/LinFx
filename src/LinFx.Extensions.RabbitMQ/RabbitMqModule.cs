@@ -20,6 +20,13 @@ public class RabbitMqModule : Module
                 connectionFactory.DispatchConsumersAsync = true;
             }
         });
+
+        //    builder.Services
+        //.AddSingleton<IConnectionPool, ConnectionPool>()
+        //.AddSingleton<IChannelPool, ChannelPool>()
+        //.AddSingleton<IRabbitMqMessageConsumerFactory, RabbitMqMessageConsumerFactory>()
+        //.AddSingleton<IRabbitMqSerializer, RabbitMqSerializer>()
+        //.AddTransient<RabbitMqMessageConsumer>();
     }
 
     //public override void OnApplicationShutdown(ApplicationShutdownContext context)

@@ -1,5 +1,4 @@
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;

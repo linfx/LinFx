@@ -3,10 +3,11 @@ using System.Collections.ObjectModel;
 
 namespace LinFx.Domain.Entities;
 
+/// <summary>
+/// 聚合根
+/// </summary>
 [Serializable]
-public abstract class BasicAggregateRoot : Entity,
-    IAggregateRoot,
-    IGeneratesDomainEvents
+public abstract class BasicAggregateRoot : Entity, IAggregateRoot, IGeneratesDomainEvents
 {
     private readonly ICollection<DomainEventRecord> _distributedEvents = new Collection<DomainEventRecord>();
     private readonly ICollection<DomainEventRecord> _localEvents = new Collection<DomainEventRecord>();
@@ -24,19 +25,19 @@ public abstract class BasicAggregateRoot : Entity,
     protected virtual void AddDistributedEvent(object eventData) => _distributedEvents.Add(new DomainEventRecord(eventData, EventOrderGenerator.GetNext()));
 }
 
+/// <summary>
+/// 聚合根
+/// </summary>
+/// <typeparam name="TKey"></typeparam>
 [Serializable]
-public abstract class BasicAggregateRoot<TKey> : Entity<TKey>,
-    IAggregateRoot<TKey>,
-    IGeneratesDomainEvents
+public abstract class BasicAggregateRoot<TKey> : Entity<TKey>, IAggregateRoot<TKey>, IGeneratesDomainEvents
 {
     private readonly ICollection<DomainEventRecord> _distributedEvents = new Collection<DomainEventRecord>();
     private readonly ICollection<DomainEventRecord> _localEvents = new Collection<DomainEventRecord>();
 
     protected BasicAggregateRoot() { }
 
-    protected BasicAggregateRoot(TKey id)
-        : base(id)
-    { }
+    protected BasicAggregateRoot(TKey id) : base(id) { }
 
     /// <summary>
     /// 获得所有本地事件

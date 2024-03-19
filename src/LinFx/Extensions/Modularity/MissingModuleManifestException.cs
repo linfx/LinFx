@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace LinFx.Extensions.Modularity
+﻿namespace LinFx.Extensions.Modularity
 {
     public class MissingModuleManifestException : Exception
     {
-        public string ModuleName { get; }
+        public string ModuleName { get; } = string.Empty;
 
         public MissingModuleManifestException() { }
 

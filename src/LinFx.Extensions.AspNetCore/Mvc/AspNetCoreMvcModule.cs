@@ -1,17 +1,18 @@
+using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Modularity;
+using LinFx.Extensions.Uow;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.AspNetCore.Mvc;
 
+/// <summary>
+/// AspNetCoreMvcÄ£¿é
+/// </summary>
 [DependsOn(
-    typeof(AspNetCoreModule)
-    //typeof(LocalizationModule),
-    //typeof(AbpApiVersioningAbstractionsModule),
-    //typeof(AbpAspNetCoreMvcContractsModule),
-    //typeof(AbpUiNavigationModule),
-    //typeof(AbpGlobalFeaturesModule),
-    //typeof(AbpDddApplicationModule)
+    typeof(AspNetCoreModule),
+    typeof(UnitOfWorkModule),
+    typeof(AuditingModule)
 )]
 public class AspNetCoreMvcModule : Module
 {
@@ -159,10 +160,10 @@ public class AspNetCoreMvcModule : Module
     //    );
     //}
 
-    public override void OnApplicationInitialization(ApplicationInitializationContext context)
-    {
-        //AddApplicationParts(context);
-    }
+    //public override void OnApplicationInitialization(ApplicationInitializationContext context)
+    //{
+    //    AddApplicationParts(context);
+    //}
 
     //private static void AddApplicationParts(ApplicationInitializationContext context)
     //{

@@ -70,11 +70,7 @@ public static class AutofacRegistration
             throw new ArgumentNullException(nameof(services));
 
         builder.RegisterType<AutofacServiceProvider>().As<IServiceProvider>().ExternallyOwned();
-        var autofacServiceScopeFactory = typeof(AutofacServiceProvider).Assembly.GetType("Autofac.Extensions.DependencyInjection.AutofacServiceScopeFactory");
-        if (autofacServiceScopeFactory == null)
-        {
-            throw new Exception("Unable get type of Autofac.Extensions.DependencyInjection.AutofacServiceScopeFactory!");
-        }
+        var autofacServiceScopeFactory = typeof(AutofacServiceProvider).Assembly.GetType("Autofac.Extensions.DependencyInjection.AutofacServiceScopeFactory") ?? throw new Exception("Unable get type of Autofac.Extensions.DependencyInjection.AutofacServiceScopeFactory!");
         builder.RegisterType(autofacServiceScopeFactory).As<IServiceScopeFactory>();
 
         Register(builder, services, lifetimeScopeTagForSingletons);

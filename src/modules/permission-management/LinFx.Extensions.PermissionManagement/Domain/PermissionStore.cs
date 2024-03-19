@@ -192,14 +192,7 @@ public class PermissionStore : IPermissionStore
         return cacheItems;
     }
 
-    protected virtual string CalculateCacheKey(string name, string providerName, string providerKey)
-    {
-        return PermissionGrantCacheItem.CalculateCacheKey(name, providerName, providerKey);
-    }
+    protected virtual string CalculateCacheKey(string name, string providerName, string providerKey) => PermissionGrantCacheItem.CalculateCacheKey(name, providerName, providerKey);
 
-    protected virtual string GetPermissionNameFormCacheKeyOrNull(string key)
-    {
-        //TODO: throw ex when name is null?
-        return PermissionGrantCacheItem.GetPermissionNameFormCacheKeyOrNull(key);
-    }
+    protected virtual string? GetPermissionNameFormCacheKeyOrNull(string key) => PermissionGrantCacheItem.GetPermissionNameFormCacheKeyOrNull(key);
 }

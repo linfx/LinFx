@@ -7,28 +7,17 @@ namespace LinFx.Extensions.EventBus;
 /// <remarks>
 /// This class always gets the same single instance of handler.
 /// </remarks>
-public class SingleInstanceHandlerFactory : IEventHandlerFactory
+/// <param name="handler"></param>
+public class SingleInstanceHandlerFactory(IEventHandler handler) : IEventHandlerFactory
 {
     /// <summary>
     /// The event handler instance.
     /// </summary>
-    public IEventHandler HandlerInstance { get; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="handler"></param>
-    public SingleInstanceHandlerFactory(IEventHandler handler)
-    {
-        HandlerInstance = handler;
-    }
+    public IEventHandler HandlerInstance { get; } = handler;
 
     public IEventHandlerDisposeWrapper GetHandler() => new EventHandlerDisposeWrapper(HandlerInstance);
 
-    public bool IsInFactories(List<IEventHandlerFactory> handlerFactories)
-    {
-        return handlerFactories
+    public bool IsInFactories(List<IEventHandlerFactory> handlerFactories) => handlerFactories
             .OfType<SingleInstanceHandlerFactory>()
             .Any(f => f.HandlerInstance == HandlerInstance);
-    }
 }

@@ -15,10 +15,7 @@ public static class EfObjectExtensionPropertyInfoExtensions
     {
         Check.NotNull(propertyExtension, nameof(propertyExtension));
 
-        propertyExtension.Configuration[EfPropertyConfigurationName] =
-            new ObjectExtensionPropertyInfoEfMappingOptions(
-                propertyExtension
-            );
+        propertyExtension.Configuration[EfPropertyConfigurationName] = new ObjectExtensionPropertyInfoEfMappingOptions(propertyExtension);
 
         return propertyExtension;
     }
@@ -40,15 +37,12 @@ public static class EfObjectExtensionPropertyInfoExtensions
     }
 
     [CanBeNull]
-    public static ObjectExtensionPropertyInfoEfMappingOptions GetEfMappingOrNull(
+    public static ObjectExtensionPropertyInfoEfMappingOptions? GetEfMappingOrNull(
         [NotNull] this ObjectExtensionPropertyInfo propertyExtension)
     {
         Check.NotNull(propertyExtension, nameof(propertyExtension));
 
-        return propertyExtension
-                .Configuration
-                .GetOrDefault(EfPropertyConfigurationName)
-            as ObjectExtensionPropertyInfoEfMappingOptions;
+        return propertyExtension.Configuration.GetOrDefault(EfPropertyConfigurationName) as ObjectExtensionPropertyInfoEfMappingOptions;
     }
 
     public static bool IsMappedToFieldForEf(

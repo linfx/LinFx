@@ -44,7 +44,7 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// <summary>
     /// 当前租户ID
     /// </summary>
-    protected virtual string CurrentTenantId => CurrentTenant?.Id;
+    protected virtual string? CurrentTenantId => CurrentTenant?.Id;
 
     /// <summary>
     /// 是否启用租户过滤
@@ -111,9 +111,9 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// </summary>
     public ILogger Logger => LazyServiceProvider.LazyGetService<ILogger<EfDbContext>>(NullLogger<EfDbContext>.Instance);
 
-    private static readonly MethodInfo ConfigureBasePropertiesMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
-    private static readonly MethodInfo ConfigureValueConverterMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
-    private static readonly MethodInfo ConfigureValueGeneratedMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo? ConfigureBasePropertiesMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureBaseProperties), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo? ConfigureValueConverterMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueConverter), BindingFlags.Instance | BindingFlags.NonPublic);
+    private static readonly MethodInfo? ConfigureValueGeneratedMethodInfo = typeof(EfDbContext).GetMethod(nameof(ConfigureValueGenerated), BindingFlags.Instance | BindingFlags.NonPublic);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -679,4 +679,14 @@ public abstract class EfDbContext : DbContext, ITransientDependency
             return base.Visit(node);
         }
     }
+}
+
+/// <summary>
+/// 数据库上下文
+/// </summary>
+public class EfDbContext<TContext> : EfDbContext where TContext : DbContext
+{
+    protected EfDbContext() { }
+
+    public EfDbContext(DbContextOptions<TContext> options) : base(options) { }
 }

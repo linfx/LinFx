@@ -10,37 +10,27 @@ namespace LinFx.Extensions.EntityFrameworkCore;
 /// </summary>
 public class EfDbContextOptions
 {
-    internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = new List<Action<DbContextConfigurationContext>>();
+    internal List<Action<DbContextConfigurationContext>> DefaultPreConfigureActions { get; } = [];
 
-    internal Action<DbContextConfigurationContext> DefaultConfigureAction { get; set; }
+    internal Action<DbContextConfigurationContext>? DefaultConfigureAction { get; set; }
 
-    internal Dictionary<Type, List<object>> PreConfigureActions { get; } = new Dictionary<Type, List<object>>();
+    internal Dictionary<Type, List<object>> PreConfigureActions { get; } = [];
 
-    internal Dictionary<Type, object> ConfigureActions { get; } = new Dictionary<Type, object>();
+    internal Dictionary<Type, object> ConfigureActions { get; } = [];
 
-    internal Dictionary<Type, Type> DbContextReplacements { get; } = new Dictionary<Type, Type>();
+    internal Dictionary<Type, Type> DbContextReplacements { get; } = [];
 
     /// <summary>
     /// 预配置
     /// </summary>
     /// <param name="action"></param>
-    public void PreConfigure([NotNull] Action<DbContextConfigurationContext> action)
-    {
-        Check.NotNull(action, nameof(action));
-
-        DefaultPreConfigureActions.Add(action);
-    }
+    public void PreConfigure([NotNull] Action<DbContextConfigurationContext> action) => DefaultPreConfigureActions.Add(action);
 
     /// <summary>
     /// 配置
     /// </summary>
     /// <param name="action"></param>
-    public void Configure([NotNull] Action<DbContextConfigurationContext> action)
-    {
-        Check.NotNull(action, nameof(action));
-
-        DefaultConfigureAction = action;
-    }
+    public void Configure([NotNull] Action<DbContextConfigurationContext> action) => DefaultConfigureAction = action;
 
     /// <summary>
     /// 预配置
@@ -54,9 +44,7 @@ public class EfDbContextOptions
 
         var actions = PreConfigureActions.GetOrDefault(typeof(TDbContext));
         if (actions == null)
-        {
-            PreConfigureActions[typeof(TDbContext)] = actions = new List<object>();
-        }
+            PreConfigureActions[typeof(TDbContext)] = actions = [];
 
         actions.Add(action);
     }
@@ -66,13 +54,7 @@ public class EfDbContextOptions
     /// </summary>
     /// <typeparam name="TDbContext"></typeparam>
     /// <param name="action"></param>
-    public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action)
-        where TDbContext : DbContext
-    {
-        Check.NotNull(action, nameof(action));
-
-        ConfigureActions[typeof(TDbContext)] = action;
-    }
+    public void Configure<TDbContext>([NotNull] Action<DbContextConfigurationContext<TDbContext>> action) where TDbContext : DbContext => ConfigureActions[typeof(TDbContext)] = action;
 
     public bool IsConfiguredDefault() => DefaultConfigureAction != null;
 

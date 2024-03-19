@@ -1,14 +1,13 @@
-﻿using JetBrains.Annotations;
-using LinFx.Utils;
+﻿using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Modularity;
 
-public class ServiceConfigurationContext
+public class ServiceConfigurationContext(IServiceCollection services)
 {
-    public IServiceCollection Services { get; }
+    public IServiceCollection Services { get; } = Check.NotNull(services, nameof(services));
 
-    public IDictionary<string, object> Items { get; }
+    public IDictionary<string, object> Items { get; } = new Dictionary<string, object>();
 
     /// <summary>
     /// Gets/sets arbitrary named objects those can be stored during
@@ -23,11 +22,5 @@ public class ServiceConfigurationContext
     {
         get => Items.GetOrDefault(key);
         set => Items[key] = value;
-    }
-
-    public ServiceConfigurationContext([NotNull] IServiceCollection services)
-    {
-        Services = Check.NotNull(services, nameof(services));
-        Items = new Dictionary<string, object>();
     }
 }

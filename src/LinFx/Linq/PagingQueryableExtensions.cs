@@ -13,12 +13,7 @@ public static class PagingQueryableExtensions
     /// <param name="query"></param>
     /// <param name="request">分页请求</param>
     /// <returns></returns>
-    public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, IPagedResultRequest request)
-    {
-        Check.NotNull(query, nameof(request));
-
-        return PageBy(query, request.Page, request.PageSize);
-    }
+    public static IQueryable<T> PageBy<T>(this IQueryable<T> query, IPagedResultRequest request) => PageBy(query, request.Page, request.PageSize);
 
     /// <summary>
     /// Used for paging. Can be used as an alternative to Skip(...).Take(...) chaining.
@@ -28,7 +23,7 @@ public static class PagingQueryableExtensions
     /// <param name="page">页数(eg: 1)</param>
     /// <param name="limit">页大小</param>
     /// <returns></returns>
-    public static IQueryable<T> PageBy<T>([NotNull] this IQueryable<T> query, int page, int limit)
+    public static IQueryable<T> PageBy<T>(this IQueryable<T> query, int page, int limit)
     {
         Check.NotNull(query, nameof(query));
 
