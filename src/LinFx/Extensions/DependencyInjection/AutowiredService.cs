@@ -1,16 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace LinFx.Extensions.DependencyInjection;
 
-public class AutowiredService
+public class AutowiredService(IServiceProvider serviceProvider)
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public AutowiredService(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     public void Autowired(object service)
     {

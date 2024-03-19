@@ -1,9 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace LinFx.Extensions.DependencyInjection;
@@ -57,54 +54,36 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
     /// 获取Service特性注入的类
     /// </summary>
     /// <returns></returns>
-    protected virtual ServiceAttribute GetServiceAttributeOrNull(Type type)
-    {
-        return type.GetCustomAttribute<ServiceAttribute>(true);
-    }
+    protected virtual ServiceAttribute GetServiceAttributeOrNull(Type type) => type.GetCustomAttribute<ServiceAttribute>(true);
 
     /// <summary>
     /// 获取生命周期
     /// </summary>
     /// <returns></returns>
-    protected virtual ServiceLifetime? GetLifeTimeOrNull(Type type, [CanBeNull] ServiceAttribute serviceAttribute)
-    {
-        return serviceAttribute?.Lifetime ?? GetServiceLifetimeFromClassHierarchy(type) ?? GetDefaultLifeTimeOrNull(type);
-    }
+    protected virtual ServiceLifetime? GetLifeTimeOrNull(Type type, [CanBeNull] ServiceAttribute serviceAttribute) => serviceAttribute?.Lifetime ?? GetServiceLifetimeFromClassHierarchy(type) ?? GetDefaultLifeTimeOrNull(type);
 
     protected virtual ServiceLifetime? GetServiceLifetimeFromClassHierarchy(Type type)
     {
         if (typeof(ITransientDependency).GetTypeInfo().IsAssignableFrom(type))
-        {
             return ServiceLifetime.Transient;
-        }
 
         if (typeof(ISingletonDependency).GetTypeInfo().IsAssignableFrom(type))
-        {
             return ServiceLifetime.Singleton;
-        }
 
         if (typeof(IScopedDependency).GetTypeInfo().IsAssignableFrom(type))
-        {
             return ServiceLifetime.Scoped;
-        }
 
         return null;
     }
 
-    protected virtual ServiceLifetime? GetDefaultLifeTimeOrNull(Type type)
-    {
-        return null;
-    }
+    protected virtual ServiceLifetime? GetDefaultLifeTimeOrNull(Type type) => null;
 
     /// <summary>
     /// 获取服务类型列表
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    protected virtual List<Type> GetExposedServiceTypes(Type type)
-    {
-        return ExposedServiceExplorer.GetExposedServices(type);
-    }
+    protected virtual List<Type> GetExposedServiceTypes(Type type) => ExposedServiceExplorer.GetExposedServices(type);
 
     protected virtual ServiceDescriptor CreateServiceDescriptor(
         Type implementationType,
@@ -137,7 +116,7 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
         );
     }
 
-    protected virtual Type GetRedirectedTypeOrNull(Type implementationType, Type exposingServiceType, List<Type> allExposingServiceTypes)
+    protected virtual Type? GetRedirectedTypeOrNull(Type implementationType, Type exposingServiceType, List<Type> allExposingServiceTypes)
     {
         if (allExposingServiceTypes.Count < 2)
             return null;
@@ -150,5 +129,4 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
 
         return allExposingServiceTypes.FirstOrDefault(t => t != exposingServiceType && exposingServiceType.IsAssignableFrom(t));
     }
-
 }

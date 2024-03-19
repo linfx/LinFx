@@ -1,6 +1,4 @@
 ﻿using LinFx.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -26,10 +24,7 @@ public static class ServiceCollectionObjectAccessorExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services)
-    {
-        return services.AddObjectAccessor(new ObjectAccessor<T>());
-    }
+    public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services) => services.AddObjectAccessor(new ObjectAccessor<T>());
 
     /// <summary>
     /// 注册对象访问器
@@ -38,10 +33,7 @@ public static class ServiceCollectionObjectAccessorExtensions
     /// <param name="services"></param>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services, T obj)
-    {
-        return services.AddObjectAccessor(new ObjectAccessor<T>(obj));
-    }
+    public static ObjectAccessor<T> AddObjectAccessor<T>(this IServiceCollection services, T obj) => services.AddObjectAccessor(new ObjectAccessor<T>(obj));
 
     /// <summary>
     /// 注册对象访问器
@@ -65,15 +57,9 @@ public static class ServiceCollectionObjectAccessorExtensions
         return accessor;
     }
 
-    public static T GetObjectOrNull<T>(this IServiceCollection services)
-        where T : class
-    {
-        return services.GetSingletonInstanceOrNull<IObjectAccessor<T>>()?.Value;
-    }
+    public static T? GetObjectOrNull<T>(this IServiceCollection services)
+        where T : class => services.GetSingletonInstanceOrNull<IObjectAccessor<T>>()?.Value;
 
     public static T GetObject<T>(this IServiceCollection services)
-        where T : class
-    {
-        return services.GetObjectOrNull<T>() ?? throw new Exception($"Could not find an object of {typeof(T).AssemblyQualifiedName} in services. Be sure that you have used AddObjectAccessor before!");
-    }
+        where T : class => services.GetObjectOrNull<T>() ?? throw new Exception($"Could not find an object of {typeof(T).AssemblyQualifiedName} in services. Be sure that you have used AddObjectAccessor before!");
 }

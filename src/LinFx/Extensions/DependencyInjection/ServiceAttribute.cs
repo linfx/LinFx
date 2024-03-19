@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Extensions.DependencyInjection;
 
@@ -11,7 +10,7 @@ public class ServiceAttribute : Attribute
     /// <summary>
     /// 生命周期
     /// </summary>
-    public virtual ServiceLifetime? Lifetime { get; set; }
+    public virtual ServiceLifetime? Lifetime { get; set; } = ServiceLifetime.Transient;
 
     /// <summary>
     /// 设置true则只注册以前未注册的服务
@@ -23,10 +22,7 @@ public class ServiceAttribute : Attribute
     /// </summary>
     public virtual bool ReplaceServices { get; set; }
 
-    public ServiceAttribute()
-    {
-        Lifetime = ServiceLifetime.Transient;
-    }
+    public ServiceAttribute() { }
 
     public ServiceAttribute(ServiceLifetime lifetime) => Lifetime = lifetime;
 }

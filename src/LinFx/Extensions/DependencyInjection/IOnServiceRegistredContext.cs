@@ -1,6 +1,5 @@
 ﻿using LinFx.Collections;
 using LinFx.Extensions.DynamicProxy;
-using System;
 
 namespace LinFx.Extensions.DependencyInjection;
 

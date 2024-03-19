@@ -1,6 +1,4 @@
 ﻿using LinFx.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -13,10 +11,7 @@ public static class ServiceCollectionConventionalRegistrationExtensions
         return services;
     }
 
-    public static List<IConventionalRegistrar> GetConventionalRegistrars(this IServiceCollection services)
-    {
-        return GetOrCreateRegistrarList(services);
-    }
+    public static List<IConventionalRegistrar> GetConventionalRegistrars(this IServiceCollection services) => GetOrCreateRegistrarList(services);
 
     private static ConventionalRegistrarList GetOrCreateRegistrarList(IServiceCollection services)
     {
@@ -30,10 +25,7 @@ public static class ServiceCollectionConventionalRegistrationExtensions
         return conventionalRegistrars;
     }
 
-    public static IServiceCollection AddAssemblyOf<T>(this IServiceCollection services)
-    {
-        return services.AddAssembly(typeof(T).GetTypeInfo().Assembly);
-    }
+    public static IServiceCollection AddAssemblyOf<T>(this IServiceCollection services) => services.AddAssembly(typeof(T).GetTypeInfo().Assembly);
 
     public static IServiceCollection AddAssembly(this IServiceCollection services, Assembly assembly)
     {
@@ -55,10 +47,7 @@ public static class ServiceCollectionConventionalRegistrationExtensions
         return services;
     }
 
-    public static IServiceCollection AddType<TType>(this IServiceCollection services)
-    {
-        return services.AddType(typeof(TType));
-    }
+    public static IServiceCollection AddType<TType>(this IServiceCollection services) => services.AddType(typeof(TType));
 
     public static IServiceCollection AddType(this IServiceCollection services, Type type)
     {
