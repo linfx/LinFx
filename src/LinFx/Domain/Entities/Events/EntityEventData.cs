@@ -18,7 +18,7 @@ public class EntityEventData<TEntity>(TEntity entity) : IEventDataWithInheritabl
     /// </summary>
     public TEntity Entity { get; } = entity;
 
-    public virtual object[] GetConstructorArgs() => new object[] { Entity };
+    public virtual object[] GetConstructorArgs() => new object[] { Entity! };
 
     public virtual bool IsMultiTenant(out string? tenantId)
     {

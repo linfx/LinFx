@@ -9,7 +9,7 @@ public static class ServiceCollectionRegistrationActionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="registrationAction"></param>
-    public static void OnRegistred(this IServiceCollection services, Action<IOnServiceRegistredContext> registrationAction) => GetOrCreateRegistrationActionList(services).Add(registrationAction);
+    public static void OnRegistered(this IServiceCollection services, Action<IOnServiceRegistredContext> registrationAction) => GetOrCreateRegistrationActionList(services).Add(registrationAction);
 
     public static ServiceRegistrationActionList GetRegistrationActionList(this IServiceCollection services) => GetOrCreateRegistrationActionList(services);
 

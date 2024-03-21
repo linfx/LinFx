@@ -103,11 +103,7 @@ public class EntityChangeEventHelper : IEntityChangeEventHelper
         }
     }
 
-    protected virtual void TriggerEventWithEntity(
-        IEventBus eventPublisher,
-        Type genericEventType,
-        object entityOrEto,
-        object originalEntity)
+    protected virtual void TriggerEventWithEntity(IEventBus eventPublisher, Type genericEventType, object entityOrEto, object originalEntity)
     {
         var entityType = ProxyHelper.UnProxy(entityOrEto).GetType();
         var eventType = genericEventType.MakeGenericType(entityType);
@@ -122,31 +118,17 @@ public class EntityChangeEventHelper : IEntityChangeEventHelper
 
         var eventRecord = new UnitOfWorkEventRecord(eventType, eventData, EventOrderGenerator.GetNext())
         {
-            Properties =
-            {
-                { UnitOfWorkEventRecordEntityPropName, originalEntity },
-            }
+            Properties = { { UnitOfWorkEventRecordEntityPropName, originalEntity } }
         };
 
         /* We are trying to eliminate same events for the same entity.
          * In this way, for example, we don't trigger update event for an entity multiple times
          * even if it is updated multiple times in the current UOW.
          */
-
         if (eventPublisher == DistributedEventBus)
-        {
-            currentUow.AddOrReplaceDistributedEvent(
-                eventRecord,
-                otherRecord => IsSameEntityEventRecord(eventRecord, otherRecord)
-            );
-        }
+            currentUow.AddOrReplaceDistributedEvent(eventRecord, otherRecord => IsSameEntityEventRecord(eventRecord, otherRecord));
         else
-        {
-            currentUow.AddOrReplaceLocalEvent(
-                eventRecord,
-                otherRecord => IsSameEntityEventRecord(eventRecord, otherRecord)
-            );
-        }
+            currentUow.AddOrReplaceLocalEvent(eventRecord, otherRecord => IsSameEntityEventRecord(eventRecord, otherRecord));
     }
 
     public bool IsSameEntityEventRecord(UnitOfWorkEventRecord record1, UnitOfWorkEventRecord record2)

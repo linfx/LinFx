@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using JetBrains.Annotations;
+using LinFx;
 using LinFx.Extensions.Autofac;
-using LinFx.Utils;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +12,7 @@ public static class AutofacServiceCollectionExtensions
     {
         Check.NotNull(services, nameof(services));
 
-        var builder = services.GetObjectOrNull<ContainerBuilder>() 
+        var builder = services.GetObjectOrNull<ContainerBuilder>()
             ?? throw new Exception($"Could not find ContainerBuilder. Be sure that you have called {nameof(AutofacApplicationCreationOptionsExtensions.UseAutofac)} method before!");
 
         return builder;

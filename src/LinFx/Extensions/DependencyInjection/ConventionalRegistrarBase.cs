@@ -101,19 +101,11 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
 
             if (redirectedType != null)
             {
-                return ServiceDescriptor.Describe(
-                    exposingServiceType,
-                    provider => provider.GetService(redirectedType),
-                    lifeTime
-                );
+                return ServiceDescriptor.Describe(exposingServiceType, provider => provider.GetService(redirectedType), lifeTime);
             }
         }
 
-        return ServiceDescriptor.Describe(
-            exposingServiceType,
-            implementationType,
-            lifeTime
-        );
+        return ServiceDescriptor.Describe(exposingServiceType, implementationType, lifeTime);
     }
 
     protected virtual Type? GetRedirectedTypeOrNull(Type implementationType, Type exposingServiceType, List<Type> allExposingServiceTypes)

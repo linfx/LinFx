@@ -20,7 +20,7 @@ public class AuditingModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.OnRegistred(AuditingInterceptorRegistrar.RegisterIfNeeded);
+        services.OnRegistered(AuditingInterceptorRegistrar.RegisterIfNeeded);
 
         services
             .AddSingleton<IAuditingStore, SimpleLogAuditingStore>()

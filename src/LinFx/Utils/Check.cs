@@ -1,4 +1,4 @@
-﻿namespace LinFx.Utils;
+﻿namespace LinFx;
 
 /// <summary>
 /// Checks
@@ -13,7 +13,7 @@ public static class Check
         return value;
     }
 
-    internal static string NotNullOrWhiteSpace(string value, string paramName)
+    public static string NotNullOrWhiteSpace(string value, string paramName)
     {
         if (string.IsNullOrWhiteSpace(value))
             throw new ArgumentException(paramName + " can not be null or empty!", paramName);

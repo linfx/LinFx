@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using LinFx.Utils;
+using LinFx;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;

@@ -14,7 +14,7 @@ public class AuthorizationModule : Module
     public override void ConfigureServices(IServiceCollection services)
     {
         // 授权拦截器注册
-        services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+        services.OnRegistered(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
 
         // 注册提供者
         AutoAddDefinitionProviders(services);
@@ -57,7 +57,7 @@ public class AuthorizationModule : Module
     {
         var definitionProviders = new List<Type>();
 
-        services.OnRegistred(context =>
+        services.OnRegistered(context =>
         {
             if (typeof(IPermissionDefinitionProvider).IsAssignableFrom(context.ImplementationType))
             {

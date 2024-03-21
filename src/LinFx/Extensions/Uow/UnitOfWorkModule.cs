@@ -10,6 +10,6 @@ public class UnitOfWorkModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        services.OnRegistred(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
+        services.OnRegistered(UnitOfWorkInterceptorRegistrar.RegisterIfNeeded);
     }
 }

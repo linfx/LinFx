@@ -1,8 +1,7 @@
 ﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using LinFx.Extensions.PermissionManagement;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
@@ -10,10 +9,10 @@ namespace IdentityService;
 [DependsOn(
     typeof(AutofacModule),
     typeof(AspNetCoreMvcModule),
-    //typeof(AspNetCoreMvcModule)
+    typeof(FeatureManagementModule)
     //typeof(AuditLoggingModule),
     //typeof(AccountHttpApiModule),
-    typeof(PermissionManagementHttpApiModule)
+    //typeof(PermissionManagementHttpApiModule)
 )]
 public class Application : Module
 {
@@ -22,11 +21,17 @@ public class Application : Module
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
+            //options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenant Management Service Api", Version = "v1" });
             options.DocInclusionPredicate((docName, description) => true);
             options.CustomSchemaIds(type => type.FullName);
         });
 
         services.AddControllers();
+
+        //services.AddDbContext<TenantManagementDbContext>(options =>
+        //{
+        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+        //});
 
         //services.AddDbContext<ApplicationDbContext>(options =>
         //{
