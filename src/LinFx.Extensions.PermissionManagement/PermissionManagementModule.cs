@@ -29,7 +29,5 @@ public class PermissionManagementModule : Module
             options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
             options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
         });
-
-        services.AddDistributedMemoryCache();
     }
 }

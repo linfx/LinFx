@@ -1,19 +1,19 @@
-﻿using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+﻿using LinFx.Extensions.FeatureManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace IdentityService.EntityFrameworkCore;
 
-public class TenantManagementMigrationsDbContextFactory : IDesignTimeDbContextFactory<TenantManagementDbContext>
+public class FeatureManagementMigrationsDbContextFactory : IDesignTimeDbContextFactory<FeatureManagementDbContext>
 {
-    public TenantManagementDbContext CreateDbContext(string[] args)
+    public FeatureManagementDbContext CreateDbContext(string[] args)
     {
         var configuration = BuildConfiguration();
 
-        var builder = new DbContextOptionsBuilder<TenantManagementDbContext>()
+        var builder = new DbContextOptionsBuilder<FeatureManagementDbContext>()
             .UseSqlite(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly(GetType().Assembly.FullName));
 
-        return new TenantManagementDbContext(builder.Options);
+        return new FeatureManagementDbContext(builder.Options);
     }
 
     private static IConfigurationRoot BuildConfiguration()

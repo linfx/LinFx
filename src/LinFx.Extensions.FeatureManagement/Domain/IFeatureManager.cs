@@ -11,6 +11,14 @@ public interface IFeatureManager
 
     Task<List<FeatureNameValue>> GetAllAsync([NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
 
+    /// <summary>
+    /// 获取特征值
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="fallback"></param>
+    /// <returns></returns>
     Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync([NotNull] string name, [NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
 
     Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync([NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);

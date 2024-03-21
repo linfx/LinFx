@@ -1,17 +1,12 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.EntityFrameworkCore.Modeling;
-using LinFx.Extensions.PermissionManagement.Domain;
-using LinFx.Utils;
+﻿using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 
 public static class PermissionManagementDbContextModelBuilderExtensions
 {
-    public static void ConfigurePermissionManagement([NotNull] this ModelBuilder builder)
+    public static void ConfigurePermissionManagement(this ModelBuilder builder)
     {
-        Check.NotNull(builder, nameof(builder));
-
         builder.Entity<PermissionGrant>(b =>
         {
             b.ToTable(PermissionManagementDbProperties.DbTablePrefix + "PermissionGrants", PermissionManagementDbProperties.DbSchema);

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Extensions.FeatureManagement;
+﻿namespace LinFx.Extensions.FeatureManagement;
 
 /// <summary>
 /// 特征组
@@ -13,8 +11,5 @@ public class FeatureGroupDto
 
     public List<FeatureDto> Features { get; set; }
 
-    public string GetNormalizedGroupName()
-    {
-        return Name.Replace(".", "_");
-    }
+    public string GetNormalizedGroupName() => Name.Replace(".", "_");
 }

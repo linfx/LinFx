@@ -11,7 +11,7 @@ public class PermissionManagementDbContextMigrationsDbContextFactory : IDesignTi
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<PermissionManagementDbContext>()
-            .UseSqlite(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("IdentityService.Host"));
+            .UseSqlite(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly(GetType().Assembly.FullName));
 
         return new PermissionManagementDbContext(builder.Options);
     }

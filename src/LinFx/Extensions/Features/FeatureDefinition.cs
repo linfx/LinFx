@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Immutable;
 
 namespace LinFx.Extensions.Features;
@@ -15,7 +15,7 @@ public class FeatureDefinition
     /// </summary>
     public string Name { get; } = string.Empty;
 
-    public LocalizableString DisplayName { get; set; }
+    public LocalizedString DisplayName { get; set; }
 
     /// <summary>
     /// Default value of the feature.
@@ -25,7 +25,7 @@ public class FeatureDefinition
     /// <summary>
     /// 描述
     /// </summary>
-    public LocalizableString? Description { get; set; }
+    public LocalizedString? Description { get; set; }
 
     /// <summary>
     /// Parent of this feature, if one exists.
@@ -60,15 +60,15 @@ public class FeatureDefinition
     public FeatureDefinition(
         string name,
         string? defaultValue = null,
-        LocalizableString? displayName = null,
-        LocalizableString? description = null,
+        LocalizedString? displayName = null,
+        LocalizedString? description = null,
         //IStringValueType? valueType = null,
         bool isVisibleToClients = true,
         bool isAvailableToHost = true)
     {
         Name = Check.NotNullOrWhiteSpace(name, nameof(name));
         DefaultValue = defaultValue;
-        DisplayName = displayName ?? name;
+        DisplayName = displayName;
         Description = description;
         //ValueType = valueType ?? new ToggleStringValueType();
         //IsVisibleToClients = isVisibleToClients;

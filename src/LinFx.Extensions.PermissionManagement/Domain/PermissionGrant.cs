@@ -19,20 +19,20 @@ public class PermissionGrant : Entity<long>, IMultiTenant
     /// </summary>
     [Required]
     [StringLength(64)]
-    public virtual string Name { get; protected set; }
+    public virtual string Name { get; protected set; } = string.Empty;
 
     /// <summary>
     /// 权限提供器
     /// </summary>
     [Required]
     [StringLength(64)]
-    public virtual string ProviderName { get; protected set; }
+    public virtual string ProviderName { get; protected set; } = string.Empty;
 
     /// <summary>
     /// 关键值
     /// </summary>
     [StringLength(64)]
-    public virtual string ProviderKey { get; protected internal set; }
+    public virtual string ProviderKey { get; protected internal set; } = string.Empty;
 
     protected PermissionGrant() { }
 

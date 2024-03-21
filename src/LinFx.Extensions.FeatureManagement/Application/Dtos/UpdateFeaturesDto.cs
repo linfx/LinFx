@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace LinFx.Extensions.FeatureManagement;
+﻿namespace LinFx.Extensions.FeatureManagement;
 
 public class UpdateFeaturesDto
 {
-    public List<UpdateFeatureDto> Features { get; set; }
+    public required List<UpdateFeatureDto> Features { get; set; }
 }

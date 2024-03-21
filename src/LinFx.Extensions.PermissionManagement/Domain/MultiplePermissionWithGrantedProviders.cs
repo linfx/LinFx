@@ -1,6 +1,4 @@
-﻿using LinFx.Utils;
-
-namespace LinFx.Extensions.PermissionManagement;
+﻿namespace LinFx.Extensions.PermissionManagement;
 
 public class MultiplePermissionWithGrantedProviders
 {

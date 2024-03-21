@@ -1,7 +1,6 @@
 ﻿using LinFx.Extensions.FeatureManagement.Application;
 using LinFx.Extensions.FeatureManagement.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Volo.Abp.FeatureManagement;
 
 namespace LinFx.Extensions.FeatureManagement.HttpApi;
 

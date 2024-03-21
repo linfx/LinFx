@@ -3,7 +3,7 @@
 [Serializable]
 public class FeatureNameValueWithGrantedProvider : NameValue
 {
-    public required FeatureValueProviderInfo Provider { get; set; }
+    public FeatureValueProviderInfo Provider { get; set; }
 
     public FeatureNameValueWithGrantedProvider(string name, string value)
     {

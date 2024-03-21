@@ -23,10 +23,7 @@ public class FeatureService(
     {
         //await CheckProviderPolicy(providerName, providerKey);
 
-        var result = new GetFeatureListResultDto
-        {
-            Groups = []
-        };
+        var result = new GetFeatureListResultDto();
 
         foreach (var group in await FeatureDefinitionManager.GetGroupsAsync())
         {
@@ -60,33 +57,28 @@ public class FeatureService(
     private static FeatureGroupDto CreateFeatureGroupDto(FeatureGroupDefinition groupDefinition) => new FeatureGroupDto
     {
         Name = groupDefinition.Name,
-        //DisplayName = groupDefinition.DisplayName?.Localize(StringLocalizerFactory),
+        DisplayName = groupDefinition.DisplayName,
         Features = new List<FeatureDto>()
     };
 
-    private FeatureDto CreateFeatureDto(FeatureNameValueWithGrantedProvider featureNameValueWithGrantedProvider, FeatureDefinition featureDefinition)
+    private static FeatureDto CreateFeatureDto(FeatureNameValueWithGrantedProvider featureNameValueWithGrantedProvider, FeatureDefinition featureDefinition) => new FeatureDto
     {
-        return new FeatureDto
+        Name = featureDefinition.Name,
+        //DisplayName = featureDefinition.DisplayName?.Localize(StringLocalizerFactory),
+        //Description = featureDefinition.Description?.Localize(StringLocalizerFactory),
+        //ValueType = featureDefinition.ValueType,
+        ParentName = featureDefinition.Parent?.Name,
+        Value = featureNameValueWithGrantedProvider.Value,
+        Provider = new FeatureProviderDto
         {
-            Name = featureDefinition.Name,
-            //DisplayName = featureDefinition.DisplayName?.Localize(StringLocalizerFactory),
-            //Description = featureDefinition.Description?.Localize(StringLocalizerFactory),
-
-            //ValueType = featureDefinition.ValueType,
-
-            ParentName = featureDefinition.Parent?.Name,
-            Value = featureNameValueWithGrantedProvider.Value,
-            Provider = new FeatureProviderDto
-            {
-                Name = featureNameValueWithGrantedProvider.Provider?.Name,
-                Key = featureNameValueWithGrantedProvider.Provider?.Key
-            }
-        };
-    }
+            Name = featureNameValueWithGrantedProvider.Provider?.Name,
+            Key = featureNameValueWithGrantedProvider.Provider?.Key
+        }
+    };
 
     public virtual async Task UpdateAsync([NotNull] string providerName, string providerKey, UpdateFeaturesDto input)
     {
-        await CheckProviderPolicy(providerName, providerKey);
+        //await CheckProviderPolicy(providerName, providerKey);
 
         foreach (var feature in input.Features)
         {

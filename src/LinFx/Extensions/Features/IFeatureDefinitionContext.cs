@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Microsoft.Extensions.Localization;
 
 namespace LinFx.Extensions.Features;
 
@@ -7,7 +7,7 @@ namespace LinFx.Extensions.Features;
 /// </summary>
 public interface IFeatureDefinitionContext
 {
-    FeatureGroupDefinition AddGroup(string name, LocalizableString? displayName = null);
+    FeatureGroupDefinition AddGroup(string name, LocalizedString? displayName = null);
 
     FeatureGroupDefinition? GetGroupOrNull(string name);
 

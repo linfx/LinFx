@@ -63,4 +63,15 @@ public static class ClaimsIdentityExtensions
 
         return claim.Value;
     }
+
+    public static string? FindEditionId([NotNull] this ClaimsPrincipal principal)
+    {
+        Check.NotNull(principal, nameof(principal));
+
+        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.EditionId);
+        if (claim == null || claim.Value.IsNullOrWhiteSpace())
+            return null;
+
+        return claim.Value;
+    }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Immutable;
 
 namespace LinFx.Extensions.Features;
@@ -17,7 +17,7 @@ public class FeatureGroupDefinition
 
     public Dictionary<string, object?> Properties { get; }
 
-    public LocalizableString DisplayName { get; set; }
+    public LocalizedString DisplayName { get; set; }
 
     public IReadOnlyList<FeatureDefinition> Features => _features.ToImmutableList();
 
@@ -35,10 +35,10 @@ public class FeatureGroupDefinition
         set => Properties[name] = value;
     }
 
-    protected internal FeatureGroupDefinition(string name, LocalizableString? displayName = null)
+    protected internal FeatureGroupDefinition(string name, LocalizedString? displayName = null)
     {
         Name = name;
-        DisplayName = displayName ?? name;
+        DisplayName = displayName;
 
         Properties = [];
         _features = [];
@@ -47,8 +47,8 @@ public class FeatureGroupDefinition
     public virtual FeatureDefinition AddFeature(
         string name,
         string? defaultValue = null,
-        LocalizableString? displayName = null,
-        LocalizableString? description = null,
+        LocalizedString? displayName = null,
+        LocalizedString? description = null,
         //StringValueType? valueType = null,
         bool isVisibleToClients = true,
         bool isAvailableToHost = true)

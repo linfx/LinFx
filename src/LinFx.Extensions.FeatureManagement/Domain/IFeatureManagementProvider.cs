@@ -13,7 +13,13 @@ public interface IFeatureManagementProvider
     //TODO: Other better method name.
     Task<IAsyncDisposable> HandleContextAsync(string providerName, string providerKey);
 
-    Task<string> GetOrNullAsync([NotNull] FeatureDefinition feature, [CanBeNull] string providerKey);
+    /// <summary>
+    /// 获取特征值
+    /// </summary>
+    /// <param name="feature"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
+    Task<string?> GetOrNullAsync([NotNull] FeatureDefinition feature, [CanBeNull] string providerKey);
 
     Task SetAsync([NotNull] FeatureDefinition feature, [NotNull] string value, [CanBeNull] string providerKey);
 

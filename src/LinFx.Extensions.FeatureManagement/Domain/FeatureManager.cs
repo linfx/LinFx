@@ -32,7 +32,7 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         Options = options.Value;
 
         //TODO: Instead, use IServiceScopeFactory and create a scope..?
-        _lazyProviders = new Lazy<List<IFeatureManagementProvider>>(() => Options.Providers.Select(c => serviceProvider.GetRequiredService(c) as IFeatureManagementProvider).ToList(), true);
+        _lazyProviders = new Lazy<List<IFeatureManagementProvider>>(() => Options.Providers.Select(c => (serviceProvider.GetRequiredService(c) as IFeatureManagementProvider)!).ToList(), true);
     }
 
     public virtual async Task<string?> GetOrNullAsync(string name, string providerName, string providerKey, bool fallback = true)
@@ -48,11 +48,9 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         string providerKey,
         bool fallback = true) => (await GetAllWithProviderAsync(providerName, providerKey, fallback)).Select(x => new FeatureNameValue(x.Name, x.Value)).ToList();
 
-    public async Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync(string name,
-        string providerName, string providerKey, bool fallback = true) => await GetOrNullInternalAsync(name, providerName, providerKey, fallback);
+    public async Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync(string name, string providerName, string providerKey, bool fallback = true) => await GetOrNullInternalAsync(name, providerName, providerKey, fallback);
 
-    public async Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync(string providerName,
-        string providerKey, bool fallback = true)
+    public async Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync(string providerName, string providerKey, bool fallback = true)
     {
         Check.NotNull(providerName, nameof(providerName));
 
@@ -65,7 +63,7 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         }
 
         var providerList = providers.ToList();
-        if (!providerList.Any())
+        if (providerList.Count == 0)
         {
             return new List<FeatureNameValueWithGrantedProvider>();
         }
@@ -101,12 +99,7 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         return featureValues.Values.ToList();
     }
 
-    public virtual async Task SetAsync(
-        string name,
-        string value,
-        string providerName,
-        string providerKey,
-        bool forceToSet = false)
+    public virtual async Task SetAsync(string name, string value, string providerName, string providerKey, bool forceToSet = false)
     {
         Check.NotNull(name, nameof(name));
         Check.NotNull(providerName, nameof(providerName));
@@ -118,15 +111,9 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         //    throw new FeatureValueInvalidException(feature.DisplayName.Localize(StringLocalizerFactory));
         //}
 
-        var providers = Enumerable
-            .Reverse(Providers)
-            .SkipWhile(p => p.Name != providerName)
-            .ToList();
-
-        if (!providers.Any())
-        {
+        var providers = Enumerable.Reverse(Providers).SkipWhile(p => p.Name != providerName).ToList();
+        if (providers.Count == 0)
             throw new LinFxException($"Unknown feature value provider: {providerName}");
-        }
 
         if (providers.Count > 1 && !forceToSet && value != null)
         {
@@ -161,11 +148,15 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         }
     }
 
-    protected virtual async Task<FeatureNameValueWithGrantedProvider> GetOrNullInternalAsync(
-        string name,
-        string providerName,
-        string providerKey,
-        bool fallback = true) //TODO: Fallback is not used
+    /// <summary>
+    /// 获取特征值
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="fallback"></param>
+    /// <returns></returns>
+    protected virtual async Task<FeatureNameValueWithGrantedProvider> GetOrNullInternalAsync(string name, string providerName, string providerKey, bool fallback = true) //TODO: Fallback is not used
     {
         var feature = await FeatureDefinitionManager.GetAsync(name);
         var providers = Enumerable.Reverse(Providers);

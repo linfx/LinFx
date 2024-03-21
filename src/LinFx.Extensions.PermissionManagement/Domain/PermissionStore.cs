@@ -2,7 +2,6 @@
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
-using LinFx.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -68,10 +67,7 @@ public class PermissionStore(
         {
             var isGranted = grantedPermissionsHashSet.Contains(permission.Name);
 
-            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(
-                CalculateCacheKey(permission.Name, providerName, providerKey),
-                new PermissionGrantCacheItem(isGranted))
-            );
+            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(CalculateCacheKey(permission.Name, providerName, providerKey), new PermissionGrantCacheItem(isGranted)));
 
             if (permission.Name == currentName)
             {

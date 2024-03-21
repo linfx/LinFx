@@ -1,4 +1,7 @@
-﻿using LinFx.Extensions.Features;
+﻿using LinFx.Extensions.Caching;
+using LinFx.Extensions.EntityFrameworkCore;
+using LinFx.Extensions.FeatureManagement;
+using LinFx.Extensions.Features;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,21 +11,18 @@ namespace LinFx.Extensions.PermissionManagement;
 /// 特征管理模块
 /// </summary>
 [DependsOn(
-    //typeof(CachingModule),
-    typeof(FeaturesModule)
+    typeof(CachingModule),
+    typeof(FeaturesModule),
+    typeof(EntityFrameworkCoreModule)
 )]
 public class FeatureManagementModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
-        //services.Configure<PermissionManagementOptions>(options =>
-        //{
-        //    options.ManagementProviders.Add<UserPermissionManagementProvider>();
-        //    options.ManagementProviders.Add<RolePermissionManagementProvider>();
-
-        //    //TODO: Can we prevent duplication of permission names without breaking the design and making the system complicated
-        //    options.ProviderPolicies[UserPermissionValueProvider.ProviderName] = "Users.ManagePermissions";
-        //    options.ProviderPolicies[RolePermissionValueProvider.ProviderName] = "Roles.ManagePermissions";
-        //});
+        services.Configure<FeatureManagementOptions>(options =>
+        {
+            options.Providers.Add<DefaultValueFeatureManagementProvider>();
+            options.Providers.Add<EditionFeatureManagementProvider>();
+        });
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace IdentityService.EntityFrameworkCore;
+﻿namespace LinFx.Extensions.Identity;
 
-public static class TableConsts
+public static class IdentityConsts
 {
     public const string Roles = "Roles";
     public const string RoleClaims = "RoleClaims";

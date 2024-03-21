@@ -5,7 +5,7 @@ namespace LinFx.Extensions.PermissionManagement;
 
 public class PermissionManagementOptions
 {
-    public ITypeList<IPermissionManagementProvider> ManagementProviders { get; } = new TypeList<IPermissionManagementProvider>();
+    public TypeList<IPermissionManagementProvider> ManagementProviders { get; } = [];
 
-    public Dictionary<string, string> ProviderPolicies { get; } = new Dictionary<string, string>();
+    public Dictionary<string, string> ProviderPolicies { get; } = [];
 }

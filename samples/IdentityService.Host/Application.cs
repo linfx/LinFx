@@ -1,7 +1,9 @@
 ﻿using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
+using LinFx.Extensions.FeatureManagement;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.PermissionManagement;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
@@ -9,10 +11,10 @@ namespace IdentityService;
 [DependsOn(
     typeof(AutofacModule),
     typeof(AspNetCoreMvcModule),
-    typeof(FeatureManagementModule)
+    typeof(FeatureManagementModule),
     //typeof(AuditLoggingModule),
     //typeof(AccountHttpApiModule),
-    //typeof(PermissionManagementHttpApiModule)
+    typeof(PermissionManagementModule)
 )]
 public class Application : Module
 {
@@ -52,6 +54,11 @@ public class Application : Module
         //{
         //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         //});
+
+        services.AddDbContext<FeatureManagementDbContext>(options =>
+        {
+            options.UseSqlite();
+        });
 
         services
             .AddAuthentication()
