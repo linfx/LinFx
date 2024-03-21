@@ -1,10 +1,13 @@
 ﻿using JetBrains.Annotations;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
+/// <summary>
+/// 特征管理器
+/// </summary>
 public interface IFeatureManager
 {
-    Task<string> GetOrNullAsync([NotNull] string name, [NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
+    Task<string?> GetOrNullAsync([NotNull] string name, [NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
 
     Task<List<FeatureNameValue>> GetAllAsync([NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
 

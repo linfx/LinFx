@@ -1,20 +1,9 @@
-﻿using JetBrains.Annotations;
-using LinFx;
-
-namespace Volo.Abp.FeatureManagement;
+﻿namespace LinFx.Extensions.FeatureManagement;
 
 [Serializable]
-public class FeatureValueProviderInfo
+public class FeatureValueProviderInfo(string name, string key)
 {
-    public string Name { get; }
+    public string Name { get; } = name;
 
-    public string Key { get; }
-
-    public FeatureValueProviderInfo([NotNull] string name, string key)
-    {
-        Check.NotNull(name, nameof(name));
-
-        Name = name;
-        Key = key;
-    }
+    public string Key { get; } = key;
 }

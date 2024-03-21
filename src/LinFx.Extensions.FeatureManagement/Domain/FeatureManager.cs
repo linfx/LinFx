@@ -3,18 +3,23 @@ using LinFx.Extensions.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using Volo.Abp.FeatureManagement;
 
-namespace LinFx.Extensions.FeatureManagement.Domain;
+namespace LinFx.Extensions.FeatureManagement;
 
+/// <summary>
+/// ÌØÕ÷¹ÜÀíÆ÷
+/// </summary>
 public class FeatureManager : IFeatureManager, ISingletonDependency
 {
-    protected IFeatureDefinitionManager FeatureDefinitionManager { get; }
-    protected List<IFeatureManagementProvider> Providers => _lazyProviders.Value;
-    protected FeatureManagementOptions Options { get; }
-    protected IStringLocalizerFactory StringLocalizerFactory { get; }
-
     private readonly Lazy<List<IFeatureManagementProvider>> _lazyProviders;
+
+    protected IFeatureDefinitionManager FeatureDefinitionManager { get; }
+
+    protected List<IFeatureManagementProvider> Providers => _lazyProviders.Value;
+
+    protected FeatureManagementOptions Options { get; }
+
+    protected IStringLocalizerFactory StringLocalizerFactory { get; }
 
     public FeatureManager(
         IOptions<FeatureManagementOptions> options,
@@ -27,21 +32,10 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
         Options = options.Value;
 
         //TODO: Instead, use IServiceScopeFactory and create a scope..?
-
-        _lazyProviders = new Lazy<List<IFeatureManagementProvider>>(
-            () => Options
-                .Providers
-                .Select(c => serviceProvider.GetRequiredService(c) as IFeatureManagementProvider)
-                .ToList(),
-            true
-        );
+        _lazyProviders = new Lazy<List<IFeatureManagementProvider>>(() => Options.Providers.Select(c => serviceProvider.GetRequiredService(c) as IFeatureManagementProvider).ToList(), true);
     }
 
-    public virtual async Task<string> GetOrNullAsync(
-        string name,
-        string providerName,
-        string providerKey,
-        bool fallback = true)
+    public virtual async Task<string?> GetOrNullAsync(string name, string providerName, string providerKey, bool fallback = true)
     {
         Check.NotNull(name, nameof(name));
         Check.NotNull(providerName, nameof(providerName));
@@ -52,20 +46,10 @@ public class FeatureManager : IFeatureManager, ISingletonDependency
     public virtual async Task<List<FeatureNameValue>> GetAllAsync(
         string providerName,
         string providerKey,
-        bool fallback = true)
-    {
-        return (await GetAllWithProviderAsync(providerName, providerKey, fallback))
-            .Select(x => new FeatureNameValue(x.Name, x.Value)).ToList();
-    }
+        bool fallback = true) => (await GetAllWithProviderAsync(providerName, providerKey, fallback)).Select(x => new FeatureNameValue(x.Name, x.Value)).ToList();
 
     public async Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync(string name,
-        string providerName, string providerKey, bool fallback = true)
-    {
-        Check.NotNull(name, nameof(name));
-        Check.NotNull(providerName, nameof(providerName));
-
-        return await GetOrNullInternalAsync(name, providerName, providerKey, fallback);
-    }
+        string providerName, string providerKey, bool fallback = true) => await GetOrNullInternalAsync(name, providerName, providerKey, fallback);
 
     public async Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync(string providerName,
         string providerKey, bool fallback = true)

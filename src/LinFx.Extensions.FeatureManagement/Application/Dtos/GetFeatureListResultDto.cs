@@ -1,4 +1,4 @@
-﻿using Volo.Abp.FeatureManagement;
+﻿using LinFx.Extensions.FeatureManagement;
 
 namespace LinFx.Extensions.FeatureManagement.Application.Dtos;
 

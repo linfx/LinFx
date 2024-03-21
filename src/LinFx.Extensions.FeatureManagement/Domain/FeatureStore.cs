@@ -3,7 +3,7 @@
 //using Volo.Abp.DependencyInjection;
 //using Volo.Abp.Features;
 
-//namespace Volo.Abp.FeatureManagement;
+//namespace LinFx.Extensions.FeatureManagement;
 
 //public class FeatureStore : IFeatureStore, ITransientDependency
 //{

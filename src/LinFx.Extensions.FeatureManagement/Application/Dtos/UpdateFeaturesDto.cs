@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
 public class UpdateFeaturesDto
 {

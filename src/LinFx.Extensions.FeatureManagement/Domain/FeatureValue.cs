@@ -1,9 +1,11 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Domain.Entities;
-using LinFx;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
+/// <summary>
+/// 特征值
+/// </summary>
 public class FeatureValue : Entity<string>, IAggregateRoot<string>
 {
     [NotNull]

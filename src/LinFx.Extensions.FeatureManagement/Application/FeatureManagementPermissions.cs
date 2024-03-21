@@ -1,6 +1,6 @@
 ﻿using LinFx.Reflection;
 
-namespace LinFx.Extensions.FeatureManagement.Application;
+namespace LinFx.Extensions.FeatureManagement;
 
 public class FeatureManagementPermissions
 {

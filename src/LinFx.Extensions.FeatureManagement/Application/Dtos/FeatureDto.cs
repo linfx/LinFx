@@ -1,4 +1,4 @@
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
 /// <summary>
 /// ÌØÕ÷

@@ -1,11 +1,9 @@
-﻿using LinFx;
-
-namespace Volo.Abp.FeatureManagement;
+﻿namespace LinFx.Extensions.FeatureManagement;
 
 [Serializable]
 public class FeatureNameValueWithGrantedProvider : NameValue
 {
-    public FeatureValueProviderInfo Provider { get; set; }
+    public required FeatureValueProviderInfo Provider { get; set; }
 
     public FeatureNameValueWithGrantedProvider(string name, string value)
     {

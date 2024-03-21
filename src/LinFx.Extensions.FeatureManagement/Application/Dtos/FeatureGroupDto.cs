@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
 /// <summary>
 /// 特征组

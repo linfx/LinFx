@@ -1,6 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 
-namespace LinFx.Extensions.FeatureManagement.Application;
+namespace LinFx.Extensions.FeatureManagement;
 
 public class FeaturePermissionDefinitionProvider : PermissionDefinitionProvider
 {

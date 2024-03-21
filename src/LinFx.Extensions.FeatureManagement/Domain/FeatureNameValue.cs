@@ -1,15 +1,9 @@
-﻿using LinFx;
-
-namespace Volo.Abp.FeatureManagement;
+﻿namespace LinFx.Extensions.FeatureManagement;
 
 [Serializable]
 public class FeatureNameValue : NameValue
 {
     public FeatureNameValue() { }
 
-    public FeatureNameValue(string name, string value)
-    {
-        Name = name;
-        Value = value;
-    }
+    public FeatureNameValue(string name, string value) : base(name, value) { }
 }

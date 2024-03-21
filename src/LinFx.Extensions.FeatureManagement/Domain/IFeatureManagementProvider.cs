@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.Features;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
 public interface IFeatureManagementProvider
 {

@@ -4,25 +4,20 @@ using LinFx.Extensions.FeatureManagement.Application.Dtos;
 using LinFx.Extensions.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using Volo.Abp.FeatureManagement;
 
 namespace LinFx.Extensions.FeatureManagement.Application;
 
 [Authorize]
-public class FeatureService : ApplicationService
+public class FeatureService(
+    IFeatureManager featureManager,
+    IFeatureDefinitionManager featureDefinitionManager,
+    IOptions<FeatureManagementOptions> options) : ApplicationService
 {
-    protected FeatureManagementOptions Options { get; }
-    protected IFeatureManager FeatureManager { get; }
-    protected IFeatureDefinitionManager FeatureDefinitionManager { get; }
+    protected FeatureManagementOptions Options { get; } = options.Value;
 
-    public FeatureService(IFeatureManager featureManager,
-        IFeatureDefinitionManager featureDefinitionManager,
-        IOptions<FeatureManagementOptions> options)
-    {
-        FeatureManager = featureManager;
-        FeatureDefinitionManager = featureDefinitionManager;
-        Options = options.Value;
-    }
+    protected IFeatureManager FeatureManager { get; } = featureManager;
+
+    protected IFeatureDefinitionManager FeatureDefinitionManager { get; } = featureDefinitionManager;
 
     public virtual async Task<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
     {

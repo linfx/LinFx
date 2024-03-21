@@ -1,6 +1,6 @@
 ﻿using LinFx.Collections;
 
-namespace Volo.Abp.FeatureManagement;
+namespace LinFx.Extensions.FeatureManagement;
 
 public class FeatureManagementOptions
 {
