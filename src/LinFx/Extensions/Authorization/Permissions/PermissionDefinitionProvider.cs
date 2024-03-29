@@ -1,5 +1,7 @@
 ﻿using LinFx.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
@@ -8,21 +10,23 @@ namespace LinFx.Extensions.Authorization.Permissions;
 /// </summary>
 public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvider, ITransientDependency
 {
-    public IStringLocalizer Localizer { get; }
+    [NotNull]
+    [Autowired]
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
+
+    public IStringLocalizer Localizer => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(GetType());
 
     public PermissionDefinitionProvider() { }
 
-    public PermissionDefinitionProvider(IStringLocalizer localizer)
-    {
-        Localizer = localizer;
-    }
+    public PermissionDefinitionProvider(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
-    /// <summary>
-    /// 定义
-    /// </summary>
-    /// <param name="context"></param>
     public abstract void Define(IPermissionDefinitionContext context);
 
+    /// <summary>
+    /// 多语言
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     protected virtual LocalizedString L(string name)
     {
         if (Localizer == null)

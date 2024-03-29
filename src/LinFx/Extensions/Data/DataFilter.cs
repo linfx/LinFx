@@ -9,55 +9,25 @@ namespace LinFx.Extensions.Data;
 /// <summary>
 /// 数据过滤
 /// </summary>
-public class DataFilter : IDataFilter, ISingletonDependency
+public class DataFilter(IServiceProvider serviceProvider) : IDataFilter, ISingletonDependency
 {
     private readonly ConcurrentDictionary<Type, object> _filters = new();
 
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
-    public DataFilter(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    public IDisposable Enable<TFilter>() where TFilter : class => GetFilter<TFilter>().Enable();
 
-    public IDisposable Enable<TFilter>()
-        where TFilter : class
-    {
-        return GetFilter<TFilter>().Enable();
-    }
+    public IDisposable Disable<TFilter>() where TFilter : class => GetFilter<TFilter>().Disable();
 
-    public IDisposable Disable<TFilter>()
-        where TFilter : class
-    {
-        return GetFilter<TFilter>().Disable();
-    }
+    public bool IsEnabled<TFilter>() where TFilter : class => GetFilter<TFilter>().IsEnabled;
 
-    public bool IsEnabled<TFilter>()
-        where TFilter : class
-    {
-        return GetFilter<TFilter>().IsEnabled;
-    }
-
-    private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class
-    {
-        return _filters.GetOrAdd(
-            typeof(TFilter),
-            factory: () => _serviceProvider.GetRequiredService<IDataFilter<TFilter>>()
-        ) as IDataFilter<TFilter>;
-    }
+    private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class => (_filters.GetOrAdd(typeof(TFilter), _serviceProvider.GetRequiredService<IDataFilter<TFilter>>) as IDataFilter<TFilter>)!;
 }
 
-public class DataFilter<TFilter> : IDataFilter<TFilter>
-    where TFilter : class
+public class DataFilter<TFilter>(IOptions<DataFilterOptions> options) : IDataFilter<TFilter> where TFilter : class
 {
-    private readonly DataFilterOptions _options;
-    private readonly AsyncLocal<DataFilterState> _filter;
-
-    public DataFilter(IOptions<DataFilterOptions> options)
-    {
-        _options = options.Value;
-        _filter = new AsyncLocal<DataFilterState>();
-    }
+    private readonly DataFilterOptions _options = options.Value;
+    private readonly AsyncLocal<DataFilterState> _filter = new AsyncLocal<DataFilterState>();
 
     public bool IsEnabled
     {

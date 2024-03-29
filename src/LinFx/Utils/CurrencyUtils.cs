@@ -42,10 +42,7 @@ public static class MoneyUtils
     /// </summary>
     /// <param name="amt"></param>
     /// <returns></returns>
-    public static string ToN2String(decimal amt)
-    {
-        return string.Format("{0:N2}", amt);
-    }
+    public static string ToN2String(decimal amt) => string.Format("{0:N2}", amt);
 
     /// <summary>
     /// 截取两位小数

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LinFx.Extensions.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,12 +10,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<IdentityUser>().ToTable(TableConsts.Users);
-        builder.Entity<IdentityRole>().ToTable(TableConsts.Roles);
-        builder.Entity<IdentityRoleClaim<string>>().ToTable(TableConsts.RoleClaims);
-        builder.Entity<IdentityUserClaim<string>>().ToTable(TableConsts.UserClaims);
-        builder.Entity<IdentityUserRole<string>>().ToTable(TableConsts.UserRoles);
-        builder.Entity<IdentityUserLogin<string>>().ToTable(TableConsts.UserLogins);
-        builder.Entity<IdentityUserToken<string>>().ToTable(TableConsts.UserTokens);
+        builder.Entity<IdentityUser>().ToTable(IdentityConsts.Users);
+        builder.Entity<IdentityRole>().ToTable(IdentityConsts.Roles);
+        builder.Entity<IdentityRoleClaim<string>>().ToTable(IdentityConsts.RoleClaims);
+        builder.Entity<IdentityUserClaim<string>>().ToTable(IdentityConsts.UserClaims);
+        builder.Entity<IdentityUserRole<string>>().ToTable(IdentityConsts.UserRoles);
+        builder.Entity<IdentityUserLogin<string>>().ToTable(IdentityConsts.UserLogins);
+        builder.Entity<IdentityUserToken<string>>().ToTable(IdentityConsts.UserTokens);
     }
 }

@@ -1,23 +1,15 @@
-﻿using System;
+﻿namespace LinFx.Extensions.MultiTenancy;
 
-namespace LinFx.Extensions.MultiTenancy
+/// <summary>
+/// 上下文
+/// </summary>
+public class TenantResolveContext(IServiceProvider serviceProvider) : ITenantResolveContext
 {
-    public class TenantResolveContext : ITenantResolveContext
-    {
-        public IServiceProvider ServiceProvider { get; }
+    public IServiceProvider ServiceProvider { get; } = serviceProvider;
 
-        public string TenantIdOrName { get; set; }
+    public string? TenantIdOrName { get; set; }
 
-        public bool Handled { get; set; }
+    public bool Handled { get; set; }
 
-        public bool HasResolvedTenantOrHost()
-        {
-            return Handled || TenantIdOrName != null;
-        }
-
-        public TenantResolveContext(IServiceProvider serviceProvider)
-        {
-            ServiceProvider = serviceProvider;
-        }
-    }
+    public bool HasResolvedTenantOrHost() => Handled || TenantIdOrName != null;
 }

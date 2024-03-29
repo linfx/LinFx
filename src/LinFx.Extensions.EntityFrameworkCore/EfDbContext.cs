@@ -164,7 +164,7 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     {
         try
         {
-            List<EntityChangeInfo> entityChangeList = null;
+            List<EntityChangeInfo>? entityChangeList = null;
             var auditLog = AuditingManager?.Current?.Log;
             if (auditLog != null)
                 entityChangeList = EntityHistoryHelper.CreateChangeList(ChangeTracker.Entries().ToList());

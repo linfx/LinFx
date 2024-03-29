@@ -1,8 +1,11 @@
-﻿using LinFx.Extensions.AspNetCore.Mvc;
+﻿using IdentityService.EntityFrameworkCore;
+using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
+using LinFx.Extensions.FeatureManagement;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.TenantManagement.HttpApi;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using LinFx.Extensions.PermissionManagement;
+using LinFx.Extensions.TenantManagement;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace IdentityService;
@@ -10,15 +13,17 @@ namespace IdentityService;
 [DependsOn(
     typeof(AutofacModule),
     typeof(AspNetCoreMvcModule),
-    //typeof(AspNetCoreMvcModule)
+    typeof(FeatureManagementModule),
     //typeof(AuditLoggingModule),
     //typeof(AccountHttpApiModule),
-    typeof(PermissionManagementHttpApiModule)
+    typeof(PermissionManagementModule)
 )]
 public class Application : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
+        var configuration = services.GetConfiguration();
+
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service Api", Version = "v1" });
@@ -26,31 +31,38 @@ public class Application : Module
             options.CustomSchemaIds(type => type.FullName);
         });
 
-        services.AddControllers();
-
-        //services.AddDbContext<ApplicationDbContext>(options =>
-        //{
-        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        //});
-
-        //services.AddDbContext<AuditLoggingDbContext>(options =>
-        //{
-        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        //});
+        services
+            .AddAuthentication()
+            .AddJwtBearer();
 
         //services.Configure<DbContextOptions<AuditLoggingDbContext>>(options =>
         //{
         //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
         //});
 
-        //services.AddDbContext<PermissionManagementDbContext>(options =>
-        //{
-        //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-        //});
-
         services
-            .AddAuthentication()
-            .AddJwtBearer();
+            .AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            })
+            .AddDbContext<TenantManagementDbContext>(options =>
+            {
+                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            })
+            //.AddDbContext<AuditLoggingDbContext>(options =>
+            //{
+            //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            //})
+            .AddDbContext<PermissionManagementDbContext>(options =>
+            {
+                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+            })
+            .AddDbContext<FeatureManagementDbContext>(options =>
+            {
+                options.UseSqlite(configuration.GetConnectionString("Default"));
+            });
+
+
 
         //services
         //    .AddIdentity<IdentityUser, IdentityRole>()

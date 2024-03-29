@@ -1,23 +1,16 @@
 ﻿using LinFx.Extensions.DependencyInjection;
-using System;
 
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>
 /// 审计贡献者上下文
 /// </summary>
-public class AuditLogContributionContext : IServiceProviderAccessor
+public class AuditLogContributionContext(IServiceProvider serviceProvider, AuditLogInfo auditInfo) : IServiceProviderAccessor
 {
-    public IServiceProvider ServiceProvider { get; }
+    public IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     /// <summary>
     /// 审计信息
     /// </summary>
-    public AuditLogInfo AuditInfo { get; }
-
-    public AuditLogContributionContext(IServiceProvider serviceProvider, AuditLogInfo auditInfo)
-    {
-        ServiceProvider = serviceProvider;
-        AuditInfo = auditInfo;
-    }
+    public AuditLogInfo AuditInfo { get; } = auditInfo;
 }

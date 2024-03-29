@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-/// <summary>
+﻿/// <summary>
 /// 多租户
 /// </summary>
 public interface IMultiTenant
@@ -9,6 +6,5 @@ public interface IMultiTenant
     /// <summary>
     /// 租户Id
     /// </summary>
-    [Column("tenant_id"), StringLength(64)]
     string? TenantId { get; }
 }

@@ -1,5 +1,4 @@
-﻿using LinFx.Utils;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -60,6 +59,17 @@ public static class ClaimsIdentityExtensions
         var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.ClientId);
         if (claim == null || claim.Value.IsNullOrWhiteSpace())
             return default;
+
+        return claim.Value;
+    }
+
+    public static string? FindEditionId([NotNull] this ClaimsPrincipal principal)
+    {
+        Check.NotNull(principal, nameof(principal));
+
+        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.EditionId);
+        if (claim == null || claim.Value.IsNullOrWhiteSpace())
+            return null;
 
         return claim.Value;
     }

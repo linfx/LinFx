@@ -6,8 +6,8 @@ namespace LinFx.Extensions.Modularity;
 /// 模块
 /// </summary>
 public abstract class Module :
-    IModuleInitializer,
     IModule,
+    IModuleInitializer,
     IOnApplicationInitialization,
     IOnApplicationShutdown
 {

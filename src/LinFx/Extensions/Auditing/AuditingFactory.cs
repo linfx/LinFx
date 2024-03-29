@@ -118,20 +118,9 @@ public class AuditingFactory(
         return auditInfo;
     }
 
-    public virtual AuditLogActionInfo CreateAuditLogAction(
-        AuditLogInfo auditLog,
-        Type type,
-        MethodInfo method,
-        object[] arguments)
-    {
-        return CreateAuditLogAction(auditLog, type, method, CreateArgumentsDictionary(method, arguments));
-    }
+    public virtual AuditLogActionInfo CreateAuditLogAction(AuditLogInfo auditLog, Type type, MethodInfo method, object[] arguments) => CreateAuditLogAction(auditLog, type, method, CreateArgumentsDictionary(method, arguments));
 
-    public virtual AuditLogActionInfo CreateAuditLogAction(
-        AuditLogInfo auditLog,
-        Type type,
-        MethodInfo method,
-        IDictionary<string, object> arguments)
+    public virtual AuditLogActionInfo CreateAuditLogAction(AuditLogInfo auditLog, Type type, MethodInfo method, IDictionary<string, object> arguments)
     {
         var actionInfo = new AuditLogActionInfo
         {
@@ -142,9 +131,7 @@ public class AuditingFactory(
             Parameters = SerializeConvertArguments(arguments),
             ExecutionTime = Clock.Now
         };
-
         //TODO Execute contributors
-
         return actionInfo;
     }
 

@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Application.Dtos;
-using LinFx.Utils;
+using LinFx;
 
 namespace System.Linq;
 

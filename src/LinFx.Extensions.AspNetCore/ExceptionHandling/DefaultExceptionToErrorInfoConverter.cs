@@ -7,8 +7,10 @@ using LinFx.Extensions.Http;
 using LinFx.Extensions.Http.Client;
 using LinFx.Extensions.Validation;
 using LinFx.Security.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
@@ -16,23 +18,21 @@ namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 /// <summary>
 /// Ä¬ÈÏÒì³£×ª»»
 /// </summary>
-/// <param name="localizationOptions"></param>
-/// <param name="stringLocalizerFactory"></param>
-/// <param name="stringLocalizer"></param>
-/// <param name="serviceProvider"></param>
-public class DefaultExceptionToErrorInfoConverter(
-    IOptions<ExceptionLocalizationOptions> localizationOptions,
-    IStringLocalizerFactory stringLocalizerFactory,
-    IStringLocalizer<ExceptionHandlingResource> stringLocalizer,
-    IServiceProvider serviceProvider) : IExceptionToErrorInfoConverter, ITransientDependency
+public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter, ITransientDependency
 {
-    protected ExceptionLocalizationOptions LocalizationOptions { get; } = localizationOptions.Value;
+    [NotNull]
+    [Autowired]
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
 
-    protected IStringLocalizerFactory StringLocalizerFactory { get; } = stringLocalizerFactory;
+    protected ExceptionLocalizationOptions LocalizationOptions => LazyServiceProvider.LazyGetRequiredService<IOptions<ExceptionLocalizationOptions>>().Value;
 
-    protected IStringLocalizer<ExceptionHandlingResource> L { get; } = stringLocalizer;
+    protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
 
-    protected IServiceProvider ServiceProvider { get; } = serviceProvider;
+    protected IStringLocalizer<ExceptionHandlingResource> L => LazyServiceProvider.LazyGetRequiredService<IStringLocalizer<ExceptionHandlingResource>>();
+
+    public DefaultExceptionToErrorInfoConverter() { }
+
+    public DefaultExceptionToErrorInfoConverter(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
     public RemoteServiceErrorInfo Convert(Exception exception, Action<ExceptionHandlingOptions>? options = null)
     {
@@ -82,10 +82,10 @@ public class DefaultExceptionToErrorInfoConverter(
 
         if (exception is IHasValidationErrors)
         {
-            if (errorInfo.Message.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(errorInfo.Message))
                 errorInfo.Message = L["ValidationErrorMessage"];
 
-            if (errorInfo.Details.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(errorInfo.Details))
                 errorInfo.Details = GetValidationErrorNarrative((exception as IHasValidationErrors)!);
 
             errorInfo.ValidationErrors = GetValidationErrorInfos((exception as IHasValidationErrors)!);
@@ -93,8 +93,8 @@ public class DefaultExceptionToErrorInfoConverter(
 
         TryToLocalizeExceptionMessage(exception, errorInfo);
 
-        if (errorInfo.Message.IsNullOrEmpty())
-            errorInfo.Message = L["InternalServerErrorMessage"];
+        if (string.IsNullOrEmpty(errorInfo.Message))
+            errorInfo.Message = exception.Message;
 
         errorInfo.Data = exception.Data;
 
@@ -120,7 +120,6 @@ public class DefaultExceptionToErrorInfoConverter(
             return;
 
         var codeNamespace = exceptionWithErrorCode.Code.Split(':')[0];
-
         var localizationResourceType = LocalizationOptions.ErrorCodeNamespaceMappings.GetOrDefault(codeNamespace);
         if (localizationResourceType == null)
             return;

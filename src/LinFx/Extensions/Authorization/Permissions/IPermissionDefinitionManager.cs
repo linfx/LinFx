@@ -21,7 +21,7 @@ public interface IPermissionDefinitionManager
     /// <param name="name"></param>
     /// <returns></returns>
     [CanBeNull]
-    PermissionDefinition GetOrNull([NotNull] string name);
+    PermissionDefinition? GetOrNull([NotNull] string name);
 
     /// <summary>
     /// 获取所有权限。

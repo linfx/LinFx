@@ -19,7 +19,7 @@ public class PermissionValueCheckContext
 
     public PermissionValueCheckContext(PermissionDefinition permission, ClaimsPrincipal principal)
     {
-        Permission = permission ?? throw new System.ArgumentNullException(nameof(permission));
+        Permission = permission ?? throw new ArgumentNullException(nameof(permission));
         Principal = principal;
     }
 }

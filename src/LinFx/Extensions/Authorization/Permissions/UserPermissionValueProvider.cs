@@ -1,19 +1,15 @@
 ﻿using LinFx.Security.Claims;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
 /// <summary>
 /// 用户授权提供者
 /// </summary>
-public class UserPermissionValueProvider : PermissionValueProvider
+public class UserPermissionValueProvider(IPermissionStore permissionStore) : PermissionValueProvider(permissionStore)
 {
     public const string ProviderName = "U";
 
     public override string Name => ProviderName;
-
-    public UserPermissionValueProvider(IPermissionStore permissionStore)
-        : base(permissionStore) { }
 
     public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
     {

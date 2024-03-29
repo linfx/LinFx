@@ -8,10 +8,10 @@ public static class CommonDbProperties
     /// 
     /// Default value: "".
     /// </summary>
-    public static string DbTablePrefix { get; set; }
+    public static string DbTablePrefix { get; set; } = string.Empty;
 
     /// <summary>
     /// Default value: null.
     /// </summary>
-    public static string DbSchema { get; set; } = null;
+    public static string? DbSchema { get; set; } = null;
 }

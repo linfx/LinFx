@@ -13,17 +13,12 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace LinFx.Extensions.EntityFrameworkCore;
 
 [DependsOn(
-    typeof(AuditingModule),
     typeof(DataModule),
+    typeof(AuditingModule),
     typeof(EventBusModule),
-    //typeof(GuidsModule),
     typeof(MultiTenancyModule),
     typeof(ThreadingModule),
-    //typeof(TimingModule),
     typeof(UnitOfWorkModule)
-    //typeof(ObjectMappingModule),
-    //typeof(ExceptionHandlingModule),
-    //typeof(SpecificationsModule)
 )]
 public class EntityFrameworkCoreModule : Module
 {

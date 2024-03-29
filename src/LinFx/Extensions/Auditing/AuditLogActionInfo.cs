@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.ObjectExtending;
-using System;
 
 namespace LinFx.Extensions.Auditing;
 
@@ -38,6 +37,6 @@ public class AuditLogActionInfo : IHasExtraProperties
 
     public AuditLogActionInfo()
     {
-        ExtraProperties = new ExtraPropertyDictionary();
+        ExtraProperties = [];
     }
 }

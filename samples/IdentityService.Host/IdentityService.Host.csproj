@@ -10,9 +10,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.3" />
@@ -25,8 +25,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
 		<ProjectReference Include="..\..\src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj" />
-		<ProjectReference Include="..\..\src\modules\audit-logging\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj" />
-		<ProjectReference Include="..\..\src\modules\permission-management\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
+		<ProjectReference Include="..\..\src\LinFx.Extensions.FeatureManagement.HttpApi\LinFx.Extensions.FeatureManagement.HttpApi.csproj" />
+		<ProjectReference Include="..\..\src\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
+		<ProjectReference Include="..\..\src\LinFx.Extensions.TenantManagement.HttpApi\LinFx.Extensions.TenantManagement.HttpApi.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

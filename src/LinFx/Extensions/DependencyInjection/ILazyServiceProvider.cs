@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LinFx.Extensions.DependencyInjection;
+﻿namespace LinFx.Extensions.DependencyInjection;
 
 public interface ILazyServiceProvider
 {

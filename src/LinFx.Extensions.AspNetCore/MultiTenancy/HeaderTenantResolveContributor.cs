@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
@@ -11,9 +12,9 @@ public class HeaderTenantResolveContributor : HttpTenantResolveContributorBase
 
     public override string Name => ContributorName;
 
-    protected override string? GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
+    protected override string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext)
     {
-        if (httpContext.Request == null || httpContext.Request.Headers.IsNullOrEmpty())
+            if (httpContext.Request == null || httpContext.Request.Headers.IsNullOrEmpty())
             return null;
 
         var tenantIdKey = context.GetMultiTenancyOptions().TenantKey;
@@ -27,11 +28,5 @@ public class HeaderTenantResolveContributor : HttpTenantResolveContributorBase
         return tenantIdHeader.First();
     }
 
-    protected virtual void Log(ITenantResolveContext context, string text)
-    {
-        context
-            .ServiceProvider
-            .GetRequiredService<ILogger<HeaderTenantResolveContributor>>()
-            .LogWarning(text);
-    }
+    protected virtual void Log(ITenantResolveContext context, string text) => context.ServiceProvider.GetRequiredService<ILogger<HeaderTenantResolveContributor>>().LogWarning(text);
 }

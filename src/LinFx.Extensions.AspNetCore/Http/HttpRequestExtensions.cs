@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using LinFx.Utils;
+using LinFx;
 using Microsoft.Net.Http.Headers;
 
 namespace Microsoft.AspNetCore.Http;

@@ -1,16 +1,8 @@
-﻿using System.Collections.Generic;
+﻿namespace LinFx.Extensions.MultiTenancy;
 
-namespace LinFx.Extensions.MultiTenancy
+public class TenantResolveResult
 {
-    public class TenantResolveResult
-    {
-        public string TenantIdOrName { get; set; }
+    public string? TenantIdOrName { get; set; }
 
-        public List<string> AppliedResolvers { get; }
-
-        public TenantResolveResult()
-        {
-            AppliedResolvers = new List<string>();
-        }
-    }
+    public List<string> AppliedResolvers { get; } = [];
 }

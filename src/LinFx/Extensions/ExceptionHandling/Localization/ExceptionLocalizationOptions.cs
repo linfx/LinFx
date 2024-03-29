@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace LinFx.Extensions.ExceptionHandling.Localization;
+﻿namespace LinFx.Extensions.ExceptionHandling.Localization;
 
 public class ExceptionLocalizationOptions
 {
-    public Dictionary<string, Type> ErrorCodeNamespaceMappings { get; }
+    public Dictionary<string, Type> ErrorCodeNamespaceMappings { get; } = [];
 
-    public ExceptionLocalizationOptions()
-    {
-        ErrorCodeNamespaceMappings = new Dictionary<string, Type>();
-    }
-
-    public void MapCodeNamespace(string errorCodeNamespace, Type type)
-    {
-        ErrorCodeNamespaceMappings[errorCodeNamespace] = type;
-    }
+    public void MapCodeNamespace(string errorCodeNamespace, Type type) => ErrorCodeNamespaceMappings[errorCodeNamespace] = type;
 }

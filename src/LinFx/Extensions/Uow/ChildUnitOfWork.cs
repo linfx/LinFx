@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using LinFx.Utils;
 
 namespace LinFx.Extensions.Uow;
 
@@ -40,7 +39,6 @@ internal class ChildUnitOfWork : IUnitOfWork
         Check.NotNull(parent, nameof(parent));
 
         _parent = parent;
-
         _parent.Failed += (sender, args) => { Failed.InvokeSafely(sender, args); };
         _parent.Disposed += (sender, args) => { Disposed.InvokeSafely(sender, args); };
     }
@@ -59,13 +57,9 @@ internal class ChildUnitOfWork : IUnitOfWork
 
     public void OnCompleted(Func<Task> handler) => _parent.OnCompleted(handler);
 
-    public void AddOrReplaceLocalEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null) => _parent.AddOrReplaceLocalEvent(eventRecord, replacementSelector);
+    public void AddOrReplaceLocalEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null) => _parent.AddOrReplaceLocalEvent(eventRecord, replacementSelector);
 
-    public void AddOrReplaceDistributedEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null) => _parent.AddOrReplaceDistributedEvent(eventRecord, replacementSelector);
+    public void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null) => _parent.AddOrReplaceDistributedEvent(eventRecord, replacementSelector);
 
     public IDatabaseApi FindDatabaseApi(string key) => _parent.FindDatabaseApi(key);
 

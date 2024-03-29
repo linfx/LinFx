@@ -1,6 +1,10 @@
 using IdentityService;
+using Microsoft.Extensions.Localization;
 using Serilog;
 using Serilog.Events;
+
+[assembly: ResourceLocation("Resources")]
+[assembly: RootNamespace("IdentityService")]
 
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
@@ -23,6 +27,7 @@ builder.Logging.ClearProviders().AddSerilog();
 
 // Add services to the container.
 builder.Services
+    .AddLocalization()
     .AddApplication<Application>();
 
 //builder.Services
@@ -37,6 +42,18 @@ if (app.Environment.IsStaging() || app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// 中间件
+app.UseRequestLocalization(options =>
+{
+    var cultures = new[] { "zh-CN", "en-US", "zh-TW" };
+    options.AddSupportedCultures(cultures);
+    options.AddSupportedUICultures(cultures);
+    options.SetDefaultCulture(cultures[0]);
+
+    // 当Http响应时，将 当前区域信息 设置到 Response Header：Content-Language 中
+    options.ApplyCurrentCultureToResponseHeaders = true;
+});
 
 // 异常处理程序中间件
 //app.UseExceptionHandler();

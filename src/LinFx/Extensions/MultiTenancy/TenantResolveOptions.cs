@@ -1,18 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace LinFx.Extensions.MultiTenancy
-{
-    public class TenantResolveOptions
-    {
-        [NotNull]
-        public List<ITenantResolveContributor> TenantResolvers { get; }
+namespace LinFx.Extensions.MultiTenancy;
 
-        public TenantResolveOptions()
+public class TenantResolveOptions
+{
+    [NotNull]
+    public List<ITenantResolveContributor> TenantResolvers { get; }
+
+    public TenantResolveOptions()
+    {
+        TenantResolvers = new List<ITenantResolveContributor>
         {
-            TenantResolvers = new List<ITenantResolveContributor>
-            {
-                new CurrentUserTenantResolveContributor(),
-            };
-        }
+            new CurrentUserTenantResolveContributor(),
+        };
     }
 }

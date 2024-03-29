@@ -14,24 +14,24 @@ public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
     private readonly ICurrentTenant _currentTenant;
     private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor;
 
-    //public MultiTenancyMiddleware(
-    //    RequestDelegate next,
-    //    ITenantResolver tenantResolver,
-    //    ICurrentTenant currentTenant,
-    //    ITenantResolveResultAccessor tenantResolveResultAccessor)
-    //{
-    //    _next = next;
-    //    _tenantResolver = tenantResolver;
-    //    _currentTenant = currentTenant;
-    //    _tenantResolveResultAccessor = tenantResolveResultAccessor;
-    //}
+    public MultiTenancyMiddleware(
+        RequestDelegate next,
+        ITenantResolver tenantResolver,
+        ICurrentTenant currentTenant,
+        ITenantResolveResultAccessor tenantResolveResultAccessor)
+    {
+        _next = next;
+        _tenantResolver = tenantResolver;
+        _currentTenant = currentTenant;
+        _tenantResolveResultAccessor = tenantResolveResultAccessor;
+    }
 
     public async Task InvokeAsync(HttpContext httpContext, ITenantStore tenantStore)
     {
         var resolveResult = _tenantResolver.ResolveTenantIdOrName();
         _tenantResolveResultAccessor.Result = resolveResult;
 
-        TenantInfo tenant = null;
+        TenantInfo? tenant = null;
         if (resolveResult.TenantIdOrName != null)
         {
             tenant = await tenantStore.FindAsync(resolveResult.TenantIdOrName);
@@ -49,6 +49,6 @@ public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
 
     public Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 }

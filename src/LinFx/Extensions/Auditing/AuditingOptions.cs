@@ -47,11 +47,7 @@ public class AuditingOptions
     /// 审计日志系统忽略的 Type 列表. 
     /// 如果它是实体类型,则不会保存此类型实体的更改. 在序列化操作参数时也使用此列表.
     /// </summary>
-    public List<Type> IgnoredTypes { get; } = new List<Type>
-    {
-        typeof(Stream),
-        typeof(Expression)
-    };
+    public List<Type> IgnoredTypes { get; } = [typeof(Stream), typeof(Expression)];
 
     /// <summary>
     /// 选择器列表,用于确定是否选择了用于保存实体更改的实体类型. 

@@ -1,5 +1,3 @@
-using System;
-
 namespace LinFx.Extensions.Auditing;
 
 /// <summary>

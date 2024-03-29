@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.Uow
+﻿namespace LinFx.Extensions.Uow;
+
+public interface IUnitOfWorkManagerAccessor
 {
-    public interface IUnitOfWorkManagerAccessor
-    {
-        IUnitOfWorkManager UnitOfWorkManager { get; }
-    }
+    IUnitOfWorkManager UnitOfWorkManager { get; }
 }

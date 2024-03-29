@@ -52,7 +52,7 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
 
             NormalizeProperty(propertyInfo);
 
-            if (!propertyInfo.UI.Lookup.Url.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(propertyInfo.UI.Lookup.Url))
             {
                 AddLookupTextProperty(propertyInfo);
                 propertyInfo.UI.OnTable.IsVisible = false;

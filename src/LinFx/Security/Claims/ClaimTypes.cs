@@ -46,4 +46,9 @@ public static class ClaimTypes
     /// Default: "client_id".
     /// </summary>
     public static string ClientId { get; set; } = "client_id";
+
+    /// <summary>
+    /// Default: "edition_id".
+    /// </summary>
+    public static string EditionId { get; set; } = "edition_id";
 }

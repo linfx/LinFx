@@ -12,10 +12,7 @@ public static class ObjectHelper
         TObject obj,
         Expression<Func<TObject, TValue>> propertySelector,
         Func<TValue> valueFactory,
-        params Type[] ignoreAttributeTypes)
-    {
-        TrySetProperty(obj, propertySelector, x => valueFactory(), ignoreAttributeTypes);
-    }
+        params Type[] ignoreAttributeTypes) => TrySetProperty(obj, propertySelector, x => valueFactory(), ignoreAttributeTypes);
 
     public static void TrySetProperty<TObject, TValue>(
         TObject obj,

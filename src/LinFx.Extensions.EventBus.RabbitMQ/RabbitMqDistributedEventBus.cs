@@ -272,7 +272,7 @@ public class RabbitMqDistributedEventBus : DistributedEventBusBase, ISingletonDe
             properties.DeliveryMode = RabbitMqConsts.DeliveryModes.Persistent;
         }
 
-        if (properties.MessageId.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(properties.MessageId))
         {
             properties.MessageId = (eventId ?? GuidGenerator.Create()).ToString("N");
         }

@@ -46,7 +46,6 @@ public partial class Result
     public static bool operator !(Result result) => result.Code != 200;
 }
 
-
 public partial class Result
 {
     /// <summary>
@@ -61,6 +60,14 @@ public partial class Result
     /// <param name="error"></param>
     /// <returns></returns>
     public static Result Failed(string error) => new(400, error);
+
+    /// <summary>
+    /// 操作失败
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="error"></param>
+    /// <returns></returns>
+    public static Result Failed(int code, string error) => new(code, error);
 
     /// <summary>
     /// 操作成功

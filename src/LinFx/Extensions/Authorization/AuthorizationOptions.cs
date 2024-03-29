@@ -14,5 +14,5 @@ public class AuthorizationOptions : Microsoft.AspNetCore.Authorization.Authoriza
     /// <value>
     /// The <see cref="PermissionOptions"/> for the authorization system.
     /// </value>
-    public PermissionOptions Permissions { get; set; } = new PermissionOptions();
+    public PermissionOptions Permissions { get; set; } = new ();
 }

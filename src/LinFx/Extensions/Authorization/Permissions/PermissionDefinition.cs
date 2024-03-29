@@ -1,5 +1,4 @@
-﻿using LinFx.Utils;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 
@@ -34,8 +33,11 @@ public class PermissionDefinition
     /// <summary>
     /// 权限的多语言名称。
     /// </summary>
-    public LocalizedString DisplayName { get; set; }
+    public LocalizedString? DisplayName { get; set; }
 
+    /// <summary>
+    /// 子项权限
+    /// </summary>
     public IReadOnlyList<PermissionDefinition> Children => _children.ToImmutableList();
 
     /// <summary>
@@ -66,26 +68,23 @@ public class PermissionDefinition
     /// </returns>
     public object this[string name]
     {
-        get => Properties.GetOrDefault(name);
+        get => Properties.GetOrDefault(name)!;
         set => Properties[name] = value;
     }
 
-    protected internal PermissionDefinition([NotNull] string name, LocalizedString displayName = null)
+    protected internal PermissionDefinition([NotNull] string name, LocalizedString? displayName = null)
     {
         Name = Check.NotNull(name, nameof(name));
         DisplayName = displayName;
 
-        Properties = new Dictionary<string, object>();
-        Providers = new List<string>();
-        _children = new List<PermissionDefinition>();
+        Properties = [];
+        Providers = [];
+        _children = [];
     }
 
-    public virtual PermissionDefinition AddChild([NotNull] string name, LocalizedString displayName = null)
+    public virtual PermissionDefinition AddChild([NotNull] string name, LocalizedString? displayName = null)
     {
-        var child = new PermissionDefinition(name, displayName)
-        {
-            Parent = this
-        };
+        var child = new PermissionDefinition(name, displayName) { Parent = this };
         _children.Add(child);
         return child;
     }
@@ -113,8 +112,5 @@ public class PermissionDefinition
         return this;
     }
 
-    public override string ToString()
-    {
-        return $"[{nameof(PermissionDefinition)} {Name}]";
-    }
+    public override string ToString() => $"[{nameof(PermissionDefinition)} {Name}]";
 }

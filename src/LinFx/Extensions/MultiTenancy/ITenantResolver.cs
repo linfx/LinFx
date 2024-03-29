@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy;
+
+public interface ITenantResolver
 {
-    public interface ITenantResolver
-    {
-        TenantResolveResult ResolveTenantIdOrName();
-    }
+    TenantResolveResult ResolveTenantIdOrName();
 }

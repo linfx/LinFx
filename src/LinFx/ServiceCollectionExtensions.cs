@@ -18,8 +18,7 @@ public static class ServiceCollectionExtensions
     internal static void AddCoreServices(this IServiceCollection services, IApplication application, ApplicationCreationOptions applicationCreationOptions)
     {
         services
-            .AddOptions()
-            .AddLocalization();
+            .AddOptions();
 
         var moduleLoader = new ModuleLoader();
         var assemblyFinder = new AssemblyFinder(application);

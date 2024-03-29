@@ -20,26 +20,19 @@ public sealed class NullDistributedEventBus : IDistributedEventBus
 
     public IDisposable Subscribe(Type eventType, IEventHandlerFactory factory) => NullDisposable.Instance;
 
-    public void Unsubscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class
-    { }
+    public void Unsubscribe<TEvent>(Func<TEvent, Task> action) where TEvent : class { }
 
-    public void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class
-    { }
+    public void Unsubscribe<TEvent>(ILocalEventHandler<TEvent> handler) where TEvent : class { }
 
-    public void Unsubscribe(Type eventType, IEventHandler handler)
-    { }
+    public void Unsubscribe(Type eventType, IEventHandler handler) { }
 
-    public void Unsubscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class
-    { }
+    public void Unsubscribe<TEvent>(IEventHandlerFactory factory) where TEvent : class { }
 
-    public void Unsubscribe(Type eventType, IEventHandlerFactory factory)
-    { }
+    public void Unsubscribe(Type eventType, IEventHandlerFactory factory) { }
 
-    public void UnsubscribeAll<TEvent>() where TEvent : class
-    { }
+    public void UnsubscribeAll<TEvent>() where TEvent : class { }
 
-    public void UnsubscribeAll(Type eventType)
-    { }
+    public void UnsubscribeAll(Type eventType) { }
 
     public Task PublishAsync<TEvent>(TEvent eventData, bool onUnitOfWorkComplete = true) where TEvent : class => Task.CompletedTask;
 

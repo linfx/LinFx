@@ -8,7 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class EfServiceCollectionExtensions
 {
-    public static IServiceCollection AddDbContext<TDbContext>(this IServiceCollection services, Action<IDbContextRegistrationOptionsBuilder> optionsBuilder = null)
+    public static IServiceCollection AddEfDbContext<TDbContext>(this IServiceCollection services, Action<IDbContextRegistrationOptionsBuilder>? optionsBuilder = null)
         where TDbContext : DbContext
     {
         services.AddMemoryCache();

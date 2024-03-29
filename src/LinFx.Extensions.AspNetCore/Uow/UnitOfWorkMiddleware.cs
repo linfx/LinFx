@@ -28,5 +28,5 @@ public class UnitOfWorkMiddleware(IUnitOfWorkManager unitOfWorkManager, IOptions
         await uow.CompleteAsync(context.RequestAborted);
     }
 
-    private bool IsIgnoredUrl(HttpContext context) => context.Request.Path.Value != null && _options.IgnoredUrls.Any(x => context.Request.Path.Value.StartsWith(x));
+    private bool IsIgnoredUrl(HttpContext context) => context.Request.Path.Value != null && _options.IgnoredUrls.Any(context.Request.Path.Value.StartsWith);
 }

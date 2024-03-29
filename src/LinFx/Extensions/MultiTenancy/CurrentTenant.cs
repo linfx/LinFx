@@ -15,9 +15,9 @@ public class CurrentTenant : ICurrentTenant
 
     public string Name => _currentTenantIdAccessor.Current?.Name!;
 
-    public IDisposable Change(string id, string name) => SetCurrent(id, name);
+    public IDisposable Change(string? id, string? name) => SetCurrent(id, name);
 
-    private IDisposable SetCurrent(string id, string name)
+    private IDisposable SetCurrent(string? id, string? name)
     {
         var parentScope = _currentTenantIdAccessor.Current;
         _currentTenantIdAccessor.Current = new TenantInfo(id, name);

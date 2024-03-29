@@ -14,12 +14,9 @@ public class EntityEventReport
 
     public EntityEventReport()
     {
-        DomainEvents = new List<DomainEventEntry>();
-        DistributedEvents = new List<DomainEventEntry>();
+        DomainEvents = [];
+        DistributedEvents = [];
     }
 
-    public override string ToString()
-    {
-        return $"[{nameof(EntityEventReport)}] DomainEvents: {DomainEvents.Count}, DistributedEvents: {DistributedEvents.Count}";
-    }
+    public override string ToString() => $"[{nameof(EntityEventReport)}] DomainEvents: {DomainEvents.Count}, DistributedEvents: {DistributedEvents.Count}";
 }

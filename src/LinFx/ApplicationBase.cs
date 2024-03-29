@@ -1,8 +1,7 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Modularity;
-using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using Assembly = System.Reflection.Assembly;
 
 namespace LinFx;
@@ -15,7 +14,8 @@ public abstract class ApplicationBase : IApplication
     [NotNull]
     public Type StartupModuleType { get; }
 
-    public IServiceProvider ServiceProvider { get; private set; }
+    [NotNull]
+    public IServiceProvider? ServiceProvider { get; private set; }
 
     public IServiceCollection Services { get; }
 
@@ -25,9 +25,9 @@ public abstract class ApplicationBase : IApplication
     public IReadOnlyList<IModuleDescriptor> Modules { get; }
 
     internal ApplicationBase(
-        [NotNull] Type startupModuleType,
-        [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
+        Type startupModuleType,
+        IServiceCollection services,
+        Action<ApplicationCreationOptions>? optionsAction)
     {
         Check.NotNull(startupModuleType, nameof(startupModuleType));
         Check.NotNull(services, nameof(services));
@@ -50,7 +50,10 @@ public abstract class ApplicationBase : IApplication
         // 添加核心服务，主要是模块系统相关组件。
         services.AddCoreServices(this, options);
 
+        // 加载模块
         Modules = LoadModules(services, options);
+
+        // 配置
         ConfigureServices();
     }
 
@@ -74,8 +77,8 @@ public abstract class ApplicationBase : IApplication
     /// 加载模块
     /// </summary>
     protected virtual IReadOnlyList<IModuleDescriptor> LoadModules(IServiceCollection services, ApplicationCreationOptions options) => services
-            .GetSingletonInstance<IModuleLoader>()
-            .LoadModules(services, StartupModuleType, options.PlugInSources);
+        .GetSingletonInstance<IModuleLoader>()
+        .LoadModules(services, StartupModuleType, options.PlugInSources);
 
     //TODO: We can extract a new class for this
     public virtual void ConfigureServices()

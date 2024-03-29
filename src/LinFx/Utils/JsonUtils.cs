@@ -45,7 +45,7 @@ public static class JsonUtils
         return JsonSerializer.Serialize(value, options);
     }
 
-    public static TValue ToObject<TValue>(string json, bool camelCase = false, bool indented = false)
+    public static TValue? ToObject<TValue>(string json, bool camelCase = false, bool indented = false)
     {
         var options = new JsonSerializerOptions();
 
@@ -89,7 +89,7 @@ public static class JsonUtils
     /// <summary>
     /// Deserializes an object serialized with <see cref="SerializeWithType(object)"/> methods.
     /// </summary>
-    public static object DeserializeWithType(string serializedObj)
+    public static object? DeserializeWithType(string serializedObj)
     {
         var typeSeperatorIndex = serializedObj.IndexOf(TypeSeperator);
         var type = Type.GetType(serializedObj.Substring(0, typeSeperatorIndex));
@@ -100,21 +100,5 @@ public static class JsonUtils
         return JsonSerializer.Deserialize(serialized, type, options);
     }
 
-    public static object DeserializeObject(string value, Type type) => JsonSerializer.Deserialize(value, type);
-}
-
-public static class JsonExtensions
-{
-    /// <summary>
-    /// Converts given object to JSON string.
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="camelCase"></param>
-    /// <param name="indented"></param>
-    /// <returns></returns>
-    public static string ToJsonString(this object value, bool camelCase = true, bool indented = false) => JsonUtils.ToJsonString(value, camelCase, indented);
-
-    public static byte[] ToBytes(this object value, bool camelCase = false, bool indented = false) => JsonUtils.ToBytes(value, camelCase, indented);
-
-    public static T ToObject<T>(this string value, bool camelCase = false, bool indented = false) => JsonUtils.ToObject<T>(value, camelCase, indented);
+    public static object? DeserializeObject(string value, Type type) => JsonSerializer.Deserialize(value, type);
 }

@@ -9,16 +9,14 @@ namespace LinFx.Extensions.Authorization;
 /// <summary>
 /// 授权模块
 /// </summary>
-[DependsOn(
-//typeof(SecurityModule),
-//typeof(LocalizationModule)
-)]
 public class AuthorizationModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
         // 授权拦截器注册
-        services.OnRegistred(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+        services.OnRegistered(AuthorizationInterceptorRegistrar.RegisterIfNeeded);
+
+        // 注册提供者
         AutoAddDefinitionProviders(services);
 
         // 注册认证授权服务。
@@ -26,7 +24,6 @@ public class AuthorizationModule : Module
 
         // 替换掉 ASP.NET Core 提供的权限处理器。
         services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-
         services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
 
         // 添加内置的一些权限值检查。
@@ -36,30 +33,13 @@ public class AuthorizationModule : Module
             options.ValueProviders.Add<RolePermissionValueProvider>();
             options.ValueProviders.Add<ClientPermissionValueProvider>();
         });
-
-        //Configure<AbpVirtualFileSystemOptions>(options =>
-        //{
-        //    options.FileSets.AddEmbedded<AbpAuthorizationResource>();
-        //});
-
-        //Configure<LocalizationOptions>(options =>
-        //{
-        //    options.Resources
-        //        .Add<AuthorizationResource>("en")
-        //        .AddVirtualJson("/Volo/Abp/Authorization/Localization");
-        //});
-
-        //Configure<ExceptionLocalizationOptions>(options =>
-        //{
-        //    options.MapCodeNamespace("Volo.Authorization", typeof(AbpAuthorizationResource));
-        //});
     }
 
     private static void AutoAddDefinitionProviders(IServiceCollection services)
     {
         var definitionProviders = new List<Type>();
 
-        services.OnRegistred(context =>
+        services.OnRegistered(context =>
         {
             if (typeof(IPermissionDefinitionProvider).IsAssignableFrom(context.ImplementationType))
             {

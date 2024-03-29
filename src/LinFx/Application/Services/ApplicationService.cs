@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Application.Services;
 
@@ -28,8 +29,9 @@ public abstract class ApplicationService :
     //IGlobalFeatureCheckingEnabled
     ITransientDependency
 {
+    [NotNull]
     [Autowired]
-    public ILazyServiceProvider LazyServiceProvider { get; set; }
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
 
     public static string[] CommonPostfixes { get; set; } = ["ApplicationService", "Service"];
 
@@ -42,7 +44,7 @@ public abstract class ApplicationService :
 
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
-    protected Type ObjectMapperContext { get; set; }
+    protected Type? ObjectMapperContext { get; set; }
 
     protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
             ? provider.GetRequiredService<IObjectMapper>()
@@ -82,38 +84,30 @@ public abstract class ApplicationService :
 
     //protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
 
-    protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
-
     public ApplicationService() { }
 
-    public ApplicationService(IServiceProvider serviceProvider)
-    {
-        LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
-    }
+    public ApplicationService(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
-    protected IStringLocalizer L
+    protected LocalizedString L(string name)
     {
-        get
+        if (_localizer == null)
         {
-            if (_localizer == null)
-            {
-                //_localizer = CreateLocalizer();
-            }
-            return _localizer;
+            _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(LocalizationResource);
+        }
+        return _localizer[name];
+    }
+    private IStringLocalizer? _localizer;
+
+    protected Type LocalizationResource
+    {
+        get => _localizationResource ?? GetType();
+        set
+        {
+            _localizationResource = value;
+            _localizer = null;
         }
     }
-    private readonly IStringLocalizer _localizer;
-
-    //protected Type LocalizationResource
-    //{
-    //    get => _localizationResource;
-    //    set
-    //    {
-    //        _localizationResource = value;
-    //        _localizer = null;
-    //    }
-    //}
-    //private Type _localizationResource = typeof(DefaultResource);
+    private Type? _localizationResource;
 
     /// <summary>
     /// 当前工作单元
@@ -138,21 +132,5 @@ public abstract class ApplicationService :
     //    }
 
     //    await AuthorizationService.CheckAsync(policyName);
-    //}
-
-    //protected virtual IStringLocalizer CreateLocalizer()
-    //{
-    //    if (LocalizationResource != null)
-    //    {
-    //        return StringLocalizerFactory.Create(LocalizationResource);
-    //    }
-
-    //    var localizer = StringLocalizerFactory.CreateDefaultOrNull();
-    //    if (localizer == null)
-    //    {
-    //        throw new Exception($"Set {nameof(LocalizationResource)} or define the default localization resource type (by configuring the {nameof(AbpLocalizationOptions)}.{nameof(AbpLocalizationOptions.DefaultResourceType)}) to be able to use the {nameof(L)} object!");
-    //    }
-
-    //    return localizer;
     //}
 }

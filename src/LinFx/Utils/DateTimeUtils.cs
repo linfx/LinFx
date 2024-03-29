@@ -2,8 +2,6 @@
 
 public static class DateTimeUtils
 {
-    public static object TimeZone { get; private set; }
-
     /// <summary>
     /// 得到当前的unix时间戳
     /// </summary>

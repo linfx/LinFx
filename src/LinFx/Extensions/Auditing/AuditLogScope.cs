@@ -2,12 +2,7 @@
 
 namespace LinFx.Domain.Entities.Auditing;
 
-public class AuditLogScope : IAuditLogScope
+public class AuditLogScope(AuditLogInfo log) : IAuditLogScope
 {
-    public AuditLogInfo Log { get; }
-
-    public AuditLogScope(AuditLogInfo log)
-    {
-        Log = log;
-    }
+    public AuditLogInfo Log { get; } = log;
 }

@@ -58,13 +58,17 @@ public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, 
 
     void OnCompleted(Func<Task> handler);
 
-    void AddOrReplaceLocalEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null
-    );
+    /// <summary>
+    /// 本地事件
+    /// </summary>
+    /// <param name="eventRecord"></param>
+    /// <param name="replacementSelector"></param>
+    void AddOrReplaceLocalEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null);
 
-    void AddOrReplaceDistributedEvent(
-        UnitOfWorkEventRecord eventRecord,
-        Predicate<UnitOfWorkEventRecord> replacementSelector = null
-    );
+    /// <summary>
+    /// 分布式事件
+    /// </summary>
+    /// <param name="eventRecord"></param>
+    /// <param name="replacementSelector"></param>
+    void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null);
 }

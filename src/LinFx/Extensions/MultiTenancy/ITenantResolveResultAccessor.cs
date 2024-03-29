@@ -1,7 +1,6 @@
-﻿namespace LinFx.Extensions.MultiTenancy
+﻿namespace LinFx.Extensions.MultiTenancy;
+
+public interface ITenantResolveResultAccessor
 {
-    public interface ITenantResolveResultAccessor
-    {
-        TenantResolveResult? Result { get; set; }
-    }
+    TenantResolveResult? Result { get; set; }
 }

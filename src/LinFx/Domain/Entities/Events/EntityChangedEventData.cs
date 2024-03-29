@@ -14,6 +14,5 @@ public class EntityChangedEventData<TEntity> : EntityEventData<TEntity>
     /// <param name="entity">Changed entity in this event</param>
     public EntityChangedEventData(TEntity entity)
         : base(entity)
-    {
-    }
+    { }
 }
