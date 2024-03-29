@@ -7,12 +7,7 @@ namespace LinFx.Extensions.Features;
 /// </summary>
 public class FeatureDefinitionContext : IFeatureDefinitionContext
 {
-    internal Dictionary<string, FeatureGroupDefinition> Groups { get; }
-
-    public FeatureDefinitionContext()
-    {
-        Groups = [];
-    }
+    internal Dictionary<string, FeatureGroupDefinition> Groups { get; } = [];
 
     public FeatureGroupDefinition AddGroup(string name, LocalizedString? displayName = null)
     {

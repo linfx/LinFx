@@ -2,5 +2,5 @@
 
 public class UpdatePermissionsDto
 {
-    public UpdatePermissionDto[] Permissions { get; set; }
+    public UpdatePermissionDto[]? Permissions { get; set; }
 }

@@ -10,6 +10,7 @@ using LinFx.Security.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
@@ -19,8 +20,9 @@ namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 /// </summary>
 public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConverter, ITransientDependency
 {
+    [NotNull]
     [Autowired]
-    public ILazyServiceProvider LazyServiceProvider { get; set; }
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
 
     protected ExceptionLocalizationOptions LocalizationOptions => LazyServiceProvider.LazyGetRequiredService<IOptions<ExceptionLocalizationOptions>>().Value;
 
@@ -118,7 +120,6 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
             return;
 
         var codeNamespace = exceptionWithErrorCode.Code.Split(':')[0];
-
         var localizationResourceType = LocalizationOptions.ErrorCodeNamespaceMappings.GetOrDefault(codeNamespace);
         if (localizationResourceType == null)
             return;

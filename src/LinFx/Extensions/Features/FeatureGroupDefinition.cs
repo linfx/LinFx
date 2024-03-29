@@ -8,16 +8,16 @@ namespace LinFx.Extensions.Features;
 /// </summary>
 public class FeatureGroupDefinition
 {
-    private readonly List<FeatureDefinition> _features;
+    private readonly List<FeatureDefinition> _features = [];
 
     /// <summary>
     /// Unique name of the group.
     /// </summary>
     public string Name { get; }
 
-    public Dictionary<string, object?> Properties { get; }
+    public Dictionary<string, object?> Properties { get; } = [];
 
-    public LocalizedString DisplayName { get; set; }
+    public LocalizedString? DisplayName { get; set; }
 
     public IReadOnlyList<FeatureDefinition> Features => _features.ToImmutableList();
 
@@ -39,28 +39,22 @@ public class FeatureGroupDefinition
     {
         Name = name;
         DisplayName = displayName;
-
-        Properties = [];
-        _features = [];
     }
 
     public virtual FeatureDefinition AddFeature(
         string name,
         string? defaultValue = null,
         LocalizedString? displayName = null,
-        LocalizedString? description = null,
-        //StringValueType? valueType = null,
-        bool isVisibleToClients = true,
-        bool isAvailableToHost = true)
+        LocalizedString? description = null
+        //StringValueType? valueType = null
+        )
     {
         var feature = new FeatureDefinition(
             name,
             defaultValue,
             displayName,
-            description,
+            description
             //valueType,
-            isVisibleToClients,
-            isAvailableToHost
         );
         _features.Add(feature);
 

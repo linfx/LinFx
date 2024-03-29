@@ -6,26 +6,30 @@ namespace LinFx.Extensions.Features;
 /// <summary>
 /// 特征定义
 /// </summary>
-public class FeatureDefinition
+public class FeatureDefinition(
+    string name,
+    string? defaultValue = null,
+    LocalizedString? displayName = null,
+    LocalizedString? description = null)
 {
-    private readonly List<FeatureDefinition>? _children;
+    private readonly List<FeatureDefinition>? _children = [];
 
     /// <summary>
     /// Unique name of the feature.
     /// </summary>
-    public string Name { get; } = string.Empty;
+    public string Name { get; } = Check.NotNullOrWhiteSpace(name, nameof(name));
 
-    public LocalizedString DisplayName { get; set; }
+    public LocalizedString? DisplayName { get; set; } = displayName;
 
     /// <summary>
     /// Default value of the feature.
     /// </summary>
-    public string? DefaultValue { get; set; }
+    public string? DefaultValue { get; set; } = defaultValue;
 
     /// <summary>
     /// 描述
     /// </summary>
-    public LocalizedString? Description { get; set; }
+    public LocalizedString? Description { get; set; } = description;
 
     /// <summary>
     /// Parent of this feature, if one exists.
@@ -56,28 +60,6 @@ public class FeatureDefinition
     /// Can be used to get/set custom properties for this feature.
     /// </summary>
     public Dictionary<string, object?> Properties { get; } = [];
-
-    public FeatureDefinition(
-        string name,
-        string? defaultValue = null,
-        LocalizedString? displayName = null,
-        LocalizedString? description = null,
-        //IStringValueType? valueType = null,
-        bool isVisibleToClients = true,
-        bool isAvailableToHost = true)
-    {
-        Name = Check.NotNullOrWhiteSpace(name, nameof(name));
-        DefaultValue = defaultValue;
-        DisplayName = displayName;
-        Description = description;
-        //ValueType = valueType ?? new ToggleStringValueType();
-        //IsVisibleToClients = isVisibleToClients;
-        //IsAvailableToHost = isAvailableToHost;
-
-        Properties = [];
-        //AllowedProviders = new List<string>();
-        _children = [];
-    }
 
     /// <summary>
     /// Sets a property in the <see cref="Properties"/> dictionary.

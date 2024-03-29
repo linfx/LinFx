@@ -9,7 +9,7 @@ public class TenantStore(ICurrentTenant currentTenant, TenantManagementDbContext
     private readonly ICurrentTenant _currentTenant = currentTenant;
     private readonly TenantManagementDbContext _context = context;
 
-    public async Task<TenantInfo> FindAsync(string tenantIdOrName)
+    public async ValueTask<TenantInfo?> FindAsync(string tenantIdOrName)
     {
         using (_currentTenant.Change(null))
         {

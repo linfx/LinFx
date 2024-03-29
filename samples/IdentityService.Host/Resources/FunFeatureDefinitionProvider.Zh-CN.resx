@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HelloWorld" xml:space="preserve">
-    <value>你好世界</value>
+  <data name="Fun" xml:space="preserve">
+    <value>功能套餐</value>
+  </data>
+  <data name="Fun.Sip" xml:space="preserve">
+    <value>设备拨打电话</value>
   </data>
 </root>

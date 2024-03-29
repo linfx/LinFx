@@ -9,13 +9,13 @@ public class FeatureDto
 {
     public required string Name { get; set; }
 
-    public LocalizedString? DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 
     public string? Value { get; set; }
 
     public FeatureProviderDto? Provider { get; set; }
 
-    public string? Description { get; set; }
+    public LocalizedString? Description { get; set; }
 
     //public IStringValueType ValueType { get; set; }
 

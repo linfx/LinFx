@@ -1,5 +1,5 @@
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx;
 
@@ -8,17 +8,18 @@ namespace LinFx;
 /// </summary>
 internal class ApplicationWithInternalServiceProvider : ApplicationBase, IApplicationWithInternalServiceProvider
 {
-    public IServiceScope ServiceScope { get; private set; }
+    [NotNull]
+    public IServiceScope? ServiceScope { get; private set; }
 
     public ApplicationWithInternalServiceProvider(
-        [NotNull] Type startupModuleType,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
+        Type startupModuleType,
+        Action<ApplicationCreationOptions>? optionsAction)
         : this(startupModuleType, new ServiceCollection(), optionsAction) { }
 
     private ApplicationWithInternalServiceProvider(
-        [NotNull] Type startupModuleType,
-        [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction) : base(startupModuleType, services, optionsAction)
+        Type startupModuleType,
+        IServiceCollection services,
+        Action<ApplicationCreationOptions>? optionsAction) : base(startupModuleType, services, optionsAction)
     {
         // 注入自己到 IoC 当中。
         Services.AddSingleton<IApplicationWithInternalServiceProvider>(this);

@@ -1,6 +1,7 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Features;
 
@@ -9,36 +10,26 @@ namespace LinFx.Extensions.Features;
 /// </summary>
 public abstract class FeatureDefinitionProvider : IFeatureDefinitionProvider, ITransientDependency
 {
+    [NotNull]
     [Autowired]
-    public ILazyServiceProvider LazyServiceProvider { get; set; }
-
-    //public IStringLocalizer Localizer => LazyServiceProvider.LazyGetRequiredService<IStringLocalizer>();
-    public IStringLocalizer Localizer {  get; set; }
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
 
     public FeatureDefinitionProvider() { }
 
-    public FeatureDefinitionProvider(IServiceProvider serviceProvider)
-    {
-        LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
-    }
-
-    public FeatureDefinitionProvider(IStringLocalizer localizer)
-    {
-        Localizer = localizer;
-    }
+    public FeatureDefinitionProvider(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
     public abstract void Define(IFeatureDefinitionContext context);
 
-    /// <summary>
-    /// 多语言
-    /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    protected virtual LocalizedString L(string name)
+    protected IStringLocalizer L
     {
-        if (Localizer == null)
-            return new LocalizedString(name, name);
-
-        return Localizer[name];
+        get
+        {
+            if (_localizer == null)
+            {
+                _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(GetType());
+            }
+            return _localizer;
+        }
     }
+    private IStringLocalizer? _localizer;
 }

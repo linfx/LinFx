@@ -1,7 +1,7 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Modularity;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using Assembly = System.Reflection.Assembly;
 
 namespace LinFx;
@@ -14,7 +14,8 @@ public abstract class ApplicationBase : IApplication
     [NotNull]
     public Type StartupModuleType { get; }
 
-    public IServiceProvider ServiceProvider { get; private set; }
+    [NotNull]
+    public IServiceProvider? ServiceProvider { get; private set; }
 
     public IServiceCollection Services { get; }
 
@@ -24,9 +25,9 @@ public abstract class ApplicationBase : IApplication
     public IReadOnlyList<IModuleDescriptor> Modules { get; }
 
     internal ApplicationBase(
-        [NotNull] Type startupModuleType,
-        [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction)
+        Type startupModuleType,
+        IServiceCollection services,
+        Action<ApplicationCreationOptions>? optionsAction)
     {
         Check.NotNull(startupModuleType, nameof(startupModuleType));
         Check.NotNull(services, nameof(services));

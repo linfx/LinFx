@@ -2,5 +2,5 @@
 
 public interface ITenantStore
 {
-    Task<TenantInfo> FindAsync(string tenantIdOrName);
+    ValueTask<TenantInfo?> FindAsync(string tenantIdOrName);
 }

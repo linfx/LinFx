@@ -57,7 +57,7 @@ public class FeatureService(
     {
         Name = featureDefinition.Name,
         DisplayName = featureDefinition.DisplayName,
-        //Description = featureDefinition.Description?.Localize(StringLocalizerFactory),
+        Description = featureDefinition.Description,
         //ValueType = featureDefinition.ValueType,
         ParentName = featureDefinition.Parent?.Name,
         Value = featureNameValueWithGrantedProvider.Value,
@@ -78,7 +78,7 @@ public class FeatureService(
         }
     }
 
-    protected virtual void SetFeatureDepth(List<FeatureDto> features, string providerName, string providerKey, FeatureDto parentFeature = null, int depth = 0)
+    protected virtual void SetFeatureDepth(List<FeatureDto> features, string providerName, string providerKey, FeatureDto? parentFeature = null, int depth = 0)
     {
         foreach (var feature in features)
         {

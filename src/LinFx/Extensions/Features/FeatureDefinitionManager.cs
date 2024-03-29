@@ -3,18 +3,10 @@ using System.Collections.Immutable;
 
 namespace LinFx.Extensions.Features;
 
-public class FeatureDefinitionManager : IFeatureDefinitionManager, ISingletonDependency
+public class FeatureDefinitionManager(IStaticFeatureDefinitionStore staticStore, IDynamicFeatureDefinitionStore dynamicStore) : IFeatureDefinitionManager, ISingletonDependency
 {
-    protected IStaticFeatureDefinitionStore StaticStore;
-    protected IDynamicFeatureDefinitionStore DynamicStore;
-
-    public FeatureDefinitionManager(
-        IStaticFeatureDefinitionStore staticStore,
-        IDynamicFeatureDefinitionStore dynamicStore)
-    {
-        StaticStore = staticStore;
-        DynamicStore = dynamicStore;
-    }
+    protected IStaticFeatureDefinitionStore StaticStore = staticStore;
+    protected IDynamicFeatureDefinitionStore DynamicStore = dynamicStore;
 
     public virtual async Task<FeatureDefinition> GetAsync(string name)
     {
@@ -25,13 +17,7 @@ public class FeatureDefinitionManager : IFeatureDefinitionManager, ISingletonDep
         return item;
     }
 
-    public virtual async Task<FeatureDefinition?> GetOrNullAsync(string name)
-    {
-        Check.NotNull(name, nameof(name));
-
-        return await StaticStore.GetOrNullAsync(name) ??
-               await DynamicStore.GetOrNullAsync(name);
-    }
+    public virtual async Task<FeatureDefinition?> GetOrNullAsync(string name) => await StaticStore.GetOrNullAsync(name) ?? await DynamicStore.GetOrNullAsync(name);
 
     public virtual async Task<IReadOnlyList<FeatureDefinition>> GetAllAsync()
     {

@@ -1,12 +1,11 @@
 ﻿using LinFx.Extensions.Features;
-using Microsoft.Extensions.Localization;
 
 namespace IdentityService;
 
 /// <summary>
 /// 功能套餐
 /// </summary>
-public class FunFeatureDefinitionProvider(IStringLocalizer<FunFeatureDefinitionProvider> localizer) : FeatureDefinitionProvider(localizer)
+public class FunFeatureDefinitionProvider : FeatureDefinitionProvider
 {
     public const string GroupName = "Fun";
     public const string Sip = GroupName + ".Sip";
@@ -15,22 +14,22 @@ public class FunFeatureDefinitionProvider(IStringLocalizer<FunFeatureDefinitionP
 
     public override void Define(IFeatureDefinitionContext context)
     {
-        var group = context.AddGroup(GroupName, L(GroupName));
+        var group = context.AddGroup(GroupName, L[GroupName]);
 
         group.AddFeature(
-            Sip
-            //valueType: new ToggleStringValueType()
-        );
+            Sip,
+        //valueType: new ToggleStringValueType()
+        displayName: L[Sip]);
 
         group.AddFeature(
             SipAlarm
-            //valueType: new ToggleStringValueType()
+        //valueType: new ToggleStringValueType()
         );
 
         group.AddFeature(
             SmsAlarm,
             defaultValue: false.ToString().ToLowerInvariant() //Optional, it is already false by default
-             //valueType: new FreeTextStringValueType(new NumericValueValidator(1, 1000))
+                                                              //valueType: new FreeTextStringValueType(new NumericValueValidator(1, 1000))
         );
     }
 }
@@ -45,12 +44,12 @@ public class PicFeatureDefinitionProvider : FeatureDefinitionProvider
 
     public override void Define(IFeatureDefinitionContext context)
     {
-        var group = context.AddGroup(GroupName);
+        var group = context.AddGroup(GroupName, L[GroupName]);
 
         group.AddFeature(
             CloudStorage,
             defaultValue: "0"
-            //valueType: new FreeTextStringValueType(new NumericValueValidator(0, 10))
+        //valueType: new FreeTextStringValueType(new NumericValueValidator(0, 10))
         );
     }
 }
