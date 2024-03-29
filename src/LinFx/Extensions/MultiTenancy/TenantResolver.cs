@@ -1,21 +1,14 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace LinFx.Extensions.MultiTenancy;
 
 [Service]
-public class TenantResolver : ITenantResolver
+public class TenantResolver(IOptions<TenantResolveOptions> options, IServiceProvider serviceProvider) : ITenantResolver
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly TenantResolveOptions _options;
-
-    public TenantResolver(IOptions<TenantResolveOptions> options, IServiceProvider serviceProvider)
-    {
-        _options = options.Value;
-        _serviceProvider = serviceProvider;
-    }
+    private readonly TenantResolveOptions _options = options.Value;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
     public TenantResolveResult ResolveTenantIdOrName()
     {

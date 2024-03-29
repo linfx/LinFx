@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace LinFx.Extensions.MultiTenancy;
+﻿namespace LinFx.Extensions.MultiTenancy;
 
 public interface ITenantStore
 {

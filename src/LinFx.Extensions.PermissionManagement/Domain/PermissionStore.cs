@@ -1,7 +1,6 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 

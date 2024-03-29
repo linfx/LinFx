@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.Modularity;
-using LinFx.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Assembly = System.Reflection.Assembly;
 
@@ -77,8 +76,8 @@ public abstract class ApplicationBase : IApplication
     /// 加载模块
     /// </summary>
     protected virtual IReadOnlyList<IModuleDescriptor> LoadModules(IServiceCollection services, ApplicationCreationOptions options) => services
-            .GetSingletonInstance<IModuleLoader>()
-            .LoadModules(services, StartupModuleType, options.PlugInSources);
+        .GetSingletonInstance<IModuleLoader>()
+        .LoadModules(services, StartupModuleType, options.PlugInSources);
 
     //TODO: We can extract a new class for this
     public virtual void ConfigureServices()

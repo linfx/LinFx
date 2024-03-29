@@ -2,7 +2,6 @@
 using LinFx.Application.Services;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.EntityFrameworkCore;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -76,6 +75,9 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
     public virtual async ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input)
     {
         var item = await Db.Tenants.FindAsync(id);
+        if (item == null)
+            throw new EntityNotFoundException(typeof(Tenant), id);
+
         item.Name = input.Name;
         await Db.SaveChangesAsync();
 

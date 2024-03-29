@@ -2,7 +2,7 @@
 
 namespace LinFx.Extensions.FeatureManagement;
 
-public class FeaturePermissionDefinitionProvider : PermissionDefinitionProvider
+public class FeaturePermissionDefinitionProvider(IServiceProvider serviceProvider) : PermissionDefinitionProvider(serviceProvider)
 {
     public override void Define(IPermissionDefinitionContext context)
     {

@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.TenantManagement.EntityFrameworkCore;
 
 namespace LinFx.Extensions.TenantManagement.Application;
 

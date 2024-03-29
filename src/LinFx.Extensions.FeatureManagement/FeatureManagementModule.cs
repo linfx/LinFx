@@ -23,6 +23,7 @@ public class FeatureManagementModule : Module
         {
             options.Providers.Add<DefaultValueFeatureManagementProvider>();
             options.Providers.Add<EditionFeatureManagementProvider>();
+            options.Providers.Add<IdentityFeatureManagementProvider>();
         });
     }
 }

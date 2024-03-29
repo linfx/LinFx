@@ -13,7 +13,7 @@ public static class ActionDescriptorExtensions
         if (!actionDescriptor.IsControllerAction())
             throw new LinFxException($"{nameof(actionDescriptor)} should be type of {typeof(ControllerActionDescriptor).AssemblyQualifiedName}");
 
-        return actionDescriptor as ControllerActionDescriptor;
+        return (ControllerActionDescriptor)actionDescriptor;
     }
 
     public static MethodInfo GetMethodInfo(this ActionDescriptor actionDescriptor) => actionDescriptor.AsControllerActionDescriptor().MethodInfo;

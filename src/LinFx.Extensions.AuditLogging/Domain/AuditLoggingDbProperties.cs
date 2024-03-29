@@ -6,7 +6,7 @@ public static class AuditLoggingDbProperties
 {
     public static string DbTablePrefix { get; set; } = CommonDbProperties.DbTablePrefix;
 
-    public static string DbSchema { get; set; } = CommonDbProperties.DbSchema;
+    public static string? DbSchema { get; set; } = CommonDbProperties.DbSchema;
 
     public const string ConnectionStringName = "Default";
 }

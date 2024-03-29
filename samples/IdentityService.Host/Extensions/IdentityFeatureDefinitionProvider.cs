@@ -1,53 +1,56 @@
 ﻿using LinFx.Extensions.Features;
+using Microsoft.Extensions.Localization;
 
 namespace IdentityService;
 
-public class IdentityFeatureDefinitionProvider : FeatureDefinitionProvider
+/// <summary>
+/// 功能套餐
+/// </summary>
+public class FunFeatureDefinitionProvider(IStringLocalizer<FunFeatureDefinitionProvider> localizer) : FeatureDefinitionProvider(localizer)
 {
     public const string GroupName = "Fun";
-    public const string SocialLogins = GroupName + ".SocialLogins";
-    public const string EmailSupport = GroupName + ".EmailSupport";
-    public const string DailyAnalysis = GroupName + ".DailyAnalysis";
-    public const string UserCount = GroupName + ".UserCount";
-    public const string ProjectCount = GroupName + ".ProjectCount";
-    public const string BackupCount = GroupName + ".BackupCount";
+    public const string Sip = GroupName + ".Sip";
+    public const string SipAlarm = GroupName + ".SipAlarm";
+    public const string SmsAlarm = GroupName + ".SmsAlarm";
+
+    public override void Define(IFeatureDefinitionContext context)
+    {
+        var group = context.AddGroup(GroupName, L(GroupName));
+
+        group.AddFeature(
+            Sip
+            //valueType: new ToggleStringValueType()
+        );
+
+        group.AddFeature(
+            SipAlarm
+            //valueType: new ToggleStringValueType()
+        );
+
+        group.AddFeature(
+            SmsAlarm,
+            defaultValue: false.ToString().ToLowerInvariant() //Optional, it is already false by default
+             //valueType: new FreeTextStringValueType(new NumericValueValidator(1, 1000))
+        );
+    }
+}
+
+/// <summary>
+/// 照片套餐
+/// </summary>
+public class PicFeatureDefinitionProvider : FeatureDefinitionProvider
+{
+    public const string GroupName = "Pic";
+    public const string CloudStorage = GroupName + ".CloudStorage";
 
     public override void Define(IFeatureDefinitionContext context)
     {
         var group = context.AddGroup(GroupName);
 
         group.AddFeature(
-            SocialLogins
-            //valueType: new ToggleStringValueType()
+            CloudStorage,
+            defaultValue: "0"
+            //valueType: new FreeTextStringValueType(new NumericValueValidator(0, 10))
         );
-
-        group.AddFeature(
-            EmailSupport
-            //valueType: new ToggleStringValueType()
-        );
-
-        group.AddFeature(
-            DailyAnalysis,
-            defaultValue: false.ToString().ToLowerInvariant() //Optional, it is already false by default
-            //valueType: new ToggleStringValueType()
-        );
-
-        //group.AddFeature(
-        //    UserCount,
-        //    defaultValue: "1"
-        //    //valueType: new FreeTextStringValueType(new NumericValueValidator(1, 1000))
-        //);
-
-        //group.AddFeature(
-        //    ProjectCount,
-        //    defaultValue: "1"
-        //    //valueType: new FreeTextStringValueType(new NumericValueValidator(1, 10))
-        //);
-
-        //group.AddFeature(
-        //    BackupCount,
-        //    defaultValue: "0"
-        //    //valueType: new FreeTextStringValueType(new NumericValueValidator(0, 10))
-        //);
     }
 }

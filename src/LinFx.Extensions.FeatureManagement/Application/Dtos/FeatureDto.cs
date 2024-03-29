@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Localization;
+
 namespace LinFx.Extensions.FeatureManagement;
 
 /// <summary>
@@ -5,19 +7,19 @@ namespace LinFx.Extensions.FeatureManagement;
 /// </summary>
 public class FeatureDto
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
-    public string DisplayName { get; set; }
+    public LocalizedString? DisplayName { get; set; }
 
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
-    public FeatureProviderDto Provider { get; set; }
+    public FeatureProviderDto? Provider { get; set; }
 
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     //public IStringValueType ValueType { get; set; }
 
     public int Depth { get; set; }
 
-    public string ParentName { get; set; }
+    public string? ParentName { get; set; }
 }

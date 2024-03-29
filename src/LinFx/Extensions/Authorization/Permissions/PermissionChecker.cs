@@ -38,7 +38,7 @@ public class PermissionChecker : IPermissionChecker
         PermissionDefinitionManager = permissionDefinitionManager;
         Options = options.Value;
 
-        _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options.ValueProviders.Select(c => serviceProvider.GetRequiredService(c) as IPermissionValueProvider).ToList(), true);
+        _lazyProviders = new Lazy<List<IPermissionValueProvider>>(() => Options.ValueProviders.Select(c => (IPermissionValueProvider)serviceProvider.GetRequiredService(c)).ToList(), true);
     }
 
     /// <summary>
@@ -67,8 +67,8 @@ public class PermissionChecker : IPermissionChecker
                 continue;
 
             var result = await provider.CheckAsync(context);
-            //if (result == PermissionGrantResult.Granted)
-            //    return new PermissionGrantInfo(context.Permission.Name, true, provider.Name, result.ProviderKey);
+            if (result == PermissionGrantResult.Granted)
+                return new PermissionGrantInfo(context.Permission.Name, true, provider.Name);
         }
 
         return new PermissionGrantInfo(context.Permission.Name, false);

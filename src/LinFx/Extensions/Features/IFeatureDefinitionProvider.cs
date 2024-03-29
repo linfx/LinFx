@@ -5,5 +5,9 @@
 /// </summary>
 public interface IFeatureDefinitionProvider
 {
+    /// <summary>
+    /// 定义
+    /// </summary>
+    /// <param name="context"></param>
     void Define(IFeatureDefinitionContext context);
 }

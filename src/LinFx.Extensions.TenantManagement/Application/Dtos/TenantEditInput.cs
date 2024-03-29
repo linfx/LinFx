@@ -9,5 +9,5 @@ public class TenantEditInput
     /// </summary>
     [Required(ErrorMessage = "名称不能为空")]
     [StringLength(64)]
-    public virtual string Name { get; set; } = string.Empty;
+    public virtual required string Name { get; set; }
 }

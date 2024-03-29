@@ -24,18 +24,17 @@ public class FeatureManagementStore(
     [UnitOfWork]
     public virtual async Task SetAsync(string name, string value, string providerName, string providerKey)
     {
-        var featureValue = await Db.FeatureValues.FindAsync(name, providerName, providerKey);
+        var featureValue = await Db.FeatureValues.FirstOrDefaultAsync(p => p.Name == name && p.ProviderName == providerName && p.ProviderKey == providerKey);
         if (featureValue == null)
         {
             featureValue = new FeatureValue(IDUtils.NewIdString(), name, value, providerName, providerKey);
-            //await Db.FeatureValues.InsertAsync(featureValue);
             Db.FeatureValues.Add(featureValue);
         }
         else
         {
             featureValue.Value = value;
-            //await Db.FeatureValues.UpdateAsync(featureValue);
         }
+        await Db.SaveChangesAsync();
         await Cache.SetAsync(CalculateCacheKey(name, providerName, providerKey), new FeatureValueCacheItem(featureValue.Value), considerUow: true);
     }
 

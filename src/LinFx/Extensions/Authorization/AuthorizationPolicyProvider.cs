@@ -16,7 +16,7 @@ public class AuthorizationPolicyProvider(
     private readonly AuthorizationOptions _options = options.Value;
     private readonly IPermissionDefinitionManager _permissionDefinitionManager = permissionDefinitionManager;
 
-    public override async Task<AuthorizationPolicy> GetPolicyAsync(string policyName)
+    public override async Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
     {
         var policy = await base.GetPolicyAsync(policyName);
         if (policy != null)

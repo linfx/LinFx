@@ -13,7 +13,7 @@ public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
 {
     public virtual string AuditLogId { get; protected set; }
 
-    public virtual string TenantId { get; protected set; }
+    public virtual string? TenantId { get; protected set; }
 
     public virtual DateTime ChangeTime { get; protected set; }
 
@@ -37,7 +37,7 @@ public class EntityChange : Entity<string>, IMultiTenant, IHasExtraProperties
     public EntityChange(
         string auditLogId,
         EntityChangeInfo entityChangeInfo,
-        string tenantId = null)
+        string? tenantId = null)
     {
         Id = IDUtils.NewIdString();
         AuditLogId = auditLogId;

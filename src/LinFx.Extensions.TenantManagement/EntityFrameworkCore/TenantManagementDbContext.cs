@@ -2,7 +2,7 @@
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+namespace LinFx.Extensions.TenantManagement;
 
 [IgnoreMultiTenancy]
 public class TenantManagementDbContext(DbContextOptions options) : EfDbContext(options)

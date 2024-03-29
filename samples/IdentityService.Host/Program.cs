@@ -1,3 +1,4 @@
+using Autofac.Core;
 using IdentityService;
 using Serilog;
 using Serilog.Events;
@@ -29,6 +30,9 @@ builder.Services
 //    .AddProblemDetails()
 //    .AddExceptionHandler<ExceptionHandler>();
 
+builder.Services
+    .AddLocalization(options => options.ResourcesPath = "Resources");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +41,18 @@ if (app.Environment.IsStaging() || app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// 中间件
+app.UseRequestLocalization(options =>
+{
+    //var cultures = new[] { "zh-CN", "en-US", "zh-TW" };
+    //options.AddSupportedCultures(cultures);
+    //options.AddSupportedUICultures(cultures);
+    //options.SetDefaultCulture(cultures[0]);
+
+    //// 当Http响应时，将 当前区域信息 设置到 Response Header：Content-Language 中
+    //options.ApplyCurrentCultureToResponseHeaders = true;
+});
 
 // 异常处理程序中间件
 //app.UseExceptionHandler();

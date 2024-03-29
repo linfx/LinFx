@@ -15,7 +15,7 @@ public class DbConnectionOptions
     public string? GetConnectionStringOrNull(string connectionStringName, bool fallbackToDatabaseMappings = true, bool fallbackToDefault = true)
     {
         var connectionString = ConnectionStrings.GetOrDefault(connectionStringName);
-        if (!connectionString.IsNullOrEmpty())
+        if (!string.IsNullOrEmpty(connectionString))
             return connectionString;
 
         if (fallbackToDatabaseMappings)
@@ -24,7 +24,7 @@ public class DbConnectionOptions
             if (database != null)
             {
                 connectionString = ConnectionStrings.GetOrDefault(database.DatabaseName);
-                if (!connectionString.IsNullOrEmpty())
+                if (!string.IsNullOrEmpty(connectionString))
                     return connectionString;
             }
         }

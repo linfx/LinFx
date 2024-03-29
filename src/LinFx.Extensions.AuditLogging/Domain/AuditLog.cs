@@ -28,7 +28,7 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
     /// <summary>
     /// 租户ID
     /// </summary>
-    public virtual string TenantId { get; protected set; }
+    public virtual string? TenantId { get; protected set; }
 
     /// <summary>
     /// 租户名称

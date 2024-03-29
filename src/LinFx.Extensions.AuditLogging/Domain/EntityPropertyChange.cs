@@ -4,10 +4,13 @@ using LinFx.Utils;
 
 namespace LinFx.Extensions.AuditLogging;
 
+/// <summary>
+/// 属性变化
+/// </summary>
 [DisableAuditing]
 public class EntityPropertyChange : Entity<string>, IMultiTenant
 {
-    public virtual string TenantId { get; protected set; }
+    public virtual string? TenantId { get; protected set; }
 
     public virtual string EntityChangeId { get; protected set; }
 
@@ -21,7 +24,7 @@ public class EntityPropertyChange : Entity<string>, IMultiTenant
 
     protected EntityPropertyChange() { }
 
-    public EntityPropertyChange(string entityChangeId, EntityPropertyChangeInfo entityChangeInfo, string tenantId = null)
+    public EntityPropertyChange(string entityChangeId, EntityPropertyChangeInfo entityChangeInfo, string? tenantId = default)
     {
         Id = IDUtils.NewIdString();
         TenantId = tenantId;

@@ -90,7 +90,7 @@ public class PermissionService : ApplicationService
                 neededCheckPermissions.Add(permission);
             }
 
-            if (!neededCheckPermissions.Any())
+            if (neededCheckPermissions.Count == 0)
                 continue;
 
             var grantInfoDtos = neededCheckPermissions.Select(x => new PermissionGrantInfoDto

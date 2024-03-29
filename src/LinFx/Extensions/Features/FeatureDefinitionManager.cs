@@ -18,11 +18,11 @@ public class FeatureDefinitionManager : IFeatureDefinitionManager, ISingletonDep
 
     public virtual async Task<FeatureDefinition> GetAsync(string name)
     {
-        var permission = await GetOrNullAsync(name);
-        if (permission == null)
+        var item = await GetOrNullAsync(name);
+        if (item == null)
             throw new LinFxException("Undefined feature: " + name);
 
-        return permission;
+        return item;
     }
 
     public virtual async Task<FeatureDefinition?> GetOrNullAsync(string name)

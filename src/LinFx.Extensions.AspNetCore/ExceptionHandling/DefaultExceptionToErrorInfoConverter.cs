@@ -82,10 +82,10 @@ public class DefaultExceptionToErrorInfoConverter(
 
         if (exception is IHasValidationErrors)
         {
-            if (errorInfo.Message.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(errorInfo.Message))
                 errorInfo.Message = L["ValidationErrorMessage"];
 
-            if (errorInfo.Details.IsNullOrEmpty())
+            if(string.IsNullOrEmpty(errorInfo.Details))
                 errorInfo.Details = GetValidationErrorNarrative((exception as IHasValidationErrors)!);
 
             errorInfo.ValidationErrors = GetValidationErrorInfos((exception as IHasValidationErrors)!);
@@ -93,8 +93,8 @@ public class DefaultExceptionToErrorInfoConverter(
 
         TryToLocalizeExceptionMessage(exception, errorInfo);
 
-        if (errorInfo.Message.IsNullOrEmpty())
-            errorInfo.Message = L["InternalServerErrorMessage"];
+        if(string.IsNullOrEmpty(errorInfo.Message))
+            errorInfo.Message = exception.Message;
 
         errorInfo.Data = exception.Data;
 

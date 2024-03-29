@@ -31,22 +31,14 @@ public class DefaultHttpExceptionStatusCodeFinder(IOptions<ExceptionHttpStatusCo
             return httpContext.User.Identity.IsAuthenticated ? HttpStatusCode.Forbidden : HttpStatusCode.Unauthorized;
 
         //TODO: Handle SecurityException..?
-
-        if (exception is ValidationException)
-            return HttpStatusCode.BadRequest;
-
-        if (exception is EntityNotFoundException)
-            return HttpStatusCode.NotFound;
-
-        if (exception is DbConcurrencyException)
-            return HttpStatusCode.Conflict;
-
-        if (exception is NotImplementedException)
-            return HttpStatusCode.NotImplemented;
-
-        if (exception is IBusinessException)
-            return HttpStatusCode.Forbidden;
-
-        return HttpStatusCode.InternalServerError;
+        return exception switch
+        {
+            ValidationException => HttpStatusCode.BadRequest,
+            EntityNotFoundException => HttpStatusCode.NotFound,
+            DbConcurrencyException => HttpStatusCode.Conflict,
+            NotImplementedException => HttpStatusCode.NotImplemented,
+            IBusinessException => HttpStatusCode.Forbidden,
+            _ => HttpStatusCode.InternalServerError
+        };
     }
 }

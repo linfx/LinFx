@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Extensions.PermissionManagement.EntityFrameworkCore;
+namespace LinFx.Extensions.PermissionManagement;
 
 public class PermissionManagementDbContext : EfDbContext<PermissionManagementDbContext>
 {

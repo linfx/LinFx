@@ -2,7 +2,7 @@ using LinFx.Extensions.EntityFrameworkCore.Modeling;
 using LinFx.Extensions.TenantManagement.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinFx.Extensions.TenantManagement.EntityFrameworkCore;
+namespace LinFx.Extensions.TenantManagement;
 
 public static class TenantManagementDbContextModelCreatingExtensions
 {

@@ -1,6 +1,5 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Extensions.Guids;
 using LinFx.Extensions.Identity;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,9 +9,8 @@ namespace LinFx.Extensions.PermissionManagement.Application;
 [Service(ServiceLifetime.Scoped)]
 public class RolePermissionManagementProvider(
     PermissionService permissionGrantRepository,
-    IGuidGenerator guidGenerator,
     ICurrentTenant currentTenant,
-    IUserRoleFinder userRoleFinder) : PermissionManagementProvider(permissionGrantRepository, guidGenerator, currentTenant)
+    IUserRoleFinder userRoleFinder) : PermissionManagementProvider(permissionGrantRepository, currentTenant)
 {
     public override string Name => RolePermissionValueProvider.ProviderName;
 

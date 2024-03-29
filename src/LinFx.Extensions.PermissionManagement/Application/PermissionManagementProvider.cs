@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
 
@@ -14,17 +13,11 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
 
     protected PermissionService PermissionService { get; }
 
-    protected IGuidGenerator GuidGenerator { get; }
-
     protected ICurrentTenant CurrentTenant { get; }
 
-    protected PermissionManagementProvider(
-        PermissionService permissionService,
-        IGuidGenerator guidGenerator,
-        ICurrentTenant currentTenant)
+    protected PermissionManagementProvider(PermissionService permissionService, ICurrentTenant currentTenant)
     {
         PermissionService = permissionService;
-        GuidGenerator = guidGenerator;
         CurrentTenant = currentTenant;
     }
 

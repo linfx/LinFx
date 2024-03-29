@@ -1,6 +1,5 @@
 using JetBrains.Annotations;
 using LinFx.Extensions.DependencyInjection;
-using LinFx.Utils;
 using Microsoft.Extensions.Options;
 using System.Collections.Immutable;
 
@@ -9,16 +8,16 @@ namespace LinFx.Extensions.Uow;
 /// <summary>
 /// 工作单元
 /// </summary>
-public class UnitOfWork(
-    IServiceProvider serviceProvider,
-    IUnitOfWorkEventPublisher unitOfWorkEventPublisher,
-    IOptions<UnitOfWorkDefaultOptions> options) : IUnitOfWork, ITransientDependency
+public class UnitOfWork(IServiceProvider serviceProvider, IUnitOfWorkEventPublisher unitOfWorkEventPublisher, IOptions<UnitOfWorkDefaultOptions> options) : IUnitOfWork, ITransientDependency
 {
     /// <summary>
     /// Default: false.
     /// </summary>
     public static bool EnableObsoleteDbContextCreationWarning { get; } = false;
 
+    /// <summary>
+    /// Name
+    /// </summary>
     public const string UnitOfWorkReservationName = "_ActionUnitOfWork";
 
     public Guid Id { get; } = Guid.NewGuid();
@@ -115,8 +114,8 @@ public class UnitOfWork(
         // 遍历集合，如果对象实现了 ISupportsSavingChanges 则调用相应的方法进行数据持久化
         foreach (var databaseApi in GetAllActiveDatabaseApis())
         {
-            if (databaseApi is ISupportsSavingChanges)
-                await (databaseApi as ISupportsSavingChanges).SaveChangesAsync(cancellationToken);
+            if (databaseApi is ISupportsSavingChanges api)
+                await api.SaveChangesAsync(cancellationToken);
         }
     }
 
@@ -289,11 +288,11 @@ public class UnitOfWork(
     {
         foreach (var databaseApi in GetAllActiveDatabaseApis())
         {
-            if (databaseApi is ISupportsRollback)
+            if (databaseApi is ISupportsRollback api)
             {
                 try
                 {
-                    await (databaseApi as ISupportsRollback).RollbackAsync(cancellationToken);
+                    await api.RollbackAsync(cancellationToken);
                 }
                 catch { }
             }
@@ -301,11 +300,11 @@ public class UnitOfWork(
 
         foreach (var transactionApi in GetAllActiveTransactionApis())
         {
-            if (transactionApi is ISupportsRollback)
+            if (transactionApi is ISupportsRollback api)
             {
                 try
                 {
-                    await (transactionApi as ISupportsRollback).RollbackAsync(cancellationToken);
+                    await api.RollbackAsync(cancellationToken);
                 }
                 catch { }
             }

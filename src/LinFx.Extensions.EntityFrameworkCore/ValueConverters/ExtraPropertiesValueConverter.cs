@@ -37,7 +37,7 @@ public class ExtraPropertiesValueConverter : ValueConverter<ExtraPropertyDiction
 
     private static ExtraPropertyDictionary DeserializeObject(string extraPropertiesAsJson, Type entityType)
     {
-        if (extraPropertiesAsJson.IsNullOrEmpty() || extraPropertiesAsJson == "{}")
+        if (string.IsNullOrEmpty(extraPropertiesAsJson) || extraPropertiesAsJson == "{}")
             return new ExtraPropertyDictionary();
 
         var deserializeOptions = new JsonSerializerOptions();

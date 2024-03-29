@@ -21,5 +21,5 @@ public interface ICurrentTenant
     [CanBeNull]
     string Name { get; }
 
-    IDisposable Change(string id, string name = default);
+    IDisposable Change(string? id, string? name = default);
 }

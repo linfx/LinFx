@@ -21,7 +21,7 @@ public class FeatureService(
 
     public virtual async Task<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
     {
-        //await CheckProviderPolicy(providerName, providerKey);
+        await CheckProviderPolicy(providerName, providerKey);
 
         var result = new GetFeatureListResultDto();
 
@@ -31,14 +31,6 @@ public class FeatureService(
 
             foreach (var featureDefinition in group.GetFeaturesWithChildren())
             {
-                //if (providerName == TenantFeatureValueProvider.ProviderName &&
-                //    CurrentTenant.Id == null &&
-                //    providerKey == null &&
-                //    !featureDefinition.IsAvailableToHost)
-                //{
-                //    continue;
-                //}
-
                 var feature = await FeatureManager.GetOrNullWithProviderAsync(featureDefinition.Name, providerName, providerKey);
                 groupDto.Features.Add(CreateFeatureDto(feature, featureDefinition));
             }
@@ -64,21 +56,21 @@ public class FeatureService(
     private static FeatureDto CreateFeatureDto(FeatureNameValueWithGrantedProvider featureNameValueWithGrantedProvider, FeatureDefinition featureDefinition) => new FeatureDto
     {
         Name = featureDefinition.Name,
-        //DisplayName = featureDefinition.DisplayName?.Localize(StringLocalizerFactory),
+        DisplayName = featureDefinition.DisplayName,
         //Description = featureDefinition.Description?.Localize(StringLocalizerFactory),
         //ValueType = featureDefinition.ValueType,
         ParentName = featureDefinition.Parent?.Name,
         Value = featureNameValueWithGrantedProvider.Value,
         Provider = new FeatureProviderDto
         {
-            Name = featureNameValueWithGrantedProvider.Provider?.Name,
-            Key = featureNameValueWithGrantedProvider.Provider?.Key
+            Name = featureNameValueWithGrantedProvider.Provider?.Name!,
+            Key = featureNameValueWithGrantedProvider.Provider?.Key!
         }
     };
 
     public virtual async Task UpdateAsync([NotNull] string providerName, string providerKey, UpdateFeaturesDto input)
     {
-        //await CheckProviderPolicy(providerName, providerKey);
+        await CheckProviderPolicy(providerName, providerKey);
 
         foreach (var feature in input.Features)
         {
@@ -98,7 +90,7 @@ public class FeatureService(
         }
     }
 
-    protected virtual async Task CheckProviderPolicy(string providerName, string providerKey)
+    protected virtual Task CheckProviderPolicy(string providerName, string providerKey)
     {
         //string policyName;
         //if (providerName == TenantFeatureValueProvider.ProviderName && CurrentTenant.Id == null && providerKey == null)
@@ -115,12 +107,8 @@ public class FeatureService(
         //}
 
         //await AuthorizationService.CheckAsync(policyName);
-
-        throw new NotImplementedException();
+        return Task.CompletedTask;
     }
 
-    public virtual async Task DeleteAsync([NotNull] string providerName, string providerKey)
-    {
-        await FeatureManager.DeleteAsync(providerName, providerKey);
-    }
+    public virtual Task DeleteAsync([NotNull] string providerName, string providerKey) => FeatureManager.DeleteAsync(providerName, providerKey);
 }

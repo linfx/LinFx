@@ -1,5 +1,4 @@
 ﻿using LinFx.Application.Dtos;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinFx.Extensions.TenantManagement.HttpApi;
@@ -44,7 +43,6 @@ public class TenantController(TenantService tenantService) : ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    [Authorize(TenantManagementPermissions.Tenants.Update)]
     public virtual ValueTask<TenantDto> UpdateAsync(string id, TenantEditInput input) => TenantService.UpdateAsync(id, input);
 
     /// <summary>
