@@ -11,7 +11,7 @@ using LinFx.Extensions.Validation;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace DoorlockServerApplication.Extensions;
+namespace IdentityService;
 
 /// <summary>
 /// 异常转换

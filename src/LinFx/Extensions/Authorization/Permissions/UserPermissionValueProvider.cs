@@ -17,8 +17,6 @@ public class UserPermissionValueProvider(IPermissionStore permissionStore) : Per
         if (userId == null)
             return PermissionGrantResult.Undefined;
 
-        return await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, userId)
-            ? PermissionGrantResult.Granted
-            : PermissionGrantResult.Undefined;
+        return await PermissionStore.IsGrantedAsync(context.Permission.Name, Name, userId) ? PermissionGrantResult.Granted : PermissionGrantResult.Undefined;
     }
 }

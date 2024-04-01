@@ -2,7 +2,7 @@
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Utils;
 
-namespace LinFx.Extensions.PermissionManagement.Application;
+namespace LinFx.Extensions.PermissionManagement;
 
 public abstract class PermissionManagementProvider : IPermissionManagementProvider
 {

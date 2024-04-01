@@ -3,7 +3,7 @@ using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Extensions.PermissionManagement.Application;
+namespace LinFx.Extensions.PermissionManagement;
 
 [Service(ServiceLifetime.Scoped)]
 public class UserPermissionManagementProvider(

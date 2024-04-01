@@ -16,20 +16,6 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
     protected TenantManagementDbContext Db { get; } = tenantRepository;
 
     /// <summary>
-    /// 获取租户
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public virtual async ValueTask<TenantDto> GetAsync(string id)
-    {
-        var item = await Db.Tenants.FindAsync(id);
-        if (item == null)
-            throw new EntityNotFoundException(typeof(Tenant));
-
-        return item.MapTo<TenantDto>();
-    }
-
-    /// <summary>
     /// 获取租户列表
     /// </summary>
     /// <param name="input"></param>
@@ -41,6 +27,20 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
             input.Sorting = nameof(Tenant.Name);
         }
         return Db.Tenants.ToPageResultAsync<Tenant, TenantDto>(input);
+    }
+
+    /// <summary>
+    /// 获取租户
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public virtual async ValueTask<TenantDto> GetAsync(string id)
+    {
+        var item = await Db.Tenants.FindAsync(id);
+        if (item == null)
+            throw new EntityNotFoundException(typeof(Tenant));
+
+        return item.MapTo<TenantDto>();
     }
 
     /// <summary>

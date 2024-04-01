@@ -1,7 +1,8 @@
-﻿using DoorlockServerApplication.Extensions;
-using IdentityService.EntityFrameworkCore;
+﻿using IdentityService.EntityFrameworkCore;
 using LinFx.Extensions.AspNetCore.ExceptionHandling;
 using LinFx.Extensions.AspNetCore.Mvc;
+using LinFx.Extensions.AuditLogging;
+using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.FeatureManagement;
@@ -16,9 +17,9 @@ namespace IdentityService;
 [DependsOn(
     typeof(AutofacModule),
     typeof(AspNetCoreMvcModule),
+    typeof(AuditLoggingModule),
+    typeof(TenantManagementModule),
     typeof(FeatureManagementModule),
-    //typeof(AuditLoggingModule),
-    //typeof(AccountHttpApiModule),
     typeof(PermissionManagementModule)
 )]
 public class Application : Module
@@ -46,21 +47,21 @@ public class Application : Module
         services
             .AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+                options.UseSqlite(configuration.GetConnectionString("Default"));
             })
             .AddDbContext<TenantManagementDbContext>(options =>
             {
-                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+                options.UseSqlite(configuration.GetConnectionString("Default"));
             })
-            //.AddDbContext<AuditLoggingDbContext>(options =>
-            //{
-            //    options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
-            //})
-            .AddDbContext<PermissionManagementDbContext>(options =>
+            .AddDbContext<AuditLoggingDbContext>(options =>
             {
-                options.UseSqlite(options => options.MigrationsAssembly(GetType().Assembly.FullName));
+                options.UseSqlite(configuration.GetConnectionString("Default"));
             })
             .AddDbContext<FeatureManagementDbContext>(options =>
+            {
+                options.UseSqlite(configuration.GetConnectionString("Default"));
+            })
+            .AddDbContext<PermissionManagementDbContext>(options =>
             {
                 options.UseSqlite(configuration.GetConnectionString("Default"));
             });

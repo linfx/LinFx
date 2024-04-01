@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace DoorlockServerApplication.Extensions;
+namespace IdentityService;
 
 /// <summary>
 /// Http status 代码转换

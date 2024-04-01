@@ -19,7 +19,7 @@ public class FeatureService(
 
     protected IFeatureDefinitionManager FeatureDefinitionManager { get; } = featureDefinitionManager;
 
-    public virtual async Task<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
+    public virtual async ValueTask<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
     {
         await CheckProviderPolicy(providerName, providerKey);
 

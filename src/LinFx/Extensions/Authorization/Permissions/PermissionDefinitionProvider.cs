@@ -23,15 +23,18 @@ public abstract class PermissionDefinitionProvider : IPermissionDefinitionProvid
     public abstract void Define(IPermissionDefinitionContext context);
 
     /// <summary>
-    /// 多语言
+    /// 本地化
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    protected virtual LocalizedString L(string name)
+    protected virtual IStringLocalizer L
     {
-        if (Localizer == null)
-            return new LocalizedString(name, name);
-
-        return Localizer[name];
+        get
+        {
+            if (_localizer == null)
+            {
+                _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(GetType());
+            }
+            return _localizer;
+        }
     }
+    private IStringLocalizer? _localizer;
 }

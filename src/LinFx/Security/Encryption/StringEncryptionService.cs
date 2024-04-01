@@ -9,19 +9,14 @@ namespace LinFx.Security.Encryption;
 /// Can be used to simply encrypt/decrypt texts.
 /// </summary>
 [Service]
-public class StringEncryptionService : IStringEncryptionService
+public class StringEncryptionService(IOptions<StringEncryptionOptions> options) : IStringEncryptionService
 {
-    protected StringEncryptionOptions Options { get; }
+    protected StringEncryptionOptions Options { get; } = options.Value;
 
-    public StringEncryptionService(IOptions<StringEncryptionOptions> options)
+    public virtual string Encrypt(string plainText, string? passPhrase = null, byte[]? salt = null)
     {
-        Options = options.Value;
-    }
-
-    public virtual string Encrypt(string plainText, string passPhrase = null, byte[] salt = null)
-    {
-        if (plainText == null)
-            return null;
+        if (plainText is null)
+            throw new ArgumentNullException(nameof(plainText));
 
         passPhrase ??= Options.DefaultPassPhrase;
         salt ??= Options.DefaultSalt;
@@ -40,10 +35,10 @@ public class StringEncryptionService : IStringEncryptionService
         return Convert.ToBase64String(cipherTextBytes);
     }
 
-    public virtual string Decrypt(string cipherText, string passPhrase = null, byte[] salt = null)
+    public virtual string Decrypt(string cipherText, string? passPhrase = null, byte[]? salt = null)
     {
         if (string.IsNullOrEmpty(cipherText))
-            return null;
+            throw new ArgumentException($"“{nameof(cipherText)}”不能为 null 或空。", nameof(cipherText));
 
         passPhrase ??= Options.DefaultPassPhrase;
         salt ??= Options.DefaultSalt;

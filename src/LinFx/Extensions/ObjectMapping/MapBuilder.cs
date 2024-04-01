@@ -4,15 +4,10 @@ using EmitMapper.MappingConfiguration.MappingOperations;
 
 namespace LinFx.Extensions.ObjectMapping;
 
-public class MapBuilder<TSource>
+public class MapBuilder<TSource>(TSource source)
 {
     private DefaultMapConfig _config = DefaultMapConfig.Instance;
-    private readonly TSource source;
-
-    public MapBuilder(TSource source)
-    {
-        this.source = source;
-    }
+    private readonly TSource source = source;
 
     public TDestination To<TDestination>() => ObjectMapperManager.DefaultInstance.GetMapper<TSource, TDestination>(_config).Map(source);
 

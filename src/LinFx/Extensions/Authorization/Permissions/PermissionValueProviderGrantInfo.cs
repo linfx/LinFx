@@ -1,16 +1,10 @@
 ﻿namespace LinFx.Extensions.Authorization.Permissions;
 
-public class PermissionValueProviderGrantInfo
+public class PermissionValueProviderGrantInfo(bool isGranted, string? providerKey = default)
 {
     public static PermissionValueProviderGrantInfo NonGranted { get; } = new PermissionValueProviderGrantInfo(false);
 
-    public virtual bool IsGranted { get; }
+    public virtual bool IsGranted { get; } = isGranted;
 
-    public virtual string? ProviderKey { get; }
-
-    public PermissionValueProviderGrantInfo(bool isGranted, string? providerKey = default)
-    {
-        IsGranted = isGranted;
-        ProviderKey = providerKey;
-    }
+    public virtual string? ProviderKey { get; } = providerKey;
 }

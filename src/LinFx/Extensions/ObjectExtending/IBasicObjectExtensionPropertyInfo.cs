@@ -1,7 +1,5 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
 
 namespace LinFx.Extensions.ObjectExtending
 {

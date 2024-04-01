@@ -1,7 +1,7 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
 using System.Diagnostics.CodeAnalysis;
 
-namespace LinFx.Extensions.PermissionManagement.Application;
+namespace LinFx.Extensions.PermissionManagement;
 
 public interface IPermissionManagementProvider
 {

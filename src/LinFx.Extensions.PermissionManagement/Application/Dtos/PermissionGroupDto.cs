@@ -15,5 +15,5 @@ public class PermissionGroupDto
     /// <summary>
     /// 权限
     /// </summary>
-    public List<PermissionGrantInfoDto>? Permissions { get; set; }
+    public List<PermissionGrantInfoDto> Permissions { get; set; } = [];
 }

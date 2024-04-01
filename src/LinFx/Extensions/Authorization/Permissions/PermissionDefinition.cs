@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Collections.Immutable;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
@@ -22,7 +21,7 @@ public class PermissionDefinition
     /// Parent of this permission if one exists.
     /// If set, this permission can be granted only if parent is granted.
     /// </summary>
-    public PermissionDefinition Parent { get; private set; }
+    public PermissionDefinition? Parent { get; private set; }
 
     /// <summary>
     /// A list of allowed providers to get/set value of this permission.
@@ -56,7 +55,7 @@ public class PermissionDefinition
     ///
     /// Default: true.
     /// </summary>
-    public bool IsEnabled { get; set; }
+    public bool IsEnabled { get; set; } = true;
 
     /// <summary>
     /// Gets/sets a key-value on the <see cref="Properties"/>.
@@ -72,7 +71,7 @@ public class PermissionDefinition
         set => Properties[name] = value;
     }
 
-    protected internal PermissionDefinition([NotNull] string name, LocalizedString? displayName = null)
+    protected internal PermissionDefinition(string name, LocalizedString? displayName = null)
     {
         Name = Check.NotNull(name, nameof(name));
         DisplayName = displayName;
@@ -82,7 +81,7 @@ public class PermissionDefinition
         _children = [];
     }
 
-    public virtual PermissionDefinition AddChild([NotNull] string name, LocalizedString? displayName = null)
+    public virtual PermissionDefinition AddChild(string name, LocalizedString? displayName = null)
     {
         var child = new PermissionDefinition(name, displayName) { Parent = this };
         _children.Add(child);

@@ -1,4 +1,4 @@
-﻿namespace LinFx.Extensions.Identity;
+﻿namespace IdentityService;
 
 public static class IdentityPermissions
 {

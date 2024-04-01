@@ -4,7 +4,7 @@ using LinFx.Extensions.Identity;
 using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinFx.Extensions.PermissionManagement.Application;
+namespace LinFx.Extensions.PermissionManagement;
 
 [Service(ServiceLifetime.Scoped)]
 public class RolePermissionManagementProvider(

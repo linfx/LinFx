@@ -24,6 +24,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
+		<ProjectReference Include="..\..\src\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj" />
 		<ProjectReference Include="..\..\src\LinFx.Extensions.Autofac\LinFx.Extensions.Autofac.csproj" />
 		<ProjectReference Include="..\..\src\LinFx.Extensions.FeatureManagement.HttpApi\LinFx.Extensions.FeatureManagement.HttpApi.csproj" />
 		<ProjectReference Include="..\..\src\LinFx.Extensions.PermissionManagement.HttpApi\LinFx.Extensions.PermissionManagement.HttpApi.csproj" />
