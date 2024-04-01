@@ -24,8 +24,8 @@ public class ExceptionFilter : IAsyncExceptionFilter, ITransientDependency
     public async Task OnExceptionAsync(ExceptionContext context)
     {
         // 是否捕获
-        //if (!ShouldHandleException(context))
-        //    return;
+        if (!ShouldHandleException(context))
+            return;
 
         // 处理与包装异常
         await HandleAndWrapException(context);

@@ -8,5 +8,11 @@ namespace LinFx.Extensions.AspNetCore.ExceptionHandling;
 /// </summary>
 public interface IAuthorizationExceptionHandler
 {
+    /// <summary>
+    /// 处理
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <param name="httpContext"></param>
+    /// <returns></returns>
     Task HandleAsync(AuthorizationException exception, HttpContext httpContext);
 }

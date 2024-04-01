@@ -28,6 +28,9 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
     protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
 
+    /// <summary>
+    /// ±¾µØ»¯
+    /// </summary>
     protected virtual IStringLocalizer L => LazyServiceProvider.LazyGetRequiredService<IStringLocalizer<ExceptionHandlingResource>>();
 
     public DefaultExceptionToErrorInfoConverter() { }

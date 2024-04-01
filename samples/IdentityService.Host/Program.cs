@@ -6,7 +6,6 @@ using Serilog.Events;
 [assembly: ResourceLocation("Resources")]
 [assembly: RootNamespace("IdentityService")]
 
-
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
     .MinimumLevel.Debug()
@@ -28,7 +27,6 @@ builder.Logging.ClearProviders().AddSerilog();
 
 // Add services to the container.
 builder.Services
-    .AddLocalization()
     .AddApplication<Application>();
 
 //builder.Services
