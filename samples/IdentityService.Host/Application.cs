@@ -1,6 +1,9 @@
-﻿using IdentityService.EntityFrameworkCore;
+﻿using DoorlockServerApplication.Extensions;
+using IdentityService.EntityFrameworkCore;
+using LinFx.Extensions.AspNetCore.ExceptionHandling;
 using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.Autofac;
+using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.FeatureManagement;
 using LinFx.Extensions.Modularity;
 using LinFx.Extensions.PermissionManagement;
@@ -62,6 +65,9 @@ public class Application : Module
                 options.UseSqlite(configuration.GetConnectionString("Default"));
             });
 
+        services
+            .AddTransient<IHttpExceptionStatusCodeFinder, HttpExceptionStatusCodeFinder>()
+            .AddTransient<IExceptionToErrorInfoConverter, ExceptionToErrorInfoConverter>();
 
 
         //services

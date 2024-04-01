@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.EventBus.K
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "feature-management", "feature-management", "{50D919A4-9D74-45A1-B233-4E3F79BAD00F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.FeatureManagement", "src\LinFx.Extensions.FeatureManagement\LinFx.Extensions.FeatureManagement.csproj", "{26D4E66B-3C19-4FA3-896A-C331A4CBE8BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.FeatureManagement", "src\LinFx.Extensions.FeatureManagement\LinFx.Extensions.FeatureManagement.csproj", "{26D4E66B-3C19-4FA3-896A-C331A4CBE8BE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.AuditLogging", "src\LinFx.Extensions.AuditLogging\LinFx.Extensions.AuditLogging.csproj", "{95796702-87E0-41F4-851B-3870BE5ECC0B}"
 EndProject
@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.Permission
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.TenantManagement.HttpApi", "src\LinFx.Extensions.TenantManagement.HttpApi\LinFx.Extensions.TenantManagement.HttpApi.csproj", "{36C2B194-AE56-4DAD-9719-778A6EE1715E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinFx.Extensions.FeatureManagement.HttpApi", "src\LinFx.Extensions.FeatureManagement.HttpApi\LinFx.Extensions.FeatureManagement.HttpApi.csproj", "{3B6ED6CE-0897-440C-BAE8-3F414603D4BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.FeatureManagement.HttpApi", "src\LinFx.Extensions.FeatureManagement.HttpApi\LinFx.Extensions.FeatureManagement.HttpApi.csproj", "{3B6ED6CE-0897-440C-BAE8-3F414603D4BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinFx.Extensions.EntityFrameworkCore.Sqlite", "src\LinFx.Extensions.EntityFrameworkCore.Sqlite\LinFx.Extensions.EntityFrameworkCore.Sqlite.csproj", "{0715082C-ED0F-4E53-9178-86A49F77419C}"
 EndProject

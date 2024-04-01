@@ -6,6 +6,7 @@ using Serilog.Events;
 [assembly: ResourceLocation("Resources")]
 [assembly: RootNamespace("IdentityService")]
 
+
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
     .MinimumLevel.Debug()

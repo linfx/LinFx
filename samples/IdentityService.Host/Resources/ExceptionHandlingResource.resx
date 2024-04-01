@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CurrentTime" xml:space="preserve">
-    <value>==当前时间SharedResource==</value>
+    <value>当前时间22</value>
+  </data>
+  <data name="DbConcurrencyErrorMessage" xml:space="preserve">
+    <value>数据库异常</value>
   </data>
 </root>
