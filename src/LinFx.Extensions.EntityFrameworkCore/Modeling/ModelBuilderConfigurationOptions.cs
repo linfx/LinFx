@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.EntityFrameworkCore.Modeling;
 
@@ -6,12 +6,12 @@ public class ModelBuilderConfigurationOptions
 {
     public string TablePrefix { get; set; }
 
-    [CanBeNull]
+    [AllowNull]
     public string Schema { get; set; }
 
     public ModelBuilderConfigurationOptions(
         string tablePrefix = default,
-        [CanBeNull] string schema = default)
+        [AllowNull] string schema = default)
     {
         TablePrefix = tablePrefix;
         Schema = schema;

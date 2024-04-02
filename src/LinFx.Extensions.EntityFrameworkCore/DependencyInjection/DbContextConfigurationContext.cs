@@ -1,9 +1,9 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.EntityFrameworkCore.DependencyInjection;
 
@@ -31,8 +31,8 @@ public class DbContextConfigurationContext : IServiceProviderAccessor
     public DbContextConfigurationContext(
         [NotNull] string connectionString,
         [NotNull] IServiceProvider serviceProvider,
-        [CanBeNull] string connectionStringName,
-        [CanBeNull] DbConnection existingConnection)
+        [AllowNull] string connectionStringName,
+        [AllowNull] DbConnection existingConnection)
     {
         ConnectionString = connectionString;
         ServiceProvider = serviceProvider;
@@ -57,8 +57,8 @@ public class DbContextConfigurationContext<TDbContext> : DbContextConfigurationC
     public DbContextConfigurationContext(
         string connectionString,
         [NotNull] IServiceProvider serviceProvider,
-        [CanBeNull] string connectionStringName,
-        [CanBeNull] DbConnection existingConnection)
+        [AllowNull] string connectionStringName,
+        [AllowNull] DbConnection existingConnection)
         : base(
               connectionString,
               serviceProvider,

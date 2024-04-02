@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +11,10 @@ public class ObjectExtensionInfoEfMappingOptions
     [NotNull]
     public ObjectExtensionInfo ObjectExtension { get; }
 
-    [CanBeNull]
+    [AllowNull]
     public Action<EntityTypeBuilder> EntityTypeBuildAction { get; set; }
 
-    [CanBeNull]
+    [AllowNull]
     public Action<ModelBuilder> ModelBuildAction { get; set; }
 
     public ObjectExtensionInfoEfMappingOptions(

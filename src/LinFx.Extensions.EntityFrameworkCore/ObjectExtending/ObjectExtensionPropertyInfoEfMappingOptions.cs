@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,11 +13,11 @@ public class ObjectExtensionPropertyInfoEfMappingOptions
     [NotNull]
     public ObjectExtensionInfo ObjectExtension => ExtensionProperty.ObjectExtension;
 
-    [CanBeNull]
+    [AllowNull]
     [Obsolete("Use EntityTypeAndPropertyBuildAction property.")]
     public Action<PropertyBuilder> PropertyBuildAction { get; set; }
 
-    [CanBeNull]
+    [AllowNull]
     public Action<EntityTypeBuilder, PropertyBuilder> EntityTypeAndPropertyBuildAction { get; set; }
 
     public ObjectExtensionPropertyInfoEfMappingOptions(
@@ -28,7 +28,7 @@ public class ObjectExtensionPropertyInfoEfMappingOptions
 
     public ObjectExtensionPropertyInfoEfMappingOptions(
         [NotNull] ObjectExtensionPropertyInfo extensionProperty,
-        [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
+        [AllowNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
     {
         ExtensionProperty = Check.NotNull(extensionProperty, nameof(extensionProperty));
 

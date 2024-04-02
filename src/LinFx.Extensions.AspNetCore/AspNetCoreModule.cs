@@ -16,7 +16,6 @@ public class AspNetCoreModule : Module
             .AddObjectAccessor<IApplicationBuilder>();
 
         services
-            .AddLocalization()
             .AddRouting(options => { options.LowercaseUrls = true; });
     }
 }
