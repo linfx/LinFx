@@ -1,5 +1,5 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.Features;
+﻿using LinFx.Extensions.Features;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.FeatureManagement;
 
@@ -19,9 +19,9 @@ public interface IFeatureManagementProvider
     /// <param name="feature"></param>
     /// <param name="providerKey"></param>
     /// <returns></returns>
-    Task<string?> GetOrNullAsync([NotNull] FeatureDefinition feature, [CanBeNull] string providerKey);
+    Task<string?> GetOrNullAsync([NotNull] FeatureDefinition feature, [AllowNull] string providerKey);
 
-    Task SetAsync([NotNull] FeatureDefinition feature, [NotNull] string value, [CanBeNull] string providerKey);
+    Task SetAsync([NotNull] FeatureDefinition feature, [NotNull] string value, [AllowNull] string providerKey);
 
-    Task ClearAsync([NotNull] FeatureDefinition feature, [CanBeNull] string providerKey);
+    Task ClearAsync([NotNull] FeatureDefinition feature, [AllowNull] string providerKey);
 }

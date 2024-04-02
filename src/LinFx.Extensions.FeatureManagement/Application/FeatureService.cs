@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Application.Services;
 using LinFx.Extensions.FeatureManagement.Application.Dtos;
 using LinFx.Extensions.Features;

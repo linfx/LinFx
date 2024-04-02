@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.FeatureManagement;
 
@@ -7,9 +7,9 @@ namespace LinFx.Extensions.FeatureManagement;
 /// </summary>
 public interface IFeatureManager
 {
-    Task<string?> GetOrNullAsync([NotNull] string name, [NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
+    Task<string?> GetOrNullAsync([NotNull] string name, [NotNull] string providerName, [AllowNull] string providerKey, bool fallback = true);
 
-    Task<List<FeatureNameValue>> GetAllAsync([NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
+    Task<List<FeatureNameValue>> GetAllAsync([NotNull] string providerName, [AllowNull] string providerKey, bool fallback = true);
 
     /// <summary>
     /// 获取特征值
@@ -19,7 +19,7 @@ public interface IFeatureManager
     /// <param name="providerKey"></param>
     /// <param name="fallback"></param>
     /// <returns></returns>
-    Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync([NotNull] string name, [NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
+    Task<FeatureNameValueWithGrantedProvider> GetOrNullWithProviderAsync([NotNull] string name, [NotNull] string providerName, [AllowNull] string providerKey, bool fallback = true);
 
     /// <summary>
     /// 获取特征值
@@ -28,7 +28,7 @@ public interface IFeatureManager
     /// <param name="providerKey"></param>
     /// <param name="fallback"></param>
     /// <returns></returns>
-    Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync([NotNull] string providerName, [CanBeNull] string providerKey, bool fallback = true);
+    Task<List<FeatureNameValueWithGrantedProvider>> GetAllWithProviderAsync([NotNull] string providerName, [AllowNull] string providerKey, bool fallback = true);
 
     /// <summary>
     /// 更新特征值
@@ -39,7 +39,7 @@ public interface IFeatureManager
     /// <param name="providerKey"></param>
     /// <param name="forceToSet"></param>
     /// <returns></returns>
-    Task SetAsync([NotNull] string name, [CanBeNull] string value, [NotNull] string providerName, [CanBeNull] string providerKey, bool forceToSet = false);
+    Task SetAsync([NotNull] string name, [AllowNull] string value, [NotNull] string providerName, [AllowNull] string providerKey, bool forceToSet = false);
 
     /// <summary>
     /// 删除特征
