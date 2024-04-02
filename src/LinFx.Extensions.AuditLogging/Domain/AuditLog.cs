@@ -42,7 +42,7 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
     /// <summary>
     /// 执行时间
     /// </summary>
-    public virtual DateTime ExecutionTime { get; protected set; }
+    public virtual DateTimeOffset ExecutionTime { get; protected set; }
 
     public virtual int ExecutionDuration { get; protected set; }
 
@@ -91,7 +91,7 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
         string tenantName,
         string userId,
         string userName,
-        DateTime executionTime,
+        DateTimeOffset executionTime,
         int executionDuration,
         string clientIpAddress,
         string clientName,

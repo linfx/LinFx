@@ -10,7 +10,7 @@ public static class ClaimsIdentityExtensions
     {
         Check.NotNull(principal, nameof(principal));
 
-        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id || c.Type == JwtClaimTypes.Subject);
+        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id || c.Type == JwtClaimTypes.Id || c.Type == JwtClaimTypes.Subject);
         if (claim == null || claim.Value.IsNullOrWhiteSpace())
             return default;
 

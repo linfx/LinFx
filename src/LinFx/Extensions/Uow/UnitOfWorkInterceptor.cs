@@ -1,17 +1,18 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using LinFx.Extensions.DependencyInjection;
+﻿using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Uow;
 
 /// <summary>
 /// 工作单元拦截器
 /// </summary>
-public class UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor, ITransientDependency
+[Service]
+public class UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor
 {
-    private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
+    private readonly IServiceScopeFactory serviceScopeFactory = serviceScopeFactory;
 
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {
@@ -21,7 +22,7 @@ public class UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory) : I
             return;
         }
 
-        using (var scope = _serviceScopeFactory.CreateScope())
+        using (var scope = serviceScopeFactory.CreateScope())
         {
             var options = CreateOptions(scope.ServiceProvider, invocation, unitOfWorkAttribute);
             var unitOfWorkManager = scope.ServiceProvider.GetRequiredService<IUnitOfWorkManager>();

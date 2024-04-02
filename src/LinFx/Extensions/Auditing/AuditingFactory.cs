@@ -1,7 +1,6 @@
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -14,7 +13,6 @@ public class AuditingFactory(
     ICurrentUser currentUser,
     ICurrentTenant currentTenant,
     //ICurrentClient currentClient,
-    ISystemClock clock,
     //IAuditingStore auditingStore,
     ILogger<AuditingFactory> logger,
     IServiceProvider serviceProvider) : IAuditingFactory
@@ -36,8 +34,8 @@ public class AuditingFactory(
     /// </summary>
     protected ICurrentTenant CurrentTenant { get; } = currentTenant;
 
-    protected ISystemClock Clock { get; } = clock;
     protected AuditingOptions Options = options.Value;
+
     protected IServiceProvider ServiceProvider = serviceProvider;
 
     public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
@@ -109,7 +107,7 @@ public class AuditingFactory(
             //CorrelationId = CorrelationIdProvider.Get(),
             //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
             //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
-            ExecutionTime = Clock.UtcNow
+            ExecutionTime = DateTimeOffset.UtcNow
         };
 
         // Ö´ÐÐÉó¼Æ¹±Ï×Õß
@@ -127,7 +125,7 @@ public class AuditingFactory(
             ServiceName = type != null ? type.FullName : "",
             MethodName = method.Name,
             Parameters = SerializeConvertArguments(arguments),
-            ExecutionTime = Clock.UtcNow
+            ExecutionTime = DateTimeOffset.UtcNow
         };
         //TODO Execute contributors
         return actionInfo;
