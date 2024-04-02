@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Uow
 {
@@ -10,13 +10,13 @@ namespace LinFx.Extensions.Uow
         /// <summary>
         /// 当前工作单元
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         IUnitOfWork UnitOfWork { get; }
 
         /// <summary>
         /// 设置工作单元
         /// </summary>
         /// <param name="unitOfWork">工作单元</param>
-        void SetUnitOfWork([CanBeNull] IUnitOfWork unitOfWork);
+        void SetUnitOfWork([AllowNull] IUnitOfWork unitOfWork);
     }
 }

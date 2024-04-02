@@ -124,7 +124,7 @@ public abstract class ApplicationService :
     ///// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
     ///// </summary>
     ///// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
-    //protected virtual async Task CheckPolicyAsync([CanBeNull] string policyName)
+    //protected virtual async Task CheckPolicyAsync([AllowNull] string policyName)
     //{
     //    if (string.IsNullOrEmpty(policyName))
     //    {

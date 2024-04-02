@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
@@ -1393,8 +1393,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
         return result.ToArray();
     }
 
-    [CanBeNull]
-    protected virtual TCacheItem ToCacheItem([CanBeNull] byte[] bytes)
+    protected virtual TCacheItem ToCacheItem([AllowNull] byte[] bytes)
     {
         if (bytes == null)
         {
@@ -1422,15 +1421,9 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
             .ToArray();
     }
 
-    protected virtual bool ShouldConsiderUow(bool considerUow)
-    {
-        return considerUow && UnitOfWorkManager.Current != null;
-    }
+    protected virtual bool ShouldConsiderUow(bool considerUow) => considerUow && UnitOfWorkManager.Current != null;
 
-    protected virtual string GetUnitOfWorkCacheKey()
-    {
-        return UowCacheName + CacheName;
-    }
+    protected virtual string GetUnitOfWorkCacheKey() => UowCacheName + CacheName;
 
     protected virtual Dictionary<TCacheKey, UnitOfWorkCacheItem<TCacheItem>> GetUnitOfWorkCache()
     {

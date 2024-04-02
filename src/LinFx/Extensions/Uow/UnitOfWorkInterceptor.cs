@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.DependencyInjection;
 using LinFx.Extensions.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +41,7 @@ public class UnitOfWorkInterceptor(IServiceScopeFactory serviceScopeFactory) : I
         }
     }
 
-    private UnitOfWorkOptions CreateOptions(IServiceProvider serviceProvider, IMethodInvocation invocation, [CanBeNull] UnitOfWorkAttribute unitOfWorkAttribute)
+    private UnitOfWorkOptions CreateOptions(IServiceProvider serviceProvider, IMethodInvocation invocation, [AllowNull] UnitOfWorkAttribute unitOfWorkAttribute)
     {
         var options = new UnitOfWorkOptions();
 

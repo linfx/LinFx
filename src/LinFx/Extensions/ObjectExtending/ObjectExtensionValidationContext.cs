@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace LinFx.Extensions.ObjectExtending
         /// <summary>
         /// Can be used to resolve services from the dependency injection container.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public IServiceProvider ServiceProvider => ValidationContext;
 
         public ObjectExtensionValidationContext(

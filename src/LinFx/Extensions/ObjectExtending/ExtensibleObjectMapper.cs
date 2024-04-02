@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System;
 using System.Collections.Generic;
@@ -160,8 +160,8 @@ namespace LinFx.Extensions.ObjectExtending
 
         private static bool CanMapProperty(
             [NotNull] string propertyName,
-            [CanBeNull] ObjectExtensionInfo sourceObjectExtension,
-            [CanBeNull] ObjectExtensionInfo destinationObjectExtension,
+            [AllowNull] ObjectExtensionInfo sourceObjectExtension,
+            [AllowNull] ObjectExtensionInfo destinationObjectExtension,
             MappingPropertyDefinitionChecks? definitionChecks = null,
             string[] ignoredProperties = null)
         {

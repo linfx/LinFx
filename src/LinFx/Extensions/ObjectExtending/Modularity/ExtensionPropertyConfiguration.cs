@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Reflection;
 using LinFx.Utils;
 using Microsoft.Extensions.Localization;
@@ -24,7 +24,7 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
         [NotNull]
         public List<Action<ObjectExtensionPropertyValidationContext>> Validators { get; }
 
-        [CanBeNull]
+        [AllowNull]
         public LocalizedString DisplayName { get; set; }
 
         [NotNull]
@@ -50,14 +50,14 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
         /// <summary>
         /// Uses as the default value if <see cref="DefaultValueFactory"/> was not set.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public object DefaultValue { get; set; }
 
         /// <summary>
         /// Used with the first priority to create the default value for the property.
         /// Uses to the <see cref="DefaultValue"/> if this was not set.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public Func<object> DefaultValueFactory { get; set; }
 
         public ExtensionPropertyConfiguration(

@@ -10,7 +10,9 @@ using LinFx.Extensions.Modularity;
 using LinFx.Extensions.PermissionManagement;
 using LinFx.Extensions.TenantManagement;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace IdentityService;
 
@@ -37,7 +39,19 @@ public class Application : Module
 
         services
             .AddAuthentication()
-            .AddJwtBearer();
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    //ValidIssuer = configuration["Authentication:JwtBearer:Issuer"],
+                    //ValidAudience = configuration["Authentication:JwtBearer:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("5172510c6f5640a796070c3cdf8a937e"))
+                };
+            });
 
         //services.Configure<DbContextOptions<AuditLoggingDbContext>>(options =>
         //{

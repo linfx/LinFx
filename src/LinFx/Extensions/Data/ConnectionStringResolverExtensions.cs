@@ -1,20 +1,8 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Threading.Tasks;
-
-namespace LinFx.Extensions.Data;
+﻿namespace LinFx.Extensions.Data;
 
 public static class ConnectionStringResolverExtensions
 {
-    [NotNull]
-    public static Task<string> ResolveAsync<T>(this IConnectionStringResolver resolver)
-    {
-        return resolver.ResolveAsync(typeof(T));
-    }
+    public static Task<string> ResolveAsync<T>(this IConnectionStringResolver resolver) => resolver.ResolveAsync(typeof(T));
 
-    [NotNull]
-    public static Task<string> ResolveAsync(this IConnectionStringResolver resolver, Type type)
-    {
-        return resolver.ResolveAsync(ConnectionStringNameAttribute.GetConnStringName(type));
-    }
+    public static Task<string> ResolveAsync(this IConnectionStringResolver resolver, Type type) => resolver.ResolveAsync(ConnectionStringNameAttribute.GetConnStringName(type));
 }

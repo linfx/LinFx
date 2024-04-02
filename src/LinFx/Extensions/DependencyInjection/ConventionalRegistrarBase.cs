@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -60,7 +60,7 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
     /// 获取生命周期
     /// </summary>
     /// <returns></returns>
-    protected virtual ServiceLifetime? GetLifeTimeOrNull(Type type, [CanBeNull] ServiceAttribute serviceAttribute) => serviceAttribute?.Lifetime ?? GetServiceLifetimeFromClassHierarchy(type) ?? GetDefaultLifeTimeOrNull(type);
+    protected virtual ServiceLifetime? GetLifeTimeOrNull(Type type, [AllowNull] ServiceAttribute serviceAttribute) => serviceAttribute?.Lifetime ?? GetServiceLifetimeFromClassHierarchy(type) ?? GetDefaultLifeTimeOrNull(type);
 
     protected virtual ServiceLifetime? GetServiceLifetimeFromClassHierarchy(Type type)
     {

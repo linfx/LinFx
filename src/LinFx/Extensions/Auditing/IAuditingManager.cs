@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Auditing;
 
@@ -10,7 +10,7 @@ public interface IAuditingManager
     /// <summary>
     /// 当前审计范围
     /// </summary>
-    [CanBeNull]
+    [AllowNull]
     IAuditLogScope Current { get; }
 
     /// <summary>

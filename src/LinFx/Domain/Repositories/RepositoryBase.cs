@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.Uow;

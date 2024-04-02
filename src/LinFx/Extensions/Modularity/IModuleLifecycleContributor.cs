@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.Modularity;

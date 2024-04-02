@@ -18,8 +18,6 @@ public class PermissionService : ApplicationService
 
     //protected ISimpleStateCheckerManager<PermissionDefinition> SimpleStateCheckerManager { get; }
 
-    protected IGuidGenerator GuidGenerator { get; }
-
     protected IDistributedCache<PermissionGrantCacheItem> Cache { get; }
 
     private readonly Lazy<List<IPermissionManagementProvider>> _lazyProviders;
@@ -35,7 +33,6 @@ public class PermissionService : ApplicationService
         Options = options.Value;
         PermissionDefinitionManager = permissionDefinitionManager;
 
-        //GuidGenerator = guidGenerator;
         //CurrentTenant = currentTenant;
         Cache = cache;
         PermissionDefinitionManager = permissionDefinitionManager;

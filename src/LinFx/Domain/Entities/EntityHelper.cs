@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Reflection;
 using LinFx.Utils;
 using System.Linq.Expressions;
@@ -170,14 +170,12 @@ public static class EntityHelper
     /// Tries to find the primary key type of the given entity type.
     /// May return null if given type does not implement <see cref="IEntity{TKey}"/>
     /// </summary>
-    [CanBeNull]
-    public static Type FindPrimaryKeyType<TEntity>() where TEntity : IEntity => FindPrimaryKeyType(typeof(TEntity));
+    public static Type? FindPrimaryKeyType<TEntity>() where TEntity : IEntity => FindPrimaryKeyType(typeof(TEntity));
 
     /// <summary>
     /// Tries to find the primary key type of the given entity type.
     /// May return null if given type does not implement <see cref="IEntity{TKey}"/>
     /// </summary>
-    [CanBeNull]
     public static Type? FindPrimaryKeyType([NotNull] Type entityType)
     {
         if (!typeof(IEntity).IsAssignableFrom(entityType))

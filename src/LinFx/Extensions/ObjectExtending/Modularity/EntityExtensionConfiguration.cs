@@ -1,8 +1,5 @@
-﻿using JetBrains.Annotations;
-using LinFx.Utils;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.ObjectExtending.Modularity
 {
@@ -23,10 +20,9 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
             Configuration = new Dictionary<string, object>();
         }
 
-        [NotNull]
         public virtual EntityExtensionConfiguration AddOrUpdateProperty<TProperty>(
             [NotNull] string propertyName,
-            [CanBeNull] Action<ExtensionPropertyConfiguration> configureAction = null)
+            [AllowNull] Action<ExtensionPropertyConfiguration> configureAction = null)
         {
             return AddOrUpdateProperty(
                 typeof(TProperty),
@@ -35,11 +31,10 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
             );
         }
 
-        [NotNull]
         public virtual EntityExtensionConfiguration AddOrUpdateProperty(
             [NotNull] Type propertyType,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ExtensionPropertyConfiguration> configureAction = null)
+            [AllowNull] Action<ExtensionPropertyConfiguration> configureAction = null)
         {
             Check.NotNull(propertyType, nameof(propertyType));
             Check.NotNull(propertyName, nameof(propertyName));
@@ -71,7 +66,6 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
             lookupTextPropertyInfo.DisplayName = propertyInfo.DisplayName;
         }
 
-        [NotNull]
         public virtual ImmutableList<ExtensionPropertyConfiguration> GetProperties()
         {
             return Properties.Values.ToImmutableList();

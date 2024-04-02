@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.Modularity.PlugIns;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +12,5 @@ public interface IModuleLoader
     /// <summary>
     /// 加载模块
     /// </summary>
-    [NotNull]
     IModuleDescriptor[] LoadModules([NotNull] IServiceCollection services, [NotNull] Type startupModuleType, [NotNull] PlugInSourceList plugInSources);
 }

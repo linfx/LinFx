@@ -1,9 +1,6 @@
-﻿using JetBrains.Annotations;
-using LinFx.Utils;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.ObjectExtending
 {
@@ -22,17 +19,11 @@ namespace LinFx.Extensions.ObjectExtending
             Configuration = new ConcurrentDictionary<object, object>();
         }
 
-        [NotNull]
-        public virtual ObjectExtensionManager AddOrUpdate<TObject>(
-            [CanBeNull] Action<ObjectExtensionInfo> configureAction = null)
-        {
-            return AddOrUpdate(typeof(TObject), configureAction);
-        }
+        public virtual ObjectExtensionManager AddOrUpdate<TObject>([AllowNull] Action<ObjectExtensionInfo> configureAction = null) => AddOrUpdate(typeof(TObject), configureAction);
 
-        [NotNull]
         public virtual ObjectExtensionManager AddOrUpdate(
             [NotNull] Type[] types,
-            [CanBeNull] Action<ObjectExtensionInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionInfo> configureAction = null)
         {
             Check.NotNull(types, nameof(types));
 
@@ -44,10 +35,9 @@ namespace LinFx.Extensions.ObjectExtending
             return this;
         }
 
-        [NotNull]
         public virtual ObjectExtensionManager AddOrUpdate(
             [NotNull] Type type,
-            [CanBeNull] Action<ObjectExtensionInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionInfo> configureAction = null)
         {
             var extensionInfo = ObjectsExtensions.GetOrAdd(
                 type,
@@ -59,22 +49,10 @@ namespace LinFx.Extensions.ObjectExtending
             return this;
         }
 
-        [CanBeNull]
-        public virtual ObjectExtensionInfo GetOrNull<TObject>()
-        {
-            return GetOrNull(typeof(TObject));
-        }
+        public virtual ObjectExtensionInfo? GetOrNull<TObject>() => GetOrNull(typeof(TObject));
 
-        [CanBeNull]
-        public virtual ObjectExtensionInfo GetOrNull([NotNull] Type type)
-        {
-            return ObjectsExtensions.GetOrDefault(type);
-        }
+        public virtual ObjectExtensionInfo? GetOrNull([NotNull] Type type) => ObjectsExtensions.GetOrDefault(type);
 
-        [NotNull]
-        public virtual ImmutableList<ObjectExtensionInfo> GetExtendedObjects()
-        {
-            return ObjectsExtensions.Values.ToImmutableList();
-        }
+        public virtual ImmutableList<ObjectExtensionInfo> GetExtendedObjects() => ObjectsExtensions.Values.ToImmutableList();
     }
 }

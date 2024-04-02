@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace LinFx;
+﻿namespace LinFx;
 
 /// <summary>
 /// Represents the result of an operation.
@@ -103,22 +101,22 @@ public partial class Result
     /// <returns></returns>
     public static Result Failed<TValue>(string error) => new Result<TValue>(default, error);
 
-    /// <summary>
-    /// 操作失败
-    /// </summary>
-    /// <param name="modelStates"></param>
-    /// <returns></returns>
-    public static Result Failed(ModelStateDictionary modelStates)
-    {
-        IEnumerable<string>? errors = null;
-        if (modelStates != null && !modelStates.IsValid)
-        {
-            errors = from modelState in modelStates.Values
-                     from error in modelState?.Errors
-                     select error.ErrorMessage;
-        }
-        return new Result(400, errors != null ? string.Join("\r\n", errors) : null);
-    }
+    ///// <summary>
+    ///// 操作失败
+    ///// </summary>
+    ///// <param name="modelStates"></param>
+    ///// <returns></returns>
+    //public static Result Failed(ModelStateDictionary modelStates)
+    //{
+    //    IEnumerable<string>? errors = null;
+    //    if (modelStates != null && !modelStates.IsValid)
+    //    {
+    //        errors = from modelState in modelStates.Values
+    //                 from error in modelState?.Errors
+    //                 select error.ErrorMessage;
+    //    }
+    //    return new Result(400, errors != null ? string.Join("\r\n", errors) : null);
+    //}
 
     /// <summary>
     /// NotFound

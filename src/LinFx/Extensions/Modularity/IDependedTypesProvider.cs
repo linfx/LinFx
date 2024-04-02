@@ -1,9 +1,6 @@
-﻿using JetBrains.Annotations;
-
-namespace LinFx.Extensions.Modularity;
+﻿namespace LinFx.Extensions.Modularity;
 
 public interface IDependedTypesProvider
 {
-    [NotNull]
     Type[] GetDependedTypes();
 }

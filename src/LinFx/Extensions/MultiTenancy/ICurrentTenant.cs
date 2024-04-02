@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.MultiTenancy;
 
@@ -12,13 +12,13 @@ public interface ICurrentTenant
     /// <summary>
     /// 租户Id
     /// </summary>
-    [CanBeNull]
+    [AllowNull]
     string Id { get; }
 
     /// <summary>
     /// 租户名称
     /// </summary>
-    [CanBeNull]
+    [AllowNull]
     string Name { get; }
 
     IDisposable Change(string? id, string? name = default);

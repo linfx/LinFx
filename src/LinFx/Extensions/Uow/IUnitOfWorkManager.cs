@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Uow;
 
@@ -10,13 +10,11 @@ public interface IUnitOfWorkManager
     /// <summary>
     /// 当前工作单元
     /// </summary>
-    [CanBeNull]
+    [AllowNull]
     IUnitOfWork Current { get; }
 
-    [NotNull]
     IUnitOfWork Begin([NotNull] UnitOfWorkOptions options, bool requiresNew = false);
 
-    [NotNull]
     IUnitOfWork Reserve([NotNull] string reservationName, bool requiresNew = false);
 
     void BeginReserved([NotNull] string reservationName, [NotNull] UnitOfWorkOptions options);

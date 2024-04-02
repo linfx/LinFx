@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace LinFx.Extensions.Caching;
@@ -137,7 +137,7 @@ public interface IDistributedCache<TCacheItem, TCacheKey>
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
     /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-    Task SetAsync([NotNull] TCacheKey key, [NotNull] TCacheItem value, [CanBeNull] DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
+    Task SetAsync([NotNull] TCacheKey key, [NotNull] TCacheItem value, [AllowNull] DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
     /// <summary>
     /// Sets multiple cache items.

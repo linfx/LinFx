@@ -1,11 +1,10 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Data;
 
 namespace LinFx.Extensions.Uow;
 
 public static class UnitOfWorkManagerExtensions
 {
-    [NotNull]
     public static IUnitOfWork Begin(this IUnitOfWorkManager unitOfWorkManager, bool requiresNew = false, bool isTransactional = false, IsolationLevel? isolationLevel = null, int? timeout = null) => unitOfWorkManager.Begin(new UnitOfWorkOptions
     {
         IsTransactional = isTransactional,

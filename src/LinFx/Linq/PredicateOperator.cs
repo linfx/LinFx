@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
 

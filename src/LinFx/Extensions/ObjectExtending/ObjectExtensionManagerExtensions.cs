@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,12 +8,11 @@ namespace LinFx.Extensions.ObjectExtending
 {
     public static class ObjectExtensionManagerExtensions
     {
-        [NotNull]
         public static ObjectExtensionManager AddOrUpdateProperty<TProperty>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type[] objectTypes,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
         {
             return objectExtensionManager.AddOrUpdateProperty(
                 objectTypes,
@@ -22,11 +21,10 @@ namespace LinFx.Extensions.ObjectExtending
             );
         }
 
-        [NotNull]
         public static ObjectExtensionManager AddOrUpdateProperty<TObject, TProperty>(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
             where TObject : IHasExtraProperties
         {
             return objectExtensionManager.AddOrUpdateProperty(
@@ -37,13 +35,13 @@ namespace LinFx.Extensions.ObjectExtending
             );
         }
 
-        [NotNull]
+        [return: NotNull]
         public static ObjectExtensionManager AddOrUpdateProperty(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type[] objectTypes,
             [NotNull] Type propertyType,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
         {
             Check.NotNull(objectTypes, nameof(objectTypes));
 
@@ -60,13 +58,13 @@ namespace LinFx.Extensions.ObjectExtending
             return objectExtensionManager;
         }
 
-        [NotNull]
+        [return: NotNull]
         public static ObjectExtensionManager AddOrUpdateProperty(
             [NotNull] this ObjectExtensionManager objectExtensionManager,
             [NotNull] Type objectType,
             [NotNull] Type propertyType,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
         {
             Check.NotNull(objectExtensionManager, nameof(objectExtensionManager));
 

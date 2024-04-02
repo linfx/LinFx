@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Setting
 {
@@ -8,14 +8,14 @@ namespace LinFx.Extensions.Setting
     {
         Task<string> GetOrNullAsync(
             [NotNull] string name,
-            [CanBeNull] string providerName,
-            [CanBeNull] string providerKey
+            [AllowNull] string providerName,
+            [AllowNull] string providerKey
         );
 
         Task<List<SettingValue>> GetAllAsync(
             [NotNull] string[] names,
-            [CanBeNull] string providerName,
-            [CanBeNull] string providerKey
+            [AllowNull] string providerName,
+            [AllowNull] string providerKey
         );
     }
 }
