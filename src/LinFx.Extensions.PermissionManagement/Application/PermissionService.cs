@@ -1,7 +1,9 @@
 ﻿using LinFx.Application.Services;
+using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
-using LinFx.Extensions.Guids;
+using LinFx.Extensions.Uow;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -14,6 +16,8 @@ public class PermissionService : ApplicationService
 {
     protected PermissionManagementOptions Options { get; }
 
+    protected PermissionManagementDbContext Db { get; }
+
     protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
 
     //protected ISimpleStateCheckerManager<PermissionDefinition> SimpleStateCheckerManager { get; }
@@ -24,13 +28,16 @@ public class PermissionService : ApplicationService
 
     protected IReadOnlyList<IPermissionManagementProvider> ManagementProviders => _lazyProviders.Value;
 
+
     public PermissionService(
         IServiceProvider serviceProvider,
+        PermissionManagementDbContext db,
         IPermissionDefinitionManager permissionDefinitionManager,
         IDistributedCache<PermissionGrantCacheItem> cache,
         IOptions<PermissionManagementOptions> options)
     {
         Options = options.Value;
+        Db = db;
         PermissionDefinitionManager = permissionDefinitionManager;
 
         //CurrentTenant = currentTenant;
@@ -141,31 +148,20 @@ public class PermissionService : ApplicationService
     protected virtual async Task CheckProviderPolicy(string providerName)
     {
         var policyName = Options.ProviderPolicies.GetOrDefault(providerName);
-        //if (policyName.IsNullOrEmpty())
-        //    throw new Exception($"No policy defined to get/set permissions for the provider '{providerName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
+        if (string.IsNullOrEmpty(policyName))
+            throw new Exception($"No policy defined to get/set permissions for the provider '{providerName}'. Use {nameof(PermissionManagementOptions)} to map the policy.");
 
-        //await AuthorizationService.CheckAsync(policyName);
-        await Task.CompletedTask;
+        await AuthorizationService.CheckAsync(policyName);
     }
 
-    internal Task GetListAsync(string providerName, string providerKey)
-    {
-        throw new NotImplementedException();
-    }
+    internal async ValueTask<PermissionGrant[]> GetListAsync(string[] names, string providerName, string providerKey) => await Db.PermissionGrants.Where(p => names.Contains(p.Name) && p.ProviderName == providerName && p.ProviderKey == providerKey).ToArrayAsync();
 
-    internal ValueTask<PermissionGrant[]> GetListAsync(string[] names, string providerName, string providerKey)
-    {
-        throw new NotImplementedException();
-    }
+    internal async ValueTask<PermissionGrant?> FindAsync(string name, string providerName, string providerKey) => await Db.PermissionGrants.FirstOrDefaultAsync(p => p.Name == name && p.ProviderName == providerName && p.ProviderKey == providerKey);
 
-    internal ValueTask<PermissionGrant> FindAsync(string name1, string name2, string providerKey)
+    internal async Task InsertAsync(PermissionGrant permissionGrant)
     {
-        throw new NotImplementedException();
-    }
-
-    internal Task InsertAsync(PermissionGrant permissionGrant)
-    {
-        throw new NotImplementedException();
+        Db.PermissionGrants.Add(permissionGrant);
+        await Db.SaveChangesAsync();
     }
 
     internal Task DeleteAsync(string providerName, string providerKey)
@@ -191,7 +187,7 @@ public class PermissionService : ApplicationService
         var neededCheckPermissions = new List<PermissionDefinition>();
 
         foreach (var permission in permissions
-                                    //.Where(x => x.IsEnabled)
+                                    .Where(x => x.IsEnabled)
                                     //.Where(x => x.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
                                     .Where(x => !x.Providers.Any() || x.Providers.Contains(providerName)))
         {
@@ -239,18 +235,23 @@ public class PermissionService : ApplicationService
 
     }
 
+    /// <summary>
+    /// 设置权限
+    /// </summary>
+    /// <param name="permissionName"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="isGranted"></param>
+    /// <returns></returns>
+    /// <exception cref="BusinessException"></exception>
     public virtual async Task SetAsync(string permissionName, string providerName, string providerKey, bool isGranted)
     {
         var permission = PermissionDefinitionManager.Get(permissionName);
         if (!permission.IsEnabled)
-        {
             throw new BusinessException($"The permission named '{permission.Name}' is disabled!");
-        }
 
         if (permission.Providers.Any() && !permission.Providers.Contains(providerName))
-        {
             throw new BusinessException($"The permission named '{permission.Name}' has not compatible with the provider named '{providerName}'");
-        }
 
         //if (!permission.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
         //{

@@ -1,4 +1,5 @@
-﻿using IdentityService.EntityFrameworkCore;
+﻿using IdentityService.Controllers;
+using IdentityService.EntityFrameworkCore;
 using LinFx.Extensions.AspNetCore.ExceptionHandling;
 using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.AuditLogging;
@@ -12,6 +13,8 @@ using LinFx.Extensions.TenantManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace IdentityService;
@@ -37,6 +40,14 @@ public class Application : Module
             options.CustomSchemaIds(type => type.FullName);
         });
 
+        RSA rsa = RSA.Create();
+        rsa.ImportFromPem(AccountController.PUBLIC_KEY);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = new RsaSecurityKey(rsa);
+        //var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("5172510c6f5640a796070c3cdf8a937e"));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.RsaSha256);
+
         services
             .AddAuthentication()
             .AddJwtBearer(options =>
@@ -49,7 +60,7 @@ public class Application : Module
                     ValidateIssuerSigningKey = true,
                     //ValidIssuer = configuration["Authentication:JwtBearer:Issuer"],
                     //ValidAudience = configuration["Authentication:JwtBearer:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("5172510c6f5640a796070c3cdf8a937e"))
+                    IssuerSigningKey = new RsaSecurityKey(rsa)
                 };
             });
 

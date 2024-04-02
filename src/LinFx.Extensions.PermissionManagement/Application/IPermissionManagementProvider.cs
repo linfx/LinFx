@@ -1,5 +1,4 @@
 ﻿using LinFx.Extensions.Authorization.Permissions;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.PermissionManagement;
 
@@ -7,21 +6,9 @@ public interface IPermissionManagementProvider
 {
     string Name { get; }
 
-    Task<PermissionValueProviderGrantInfo> CheckAsync(
-        [NotNull] string name,
-        [NotNull] string providerName,
-        [NotNull] string providerKey
-    );
+    Task<PermissionValueProviderGrantInfo> CheckAsync(string name, string providerName, string providerKey);
 
-    Task<MultiplePermissionValueProviderGrantInfo> CheckAsync(
-        [NotNull] string[] names,
-        [NotNull] string providerName,
-        [NotNull] string providerKey
-    );
+    Task<MultiplePermissionValueProviderGrantInfo> CheckAsync(string[] names, string providerName, string providerKey);
 
-    Task SetAsync(
-        [NotNull] string name,
-        [NotNull] string providerKey,
-        bool isGranted
-    );
+    Task SetAsync(string name, string providerKey, bool isGranted);
 }

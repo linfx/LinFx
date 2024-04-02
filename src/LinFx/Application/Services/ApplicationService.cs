@@ -23,7 +23,6 @@ namespace LinFx.Application.Services;
 /// </summary>
 public abstract class ApplicationService :
     IApplicationService,
-    IUnitOfWorkEnabled,
     IAuditingEnabled,
     ITransientDependency
 {
