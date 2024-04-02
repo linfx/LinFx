@@ -20,7 +20,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Error code.
     /// </summary>
-    public string Code { get; } = string.Empty;
+    public string? Code { get; } = string.Empty;
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
@@ -30,30 +30,20 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
-    public AuthorizationException(SerializationInfo serializationInfo, StreamingContext context) 
-        : base(serializationInfo, context) 
-    { }
+    public AuthorizationException(SerializationInfo serializationInfo, StreamingContext context) : base(serializationInfo, context) { }
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
-    public AuthorizationException(string message)
-        : base(message)
-    {
-        LogLevel = LogLevel.Warning;
-    }
+    public AuthorizationException(string message) : base(message) => LogLevel = LogLevel.Warning;
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
     /// </summary>
     /// <param name="message">Exception message</param>
     /// <param name="innerException">Inner exception</param>
-    public AuthorizationException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-        LogLevel = LogLevel.Warning;
-    }
+    public AuthorizationException(string message, Exception innerException) : base(message, innerException) => LogLevel = LogLevel.Warning;
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
@@ -61,7 +51,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <param name="message">Exception message</param>
     /// <param name="code">Exception code</param>
     /// <param name="innerException">Inner exception</param>
-    public AuthorizationException(string message = null, string code = null, Exception innerException = null)
+    public AuthorizationException(string? message = null, string? code = null, Exception? innerException = null)
         : base(message, innerException)
     {
         Code = code;

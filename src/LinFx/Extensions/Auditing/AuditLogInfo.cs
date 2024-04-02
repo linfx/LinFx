@@ -41,7 +41,7 @@ public class AuditLogInfo : IHasExtraProperties
     /// <summary>
     /// 审计日志对象创建的时间.
     /// </summary>
-    public DateTime ExecutionTime { get; set; }
+    public DateTimeOffset ExecutionTime { get; set; }
 
     /// <summary>
     /// 请求的总执行时间,以毫秒为单位. 可以用来观察应用程序的性能.

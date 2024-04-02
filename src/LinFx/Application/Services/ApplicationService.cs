@@ -1,14 +1,15 @@
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.Features;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectMapping;
 using LinFx.Extensions.Setting;
-using LinFx.Extensions.Timing;
 using LinFx.Extensions.Uow;
 using LinFx.Linq;
+using LinFx.Security.Authorization;
 using LinFx.Security.Users;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -22,11 +23,8 @@ namespace LinFx.Application.Services;
 /// </summary>
 public abstract class ApplicationService :
     IApplicationService,
-    //IAvoidDuplicateCrossCuttingConcerns,
-    //IValidationEnabled,
     IUnitOfWorkEnabled,
     IAuditingEnabled,
-    //IGlobalFeatureCheckingEnabled
     ITransientDependency
 {
     [NotNull]
@@ -42,6 +40,9 @@ public abstract class ApplicationService :
     /// </summary>
     protected IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
+    /// <summary>
+    /// 异步执行器
+    /// </summary>
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
 
     protected Type? ObjectMapperContext { get; set; }
@@ -76,25 +77,29 @@ public abstract class ApplicationService :
     protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
 
     /// <summary>
-    /// 时钟
+    /// 授权服务
     /// </summary>
-    protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
-
     protected IAuthorizationService AuthorizationService => LazyServiceProvider.LazyGetRequiredService<IAuthorizationService>();
 
-    //protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
+    /// <summary>
+    /// 特征检查器
+    /// </summary>
+    protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
 
     public ApplicationService() { }
 
     public ApplicationService(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
-    protected LocalizedString L(string name)
+    protected IStringLocalizer L
     {
-        if (_localizer == null)
+        get
         {
-            _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(LocalizationResource);
+            if (_localizer == null)
+            {
+                _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(LocalizationResource);
+            }
+            return _localizer;
         }
-        return _localizer[name];
     }
     private IStringLocalizer? _localizer;
 
@@ -119,18 +124,16 @@ public abstract class ApplicationService :
     /// </summary>
     protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
 
-    ///// <summary>
-    ///// Checks for given <paramref name="policyName"/>.
-    ///// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
-    ///// </summary>
-    ///// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
-    //protected virtual async Task CheckPolicyAsync([AllowNull] string policyName)
-    //{
-    //    if (string.IsNullOrEmpty(policyName))
-    //    {
-    //        return;
-    //    }
+    /// <summary>
+    /// Checks for given <paramref name="policyName"/>.
+    /// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
+    /// </summary>
+    /// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
+    protected virtual async Task CheckPolicyAsync(string policyName)
+    {
+        if (string.IsNullOrEmpty(policyName))
+            return;
 
-    //    await AuthorizationService.CheckAsync(policyName);
-    //}
+        await AuthorizationService.CheckAsync(policyName);
+    }
 }

@@ -26,17 +26,12 @@ public class AuditLogActionInfo : IHasExtraProperties
     /// <summary>
     /// 执行的时间.
     /// </summary>
-    public DateTime ExecutionTime { get; set; }
+    public DateTimeOffset ExecutionTime { get; set; }
 
     /// <summary>
     /// 方法执行时长（单位：毫秒）. 
     /// </summary>
     public int ExecutionDuration { get; set; }
 
-    public ExtraPropertyDictionary ExtraProperties { get; }
-
-    public AuditLogActionInfo()
-    {
-        ExtraProperties = [];
-    }
+    public ExtraPropertyDictionary ExtraProperties { get; } = [];
 }

@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace LinFx.Extensions.Timing;
+﻿namespace LinFx.Extensions.Timing;
 
 /// <summary>
-/// 时钟
+/// 系统时钟
 /// </summary>
 public interface IClock
 {
