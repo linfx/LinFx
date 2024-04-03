@@ -1,8 +1,7 @@
 ﻿using LinFx.Extensions.Auditing;
-using LinFx.Extensions.Data;
+using LinFx.Extensions.Caching;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.AuditLogging;
@@ -11,8 +10,7 @@ namespace LinFx.Extensions.AuditLogging;
 /// 审计模块
 /// </summary>
 [DependsOn(
-    typeof(DataModule),
-    typeof(MultiTenancyModule),
+    typeof(CachingModule),
     typeof(AuditingModule),
     typeof(EntityFrameworkCoreModule)
 )]

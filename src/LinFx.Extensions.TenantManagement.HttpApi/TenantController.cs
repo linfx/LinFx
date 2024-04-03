@@ -1,4 +1,5 @@
 ﻿using LinFx.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinFx.Extensions.TenantManagement.HttpApi;
@@ -18,6 +19,7 @@ public class TenantController(TenantService tenantService) : ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpGet("/api/multi-tenancy/tenants")]
+    [Authorize(TenantManagementPermissions.Tenants.Default)]
     public virtual ValueTask<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input) => TenantService.GetListAsync(input);
 
     /// <summary>

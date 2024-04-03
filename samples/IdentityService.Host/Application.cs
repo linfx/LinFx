@@ -4,6 +4,7 @@ using LinFx.Extensions.AspNetCore.ExceptionHandling;
 using LinFx.Extensions.AspNetCore.Mvc;
 using LinFx.Extensions.AuditLogging;
 using LinFx.Extensions.AuditLogging.EntityFrameworkCore;
+using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Autofac;
 using LinFx.Extensions.ExceptionHandling;
 using LinFx.Extensions.FeatureManagement;
@@ -15,13 +16,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace IdentityService;
 
 [DependsOn(
     typeof(AutofacModule),
     typeof(AspNetCoreMvcModule),
+    typeof(AuthorizationModule),
     typeof(AuditLoggingModule),
     typeof(TenantManagementModule),
     typeof(FeatureManagementModule),

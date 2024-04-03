@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.PermissionManagement;
 
-[Service(ServiceLifetime.Scoped)]
+[Service(ServiceLifetime.Singleton)]
 public class RolePermissionManagementProvider(
     PermissionService permissionGrantRepository,
     ICurrentTenant currentTenant,

@@ -2,6 +2,9 @@
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限管理提供者
+/// </summary>
 public interface IPermissionManagementProvider
 {
     string Name { get; }

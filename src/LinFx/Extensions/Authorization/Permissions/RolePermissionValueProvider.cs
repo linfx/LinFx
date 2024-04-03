@@ -13,7 +13,7 @@ public class RolePermissionValueProvider(IPermissionStore permissionStore) : Per
 
     public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
     {
-        var roles = context.Principal?.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();
+        var roles = context.Principal.FindAll(ClaimTypes.Role).Select(c => c.Value).ToArray();
         if (roles == null || !roles.Any())
             return PermissionGrantResult.Undefined;
 

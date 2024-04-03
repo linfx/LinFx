@@ -10,7 +10,7 @@ namespace LinFx.Extensions.TenantManagement;
 /// <summary>
 /// 租户服务
 /// </summary>
-[Authorize(TenantManagementPermissions.Tenants.Default)]
+//[Authorize(TenantManagementPermissions.Tenants.Default)]
 public class TenantService(TenantManagementDbContext tenantRepository) : ApplicationService
 {
     protected TenantManagementDbContext Db { get; } = tenantRepository;

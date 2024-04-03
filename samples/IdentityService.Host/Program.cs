@@ -6,6 +6,8 @@ using Serilog.Events;
 [assembly: ResourceLocation("Resources")]
 [assembly: RootNamespace("IdentityService")]
 
+const string outputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
+
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
     .MinimumLevel.Debug()
@@ -17,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Async(c => c.File($"logs/log{DateTime.Now:yyyyMMdd}.txt"))
 #if DEBUG
-    .WriteTo.Async(c => c.Console())
+    .WriteTo.Async(c => c.Console(outputTemplate: outputTemplate))
 #endif
     .CreateLogger();
 

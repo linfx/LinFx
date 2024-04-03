@@ -1,9 +1,8 @@
 ﻿using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
-using LinFx.Extensions.Data;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.PermissionManagement;
@@ -12,10 +11,8 @@ namespace LinFx.Extensions.PermissionManagement;
 /// 权限管理模块(RBAC)
 /// </summary>
 [DependsOn(
-    typeof(DataModule),
     typeof(CachingModule),
-    typeof(MultiTenancyModule),
-    typeof(AuthorizationModule)
+    typeof(EntityFrameworkCoreModule)
 )]
 public class PermissionManagementModule : Module
 {

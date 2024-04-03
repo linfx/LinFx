@@ -1,6 +1,6 @@
-﻿using LinFx.Extensions.EntityFrameworkCore;
+﻿using LinFx.Extensions.Caching;
+using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
-using LinFx.Extensions.MultiTenancy;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.TenantManagement;
@@ -9,7 +9,7 @@ namespace LinFx.Extensions.TenantManagement;
 /// 租户管理模块
 /// </summary>
 [DependsOn(
-    typeof(MultiTenancyModule),
+    typeof(CachingModule),
     typeof(EntityFrameworkCoreModule)
 )]
 public class TenantManagementModule : Module

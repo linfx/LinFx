@@ -59,6 +59,13 @@ public class AccountController : ControllerBase
         return Result.Ok(token);
     }
 
+    [HttpGet]
+    [Authorize("TenantManagement.Tenants")]
+    public Result Get()
+    {
+        return Result.Ok("Hello");
+    }
+
 
     public const string PRIVATE_KEY = @"
 -----BEGIN PRIVATE KEY-----

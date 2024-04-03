@@ -2,17 +2,20 @@
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限服务
+/// </summary>
+/// <param name="db"></param>
+/// <param name="cache"></param>
+/// <param name="permissionDefinitionManager"></param>
+/// <param name="logger"></param>
 [Service]
-public class PermissionStore(
-    PermissionManagementDbContext db,
-    IDistributedCache<PermissionGrantCacheItem> cache,
-    IPermissionDefinitionManager permissionDefinitionManager) : IPermissionStore
+public class PermissionStore(PermissionManagementDbContext db, IDistributedCache<PermissionGrantCacheItem> cache, IPermissionDefinitionManager permissionDefinitionManager, ILogger<PermissionStore> logger) : IPermissionStore
 {
-    public ILogger<PermissionStore> Logger { get; set; } = NullLogger<PermissionStore>.Instance;
+    protected ILogger<PermissionStore> Logger { get; } = logger;
 
     protected PermissionManagementDbContext Db { get; } = db;
 
@@ -20,19 +23,58 @@ public class PermissionStore(
 
     protected IDistributedCache<PermissionGrantCacheItem> Cache { get; } = cache;
 
+    /// <summary>
+    /// 是否授权
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
     public virtual async Task<bool> IsGrantedAsync(string name, string providerName, string providerKey) => (await GetCacheItemAsync(name, providerName, providerKey)).IsGranted;
 
-    protected virtual async Task<PermissionGrantCacheItem> GetCacheItemAsync(
-        string name,
-        string providerName,
-        string providerKey)
+    /// <summary>
+    /// 是否授权
+    /// </summary>
+    /// <param name="names"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
+    public virtual async Task<MultiplePermissionGrantResult> IsGrantedAsync(string[] names, string providerName, string providerKey)
+    {
+        Check.NotNullOrEmpty(names, nameof(names));
+
+        var result = new MultiplePermissionGrantResult();
+
+        if (names.Length == 1)
+        {
+            var name = names.First();
+            result.Result.Add(name, await IsGrantedAsync(names.First(), providerName, providerKey) ? PermissionGrantResult.Granted : PermissionGrantResult.Undefined);
+            return result;
+        }
+
+        var cacheItems = await GetCacheItemsAsync(names, providerName, providerKey);
+        foreach (var item in cacheItems)
+        {
+            result.Result.Add(GetPermissionNameFormCacheKeyOrNull(item.Key), item.Value != null && item.Value.IsGranted ? PermissionGrantResult.Granted : PermissionGrantResult.Undefined);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 获取缓存
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
+    protected virtual async Task<PermissionGrantCacheItem> GetCacheItemAsync(string name, string providerName, string providerKey)
     {
         var cacheKey = CalculateCacheKey(name, providerName, providerKey);
 
         Logger.LogDebug($"PermissionStore.GetCacheItemAsync: {cacheKey}");
 
         var cacheItem = await Cache.GetAsync(cacheKey);
-
         if (cacheItem != null)
         {
             Logger.LogDebug($"Found in the cache: {cacheKey}");
@@ -46,71 +88,14 @@ public class PermissionStore(
         return cacheItem;
     }
 
-    protected virtual async Task SetCacheItemsAsync(
-        string providerName,
-        string providerKey,
-        string currentName,
-        PermissionGrantCacheItem currentCacheItem)
-    {
-        var permissions = PermissionDefinitionManager.GetPermissions();
-
-        Logger.LogDebug($"Getting all granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
-
-        var grantedPermissionsHashSet = new HashSet<string>(Db.PermissionGrants.Where(s => s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name));
-
-        Logger.LogDebug($"Setting the cache items. Count: {permissions.Count}");
-
-        var cacheItems = new List<KeyValuePair<string, PermissionGrantCacheItem>>();
-
-        foreach (var permission in permissions)
-        {
-            var isGranted = grantedPermissionsHashSet.Contains(permission.Name);
-
-            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(CalculateCacheKey(permission.Name, providerName, providerKey), new PermissionGrantCacheItem(isGranted)));
-
-            if (permission.Name == currentName)
-            {
-                currentCacheItem.IsGranted = isGranted;
-            }
-        }
-
-        await Cache.SetManyAsync(cacheItems);
-
-        Logger.LogDebug($"Finished setting the cache items. Count: {permissions.Count}");
-    }
-
-    public virtual async Task<MultiplePermissionGrantResult> IsGrantedAsync(string[] names, string providerName, string providerKey)
-    {
-        Check.NotNullOrEmpty(names, nameof(names));
-
-        var result = new MultiplePermissionGrantResult();
-
-        if (names.Length == 1)
-        {
-            var name = names.First();
-            result.Result.Add(name,
-                await IsGrantedAsync(names.First(), providerName, providerKey)
-                    ? PermissionGrantResult.Granted
-                    : PermissionGrantResult.Undefined);
-            return result;
-        }
-
-        var cacheItems = await GetCacheItemsAsync(names, providerName, providerKey);
-        foreach (var item in cacheItems)
-        {
-            result.Result.Add(GetPermissionNameFormCacheKeyOrNull(item.Key),
-                item.Value != null && item.Value.IsGranted
-                    ? PermissionGrantResult.Granted
-                    : PermissionGrantResult.Undefined);
-        }
-
-        return result;
-    }
-
-    protected virtual async Task<List<KeyValuePair<string, PermissionGrantCacheItem>>> GetCacheItemsAsync(
-        string[] names,
-        string providerName,
-        string providerKey)
+    /// <summary>
+    /// 获取缓存
+    /// </summary>
+    /// <param name="names"></param>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <returns></returns>
+    protected virtual async Task<List<KeyValuePair<string, PermissionGrantCacheItem>>> GetCacheItemsAsync(string[] names, string providerName, string providerKey)
     {
         var cacheKeys = names.Select(x => CalculateCacheKey(x, providerName, providerKey)).ToList();
 
@@ -144,19 +129,21 @@ public class PermissionStore(
         return result;
     }
 
-    protected virtual async Task<List<KeyValuePair<string, PermissionGrantCacheItem>>> SetCacheItemsAsync(
-        string providerName,
-        string providerKey,
-        List<string> notCacheKeys)
+    /// <summary>
+    /// 设置缓存
+    /// </summary>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="currentName"></param>
+    /// <param name="currentCacheItem"></param>
+    /// <returns></returns>
+    protected virtual async Task SetCacheItemsAsync(string providerName, string providerKey, string currentName, PermissionGrantCacheItem currentCacheItem)
     {
-        var permissions = PermissionDefinitionManager.GetPermissions().Where(x => notCacheKeys.Any(k => GetPermissionNameFormCacheKeyOrNull(k) == x.Name)).ToList();
+        var permissions = PermissionDefinitionManager.GetPermissions();
 
-        Logger.LogDebug($"Getting not cache granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
+        Logger.LogDebug($"Getting all granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
 
-        var names = notCacheKeys.Select(GetPermissionNameFormCacheKeyOrNull).ToArray();
-        var collect = Db.PermissionGrants.Where(s => names.Contains(s.Name) && s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name);
-        var grantedPermissionsHashSet = new HashSet<string>(collect);
-
+        var grantedPermissionsHashSet = new HashSet<string>(Db.PermissionGrants.Where(s => s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name));
 
         Logger.LogDebug($"Setting the cache items. Count: {permissions.Count}");
 
@@ -166,10 +153,44 @@ public class PermissionStore(
         {
             var isGranted = grantedPermissionsHashSet.Contains(permission.Name);
 
-            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(
-                CalculateCacheKey(permission.Name, providerName, providerKey),
-                new PermissionGrantCacheItem(isGranted))
-            );
+            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(CalculateCacheKey(permission.Name, providerName, providerKey), new PermissionGrantCacheItem(isGranted)));
+
+            if (permission.Name == currentName)
+            {
+                currentCacheItem.IsGranted = isGranted;
+            }
+        }
+
+        await Cache.SetManyAsync(cacheItems);
+
+        Logger.LogDebug($"Finished setting the cache items. Count: {permissions.Count}");
+    }
+
+    /// <summary>
+    /// 设置缓存
+    /// </summary>
+    /// <param name="providerName"></param>
+    /// <param name="providerKey"></param>
+    /// <param name="notCacheKeys"></param>
+    /// <returns></returns>
+    protected virtual async Task<List<KeyValuePair<string, PermissionGrantCacheItem>>> SetCacheItemsAsync(string providerName, string providerKey, List<string> notCacheKeys)
+    {
+        var permissions = PermissionDefinitionManager.GetPermissions().Where(x => notCacheKeys.Any(k => GetPermissionNameFormCacheKeyOrNull(k) == x.Name)).ToList();
+
+        Logger.LogDebug($"Getting not cache granted permissions from the repository for this provider name,key: {providerName},{providerKey}");
+
+        var names = notCacheKeys.Select(GetPermissionNameFormCacheKeyOrNull).ToArray();
+        var collect = Db.PermissionGrants.Where(s => names.Contains(s.Name) && s.ProviderName == providerName && s.ProviderKey == providerKey).Select(p => p.Name);
+        var grantedPermissionsHashSet = new HashSet<string>(collect);
+
+        Logger.LogDebug($"Setting the cache items. Count: {permissions.Count}");
+
+        var cacheItems = new List<KeyValuePair<string, PermissionGrantCacheItem>>();
+
+        foreach (var permission in permissions)
+        {
+            var isGranted = grantedPermissionsHashSet.Contains(permission.Name);
+            cacheItems.Add(new KeyValuePair<string, PermissionGrantCacheItem>(CalculateCacheKey(permission.Name, providerName, providerKey), new PermissionGrantCacheItem(isGranted)));
         }
 
         await Cache.SetManyAsync(cacheItems);

@@ -16,14 +16,17 @@ namespace LinFx.Extensions.EntityFrameworkCore;
     typeof(DataModule),
     typeof(AuditingModule),
     typeof(EventBusModule),
-    typeof(MultiTenancyModule),
     typeof(ThreadingModule),
+    typeof(MultiTenancyModule),
     typeof(UnitOfWorkModule)
 )]
 public class EntityFrameworkCoreModule : Module
 {
     public override void ConfigureServices(IServiceCollection services)
     {
+        // 注册 IDbContextProvider 组件。
+        services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
+
         // 调用 DbContextOptions 的预配置方法，为了解决下面的问题。
         // https://stackoverflow.com/questions/55369146/eager-loading-include-with-using-uselazyloadingproxies
         services.Configure<EfDbContextOptions>(options =>
@@ -36,8 +39,5 @@ public class EntityFrameworkCoreModule : Module
                 });
             });
         });
-
-        // 注册 IDbContextProvider 组件。
-        services.TryAddTransient(typeof(IDbContextProvider<>), typeof(UnitOfWorkDbContextProvider<>));
     }
 }

@@ -13,7 +13,7 @@ public class ClientPermissionValueProvider(IPermissionStore permissionStore) : P
 
     public override async Task<PermissionGrantResult> CheckAsync(PermissionValueCheckContext context)
     {
-        var id = context.Principal?.FindFirst(ClaimTypes.ClientId)?.Value;
+        var id = context.Principal.FindFirst(ClaimTypes.ClientId)?.Value;
         if (id == null)
             return PermissionGrantResult.Undefined;
 
