@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.Authorization;
-using LinFx.Extensions.Authorization.Permissions;
+﻿using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
 using LinFx.Extensions.EntityFrameworkCore;
 using LinFx.Extensions.Modularity;
