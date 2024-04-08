@@ -8,9 +8,9 @@ namespace LinFx.Extensions.TenantManagement.HttpApi;
 /// </summary>
 [ApiController]
 [Route("api/multi-tenancy/[controller]")]
-public class TenantController(ITenantService tenantService) : ControllerBase
+public class TenantController(TenantService tenantService) : ControllerBase
 {
-    protected ITenantService TenantService { get; } = tenantService;
+    protected TenantService TenantService { get; } = tenantService;
 
     /// <summary>
     /// 租户列表
