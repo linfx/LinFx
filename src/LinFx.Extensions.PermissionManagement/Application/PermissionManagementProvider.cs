@@ -11,14 +11,14 @@ public abstract class PermissionManagementProvider : IPermissionManagementProvid
     /// </summary>
     public abstract string Name { get; }
 
-    protected PermissionService PermissionService { get; }
-
     protected ICurrentTenant CurrentTenant { get; }
 
-    protected PermissionManagementProvider(PermissionService permissionService, ICurrentTenant currentTenant)
+    protected PermissionService PermissionService { get; }
+
+    protected PermissionManagementProvider(ICurrentTenant currentTenant, PermissionService permissionService)
     {
-        PermissionService = permissionService;
         CurrentTenant = currentTenant;
+        PermissionService = permissionService;
     }
 
     public virtual async Task<PermissionValueProviderGrantInfo> CheckAsync(string name, string providerName, string providerKey)

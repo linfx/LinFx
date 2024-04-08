@@ -19,5 +19,8 @@ public class IdentityPermissionDefinitionProvider : PermissionDefinitionProvider
         usersPermission.AddChild(IdentityPermissions.Users.Update, L["Permission:Edit"]);
         usersPermission.AddChild(IdentityPermissions.Users.Delete, L["Permission:Delete"]);
         usersPermission.AddChild(IdentityPermissions.Users.ManagePermissions, L["Permission:ChangePermissions"]);
+
+        usersPermission.AddChild("Users.ManagePermissions");
+        usersPermission.AddChild("Roles.ManagePermissions");
     }
 }

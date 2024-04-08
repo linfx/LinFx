@@ -53,6 +53,9 @@ public class AuditLog : AggregateRoot<string>, IMultiTenant
     /// </summary>
     public virtual string ClientName { get; protected set; }
 
+    /// <summary>
+    /// 客户端Id
+    /// </summary>
     public virtual string ClientId { get; set; }
 
     public virtual string CorrelationId { get; set; }

@@ -8,12 +8,10 @@ namespace LinFx.Extensions.PermissionManagement;
 /// <summary>
 /// 管理用户基础权限
 /// </summary>
-/// <param name="permissionGrantRepository"></param>
 /// <param name="currentTenant"></param>
+/// <param name="service"></param>
 [Service(ServiceLifetime.Singleton)]
-public class UserPermissionManagementProvider(
-    PermissionService permissionGrantRepository,
-    ICurrentTenant currentTenant) : PermissionManagementProvider(permissionGrantRepository, currentTenant)
+public class UserPermissionManagementProvider(PermissionService service, ICurrentTenant currentTenant) : PermissionManagementProvider(currentTenant, service)
 {
     public override string Name => UserPermissionValueProvider.ProviderName;
 }

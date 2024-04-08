@@ -9,14 +9,11 @@ namespace LinFx.Extensions.PermissionManagement;
 /// <summary>
 /// 管理角色基础权限
 /// </summary>
-/// <param name="permissionGrantRepository"></param>
+/// <param name="service"></param>
 /// <param name="currentTenant"></param>
 /// <param name="userRoleFinder"></param>
 [Service(ServiceLifetime.Singleton)]
-public class RolePermissionManagementProvider(
-    PermissionService permissionGrantRepository,
-    ICurrentTenant currentTenant,
-    IUserRoleFinder userRoleFinder) : PermissionManagementProvider(permissionGrantRepository, currentTenant)
+public class RolePermissionManagementProvider(ICurrentTenant currentTenant, PermissionService service, IUserRoleFinder userRoleFinder) : PermissionManagementProvider(currentTenant, service)
 {
     public override string Name => RolePermissionValueProvider.ProviderName;
 
@@ -40,6 +37,7 @@ public class RolePermissionManagementProvider(
         {
             var roleNames = await UserRoleFinder.GetRolesAsync(providerKey);
 
+            // 获取角色权限
             foreach (var roleName in roleNames)
             {
                 permissionGrants.AddRange(await PermissionService.GetListAsync(names, Name, roleName));
@@ -47,7 +45,7 @@ public class RolePermissionManagementProvider(
         }
 
         permissionGrants = permissionGrants.Distinct().ToList();
-        if (!permissionGrants.Any())
+        if (permissionGrants.Count == 0)
             return multiplePermissionValueProviderGrantInfo;
 
         foreach (var permissionName in names)
