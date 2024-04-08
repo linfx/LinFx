@@ -21,10 +21,7 @@ namespace LinFx.Application.Services;
 /// <summary>
 /// 应用服务
 /// </summary>
-public abstract class ApplicationService :
-    IApplicationService,
-    IAuditingEnabled,
-    ITransientDependency
+public abstract class ApplicationService : IApplicationService, IAuditingEnabled, ITransientDependency
 {
     [NotNull]
     [Autowired]
@@ -43,12 +40,6 @@ public abstract class ApplicationService :
     /// 异步执行器
     /// </summary>
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
-
-    protected Type? ObjectMapperContext { get; set; }
-
-    protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
-            ? provider.GetRequiredService<IObjectMapper>()
-            : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 
     /// <summary>
     /// 日志厂工
@@ -85,9 +76,25 @@ public abstract class ApplicationService :
     /// </summary>
     protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
 
+    /// <summary>
+    /// 当前工作单元
+    /// </summary>
+    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
+
+    /// <summary>
+    /// 日志
+    /// </summary>
+    protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
+
     public ApplicationService() { }
 
     public ApplicationService(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
+
+    protected Type? ObjectMapperContext { get; set; }
+
+    protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
+            ? provider.GetRequiredService<IObjectMapper>()
+            : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 
     protected IStringLocalizer L
     {
@@ -113,15 +120,6 @@ public abstract class ApplicationService :
     }
     private Type? _localizationResource;
 
-    /// <summary>
-    /// 当前工作单元
-    /// </summary>
-    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
-
-    /// <summary>
-    /// 日志
-    /// </summary>
-    protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
 
     /// <summary>
     /// Checks for given <paramref name="policyName"/>.

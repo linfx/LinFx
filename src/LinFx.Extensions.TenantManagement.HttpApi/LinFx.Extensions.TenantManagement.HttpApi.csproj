@@ -1,7 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<Import Project="..\..\common.props" />
 
+	<PropertyGroup>
+		<IsTrimmable>false</IsTrimmable>
+		<IsPackable>true</IsPackable>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<ProjectReference Include="..\LinFx.Extensions.AspNetCore\LinFx.Extensions.AspNetCore.csproj" />
 		<ProjectReference Include="..\LinFx.Extensions.TenantManagement\LinFx.Extensions.TenantManagement.csproj" />

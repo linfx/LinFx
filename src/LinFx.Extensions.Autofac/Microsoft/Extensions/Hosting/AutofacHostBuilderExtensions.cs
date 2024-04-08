@@ -12,7 +12,6 @@ public static class AutofacHostBuilderExtensions
         return hostBuilder.ConfigureServices((_, services) =>
         {
             services.AddObjectAccessor(containerBuilder);
-        })
-        .UseServiceProviderFactory(new AutofacServiceProviderFactory(containerBuilder));
+        }).UseServiceProviderFactory(new AutofacServiceProviderFactory(containerBuilder));
     }
 }

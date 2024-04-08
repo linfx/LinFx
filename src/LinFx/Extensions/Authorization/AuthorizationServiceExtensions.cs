@@ -27,24 +27,28 @@ public static class AuthorizationServiceExtensions
     /// <returns></returns>
     public static async Task<bool> IsGrantedAsync(this IAuthorizationService authorizationService, string policyName) => (await authorizationService.AuthorizeAsync(policyName)).Succeeded;
 
+    /// <summary>
+    /// 权限校验
+    /// </summary>
+    /// <param name="authorizationService"></param>
+    /// <param name="policy"></param>
+    /// <returns></returns>
+    /// <exception cref="AuthorizationException"></exception>
     public static async Task CheckAsync(this IAuthorizationService authorizationService, AuthorizationPolicy policy)
     {
         if (!await authorizationService.IsGrantedAsync(policy))
-        {
             throw new AuthorizationException(code: AuthorizationErrorCodes.GivenPolicyHasNotGranted);
-        }
     }
 
+    /// <summary>
+    /// 权限校验
+    /// </summary>
+    /// <param name="authorizationService"></param>
+    /// <param name="policyName"></param>
+    /// <returns></returns>
     public static async Task CheckAsync(this IAuthorizationService authorizationService, string policyName)
     {
         if (!await authorizationService.IsGrantedAsync(policyName))
-        {
             throw new AuthorizationException(code: AuthorizationErrorCodes.GivenPolicyHasNotGrantedWithPolicyName).WithData("PolicyName", policyName);
-        }
     }
-
-    //public static async Task<bool> IsGrantedAsync(this IAuthorizationService authorizationService, string policyName)
-    //{
-    //    return (await authorizationService.AuthorizeAsync(policyName)).Succeeded;
-    //}
 }

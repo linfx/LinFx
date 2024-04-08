@@ -1,6 +1,5 @@
 ﻿using LinFx.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.PermissionManagement;
 

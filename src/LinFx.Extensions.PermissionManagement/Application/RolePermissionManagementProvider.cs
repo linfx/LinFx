@@ -6,6 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 管理角色基础权限
+/// </summary>
+/// <param name="permissionGrantRepository"></param>
+/// <param name="currentTenant"></param>
+/// <param name="userRoleFinder"></param>
 [Service(ServiceLifetime.Singleton)]
 public class RolePermissionManagementProvider(
     PermissionService permissionGrantRepository,

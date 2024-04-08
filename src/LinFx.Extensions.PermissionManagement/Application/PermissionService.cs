@@ -3,7 +3,6 @@ using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Authorization.Permissions;
 using LinFx.Extensions.Caching;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.PermissionManagement;
@@ -13,36 +12,21 @@ namespace LinFx.Extensions.PermissionManagement;
 /// </summary>
 public class PermissionService : ApplicationService
 {
-    protected PermissionManagementOptions Options { get; }
+    protected PermissionManagementOptions Options => LazyServiceProvider.LazyGetRequiredService<IOptions<PermissionManagementOptions>>().Value;
 
-    protected PermissionManagementDbContext Db { get; }
+    protected PermissionManagementDbContext Db => LazyServiceProvider.LazyGetRequiredService<PermissionManagementDbContext>();
 
-    protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
+    protected IPermissionDefinitionManager PermissionDefinitionManager => LazyServiceProvider.LazyGetRequiredService<IPermissionDefinitionManager>();
 
-    //protected ISimpleStateCheckerManager<PermissionDefinition> SimpleStateCheckerManager { get; }
-
-    protected IDistributedCache<PermissionGrantCacheItem> Cache { get; }
+    protected IDistributedCache<PermissionGrantCacheItem> Cache => LazyServiceProvider.LazyGetRequiredService<IDistributedCache<PermissionGrantCacheItem>>();
 
     private readonly Lazy<List<IPermissionManagementProvider>> _lazyProviders;
 
     protected IReadOnlyList<IPermissionManagementProvider> ManagementProviders => _lazyProviders.Value;
 
-
-    public PermissionService(
-        IServiceProvider serviceProvider,
-        PermissionManagementDbContext db,
-        IPermissionDefinitionManager permissionDefinitionManager,
-        IDistributedCache<PermissionGrantCacheItem> cache,
-        IOptions<PermissionManagementOptions> options)
+    public PermissionService()
     {
-        Options = options.Value;
-        Db = db;
-        PermissionDefinitionManager = permissionDefinitionManager;
-
-        //CurrentTenant = currentTenant;
-        Cache = cache;
-        PermissionDefinitionManager = permissionDefinitionManager;
-        _lazyProviders = new Lazy<List<IPermissionManagementProvider>>(() => Options.ManagementProviders.Select(c => (IPermissionManagementProvider)serviceProvider.GetRequiredService(c)).ToList(), true);
+        _lazyProviders = new Lazy<List<IPermissionManagementProvider>>(() => Options.ManagementProviders.Select(c => (IPermissionManagementProvider)LazyServiceProvider.LazyGetRequiredService(c)).ToList(), true);
     }
 
     /// <summary>
@@ -188,14 +172,14 @@ public class PermissionService : ApplicationService
         foreach (var permission in permissions
                                     .Where(x => x.IsEnabled)
                                     //.Where(x => x.MultiTenancySide.HasFlag(CurrentTenant.GetMultiTenancySide()))
-                                    .Where(x => !x.Providers.Any() || x.Providers.Contains(providerName)))
+                                    .Where(x => x.Providers.Count == 0 || x.Providers.Contains(providerName)))
         {
             //if (await SimpleStateCheckerManager.IsEnabledAsync(permission))
             //    neededCheckPermissions.Add(permission);
             neededCheckPermissions.Add(permission);
         }
 
-        if (!neededCheckPermissions.Any())
+        if (neededCheckPermissions.Count == 0)
             return multiplePermissionWithGrantedProviders;
 
         foreach (var provider in ManagementProviders)
