@@ -11,14 +11,4 @@ public class Tenant : FullAuditedAggregateRoot<string>
     /// 租户名称
     /// </summary>
     public virtual required string Name { get; set; }
-
-    public Tenant() { }
-
-    public Tenant(string id, string name)
-    {
-        Id = id;
-        SetName(name);
-    }
-
-    protected internal virtual void SetName(string name) => Name = name;
 }

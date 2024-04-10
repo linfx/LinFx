@@ -1,5 +1,8 @@
 ﻿namespace LinFx.Extensions.PermissionManagement;
 
+/// <summary>
+/// 权限组
+/// </summary>
 public class PermissionGroupDto
 {
     /// <summary>
