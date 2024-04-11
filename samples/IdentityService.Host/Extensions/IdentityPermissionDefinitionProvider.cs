@@ -24,3 +24,15 @@ public class IdentityPermissionDefinitionProvider : PermissionDefinitionProvider
         usersPermission.AddChild("Roles.ManagePermissions");
     }
 }
+
+public class PermissionManagementDefinitionProvider : PermissionDefinitionProvider
+{
+    public override void Define(IPermissionDefinitionContext context)
+    {
+        var identityGroup = context.AddGroup(IdentityPermissions.GroupName, L["Permission:IdentityManagement"]);
+
+        var rolesPermission = identityGroup.AddPermission(IdentityPermissions.Roles.Default, L["Permission:RoleManagement"]);
+        rolesPermission.AddChild("Users.ManagePermissions");
+        rolesPermission.AddChild("Roles.ManagePermissions");
+    }
+}

@@ -1,16 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace LinFx.Extensions.PermissionManagement;
 
-namespace LinFx.Extensions.PermissionManagement;
-
-public class PermissionValueProviderInfo
+public class PermissionValueProviderInfo(string name, string key)
 {
-    public string Name { get; }
+    public string Name { get; } = name ?? throw new ArgumentNullException(nameof(name));
 
-    public string Key { get; }
-
-    public PermissionValueProviderInfo([NotNull] string name, [NotNull] string key)
-    {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        Key = key ?? throw new ArgumentNullException(nameof(key));
-    }
+    public string Key { get; } = key ?? throw new ArgumentNullException(nameof(key));
 }

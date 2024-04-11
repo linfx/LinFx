@@ -15,7 +15,7 @@ namespace LinFx.Extensions.PermissionManagement;
 [Service]
 public class PermissionStore(PermissionManagementDbContext db, IDistributedCache<PermissionGrantCacheItem> cache, IPermissionDefinitionManager permissionDefinitionManager, ILogger<PermissionStore> logger) : IPermissionStore
 {
-    protected ILogger<PermissionStore> Logger { get; } = logger;
+    protected ILogger Logger { get; } = logger;
 
     protected PermissionManagementDbContext Db { get; } = db;
 
