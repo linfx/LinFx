@@ -158,22 +158,16 @@ public class AuditingFactory(
         try
         {
             if (arguments.IsNullOrEmpty())
-            {
                 return "{}";
-            }
 
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = new Dictionary<string, object?>();
 
             foreach (var argument in arguments)
             {
                 if (argument.Value != null && Options.IgnoredTypes.Any(t => t.IsInstanceOfType(argument.Value)))
-                {
                     dictionary[argument.Key] = null;
-                }
                 else
-                {
                     dictionary[argument.Key] = argument.Value;
-                }
             }
 
             return JsonSerializer.Serialize(dictionary);

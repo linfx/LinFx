@@ -59,6 +59,7 @@ app.UseRequestLocalization(options =>
 // 异常处理程序中间件
 //app.UseExceptionHandler();
 //app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), config => config.UseJwtTokenMiddleware(JwtBearerDefaults.AuthenticationScheme));
+app.UseMultiTenancy();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
