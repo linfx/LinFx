@@ -32,10 +32,7 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
 
     public abstract void AddType(IServiceCollection services, Type type);
 
-    protected virtual bool IsConventionalRegistrationDisabled(Type type)
-    {
-        return type.IsDefined(typeof(DisableConventionalRegistrationAttribute), true);
-    }
+    protected virtual bool IsConventionalRegistrationDisabled(Type type) => type.IsDefined(typeof(DisableConventionalRegistrationAttribute), true);
 
     protected virtual void TriggerServiceExposing(IServiceCollection services, Type implementationType, List<Type> serviceTypes)
     {
@@ -93,12 +90,7 @@ public abstract class ConventionalRegistrarBase : IConventionalRegistrar
     {
         if (lifeTime.IsIn(ServiceLifetime.Singleton, ServiceLifetime.Scoped))
         {
-            var redirectedType = GetRedirectedTypeOrNull(
-                implementationType,
-                exposingServiceType,
-                allExposingServiceTypes
-            );
-
+            var redirectedType = GetRedirectedTypeOrNull(implementationType, exposingServiceType, allExposingServiceTypes);
             if (redirectedType != null)
             {
                 return ServiceDescriptor.Describe(exposingServiceType, provider => provider.GetService(redirectedType), lifeTime);

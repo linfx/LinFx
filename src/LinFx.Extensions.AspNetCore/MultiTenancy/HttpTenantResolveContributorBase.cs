@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
@@ -20,11 +19,11 @@ public abstract class HttpTenantResolveContributorBase : ITenantResolveContribut
         {
             ResolveFromHttpContext(context, httpContext);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             context.ServiceProvider
                 .GetRequiredService<ILogger<HttpTenantResolveContributorBase>>()
-                .LogWarning(e.ToString());
+                .LogWarning(ex.ToString());
         }
     }
 
@@ -37,5 +36,11 @@ public abstract class HttpTenantResolveContributorBase : ITenantResolveContribut
         }
     }
 
-    protected abstract string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext);
+    /// <summary>
+    /// 获取租户Id
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="httpContext"></param>
+    /// <returns></returns>
+    protected abstract string? GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext);
 }

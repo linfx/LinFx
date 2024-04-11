@@ -2,9 +2,13 @@
 
 namespace LinFx.Extensions.DependencyInjection;
 
+/// <summary>
+/// 注入服务
+/// </summary>
+/// <param name="serviceProvider"></param>
 public class AutowiredService(IServiceProvider serviceProvider)
 {
-    private readonly IServiceProvider _serviceProvider = serviceProvider;
+    private readonly IServiceProvider serviceProvider = serviceProvider;
 
     public void Autowired(object service)
     {
@@ -13,21 +17,17 @@ public class AutowiredService(IServiceProvider serviceProvider)
         //字段赋值
         foreach (FieldInfo field in serviceType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
-            var autowiredAttr = field.GetCustomAttribute<AutowiredAttribute>();
-            if (autowiredAttr != null)
-            {
-                field.SetValue(service, _serviceProvider.GetService(field.FieldType));
-            }
+            var attribute = field.GetCustomAttribute<AutowiredAttribute>();
+            if (attribute != null)
+                field.SetValue(service, serviceProvider.GetService(field.FieldType));
         }
 
         //属性赋值
         foreach (PropertyInfo property in serviceType.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
         {
-            var autowiredAttr = property.GetCustomAttribute<AutowiredAttribute>();
-            if (autowiredAttr != null)
-            {
-                property.SetValue(service, _serviceProvider.GetService(property.PropertyType));
-            }
+            var attribute = property.GetCustomAttribute<AutowiredAttribute>();
+            if (attribute != null)
+                property.SetValue(service, serviceProvider.GetService(property.PropertyType));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 
 namespace LinFx.Extensions.Authorization;
@@ -7,7 +6,6 @@ namespace LinFx.Extensions.Authorization;
 /// <summary>
 /// 方法调用授权服务
 /// </summary>
-[Service]
 public class MethodInvocationAuthorizationService(IAuthorizationPolicyProvider authorizationPolicyProvider, IAuthorizationService authorizationService) : IMethodInvocationAuthorizationService
 {
     private readonly IAuthorizationPolicyProvider authorizationPolicyProvider = authorizationPolicyProvider;
@@ -18,7 +16,7 @@ public class MethodInvocationAuthorizationService(IAuthorizationPolicyProvider a
         if (AllowAnonymous(context))
             return;
 
-        var authorizationPolicy = await AuthorizationPolicy.CombineAsync(authorizationPolicyProvider,GetAuthorizationDataAttributes(context.Method));
+        var authorizationPolicy = await AuthorizationPolicy.CombineAsync(authorizationPolicyProvider, GetAuthorizationDataAttributes(context.Method));
         if (authorizationPolicy == null)
             return;
 

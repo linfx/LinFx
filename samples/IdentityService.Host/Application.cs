@@ -42,12 +42,12 @@ public class Application : Module
         });
 
         RSA rsa = RSA.Create();
-        rsa.ImportFromPem(AccountController.PUBLIC_KEY);
+        //rsa.ImportFromPem(AccountController.PUBLIC_KEY);
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = new RsaSecurityKey(rsa);
-        //var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("5172510c6f5640a796070c3cdf8a937e"));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.RsaSha256);
+        //var tokenHandler = new JwtSecurityTokenHandler();
+        //var key = new RsaSecurityKey(rsa);
+        ////var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("5172510c6f5640a796070c3cdf8a937e"));
+        //var creds = new SigningCredentials(key, SecurityAlgorithms.RsaSha256);
 
         services
             .AddAuthentication()
