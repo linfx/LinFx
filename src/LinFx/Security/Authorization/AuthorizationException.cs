@@ -20,7 +20,7 @@ public class AuthorizationException : Exception, IHasLogLevel, IHasErrorCode
     /// <summary>
     /// Error code.
     /// </summary>
-    public string? Code { get; } = string.Empty;
+    public string Code { get; } = string.Empty;
 
     /// <summary>
     /// Creates a new <see cref="AuthorizationException"/> object.
