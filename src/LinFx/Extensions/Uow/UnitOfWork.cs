@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Collections.Immutable;
@@ -219,11 +219,11 @@ public class UnitOfWork(IServiceProvider serviceProvider, IUnitOfWorkEventPublis
 
     public virtual void OnCompleted(Func<Task> handler) => CompletedHandlers.Add(handler);
 
-    public virtual void AddOrReplaceLocalEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null) => AddOrReplaceEvent(LocalEvents, eventRecord, replacementSelector);
+    public virtual void AddOrReplaceLocalEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null) => AddOrReplaceEvent(LocalEvents, eventRecord, replacementSelector);
 
-    public virtual void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null) => AddOrReplaceEvent(DistributedEvents, eventRecord, replacementSelector);
+    public virtual void AddOrReplaceDistributedEvent(UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null) => AddOrReplaceEvent(DistributedEvents, eventRecord, replacementSelector);
 
-    public virtual void AddOrReplaceEvent(List<UnitOfWorkEventRecord> eventRecords, UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord> replacementSelector = null)
+    public virtual void AddOrReplaceEvent(List<UnitOfWorkEventRecord> eventRecords, UnitOfWorkEventRecord eventRecord, Predicate<UnitOfWorkEventRecord>? replacementSelector = null)
     {
         if (replacementSelector == null)
         {

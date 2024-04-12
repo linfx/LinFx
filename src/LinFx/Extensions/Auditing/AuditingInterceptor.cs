@@ -3,10 +3,7 @@ using LinFx.Extensions.DynamicProxy;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LinFx.Extensions.Auditing;
 
@@ -14,14 +11,9 @@ namespace LinFx.Extensions.Auditing;
 /// 审计日志拦截器
 /// </summary>
 [Service]
-public class AuditingInterceptor : Interceptor
+public class AuditingInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor
 {
-    private readonly IServiceScopeFactory _serviceScopeFactory;
-
-    public AuditingInterceptor(IServiceScopeFactory serviceScopeFactory)
-    {
-        _serviceScopeFactory = serviceScopeFactory;
-    }
+    private readonly IServiceScopeFactory serviceScopeFactory = serviceScopeFactory;
 
     /// <summary>
     /// 拦截
@@ -30,7 +22,7 @@ public class AuditingInterceptor : Interceptor
     /// <returns></returns>
     public override async Task InterceptAsync(IMethodInvocation invocation)
     {
-        using var serviceScope = _serviceScopeFactory.CreateScope();
+        using var serviceScope = serviceScopeFactory.CreateScope();
         var auditingHelper = serviceScope.ServiceProvider.GetRequiredService<IAuditingFactory>();
         var auditingOptions = serviceScope.ServiceProvider.GetRequiredService<IOptions<AuditingOptions>>().Value;
 
@@ -64,11 +56,6 @@ public class AuditingInterceptor : Interceptor
         if (!options.IsEnabled)
             return false;
 
-        //if (AbpCrossCuttingConcerns.IsApplied(invocation.TargetObject, AbpCrossCuttingConcerns.Auditing))
-        //{
-        //    return false;
-        //}
-
         if (!auditingHelper.ShouldSaveAudit(invocation.Method))
             return false;
 
@@ -78,15 +65,9 @@ public class AuditingInterceptor : Interceptor
     private static async Task ProceedByLoggingAsync(IMethodInvocation invocation, IAuditingFactory auditingHelper, IAuditLogScope auditLogScope)
     {
         var auditLog = auditLogScope.Log;
-        var auditLogAction = auditingHelper.CreateAuditLogAction(
-            auditLog,
-            invocation.TargetObject.GetType(),
-            invocation.Method,
-            invocation.Arguments
-        );
+        var auditLogAction = auditingHelper.CreateAuditLogAction(auditLog, invocation.TargetObject.GetType(), invocation.Method, invocation.Arguments);
 
         var stopwatch = Stopwatch.StartNew();
-
         try
         {
             await invocation.ProceedAsync();

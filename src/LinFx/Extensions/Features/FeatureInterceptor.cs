@@ -8,7 +8,8 @@ namespace LinFx.Extensions.Features;
 /// 特征拦截器
 /// </summary>
 /// <param name="serviceScopeFactory"></param>
-public class FeatureInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor, ITransientDependency
+[Service]
+public class FeatureInterceptor(IServiceScopeFactory serviceScopeFactory) : Interceptor
 {
     private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
 

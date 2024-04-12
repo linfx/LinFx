@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-
 namespace LinFx.Extensions.Uow;
 
 /// <summary>
@@ -34,10 +32,8 @@ internal class ChildUnitOfWork : IUnitOfWork
     /// 构造函数
     /// </summary>
     /// <param name="parent">外部工作单元(带事务)</param>
-    public ChildUnitOfWork([NotNull] IUnitOfWork parent)
+    public ChildUnitOfWork(IUnitOfWork parent)
     {
-        Check.NotNull(parent, nameof(parent));
-
         _parent = parent;
         _parent.Failed += (sender, args) => { Failed.InvokeSafely(sender, args); };
         _parent.Disposed += (sender, args) => { Disposed.InvokeSafely(sender, args); };

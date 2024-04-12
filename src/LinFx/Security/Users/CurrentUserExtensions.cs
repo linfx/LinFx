@@ -4,7 +4,7 @@ namespace LinFx.Security.Users;
 
 public static class CurrentUserExtensions
 {
-    public static string FindClaimValue(this ICurrentUser currentUser, string claimType) => currentUser.FindClaim(claimType)?.Value;
+    public static string? FindClaimValue(this ICurrentUser currentUser, string claimType) => currentUser.FindClaim(claimType)?.Value;
 
     public static T FindClaimValue<T>(this ICurrentUser currentUser, string claimType) where T : struct
     {

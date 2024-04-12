@@ -1,4 +1,4 @@
-﻿//using JetBrains.Annotations;
+﻿//using System.Diagnostics.CodeAnalysis;
 //using LinFx.Extensions.Validation;
 //using LinFx.Utils;
 //using System.Collections.Generic;
@@ -11,7 +11,7 @@
 //        public static void CheckValue(
 //            [NotNull] IHasExtraProperties extensibleObject,
 //            [NotNull] string propertyName,
-//            [CanBeNull] object value)
+//            [AllowNull] object value)
 //        {
 //            var validationErrors = GetValidationErrors(
 //                extensibleObject,
@@ -27,7 +27,7 @@
 
 //        public static bool IsValid(
 //            [NotNull] IHasExtraProperties extensibleObject,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            return GetValidationErrors(
 //                extensibleObject,
@@ -38,8 +38,8 @@
 //        public static bool IsValid(
 //            [NotNull] IHasExtraProperties extensibleObject,
 //            [NotNull] string propertyName,
-//            [CanBeNull] object value,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] object value,
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            return GetValidationErrors(
 //                extensibleObject,
@@ -52,7 +52,7 @@
 //        [NotNull]
 //        public static List<ValidationResult> GetValidationErrors(
 //            [NotNull] IHasExtraProperties extensibleObject,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            var validationErrors = new List<ValidationResult>();
 
@@ -69,8 +69,8 @@
 //        public static List<ValidationResult> GetValidationErrors(
 //            [NotNull] IHasExtraProperties extensibleObject,
 //            [NotNull] string propertyName,
-//            [CanBeNull] object value,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] object value,
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            var validationErrors = new List<ValidationResult>();
 
@@ -88,7 +88,7 @@
 //        public static void AddValidationErrors(
 //            [NotNull] IHasExtraProperties extensibleObject,
 //            [NotNull] List<ValidationResult> validationErrors,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            Check.NotNull(extensibleObject, nameof(extensibleObject));
 //            Check.NotNull(validationErrors, nameof(validationErrors));
@@ -131,8 +131,8 @@
 //            [NotNull] IHasExtraProperties extensibleObject,
 //            [NotNull] List<ValidationResult> validationErrors,
 //            [NotNull] string propertyName,
-//            [CanBeNull] object value,
-//            [CanBeNull] ValidationContext objectValidationContext = null)
+//            [AllowNull] object value,
+//            [AllowNull] ValidationContext objectValidationContext = null)
 //        {
 //            Check.NotNull(extensibleObject, nameof(extensibleObject));
 //            Check.NotNull(validationErrors, nameof(validationErrors));

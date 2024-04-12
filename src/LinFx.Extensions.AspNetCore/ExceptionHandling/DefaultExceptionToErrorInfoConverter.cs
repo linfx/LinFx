@@ -28,7 +28,10 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
     protected IStringLocalizerFactory StringLocalizerFactory => LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>();
 
-    protected IStringLocalizer<ExceptionHandlingResource> L => LazyServiceProvider.LazyGetRequiredService<IStringLocalizer<ExceptionHandlingResource>>();
+    /// <summary>
+    /// ±¾µØ»¯
+    /// </summary>
+    protected virtual IStringLocalizer L => LazyServiceProvider.LazyGetRequiredService<IStringLocalizer<ExceptionHandlingResource>>();
 
     public DefaultExceptionToErrorInfoConverter() { }
 
@@ -157,10 +160,8 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
     protected virtual Exception TryToGetActualException(Exception exception)
     {
-        if (exception is AggregateException && exception.InnerException != null)
+        if (exception is AggregateException aggException && exception.InnerException != null)
         {
-            var aggException = exception as AggregateException;
-
             if (aggException.InnerException is ValidationException ||
                 aggException.InnerException is AuthorizationException ||
                 aggException.InnerException is EntityNotFoundException ||
@@ -169,7 +170,6 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
                 return aggException.InnerException;
             }
         }
-
         return exception;
     }
 
@@ -181,8 +181,8 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
 
         var errorInfo = new RemoteServiceErrorInfo(exception.Message, detailBuilder.ToString());
 
-        if (exception is ValidationException)
-            errorInfo.ValidationErrors = GetValidationErrorInfos(exception as ValidationException);
+        if (exception is ValidationException ex)
+            errorInfo.ValidationErrors = GetValidationErrorInfos(ex);
 
         return errorInfo;
     }
@@ -204,9 +204,8 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         //}
 
         //Additional info for ValidationException
-        if (exception is ValidationException)
+        if (exception is ValidationException validationException)
         {
-            var validationException = exception as ValidationException;
             if (validationException.ValidationErrors.Count > 0)
             {
                 detailBuilder.AppendLine(GetValidationErrorNarrative(validationException));
@@ -226,9 +225,8 @@ public class DefaultExceptionToErrorInfoConverter : IExceptionToErrorInfoConvert
         }
 
         //Inner exceptions for AggregateException
-        if (exception is AggregateException)
+        if (exception is AggregateException aggException)
         {
-            var aggException = exception as AggregateException;
             if (aggException.InnerExceptions.IsNullOrEmpty())
                 return;
 

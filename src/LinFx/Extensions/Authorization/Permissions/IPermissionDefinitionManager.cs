@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace LinFx.Extensions.Authorization.Permissions;
+﻿namespace LinFx.Extensions.Authorization.Permissions;
 
 /// <summary>
 /// 权限管理器
@@ -12,16 +10,14 @@ public interface IPermissionDefinitionManager
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [NotNull]
-    PermissionDefinition Get([NotNull] string name);
+    PermissionDefinition Get(string name);
 
     /// <summary>
     /// 根据权限定义的唯一标识获取权限，如果权限不存在，则返回 null。
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [CanBeNull]
-    PermissionDefinition? GetOrNull([NotNull] string name);
+    PermissionDefinition? GetOrNull(string name);
 
     /// <summary>
     /// 获取所有权限。

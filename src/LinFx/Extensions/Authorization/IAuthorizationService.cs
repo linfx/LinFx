@@ -3,7 +3,7 @@
 namespace LinFx.Extensions.Authorization;
 
 /// <summary>
-/// Checks policy based permissions for a user
+/// 授权服务
 /// </summary>
 public interface IAuthorizationService : Microsoft.AspNetCore.Authorization.IAuthorizationService
 {

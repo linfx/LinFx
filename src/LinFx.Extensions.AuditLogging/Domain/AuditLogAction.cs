@@ -20,7 +20,7 @@ public class AuditLogAction : Entity<string>, IMultiTenant, IHasExtraProperties
 
     public virtual string Parameters { get; protected set; }
 
-    public virtual DateTime ExecutionTime { get; protected set; }
+    public virtual DateTimeOffset ExecutionTime { get; protected set; }
 
     public virtual int ExecutionDuration { get; protected set; }
 

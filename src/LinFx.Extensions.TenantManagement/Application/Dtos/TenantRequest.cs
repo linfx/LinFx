@@ -1,8 +1,7 @@
 ﻿using LinFx.Application.Dtos;
 
-namespace LinFx.Extensions.TenantManagement
+namespace LinFx.Extensions.TenantManagement;
+
+public class TenantRequest : PagedAndSortedResultRequest
 {
-    public class TenantRequest : PagedAndSortedResultRequest
-    {
-    }
 }

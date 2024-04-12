@@ -2,19 +2,12 @@
 
 public class MultiplePermissionWithGrantedProviders
 {
-    public List<PermissionWithGrantedProviders> Result { get; }
+    public List<PermissionWithGrantedProviders> Result { get; } = [];
 
-    public MultiplePermissionWithGrantedProviders()
-    {
-        Result = [];
-    }
+    public MultiplePermissionWithGrantedProviders() { }
 
     public MultiplePermissionWithGrantedProviders(string[] names)
     {
-        Check.NotNull(names, nameof(names));
-
-        Result = [];
-
         foreach (var name in names)
         {
             Result.Add(new PermissionWithGrantedProviders(name, false));

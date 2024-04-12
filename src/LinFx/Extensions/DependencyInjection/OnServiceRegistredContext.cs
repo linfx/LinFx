@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Collections;
 using LinFx.Extensions.DynamicProxy;
 using LinFx.Utils;

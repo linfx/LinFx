@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -38,13 +39,19 @@ public abstract class EfDbContext : DbContext, ITransientDependency
 
     public EfDbContext(DbContextOptions options) : base(options) { }
 
+    [NotNull]
     [Autowired]
-    public ILazyServiceProvider LazyServiceProvider { get; set; }
+    public ILazyServiceProvider? LazyServiceProvider { get; set; }
 
     /// <summary>
     /// 当前租户ID
     /// </summary>
     protected virtual string? CurrentTenantId => CurrentTenant?.Id;
+
+    /// <summary>
+    /// 当前租户
+    /// </summary>
+    public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
     /// <summary>
     /// 是否启用租户过滤
@@ -55,11 +62,6 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// 是否启用软件删除过滤
     /// </summary>
     protected virtual bool IsSoftDeleteFilterEnabled => DataFilter?.IsEnabled<ISoftDelete>() ?? false;
-
-    /// <summary>
-    /// 当前租户
-    /// </summary>
-    public ICurrentTenant CurrentTenant => LazyServiceProvider.LazyGetRequiredService<ICurrentTenant>();
 
     /// <summary>
     /// 数据过滤
@@ -622,9 +624,9 @@ public abstract class EfDbContext : DbContext, ITransientDependency
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <returns></returns>
-    protected virtual Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>() where TEntity : class
+    protected virtual Expression<Func<TEntity, bool>>? CreateFilterExpression<TEntity>() where TEntity : class
     {
-        Expression<Func<TEntity, bool>> expression = null;
+        Expression<Func<TEntity, bool>>? expression = null;
 
         // 软删除
         if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))

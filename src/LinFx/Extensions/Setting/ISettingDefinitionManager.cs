@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Setting
 {
     public interface ISettingDefinitionManager
     {
-        [NotNull]
         SettingDefinition Get([NotNull] string name);
 
         IReadOnlyList<SettingDefinition> GetAll();

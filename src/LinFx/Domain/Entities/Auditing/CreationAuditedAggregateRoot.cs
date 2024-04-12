@@ -1,5 +1,6 @@
 ﻿using LinFx.Extensions.Auditing;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LinFx.Domain.Entities.Auditing;
 
@@ -9,7 +10,8 @@ namespace LinFx.Domain.Entities.Auditing;
 public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAuditedObject
 {
     /// <inheritdoc />
-    public virtual DateTimeOffset CreationTime { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.UtcNow;
 
     /// <inheritdoc />
     [StringLength(64)]
@@ -23,7 +25,8 @@ public abstract class CreationAuditedAggregateRoot : AggregateRoot, ICreationAud
 public abstract class CreationAuditedAggregateRoot<TKey> : AggregateRoot<TKey>, ICreationAuditedObject
 {
     /// <inheritdoc />
-    public virtual DateTimeOffset CreationTime { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public virtual DateTimeOffset CreationTime { get; set; } = DateTimeOffset.UtcNow;
 
     /// <inheritdoc />
     [StringLength(64)]

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ public static class EfObjectExtensionInfoExtensions
     public static ObjectExtensionInfo MapEfProperty<TProperty>(
         [NotNull] this ObjectExtensionInfo objectExtensionInfo,
         [NotNull] string propertyName,
-        [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
+        [AllowNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
     {
         return objectExtensionInfo.MapEfProperty(
             typeof(TProperty),
@@ -27,7 +27,7 @@ public static class EfObjectExtensionInfoExtensions
         [NotNull] this ObjectExtensionInfo objectExtensionInfo,
         [NotNull] Type propertyType,
         [NotNull] string propertyName,
-        [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
+        [AllowNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
     {
         Check.NotNull(objectExtensionInfo, nameof(objectExtensionInfo));
 

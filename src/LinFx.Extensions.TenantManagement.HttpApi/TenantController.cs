@@ -7,18 +7,10 @@ namespace LinFx.Extensions.TenantManagement.HttpApi;
 /// 租户管理
 /// </summary>
 [ApiController]
-[Route("api/multi-tenancy/tenant")]
+[Route("api/multi-tenancy/[controller]")]
 public class TenantController(TenantService tenantService) : ControllerBase
 {
     protected TenantService TenantService { get; } = tenantService;
-
-    /// <summary>
-    /// 获取租户
-    /// </summary>
-    /// <param name="id">租户Id</param>
-    /// <returns></returns>
-    [HttpGet("{id}")]
-    public virtual ValueTask<TenantDto> GetAsync(string id) => TenantService.GetAsync(id);
 
     /// <summary>
     /// 租户列表
@@ -27,6 +19,14 @@ public class TenantController(TenantService tenantService) : ControllerBase
     /// <returns></returns>
     [HttpGet("/api/multi-tenancy/tenants")]
     public virtual ValueTask<PagedResult<TenantDto>> GetListAsync([FromQuery] TenantRequest input) => TenantService.GetListAsync(input);
+
+    /// <summary>
+    /// 获取租户
+    /// </summary>
+    /// <param name="id">租户Id</param>
+    /// <returns></returns>
+    [HttpGet("{id}")]
+    public virtual ValueTask<TenantDto> GetAsync(string id) => TenantService.GetAsync(id);
 
     /// <summary>
     /// 创建租户
@@ -39,7 +39,7 @@ public class TenantController(TenantService tenantService) : ControllerBase
     /// <summary>
     /// 更新租户
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">租户Id</param>
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
@@ -48,7 +48,7 @@ public class TenantController(TenantService tenantService) : ControllerBase
     /// <summary>
     /// 删除租户
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">租户Id</param>
     /// <returns></returns>
     [HttpDelete("{id}")]
     public virtual ValueTask DeleteAsync(string id) => TenantService.DeleteAsync(id);

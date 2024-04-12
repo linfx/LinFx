@@ -1,9 +1,11 @@
-﻿namespace LinFx.Extensions.Authorization.Permissions;
+﻿using LinFx.Extensions.DependencyInjection;
+
+namespace LinFx.Extensions.Authorization.Permissions;
 
 /// <summary>
 /// 权限值提供者
 /// </summary>
-public abstract class PermissionValueProvider : IPermissionValueProvider
+public abstract class PermissionValueProvider : IPermissionValueProvider, ITransientDependency
 {
     public abstract string Name { get; }
 

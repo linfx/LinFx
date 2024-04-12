@@ -1,6 +1,6 @@
-using JetBrains.Annotations;
 using LinFx.Reflection;
 using LinFx.Utils;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -95,15 +95,10 @@ public static class EntityHelper
         return true;
     }
 
-    public static bool IsEntity([NotNull] Type type)
-    {
-        Check.NotNull(type, nameof(type));
-        return typeof(IEntity).IsAssignableFrom(type);
-    }
+    public static bool IsEntity(Type type) => typeof(IEntity).IsAssignableFrom(type);
 
-    public static void CheckEntity([NotNull] Type type)
+    public static void CheckEntity(Type type)
     {
-        Check.NotNull(type, nameof(type));
         if (!IsEntity(type))
             throw new Exception($"Given {nameof(type)} is not an entity: {type.AssemblyQualifiedName}. It must implement {typeof(IEntity).AssemblyQualifiedName}.");
     }
@@ -170,14 +165,12 @@ public static class EntityHelper
     /// Tries to find the primary key type of the given entity type.
     /// May return null if given type does not implement <see cref="IEntity{TKey}"/>
     /// </summary>
-    [CanBeNull]
-    public static Type FindPrimaryKeyType<TEntity>() where TEntity : IEntity => FindPrimaryKeyType(typeof(TEntity));
+    public static Type? FindPrimaryKeyType<TEntity>() where TEntity : IEntity => FindPrimaryKeyType(typeof(TEntity));
 
     /// <summary>
     /// Tries to find the primary key type of the given entity type.
     /// May return null if given type does not implement <see cref="IEntity{TKey}"/>
     /// </summary>
-    [CanBeNull]
     public static Type? FindPrimaryKeyType([NotNull] Type entityType)
     {
         if (!typeof(IEntity).IsAssignableFrom(entityType))
@@ -204,18 +197,9 @@ public static class EntityHelper
         return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
     }
 
-    public static void TrySetId<TKey>(
-        IEntity<TKey> entity,
-        Func<TKey> idFactory,
-        bool checkForDisableIdGenerationAttribute = false)
+    public static void TrySetId<TKey>(IEntity<TKey> entity, Func<TKey> idFactory, bool checkForDisableIdGenerationAttribute = false)
     {
-        ObjectHelper.TrySetProperty(
-            entity,
-            x => x.Id,
-            idFactory,
-            checkForDisableIdGenerationAttribute
-                ? new Type[] { typeof(DisableIdGenerationAttribute) }
-                : new Type[] { });
+        ObjectHelper.TrySetProperty(entity, x => x.Id, idFactory, checkForDisableIdGenerationAttribute ? [typeof(DisableIdGenerationAttribute)] : []);
     }
 
     public static void TrySetId<TKey>(IEntity<TKey> entity, string id, bool checkForDisableIdGenerationAttribute = false)

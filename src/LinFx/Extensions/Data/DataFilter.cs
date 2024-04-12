@@ -21,7 +21,7 @@ public class DataFilter(IServiceProvider serviceProvider) : IDataFilter, ISingle
 
     public bool IsEnabled<TFilter>() where TFilter : class => GetFilter<TFilter>().IsEnabled;
 
-    private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class => (_filters.GetOrAdd(typeof(TFilter), _serviceProvider.GetRequiredService<IDataFilter<TFilter>>) as IDataFilter<TFilter>)!;
+    private IDataFilter<TFilter> GetFilter<TFilter>() where TFilter : class => (IDataFilter<TFilter>)_filters.GetOrAdd(typeof(TFilter), _serviceProvider.GetRequiredService<IDataFilter<TFilter>>());
 }
 
 public class DataFilter<TFilter>(IOptions<DataFilterOptions> options) : IDataFilter<TFilter> where TFilter : class

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx;
 
 namespace System;
@@ -68,9 +68,9 @@ public static class TypeExtensions
 
     private static void AddTypeAndBaseTypesRecursively(
         [NotNull] List<Type> types,
-        [CanBeNull] Type type,
+        [AllowNull] Type type,
         bool includeObject,
-        [CanBeNull] Type stoppingType = null)
+        [AllowNull] Type stoppingType = null)
     {
         if (type == null || type == stoppingType)
         {

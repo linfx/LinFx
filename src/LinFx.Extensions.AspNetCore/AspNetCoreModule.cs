@@ -15,9 +15,7 @@ public class AspNetCoreModule : Module
             .AddHttpContextAccessor()
             .AddObjectAccessor<IApplicationBuilder>();
 
-        services.AddRouting(options =>
-        {
-            options.LowercaseUrls = true;
-        });
+        services
+            .AddRouting(options => { options.LowercaseUrls = true; });
     }
 }

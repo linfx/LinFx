@@ -2,12 +2,9 @@
 
 	<Import Project="..\..\common.props" />
 
-	<PropertyGroup>
-		<IsTrimmable>false</IsTrimmable>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\LinFx\LinFx.csproj" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 </Project>

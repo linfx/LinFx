@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.ObjectExtending.Modularity
 {
@@ -131,7 +131,6 @@ namespace LinFx.Extensions.ObjectExtending.Modularity
             }
         }
 
-        [NotNull]
         public static IEnumerable<ExtensionPropertyConfiguration> GetPropertyConfigurations(
             string moduleName,
             string entityName)

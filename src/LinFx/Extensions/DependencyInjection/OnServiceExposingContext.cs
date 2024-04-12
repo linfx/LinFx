@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 
 namespace LinFx.Extensions.DependencyInjection;

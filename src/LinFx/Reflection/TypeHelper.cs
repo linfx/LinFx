@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System.Collections;
 using System.ComponentModel;
@@ -337,7 +337,7 @@ public static class TypeHelper
         ? type.GenericTypeArguments[0]
         : type;
 
-    public static bool IsDefaultValue([CanBeNull] object obj)
+    public static bool IsDefaultValue([AllowNull] object obj)
     {
         if (obj == null)
             return true;

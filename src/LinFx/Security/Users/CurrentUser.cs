@@ -8,15 +8,10 @@ namespace LinFx.Security.Users;
 /// <summary>
 /// 当前用户
 /// </summary>
-public class CurrentUser : ICurrentUser, ITransientDependency
+public class CurrentUser(ICurrentPrincipalAccessor principalAccessor) : ICurrentUser, ITransientDependency
 {
     private static readonly Claim[] EmptyClaimsArray = new Claim[0];
-    private readonly ICurrentPrincipalAccessor _principalAccessor;
-
-    public CurrentUser(ICurrentPrincipalAccessor principalAccessor)
-    {
-        _principalAccessor = principalAccessor;
-    }
+    private readonly ICurrentPrincipalAccessor _principalAccessor = principalAccessor;
 
     public virtual bool IsAuthenticated => !string.IsNullOrEmpty(Id);
 

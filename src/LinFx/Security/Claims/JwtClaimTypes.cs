@@ -5,14 +5,14 @@
 //     Commonly used claim types
 public static class JwtClaimTypes
 {
-    //
-    // 摘要:
-    //     Unique Identifier for the End-User at the Issuer.
+    /// <summary>
+    /// 主题 Unique Identifier for the End-User at the Issuer.
+    /// </summary>
     public const string Subject = "sub";
-    //
-    // 摘要:
-    //     The iat (issued at) claim identifies the time at which the JWT was issued, ,
-    //     specified as the number of seconds from 1970-01-01T0:0:0Z
+
+    /// <summary>
+    /// 发布时间 The iat (issued at) claim identifies the time at which the JWT was issued, specified as the number of seconds from 1970-01-01T0:0:0Z
+    /// </summary>
     public const string IssuedAt = "iat";
     //
     // 摘要:
@@ -100,6 +100,12 @@ public static class JwtClaimTypes
     // 摘要:
     //     OAuth 2.0 Client Identifier valid at the Authorization Server.
     public const string ClientId = "client_id";
+
+    /// <summary>
+    /// Default: "tenantid".
+    /// </summary>
+    public const string TenantId = "tenant_id";
+
     //
     // 摘要:
     //     OpenID Connect requests MUST contain the "openid" scope value. If the openid

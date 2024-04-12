@@ -11,8 +11,6 @@ namespace LinFx.Extensions.Auditing;
 /// </summary>
 [DependsOn(
     typeof(DataModule),
-    //typeof(TimingModule),
-    //typeof(SecurityModule),
     typeof(ThreadingModule),
     typeof(MultiTenancyModule)
 )]

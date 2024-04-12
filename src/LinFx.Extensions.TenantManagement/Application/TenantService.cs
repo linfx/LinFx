@@ -11,23 +11,9 @@ namespace LinFx.Extensions.TenantManagement;
 /// 租户服务
 /// </summary>
 [Authorize(TenantManagementPermissions.Tenants.Default)]
-public class TenantService(TenantManagementDbContext tenantRepository) : ApplicationService
+public class TenantService : ApplicationService
 {
-    protected TenantManagementDbContext Db { get; } = tenantRepository;
-
-    /// <summary>
-    /// 获取租户
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public virtual async ValueTask<TenantDto> GetAsync(string id)
-    {
-        var item = await Db.Tenants.FindAsync(id);
-        if (item == null)
-            throw new EntityNotFoundException(typeof(Tenant));
-
-        return item.MapTo<TenantDto>();
-    }
+    protected TenantManagementDbContext Db => LazyServiceProvider.LazyGetRequiredService<TenantManagementDbContext>();
 
     /// <summary>
     /// 获取租户列表
@@ -41,6 +27,20 @@ public class TenantService(TenantManagementDbContext tenantRepository) : Applica
             input.Sorting = nameof(Tenant.Name);
         }
         return Db.Tenants.ToPageResultAsync<Tenant, TenantDto>(input);
+    }
+
+    /// <summary>
+    /// 获取租户
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public virtual async ValueTask<TenantDto> GetAsync(string id)
+    {
+        var item = await Db.Tenants.FindAsync(id);
+        if (item == null)
+            throw new EntityNotFoundException(typeof(Tenant));
+
+        return item.MapTo<TenantDto>();
     }
 
     /// <summary>

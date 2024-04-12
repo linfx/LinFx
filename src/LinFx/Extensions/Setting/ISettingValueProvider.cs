@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Setting
 {

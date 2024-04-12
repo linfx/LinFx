@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Domain.Entities;
 
 namespace LinFx.Extensions.FeatureManagement;
@@ -17,7 +17,7 @@ public class FeatureValue : Entity<string>, IAggregateRoot<string>
     [NotNull]
     public virtual string ProviderName { get; protected set; }
 
-    [CanBeNull]
+    [AllowNull]
     public virtual string ProviderKey { get; protected set; }
 
     protected FeatureValue() { }
@@ -27,7 +27,7 @@ public class FeatureValue : Entity<string>, IAggregateRoot<string>
         [NotNull] string name,
         [NotNull] string value,
         [NotNull] string providerName,
-        [CanBeNull] string providerKey)
+        [AllowNull] string providerKey)
     {
         Id = id;
         Name = Check.NotNullOrWhiteSpace(name, nameof(name));

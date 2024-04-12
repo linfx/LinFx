@@ -1,21 +1,10 @@
-﻿namespace LinFx.Extensions.Caching
+﻿namespace LinFx.Extensions.Caching;
+
+public class DistributedCacheKeyNormalizeArgs(string key, string cacheName, bool ignoreMultiTenancy)
 {
-    public class DistributedCacheKeyNormalizeArgs
-    {
-        public string Key { get; }
+    public string Key { get; } = key;
 
-        public string CacheName { get; }
+    public string CacheName { get; } = cacheName;
 
-        public bool IgnoreMultiTenancy { get; }
-
-        public DistributedCacheKeyNormalizeArgs(
-            string key,
-            string cacheName,
-            bool ignoreMultiTenancy)
-        {
-            Key = key;
-            CacheName = cacheName;
-            IgnoreMultiTenancy = ignoreMultiTenancy;
-        }
-    }
+    public bool IgnoreMultiTenancy { get; } = ignoreMultiTenancy;
 }

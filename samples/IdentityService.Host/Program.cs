@@ -6,6 +6,8 @@ using Serilog.Events;
 [assembly: ResourceLocation("Resources")]
 [assembly: RootNamespace("IdentityService")]
 
+const string outputTemplate = "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext} {Message:lj}{NewLine}{Exception}";
+
 Log.Logger = new LoggerConfiguration()
 #if DEBUG
     .MinimumLevel.Debug()
@@ -17,7 +19,7 @@ Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Async(c => c.File($"logs/log{DateTime.Now:yyyyMMdd}.txt"))
 #if DEBUG
-    .WriteTo.Async(c => c.Console())
+    .WriteTo.Async(c => c.Console(outputTemplate: outputTemplate))
 #endif
     .CreateLogger();
 
@@ -27,7 +29,6 @@ builder.Logging.ClearProviders().AddSerilog();
 
 // Add services to the container.
 builder.Services
-    .AddLocalization()
     .AddApplication<Application>();
 
 //builder.Services
@@ -58,6 +59,7 @@ app.UseRequestLocalization(options =>
 // 异常处理程序中间件
 //app.UseExceptionHandler();
 //app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), config => config.UseJwtTokenMiddleware(JwtBearerDefaults.AuthenticationScheme));
+app.UseMultiTenancy();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

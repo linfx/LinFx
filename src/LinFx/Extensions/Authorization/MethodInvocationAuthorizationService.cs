@@ -1,5 +1,4 @@
-﻿using LinFx.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using System.Reflection;
 
 namespace LinFx.Extensions.Authorization;
@@ -7,24 +6,21 @@ namespace LinFx.Extensions.Authorization;
 /// <summary>
 /// 方法调用授权服务
 /// </summary>
-[Service]
-public class MethodInvocationAuthorizationService(
-    IAuthorizationPolicyProvider authorizationPolicyProvider,
-    IAuthorizationService authorizationService) : IMethodInvocationAuthorizationService
+public class MethodInvocationAuthorizationService(IAuthorizationPolicyProvider authorizationPolicyProvider, IAuthorizationService authorizationService) : IMethodInvocationAuthorizationService
 {
-    private readonly IAuthorizationPolicyProvider _authorizationPolicyProvider = authorizationPolicyProvider;
-    private readonly IAuthorizationService _authorizationService = authorizationService;
+    private readonly IAuthorizationPolicyProvider authorizationPolicyProvider = authorizationPolicyProvider;
+    private readonly IAuthorizationService authorizationService = authorizationService;
 
     public async Task CheckAsync(MethodInvocationAuthorizationContext context)
     {
         if (AllowAnonymous(context))
             return;
 
-        var authorizationPolicy = await AuthorizationPolicy.CombineAsync(_authorizationPolicyProvider,GetAuthorizationDataAttributes(context.Method));
+        var authorizationPolicy = await AuthorizationPolicy.CombineAsync(authorizationPolicyProvider, GetAuthorizationDataAttributes(context.Method));
         if (authorizationPolicy == null)
             return;
 
-        //await _authorizationService.CheckAsync(authorizationPolicy);
+        await authorizationService.CheckAsync(authorizationPolicy);
     }
 
     protected virtual bool AllowAnonymous(MethodInvocationAuthorizationContext context) => context.Method.GetCustomAttributes(true).OfType<IAllowAnonymous>().Any();
@@ -33,8 +29,9 @@ public class MethodInvocationAuthorizationService(
     {
         var attributes = methodInfo.GetCustomAttributes(true).OfType<IAuthorizeData>();
         if (methodInfo.IsPublic && methodInfo.DeclaringType != null)
+        {
             attributes = attributes.Union(methodInfo.DeclaringType.GetCustomAttributes(true).OfType<IAuthorizeData>());
-
+        }
         return attributes;
     }
 }

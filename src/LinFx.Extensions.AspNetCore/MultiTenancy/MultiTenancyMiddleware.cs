@@ -7,26 +7,18 @@ namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 /// <summary>
 /// 多租户中间件
 /// </summary>
-public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
+public class MultiTenancyMiddleware(
+    ITenantStore tenantStore,
+    ITenantResolver tenantResolver,
+    ICurrentTenant currentTenant,
+    ITenantResolveResultAccessor tenantResolveResultAccessor) : IMiddleware, ITransientDependency
 {
-    private readonly RequestDelegate _next;
-    private readonly ITenantResolver _tenantResolver;
-    private readonly ICurrentTenant _currentTenant;
-    private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor;
+    private readonly ITenantStore tenantStore = tenantStore;
+    private readonly ITenantResolver _tenantResolver = tenantResolver;
+    private readonly ICurrentTenant _currentTenant = currentTenant;
+    private readonly ITenantResolveResultAccessor _tenantResolveResultAccessor = tenantResolveResultAccessor;
 
-    public MultiTenancyMiddleware(
-        RequestDelegate next,
-        ITenantResolver tenantResolver,
-        ICurrentTenant currentTenant,
-        ITenantResolveResultAccessor tenantResolveResultAccessor)
-    {
-        _next = next;
-        _tenantResolver = tenantResolver;
-        _currentTenant = currentTenant;
-        _tenantResolveResultAccessor = tenantResolveResultAccessor;
-    }
-
-    public async Task InvokeAsync(HttpContext httpContext, ITenantStore tenantStore)
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         var resolveResult = _tenantResolver.ResolveTenantIdOrName();
         _tenantResolveResultAccessor.Result = resolveResult;
@@ -43,12 +35,7 @@ public class MultiTenancyMiddleware : IMiddleware, ITransientDependency
 
         using (_currentTenant.Change(tenant?.Id, tenant?.Name))
         {
-            await _next(httpContext);
+            await next(context);
         }
-    }
-
-    public Task InvokeAsync(HttpContext context, RequestDelegate next)
-    {
-        throw new NotImplementedException();
     }
 }

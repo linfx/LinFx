@@ -7,10 +7,10 @@ namespace LinFx.Extensions.PermissionManagement.HttpApi;
 /// 权限管理
 /// </summary>
 [ApiController]
-[Route("api/permission-management/permission")]
+[Route("api/permission-management/[controller]")]
 public class PermissionController(PermissionService permissionService) : ControllerBase
 {
-    protected PermissionService _permissionService = permissionService;
+    protected PermissionService PermissionService { get; } = permissionService;
 
     /// <summary>
     /// 获取权限
@@ -20,7 +20,7 @@ public class PermissionController(PermissionService permissionService) : Control
     /// <returns></returns>
     [HttpGet]
     [Route("/api/permission-management/permissions")]
-    public virtual Task<PermissionListResultDto> GetAsync([Required] string providerName, [Required] string providerKey) => _permissionService.GetAsync(providerName, providerKey);
+    public virtual ValueTask<PermissionListResultDto> GetAsync([Required] string providerName, [Required] string providerKey) => PermissionService.GetAsync(providerName, providerKey);
 
     /// <summary>
     /// 更新权限
@@ -29,6 +29,6 @@ public class PermissionController(PermissionService permissionService) : Control
     /// <param name="providerKey"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    [HttpPost]
-    public virtual Task UpdateAsync([Required] string providerName, [Required] string providerKey, UpdatePermissionsDto input) => _permissionService.UpdateAsync(providerName, providerKey, input);
+    [HttpPut]
+    public virtual Task UpdateAsync([Required] string providerName, [Required] string providerKey, UpdatePermissionsDto input) => PermissionService.UpdateAsync(providerName, providerKey, input);
 }

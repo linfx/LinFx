@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 
 namespace LinFx.Domain.Entities.Events.Distributed;

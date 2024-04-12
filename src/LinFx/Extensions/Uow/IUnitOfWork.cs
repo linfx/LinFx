@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Uow;
 
@@ -34,7 +34,7 @@ public interface IUnitOfWork : IDatabaseApiContainer, ITransactionApiContainer, 
 
     string ReservationName { get; }
 
-    void SetOuter([CanBeNull] IUnitOfWork outer);
+    void SetOuter([AllowNull] IUnitOfWork outer);
 
     void Initialize([NotNull] UnitOfWorkOptions options);
 

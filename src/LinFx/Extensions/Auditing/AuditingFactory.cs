@@ -1,5 +1,4 @@
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.Timing;
 using LinFx.Security.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +13,6 @@ public class AuditingFactory(
     ICurrentUser currentUser,
     ICurrentTenant currentTenant,
     //ICurrentClient currentClient,
-    IClock clock,
     //IAuditingStore auditingStore,
     ILogger<AuditingFactory> logger,
     IServiceProvider serviceProvider) : IAuditingFactory
@@ -36,8 +34,8 @@ public class AuditingFactory(
     /// </summary>
     protected ICurrentTenant CurrentTenant { get; } = currentTenant;
 
-    protected IClock Clock { get; } = clock;
     protected AuditingOptions Options = options.Value;
+
     protected IServiceProvider ServiceProvider = serviceProvider;
 
     public virtual bool ShouldSaveAudit(MethodInfo methodInfo, bool defaultValue = false)
@@ -109,7 +107,7 @@ public class AuditingFactory(
             //CorrelationId = CorrelationIdProvider.Get(),
             //ImpersonatorUserId = AbpSession.ImpersonatorUserId, //TODO: Impersonation system is not available yet!
             //ImpersonatorTenantId = AbpSession.ImpersonatorTenantId,
-            ExecutionTime = Clock.Now
+            ExecutionTime = DateTimeOffset.UtcNow
         };
 
         // Ö´ÐÐÉó¼Æ¹±Ï×Õß
@@ -124,12 +122,10 @@ public class AuditingFactory(
     {
         var actionInfo = new AuditLogActionInfo
         {
-            ServiceName = type != null
-                ? type.FullName
-                : "",
+            ServiceName = type != null ? type.FullName : "",
             MethodName = method.Name,
             Parameters = SerializeConvertArguments(arguments),
-            ExecutionTime = Clock.Now
+            ExecutionTime = DateTimeOffset.UtcNow
         };
         //TODO Execute contributors
         return actionInfo;
@@ -162,22 +158,16 @@ public class AuditingFactory(
         try
         {
             if (arguments.IsNullOrEmpty())
-            {
                 return "{}";
-            }
 
-            var dictionary = new Dictionary<string, object>();
+            var dictionary = new Dictionary<string, object?>();
 
             foreach (var argument in arguments)
             {
                 if (argument.Value != null && Options.IgnoredTypes.Any(t => t.IsInstanceOfType(argument.Value)))
-                {
                     dictionary[argument.Key] = null;
-                }
                 else
-                {
                     dictionary[argument.Key] = argument.Value;
-                }
             }
 
             return JsonSerializer.Serialize(dictionary);

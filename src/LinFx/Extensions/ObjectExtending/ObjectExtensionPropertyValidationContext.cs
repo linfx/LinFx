@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System;
 using System.Collections.Generic;
@@ -35,14 +35,14 @@ namespace LinFx.Extensions.ObjectExtending
         /// <summary>
         /// The value of the validating property of the <see cref="ValidatingObject"/>.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public object Value { get; }
 
         /// <summary>
         /// Can be used to resolve services from the dependency injection container.
         /// This can be null when SetProperty method is used on the object.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public IServiceProvider ServiceProvider => ValidationContext;
 
         public ObjectExtensionPropertyValidationContext(
@@ -50,7 +50,7 @@ namespace LinFx.Extensions.ObjectExtending
             [NotNull] IHasExtraProperties validatingObject,
             [NotNull] List<ValidationResult> validationErrors,
             [NotNull] ValidationContext validationContext,
-            [CanBeNull] object value)
+            [AllowNull] object value)
         {
             ExtensionPropertyInfo = Check.NotNull(objectExtensionPropertyInfo, nameof(objectExtensionPropertyInfo));
             ValidatingObject = Check.NotNull(validatingObject, nameof(validatingObject));

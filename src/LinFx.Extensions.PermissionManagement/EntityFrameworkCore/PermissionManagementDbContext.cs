@@ -3,12 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinFx.Extensions.PermissionManagement;
 
-public class PermissionManagementDbContext : EfDbContext<PermissionManagementDbContext>
+public class PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options) : EfDbContext<PermissionManagementDbContext>(options)
 {
-    public PermissionManagementDbContext() { }
-
-    public PermissionManagementDbContext(DbContextOptions<PermissionManagementDbContext> options) : base(options) { }
-
     public DbSet<PermissionGrant> PermissionGrants { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

@@ -1,33 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
-
-namespace LinFx.Extensions.Data;
+﻿namespace LinFx.Extensions.Data;
 
 public class DatabaseInfoDictionary : Dictionary<string, DatabaseInfo>
 {
-    private Dictionary<string, DatabaseInfo> ConnectionIndex { get; set; }
+    private Dictionary<string, DatabaseInfo> ConnectionIndex { get; set; } = [];
 
-    public DatabaseInfoDictionary()
-    {
-        ConnectionIndex = new Dictionary<string, DatabaseInfo>();
-    }
-
-    [CanBeNull]
-    public DatabaseInfo GetMappedDatabaseOrNull(string connectionStringName)
-    {
-        return ConnectionIndex.GetOrDefault(connectionStringName);
-    }
+    public DatabaseInfo? GetMappedDatabaseOrNull(string connectionStringName) => ConnectionIndex.GetOrDefault(connectionStringName);
 
     public DatabaseInfoDictionary Configure(string databaseName, Action<DatabaseInfo> configureAction)
     {
-        var databaseInfo = this.GetOrAdd(
-            databaseName,
-            () => new DatabaseInfo(databaseName)
-        );
-
+        var databaseInfo = this.GetOrAdd(databaseName, () => new DatabaseInfo(databaseName));
         configureAction(databaseInfo);
-
         return this;
     }
 

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.ObjectExtending;
 using LinFx.Utils;
@@ -72,7 +72,7 @@ public static class EfObjectExtensionManagerExtensions
     public static ObjectExtensionManager MapEfProperty<TEntity, TProperty>(
         [NotNull] this ObjectExtensionManager objectExtensionManager,
         [NotNull] string propertyName,
-        [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
+        [AllowNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
         where TEntity : IHasExtraProperties, IEntity
     {
         return objectExtensionManager.MapEfProperty(
@@ -88,7 +88,7 @@ public static class EfObjectExtensionManagerExtensions
         [NotNull] Type entityType,
         [NotNull] Type propertyType,
         [NotNull] string propertyName,
-        [CanBeNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
+        [AllowNull] Action<EntityTypeBuilder, PropertyBuilder> entityTypeAndPropertyBuildAction)
     {
         Check.NotNull(objectExtensionManager, nameof(objectExtensionManager));
 

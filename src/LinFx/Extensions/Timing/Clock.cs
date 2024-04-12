@@ -1,20 +1,14 @@
 ﻿using LinFx.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace LinFx.Extensions.Timing;
 
 /// <summary>
-/// 时钟
+/// 系统时钟
 /// </summary>
-public class Clock : IClock, ITransientDependency
+public class Clock(IOptions<ClockOptions> options) : IClock, ITransientDependency
 {
-    protected ClockOptions Options { get; }
-
-    public Clock(IOptions<ClockOptions> options)
-    {
-        Options = options.Value;
-    }
+    protected ClockOptions Options { get; } = options.Value;
 
     /// <summary>
     /// 当前时间

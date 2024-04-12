@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -21,13 +21,13 @@ namespace LinFx.Extensions.Setting
         }
         private LocalizedString _displayName;
 
-        [CanBeNull]
+        [AllowNull]
         public LocalizedString Description { get; set; }
 
         /// <summary>
         /// Default value of the setting.
         /// </summary>
-        [CanBeNull]
+        [AllowNull]
         public string DefaultValue { get; set; }
 
         /// <summary>

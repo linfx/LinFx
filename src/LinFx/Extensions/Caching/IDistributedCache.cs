@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Caching.Distributed;
 
 namespace LinFx.Extensions.Caching;
@@ -7,8 +7,7 @@ namespace LinFx.Extensions.Caching;
 /// Represents a distributed cache of <typeparamref name="TCacheItem" /> type.
 /// </summary>
 /// <typeparam name="TCacheItem">The type of cache item being cached.</typeparam>
-public interface IDistributedCache<TCacheItem> : IDistributedCache<TCacheItem, string>
-    where TCacheItem : class
+public interface IDistributedCache<TCacheItem> : IDistributedCache<TCacheItem, string> where TCacheItem : class
 { }
 
 /// <summary>
@@ -17,8 +16,7 @@ public interface IDistributedCache<TCacheItem> : IDistributedCache<TCacheItem, s
 /// </summary>
 /// <typeparam name="TCacheItem">The type of cache item being cached.</typeparam>
 /// <typeparam name="TCacheKey">The type of cache key being used.</typeparam>
-public interface IDistributedCache<TCacheItem, TCacheKey>
-    where TCacheItem : class
+public interface IDistributedCache<TCacheItem, TCacheKey> where TCacheItem : class
 {
     /// <summary>
     /// Gets a cache item with the given key. If no cache item is found for the given key then returns null.
@@ -27,7 +25,7 @@ public interface IDistributedCache<TCacheItem, TCacheKey>
     /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <returns>The cache item, or null.</returns>
-    TCacheItem Get(TCacheKey key, bool? hideErrors = null, bool considerUow = false);
+    TCacheItem? Get(TCacheKey key, bool? hideErrors = null, bool considerUow = false);
 
     /// <summary>
     /// Gets multiple cache items with the given keys.
@@ -65,7 +63,7 @@ public interface IDistributedCache<TCacheItem, TCacheKey>
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
     /// <returns>The cache item, or null.</returns>
-    Task<TCacheItem> GetAsync([NotNull] TCacheKey key, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
+    ValueTask<TCacheItem?> GetAsync([NotNull] TCacheKey key, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
     /// <summary>
     /// Gets or Adds a cache item with the given key. If no cache item is found for the given key then adds a cache item
@@ -137,7 +135,7 @@ public interface IDistributedCache<TCacheItem, TCacheKey>
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
     /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> indicating that the operation is asynchronous.</returns>
-    Task SetAsync([NotNull] TCacheKey key, [NotNull] TCacheItem value, [CanBeNull] DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
+    Task SetAsync([NotNull] TCacheKey key, [NotNull] TCacheItem value, [AllowNull] DistributedCacheEntryOptions options = null, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default);
 
     /// <summary>
     /// Sets multiple cache items.

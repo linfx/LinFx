@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Localization;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Authorization.Permissions;
 
@@ -21,5 +20,5 @@ public interface IPermissionDefinitionContext
     /// <param name="name">名称</param>
     /// <param name="displayName">显示名称</param>
     /// <returns></returns>
-    PermissionGroupDefinition AddGroup([NotNull] string name, LocalizedString? displayName = null);
+    PermissionGroupDefinition AddGroup(string name, LocalizedString? displayName = null);
 }

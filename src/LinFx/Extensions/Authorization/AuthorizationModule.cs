@@ -24,7 +24,10 @@ public class AuthorizationModule : Module
 
         // 替换掉 ASP.NET Core 提供的权限处理器。
         services.AddSingleton<IAuthorizationHandler, PermissionRequirementHandler>();
-        services.TryAddTransient<DefaultAuthorizationPolicyProvider>();
+        services
+            .AddTransient<AuthorizationInterceptor>()
+            .AddTransient<MethodInvocationAuthorizationService>()
+            .TryAddTransient<DefaultAuthorizationPolicyProvider>();
 
         // 添加内置的一些权限值检查。
         services.Configure<PermissionOptions>(options =>

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using LinFx.Utils;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace LinFx.Extensions.Uow;
 
@@ -19,7 +17,7 @@ public static class UnitOfWorkHelper
         return false;
     }
 
-    public static bool IsUnitOfWorkMethod([NotNull] MethodInfo methodInfo, [CanBeNull] out UnitOfWorkAttribute unitOfWorkAttribute)
+    public static bool IsUnitOfWorkMethod(MethodInfo methodInfo, out UnitOfWorkAttribute? unitOfWorkAttribute)
     {
         Check.NotNull(methodInfo, nameof(methodInfo));
 

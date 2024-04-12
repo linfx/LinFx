@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using Volo.Abp.ObjectExtending;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.ObjectExtending
 {

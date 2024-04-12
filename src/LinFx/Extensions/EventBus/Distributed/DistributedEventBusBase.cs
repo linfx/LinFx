@@ -1,8 +1,8 @@
 ﻿using LinFx.Extensions.Guids;
 using LinFx.Extensions.MultiTenancy;
-using LinFx.Extensions.Timing;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Internal;
 using Microsoft.Extensions.Options;
 
 namespace LinFx.Extensions.EventBus.Distributed;
@@ -13,7 +13,9 @@ namespace LinFx.Extensions.EventBus.Distributed;
 public abstract class DistributedEventBusBase : EventBusBase, IDistributedEventBus
 {
     protected IGuidGenerator GuidGenerator { get; }
-    protected IClock Clock { get; }
+
+    protected ISystemClock Clock { get; }
+
     protected DistributedEventBusOptions DistributedEventBusOptions { get; }
 
     protected DistributedEventBusBase(
@@ -22,7 +24,7 @@ public abstract class DistributedEventBusBase : EventBusBase, IDistributedEventB
         IUnitOfWorkManager unitOfWorkManager,
         IOptions<DistributedEventBusOptions> abpDistributedEventBusOptions,
         IGuidGenerator guidGenerator,
-        IClock clock
+        ISystemClock clock
     ) : base(
         serviceScopeFactory,
         currentTenant,

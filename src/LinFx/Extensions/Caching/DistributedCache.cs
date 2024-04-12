@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using LinFx.Extensions.MultiTenancy;
+﻿using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.Threading;
 using LinFx.Extensions.Uow;
 using Microsoft.Extensions.Caching.Distributed;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Nito.AsyncEx;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Caching;
 
@@ -127,7 +127,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
     /// <param name="hideErrors">Indicates to throw or hide the exceptions for the distributed cache.</param>
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <returns>The cache item, or null.</returns>
-    public virtual TCacheItem Get(TCacheKey key, bool? hideErrors = null, bool considerUow = false)
+    public virtual TCacheItem? Get(TCacheKey key, bool? hideErrors = null, bool considerUow = false)
     {
         hideErrors ??= _distributedCacheOption.HideErrors;
 
@@ -138,7 +138,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
                 return value;
         }
 
-        byte[] cachedBytes;
+        byte[]? cachedBytes;
 
         try
         {
@@ -340,11 +340,7 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
     /// <param name="considerUow">This will store the cache in the current unit of work until the end of the current unit of work does not really affect the cache.</param>
     /// <param name="token">The <see cref="T:System.Threading.CancellationToken" /> for the task.</param>
     /// <returns>The cache item, or null.</returns>
-    public virtual async Task<TCacheItem> GetAsync(
-        TCacheKey key,
-        bool? hideErrors = null,
-        bool considerUow = false,
-        CancellationToken token = default)
+    public virtual async ValueTask<TCacheItem?> GetAsync(TCacheKey key, bool? hideErrors = null, bool considerUow = false, CancellationToken token = default)
     {
         hideErrors ??= _distributedCacheOption.HideErrors;
 
@@ -352,19 +348,14 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
         {
             var value = GetUnitOfWorkCache().GetOrDefault(key)?.GetUnRemovedValueOrNull();
             if (value != null)
-            {
                 return value;
-            }
         }
 
-        byte[] cachedBytes;
+        byte[]? cachedBytes;
 
         try
         {
-            cachedBytes = await Cache.GetAsync(
-                NormalizeKey(key),
-                CancellationTokenProvider.FallbackToProvider(token)
-            );
+            cachedBytes = await Cache.GetAsync(NormalizeKey(key), CancellationTokenProvider.FallbackToProvider(token));
         }
         catch (Exception ex)
         {
@@ -1393,44 +1384,23 @@ public class DistributedCache<TCacheItem, TCacheKey> : IDistributedCache<TCacheI
         return result.ToArray();
     }
 
-    [CanBeNull]
-    protected virtual TCacheItem ToCacheItem([CanBeNull] byte[] bytes)
+    protected virtual TCacheItem? ToCacheItem([AllowNull] byte[] bytes)
     {
         if (bytes == null)
         {
             return null;
         }
-
         return Serializer.Deserialize<TCacheItem>(bytes);
     }
 
 
-    protected virtual KeyValuePair<string, byte[]>[] ToRawCacheItems(KeyValuePair<TCacheKey, TCacheItem>[] items)
-    {
-        return items
-            .Select(i => new KeyValuePair<string, byte[]>(
-                    NormalizeKey(i.Key),
-                    Serializer.Serialize(i.Value)
-                )
-            ).ToArray();
-    }
+    protected virtual KeyValuePair<string, byte[]>[] ToRawCacheItems(KeyValuePair<TCacheKey, TCacheItem>[] items) => items.Select(i => new KeyValuePair<string, byte[]>(NormalizeKey(i.Key), Serializer.Serialize(i.Value))).ToArray();
 
-    private static KeyValuePair<TCacheKey, TCacheItem>[] ToCacheItemsWithDefaultValues(TCacheKey[] keys)
-    {
-        return keys
-            .Select(key => new KeyValuePair<TCacheKey, TCacheItem>(key, default))
-            .ToArray();
-    }
+    private static KeyValuePair<TCacheKey, TCacheItem>[] ToCacheItemsWithDefaultValues(TCacheKey[] keys) => keys.Select(key => new KeyValuePair<TCacheKey, TCacheItem>(key, default)).ToArray();
 
-    protected virtual bool ShouldConsiderUow(bool considerUow)
-    {
-        return considerUow && UnitOfWorkManager.Current != null;
-    }
+    protected virtual bool ShouldConsiderUow(bool considerUow) => considerUow && UnitOfWorkManager.Current != null;
 
-    protected virtual string GetUnitOfWorkCacheKey()
-    {
-        return UowCacheName + CacheName;
-    }
+    protected virtual string GetUnitOfWorkCacheKey() => UowCacheName + CacheName;
 
     protected virtual Dictionary<TCacheKey, UnitOfWorkCacheItem<TCacheItem>> GetUnitOfWorkCache()
     {

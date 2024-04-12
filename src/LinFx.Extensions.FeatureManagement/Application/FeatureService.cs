@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Application.Services;
 using LinFx.Extensions.FeatureManagement.Application.Dtos;
 using LinFx.Extensions.Features;
@@ -19,7 +19,7 @@ public class FeatureService(
 
     protected IFeatureDefinitionManager FeatureDefinitionManager { get; } = featureDefinitionManager;
 
-    public virtual async Task<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
+    public virtual async ValueTask<GetFeatureListResultDto> GetAsync([NotNull] string providerName, string providerKey)
     {
         await CheckProviderPolicy(providerName, providerKey);
 

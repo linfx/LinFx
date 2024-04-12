@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace LinFx.Extensions.DependencyInjection;
@@ -25,12 +24,7 @@ public class DefaultConventionalRegistrar : ConventionalRegistrarBase
 
         foreach (var exposedServiceType in exposedServiceTypes)
         {
-            var serviceDescriptor = CreateServiceDescriptor(
-                type,
-                exposedServiceType,
-                exposedServiceTypes,
-                lifeTime.Value
-            );
+            var serviceDescriptor = CreateServiceDescriptor(type, exposedServiceType, exposedServiceTypes, lifeTime.Value);
 
             if (serviceAttribute?.ReplaceServices == true)
             {

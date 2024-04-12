@@ -20,7 +20,7 @@ public abstract class FeatureDefinitionProvider : IFeatureDefinitionProvider, IT
 
     public abstract void Define(IFeatureDefinitionContext context);
 
-    protected IStringLocalizer L
+    protected virtual IStringLocalizer L
     {
         get
         {

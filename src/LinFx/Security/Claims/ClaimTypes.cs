@@ -10,12 +10,12 @@ public static class ClaimTypes
     /// <summary>
     /// Default: <see cref="System.Security.Claims.ClaimTypes.NameIdentifier"/>
     /// </summary>
-    public static string Id { get; set; } = System.Security.Claims.ClaimTypes.NameIdentifier;
+    public const string Id = System.Security.Claims.ClaimTypes.NameIdentifier;
 
     /// <summary>
     /// Default: <see cref="System.Security.Claims.ClaimTypes.Role"/>
     /// </summary>
-    public static string Role { get; set; } = System.Security.Claims.ClaimTypes.Role;
+    public const string Role = System.Security.Claims.ClaimTypes.Role;
 
     /// <summary>
     /// Default: <see cref="System.Security.Claims.ClaimTypes.Email"/>
@@ -30,7 +30,7 @@ public static class ClaimTypes
     /// <summary>
     /// Default: "phone_number".
     /// </summary>
-    public static string PhoneNumber { get; set; } = "phone_number";
+    public const string PhoneNumber = JwtClaimTypes.PhoneNumber;
 
     /// <summary>
     /// Default: "phone_number_verified".
@@ -40,15 +40,15 @@ public static class ClaimTypes
     /// <summary>
     /// Default: "tenantid".
     /// </summary>
-    public static string TenantId { get; set; } = "tenant_id";
+    public const string TenantId = JwtClaimTypes.TenantId;
 
     /// <summary>
     /// Default: "client_id".
     /// </summary>
-    public static string ClientId { get; set; } = "client_id";
+    public const string ClientId = JwtClaimTypes.ClientId;
 
     /// <summary>
     /// Default: "edition_id".
     /// </summary>
-    public static string EditionId { get; set; } = "edition_id";
+    public const string EditionId = "edition_id";
 }

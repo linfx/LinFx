@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LinFx.Extensions.TenantManagement;
 
 [IgnoreMultiTenancy]
-public class TenantManagementDbContext(DbContextOptions options) : EfDbContext(options)
+public class TenantManagementDbContext(DbContextOptions<TenantManagementDbContext> options) : EfDbContext(options)
 {
     public DbSet<Tenant> Tenants { get; set; }
 

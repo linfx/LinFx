@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+using System.Diagnostics.CodeAnalysis;
 using LinFx.Domain.Entities;
 using LinFx.Extensions.Auditing;
 using LinFx.Extensions.ObjectExtending;
@@ -61,8 +61,7 @@ public class EntityHistoryHelper : IEntityHistoryHelper
         return list;
     }
 
-    [CanBeNull]
-    protected virtual EntityChangeInfo CreateEntityChangeOrNull(EntityEntry entityEntry)
+    protected virtual EntityChangeInfo? CreateEntityChangeOrNull(EntityEntry entityEntry)
     {
         var entity = entityEntry.Entity;
 

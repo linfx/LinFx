@@ -32,8 +32,7 @@ public interface IObjectMapper
 /// <summary>
 /// Defines a simple interface to automatically map objects for a specific context.
 /// </summary>
-public interface IObjectMapper<TContext> : IObjectMapper
-{ }
+public interface IObjectMapper<TContext> : IObjectMapper { }
 
 /// <summary>
 /// Maps an object to another.

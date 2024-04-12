@@ -2,17 +2,11 @@
 
 namespace LinFx.Extensions.DependencyInjection;
 
-public class LazyServiceProvider : ILazyServiceProvider, ITransientDependency
+public class LazyServiceProvider(IServiceProvider serviceProvider) : ILazyServiceProvider, ITransientDependency
 {
-    protected IDictionary<Type, object> CachedServices { get; set; }
+    protected IServiceProvider ServiceProvider { get; set; } = serviceProvider;
 
-    protected IServiceProvider ServiceProvider { get; set; }
-
-    public LazyServiceProvider(IServiceProvider serviceProvider)
-    {
-        ServiceProvider = serviceProvider;
-        CachedServices = new Dictionary<Type, object>();
-    }
+    protected IDictionary<Type, object> CachedServices { get; set; } = new Dictionary<Type, object>();
 
     public virtual T LazyGetRequiredService<T>() => (T)LazyGetRequiredService(typeof(T));
 

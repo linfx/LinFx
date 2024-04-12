@@ -1,13 +1,11 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Setting
 {
     public interface ISettingEncryptionService
     {
-        [CanBeNull]
-        string Encrypt([NotNull] SettingDefinition settingDefinition, [CanBeNull] string plainValue);
+        string Encrypt([NotNull] SettingDefinition settingDefinition, [AllowNull] string plainValue);
 
-        [CanBeNull]
-        string Decrypt([NotNull] SettingDefinition settingDefinition, [CanBeNull] string encryptedValue);
+        string Decrypt([NotNull] SettingDefinition settingDefinition, [AllowNull] string encryptedValue);
     }
 }

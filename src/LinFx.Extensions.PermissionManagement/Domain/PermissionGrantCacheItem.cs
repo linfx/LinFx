@@ -12,8 +12,6 @@ public class PermissionGrantCacheItem
 
     public bool IsGranted { get; set; }
 
-    public PermissionGrantCacheItem() { }
-
     public PermissionGrantCacheItem(bool isGranted) => IsGranted = isGranted;
 
     public static string CalculateCacheKey(string name, string providerName, string providerKey) => string.Format(CacheKeyFormat, providerName, providerKey, name);

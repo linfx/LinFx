@@ -1,23 +1,22 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Security.Principal;
 
 namespace LinFx.Security.Claims;
 
 public static class ClaimsIdentityExtensions
 {
-    public static string? FindUserId([NotNull] this ClaimsPrincipal principal)
+    public static string? FindUserId(this ClaimsPrincipal principal)
     {
         Check.NotNull(principal, nameof(principal));
 
-        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id || c.Type == JwtClaimTypes.Subject);
+        var claim = principal.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.Id || c.Type == JwtClaimTypes.Id || c.Type == JwtClaimTypes.Subject);
         if (claim == null || claim.Value.IsNullOrWhiteSpace())
             return default;
 
         return claim.Value;
     }
 
-    public static string? FindUserId([NotNull] this IIdentity identity)
+    public static string? FindUserId(this IIdentity identity)
     {
         Check.NotNull(identity, nameof(identity));
 
@@ -29,7 +28,7 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string? FindTenantId([NotNull] this ClaimsPrincipal principal)
+    public static string? FindTenantId(this ClaimsPrincipal principal)
     {
         Check.NotNull(principal, nameof(principal));
 
@@ -40,7 +39,7 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string? FindTenantId([NotNull] this IIdentity identity)
+    public static string? FindTenantId(this IIdentity identity)
     {
         Check.NotNull(identity, nameof(identity));
 
@@ -52,7 +51,7 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string? FindClientId([NotNull] this ClaimsPrincipal principal)
+    public static string? FindClientId(this ClaimsPrincipal principal)
     {
         Check.NotNull(principal, nameof(principal));
 
@@ -63,7 +62,7 @@ public static class ClaimsIdentityExtensions
         return claim.Value;
     }
 
-    public static string? FindEditionId([NotNull] this ClaimsPrincipal principal)
+    public static string? FindEditionId(this ClaimsPrincipal principal)
     {
         Check.NotNull(principal, nameof(principal));
 

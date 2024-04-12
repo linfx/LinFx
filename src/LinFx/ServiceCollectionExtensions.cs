@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx;
 using LinFx.Extensions.Modularity;
 using LinFx.Reflection;
@@ -18,7 +18,8 @@ public static class ServiceCollectionExtensions
     internal static void AddCoreServices(this IServiceCollection services, IApplication application, ApplicationCreationOptions applicationCreationOptions)
     {
         services
-            .AddOptions();
+            .AddOptions()
+            .AddLocalization();
 
         var moduleLoader = new ModuleLoader();
         var assemblyFinder = new AssemblyFinder(application);
@@ -48,5 +49,5 @@ public static class ServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="optionsAction"></param>
     /// <returns></returns>
-    public static IApplicationWithExternalServiceProvider AddApplication<TStartupModule>([NotNull] this IServiceCollection services, [CanBeNull] Action<ApplicationCreationOptions>? optionsAction = null) where TStartupModule : IModule => ApplicationFactory.Create<TStartupModule>(services, optionsAction);
+    public static IApplicationWithExternalServiceProvider AddApplication<TStartupModule>([NotNull] this IServiceCollection services, [AllowNull] Action<ApplicationCreationOptions>? optionsAction = null) where TStartupModule : IModule => ApplicationFactory.Create<TStartupModule>(services, optionsAction);
 }

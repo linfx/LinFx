@@ -2,19 +2,21 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.AspNetCore.MultiTenancy;
 
+/// <summary>
+/// 请求头租户解析器
+/// </summary>
 public class HeaderTenantResolveContributor : HttpTenantResolveContributorBase
 {
     public const string ContributorName = "Header";
 
     public override string Name => ContributorName;
 
-    protected override string? GetTenantIdOrNameFromHttpContextOrNull([NotNull] ITenantResolveContext context, [NotNull] HttpContext httpContext)
+    protected override string? GetTenantIdOrNameFromHttpContextOrNull(ITenantResolveContext context, HttpContext httpContext)
     {
-            if (httpContext.Request == null || httpContext.Request.Headers.IsNullOrEmpty())
+        if (httpContext.Request == null || httpContext.Request.Headers.IsNullOrEmpty())
             return null;
 
         var tenantIdKey = context.GetMultiTenancyOptions().TenantKey;

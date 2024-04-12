@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using LinFx.Utils;
 using System;
 using System.Collections.Concurrent;
@@ -35,10 +35,9 @@ namespace LinFx.Extensions.ObjectExtending
             return Properties.ContainsKey(propertyName);
         }
 
-        [NotNull]
         public virtual ObjectExtensionInfo AddOrUpdateProperty<TProperty>(
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
         {
             return AddOrUpdateProperty(
                 typeof(TProperty),
@@ -47,11 +46,10 @@ namespace LinFx.Extensions.ObjectExtending
             );
         }
 
-        [NotNull]
         public virtual ObjectExtensionInfo AddOrUpdateProperty(
             [NotNull] Type propertyType,
             [NotNull] string propertyName,
-            [CanBeNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
+            [AllowNull] Action<ObjectExtensionPropertyInfo> configureAction = null)
         {
             Check.NotNull(propertyType, nameof(propertyType));
             Check.NotNull(propertyName, nameof(propertyName));
@@ -66,18 +64,10 @@ namespace LinFx.Extensions.ObjectExtending
             return this;
         }
 
-        [NotNull]
-        public virtual ImmutableList<ObjectExtensionPropertyInfo> GetProperties()
-        {
-            return Properties.OrderBy(t => t.Key)
+        public virtual ImmutableList<ObjectExtensionPropertyInfo> GetProperties() => Properties.OrderBy(t => t.Key)
                             .Select(t => t.Value)
                             .ToImmutableList();
-        }
-
-        [CanBeNull]
-        public virtual ObjectExtensionPropertyInfo GetPropertyOrNull([NotNull] string propertyName)
-        {
-            return Properties.GetOrDefault(propertyName);
-        }
+        
+        public virtual ObjectExtensionPropertyInfo? GetPropertyOrNull([NotNull] string propertyName) => Properties.GetOrDefault(propertyName);
     }
 }

@@ -1,14 +1,15 @@
 using LinFx.Extensions.Auditing;
+using LinFx.Extensions.Authorization;
 using LinFx.Extensions.Data;
 using LinFx.Extensions.DependencyInjection;
+using LinFx.Extensions.Features;
 using LinFx.Extensions.MultiTenancy;
 using LinFx.Extensions.ObjectMapping;
 using LinFx.Extensions.Setting;
-using LinFx.Extensions.Timing;
 using LinFx.Extensions.Uow;
 using LinFx.Linq;
+using LinFx.Security.Authorization;
 using LinFx.Security.Users;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -20,14 +21,7 @@ namespace LinFx.Application.Services;
 /// <summary>
 /// 应用服务
 /// </summary>
-public abstract class ApplicationService :
-    IApplicationService,
-    //IAvoidDuplicateCrossCuttingConcerns,
-    //IValidationEnabled,
-    IUnitOfWorkEnabled,
-    IAuditingEnabled,
-    //IGlobalFeatureCheckingEnabled
-    ITransientDependency
+public abstract class ApplicationService : IApplicationService, IAuditingEnabled, ITransientDependency
 {
     [NotNull]
     [Autowired]
@@ -42,13 +36,10 @@ public abstract class ApplicationService :
     /// </summary>
     protected IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
 
+    /// <summary>
+    /// 异步执行器
+    /// </summary>
     protected IAsyncQueryableExecuter AsyncExecuter => LazyServiceProvider.LazyGetRequiredService<IAsyncQueryableExecuter>();
-
-    protected Type? ObjectMapperContext { get; set; }
-
-    protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
-            ? provider.GetRequiredService<IObjectMapper>()
-            : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
 
     /// <summary>
     /// 日志厂工
@@ -76,25 +67,45 @@ public abstract class ApplicationService :
     protected ISettingProvider SettingProvider => LazyServiceProvider.LazyGetRequiredService<ISettingProvider>();
 
     /// <summary>
-    /// 时钟
+    /// 授权服务
     /// </summary>
-    protected IClock Clock => LazyServiceProvider.LazyGetRequiredService<IClock>();
-
     protected IAuthorizationService AuthorizationService => LazyServiceProvider.LazyGetRequiredService<IAuthorizationService>();
 
-    //protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
+    /// <summary>
+    /// 特征检查器
+    /// </summary>
+    protected IFeatureChecker FeatureChecker => LazyServiceProvider.LazyGetRequiredService<IFeatureChecker>();
+
+    /// <summary>
+    /// 当前工作单元
+    /// </summary>
+    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
+
+    /// <summary>
+    /// 日志
+    /// </summary>
+    protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
 
     public ApplicationService() { }
 
     public ApplicationService(IServiceProvider serviceProvider) => LazyServiceProvider = serviceProvider.GetRequiredService<ILazyServiceProvider>();
 
-    protected LocalizedString L(string name)
+    protected Type? ObjectMapperContext { get; set; }
+
+    protected IObjectMapper ObjectMapper => LazyServiceProvider.LazyGetService<IObjectMapper>(provider => ObjectMapperContext == null
+            ? provider.GetRequiredService<IObjectMapper>()
+            : provider.GetRequiredService(typeof(IObjectMapper<>).MakeGenericType(ObjectMapperContext)));
+
+    protected IStringLocalizer L
     {
-        if (_localizer == null)
+        get
         {
-            _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(LocalizationResource);
+            if (_localizer == null)
+            {
+                _localizer = LazyServiceProvider.LazyGetRequiredService<IStringLocalizerFactory>().Create(LocalizationResource);
+            }
+            return _localizer;
         }
-        return _localizer[name];
     }
     private IStringLocalizer? _localizer;
 
@@ -109,28 +120,17 @@ public abstract class ApplicationService :
     }
     private Type? _localizationResource;
 
-    /// <summary>
-    /// 当前工作单元
-    /// </summary>
-    protected IUnitOfWork? CurrentUnitOfWork => UnitOfWorkManager?.Current;
 
     /// <summary>
-    /// 日志
+    /// Checks for given <paramref name="policyName"/>.
+    /// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
     /// </summary>
-    protected ILogger Logger => LazyServiceProvider.LazyGetService<ILogger>(provider => LoggerFactory?.CreateLogger(GetType().FullName) ?? NullLogger.Instance);
+    /// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
+    protected virtual async Task CheckPolicyAsync(string policyName)
+    {
+        if (string.IsNullOrEmpty(policyName))
+            return;
 
-    ///// <summary>
-    ///// Checks for given <paramref name="policyName"/>.
-    ///// Throws <see cref="AuthorizationException"/> if given policy has not been granted.
-    ///// </summary>
-    ///// <param name="policyName">The policy name. This method does nothing if given <paramref name="policyName"/> is null or empty.</param>
-    //protected virtual async Task CheckPolicyAsync([CanBeNull] string policyName)
-    //{
-    //    if (string.IsNullOrEmpty(policyName))
-    //    {
-    //        return;
-    //    }
-
-    //    await AuthorizationService.CheckAsync(policyName);
-    //}
+        await AuthorizationService.CheckAsync(policyName);
+    }
 }

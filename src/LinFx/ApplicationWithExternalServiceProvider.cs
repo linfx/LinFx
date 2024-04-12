@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LinFx;
@@ -11,7 +11,7 @@ internal class ApplicationWithExternalServiceProvider : ApplicationBase, IApplic
     public ApplicationWithExternalServiceProvider(
         [NotNull] Type startupModuleType,
         [NotNull] IServiceCollection services,
-        [CanBeNull] Action<ApplicationCreationOptions>? optionsAction) : base(startupModuleType, services, optionsAction)
+        [AllowNull] Action<ApplicationCreationOptions>? optionsAction) : base(startupModuleType, services, optionsAction)
     {
         // 注入自己到 IoC 当中。
         services.AddSingleton<IApplicationWithExternalServiceProvider>(this);

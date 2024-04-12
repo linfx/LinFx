@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace LinFx.Extensions.DependencyInjection;
 
 /// <summary>
 /// 控制相关类服务提供
 /// </summary>
-public class ExposeServicesAttribute : Attribute, IExposedServiceTypesProvider
+public class ExposeServicesAttribute(params Type[] serviceTypes) : Attribute, IExposedServiceTypesProvider
 {
-    public Type[] ServiceTypes { get; }
+    public Type[] ServiceTypes { get; } = serviceTypes ?? new Type[0];
 
     public bool? IncludeDefaults { get; set; }
 
     public bool? IncludeSelf { get; set; }
-
-    public ExposeServicesAttribute(params Type[] serviceTypes)
-    {
-        ServiceTypes = serviceTypes ?? new Type[0];
-    }
 
     public Type[] GetExposedServiceTypes(Type targetType)
     {

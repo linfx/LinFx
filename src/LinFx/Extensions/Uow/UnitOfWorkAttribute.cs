@@ -36,8 +36,7 @@ public class UnitOfWorkAttribute : Attribute
     /// </summary>
     public bool IsDisabled { get; set; }
 
-    public UnitOfWorkAttribute() 
-    { }
+    public UnitOfWorkAttribute() { }
 
     public UnitOfWorkAttribute(bool isTransactional)
     {
@@ -45,15 +44,14 @@ public class UnitOfWorkAttribute : Attribute
     }
 
     public UnitOfWorkAttribute(bool isTransactional, IsolationLevel isolationLevel)
+        : this(isTransactional)
     {
-        IsTransactional = isTransactional;
         IsolationLevel = isolationLevel;
     }
 
     public UnitOfWorkAttribute(bool isTransactional, IsolationLevel isolationLevel, int timeout)
+        : this(isTransactional, isolationLevel)
     {
-        IsTransactional = isTransactional;
-        IsolationLevel = isolationLevel;
         Timeout = timeout;
     }
 

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace LinFx.Extensions.Features;
 
@@ -12,7 +12,6 @@ public interface IFeatureDefinitionManager
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [NotNull]
     Task<FeatureDefinition> GetAsync([NotNull] string name);
 
     /// <summary>
